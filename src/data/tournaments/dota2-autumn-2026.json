@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dota2-autumn-2026",
+  "slug": "dota2-autumn-2026",
+  "title": "Dota 2 / YCS",
+  "discipline": "Dota 2",
+  "season": "Yar Cyber Season 2026",
+  "status": "registration_open",
+  "statusLabel": "Регистрация открыта",
+  "summary": "Следующий турнир сезона: 16 команд, швейцарская система и плей-офф double elimination.",
+  "homeDate": { "days": "10—25", "month": "ОКТЯБРЯ", "marker": "2026 / DOTA 2" },
+  "dates": {
+    "start": "2026-10-10",
+    "end": "2026-10-25",
+    "display": "10 — 25 октября 2026"
+  },
+  "facts": ["16 команд", "Бесплатно", "30 000 ₽", "Регистрация до 21 сентября"],
+  "primaryAction": { "label": "Зарегистрировать команду", "target": "mailto:info@ycs.bar?subject=Регистрация%20на%20YCS%20Dota%202" },
+  "secondaryAction": { "label": "Регламент", "target": "#format" },
+  "timeline": [
+    { "label": "Регистрация", "state": "active", "date": "до 21 сентября" },
+    { "label": "Сетка", "state": "upcoming", "date": "30 сентября" },
+    { "label": "Онлайн-этап", "state": "upcoming", "date": "10 — 23 октября" },
+    { "label": "Финал", "state": "upcoming", "date": "25 октября" }
+  ],
+  "stages": [
+    {
+      "id": "swiss",
+      "type": "swiss",
+      "title": "Швейцарская система",
+      "notice": "Таблица появится после старта: 3–0 — выход, 0–3 — вылет; при 0–2 играется BO3, иначе BO1.",
+      "groups": []
+    },
+    {
+      "id": "playoffs",
+      "type": "double_elimination",
+      "title": "Плей-офф",
+      "notice": "Double elimination: BO3, гранд-финал BO5.",
+      "emptyState": "Пары плей-офф будут опубликованы после швейцарского этапа.",
+      "rounds": [
+        { "id": "upper", "label": "Верхняя сетка", "matches": [{ "id": "upper-1" }, { "id": "upper-2" }, { "id": "upper-3" }, { "id": "upper-4" }] },
+        { "id": "lower", "label": "Нижняя сетка", "matches": [{ "id": "lower-1" }, { "id": "lower-2" }] },
+        { "id": "final", "label": "Гранд-финал", "matches": [{ "id": "final-1" }] }
+      ]
+    }
+  ]
+}

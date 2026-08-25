@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "id": "dota2-main-2026",
+  "slug": "dota2-main-2026",
+  "title": "Dota 2 Main / YCS",
+  "discipline": "Dota 2",
+  "season": "Yar Cyber Season 2025/26",
+  "status": "completed",
+  "statusLabel": "Завершён",
+  "summary": "Архив основного этапа Dota 2: групповые таблицы и подтверждённые матчи плей-офф.",
+  "archiveLabel": "Таблицы и подтверждённые матчи",
+  "facts": ["4 группы", "16 команд", "Круговой этап", "Плей-офф"],
+  "dates": {
+    "start": "2026-03-25",
+    "end": "2026-04-26",
+    "display": "25 марта — 26 апреля 2026"
+  },
+  "primaryAction": { "label": "Все результаты", "target": "#groups" },
+  "secondaryAction": { "label": "Смотреть записи", "target": "/broadcasts" },
+  "sourceNote": "Данные сохранены с действующего сайта YCS 22 августа 2026 года.",
+  "stages": [
+    {
+      "id": "groups",
+      "type": "round_robin",
+      "title": "Круговой этап",
+      "groups": [
+        {
+          "id": "a",
+          "title": "Группа A",
+          "rows": [
+            { "position": 1, "team": "Самозванцы", "played": 3, "won": 5, "lost": 1, "points": 2 },
+            { "position": 2, "team": "Japan", "played": 3, "won": 4, "lost": 2, "points": 2 },
+            { "position": 3, "team": "Yellow Submarine", "played": 3, "won": 3, "lost": 3, "points": 2 },
+            { "position": 4, "team": "Колбасный ЦЭХ", "played": 3, "won": 0, "lost": 6, "points": 0 }
+          ]
+        },
+        {
+          "id": "b",
+          "title": "Группа B",
+          "rows": [
+            { "position": 1, "team": "Mi ne pushim", "played": 3, "won": 6, "lost": 0, "points": 3 },
+            { "position": 2, "team": "Buyback Academy", "played": 3, "won": 4, "lost": 2, "points": 2 },
+            { "position": 3, "team": "JazzFive", "played": 2, "won": 0, "lost": 4, "points": 0 },
+            { "position": 4, "team": "Pojarniki", "played": 2, "won": 0, "lost": 4, "points": 0 }
+          ]
+        },
+        {
+          "id": "c",
+          "title": "Группа C",
+          "rows": [
+            { "position": 1, "team": "tech titans", "played": 3, "won": 6, "lost": 0, "points": 3 },
+            { "position": 2, "team": "Синергия", "played": 3, "won": 4, "lost": 2, "points": 2 },
+            { "position": 3, "team": "ЯГК", "played": 3, "won": 2, "lost": 4, "points": 1 },
+            { "position": 4, "team": "ВИФК", "played": 3, "won": 0, "lost": 6, "points": 0 }
+          ]
+        },
+        {
+          "id": "d",
+          "title": "Группа D",
+          "rows": [
+            { "position": 1, "team": "Way prod.", "played": 3, "won": 6, "lost": 0, "points": 3 },
+            { "position": 2, "team": "Team Borisogleb", "played": 3, "won": 4, "lost": 2, "points": 2 },
+            { "position": 3, "team": "Гики", "played": 3, "won": 2, "lost": 4, "points": 1 },
+            { "position": 4, "team": "Steel Titans", "played": 3, "won": 0, "lost": 6, "points": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "group-matches",
+      "type": "historical_matches",
+      "title": "Матчи кругового этапа",
+      "notice": "Сохранены 23 опубликованные карточки группового этапа.",
+      "matches": [
+        { "id": "dota-main-group-01", "dateDisplay": "27 мар · 21:00", "stage": "Тур 1 · Группа A", "bestOf": "BO3", "team1": "Самозванцы", "score1": 2, "team2": "Колбасный ЦЭХ", "score2": 0 },
+        { "id": "dota-main-group-02", "dateDisplay": "26 мар · 20:00", "stage": "Тур 1 · Группа A", "bestOf": "BO3", "team1": "Japan 日本", "score1": 2, "team2": "Yellow Submarine", "score2": 0 },
+        { "id": "dota-main-group-03", "dateDisplay": "6 апр · 18:00", "stage": "Тур 1 · Группа B", "bestOf": "BO3", "team1": "jazzfive", "score1": 0, "team2": "Mi ne Pushim!", "score2": 2 },
+        { "id": "dota-main-group-04", "dateDisplay": "5 апр · 19:00", "stage": "Тур 1 · Группа B", "bestOf": "BO3", "team1": "pojarniki", "score1": 0, "team2": "Buyback Academy", "score2": 2 },
+        { "id": "dota-main-group-05", "dateDisplay": "28 мар · 09:00", "stage": "Тур 1 · Группа C", "bestOf": "BO3", "team1": "Tech Titans", "score1": 2, "team2": "ВИФК", "score2": 0 },
+        { "id": "dota-main-group-06", "dateDisplay": "25 мар · 21:00", "stage": "Тур 1 · Группа C", "bestOf": "BO3", "team1": "ЯГК", "score1": 0, "team2": "Синергия ср", "score2": 2 },
+        { "id": "dota-main-group-07", "dateDisplay": "27 мар · 21:00", "stage": "Тур 1 · Группа D", "bestOf": "BO3", "team1": "Way Prod.", "score1": 2, "team2": "Гики", "score2": 0 },
+        { "id": "dota-main-group-08", "dateDisplay": "27 мар · 20:00", "stage": "Тур 1 · Группа D", "bestOf": "BO3", "team1": "Steel Titans", "score1": 0, "team2": "Team Borisogleb", "score2": 2 },
+        { "id": "dota-main-group-09", "dateDisplay": "1 апр · 21:30", "stage": "Тур 2 · Группа A", "bestOf": "BO3", "team1": "Самозванцы", "score1": 2, "team2": "Japan 日本", "score2": 0 },
+        { "id": "dota-main-group-10", "dateDisplay": "29 мар · 21:00", "stage": "Тур 2 · Группа A", "bestOf": "BO3", "team1": "Колбасный ЦЭХ", "score1": 0, "team2": "Yellow Submarine", "score2": 2 },
+        { "id": "dota-main-group-11", "dateDisplay": "31 мар · 19:00", "stage": "Тур 2 · Группа B", "bestOf": "BO3", "team1": "Mi ne Pushim!", "score1": 2, "team2": "Buyback Academy", "score2": 0 },
+        { "id": "dota-main-group-12", "dateDisplay": "30 мар · 19:00", "stage": "Тур 2 · Группа C", "bestOf": "BO3", "team1": "Tech Titans", "score1": 2, "team2": "ЯГК", "score2": 0 },
+        { "id": "dota-main-group-13", "dateDisplay": "30 мар · 20:00", "stage": "Тур 2 · Группа C", "bestOf": "BO3", "team1": "ВИФК", "score1": 0, "team2": "Синергия", "score2": 2 },
+        { "id": "dota-main-group-14", "dateDisplay": "29 мар · 18:00", "stage": "Тур 2 · Группа D", "bestOf": "BO3", "team1": "Team Borisogleb", "score1": 2, "team2": "Гики", "score2": 0 },
+        { "id": "dota-main-group-15", "dateDisplay": "31 мар · 21:00", "stage": "Тур 2 · Группа D", "bestOf": "BO3", "team1": "Steel Titans", "score1": 0, "team2": "Way Prod.", "score2": 2 },
+        { "id": "dota-main-group-16", "dateDisplay": "5 апр · 19:00", "stage": "Тур 3 · Группа A", "bestOf": "BO3", "team1": "Самозванцы", "score1": 1, "team2": "Yellow Submarine", "score2": 1 },
+        { "id": "dota-main-group-17", "dateDisplay": "4 апр · 16:00", "stage": "Тур 3 · Группа A", "bestOf": "BO3", "team1": "Колбасный ЦЭХ", "score1": 0, "team2": "Japan 日本", "score2": 2 },
+        { "id": "dota-main-group-18", "dateDisplay": "5 апр · 18:00", "stage": "Тур 3 · Группа B", "bestOf": "BO3", "team1": "pojarniki", "score1": 0, "team2": "Buyback Academy", "score2": 2 },
+        { "id": "dota-main-group-19", "dateDisplay": "5 апр · 18:00", "stage": "Тур 3 · Группа B", "bestOf": "BO3", "team1": "Mi ne Pushim!", "score1": 2, "team2": "jazzfive", "score2": 0 },
+        { "id": "dota-main-group-20", "dateDisplay": "6 апр · 18:00", "stage": "Тур 3 · Группа C", "bestOf": "BO3", "team1": "Tech Titans", "score1": 2, "team2": "Синергия", "score2": 0 },
+        { "id": "dota-main-group-21", "dateDisplay": "6 апр · 18:00", "stage": "Тур 3 · Группа C", "bestOf": "BO3", "team1": "ВИФК", "score1": 0, "team2": "ЯГК", "score2": 2 },
+        { "id": "dota-main-group-22", "dateDisplay": "4 апр · 21:00", "stage": "Тур 3 · Группа D", "bestOf": "BO3", "team1": "Team Borisogleb", "score1": 0, "team2": "Way Prod.", "score2": 2 },
+        { "id": "dota-main-group-23", "dateDisplay": "6 апр · 18:00", "stage": "Тур 3 · Группа D", "bestOf": "BO3", "team1": "Steel Titans", "score1": 0, "team2": "Гики", "score2": 2 }
+      ]
+    },
+    {
+      "id": "playoffs",
+      "type": "historical_matches",
+      "title": "Плей-офф",
+      "notice": "Исходная сетка не сохранена целиком: отображены подтверждённые матчи плей-офф.",
+      "matches": [
+        { "date": "15 апреля", "stage": "Россия", "bestOf": "BO2", "team1": "Самозванцы", "score1": 2, "team2": "Buyback Academy", "score2": 0 },
+        { "date": "19 апреля", "stage": "Россия", "bestOf": "BO5", "team1": "Самозванцы", "score1": 3, "team2": "Japan", "score2": 1 },
+        { "date": "20 апреля", "stage": "Европа", "bestOf": "BO3", "team1": "Tech Titans", "score1": 2, "team2": "Team Borisogleb", "score2": 1 },
+        { "date": "22 апреля", "stage": "Россия", "bestOf": "BO2", "team1": "Japan", "score1": 2, "team2": "Mi ne pushim", "score2": 0 },
+        { "date": "26 апреля", "stage": "Россия", "bestOf": "BO2", "team1": "Wayprod.", "score1": 2, "team2": "Синергия", "score2": 0 },
+        { "date": "26 апреля", "stage": "Россия", "bestOf": "BO5", "team1": "Wayprod.", "score1": 3, "team2": "Tech Titans", "score2": 0 }
+      ]
+    }
+  ]
+}

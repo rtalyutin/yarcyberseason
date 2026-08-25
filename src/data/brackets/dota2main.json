@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "dota2main",
+  "id": "playoffs",
+  "type": "historical_matches",
+  "title": "Плей-офф Dota 2.Main",
+  "source": {
+    "url": "https://ycs.bar/",
+    "section": "Dota 2.Main",
+    "capturedAt": "2026-08-24",
+    "publishedLabel": "Плей-офф · Матчи"
+  },
+  "sourceDataStatus": "matches_without_bracket_topology",
+  "notice": "На ycs.bar плей-офф опубликован как список подтверждённых матчей: раунды, связи между матчами и матч за 3-е место не указаны.",
+  "matches": [
+    {
+      "id": "dota2main-playoff-2026-04-15-samozvancy-buyback-academy",
+      "date": "2026-04-15",
+      "dateDisplay": "15 апреля",
+      "stage": "Россия",
+      "bestOf": "BO2",
+      "team1": "Самозванцы",
+      "score1": 2,
+      "team2": "Buyback Academy",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2main-playoff-2026-04-19-samozvancy-japan",
+      "date": "2026-04-19",
+      "dateDisplay": "19 апреля",
+      "stage": "Россия",
+      "bestOf": "BO5",
+      "team1": "Самозванцы",
+      "score1": 3,
+      "team2": "Japan",
+      "score2": 1,
+      "status": "completed"
+    },
+    {
+      "id": "dota2main-playoff-2026-04-20-tech-titans-team-borisogleb",
+      "date": "2026-04-20",
+      "dateDisplay": "20 апреля",
+      "stage": "Европа",
+      "bestOf": "BO3",
+      "team1": "Tech Titans",
+      "score1": 2,
+      "team2": "Team Borisogleb",
+      "score2": 1,
+      "status": "completed"
+    },
+    {
+      "id": "dota2main-playoff-2026-04-22-japan-mi-ne-pushim",
+      "date": "2026-04-22",
+      "dateDisplay": "22 апреля",
+      "stage": "Россия",
+      "bestOf": "BO2",
+      "team1": "Japan",
+      "score1": 2,
+      "team2": "Mi ne pushim",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2main-playoff-2026-04-26-wayprod-synergia",
+      "date": "2026-04-26",
+      "dateDisplay": "26 апреля",
+      "stage": "Россия",
+      "bestOf": "BO2",
+      "team1": "Wayprod.",
+      "score1": 2,
+      "team2": "Синергия",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2main-playoff-2026-04-26-wayprod-tech-titans",
+      "date": "2026-04-26",
+      "dateDisplay": "26 апреля",
+      "stage": "Россия",
+      "bestOf": "BO5",
+      "team1": "Wayprod.",
+      "score1": 3,
+      "team2": "Tech Titans",
+      "score2": 0,
+      "status": "completed"
+    }
+  ],
+  "unresolved": [
+    "Источник не публикует связки матчей в турнирную сетку.",
+    "Источник не публикует раунд для каждого матча.",
+    "Источник не публикует матч за 3-е место."
+  ]
+}

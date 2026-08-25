@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "dota2qual",
+  "id": "qual-rounds-3-4",
+  "type": "historical_matches",
+  "title": "Подтверждённые матчи Dota 2.Qual",
+  "source": {
+    "url": "https://ycs.bar/",
+    "section": "DotA 2.Qual",
+    "capturedAt": "2026-08-22",
+    "publishedLabel": "Квалификационная таблица · Матчи кругов 3–4"
+  },
+  "sourceDataStatus": "standings_22_teams_and_13_confirmed_round_matches_without_playoff_bracket",
+  "notice": "На ycs.bar опубликованы квалификационная таблица на 22 команды и 13 подтверждённых матчей кругов 3–4. Плей-офф-сетка и её топология источником не показаны.",
+  "matches": [
+    {
+      "id": "dota2qual-dec-02-1900-mi-ne-pushim-blizhayshie",
+      "dateDisplay": "2 декабря · 19:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "Mi ne Pushim!",
+      "score1": 1,
+      "team2": "Ближайшие",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-04-1900-arb-esports-japan",
+      "dateDisplay": "4 декабря · 19:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "ARB ESports",
+      "score1": 0,
+      "team2": "Japan 日本",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-05-1900-ygk-buyback-academy",
+      "dateDisplay": "5 декабря · 19:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "YGK",
+      "score1": 0,
+      "team2": "Buyback Academy",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-06-1500-team-borisogleb-steel-titans",
+      "dateDisplay": "6 декабря · 15:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "Team Borisogleb",
+      "score1": 2,
+      "team2": "Steel Titans",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-06-1900-giki-ne-znayushchie-pobed",
+      "dateDisplay": "6 декабря · 19:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "Гики",
+      "score1": 2,
+      "team2": "Не Знающие Побед",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-07-1700-tech-titans-way-prod",
+      "dateDisplay": "7 декабря · 17:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "Tech Titans",
+      "score1": 0,
+      "team2": "Way Prod.",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-07-1900-labubu-team-yellow-submarine",
+      "dateDisplay": "7 декабря · 19:00",
+      "stage": "Круг 3",
+      "bestOf": "BO3",
+      "team1": "Labubu Team",
+      "score1": 0,
+      "team2": "Yellow Submarine",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-09-2100-team-borisogleb-mi-ne-pushim",
+      "dateDisplay": "9 декабря · 21:00",
+      "stage": "Круг 4",
+      "bestOf": "BO3",
+      "team1": "Team Borisogleb",
+      "score1": 0,
+      "team2": "Mi ne Pushim!",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-10-1900-steel-titans-buyback-academy",
+      "dateDisplay": "10 декабря · 19:00",
+      "stage": "Круг 4",
+      "bestOf": "BO3",
+      "team1": "Steel Titans",
+      "score1": 2,
+      "team2": "Buyback Academy",
+      "score2": 1,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-11-1930-giki-ygk",
+      "dateDisplay": "11 декабря · 19:30",
+      "stage": "Круг 4",
+      "bestOf": "BO3",
+      "team1": "Гики",
+      "score1": 2,
+      "team2": "YGK",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-11-1930-tech-titans-arb-esports",
+      "dateDisplay": "11 декабря · 19:30",
+      "stage": "Круг 4",
+      "bestOf": "BO3",
+      "team1": "Tech Titans",
+      "score1": 2,
+      "team2": "ARB ESports",
+      "score2": 0,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-12-1900-yellow-submarine-blizhayshie",
+      "dateDisplay": "12 декабря · 19:00",
+      "stage": "Круг 4",
+      "bestOf": "BO3",
+      "team1": "Yellow Submarine",
+      "score1": 0,
+      "team2": "Ближайшие",
+      "score2": 2,
+      "status": "completed"
+    },
+    {
+      "id": "dota2qual-dec-14-1900-japan-way-prod",
+      "dateDisplay": "14 декабря · 19:00",
+      "stage": "Круг 4",
+      "bestOf": "BO3",
+      "team1": "Japan 日本",
+      "score1": 0,
+      "team2": "Way Prod.",
+      "score2": 2,
+      "status": "completed"
+    }
+  ],
+  "unresolved": [
+    "На карточках декабря год не указан; даты сохранены в форме источника.",
+    "Источник не публикует плей-офф-сетку или связи между матчами.",
+    "В этом файле сохранены 13 уникальных карточек кругов 3–4; повторно показанные карточки Dota 2.Main не дублируются."
+  ]
+}

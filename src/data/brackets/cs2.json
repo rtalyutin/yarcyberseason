@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "cs2",
+  "id": "playoffs",
+  "type": "double_elimination",
+  "title": "Турнирная сетка CS2",
+  "source": {
+    "url": "https://ycs.bar/",
+    "section": "CS2",
+    "capturedAt": "2026-08-24",
+    "publishedLabel": "Турнирная сетка CS2"
+  },
+  "notice": "Посев и результаты перенесены из опубликованной сетки ycs.bar. Гранд-финал указан источником без счёта.",
+  "sourceConflicts": [
+    {
+      "matchIds": ["lower-r1-1", "lower-r1-2"],
+      "field": "date",
+      "bracketValue": "19.2",
+      "matchDetailsValue": "18.2",
+      "resolution": "В JSON сохранена дата из визуальной турнирной сетки, поскольку файл моделирует именно сетку. Расхождение оставлено явным для последующей ручной сверки."
+    }
+  ],
+  "rounds": [
+    {
+      "id": "upper-quarterfinals",
+      "label": "Верхняя сетка · 1/4",
+      "matches": [
+        { "id": "upper-qf-1", "sourceLabel": "Игра 1", "date": "2026-02-17", "dateDisplay": "17.2", "bestOf": "BO1", "team1": "LigaChad", "score1": 1, "team2": "Slabeyshie", "score2": 0, "status": "completed" },
+        { "id": "upper-qf-2", "sourceLabel": "Игра 2", "date": "2026-02-17", "dateDisplay": "17.2", "bestOf": "BO1", "team1": "Resistance", "score1": 1, "team2": "CipHer", "score2": 0, "status": "completed" },
+        { "id": "upper-qf-3", "sourceLabel": "Игра 3", "date": "2026-02-17", "dateDisplay": "17.2", "bestOf": "BO1", "team1": "Vpopengagen wolves", "score1": 1, "team2": "КИТ, Кипар и татары", "score2": 0, "status": "completed" },
+        { "id": "upper-qf-4", "sourceLabel": "Игра 4", "date": "2026-02-17", "dateDisplay": "17.2", "bestOf": "BO1", "team1": "Saint Worms", "score1": 0, "team2": "FIST&BEER", "score2": 1, "status": "completed" }
+      ]
+    },
+    {
+      "id": "upper-semifinals",
+      "label": "Верхняя сетка · 1/2",
+      "matches": [
+        { "id": "upper-sf-5", "sourceLabel": "Игра 5", "date": "2026-02-21", "dateDisplay": "21.2", "bestOf": "BO3", "team1": "LigaChad", "score1": 1, "team2": "Resistance", "score2": 2, "status": "completed" },
+        { "id": "upper-sf-6", "sourceLabel": "Игра 6", "date": "2026-02-21", "dateDisplay": "21.2", "bestOf": "BO3", "team1": "Vpopengagen wolves", "score1": 2, "team2": "FIST&BEER", "score2": 0, "status": "completed" }
+      ]
+    },
+    {
+      "id": "upper-final",
+      "label": "Верхняя сетка · финал",
+      "matches": [
+        { "id": "upper-final-7", "sourceLabel": "Игра 7", "date": "2026-02-25", "dateDisplay": "25.2", "bestOf": "BO3", "team1": "Resistance", "score1": 2, "team2": "Vpopengagen wolves", "score2": 0, "status": "completed" }
+      ]
+    },
+    {
+      "id": "lower-round-1",
+      "label": "Нижняя сетка · раунд 1",
+      "matches": [
+        { "id": "lower-r1-1", "sourceLabel": "Нижняя сетка 1", "date": "2026-02-19", "dateDisplay": "19.2", "bestOf": "BO3", "team1": "CipHer", "score1": 0, "team2": "Slabeyshie", "score2": 2, "status": "completed" },
+        { "id": "lower-r1-2", "sourceLabel": "Нижняя сетка 2", "date": "2026-02-19", "dateDisplay": "19.2", "bestOf": "BO3", "team1": "Saint Worms", "score1": 2, "team2": "КИТ, Кипар и татары", "score2": 1, "status": "completed" }
+      ]
+    },
+    {
+      "id": "lower-round-2",
+      "label": "Нижняя сетка · раунд 2",
+      "matches": [
+        { "id": "lower-r2-3", "sourceLabel": "Нижняя сетка 3", "date": "2026-02-24", "dateDisplay": "24.2", "bestOf": "BO3", "team1": "Slabeyshie", "score1": 0, "team2": "LigaChad", "score2": 2, "status": "completed" },
+        { "id": "lower-r2-4", "sourceLabel": "Нижняя сетка 4", "date": "2026-02-24", "dateDisplay": "24.2", "bestOf": "BO3", "team1": "Saint Worms", "score1": 2, "team2": "FIST&BEER", "score2": 0, "status": "completed" }
+      ]
+    },
+    {
+      "id": "lower-round-3",
+      "label": "Нижняя сетка · раунд 3",
+      "matches": [
+        { "id": "lower-r3-5", "sourceLabel": "Нижняя сетка 5", "date": "2026-02-25", "dateDisplay": "25.2", "bestOf": "BO3", "team1": "LigaChad", "score1": 2, "team2": "Saint Worms", "score2": 0, "status": "completed" }
+      ]
+    },
+    {
+      "id": "lower-final",
+      "label": "Нижняя сетка · финал",
+      "matches": [
+        { "id": "lower-final-7", "sourceLabel": "Нижняя сетка 7", "date": "2026-02-26", "dateDisplay": "26.2", "bestOf": "BO3", "team1": "LigaChad", "score1": 2, "team2": "Vpopengagen wolves", "score2": 0, "status": "completed" }
+      ]
+    },
+    {
+      "id": "grand-final",
+      "label": "Гранд-финал",
+      "matches": [
+        { "id": "grand-final", "sourceLabel": "Гранд-финал", "date": "2026-03-15", "dateDisplay": "15.3", "time": "14:00", "bestOf": null, "team1": "Resistance", "score1": null, "team2": "LigaChad", "score2": null, "status": "scheduled" }
+      ]
+    }
+  ]
+}

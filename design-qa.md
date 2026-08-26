@@ -1,61 +1,65 @@
-# Design QA — YCS tournament prototype
+# Design QA — CS2 matchday / Fight Sheet
 
 ## Comparison target
 
-- **Source visual truth path:** `/workspace/scratch/61a5a865eaf7/generated_images/exec-5c3cf508-87fc-4bb6-89cd-b6f66bc18587.png`
-- **Source pixels:** 895 × 1758 px.
-- **Implementation screenshot path:** browser-rendered full-page capture from the active Cloud Browser tab; the browser runtime exposes it inline rather than as a workspace file.
-- **Implementation route:** `http://terminal.local:4173/tournaments/cs2-august-2026`
-- **Implementation viewport:** 1363 × 936 CSS px; full document 1348 × 2068 CSS px; `devicePixelRatio: 1`.
-- **State:** desktop, current CS2 tournament, group A selected, no match records published.
-- **Density normalization:** source and implementation are both inspected as full-page desktop captures at 1× visual density. Their physical widths differ because the source mock is a tall generated composition; composition, typography scale, color, spacing and section hierarchy were compared rather than browser chrome or outer canvas width.
+- **Source visual truth:** `/workspace/scratch/61a5a865eaf7/generated_images/exec-9da20981-c75d-497c-ba40-8551bd902bcc.png`
+- **Source pixels:** 1536 × 1024 px.
+- **Implementation capture:** browser-rendered viewport capture emitted inline by Cloud Browser; the runtime does not persist its screenshot bytes into the workspace.
+- **Implementation route:** `/tournaments/cs2-august-2026/matchday`
+- **Desktop viewport:** 1363 × 936 CSS px, `devicePixelRatio: 1`.
+- **Mobile test frame:** 390 × 844 CSS px; visible DOM and interaction state checked in a same-origin responsive iframe.
+- **Primary state:** second-round schedule visible; first-round results collapsed by default.
+- **Secondary state:** first-round accordion expanded with four played matches and four technical wins.
 
-## Full-view and focused evidence
+## Full-view comparison
 
-- The source image and the browser-rendered implementation capture were emitted together in the same QA comparison input after the final copy correction.
-- Full view checked the dark technical shell, white/cobalt type hierarchy, header/nav, hero proportions, independent group-table section and independent playoff section.
-- Focused checks covered the real YCS raster logo in the header; the CS2 hero status card; the empty-state round-robin table; the horizontal playoff bracket; and the group-tab state on the Dota 2 Main archive page.
-- Primary interactions checked in the Cloud Browser: home → current tournament, hero CTA → in-page stages, home → next tournament, results → Dota 2 Main archive, and switching archive group C. The last console pass contained no application errors (browser-extension noise excluded).
+- The final source image and final desktop render were inspected in the same QA pass.
+- Preserved the selected Option 2 hierarchy: date rail, oversized condensed `FIGHT SHEET`, one featured pairing, three compact remaining pairings, first-round result ribbon, automatic advances, and partner band.
+- Preserved the approved palette and restraint: near-black field, white condensed display type, cobalt accents, thin technical rules, no gradients and no decorative card stack.
+- The live site shell and available team assets intentionally replace the mock’s fictional header treatment and unavailable official team marks. Default per-tournament team logos remain visible until the organiser swaps the files.
+
+## Focused regions
+
+- **Featured match:** HellWarriors vs SAITENxBAD.RABBIT is the visual anchor; both logos and full team names are visible.
+- **Remaining matches:** Hunger to victories, GoonGang, Resistance, PIVNAYA KEGA, bobr1ki and DealDucks render without clipping.
+- **Results accordion:** closed on initial load; open state shows four score lines (`13:1`, `13:2`, `13:1`, `13:1`) plus four technical winners.
+- **Automatic advances:** Веселый гроб, PSB_Bank, Flouk Team and CipHer remain visible outside the closed results block.
+- **Partners:** three partner slots render; the actual `/assets/partners/dodo-pizza.jpg` asset loaded at its native 944 × 355 px dimensions.
 
 ## Comparison history
 
 ### Iteration 1 — resolved P2
 
-- **[P2] Misleading current-tournament CTA.** The source-style label `Расписание матчей` pointed to the overview block while no individual match schedule exists yet.
-  - **Fix:** renamed the JSON-driven CTA to `Этапы турнира`; broadcast copy now says pairs and broadcasts are added after publication.
-  - **Post-fix evidence:** final browser capture shows `ЭТАПЫ ТУРНИРА`, and the CTA scrolls to the tournament’s stages.
+- **[P2] Featured eyebrow collided with the oversized heading.**
+  - Fix: separated the eyebrow and heading with an explicit 24 px gap and stable stacking order.
+- **[P2] `Hunger to victories` was ellipsized in the rundown.**
+  - Fix: enabled controlled multi-line team names in rundown rows.
 
-### Iteration 2 — final visual comparison
+### Iteration 2 — resolved P2
 
-- The source mock used a four-card hero and fictional populated standings. The production version intentionally differs in two user-approved, data-safe ways: the hero is a compact tournament-status timeline with no bracket, and the current group table remains explicitly empty until match JSON arrives.
-- No actionable P0, P1 or P2 visual differences remained after those intentional deviations were checked.
+- **[P2] A React warning was emitted because `defaultOpen` was forwarded to `<details>`.**
+  - Fix: removed the unsupported prop; native `<details>` now starts closed and toggles without console warnings.
+- **[P2] Long team names could be truncated in the four-column result ribbon.**
+  - Fix: enabled two-line wrapping inside result identities.
 
-## Required fidelity surfaces
+## Browser verification
 
-- **Fonts and typography:** bold local YCS Sans faces establish the compact display hierarchy; small uppercase labels retain tracking and remain legible. No clipping or accidental line wraps were observed on the checked desktop view.
-- **Spacing and layout rhythm:** shared container widths, technical rules, regular vertical stage gaps and 4-column information modules maintain the source rhythm. The bracket is placed in its own lower section, per the approved information architecture.
-- **Colors and visual tokens:** near-black/navy field, white primary text, cobalt action/active state, subdued blue-gray meta text and sparse warm status nodes were preserved. There are no gradients.
-- **Image quality and asset fidelity:** the provided raster YCS logo is used directly; the technical background is a dedicated raster asset. No brand asset or non-standard icon from the direction was replaced by hand-drawn SVG, CSS art, emoji or placeholder imagery.
-- **Copy and content:** active, upcoming and archived states are presented with data from separate tournament JSON files. Empty slots state that data is not yet published. The archive refuses to invent a full historical playoff grid where the source only preserved confirmed matches.
+- Desktop: 4 scheduled pairings, 4 automatic advances and 3 partners detected.
+- Desktop: no horizontal overflow and no broken images.
+- Accordion: toggled open and closed successfully; expanded DOM contains 4 completed matches and 4 technical wins.
+- Mobile: the 390 × 844 rendered DOM exposes the mobile `Меню`, all four second-round pairings, the collapsed result summary, automatic advances and all three partner entries.
+- Mobile accordion: expanded successfully and exposed every score and technical winner.
+- Console: no application warnings or errors. One Chrome-extension metadata error is external browser tooling noise and does not originate from the site.
+- Build: Vite production build passed.
+- Worker contract: all 4 Sites tests passed.
 
 ## Findings
 
-- No actionable P0, P1 or P2 findings.
-- **[P3] Archive completeness:** Dota 2 Main contains a verified group table and confirmed playoff match list, but not the original connected bracket. This is disclosed in the interface; add a `rounds`/`matches` bracket payload to `dota2-main-2026.json` when the original source becomes available.
-- **Residual test gap:** the available Cloud Browser viewport was desktop. Responsive behavior is implemented with 860 px and 560 px breakpoints but was not screenshot-captured in this QA run.
+- No remaining P0, P1 or P2 issues.
+- **[P3] Asset fidelity:** most current team marks are deliberate tournament-scoped defaults. Replace the corresponding SVG files in `public/assets/teams/cs2-august-2026/` when official logos arrive; no component change is required.
 
 ## Open questions
 
-- What is the authoritative historical playoff bracket for Dota 2 Main? It should be supplied as the tournament’s own JSON before a connected historical grid is shown.
-
-## Implementation checklist
-
-1. Populate the current CS2 JSON with teams, standings and actual match slots when the tournament operator provides them.
-2. Add the original Dota 2 Main bracket JSON when available; do not infer it from results.
-3. Before a later iteration, capture the 860 px and 560 px responsive states after a browser viewport control is available.
-
-## Follow-up polish
-
-- Add official broadcast destinations to the match records once they are assigned.
+- Match times for the second round are still marked `Время уточняется`, matching the supplied data.
 
 final result: passed

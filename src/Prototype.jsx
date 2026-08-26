@@ -583,7 +583,7 @@ function MatchdayPage({ tournament, navigate }) {
       <section className="container matchday-fight-sheet" aria-labelledby="matchday-title">
         <div className="matchday-fight-sheet-topline">
           <p>{config.dateDisplay || config.dateLabel}</p>
-          <span>CS2 / август 2026</span>
+          <span>{config.formatRule || "CS2 / август 2026"}</span>
         </div>
         <div className="matchday-fight-sheet-grid">
           {featuredMatch && <MatchdayFeaturedMatch match={featuredMatch} tournament={tournament} roundLabel={roundLabel} />}

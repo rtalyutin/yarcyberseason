@@ -44,6 +44,7 @@
     "dateLabel": "3-й круг · 26 августа",
     "dateDisplay": "26 августа 2026",
     "matchdayLabel": "Matchday 03",
+    "formatRule": "2–0 / 0–2 — BO3 · остальные — BO1",
     "nextStageId": "round-3",
     "previousStageId": "round-2",
     "partners": [

@@ -63,10 +63,10 @@
       "id": "round-3",
       "type": "match_schedule",
       "title": "3-й круг · матчи сегодня",
-      "notice": "26 августа · шесть матчей третьего круга. Время начала уточняется организатором.",
+      "notice": "26 августа · при балансе 2–0 или 0–2 матч проходит в формате BO3; в остальных случаях — BO1. Время начала уточняется организатором.",
       "matches": [
-        { "id": "cs2-r3-resistance-saiten", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "Resistance", "team2": "SAITEN" },
-        { "id": "cs2-r3-pivnaya-kega-bobr1ki", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "PIVNAYA KEGA", "team2": "bobr1ki" },
+        { "id": "cs2-r3-resistance-saiten", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "SAITEN" },
+        { "id": "cs2-r3-pivnaya-kega-bobr1ki", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "PIVNAYA KEGA", "team2": "bobr1ki" },
         { "id": "cs2-r3-cipher-hunger", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "CipHer", "team2": "Hunger to victories" },
         { "id": "cs2-r3-psb-goongang", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "PSB_Bank", "team2": "GoonGang" },
         { "id": "cs2-r3-dealducks-vesely-grob", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "DealDucks", "team2": "Веселый гроб" },

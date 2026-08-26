@@ -514,15 +514,15 @@ function HistoricalMatchesStage({ stage, number }) {
   );
 }
 
-function MatchdayMeta() {
-  return <p className="matchday-meta"><span>Сегодня</span><span>BO1</span><span>Время уточняется</span></p>;
+function MatchdayMeta({ match }) {
+  return <p className="matchday-meta"><span>Сегодня</span><span>{match.bestOf || "BO1"}</span><span>{match.time || "Время уточняется"}</span></p>;
 }
 
-function MatchdayFeaturedMatch({ match, tournament }) {
+function MatchdayFeaturedMatch({ match, tournament, roundLabel }) {
   return (
     <article className="matchday-featured-match">
       <div className="matchday-featured-heading">
-        <p className="eyebrow">2-й круг / главная пара</p>
+        <p className="eyebrow">{roundLabel} / главная пара</p>
         <h1>Fight<br />sheet</h1>
       </div>
       <div className="matchday-featured-versus">
@@ -530,7 +530,7 @@ function MatchdayFeaturedMatch({ match, tournament }) {
         <strong>VS</strong>
         <TeamIdentity tournament={tournament} team={match.team2} align="end" size="feature" />
       </div>
-      <MatchdayMeta />
+      <MatchdayMeta match={match} />
     </article>
   );
 }
@@ -543,7 +543,7 @@ function MatchdayRundownMatch({ match, tournament }) {
         <strong>VS</strong>
         <TeamIdentity tournament={tournament} team={match.team2} align="end" size="feature" />
       </div>
-      <MatchdayMeta />
+      <MatchdayMeta match={match} />
     </article>
   );
 }
@@ -572,21 +572,24 @@ function MatchdayPage({ tournament, navigate }) {
   const automaticAdvances = (nextStage?.matches || []).filter((match) => ["walkover", "bye"].includes(match.status));
   const completedMatches = (previousStage?.matches || []).filter((match) => match.status === "completed");
   const walkovers = (previousStage?.matches || []).filter((match) => match.status === "walkover");
+  const previousByes = (previousStage?.matches || []).filter((match) => match.status === "bye");
   const featuredMatch = scheduledMatches[0];
   const rundownMatches = scheduledMatches.slice(1);
+  const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextStage?.title || "Текущий круг";
+  const previousRoundLabel = previousStage?.title?.split("·")[0]?.trim() || "Предыдущий круг";
 
   return (
     <main className="matchday-page matchday-page--fight-sheet">
       <section className="container matchday-fight-sheet" aria-labelledby="matchday-title">
         <div className="matchday-fight-sheet-topline">
-          <p>25 августа 2026</p>
+          <p>{config.dateDisplay || config.dateLabel}</p>
           <span>CS2 / август 2026</span>
         </div>
         <div className="matchday-fight-sheet-grid">
-          {featuredMatch && <MatchdayFeaturedMatch match={featuredMatch} tournament={tournament} />}
+          {featuredMatch && <MatchdayFeaturedMatch match={featuredMatch} tournament={tournament} roundLabel={roundLabel} />}
           <section className="matchday-rundown" aria-labelledby="matchday-title">
             <div className="matchday-rundown-heading">
-              <p className="eyebrow">Matchday 02</p>
+              <p className="eyebrow">{config.matchdayLabel || roundLabel}</p>
               <h2 id="matchday-title">Остальные пары</h2>
             </div>
             {rundownMatches.map((match) => <MatchdayRundownMatch key={match.id} match={match} tournament={tournament} />)}
@@ -596,7 +599,7 @@ function MatchdayPage({ tournament, navigate }) {
 
       <details className="container matchday-results">
         <summary>
-          <span><b>1-й круг</b> · Итоги</span>
+          <span><b>{previousRoundLabel}</b> · Итоги</span>
           <span className="matchday-results-open-label">{previousStage?.matches?.length || 0} результатов · открыть</span>
           <span className="matchday-results-close-label">{previousStage?.matches?.length || 0} результатов · закрыть</span>
         </summary>
@@ -608,6 +611,12 @@ function MatchdayPage({ tournament, navigate }) {
             <div className="matchday-walkovers">
               <strong>Технические победы</strong>
               <div>{walkovers.map((match) => <TeamIdentity key={match.id} tournament={tournament} team={match.team1} size="compact" />)}</div>
+            </div>
+          )}
+          {previousByes.length > 0 && (
+            <div className="matchday-walkovers">
+              <strong>Победы без игры</strong>
+              <div>{previousByes.map((match) => <TeamIdentity key={match.id} tournament={tournament} team={match.team1} size="compact" />)}</div>
             </div>
           )}
         </div>

@@ -29,8 +29,8 @@
     "Resistance": "/assets/teams/cs2-august-2026/resistance/logo.jpg"
   },
   "primaryAction": {
-    "label": "Матчи 3-го круга",
-    "target": "#round-3"
+    "label": "Матчи 4-го круга",
+    "target": "#round-4"
   },
   "secondaryAction": {
     "label": "Смотреть трансляции",
@@ -41,12 +41,12 @@
     "route": "/tournaments/cs2-august-2026/matchday",
     "eyebrow": "Чат турнира / CS2",
     "title": "Матчи следующего тура",
-    "dateLabel": "3-й круг · 26 августа",
-    "dateDisplay": "26 августа 2026",
-    "matchdayLabel": "Matchday 03",
-    "formatRule": "2–0 / 0–2 — BO3 · остальные — BO1",
-    "nextStageId": "round-3",
-    "previousStageId": "round-2",
+    "dateLabel": "4-й круг · 27 августа",
+    "dateDisplay": "27 августа 2026",
+    "matchdayLabel": "Matchday 04",
+    "formatRule": "Команда с 2+ победами или 2+ поражениями играет BO3 · остальные — BO1",
+    "nextStageId": "round-4",
+    "previousStageId": "round-3",
     "partners": [
       { "name": "Минспорт ЯО", "role": "Информационная поддержка" },
       { "name": "ФКС ЯО", "role": "Информационная поддержка" },
@@ -61,17 +61,35 @@
   ],
   "stages": [
     {
+      "id": "round-4",
+      "type": "match_schedule",
+      "title": "4-й круг · матчи сегодня",
+      "notice": "27 августа · команда с 2+ победами или 2+ поражениями играет BO3; остальные — BO1. Время начала уточняется организатором.",
+      "matches": [
+        { "id": "cs2-r4-resistance-pivnaya-kega", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "PIVNAYA KEGA" },
+        { "id": "cs2-r4-hunger-goongang", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "Hunger to victories", "team2": "GoonGang" },
+        { "id": "cs2-r4-bobr1ki-flouk", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "bobr1ki", "team2": "Flouk Team" },
+        { "id": "cs2-r4-saiten-dealducks", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "SAITENxBAD.RABBIT", "team2": "DealDucks" },
+        { "id": "cs2-r4-cipher-psb-bank", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "CipHer", "team2": "PSB_Bank" },
+        { "id": "cs2-r4-vesely-grob-bye", "status": "bye", "date": "2026-08-27", "dateDisplay": "27 августа", "team1": "Веселый гроб", "team2": "Без соперника", "note": "Победа без игры." },
+        { "id": "cs2-r4-hellwarriors-bye", "status": "bye", "date": "2026-08-27", "dateDisplay": "27 августа", "team1": "HellWarriors", "team2": "Без соперника", "note": "Победа без игры." }
+      ]
+    },
+    {
       "id": "round-3",
       "type": "match_schedule",
-      "title": "3-й круг · матчи сегодня",
-      "notice": "26 августа · при балансе 2–0 или 0–2 матч проходит в формате BO3; в остальных случаях — BO1. Время начала уточняется организатором.",
+      "title": "3-й круг · результаты",
+      "notice": "26 августа · пять матчей завершены с опубликованным счётом; в паре CipHer — Hunger to victories подтверждена победа Hunger to victories, точный счёт уточняется.",
+      "collapsible": true,
+      "defaultOpen": false,
+      "collapsedLabel": "Результаты 3-го круга · 6 матчей",
       "matches": [
-        { "id": "cs2-r3-resistance-saiten", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "SAITENxBAD.RABBIT" },
-        { "id": "cs2-r3-pivnaya-kega-bobr1ki", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "PIVNAYA KEGA", "team2": "bobr1ki" },
-        { "id": "cs2-r3-cipher-hunger", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "CipHer", "team2": "Hunger to victories" },
-        { "id": "cs2-r3-psb-goongang", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "PSB_Bank", "team2": "GoonGang" },
-        { "id": "cs2-r3-dealducks-vesely-grob", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "DealDucks", "team2": "Веселый гроб" },
-        { "id": "cs2-r3-flouk-hellwarriors", "status": "scheduled", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "Flouk Team", "team2": "HellWarriors" }
+        { "id": "cs2-r3-resistance-saiten", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "Resistance", "score1": 1, "team2": "SAITENxBAD.RABBIT", "score2": 2 },
+        { "id": "cs2-r3-pivnaya-kega-bobr1ki", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "PIVNAYA KEGA", "score1": 0, "team2": "bobr1ki", "score2": 2, "note": "Команда RSATU учтена под названием bobr1ki. Счёт по картам: Mirage 7:13, Ancient 3:13." },
+        { "id": "cs2-r3-cipher-hunger", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "CipHer", "team2": "Hunger to victories", "winner": "Hunger to victories", "note": "Победа Hunger to victories подтверждена; точный счёт уточняется." },
+        { "id": "cs2-r3-psb-goongang", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "PSB_Bank", "score1": 6, "team2": "GoonGang", "score2": 13, "map": "Inferno" },
+        { "id": "cs2-r3-dealducks-vesely-grob", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "DealDucks", "score1": 13, "team2": "Веселый гроб", "score2": 4, "map": "Nuke" },
+        { "id": "cs2-r3-flouk-hellwarriors", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "Flouk Team", "score1": 16, "team2": "HellWarriors", "score2": 14 }
       ]
     },
     {
@@ -165,25 +183,25 @@
       "id": "round-robin",
       "type": "round_robin",
       "title": "Турнирная таблица",
-      "notice": "Два круга завершены: результаты матчей, технический исход и победы без игры учтены в балансе команд.",
-      "finalColumnLabel": "Итог",
+      "notice": "Три круга завершены: баланс включает технические и бесплатные победы. Точный счёт в паре CipHer — Hunger to victories уточняется, поэтому команды с одинаковым балансом не ранжируются по дополнительным показателям.",
+      "finalColumnLabel": "Баланс",
       "groups": [
         {
           "id": "overall",
-          "title": "После 2-го круга · баланс побед",
+          "title": "После 3-го круга · баланс побед",
           "rows": [
-            { "position": 1, "team": "Resistance", "played": 2, "won": 2, "lost": 0, "mapRecord": "29:14 +15", "finalLabel": "2–0" },
-            { "position": 2, "team": "SAITENxBAD.RABBIT", "played": 2, "won": 2, "lost": 0, "finalLabel": "2–0" },
-            { "position": 3, "team": "PIVNAYA KEGA", "played": 2, "won": 2, "lost": 0, "mapRecord": "13:2 +11", "finalLabel": "2–0" },
-            { "position": 4, "team": "bobr1ki", "played": 2, "won": 2, "lost": 0, "mapRecord": "26:11 +15", "finalLabel": "2–0" },
-            { "position": 5, "team": "CipHer", "played": 2, "won": 1, "lost": 1, "mapRecord": "1:13 −12", "finalLabel": "1–1" },
-            { "position": 6, "team": "Hunger to victories", "played": 2, "won": 1, "lost": 1, "mapRecord": "2:13 −11", "finalLabel": "1–1" },
-            { "position": 7, "team": "PSB_Bank", "played": 2, "won": 1, "lost": 1, "mapRecord": "1:13 −12", "finalLabel": "1–1" },
-            { "position": 8, "team": "GoonGang", "played": 2, "won": 1, "lost": 1, "mapRecord": "26:17 +9", "finalLabel": "1–1" },
-            { "position": 9, "team": "DealDucks", "played": 2, "won": 1, "lost": 1, "mapRecord": "23:15 +8", "finalLabel": "1–1" },
-            { "position": 10, "team": "Веселый гроб", "played": 2, "won": 1, "lost": 1, "mapRecord": "2:13 −11", "finalLabel": "1–1" },
-            { "position": 11, "team": "Flouk Team", "played": 2, "won": 1, "lost": 1, "mapRecord": "1:13 −12", "finalLabel": "1–1" },
-            { "position": 12, "team": "HellWarriors", "played": 2, "won": 1, "lost": 1, "finalLabel": "1–1" }
+            { "position": 1, "team": "bobr1ki", "played": 3, "won": 3, "lost": 0, "finalLabel": "3–0" },
+            { "position": 1, "team": "SAITENxBAD.RABBIT", "played": 3, "won": 3, "lost": 0, "finalLabel": "3–0" },
+            { "position": 3, "team": "Resistance", "played": 3, "won": 2, "lost": 1, "finalLabel": "2–1" },
+            { "position": 3, "team": "PIVNAYA KEGA", "played": 3, "won": 2, "lost": 1, "finalLabel": "2–1" },
+            { "position": 3, "team": "Hunger to victories", "played": 3, "won": 2, "lost": 1, "finalLabel": "2–1" },
+            { "position": 3, "team": "GoonGang", "played": 3, "won": 2, "lost": 1, "finalLabel": "2–1" },
+            { "position": 3, "team": "DealDucks", "played": 3, "won": 2, "lost": 1, "finalLabel": "2–1" },
+            { "position": 3, "team": "Flouk Team", "played": 3, "won": 2, "lost": 1, "finalLabel": "2–1" },
+            { "position": 9, "team": "CipHer", "played": 3, "won": 1, "lost": 2, "finalLabel": "1–2" },
+            { "position": 9, "team": "PSB_Bank", "played": 3, "won": 1, "lost": 2, "finalLabel": "1–2" },
+            { "position": 9, "team": "Веселый гроб", "played": 3, "won": 1, "lost": 2, "finalLabel": "1–2" },
+            { "position": 9, "team": "HellWarriors", "played": 3, "won": 1, "lost": 2, "finalLabel": "1–2" }
           ]
         }
       ]

@@ -1572,33 +1572,54 @@ a {
 
 .matchday-rundown-versus {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .matchday-rundown-versus > strong {
-  font-size: 31px;
+  justify-self: center;
+  font-size: 29px;
 }
 
 .matchday-rundown-versus .team-identity {
+  width: 100%;
   min-width: 0;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
   color: #e9ebf0;
   font-family: "YCS Condensed", "YCS Sans", sans-serif;
-  font-size: clamp(18px, 1.7vw, 27px);
+  font-size: clamp(17px, 1.35vw, 22px);
   font-weight: 700;
   line-height: 0.96;
 }
 
+.matchday-rundown-versus .team-identity--end {
+  grid-template-columns: minmax(0, 1fr) 58px;
+}
+
+.matchday-rundown-versus .team-identity--end > span {
+  grid-column: 1;
+  text-align: right;
+}
+
+.matchday-rundown-versus .team-identity--end img {
+  grid-column: 2;
+}
+
 .matchday-rundown-versus .team-identity > span {
-  overflow: visible;
-  text-overflow: clip;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   white-space: normal;
 }
 
 .matchday-rundown-versus .team-identity img {
-  width: 68px;
-  height: 68px;
+  width: 58px;
+  height: 58px;
   border: 1px solid rgba(238, 241, 247, 0.65);
   border-radius: 50%;
   object-fit: cover;
@@ -1608,8 +1629,8 @@ a {
 .matchday-rundown-match .matchday-meta {
   margin-top: 8px;
   justify-content: flex-start;
-  padding-left: 82px;
-  gap: 20px;
+  padding-left: 66px;
+  gap: 16px;
   font-size: 11px;
 }
 
@@ -2915,12 +2936,18 @@ a {
   }
 
   .matchday-rundown-versus {
+    grid-template-columns: minmax(0, 1fr) 27px minmax(0, 1fr);
     gap: 7px;
   }
 
   .matchday-rundown-versus .team-identity {
+    grid-template-columns: 44px minmax(0, 1fr);
     gap: 6px;
     font-size: clamp(13px, 4.2vw, 17px);
+  }
+
+  .matchday-rundown-versus .team-identity--end {
+    grid-template-columns: minmax(0, 1fr) 44px;
   }
 
   .matchday-rundown-versus .team-identity img {

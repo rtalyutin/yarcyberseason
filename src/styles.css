@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "YCS Condensed";
-  src: url("/assets/fonts/DejaVuSans-Regular.ttf") format("opentype");
+  src: url("/assets/fonts/NimbusSansNarrow-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "YCS Condensed";
-  src: url("/assets/fonts/DejaVuSans-Bold.ttf") format("opentype");
+  src: url("/assets/fonts/NimbusSansNarrow-Bold.otf") format("opentype");
   font-weight: 700 900;
   font-style: normal;
   font-display: swap;
@@ -1487,7 +1487,7 @@ a {
   gap: 12px;
   color: #f4f5f7;
   font-family: "YCS Condensed", "YCS Sans", sans-serif;
-  font-size: clamp(24px, 2.35vw, 38px);
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: -0.025em;
   line-height: 0.9;

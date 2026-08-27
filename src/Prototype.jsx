@@ -367,9 +367,10 @@ function ScheduleStage({ stage, number, tournament }) {
         const isWalkover = match.status === "walkover";
         const isBye = match.status === "bye";
         const isCompleted = match.status === "completed";
+        const hasPublishedScore = Number.isFinite(match.score1) && Number.isFinite(match.score2);
         const isAutomaticAdvance = isWalkover || isBye;
         const statusState = isAutomaticAdvance || isCompleted ? "closed" : "upcoming";
-        const statusLabel = isWalkover ? "Техническая победа" : isBye ? "Проход без игры" : isCompleted ? "Матч завершён" : "Назначен матч";
+        const statusLabel = isWalkover ? "Техническая победа" : isBye ? "Проход без игры" : isCompleted ? (hasPublishedScore ? "Матч завершён" : "Результат подтверждён") : "Назначен матч";
         return (
           <article className={`schedule-match ${isWalkover ? "is-walkover" : ""} ${isBye ? "is-bye" : ""} ${isCompleted ? "is-completed" : ""}`} key={match.id}>
             <div className="schedule-meta">
@@ -378,7 +379,7 @@ function ScheduleStage({ stage, number, tournament }) {
             </div>
             <div className="schedule-teams">
               <TeamIdentity tournament={tournament} team={match.team1} />
-              {isCompleted ? <span className="schedule-score"><b>{match.score1}</b><i>:</i><b>{match.score2}</b></span> : <span>{isBye ? "→" : "vs"}</span>}
+              {isCompleted ? <span className="schedule-score"><b>{hasPublishedScore ? match.score1 : "—"}</b><i>:</i><b>{hasPublishedScore ? match.score2 : "—"}</b></span> : <span>{isBye ? "→" : "vs"}</span>}
               <TeamIdentity tournament={tournament} team={match.team2} align="end" />
             </div>
             {match.note && <p>{match.note}</p>}
@@ -549,7 +550,8 @@ function MatchdayRundownMatch({ match, tournament }) {
 }
 
 function CompletedMatchdayResult({ match, tournament }) {
-  const firstWon = Number(match.score1) > Number(match.score2);
+  const hasPublishedScore = Number.isFinite(match.score1) && Number.isFinite(match.score2);
+  const firstWon = hasPublishedScore ? match.score1 > match.score2 : match.winner === match.team1;
   const winner = firstWon ? match.team1 : match.team2;
   const loser = firstWon ? match.team2 : match.team1;
   const winningScore = firstWon ? match.score1 : match.score2;
@@ -558,7 +560,7 @@ function CompletedMatchdayResult({ match, tournament }) {
   return (
     <article className="matchday-result-item">
       <TeamIdentity tournament={tournament} team={winner} size="compact" />
-      <strong>{winningScore}:{losingScore}</strong>
+      <strong>{hasPublishedScore ? `${winningScore}:${losingScore}` : "Победа · счёт уточняется"}</strong>
       <TeamIdentity tournament={tournament} team={loser} align="end" size="compact" />
     </article>
   );

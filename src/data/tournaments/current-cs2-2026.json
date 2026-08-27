@@ -64,13 +64,12 @@
       "id": "round-4",
       "type": "match_schedule",
       "title": "4-й круг · матчи сегодня",
-      "notice": "27 августа · команда с 2+ победами или 2+ поражениями играет BO3; остальные — BO1. Время начала уточняется организатором.",
+      "notice": "27 августа · команда с 2+ победами или 2+ поражениями играет BO3; остальные — BO1.",
       "matches": [
-        { "id": "cs2-r4-resistance-pivnaya-kega", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "PIVNAYA KEGA" },
-        { "id": "cs2-r4-hunger-goongang", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "Hunger to victories", "team2": "GoonGang" },
-        { "id": "cs2-r4-bobr1ki-flouk", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "bobr1ki", "team2": "Flouk Team" },
-        { "id": "cs2-r4-saiten-dealducks", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "SAITENxBAD.RABBIT", "team2": "DealDucks" },
-        { "id": "cs2-r4-cipher-psb-bank", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "bestOf": "BO3", "team1": "CipHer", "team2": "PSB_Bank" },
+        { "id": "cs2-r4-resistance-pivnaya-kega", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "time": "21:30", "bestOf": "BO3", "team1": "Resistance", "team2": "PIVNAYA KEGA" },
+        { "id": "cs2-r4-hunger-goongang", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "time": "20:00", "bestOf": "BO3", "team1": "Hunger to victories", "team2": "GoonGang" },
+        { "id": "cs2-r4-dealducks-flouk", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "time": "23:30", "bestOf": "BO3", "team1": "DealDucks", "team2": "Flouk Team" },
+        { "id": "cs2-r4-cipher-psb-bank", "status": "scheduled", "date": "2026-08-27", "dateDisplay": "27 августа", "time": "20:30", "bestOf": "BO3", "team1": "CipHer", "team2": "PSB_Bank" },
         { "id": "cs2-r4-vesely-grob-bye", "status": "bye", "date": "2026-08-27", "dateDisplay": "27 августа", "team1": "Веселый гроб", "team2": "Без соперника", "note": "Победа без игры." },
         { "id": "cs2-r4-hellwarriors-bye", "status": "bye", "date": "2026-08-27", "dateDisplay": "27 августа", "team1": "HellWarriors", "team2": "Без соперника", "note": "Победа без игры." }
       ]

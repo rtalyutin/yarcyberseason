@@ -587,6 +587,19 @@ function MatchdayRundownMatch({ match, tournament }) {
   );
 }
 
+function MatchdayRundownResult({ match, tournament }) {
+  return (
+    <article className="matchday-rundown-match is-completed">
+      <div className="matchday-rundown-versus">
+        <TeamIdentity tournament={tournament} team={match.team1} size="feature" />
+        <strong>{match.score1}:{match.score2}</strong>
+        <TeamIdentity tournament={tournament} team={match.team2} align="end" size="feature" />
+      </div>
+      <p className="matchday-meta"><span>Завершён</span><span>{match.bestOf || "BO1"}</span><span>{match.roundRecord ? `Раунды ${match.roundRecord}` : match.dateDisplay}</span></p>
+    </article>
+  );
+}
+
 function CompletedMatchdayResult({ match, tournament }) {
   const hasPublishedScore = Number.isFinite(match.score1) && Number.isFinite(match.score2);
   const firstWon = hasPublishedScore ? match.score1 > match.score2 : match.winner === match.team1;
@@ -608,7 +621,8 @@ function MatchdayPage({ tournament, navigate }) {
   const config = tournament.matchday;
   const nextStage = tournament.stages.find((stage) => stage.id === config.nextStageId);
   const previousStage = tournament.stages.find((stage) => stage.id === config.previousStageId);
-  const scheduledMatches = (nextStage?.matches || []).filter((match) => !["walkover", "bye"].includes(match.status));
+  const scheduledMatches = (nextStage?.matches || []).filter((match) => !["walkover", "bye", "completed"].includes(match.status));
+  const currentCompletedMatches = (nextStage?.matches || []).filter((match) => match.status === "completed");
   const automaticAdvances = (nextStage?.matches || []).filter((match) => ["walkover", "bye"].includes(match.status));
   const completedMatches = (previousStage?.matches || []).filter((match) => match.status === "completed");
   const walkovers = (previousStage?.matches || []).filter((match) => match.status === "walkover");
@@ -630,9 +644,10 @@ function MatchdayPage({ tournament, navigate }) {
           <section className="matchday-rundown" aria-labelledby="matchday-title">
             <div className="matchday-rundown-heading">
               <p className="eyebrow">{config.matchdayLabel || roundLabel}</p>
-              <h2 id="matchday-title">Остальные пары</h2>
+              <h2 id="matchday-title">{rundownMatches.length > 0 ? "Остальные пары" : currentCompletedMatches.length > 0 ? "Результаты сегодня" : "Остальные пары"}</h2>
             </div>
             {rundownMatches.map((match) => <MatchdayRundownMatch key={match.id} match={match} tournament={tournament} />)}
+            {currentCompletedMatches.map((match) => <MatchdayRundownResult key={match.id} match={match} tournament={tournament} />)}
           </section>
         </div>
       </section>

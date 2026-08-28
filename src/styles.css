@@ -1028,6 +1028,40 @@ a {
   background: rgba(6, 10, 18, 0.48);
 }
 
+.standings-key {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  margin: -12px 0 12px;
+  color: #a9b8db;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.standings-key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.standings-key-item::before {
+  width: 8px;
+  height: 8px;
+  content: "";
+  background: currentColor;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+}
+
+.standings-key-item--wins {
+  color: #42d6a0;
+}
+
+.standings-key-item--losses {
+  color: #ff725c;
+}
+
 .standings-table {
   width: 100%;
   min-width: 660px;
@@ -1073,6 +1107,38 @@ a {
 
 .standings-table tbody tr:hover td {
   background: rgba(37, 79, 180, 0.22);
+}
+
+.standings-table tbody tr.is-three-wins td {
+  background: rgba(36, 164, 117, 0.13);
+}
+
+.standings-table tbody tr.is-three-losses td {
+  background: rgba(207, 67, 54, 0.13);
+}
+
+.standings-table tbody tr.is-three-wins td:first-child {
+  box-shadow: inset 3px 0 #42d6a0;
+}
+
+.standings-table tbody tr.is-three-losses td:first-child {
+  box-shadow: inset 3px 0 #ff725c;
+}
+
+.standings-table tbody tr.is-three-wins .points {
+  color: #42d6a0;
+}
+
+.standings-table tbody tr.is-three-losses .points {
+  color: #ff725c;
+}
+
+.standings-table tbody tr.is-three-wins:hover td {
+  background: rgba(36, 164, 117, 0.21);
+}
+
+.standings-table tbody tr.is-three-losses:hover td {
+  background: rgba(207, 67, 54, 0.21);
 }
 
 .standings-table .position {

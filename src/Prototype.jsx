@@ -321,6 +321,7 @@ function StageTitle({ number, title, description }) {
 function RoundRobinStage({ stage, number, tournament }) {
   const [groupId, setGroupId] = useState(stage.groups[0]?.id);
   const group = stage.groups.find((entry) => entry.id === groupId) || stage.groups[0];
+  const rows = useMemo(() => [...(group?.rows || [])].sort((a, b) => a.position - b.position), [group]);
   const hasMapRecord = group?.rows?.some((row) => row.mapRecord) || false;
   const finalColumnLabel = stage.finalColumnLabel || "О";
   const thresholds = stage.outcomeThresholds;
@@ -347,20 +348,35 @@ function RoundRobinStage({ stage, number, tournament }) {
           </button>
         ))}
       </div>
+      {stage.sortRules?.length > 0 && (
+        <div className="standings-order" aria-label="Порядок сортировки турнирной таблицы">
+          <span className="standings-order-label">Порядок мест</span>
+          <ol>
+            {stage.sortRules.map((rule, index) => (
+              <li key={rule}><span>{String(index + 1).padStart(2, "0")}</span>{rule}</li>
+            ))}
+          </ol>
+        </div>
+      )}
       {thresholds && (
         <div className="standings-key" aria-label="Цветовая маркировка турнирной таблицы">
-          <span className="standings-key-item standings-key-item--wins">{thresholds.wins} победы</span>
-          <span className="standings-key-item standings-key-item--losses">{thresholds.losses} поражения</span>
+          <span className="standings-key-item standings-key-item--wins">{thresholds.wins} победы · место зафиксировано</span>
+          <span className="standings-key-item standings-key-item--losses">{thresholds.losses} поражения · выбыла</span>
         </div>
       )}
       <div className="table-wrap">
         <table className="standings-table">
           <thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>П</th>{hasMapRecord && <th>Счёт</th>}<th>{finalColumnLabel}</th></tr></thead>
           <tbody>
-            {group.rows.length > 0 ? group.rows.map((row) => (
+            {rows.length > 0 ? rows.map((row) => (
               <tr className={getOutcomeClass(row)} key={row.team}>
                 <td className="position">{String(row.position).padStart(2, "0")}</td>
-                <td><TeamIdentity tournament={tournament} team={row.team} size="compact" /></td><td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{hasMapRecord && <td className="map-record">{row.mapRecord || "—"}</td>}<td className="points">{row.finalLabel || row.points}</td>
+                <td>
+                  <div className="standings-team-cell">
+                    <TeamIdentity tournament={tournament} team={row.team} size="compact" />
+                    {row.placeLocked && <span className="standings-seed-lock">Посев {String(row.seed).padStart(2, "0")}</span>}
+                  </div>
+                </td><td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{hasMapRecord && <td className="map-record">{row.mapRecord || "—"}</td>}<td className="points">{row.finalLabel || row.points}</td>
               </tr>
             )) : (
               <tr className="empty-table-row"><td colSpan={hasMapRecord ? "7" : "6"}><StatusDot state="upcoming" /> {group.emptyState || "Данные этапа появятся после старта"}</td></tr>

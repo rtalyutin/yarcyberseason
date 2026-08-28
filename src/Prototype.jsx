@@ -323,6 +323,12 @@ function RoundRobinStage({ stage, number, tournament }) {
   const group = stage.groups.find((entry) => entry.id === groupId) || stage.groups[0];
   const hasMapRecord = group?.rows?.some((row) => row.mapRecord) || false;
   const finalColumnLabel = stage.finalColumnLabel || "О";
+  const thresholds = stage.outcomeThresholds;
+  const getOutcomeClass = (row) => {
+    if (thresholds?.losses === row.lost) return "is-three-losses";
+    if (thresholds?.wins === row.won) return "is-three-wins";
+    return "";
+  };
 
   return (
     <section className="container tournament-stage" id={stage.id}>
@@ -341,12 +347,18 @@ function RoundRobinStage({ stage, number, tournament }) {
           </button>
         ))}
       </div>
+      {thresholds && (
+        <div className="standings-key" aria-label="Цветовая маркировка турнирной таблицы">
+          <span className="standings-key-item standings-key-item--wins">{thresholds.wins} победы</span>
+          <span className="standings-key-item standings-key-item--losses">{thresholds.losses} поражения</span>
+        </div>
+      )}
       <div className="table-wrap">
         <table className="standings-table">
           <thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>П</th>{hasMapRecord && <th>Счёт</th>}<th>{finalColumnLabel}</th></tr></thead>
           <tbody>
             {group.rows.length > 0 ? group.rows.map((row) => (
-              <tr key={row.team}>
+              <tr className={getOutcomeClass(row)} key={row.team}>
                 <td className="position">{String(row.position).padStart(2, "0")}</td>
                 <td><TeamIdentity tournament={tournament} team={row.team} size="compact" /></td><td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{hasMapRecord && <td className="map-record">{row.mapRecord || "—"}</td>}<td className="points">{row.finalLabel || row.points}</td>
               </tr>

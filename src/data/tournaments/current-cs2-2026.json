@@ -67,7 +67,7 @@
       "notice": "28 августа · все три пары играют BO3 по текущему балансу побед и поражений. Время начала уточняется.",
       "matches": [
         { "id": "cs2-r5-vesely-grob-psb-bank", "status": "scheduled", "date": "2026-08-28", "dateDisplay": "28 августа", "bestOf": "BO3", "team1": "Веселый гроб", "team2": "PSB_Bank" },
-        { "id": "cs2-r5-resistance-dealducks", "status": "scheduled", "date": "2026-08-28", "dateDisplay": "28 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "DealDucks" },
+        { "id": "cs2-r5-resistance-flouk", "status": "scheduled", "date": "2026-08-28", "dateDisplay": "28 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "Flouk Team" },
         { "id": "cs2-r5-hellwarriors-hunger", "status": "scheduled", "date": "2026-08-28", "dateDisplay": "28 августа", "bestOf": "BO3", "team1": "HellWarriors", "team2": "Hunger to victories" }
       ]
     },

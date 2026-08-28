@@ -1170,6 +1170,40 @@ a {
   padding-bottom: 14px;
 }
 
+.bracket-rules {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 14px;
+  border: 1px solid rgba(206, 219, 255, 0.21);
+  background: rgba(5, 8, 15, 0.61);
+}
+
+.bracket-rule {
+  min-height: 82px;
+  padding: 17px 19px;
+  border-right: 1px solid rgba(206, 219, 255, 0.16);
+}
+
+.bracket-rule:last-child {
+  border-right: 0;
+}
+
+.bracket-rule span {
+  display: block;
+  margin-bottom: 9px;
+  color: #6f86bc;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bracket-rule strong {
+  color: #e8edfc;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .bracket {
   min-width: 954px;
   display: grid;
@@ -1221,6 +1255,14 @@ a {
 
 .bracket-track .bracket-round {
   min-width: 0;
+}
+
+.bracket-track--grand-final .bracket-round {
+  min-height: 154px;
+}
+
+.bracket-track--grand-final .bracket-matches {
+  justify-content: center;
 }
 
 .bracket-round {
@@ -1317,6 +1359,28 @@ a {
   font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.bracket-match .bracket-team-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.bracket-seed {
+  flex: 0 0 auto;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #dce6ff;
+  border: 1px solid #315fc6;
+  background: #10234d;
+  font-size: 8px;
+  font-style: normal;
+  line-height: 1;
 }
 
 .bracket-match strong {
@@ -2805,6 +2869,20 @@ a {
 
   .table-wrap {
     margin-inline: -1px;
+  }
+
+  .bracket-rules {
+    grid-template-columns: 1fr;
+  }
+
+  .bracket-rule {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(206, 219, 255, 0.16);
+  }
+
+  .bracket-rule:last-child {
+    border-bottom: 0;
   }
 
   .bracket-scroll {

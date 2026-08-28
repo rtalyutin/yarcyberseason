@@ -433,12 +433,12 @@ function ScheduleStage({ stage, number, tournament }) {
 function BracketMatch({ match }) {
   const team1 = match.team1 || "Ожидает соперника";
   const team2 = match.team2 || "Ожидает соперника";
-  const meta = [match.dateDisplay, match.time, match.bestOf].filter(Boolean).join(" · ");
+  const meta = [match.sourceLabel, match.dateDisplay, match.time, match.bestOf].filter(Boolean).join(" · ");
   return (
     <div className="bracket-match">
       {meta && <p className="bracket-match-meta">{meta}</p>}
-      <div><span>{team1}</span><strong>{match.score1 ?? "—"}</strong></div>
-      <div><span>{team2}</span><strong>{match.score2 ?? "—"}</strong></div>
+      <div><span className="bracket-team-name">{match.seed1 && <small className="bracket-seed">{match.seed1}</small>}{team1}</span><strong>{match.score1 ?? "—"}</strong></div>
+      <div><span className="bracket-team-name">{match.seed2 && <small className="bracket-seed">{match.seed2}</small>}{team2}</span><strong>{match.score2 ?? "—"}</strong></div>
     </div>
   );
 }
@@ -478,6 +478,16 @@ function BracketStage({ stage, number }) {
     <section className="container tournament-stage" id={stage.id}>
       <StageTitle number={number} title={stage.title} description={stage.notice} />
       {hasPublishedMatches ? <>
+        {stage.formatNotes?.length > 0 && (
+          <div className="bracket-rules" aria-label="Правила сетки плей-офф">
+            {stage.formatNotes.map((item) => (
+              <div className="bracket-rule" key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="bracket-scroll">
           <div className={`bracket bracket--${stage.type} ${tracks ? `bracket--tracked bracket--tracks-${tracks.length}` : ""}`}>
             {tracks ? tracks.map((track) => (
@@ -490,7 +500,7 @@ function BracketStage({ stage, number }) {
             )) : stage.rounds.map((round, index) => <BracketRound key={round.id} round={round} index={index} total={stage.rounds.length} />)}
           </div>
         </div>
-        <p className="data-caption">Показаны только опубликованные раунды и результаты. Пустые слоты не означают результат.</p>
+        <p className="data-caption">{stage.caption || "Показаны только опубликованные раунды и результаты. Пустые слоты не означают результат."}</p>
       </> : <div className="format-card"><StatusDot state="upcoming" /><div><p className="eyebrow">Сетка формируется</p><strong>{stage.emptyState || "Пары и результаты появятся после публикации сетки."}</strong></div></div>}
     </section>
   );

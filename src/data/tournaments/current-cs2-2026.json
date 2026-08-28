@@ -18,7 +18,7 @@
     "HellWarriors": "/assets/teams/cs2-august-2026/hellwarriors/logo.jpg",
     "PIVNAYA KEGA": "/assets/teams/cs2-august-2026/pivnaya-kega/logo.jpg",
     "Hunger to victories": "/assets/teams/cs2-august-2026/hunger-to-victories/logo.jpg",
-    "SAITENxBAD.RABBIT": "/assets/teams/cs2-august-2026/saiten/logo.jpg",
+    "SAITEN x BAD.RABBIT": "/assets/teams/cs2-august-2026/saiten/logo.jpg",
     "CipHer": "/assets/teams/cs2-august-2026/cipher/logo.jpg",
     "GoonGang": "/assets/teams/cs2-august-2026/goongang/logo.jpg",
     "bobr1ki": "/assets/teams/cs2-august-2026/bobr1ki/logo.jpg",
@@ -97,7 +97,7 @@
       "defaultOpen": false,
       "collapsedLabel": "Результаты 3-го круга · 6 матчей",
       "matches": [
-        { "id": "cs2-r3-resistance-saiten", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "Resistance", "score1": 1, "team2": "SAITENxBAD.RABBIT", "score2": 2 },
+        { "id": "cs2-r3-resistance-saiten", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "Resistance", "score1": 1, "team2": "SAITEN x BAD.RABBIT", "score2": 2 },
         { "id": "cs2-r3-pivnaya-kega-bobr1ki", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO3", "team1": "PIVNAYA KEGA", "score1": 0, "team2": "bobr1ki", "score2": 2, "note": "Команда RSATU учтена под названием bobr1ki. Счёт по картам: Mirage 7:13, Ancient 3:13." },
         { "id": "cs2-r3-cipher-hunger", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "CipHer", "team2": "Hunger to victories", "winner": "Hunger to victories", "note": "Победа Hunger to victories подтверждена; точный счёт уточняется." },
         { "id": "cs2-r3-psb-goongang", "status": "completed", "date": "2026-08-26", "dateDisplay": "26 августа", "bestOf": "BO1", "team1": "PSB_Bank", "score1": 6, "team2": "GoonGang", "score2": 13, "map": "Inferno" },
@@ -109,12 +109,12 @@
       "id": "round-2",
       "type": "match_schedule",
       "title": "2-й круг · результаты",
-      "notice": "25 августа · три сыгранных матча, техническая победа SAITENxBAD.RABBIT и четыре победы без игры.",
+      "notice": "25 августа · три сыгранных матча, техническая победа SAITEN x BAD.RABBIT и четыре победы без игры.",
       "collapsible": true,
       "defaultOpen": false,
       "collapsedLabel": "Результаты 2-го круга · 8 матчей",
       "matches": [
-        { "id": "cs2-r2-saiten-hellwarriors", "status": "walkover", "date": "2026-08-25", "dateDisplay": "25 августа", "team1": "SAITENxBAD.RABBIT", "team2": "HellWarriors", "note": "Техническая победа SAITENxBAD.RABBIT · HellWarriors получает техническое поражение." },
+        { "id": "cs2-r2-saiten-hellwarriors", "status": "walkover", "date": "2026-08-25", "dateDisplay": "25 августа", "team1": "SAITEN x BAD.RABBIT", "team2": "HellWarriors", "note": "Техническая победа SAITEN x BAD.RABBIT · HellWarriors получает техническое поражение." },
         { "id": "cs2-r2-hunger-pivnaya-kega", "status": "completed", "date": "2026-08-25", "dateDisplay": "25 августа", "bestOf": "BO1", "team1": "Hunger to victories", "score1": 2, "team2": "PIVNAYA KEGA", "score2": 13, "map": "Ancient" },
         { "id": "cs2-r2-resistance-goongang", "status": "completed", "date": "2026-08-25", "dateDisplay": "25 августа", "bestOf": "BO1", "team1": "Resistance", "score1": 16, "team2": "GoonGang", "score2": 13, "map": "Cache" },
         { "id": "cs2-r2-dealducks-bobr1ki", "status": "completed", "date": "2026-08-25", "dateDisplay": "25 августа", "bestOf": "BO1", "team1": "DealDucks", "score1": 10, "team2": "bobr1ki", "score2": 13, "map": "Nuke", "note": "Команда RSATU учтена под названием bobr1ki." },
@@ -136,7 +136,7 @@
         { "id": "cs2-r1-hellwarriors", "status": "walkover", "dateDisplay": "24 августа", "team1": "HellWarriors", "team2": "Не заявленная команда", "note": "Техническая победа · команда пропускает 1-й круг." },
         { "id": "cs2-r1-pivnaya-kega", "status": "walkover", "dateDisplay": "24 августа", "team1": "PIVNAYA KEGA", "team2": "Не заявленная команда", "note": "Техническая победа · команда пропускает 1-й круг." },
         { "id": "cs2-r1-hunger", "status": "walkover", "dateDisplay": "24 августа", "team1": "Hunger to victories", "team2": "Не заявленная команда", "note": "Техническая победа · команда пропускает 1-й круг." },
-        { "id": "cs2-r1-saiten", "status": "walkover", "dateDisplay": "24 августа", "team1": "SAITENxBAD.RABBIT", "team2": "Не заявленная команда", "note": "Техническая победа · команда пропускает 1-й круг." },
+        { "id": "cs2-r1-saiten", "status": "walkover", "dateDisplay": "24 августа", "team1": "SAITEN x BAD.RABBIT", "team2": "Не заявленная команда", "note": "Техническая победа · команда пропускает 1-й круг." },
         {
           "id": "cs2-r1-cipher-goongang",
           "status": "completed",
@@ -198,13 +198,14 @@
       "title": "Турнирная таблица",
       "notice": "Четыре круга завершены: баланс включает технические и бесплатные победы. Команды с одинаковым балансом занимают одну позицию.",
       "finalColumnLabel": "Баланс",
+      "outcomeThresholds": { "wins": 3, "losses": 3 },
       "groups": [
         {
           "id": "overall",
           "title": "После 4-го круга · баланс побед",
           "rows": [
             { "position": 1, "team": "bobr1ki", "played": 3, "won": 3, "lost": 0, "finalLabel": "3–0" },
-            { "position": 1, "team": "SAITENxBAD.RABBIT", "played": 3, "won": 3, "lost": 0, "finalLabel": "3–0" },
+            { "position": 1, "team": "SAITEN x BAD.RABBIT", "played": 3, "won": 3, "lost": 0, "finalLabel": "3–0" },
             { "position": 3, "team": "PIVNAYA KEGA", "played": 4, "won": 3, "lost": 1, "finalLabel": "3–1" },
             { "position": 3, "team": "GoonGang", "played": 4, "won": 3, "lost": 1, "finalLabel": "3–1" },
             { "position": 3, "team": "DealDucks", "played": 4, "won": 3, "lost": 1, "finalLabel": "3–1" },

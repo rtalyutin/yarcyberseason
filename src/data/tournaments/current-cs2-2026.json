@@ -222,15 +222,78 @@
     },
     {
       "id": "playoffs",
-      "type": "single_elimination",
-      "title": "Плей-офф",
-      "notice": "Пары и результаты появятся после формирования сетки. Пустые слоты не являются результатами.",
-      "emptyState": "Сетка появится после публикации первых подтверждённых пар.",
+      "type": "double_elimination",
+      "title": "Плей-офф · Double Elimination",
+      "notice": "В плей-офф выходят 8 команд. Первые пары верхней сетки формируются по итоговой таблице группы: 1–8, 2–7, 3–6 и 4–5.",
+      "formatNotes": [
+        { "label": "Стартовый посев", "value": "1–8 · 2–7 · 3–6 · 4–5" },
+        { "label": "После 1-го поражения", "value": "Переход в нижнюю сетку" },
+        { "label": "После 2-го поражения", "value": "Выбывание из турнира" }
+      ],
+      "caption": "Команды будут подставлены в слоты после подтверждения итоговых мест группы. Формат гранд-финала и правило reset уточняются.",
       "rounds": [
-        { "id": "qf", "label": "1/4", "matches": [{ "id": "qf-1" }, { "id": "qf-2" }, { "id": "qf-3" }, { "id": "qf-4" }] },
-        { "id": "sf", "label": "1/2", "matches": [{ "id": "sf-1" }, { "id": "sf-2" }] },
-        { "id": "final", "label": "Финал", "matches": [{ "id": "final-1" }] },
-        { "id": "champion", "label": "Чемпион", "matches": [{ "id": "champion-1" }] }
+        {
+          "id": "upper-quarterfinals",
+          "label": "1/4 финала",
+          "matches": [
+            { "id": "cs2-aug-upper-qf-1", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "1-е место группы", "seed2": 8, "team2": "8-е место группы" },
+            { "id": "cs2-aug-upper-qf-2", "sourceLabel": "В2 · посев 2–7", "seed1": 2, "team1": "2-е место группы", "seed2": 7, "team2": "7-е место группы" },
+            { "id": "cs2-aug-upper-qf-3", "sourceLabel": "В3 · посев 3–6", "seed1": 3, "team1": "3-е место группы", "seed2": 6, "team2": "6-е место группы" },
+            { "id": "cs2-aug-upper-qf-4", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "4-е место группы", "seed2": 5, "team2": "5-е место группы" }
+          ]
+        },
+        {
+          "id": "upper-semifinals",
+          "label": "1/2 финала",
+          "matches": [
+            { "id": "cs2-aug-upper-sf-1", "sourceLabel": "В5", "team1": "Победитель В1", "team2": "Победитель В2" },
+            { "id": "cs2-aug-upper-sf-2", "sourceLabel": "В6", "team1": "Победитель В3", "team2": "Победитель В4" }
+          ]
+        },
+        {
+          "id": "upper-final",
+          "label": "Финал верхней сетки",
+          "matches": [
+            { "id": "cs2-aug-upper-final", "sourceLabel": "В7", "team1": "Победитель В5", "team2": "Победитель В6" }
+          ]
+        },
+        {
+          "id": "lower-round-1",
+          "label": "Раунд 1",
+          "matches": [
+            { "id": "cs2-aug-lower-r1-1", "sourceLabel": "Н1", "team1": "Проигравший В1", "team2": "Проигравший В2" },
+            { "id": "cs2-aug-lower-r1-2", "sourceLabel": "Н2", "team1": "Проигравший В3", "team2": "Проигравший В4" }
+          ]
+        },
+        {
+          "id": "lower-round-2",
+          "label": "Раунд 2",
+          "matches": [
+            { "id": "cs2-aug-lower-r2-1", "sourceLabel": "Н3", "team1": "Победитель Н1", "team2": "Проигравший В6" },
+            { "id": "cs2-aug-lower-r2-2", "sourceLabel": "Н4", "team1": "Победитель Н2", "team2": "Проигравший В5" }
+          ]
+        },
+        {
+          "id": "lower-round-3",
+          "label": "Раунд 3",
+          "matches": [
+            { "id": "cs2-aug-lower-r3", "sourceLabel": "Н5", "team1": "Победитель Н3", "team2": "Победитель Н4" }
+          ]
+        },
+        {
+          "id": "lower-final",
+          "label": "Финал нижней сетки",
+          "matches": [
+            { "id": "cs2-aug-lower-final", "sourceLabel": "Н6", "team1": "Победитель Н5", "team2": "Проигравший В7" }
+          ]
+        },
+        {
+          "id": "grand-final",
+          "label": "Гранд-финал",
+          "matches": [
+            { "id": "cs2-aug-grand-final", "sourceLabel": "Ф1", "team1": "Победитель В7", "team2": "Победитель Н6" }
+          ]
+        }
       ]
     }
   ]

@@ -324,6 +324,7 @@ function RoundRobinStage({ stage, number, tournament }) {
   const rows = useMemo(() => [...(group?.rows || [])].sort((a, b) => a.position - b.position), [group]);
   const hasMapRecord = group?.rows?.some((row) => row.mapRecord) || false;
   const finalColumnLabel = stage.finalColumnLabel || "О";
+  const recordColumnLabel = stage.recordColumnLabel || "Счёт";
   const thresholds = stage.outcomeThresholds;
   const getOutcomeClass = (row) => {
     if (thresholds?.losses === row.lost) return "is-three-losses";
@@ -366,7 +367,7 @@ function RoundRobinStage({ stage, number, tournament }) {
       )}
       <div className="table-wrap">
         <table className="standings-table">
-          <thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>П</th>{hasMapRecord && <th>Счёт</th>}<th>{finalColumnLabel}</th></tr></thead>
+          <thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>П</th>{hasMapRecord && <th>{recordColumnLabel}</th>}<th>{finalColumnLabel}</th></tr></thead>
           <tbody>
             {rows.length > 0 ? rows.map((row) => (
               <tr className={getOutcomeClass(row)} key={row.team}>

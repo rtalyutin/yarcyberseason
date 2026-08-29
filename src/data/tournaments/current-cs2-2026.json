@@ -347,9 +347,9 @@
             { "position": 3, "seed": 3, "placeLocked": true, "team": "PIVNAYA KEGA", "played": 4, "won": 3, "lost": 1, "mapRecord": "53:51", "finalLabel": "3–1" },
             { "position": 4, "seed": 4, "placeLocked": true, "team": "GoonGang", "played": 4, "won": 3, "lost": 1, "mapRecord": "74:47", "finalLabel": "3–1" },
             { "position": 5, "seed": 5, "placeLocked": true, "team": "DealDucks", "played": 4, "won": 3, "lost": 1, "mapRecord": "62:28", "finalLabel": "3–1" },
-            { "position": 6, "seed": 6, "placeLocked": true, "team": "Hunger to victories", "played": 5, "won": 3, "lost": 2, "mapRecord": "69:67", "finalLabel": "3–2" },
+            { "position": 6, "seed": 6, "placeLocked": true, "team": "Resistance", "played": 5, "won": 3, "lost": 2, "mapRecord": "107:81", "finalLabel": "3–2" },
             { "position": 7, "seed": 7, "placeLocked": true, "team": "PSB_Bank", "played": 5, "won": 3, "lost": 2, "mapRecord": "74:70", "finalLabel": "3–2" },
-            { "position": 8, "seed": 8, "placeLocked": true, "team": "Resistance", "played": 5, "won": 3, "lost": 2, "mapRecord": "107:81", "finalLabel": "3–2" },
+            { "position": 8, "seed": 8, "placeLocked": true, "team": "Hunger to victories", "played": 5, "won": 3, "lost": 2, "mapRecord": "69:67", "finalLabel": "3–2" },
             { "position": 9, "team": "Flouk Team", "played": 5, "won": 2, "lost": 3, "mapRecord": "33:79", "finalLabel": "2–3" },
             { "position": 10, "team": "HellWarriors", "played": 5, "won": 2, "lost": 3, "mapRecord": "30:46", "finalLabel": "2–3" },
             { "position": 11, "team": "Веселый гроб", "played": 5, "won": 2, "lost": 3, "mapRecord": "19:52", "finalLabel": "2–3" },
@@ -368,15 +368,15 @@
         { "label": "После 1-го поражения", "value": "Переход в нижнюю сетку" },
         { "label": "После 2-го поражения", "value": "Выбывание из турнира" }
       ],
-      "caption": "Resistance получили посев 8. Стартовые пары сформированы по правилу 1–8, 2–7, 3–6 и 4–5. Формат гранд-финала и правило reset уточняются.",
+      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Стартовые пары сформированы по правилу 1–8, 2–7, 3–6 и 4–5. Формат гранд-финала и правило reset уточняются.",
       "rounds": [
         {
           "id": "upper-quarterfinals",
           "label": "1/4 финала",
           "matches": [
-            { "id": "cs2-aug-upper-qf-1", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Resistance" },
+            { "id": "cs2-aug-upper-qf-1", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Hunger to victories" },
             { "id": "cs2-aug-upper-qf-2", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В2 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "seed2": 7, "team2": "PSB_Bank" },
-            { "id": "cs2-aug-upper-qf-3", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "seed2": 6, "team2": "Hunger to victories" },
+            { "id": "cs2-aug-upper-qf-3", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "seed2": 6, "team2": "Resistance" },
             { "id": "cs2-aug-upper-qf-4", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "GoonGang", "seed2": 5, "team2": "DealDucks" }
           ]
         },

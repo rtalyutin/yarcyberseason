@@ -408,7 +408,7 @@ function ScheduleStage({ stage, number, tournament }) {
             </div>
             <div className="schedule-teams">
               <TeamIdentity tournament={tournament} team={match.team1} />
-              {isCompleted ? <span className="schedule-score"><b>{hasPublishedScore ? match.score1 : "—"}</b><i>:</i><b>{hasPublishedScore ? match.score2 : "—"}</b></span> : <span>{isBye ? "→" : "vs"}</span>}
+              {hasPublishedScore ? <span className="schedule-score"><b>{match.score1}</b><i>:</i><b>{match.score2}</b></span> : <span>{isBye ? "→" : "vs"}</span>}
               <TeamIdentity tournament={tournament} team={match.team2} align="end" />
             </div>
             {match.note && <p>{match.note}</p>}

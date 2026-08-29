@@ -364,19 +364,20 @@
       "title": "Плей-офф · Double Elimination",
       "notice": "В плей-офф вышли восемь команд. Все четыре стартовые пары верхней сетки сформированы.",
       "formatNotes": [
-        { "label": "Стартовый посев", "value": "1–8 · 2–7 · 3–6 · 4–5" },
+        { "label": "Стартовый посев", "value": "1–8 · 3–6 · 2–7 · 4–5" },
+        { "label": "Разведение посевов", "value": "1/3/6/8 · 2/4/5/7" },
         { "label": "После 1-го поражения", "value": "Переход в нижнюю сетку" },
         { "label": "После 2-го поражения", "value": "Выбывание из турнира" }
       ],
-      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Стартовые пары сформированы по правилу 1–8, 2–7, 3–6 и 4–5. Формат гранд-финала и правило reset уточняются.",
+      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Соседние посевы разведены по разным половинам: пары 1–2, 3–4, 5–6 и 7–8 могут встретиться в верхней сетке только в её финале. Формат гранд-финала и правило reset уточняются.",
       "rounds": [
         {
           "id": "upper-quarterfinals",
           "label": "1/4 финала",
           "matches": [
             { "id": "cs2-aug-upper-qf-1", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Hunger to victories" },
-            { "id": "cs2-aug-upper-qf-2", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В2 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "seed2": 7, "team2": "PSB_Bank" },
-            { "id": "cs2-aug-upper-qf-3", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "seed2": 6, "team2": "Resistance" },
+            { "id": "cs2-aug-upper-qf-2", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В2 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "seed2": 6, "team2": "Resistance" },
+            { "id": "cs2-aug-upper-qf-3", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "seed2": 7, "team2": "PSB_Bank" },
             { "id": "cs2-aug-upper-qf-4", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "GoonGang", "seed2": 5, "team2": "DealDucks" }
           ]
         },

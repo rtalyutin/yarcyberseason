@@ -621,16 +621,18 @@ function CompletedMatchdayResult({ match, tournament }) {
 function MatchdayPage({ tournament, navigate }) {
   const config = tournament.matchday;
   const nextStage = tournament.stages.find((stage) => stage.id === config.nextStageId);
+  const nextRound = config.nextRoundId ? nextStage?.rounds?.find((round) => round.id === config.nextRoundId) : null;
+  const nextMatches = nextRound?.matches || nextStage?.matches || [];
   const previousStage = tournament.stages.find((stage) => stage.id === config.previousStageId);
-  const scheduledMatches = (nextStage?.matches || []).filter((match) => !["walkover", "bye", "completed"].includes(match.status));
-  const currentCompletedMatches = (nextStage?.matches || []).filter((match) => match.status === "completed");
-  const automaticAdvances = (nextStage?.matches || []).filter((match) => ["walkover", "bye"].includes(match.status));
+  const scheduledMatches = nextMatches.filter((match) => !["walkover", "bye", "completed"].includes(match.status));
+  const currentCompletedMatches = nextMatches.filter((match) => match.status === "completed");
+  const automaticAdvances = nextMatches.filter((match) => ["walkover", "bye"].includes(match.status));
   const completedMatches = (previousStage?.matches || []).filter((match) => match.status === "completed");
   const walkovers = (previousStage?.matches || []).filter((match) => match.status === "walkover");
   const previousByes = (previousStage?.matches || []).filter((match) => match.status === "bye");
   const featuredMatch = scheduledMatches[0];
   const rundownMatches = scheduledMatches.slice(1);
-  const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextStage?.title || "Текущий круг";
+  const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextRound?.label || nextStage?.title || "Текущий круг";
   const previousRoundLabel = previousStage?.title?.split("·")[0]?.trim() || "Предыдущий круг";
 
   return (

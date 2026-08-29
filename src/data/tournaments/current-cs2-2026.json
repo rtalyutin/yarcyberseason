@@ -29,8 +29,8 @@
     "Resistance": "/assets/teams/cs2-august-2026/resistance/logo.jpg"
   },
   "primaryAction": {
-    "label": "Матчи 5-го круга",
-    "target": "#round-5"
+    "label": "Пары верхней сетки",
+    "target": "#playoffs"
   },
   "secondaryAction": {
     "label": "Смотреть трансляции",
@@ -40,13 +40,14 @@
   "matchday": {
     "route": "/tournaments/cs2-august-2026/matchday",
     "eyebrow": "Чат турнира / CS2",
-    "title": "Матчи следующего тура",
-    "dateLabel": "5-й круг · 28 августа",
-    "dateDisplay": "28 августа 2026",
-    "matchdayLabel": "Matchday 05",
-    "formatRule": "Команда с 2+ победами или 2+ поражениями играет BO3 · остальные — BO1",
-    "nextStageId": "round-5",
-    "previousStageId": "round-4",
+    "title": "Матчи верхней сетки",
+    "dateLabel": "Плей-офф · верхняя сетка",
+    "dateDisplay": "29 августа 2026",
+    "matchdayLabel": "Playoffs / Upper 01",
+    "formatRule": "8 команд · Double Elimination · четыре матча BO3",
+    "nextStageId": "playoffs",
+    "nextRoundId": "upper-quarterfinals",
+    "previousStageId": "round-5",
     "partners": [
       { "name": "Минспорт ЯО", "role": "Информационная поддержка" },
       { "name": "ФКС ЯО", "role": "Информационная поддержка" },
@@ -55,16 +56,16 @@
   },
   "timeline": [
     { "label": "Регистрация", "state": "closed", "date": "до 1 августа" },
-    { "label": "Круговой этап", "state": "active", "date": "22 августа — 28 августа" },
-    { "label": "Плей-офф", "state": "upcoming", "date": "29 августа — 5 сентября" },
+    { "label": "Круговой этап", "state": "closed", "date": "22 августа — 28 августа" },
+    { "label": "Плей-офф", "state": "active", "date": "29 августа — 5 сентября" },
     { "label": "Финал", "state": "upcoming", "date": "6 сентября" }
   ],
   "stages": [
     {
       "id": "round-5",
       "type": "match_schedule",
-      "title": "5-й круг · результаты и оставшийся матч",
-      "notice": "28 августа · два BO3 завершены. Hunger to victories и PSB_Bank вышли в плей-офф; Resistance и Flouk Team разыграют последний слот.",
+      "title": "5-й круг · результаты",
+      "notice": "28 августа · три BO3 завершены. Resistance выиграли последний слот и вышли в плей-офф с посевом 8.",
       "matches": [
         {
           "id": "cs2-r5-vesely-grob-psb-bank",
@@ -83,7 +84,23 @@
           ],
           "note": "Счёт по картам: Inferno 8:13, Nuke 3:13. Раунды: 11:26."
         },
-        { "id": "cs2-r5-resistance-flouk", "status": "scheduled", "date": "2026-08-28", "dateDisplay": "28 августа", "bestOf": "BO3", "team1": "Resistance", "team2": "Flouk Team" },
+        {
+          "id": "cs2-r5-resistance-flouk",
+          "status": "completed",
+          "date": "2026-08-28",
+          "dateDisplay": "28 августа",
+          "bestOf": "BO3",
+          "team1": "Resistance",
+          "score1": 2,
+          "team2": "Flouk Team",
+          "score2": 0,
+          "roundRecord": "26:6",
+          "maps": [
+            { "name": "Inferno", "score1": 13, "score2": 1 },
+            { "name": "Anubis", "score1": 13, "score2": 5 }
+          ],
+          "note": "Счёт по картам: Inferno 13:1, Anubis 13:5. Раунды: 26:6."
+        },
         {
           "id": "cs2-r5-hellwarriors-hunger",
           "status": "completed",
@@ -315,7 +332,7 @@
       "id": "round-robin",
       "type": "round_robin",
       "title": "Турнирная таблица",
-      "notice": "Два матча 5-го круга завершены. Семь команд вышли в плей-офф; последний слот разыграют Resistance и Flouk Team.",
+      "notice": "Круговой этап завершён. Восемь команд вышли в плей-офф; все посевы зафиксированы.",
       "finalColumnLabel": "Баланс",
       "recordColumnLabel": "Раунды",
       "outcomeThresholds": { "wins": 3, "losses": 3 },
@@ -323,7 +340,7 @@
       "groups": [
         {
           "id": "overall",
-          "title": "5-й круг · посевы 1–7 зафиксированы",
+          "title": "Итоговая таблица · посевы 1–8 зафиксированы",
           "rows": [
             { "position": 1, "seed": 1, "placeLocked": true, "team": "bobr1ki", "played": 3, "won": 3, "lost": 0, "mapRecord": "52:21", "finalLabel": "3–0" },
             { "position": 2, "seed": 2, "placeLocked": true, "team": "SAITEN x BAD.RABBIT", "played": 3, "won": 3, "lost": 0, "mapRecord": "34:29", "finalLabel": "3–0" },
@@ -332,8 +349,8 @@
             { "position": 5, "seed": 5, "placeLocked": true, "team": "DealDucks", "played": 4, "won": 3, "lost": 1, "mapRecord": "62:28", "finalLabel": "3–1" },
             { "position": 6, "seed": 6, "placeLocked": true, "team": "Hunger to victories", "played": 5, "won": 3, "lost": 2, "mapRecord": "69:67", "finalLabel": "3–2" },
             { "position": 7, "seed": 7, "placeLocked": true, "team": "PSB_Bank", "played": 5, "won": 3, "lost": 2, "mapRecord": "74:70", "finalLabel": "3–2" },
-            { "position": 8, "team": "Resistance", "played": 4, "won": 2, "lost": 2, "mapRecord": "81:75", "finalLabel": "2–2" },
-            { "position": 9, "team": "Flouk Team", "played": 4, "won": 2, "lost": 2, "mapRecord": "27:53", "finalLabel": "2–2" },
+            { "position": 8, "seed": 8, "placeLocked": true, "team": "Resistance", "played": 5, "won": 3, "lost": 2, "mapRecord": "107:81", "finalLabel": "3–2" },
+            { "position": 9, "team": "Flouk Team", "played": 5, "won": 2, "lost": 3, "mapRecord": "33:79", "finalLabel": "2–3" },
             { "position": 10, "team": "HellWarriors", "played": 5, "won": 2, "lost": 3, "mapRecord": "30:46", "finalLabel": "2–3" },
             { "position": 11, "team": "Веселый гроб", "played": 5, "won": 2, "lost": 3, "mapRecord": "19:52", "finalLabel": "2–3" },
             { "position": 12, "team": "CipHer", "played": 4, "won": 1, "lost": 3, "mapRecord": "40:66", "finalLabel": "1–3" }
@@ -345,22 +362,22 @@
       "id": "playoffs",
       "type": "double_elimination",
       "title": "Плей-офф · Double Elimination",
-      "notice": "В плей-офф вышли семь команд. Посевы 1–7 зафиксированы; победитель Resistance — Flouk Team займёт восьмой слот.",
+      "notice": "В плей-офф вышли восемь команд. Все четыре стартовые пары верхней сетки сформированы.",
       "formatNotes": [
         { "label": "Стартовый посев", "value": "1–8 · 2–7 · 3–6 · 4–5" },
         { "label": "После 1-го поражения", "value": "Переход в нижнюю сетку" },
         { "label": "После 2-го поражения", "value": "Выбывание из турнира" }
       ],
-      "caption": "Hunger to victories получили посев 6, PSB_Bank — посев 7. Победитель Resistance — Flouk Team займёт посев 8. Формат гранд-финала и правило reset уточняются.",
+      "caption": "Resistance получили посев 8. Стартовые пары сформированы по правилу 1–8, 2–7, 3–6 и 4–5. Формат гранд-финала и правило reset уточняются.",
       "rounds": [
         {
           "id": "upper-quarterfinals",
           "label": "1/4 финала",
           "matches": [
-            { "id": "cs2-aug-upper-qf-1", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Победитель Resistance — Flouk Team" },
-            { "id": "cs2-aug-upper-qf-2", "sourceLabel": "В2 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "seed2": 7, "team2": "PSB_Bank" },
-            { "id": "cs2-aug-upper-qf-3", "sourceLabel": "В3 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "seed2": 6, "team2": "Hunger to victories" },
-            { "id": "cs2-aug-upper-qf-4", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "GoonGang", "seed2": 5, "team2": "DealDucks" }
+            { "id": "cs2-aug-upper-qf-1", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Resistance" },
+            { "id": "cs2-aug-upper-qf-2", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В2 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "seed2": 7, "team2": "PSB_Bank" },
+            { "id": "cs2-aug-upper-qf-3", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "seed2": 6, "team2": "Hunger to victories" },
+            { "id": "cs2-aug-upper-qf-4", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "GoonGang", "seed2": 5, "team2": "DealDucks" }
           ]
         },
         {

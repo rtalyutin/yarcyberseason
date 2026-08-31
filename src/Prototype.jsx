@@ -555,7 +555,7 @@ function HistoricalMatchesStage({ stage, number }) {
 }
 
 function MatchdayMeta({ match }) {
-  return <p className="matchday-meta"><span>Сегодня</span><span>{match.bestOf || "BO1"}</span><span>{match.time || "Время уточняется"}</span></p>;
+  return <p className="matchday-meta"><span>{match.dateDisplay || "Сегодня"}</span><span>{match.bestOf || "BO1"}</span><span>{match.time || "Время уточняется"}</span></p>;
 }
 
 function MatchdayFeaturedMatch({ match, tournament, roundLabel }) {
@@ -624,16 +624,18 @@ function MatchdayPage({ tournament, navigate }) {
   const nextRound = config.nextRoundId ? nextStage?.rounds?.find((round) => round.id === config.nextRoundId) : null;
   const nextMatches = nextRound?.matches || nextStage?.matches || [];
   const previousStage = tournament.stages.find((stage) => stage.id === config.previousStageId);
+  const previousRound = config.previousRoundId ? previousStage?.rounds?.find((round) => round.id === config.previousRoundId) : null;
+  const previousMatches = previousRound?.matches || previousStage?.matches || [];
   const scheduledMatches = nextMatches.filter((match) => !["walkover", "bye", "completed"].includes(match.status));
   const currentCompletedMatches = nextMatches.filter((match) => match.status === "completed");
   const automaticAdvances = nextMatches.filter((match) => ["walkover", "bye"].includes(match.status));
-  const completedMatches = (previousStage?.matches || []).filter((match) => match.status === "completed");
-  const walkovers = (previousStage?.matches || []).filter((match) => match.status === "walkover");
-  const previousByes = (previousStage?.matches || []).filter((match) => match.status === "bye");
+  const completedMatches = previousMatches.filter((match) => match.status === "completed");
+  const walkovers = previousMatches.filter((match) => match.status === "walkover");
+  const previousByes = previousMatches.filter((match) => match.status === "bye");
   const featuredMatch = scheduledMatches[0];
   const rundownMatches = scheduledMatches.slice(1);
   const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextRound?.label || nextStage?.title || "Текущий круг";
-  const previousRoundLabel = previousStage?.title?.split("·")[0]?.trim() || "Предыдущий круг";
+  const previousRoundLabel = previousRound?.label || previousStage?.title?.split("·")[0]?.trim() || "Предыдущий круг";
 
   return (
     <main className="matchday-page matchday-page--fight-sheet">
@@ -658,8 +660,8 @@ function MatchdayPage({ tournament, navigate }) {
       <details className="container matchday-results">
         <summary>
           <span><b>{previousRoundLabel}</b> · Итоги</span>
-          <span className="matchday-results-open-label">{previousStage?.matches?.length || 0} результатов · открыть</span>
-          <span className="matchday-results-close-label">{previousStage?.matches?.length || 0} результатов · закрыть</span>
+          <span className="matchday-results-open-label">{previousMatches.length || 0} результатов · открыть</span>
+          <span className="matchday-results-close-label">{previousMatches.length || 0} результатов · закрыть</span>
         </summary>
         <div className="matchday-results-body">
           <div className="matchday-results-ribbon">

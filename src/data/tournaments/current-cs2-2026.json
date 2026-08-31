@@ -40,9 +40,9 @@
   "matchday": {
     "route": "/tournaments/cs2-august-2026/matchday",
     "eyebrow": "Чат турнира / CS2",
-    "title": "Матчи верхней сетки",
-    "dateLabel": "Плей-офф · верхняя сетка",
-    "dateDisplay": "29 августа 2026",
+    "title": "1/4 финала верхней сетки",
+    "dateLabel": "Плей-офф · 1/4 финала",
+    "dateDisplay": "31 августа 2026",
     "matchdayLabel": "Playoffs / Upper 01",
     "formatRule": "8 команд · Double Elimination · четыре матча BO3",
     "nextStageId": "playoffs",
@@ -57,7 +57,7 @@
   "timeline": [
     { "label": "Регистрация", "state": "closed", "date": "до 1 августа" },
     { "label": "Круговой этап", "state": "closed", "date": "22 августа — 28 августа" },
-    { "label": "Плей-офф", "state": "active", "date": "29 августа — 5 сентября" },
+    { "label": "Плей-офф", "state": "active", "date": "30 августа — 6 сентября" },
     { "label": "Финал", "state": "upcoming", "date": "6 сентября" }
   ],
   "stages": [
@@ -362,75 +362,76 @@
       "id": "playoffs",
       "type": "double_elimination",
       "title": "Плей-офф · Double Elimination",
-      "notice": "Два четвертьфинала завершены: PIVNAYA KEGA и SAITEN x BAD.RABBIT прошли в полуфиналы верхней сетки; Resistance и PSB_Bank перешли в нижнюю сетку.",
+      "notice": "30 августа завершены В2 и В3: PIVNAYA KEGA и SAITEN x BAD.RABBIT прошли в полуфиналы верхней сетки; 31 августа состоятся В1 и В4.",
       "formatNotes": [
         { "label": "Стартовый посев", "value": "1–8 · 3–6 · 2–7 · 4–5" },
         { "label": "Разведение посевов", "value": "1/3/6/8 · 2/4/5/7" },
         { "label": "После 1-го поражения", "value": "Переход в нижнюю сетку" },
-        { "label": "После 2-го поражения", "value": "Выбывание из турнира" }
+        { "label": "После 2-го поражения", "value": "Выбывание из турнира" },
+        { "label": "Формат финалов", "value": "Нижний финал и гранд-финал — BO5" }
       ],
-      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Соседние посевы разведены по разным половинам: пары 1–2, 3–4, 5–6 и 7–8 могут встретиться в верхней сетке только в её финале. Формат гранд-финала и правило reset уточняются.",
+      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Соседние посевы разведены по разным половинам: пары 1–2, 3–4, 5–6 и 7–8 могут встретиться в верхней сетке только в её финале. Нижний финал и гранд-финал проходят в формате BO5; правило reset не опубликовано.",
       "rounds": [
         {
           "id": "upper-quarterfinals",
           "label": "1/4 финала",
           "matches": [
-            { "id": "cs2-aug-upper-qf-1", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Hunger to victories" },
-            { "id": "cs2-aug-upper-qf-2", "status": "completed", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В2 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "score1": 2, "seed2": 6, "team2": "Resistance", "score2": 0, "note": "PIVNAYA KEGA победили 2:0. Счёт отдельных карт не опубликован." },
-            { "id": "cs2-aug-upper-qf-3", "status": "completed", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "score1": 2, "seed2": 7, "team2": "PSB_Bank", "score2": 0, "note": "SAITEN x BAD.RABBIT победили 2:0. Счёт отдельных карт не опубликован." },
-            { "id": "cs2-aug-upper-qf-4", "status": "scheduled", "date": "2026-08-29", "dateDisplay": "29 августа", "bestOf": "BO3", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "GoonGang", "seed2": 5, "team2": "DealDucks" }
+            { "id": "cs2-aug-upper-qf-1", "status": "scheduled", "date": "2026-08-31", "dateDisplay": "31 августа", "bestOf": "BO3", "sourceLabel": "В1 · посев 1–8", "seed1": 1, "team1": "bobr1ki", "seed2": 8, "team2": "Hunger to victories" },
+            { "id": "cs2-aug-upper-qf-2", "status": "completed", "date": "2026-08-30", "dateDisplay": "30 августа", "bestOf": "BO3", "sourceLabel": "В2 · посев 3–6", "seed1": 3, "team1": "PIVNAYA KEGA", "score1": 2, "seed2": 6, "team2": "Resistance", "score2": 0, "note": "PIVNAYA KEGA победили 2:0. Счёт отдельных карт не опубликован." },
+            { "id": "cs2-aug-upper-qf-3", "status": "completed", "date": "2026-08-30", "dateDisplay": "30 августа", "bestOf": "BO3", "sourceLabel": "В3 · посев 2–7", "seed1": 2, "team1": "SAITEN x BAD.RABBIT", "score1": 2, "seed2": 7, "team2": "PSB_Bank", "score2": 0, "note": "SAITEN x BAD.RABBIT победили 2:0. Счёт отдельных карт не опубликован." },
+            { "id": "cs2-aug-upper-qf-4", "status": "scheduled", "date": "2026-08-31", "dateDisplay": "31 августа", "bestOf": "BO3", "sourceLabel": "В4 · посев 4–5", "seed1": 4, "team1": "GoonGang", "seed2": 5, "team2": "DealDucks" }
           ]
         },
         {
           "id": "upper-semifinals",
           "label": "1/2 финала",
           "matches": [
-            { "id": "cs2-aug-upper-sf-1", "sourceLabel": "В5", "team1": "Победитель В1", "team2": "PIVNAYA KEGA" },
-            { "id": "cs2-aug-upper-sf-2", "sourceLabel": "В6", "team1": "SAITEN x BAD.RABBIT", "team2": "Победитель В4" }
+            { "id": "cs2-aug-upper-sf-1", "status": "scheduled", "date": "2026-09-02", "dateDisplay": "2 сентября", "bestOf": "BO3", "sourceLabel": "В5", "team1": "Победитель В1", "team2": "PIVNAYA KEGA" },
+            { "id": "cs2-aug-upper-sf-2", "status": "scheduled", "date": "2026-09-02", "dateDisplay": "2 сентября", "bestOf": "BO3", "sourceLabel": "В6", "team1": "SAITEN x BAD.RABBIT", "team2": "Победитель В4" }
           ]
         },
         {
           "id": "upper-final",
           "label": "Финал верхней сетки",
           "matches": [
-            { "id": "cs2-aug-upper-final", "sourceLabel": "В7", "team1": "Победитель В5", "team2": "Победитель В6" }
+            { "id": "cs2-aug-upper-final", "status": "scheduled", "date": "2026-09-04", "dateDisplay": "4 сентября", "bestOf": "BO3", "sourceLabel": "В7", "team1": "Победитель В5", "team2": "Победитель В6" }
           ]
         },
         {
           "id": "lower-round-1",
-          "label": "Раунд 1",
+          "label": "1/8 финала",
           "matches": [
-            { "id": "cs2-aug-lower-r1-1", "sourceLabel": "Н1", "team1": "Проигравший В1", "team2": "Resistance" },
-            { "id": "cs2-aug-lower-r1-2", "sourceLabel": "Н2", "team1": "PSB_Bank", "team2": "Проигравший В4" }
+            { "id": "cs2-aug-lower-r1-1", "status": "scheduled", "date": "2026-09-01", "dateDisplay": "1 сентября", "bestOf": "BO3", "sourceLabel": "Н1", "team1": "Проигравший В1", "team2": "Resistance" },
+            { "id": "cs2-aug-lower-r1-2", "status": "scheduled", "date": "2026-09-01", "dateDisplay": "1 сентября", "bestOf": "BO3", "sourceLabel": "Н2", "team1": "PSB_Bank", "team2": "Проигравший В4" }
           ]
         },
         {
           "id": "lower-round-2",
-          "label": "Раунд 2",
+          "label": "1/4 финала",
           "matches": [
-            { "id": "cs2-aug-lower-r2-1", "sourceLabel": "Н3", "team1": "Победитель Н1", "team2": "Проигравший В6" },
-            { "id": "cs2-aug-lower-r2-2", "sourceLabel": "Н4", "team1": "Победитель Н2", "team2": "Проигравший В5" }
+            { "id": "cs2-aug-lower-r2-1", "status": "scheduled", "date": "2026-09-03", "dateDisplay": "3 сентября", "bestOf": "BO3", "sourceLabel": "Н3", "team1": "Победитель Н1", "team2": "Проигравший В6" },
+            { "id": "cs2-aug-lower-r2-2", "status": "scheduled", "date": "2026-09-03", "dateDisplay": "3 сентября", "bestOf": "BO3", "sourceLabel": "Н4", "team1": "Победитель Н2", "team2": "Проигравший В5" }
           ]
         },
         {
           "id": "lower-round-3",
-          "label": "Раунд 3",
+          "label": "1/2 финала",
           "matches": [
-            { "id": "cs2-aug-lower-r3", "sourceLabel": "Н5", "team1": "Победитель Н3", "team2": "Победитель Н4" }
+            { "id": "cs2-aug-lower-r3", "status": "scheduled", "date": "2026-09-04", "dateDisplay": "4 сентября", "bestOf": "BO3", "sourceLabel": "Н5", "team1": "Победитель Н3", "team2": "Победитель Н4" }
           ]
         },
         {
           "id": "lower-final",
           "label": "Финал нижней сетки",
           "matches": [
-            { "id": "cs2-aug-lower-final", "sourceLabel": "Н6", "team1": "Победитель Н5", "team2": "Проигравший В7" }
+            { "id": "cs2-aug-lower-final", "status": "scheduled", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO5", "sourceLabel": "Н6", "team1": "Победитель Н5", "team2": "Проигравший В7" }
           ]
         },
         {
           "id": "grand-final",
           "label": "Гранд-финал",
           "matches": [
-            { "id": "cs2-aug-grand-final", "sourceLabel": "Ф1", "team1": "Победитель В7", "team2": "Победитель Н6" }
+            { "id": "cs2-aug-grand-final", "status": "scheduled", "date": "2026-09-06", "dateDisplay": "6 сентября", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "Победитель В7", "team2": "Победитель Н6" }
           ]
         }
       ]

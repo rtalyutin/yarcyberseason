@@ -410,8 +410,8 @@
           "id": "lower-round-2",
           "label": "1/4 финала",
           "matches": [
-            { "id": "cs2-aug-lower-r2-1", "status": "scheduled", "date": "2026-09-03", "dateDisplay": "3 сентября", "bestOf": "BO3", "sourceLabel": "Н3", "team1": "Победитель Н1", "team2": "Проигравший В6" },
-            { "id": "cs2-aug-lower-r2-2", "status": "scheduled", "date": "2026-09-03", "dateDisplay": "3 сентября", "bestOf": "BO3", "sourceLabel": "Н4", "team1": "Победитель Н2", "team2": "Проигравший В5" }
+            { "id": "cs2-aug-lower-r2-1", "status": "scheduled", "date": "2026-09-03", "dateDisplay": "3 сентября", "bestOf": "BO3", "sourceLabel": "Н3", "team1": "Победитель Н2", "team2": "Проигравший В6" },
+            { "id": "cs2-aug-lower-r2-2", "status": "scheduled", "date": "2026-09-03", "dateDisplay": "3 сентября", "bestOf": "BO3", "sourceLabel": "Н4", "team1": "Победитель Н1", "team2": "Проигравший В5" }
           ]
         },
         {

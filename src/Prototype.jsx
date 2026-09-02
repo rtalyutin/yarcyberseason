@@ -306,6 +306,58 @@ function InfoBand({ tournament }) {
   );
 }
 
+function TournamentPerks({ tournament }) {
+  const hasPrizeDistribution = Boolean(tournament.prizeDistribution?.total || tournament.prizeDistribution?.items?.length);
+  const hasAdditionalAwards = Boolean(tournament.additionalAwards?.length);
+  const hasReferralContest = Boolean(tournament.referralContest);
+
+  if (!hasPrizeDistribution && !hasAdditionalAwards && !hasReferralContest) return null;
+
+  return (
+    <section className="container tournament-perks" id="rewards">
+      <div className="stage-title">
+        <p className="eyebrow">Призы / условия</p>
+        <div>
+          <h2>За что играем</h2>
+          <p>Призовой фонд, дополнительные награды и условия конкурса репостов.</p>
+        </div>
+      </div>
+      <div className="tournament-perks-grid">
+        {hasPrizeDistribution && (
+          <article className="tournament-perk-card tournament-perk-card--prize">
+            <p className="eyebrow">Призовой фонд</p>
+            <strong className="tournament-prize-total">{tournament.prizeDistribution.total}</strong>
+            <ul className="tournament-prize-list">
+              {(tournament.prizeDistribution.items || []).map((item) => (
+                <li key={item.place}><span>{item.place}</span><strong>{item.amount}</strong></li>
+              ))}
+            </ul>
+          </article>
+        )}
+        {hasAdditionalAwards && (
+          <article className="tournament-perk-card">
+            <p className="eyebrow">Дополнительные награды</p>
+            <ol className="tournament-perk-list">
+              {tournament.additionalAwards.map((award) => (
+                <li key={award.title}><strong>{award.title}</strong><span>{award.description}</span></li>
+              ))}
+            </ol>
+          </article>
+        )}
+        {hasReferralContest && (
+          <article className="tournament-perk-card tournament-perk-card--referral">
+            <p className="eyebrow">{tournament.referralContest.title}</p>
+            <h3>{tournament.referralContest.headline}</h3>
+            <ul className="tournament-perk-list tournament-perk-list--bullets">
+              {(tournament.referralContest.rules || []).map((rule) => <li key={rule}>{rule}</li>)}
+            </ul>
+          </article>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function StageTitle({ number, title, description }) {
   return (
     <div className="stage-title">
@@ -527,6 +579,16 @@ function SwissStage({ stage, number }) {
   return (
     <section className="container tournament-stage" id={stage.id}>
       <StageTitle number={number} title={stage.title} description={stage.notice} />
+      {stage.rules?.length > 0 && (
+        <div className="swiss-rule-grid" aria-label="Правила швейцарской системы">
+          {stage.rules.map((rule) => (
+            <article className="swiss-rule-card" key={rule.label}>
+              <span>{rule.label}</span>
+              <strong>{rule.value}</strong>
+            </article>
+          ))}
+        </div>
+      )}
       <div className="format-card">
         <StatusDot state="upcoming" />
         <div><p className="eyebrow">Данные этапа</p><strong>Таблица и пары появятся после первого тура</strong></div>
@@ -709,6 +771,7 @@ function TournamentPage({ tournament, navigate }) {
     <main>
       <TournamentHero tournament={tournament} navigate={navigate} />
       <InfoBand tournament={tournament} />
+      <TournamentPerks tournament={tournament} />
       {tournament.stages.map((stage, index) => {
         const number = String(index + 1).padStart(2, "0");
         if (stage.type === "round_robin") return <RoundRobinStage key={stage.id} stage={stage} number={number} tournament={tournament} />;

@@ -851,6 +851,160 @@ a {
   font-size: 11px;
 }
 
+.tournament-perks {
+  padding-top: 104px;
+}
+
+.tournament-perks-grid,
+.swiss-rule-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.tournament-perks-grid {
+  grid-template-columns: 1.05fr 1fr 1fr;
+}
+
+.tournament-perk-card,
+.swiss-rule-card {
+  border: 1px solid rgba(206, 219, 255, 0.22);
+  background: rgba(8, 13, 23, 0.55);
+}
+
+.tournament-perk-card {
+  min-height: 244px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tournament-perk-card--prize,
+.tournament-perk-card--referral {
+  border-color: rgba(78, 121, 244, 0.58);
+}
+
+.tournament-perk-card--referral {
+  background: rgba(9, 25, 57, 0.58);
+}
+
+.tournament-prize-total {
+  display: block;
+  margin: 14px 0 20px;
+  color: #edf2ff;
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.tournament-prize-list,
+.tournament-perk-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tournament-prize-list {
+  border-top: 1px solid rgba(206, 219, 255, 0.18);
+}
+
+.tournament-prize-list li {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(206, 219, 255, 0.14);
+  color: #9fafcf;
+  font-size: 12px;
+}
+
+.tournament-prize-list strong,
+.tournament-perk-list strong {
+  color: #f0f4ff;
+  font-size: 12px;
+}
+
+.tournament-perk-card h3 {
+  max-width: 260px;
+  margin: 16px 0 19px;
+  color: #f1f5ff;
+  font-size: 20px;
+  line-height: 1.05;
+}
+
+.tournament-perk-list {
+  display: grid;
+  gap: 13px;
+  counter-reset: tournament-perk;
+}
+
+.tournament-perk-list li {
+  position: relative;
+  padding-left: 25px;
+  color: #aab8d8;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.tournament-perk-list:not(.tournament-perk-list--bullets) li::before {
+  counter-increment: tournament-perk;
+  content: "0" counter(tournament-perk);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #5d8eff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.tournament-perk-list strong,
+.tournament-perk-list span {
+  display: block;
+}
+
+.tournament-perk-list span {
+  margin-top: 2px;
+}
+
+.tournament-perk-list--bullets {
+  gap: 9px;
+}
+
+.tournament-perk-list--bullets li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #5d8eff;
+}
+
+.swiss-rule-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 14px;
+}
+
+.swiss-rule-card {
+  min-height: 116px;
+  padding: 18px 20px;
+}
+
+.swiss-rule-card span {
+  display: block;
+  margin-bottom: 12px;
+  color: #8298c8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.swiss-rule-card strong {
+  color: #ecf1ff;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .team-identity {
   min-width: 0;
   display: inline-flex;
@@ -2634,6 +2788,18 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .tournament-perks-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tournament-perk-card--prize {
+    grid-column: span 2;
+  }
+
+  .swiss-rule-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .timeline-card:nth-child(2),
   .fact-card:nth-child(2) {
     border-right: 0;
@@ -2854,6 +3020,15 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .tournament-perks-grid,
+  .swiss-rule-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tournament-perk-card--prize {
+    grid-column: auto;
+  }
+
   .timeline-card,
   .fact-card,
   .timeline-card:nth-child(2),
@@ -2931,7 +3106,8 @@ a {
   }
 
   .info-band,
-  .tournament-stage {
+  .tournament-stage,
+  .tournament-perks {
     padding-top: 70px;
   }
 

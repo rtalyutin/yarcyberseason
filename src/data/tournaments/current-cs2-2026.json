@@ -403,7 +403,7 @@
           "label": "1/8 финала",
           "matches": [
             { "id": "cs2-aug-lower-r1-1", "status": "completed", "date": "2026-09-01", "dateDisplay": "1 сентября", "bestOf": "BO3", "sourceLabel": "Н1", "team1": "Hunger to victories", "score1": 0, "team2": "Resistance", "score2": 2, "note": "Счёт серии: 2:0." },
-            { "id": "cs2-aug-lower-r1-2", "status": "completed", "date": "2026-09-01", "dateDisplay": "1 сентября", "bestOf": "BO3", "sourceLabel": "Н2", "team1": "PSB_Bank", "score1": 0, "team2": "GoonGang", "score2": 2, "note": "Счёт серии: 2:0." }
+            { "id": "cs2-aug-lower-r1-2", "status": "completed", "date": "2026-09-01", "dateDisplay": "1 сентября", "bestOf": "BO3", "sourceLabel": "Н2", "team1": "PSB_Bank", "score1": 1, "team2": "GoonGang", "score2": 2, "note": "Счёт серии: 2:1. Счёт отдельных карт не опубликован." }
           ]
         },
         {

@@ -683,8 +683,13 @@ function CompletedMatchdayResult({ match, tournament }) {
 function MatchdayPage({ tournament, navigate }) {
   const config = tournament.matchday;
   const nextStage = tournament.stages.find((stage) => stage.id === config.nextStageId);
-  const nextRound = config.nextRoundId ? nextStage?.rounds?.find((round) => round.id === config.nextRoundId) : null;
-  const nextMatches = nextRound?.matches || nextStage?.matches || [];
+  const nextRoundIds = Array.isArray(config.nextRoundIds) && config.nextRoundIds.length > 0
+    ? config.nextRoundIds
+    : config.nextRoundId ? [config.nextRoundId] : [];
+  const nextRounds = nextRoundIds
+    .map((roundId) => nextStage?.rounds?.find((round) => round.id === roundId))
+    .filter(Boolean);
+  const nextMatches = nextRounds.length > 0 ? nextRounds.flatMap((round) => round.matches || []) : nextStage?.matches || [];
   const previousStage = tournament.stages.find((stage) => stage.id === config.previousStageId);
   const previousRound = config.previousRoundId ? previousStage?.rounds?.find((round) => round.id === config.previousRoundId) : null;
   const previousMatches = previousRound?.matches || previousStage?.matches || [];
@@ -696,7 +701,7 @@ function MatchdayPage({ tournament, navigate }) {
   const previousByes = previousMatches.filter((match) => match.status === "bye");
   const featuredMatch = scheduledMatches[0];
   const rundownMatches = scheduledMatches.slice(1);
-  const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextRound?.label || nextStage?.title || "Текущий круг";
+  const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextRounds[0]?.label || nextStage?.title || "Текущий круг";
   const previousRoundLabel = previousRound?.label || previousStage?.title?.split("·")[0]?.trim() || "Предыдущий круг";
 
   return (

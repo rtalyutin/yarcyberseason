@@ -29,7 +29,7 @@
     "Resistance": "/assets/teams/cs2-august-2026/resistance/logo.jpg"
   },
   "primaryAction": {
-    "label": "Пары верхней сетки",
+    "label": "Финал нижней сетки",
     "target": "#playoffs"
   },
   "secondaryAction": {
@@ -40,15 +40,16 @@
   "matchday": {
     "route": "/tournaments/cs2-august-2026/matchday",
     "eyebrow": "Чат турнира / CS2",
-    "title": "Финалы сеток",
-    "dateLabel": "Финалы сеток · верхняя и нижняя сетка",
-    "dateDisplay": "4 сентября 2026",
-    "matchdayLabel": "Playoffs / Finals 01",
-    "formatRule": "8 команд · Double Elimination · два матча BO3",
+    "title": "Финал нижней сетки",
+    "dateLabel": "Финал нижней сетки",
+    "dateDisplay": "5 сентября 2026",
+    "matchdayLabel": "Playoffs / Lower Final",
+    "formatRule": "8 команд · Double Elimination · BO5",
     "nextStageId": "playoffs",
-    "nextRoundIds": ["upper-final", "lower-round-3"],
+    "nextRoundIds": ["lower-final"],
     "previousStageId": "playoffs",
-    "previousRoundId": "lower-round-2",
+    "previousRoundIds": ["upper-final", "lower-round-3"],
+    "previousLabel": "Итоги 4 сентября",
     "partners": [
       { "name": "Минспорт ЯО", "role": "Информационная поддержка" },
       { "name": "ФКС ЯО", "role": "Информационная поддержка" },
@@ -363,7 +364,7 @@
       "id": "playoffs",
       "type": "double_elimination",
       "title": "Плей-офф · Double Elimination",
-      "notice": "3 сентября GoonGang и PIVNAYA KEGA выиграли свои матчи 1/4 нижней сетки со счётом 2:0. 4 сентября пройдут финал верхней сетки и 1/2 нижней сетки.",
+      "notice": "4 сентября bobr1ki (в Faceit — RSATU) вышли в гранд-финал, обыграв SAITEN x BAD.RABBIT 2:0. PIVNAYA KEGA победили GoonGang 2:0 и 5 сентября сыграют с SAITEN x BAD.RABBIT в финале нижней сетки.",
       "formatNotes": [
         { "label": "Стартовый посев", "value": "1–8 · 3–6 · 2–7 · 4–5" },
         { "label": "Разведение посевов", "value": "1/3/6/8 · 2/4/5/7" },
@@ -395,7 +396,7 @@
           "id": "upper-final",
           "label": "Финал верхней сетки",
           "matches": [
-            { "id": "cs2-aug-upper-final", "status": "scheduled", "date": "2026-09-04", "dateDisplay": "4 сентября", "bestOf": "BO3", "sourceLabel": "В7", "team1": "bobr1ki", "team2": "SAITEN x BAD.RABBIT" }
+            { "id": "cs2-aug-upper-final", "status": "completed", "date": "2026-09-04", "dateDisplay": "4 сентября", "bestOf": "BO3", "sourceLabel": "В7", "team1": "bobr1ki", "score1": 2, "team2": "SAITEN x BAD.RABBIT", "score2": 0, "roundRecord": "26:19", "maps": [{ "name": "Ancient", "score1": 13, "score2": 11 }, { "name": "Mirage", "score1": 13, "score2": 8 }], "note": "bobr1ki победили 2:0. Счёт по картам: Ancient 13:11, Mirage 13:8. Раунды: 26:19. В Faceit команда указана как RSATU." }
           ]
         },
         {
@@ -418,21 +419,21 @@
           "id": "lower-round-3",
           "label": "1/2 финала",
           "matches": [
-            { "id": "cs2-aug-lower-r3", "status": "scheduled", "date": "2026-09-04", "dateDisplay": "4 сентября", "bestOf": "BO3", "sourceLabel": "Н5", "team1": "GoonGang", "team2": "PIVNAYA KEGA" }
+            { "id": "cs2-aug-lower-r3", "status": "completed", "date": "2026-09-04", "dateDisplay": "4 сентября", "bestOf": "BO3", "sourceLabel": "Н5", "team1": "GoonGang", "score1": 0, "team2": "PIVNAYA KEGA", "score2": 2, "roundRecord": "20:26", "maps": [{ "name": "Mirage", "score1": 11, "score2": 13 }, { "name": "Ancient", "score1": 9, "score2": 13 }], "note": "PIVNAYA KEGA победили 2:0. Счёт по картам: Mirage 11:13, Ancient 9:13. Раунды: 20:26." }
           ]
         },
         {
           "id": "lower-final",
           "label": "Финал нижней сетки",
           "matches": [
-            { "id": "cs2-aug-lower-final", "status": "scheduled", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO5", "sourceLabel": "Н6", "team1": "Победитель Н5", "team2": "Проигравший В7" }
+            { "id": "cs2-aug-lower-final", "status": "scheduled", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO5", "sourceLabel": "Н6", "team1": "PIVNAYA KEGA", "team2": "SAITEN x BAD.RABBIT" }
           ]
         },
         {
           "id": "grand-final",
           "label": "Гранд-финал",
           "matches": [
-            { "id": "cs2-aug-grand-final", "status": "scheduled", "date": "2026-09-06", "dateDisplay": "6 сентября", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "Победитель В7", "team2": "Победитель Н6" }
+            { "id": "cs2-aug-grand-final", "status": "scheduled", "date": "2026-09-06", "dateDisplay": "6 сентября", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "bobr1ki", "team2": "Победитель Н6", "note": "bobr1ki ожидают победителя Н6. В Faceit команда указана как RSATU." }
           ]
         }
       ]

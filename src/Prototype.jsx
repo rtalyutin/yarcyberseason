@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { List, X } from "@phosphor-icons/react";
+import { MatchdayPage } from "./components/Matchday.jsx";
 import {
   archivedTournaments,
   currentTournament,
@@ -67,6 +69,12 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 
 function PageFrame({ children, navigate, path }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isMatchday = path === currentTournament.matchday?.route;
+  const pageNav = isMatchday ? [
+    { label: "Турнир", href: `/tournaments/${currentTournament.id}` },
+    { label: "Matchday", href: currentTournament.matchday.route },
+    { label: "Трансляции", href: "/broadcasts" },
+  ] : navItems;
 
   const go = (href) => {
     setMenuOpen(false);
@@ -74,15 +82,16 @@ function PageFrame({ children, navigate, path }) {
   };
 
   return (
-    <div className="site-shell">
+    <div className={`site-shell${isMatchday ? " site-shell--matchday" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
           <img src="/assets/ycs-logo.jpg" alt="ЯКС" />
           <span>YAR CYBER SEASON</span>
         </button>
+        {isMatchday && <p className="md-mobile-title">Matchday</p>}
         <nav className="desktop-nav" aria-label="Основная навигация">
-          {navItems.map((item) => (
+          {pageNav.map((item) => (
             <button
               key={item.href}
               type="button"
@@ -93,13 +102,13 @@ function PageFrame({ children, navigate, path }) {
             </button>
           ))}
         </nav>
-        <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen}>
-          {menuOpen ? "Закрыть" : "Меню"}
+        <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
+          {isMatchday ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>
       </header>
       {menuOpen && (
         <nav className="mobile-nav" aria-label="Мобильная навигация">
-          {navItems.map((item) => (
+          {pageNav.map((item) => (
             <button key={item.href} type="button" onClick={() => go(item.href)}>
               {item.label}
             </button>
@@ -616,166 +625,6 @@ function HistoricalMatchesStage({ stage, number }) {
   );
 }
 
-function MatchdayMeta({ match }) {
-  return <p className="matchday-meta"><span>{match.dateDisplay || "Сегодня"}</span><span>{match.bestOf || "BO1"}</span><span>{match.time || "Время уточняется"}</span></p>;
-}
-
-function MatchdayFeaturedMatch({ match, tournament, roundLabel }) {
-  return (
-    <article className="matchday-featured-match">
-      <div className="matchday-featured-heading">
-        <p className="eyebrow">{roundLabel} / главная пара</p>
-        <h1>Fight<br />sheet</h1>
-      </div>
-      <div className="matchday-featured-versus">
-        <TeamIdentity tournament={tournament} team={match.team1} size="feature" />
-        <strong>VS</strong>
-        <TeamIdentity tournament={tournament} team={match.team2} align="end" size="feature" />
-      </div>
-      <MatchdayMeta match={match} />
-    </article>
-  );
-}
-
-function MatchdayRundownMatch({ match, tournament }) {
-  return (
-    <article className="matchday-rundown-match">
-      <div className="matchday-rundown-versus">
-        <TeamIdentity tournament={tournament} team={match.team1} size="feature" />
-        <strong>VS</strong>
-        <TeamIdentity tournament={tournament} team={match.team2} align="end" size="feature" />
-      </div>
-      <MatchdayMeta match={match} />
-    </article>
-  );
-}
-
-function MatchdayRundownResult({ match, tournament }) {
-  return (
-    <article className="matchday-rundown-match is-completed">
-      <div className="matchday-rundown-versus">
-        <TeamIdentity tournament={tournament} team={match.team1} size="feature" />
-        <strong>{match.score1}:{match.score2}</strong>
-        <TeamIdentity tournament={tournament} team={match.team2} align="end" size="feature" />
-      </div>
-      <p className="matchday-meta"><span>Завершён</span><span>{match.bestOf || "BO1"}</span><span>{match.roundRecord ? `Раунды ${match.roundRecord}` : match.dateDisplay}</span></p>
-    </article>
-  );
-}
-
-function CompletedMatchdayResult({ match, tournament }) {
-  const hasPublishedScore = Number.isFinite(match.score1) && Number.isFinite(match.score2);
-  const firstWon = hasPublishedScore ? match.score1 > match.score2 : match.winner === match.team1;
-  const winner = firstWon ? match.team1 : match.team2;
-  const loser = firstWon ? match.team2 : match.team1;
-  const winningScore = firstWon ? match.score1 : match.score2;
-  const losingScore = firstWon ? match.score2 : match.score1;
-
-  return (
-    <article className="matchday-result-item">
-      <TeamIdentity tournament={tournament} team={winner} size="compact" />
-      <strong>{hasPublishedScore ? `${winningScore}:${losingScore}` : "Победа · счёт уточняется"}</strong>
-      <TeamIdentity tournament={tournament} team={loser} align="end" size="compact" />
-    </article>
-  );
-}
-
-function MatchdayPage({ tournament, navigate }) {
-  const config = tournament.matchday;
-  const nextStage = tournament.stages.find((stage) => stage.id === config.nextStageId);
-  const nextRoundIds = Array.isArray(config.nextRoundIds) && config.nextRoundIds.length > 0
-    ? config.nextRoundIds
-    : config.nextRoundId ? [config.nextRoundId] : [];
-  const nextRounds = nextRoundIds
-    .map((roundId) => nextStage?.rounds?.find((round) => round.id === roundId))
-    .filter(Boolean);
-  const nextMatches = nextRounds.length > 0 ? nextRounds.flatMap((round) => round.matches || []) : nextStage?.matches || [];
-  const previousStage = tournament.stages.find((stage) => stage.id === config.previousStageId);
-  const previousRoundIds = Array.isArray(config.previousRoundIds) && config.previousRoundIds.length > 0
-    ? config.previousRoundIds
-    : config.previousRoundId ? [config.previousRoundId] : [];
-  const previousRounds = previousRoundIds
-    .map((roundId) => previousStage?.rounds?.find((round) => round.id === roundId))
-    .filter(Boolean);
-  const previousMatches = previousRounds.length > 0 ? previousRounds.flatMap((round) => round.matches || []) : previousStage?.matches || [];
-  const scheduledMatches = nextMatches.filter((match) => !["walkover", "bye", "completed"].includes(match.status));
-  const currentCompletedMatches = nextMatches.filter((match) => match.status === "completed");
-  const automaticAdvances = nextMatches.filter((match) => ["walkover", "bye"].includes(match.status));
-  const completedMatches = previousMatches.filter((match) => match.status === "completed");
-  const walkovers = previousMatches.filter((match) => match.status === "walkover");
-  const previousByes = previousMatches.filter((match) => match.status === "bye");
-  const featuredMatch = scheduledMatches[0];
-  const rundownMatches = scheduledMatches.slice(1);
-  const roundLabel = config.dateLabel?.split("·")[0]?.trim() || nextRounds[0]?.label || nextStage?.title || "Текущий круг";
-  const previousRoundLabel = config.previousLabel || (previousRounds.length === 1 ? previousRounds[0]?.label : null) || previousStage?.title?.split("·")[0]?.trim() || "Предыдущий круг";
-
-  return (
-    <main className="matchday-page matchday-page--fight-sheet">
-      <section className="container matchday-fight-sheet" aria-labelledby="matchday-title">
-        <div className="matchday-fight-sheet-topline">
-          <p>{config.dateDisplay || config.dateLabel}</p>
-          <span>{config.formatRule || "CS2 / август 2026"}</span>
-        </div>
-        <div className="matchday-fight-sheet-grid">
-          {featuredMatch && <MatchdayFeaturedMatch match={featuredMatch} tournament={tournament} roundLabel={roundLabel} />}
-          <section className="matchday-rundown" aria-labelledby="matchday-title">
-            <div className="matchday-rundown-heading">
-              <p className="eyebrow">{config.matchdayLabel || roundLabel}</p>
-              <h2 id="matchday-title">{rundownMatches.length > 0 ? "Остальные пары" : currentCompletedMatches.length > 0 ? "Результаты сегодня" : "Остальные пары"}</h2>
-            </div>
-            {rundownMatches.map((match) => <MatchdayRundownMatch key={match.id} match={match} tournament={tournament} />)}
-            {currentCompletedMatches.map((match) => <MatchdayRundownResult key={match.id} match={match} tournament={tournament} />)}
-          </section>
-        </div>
-      </section>
-
-      <details className="container matchday-results">
-        <summary>
-          <span><b>{previousRoundLabel}</b> · Итоги</span>
-          <span className="matchday-results-open-label">{previousMatches.length || 0} результатов · открыть</span>
-          <span className="matchday-results-close-label">{previousMatches.length || 0} результатов · закрыть</span>
-        </summary>
-        <div className="matchday-results-body">
-          <div className="matchday-results-ribbon">
-            {completedMatches.map((match) => <CompletedMatchdayResult key={match.id} match={match} tournament={tournament} />)}
-          </div>
-          {walkovers.length > 0 && (
-            <div className="matchday-walkovers">
-              <strong>Технические победы</strong>
-              <div>{walkovers.map((match) => <TeamIdentity key={match.id} tournament={tournament} team={match.team1} size="compact" />)}</div>
-            </div>
-          )}
-          {previousByes.length > 0 && (
-            <div className="matchday-walkovers">
-              <strong>Победы без игры</strong>
-              <div>{previousByes.map((match) => <TeamIdentity key={match.id} tournament={tournament} team={match.team1} size="compact" />)}</div>
-            </div>
-          )}
-        </div>
-      </details>
-
-      {automaticAdvances.length > 0 && (
-        <section className="container matchday-byes" aria-label="Проходы без игры">
-          <strong>Проход без игры</strong>
-          <div>{automaticAdvances.map((match) => <TeamIdentity key={match.id} tournament={tournament} team={match.team1} size="compact" />)}</div>
-        </section>
-      )}
-
-      <section className="container matchday-partners" aria-label="Партнёры турнира">
-        <div className="matchday-partners-title"><p>При <span>поддержке</span></p></div>
-        <div className="matchday-partner-list">
-          {config.partners.map((partner) => (
-            <article key={partner.name} className={partner.logo ? "has-logo" : ""}>
-              {partner.logo ? <img src={partner.logo} alt={partner.name} /> : <><strong>{partner.name}</strong><span>{partner.role}</span></>}
-            </article>
-          ))}
-        </div>
-        <ActionButton action={{ label: "Стать партнёром", target: "mailto:info@ycs.bar?subject=Партнёрство%20с%20YCS" }} navigate={navigate} variant="secondary" />
-      </section>
-    </main>
-  );
-}
-
 function TournamentPage({ tournament, navigate }) {
   return (
     <main>
@@ -872,6 +721,13 @@ function NotFound({ navigate }) {
 export function Prototype() {
   const [path, setPath] = useLocationPath();
 
+  useEffect(() => {
+    if (!window.location.hash) return;
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const frame = window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
+    return () => window.cancelAnimationFrame(frame);
+  }, [path]);
+
   const navigate = (target) => {
     if (isExternal(target)) {
       window.location.href = target;
@@ -887,7 +743,7 @@ export function Prototype() {
       return;
     }
     window.history.pushState({}, "", target);
-    setPath(target);
+    setPath(new URL(target, window.location.origin).pathname);
     window.scrollTo({ top: 0, behavior: "auto" });
   };
 

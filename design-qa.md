@@ -1,65 +1,72 @@
-# Design QA — CS2 matchday / Fight Sheet
-
-## Comparison target
-
-- **Source visual truth:** `/workspace/scratch/61a5a865eaf7/generated_images/exec-9da20981-c75d-497c-ba40-8551bd902bcc.png`
-- **Source pixels:** 1536 × 1024 px.
-- **Implementation capture:** browser-rendered viewport capture emitted inline by Cloud Browser; the runtime does not persist its screenshot bytes into the workspace.
-- **Implementation route:** `/tournaments/cs2-august-2026/matchday`
-- **Desktop viewport:** 1363 × 936 CSS px, `devicePixelRatio: 1`.
-- **Mobile test frame:** 390 × 844 CSS px; visible DOM and interaction state checked in a same-origin responsive iframe.
-- **Primary state:** second-round schedule visible; first-round results collapsed by default.
-- **Secondary state:** first-round accordion expanded with four played matches and four technical wins.
-
-## Full-view comparison
-
-- The final source image and final desktop render were inspected in the same QA pass.
-- Preserved the selected Option 2 hierarchy: date rail, oversized condensed `FIGHT SHEET`, one featured pairing, three compact remaining pairings, first-round result ribbon, automatic advances, and partner band.
-- Preserved the approved palette and restraint: near-black field, white condensed display type, cobalt accents, thin technical rules, no gradients and no decorative card stack.
-- The live site shell and available team assets intentionally replace the mock’s fictional header treatment and unavailable official team marks. Default per-tournament team logos remain visible until the organiser swaps the files.
-
-## Focused regions
-
-- **Featured match:** HellWarriors vs SAITENxBAD.RABBIT is the visual anchor; both logos and full team names are visible.
-- **Remaining matches:** Hunger to victories, GoonGang, Resistance, PIVNAYA KEGA, bobr1ki and DealDucks render without clipping.
-- **Results accordion:** closed on initial load; open state shows four score lines (`13:1`, `13:2`, `13:1`, `13:1`) plus four technical winners.
-- **Automatic advances:** Веселый гроб, PSB_Bank, Flouk Team and CipHer remain visible outside the closed results block.
-- **Partners:** three partner slots render; the actual `/assets/partners/dodo-pizza.jpg` asset loaded at its native 944 × 355 px dimensions.
-
-## Comparison history
-
-### Iteration 1 — resolved P2
-
-- **[P2] Featured eyebrow collided with the oversized heading.**
-  - Fix: separated the eyebrow and heading with an explicit 24 px gap and stable stacking order.
-- **[P2] `Hunger to victories` was ellipsized in the rundown.**
-  - Fix: enabled controlled multi-line team names in rundown rows.
-
-### Iteration 2 — resolved P2
-
-- **[P2] A React warning was emitted because `defaultOpen` was forwarded to `<details>`.**
-  - Fix: removed the unsupported prop; native `<details>` now starts closed and toggles without console warnings.
-- **[P2] Long team names could be truncated in the four-column result ribbon.**
-  - Fix: enabled two-line wrapping inside result identities.
-
-## Browser verification
-
-- Desktop: 4 scheduled pairings, 4 automatic advances and 3 partners detected.
-- Desktop: no horizontal overflow and no broken images.
-- Accordion: toggled open and closed successfully; expanded DOM contains 4 completed matches and 4 technical wins.
-- Mobile: the 390 × 844 rendered DOM exposes the mobile `Меню`, all four second-round pairings, the collapsed result summary, automatic advances and all three partner entries.
-- Mobile accordion: expanded successfully and exposed every score and technical winner.
-- Console: no application warnings or errors. One Chrome-extension metadata error is external browser tooling noise and does not originate from the site.
-- Build: Vite production build passed.
-- Worker contract: all 4 Sites tests passed.
-
-## Findings
-
-- No remaining P0, P1 or P2 issues.
-- **[P3] Asset fidelity:** most current team marks are deliberate tournament-scoped defaults. Replace the corresponding SVG files in `public/assets/teams/cs2-august-2026/` when official logos arrive; no component change is required.
-
-## Open questions
-
-- Match times for the second round are still marked `Время уточняется`, matching the supplied data.
+# Matchday design QA
 
 final result: passed
+
+## Visual target and evidence
+
+Approved direction: desktop option 2 + mobile option 3, combined into one date-driven responsive page.
+
+Source visuals from the approved design turn:
+- Desktop: `generated_images/exec-9f072a0b-6dca-41dc-b4c9-bb64aa3f5eb3.png` — 1487 × 1058 pixels.
+- Mobile: `generated_images/exec-ff6984e6-45e6-483b-933a-2f860cc255ed.png` — 852 × 1848 pixels (approximately 426 × 924 CSS pixels at 2×).
+- Combined board: `generated_images/exec-4f0c0668-823e-4921-babf-0c3d70b8b0f2.png`.
+
+Browser-rendered implementation evidence:
+- [Desktop results](docs/matchday-qa/desktop-final.jpg)
+- [Mobile upcoming match](docs/matchday-qa/mobile-final.jpg)
+- [Mobile results and partners after scrolling](docs/matchday-qa/mobile-footer.jpg)
+
+Route: `/tournaments/cs2-august-2026/matchday`.
+Desktop comparison state: `?date=2026-09-04`, two completed matches.
+Mobile comparison state: `?date=2026-09-05`, one scheduled match and the latest results.
+
+The browser API does not expose viewport resizing. A temporary, same-origin iframe harness exercised actual CSS layout at 1440 × 1024, 800 × 1024, 430 × 932, and 375 × 812. It was removed before the production build. Browser DPR was 1. The 1440 viewport was displayed at 0.875×; its saved capture is 1260 × 896 pixels. The 430 viewport was displayed at approximately 0.961×; its captures are 413 × 896 pixels. The browser's desktop scrollbar consumes 15 CSS pixels on mobile. Comparisons accounted for these density differences and the harness controls at the top; this is responsive web QA, not hardware phone testing or a claim of pixel-identical rendering.
+
+Source and implementation images were opened together in the same comparison input for desktop and mobile, including post-fix captures. Full-view checks covered hierarchy, results, scheduled match, navigation, and partner band. Readable result/map labels and the separate mobile footer capture covered the focused content regions. No generated replacement assets were used.
+
+## Comparison history and findings
+
+1. **P2 — desktop result rows too tall.** The first implementation placed advancement text below the maps, increasing row height and moving the next-match area downward. Fixed by aligning advancement text with the map row on desktop, preserving normal document flow on mobile. Post-fix desktop evidence shows both results, next match, and the partner band in the intended order and proportions.
+2. **P2 — excessive mobile spacing.** The first mobile render accumulated excessive spacing in the return link, date tabs, upcoming-match area, and compact results. Reduced those margins/paddings and aligned the two team names. Post-fix mobile evidence shows the main matchup, both result rows, and a short remaining scroll to the partners. The actual consequence sentence wraps naturally; it is not compressed to reproduce generated-image text metrics.
+3. **P2 — selected date lost blue text on hover.** Restricted hover styling to unselected date tabs. The selected tab retains its cobalt text and underline.
+4. **P2 — tablet menu icon inherited a small text size.** Defined a 28-pixel icon and at least a 44-pixel button beyond the phone breakpoint. Verified a 54 × 49 CSS-pixel target at width 800.
+
+No actionable P0/P1/P2 findings remain at the tested widths.
+
+## Required fidelity surfaces
+
+- **Fonts/typography:** existing local YCS Sans/DejaVu Sans regular and bold; clear display/metadata hierarchy, tabular series scores, readable Russian labels. Real font metrics cause minor wrapping differences from the generated reference. Team names remain complete; no ellipsis hides participants.
+- **Spacing/layout:** flat full-width desktop result rows, central series scores, compact next-match strip; mobile uses stacked team/score rows, full-width primary action, and a two-team upcoming panel. No horizontal overflow: measured 415/415 and 360/360 CSS pixels for content/scroll width in the mobile frames; 800/800 on tablet.
+- **Colors/tokens:** near-black/navy `#03070e`, cobalt `#2f83ff`, white `#f5f6fa`, muted `#aab1c1`, thin gray dividers. No gradients. Wins also use a check and score, not color alone.
+- **Images/icons:** real supplied YCS, team, and Dodo assets retained. Icons use the installed Phosphor library. No CSS or generated logo substitutes. Partner text remains text where the source data supplies no logo.
+- **Copy/content:** canonical tournament names, BO formats, calendar dates, confirmed series and map scores. No fabricated start time, stream URL, map result, or grand-final opponent. Technical results remain 1:0. Data is derived from tournament JSON.
+
+## Interaction and runtime checks
+
+- Date tabs select 4/5/6 September and update the query string.
+- Keyboard End and arrow navigation select/focus date tabs.
+- Browser Back restores the selected date, including after leaving the Matchday route.
+- Resizing from desktop to mobile and between phone sizes preserves the selected date.
+- Mobile menu opens and closes, exposing the expected destinations.
+- “Открыть сетку” reaches the actual playoff section; measured section top approximately 0 pixels after navigation.
+- “Трансляции” opens the existing broadcasts page. No livestream was invented.
+- 6 September shows bobr1ki versus the winner of Н6 without an invented result.
+- Completed-tournament and empty-data behavior covered by model tests.
+- Browser console checked during the QA session: no new application errors. Older browser-extension and unrelated preview messages were excluded.
+- `npm run build`: passed. Existing global CSS still references two absent Nimbus font files; Matchday uses the available YCS Sans fonts and does not depend on those declarations.
+- `npm run test:sites`: 4/4 passed.
+- `npm run test:matchday`: 5/5 passed.
+- `git diff --check`: passed.
+
+## Follow-up polish and test limits
+
+P3: generated-image font rasterization and real browser metrics are not identical. Browser-emulated sizes were tested; native iOS/Android hardware and screen-reader software were not available. These do not block the implemented web layout.
+
+## Implementation checklist
+
+- [x] Shared date-driven desktop/mobile Matchday.
+- [x] Exact series/map orientation and technical-win handling.
+- [x] Functional bracket, broadcast, date, history, and menu controls.
+- [x] Rechecked desktop and mobile after visual fixes.
+- [x] Production build and focused regression checks.
+- [x] Temporary QA harness excluded from production.

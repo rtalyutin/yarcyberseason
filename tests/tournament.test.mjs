@@ -31,14 +31,18 @@ test("Search covers both opponents, respects the phase and handles missing resul
   assert.equal(filterTournamentMatches(model.matches, "all", "Несуществующая команда").length, 0);
 });
 
-test("Current matches preserve the pending finals, corrected PSB result and technical 1:0", () => {
+test("Current matches preserve the lower-final result, scheduled grand final and technical 1:0", () => {
   const snapshot = JSON.stringify(current);
   const model = getTournamentModel(current);
   const upcoming = model.matches.filter((match) => !isFinished(match));
-  assert.equal(upcoming.length, 2);
-  assert.equal(upcoming[0].date, "2026-09-05");
-  assert.equal(upcoming[1].date, "2026-09-06");
+  assert.equal(upcoming.length, 1);
+  assert.equal(upcoming[0].date, "2026-09-06");
+  assert.equal(upcoming[0].time, "15:00");
+  assert.equal(upcoming[0].team2, "PIVNAYA KEGA");
   assert.ok(upcoming.every((match) => !hasScore(match)));
+  const lowerFinal = model.matches.find((match) => match.id === "cs2-aug-lower-final");
+  assert.deepEqual([lowerFinal.score1, lowerFinal.score2], [2, 1]);
+  assert.equal(lowerFinal.roundRecord, "36:28");
   const psb = model.matches.find((match) => match.phase === "playoffs" && [match.team1, match.team2].includes("GoonGang") && [match.team1, match.team2].includes("PSB_Bank"));
   assert.deepEqual([psb.score1, psb.score2], [1, 2]);
   assert.ok(model.matches.filter((match) => match.status === "walkover").every((match) => Math.max(match.score1, match.score2) === 1));

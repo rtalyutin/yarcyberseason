@@ -364,7 +364,7 @@
       "id": "playoffs",
       "type": "double_elimination",
       "title": "Плей-офф · Double Elimination",
-      "notice": "4 сентября bobr1ki (в Faceit — RSATU) вышли в гранд-финал, обыграв SAITEN x BAD.RABBIT 2:0. PIVNAYA KEGA победили GoonGang 2:0 и 5 сентября сыграют с SAITEN x BAD.RABBIT в финале нижней сетки.",
+      "notice": "5 сентября PIVNAYA KEGA выиграли финал нижней сетки у SAITEN x BAD.RABBIT со счётом 2:1 и вышли в гранд-финал. 6 сентября в 15:00 PIVNAYA KEGA сыграют с bobr1ki.",
       "formatNotes": [
         { "label": "Стартовый посев", "value": "1–8 · 3–6 · 2–7 · 4–5" },
         { "label": "Разведение посевов", "value": "1/3/6/8 · 2/4/5/7" },
@@ -426,14 +426,14 @@
           "id": "lower-final",
           "label": "Финал нижней сетки",
           "matches": [
-            { "id": "cs2-aug-lower-final", "status": "scheduled", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO5", "sourceLabel": "Н6", "team1": "PIVNAYA KEGA", "team2": "SAITEN x BAD.RABBIT" }
+            { "id": "cs2-aug-lower-final", "status": "completed", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO5", "sourceLabel": "Н6", "team1": "PIVNAYA KEGA", "score1": 2, "team2": "SAITEN x BAD.RABBIT", "score2": 1, "roundRecord": "36:28", "maps": [{ "name": "Mirage", "score1": 13, "score2": 10 }, { "name": "Ancient", "score1": 10, "score2": 13 }, { "name": "Anubis", "score1": 13, "score2": 5 }], "note": "PIVNAYA KEGA победили 2:1. Счёт по картам: Mirage 13:10, Ancient 10:13, Anubis 13:5. Раунды: 36:28." }
           ]
         },
         {
           "id": "grand-final",
           "label": "Гранд-финал",
           "matches": [
-            { "id": "cs2-aug-grand-final", "status": "scheduled", "date": "2026-09-06", "dateDisplay": "6 сентября", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "bobr1ki", "team2": "Победитель Н6", "note": "bobr1ki ожидают победителя Н6. В Faceit команда указана как RSATU." }
+            { "id": "cs2-aug-grand-final", "status": "scheduled", "date": "2026-09-06", "dateDisplay": "6 сентября", "time": "15:00", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "bobr1ki", "team2": "PIVNAYA KEGA", "note": "Гранд-финал начнётся 6 сентября в 15:00. В Faceit команда bobr1ki указана как RSATU." }
           ]
         }
       ]

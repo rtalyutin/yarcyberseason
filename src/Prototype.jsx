@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { List, X } from "@phosphor-icons/react";
 import { MatchdayPage } from "./components/Matchday.jsx";
+import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import {
   archivedTournaments,
   currentTournament,
@@ -70,7 +71,12 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 function PageFrame({ children, navigate, path }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const isMatchday = path === currentTournament.matchday?.route;
-  const pageNav = isMatchday ? [
+  const isTournament = path.startsWith("/tournaments/") && !isMatchday;
+  const pageNav = isTournament ? [
+    { label: "Турниры", href: "/" },
+    { label: "Matchday", href: currentTournament.matchday.route },
+    { label: "Трансляции", href: "/broadcasts" },
+  ] : isMatchday ? [
     { label: "Турнир", href: `/tournaments/${currentTournament.id}` },
     { label: "Matchday", href: currentTournament.matchday.route },
     { label: "Трансляции", href: "/broadcasts" },
@@ -82,7 +88,7 @@ function PageFrame({ children, navigate, path }) {
   };
 
   return (
-    <div className={`site-shell${isMatchday ? " site-shell--matchday" : ""}`}>
+    <div className={`site-shell${isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
@@ -95,7 +101,7 @@ function PageFrame({ children, navigate, path }) {
             <button
               key={item.href}
               type="button"
-              className={path === item.href ? "nav-link is-active" : "nav-link"}
+              className={path === item.href || (isTournament && item.href === "/") ? "nav-link is-active" : "nav-link"}
               onClick={() => go(item.href)}
             >
               {item.label}
@@ -103,7 +109,7 @@ function PageFrame({ children, navigate, path }) {
           ))}
         </nav>
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
-          {isMatchday ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
+          {isMatchday || isTournament ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>
       </header>
       {menuOpen && (
@@ -117,12 +123,13 @@ function PageFrame({ children, navigate, path }) {
         </nav>
       )}
       {children}
-      <Footer navigate={navigate} />
+      <Footer navigate={navigate} compact={isTournament} />
     </div>
   );
 }
 
-function Footer({ navigate }) {
+function Footer({ navigate, compact = false }) {
+  if (compact) return <footer className="tn-footer"><p>© 2026 YAR CYBER SEASON. Все права защищены.</p><nav aria-label="Навигация в подвале"><button type="button" onClick={() => navigate("/")}>Турниры</button><button type="button" onClick={() => navigate(currentTournament.matchday.route)}>Matchday</button><button type="button" onClick={() => navigate("/broadcasts")}>Трансляции</button></nav></footer>;
   return (
     <footer className="footer">
       <div className="footer-rule" />
@@ -395,15 +402,15 @@ function RoundRobinStage({ stage, number, tournament }) {
 
   return (
     <section className="container tournament-stage" id={stage.id}>
-      <StageTitle number={number} title={stage.title} description={stage.notice || "Положение команд сохранено в отдельном JSON турнира."} />
+      <StageTitle number={number} title={stage.title} description={stage.notice} />
       <div className="group-tabs" role="tablist" aria-label="Группы турнира">
         {stage.groups.map((entry) => (
           <button
             key={entry.id}
-            className={entry.id === group.id ? "group-tab is-active" : "group-tab"}
+            className={entry.id === group?.id ? "group-tab is-active" : "group-tab"}
             type="button"
             role="tab"
-            aria-selected={entry.id === group.id}
+            aria-selected={entry.id === group?.id}
             onClick={() => setGroupId(entry.id)}
           >
             {entry.title}
@@ -441,7 +448,7 @@ function RoundRobinStage({ stage, number, tournament }) {
                 </td><td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{hasMapRecord && <td className="map-record">{row.mapRecord || "—"}</td>}<td className="points">{row.finalLabel || row.points}</td>
               </tr>
             )) : (
-              <tr className="empty-table-row"><td colSpan={hasMapRecord ? "7" : "6"}><StatusDot state="upcoming" /> {group.emptyState || "Данные этапа появятся после старта"}</td></tr>
+              <tr className="empty-table-row"><td colSpan={hasMapRecord ? "7" : "6"}><StatusDot state="upcoming" /> {group?.emptyState || "Данные этапа появятся после старта"}</td></tr>
             )}
           </tbody>
         </table>
@@ -626,21 +633,13 @@ function HistoricalMatchesStage({ stage, number }) {
 }
 
 function TournamentPage({ tournament, navigate }) {
-  return (
-    <main>
-      <TournamentHero tournament={tournament} navigate={navigate} />
-      <InfoBand tournament={tournament} />
-      <TournamentPerks tournament={tournament} />
-      {tournament.stages.map((stage, index) => {
-        const number = String(index + 1).padStart(2, "0");
-        if (stage.type === "round_robin") return <RoundRobinStage key={stage.id} stage={stage} number={number} tournament={tournament} />;
-        if (stage.type === "match_schedule") return <ScheduleStage key={stage.id} stage={stage} number={number} tournament={tournament} />;
-        if (stage.type === "swiss") return <SwissStage key={stage.id} stage={stage} number={number} />;
-        if (stage.type === "historical_matches") return <HistoricalMatchesStage key={stage.id} stage={stage} number={number} />;
-        return <BracketStage key={stage.id} stage={stage} number={number} />;
-      })}
-    </main>
-  );
+  const renderStage = (stage, number) => {
+    if (stage.type === "round_robin") return <RoundRobinStage stage={stage} number={number} tournament={tournament} />;
+    if (stage.type === "swiss") return <SwissStage stage={stage} number={number} />;
+    if (stage.rounds) return <BracketStage stage={stage} number={number} />;
+    return <section className="tn-info"><h2>{stage.title}</h2>{stage.notice && <p>{stage.notice}</p>}</section>;
+  };
+  return <TournamentNavigator key={tournament.id} tournament={tournament} navigate={navigate} renderStage={renderStage} renderRewards={() => <TournamentPerks tournament={tournament} />} />;
 }
 
 function ResultsPage({ navigate }) {
@@ -734,6 +733,8 @@ export function Prototype() {
       return;
     }
     if (target.startsWith("#")) {
+      window.history.pushState({}, "", target);
+      window.dispatchEvent(new Event("hashchange"));
       const element = document.querySelector(target);
       if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
       return;

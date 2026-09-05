@@ -8,6 +8,8 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## YCS design decisions
 
+- Tournament detail pages use the selected universal archive navigator layout (option 3): compact status/date header, left section navigation, central searchable match list, phase filters and progressive reveal. The same component serves every tournament; sections, counts, statuses, scores, table columns and bracket structure derive from its JSON. Preserve partial archives and unknown dates. Do not hardcode a champion, tournament slug, sample result count or final-stage story into the layout. On mobile, the sidebar becomes a wrapping section menu. Keep Matchday as its separate approved surface.
+
 - The selected visual direction is an editorial esports interface: near-black/navy canvas, cobalt blue accents, white condensed-feeling type, thin technical dividers, and sparse warm status nodes. Do not use gradients.
 - The real YCS logo is `public/assets/ycs-logo.jpg`; preserve it as the primary brand mark.
 - The tournament hero is a status and context panel only. Round-robin tables and playoff brackets live in independent lower sections.

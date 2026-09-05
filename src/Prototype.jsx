@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { List, X } from "@phosphor-icons/react";
+import { ArrowUpRight, CaretRight, List, X } from "@phosphor-icons/react";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import {
@@ -70,9 +70,16 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 
 function PageFrame({ children, navigate, path }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isHome = path === "/";
   const isMatchday = path === currentTournament.matchday?.route;
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
-  const pageNav = isTournament ? [
+  const homeNav = [
+    { label: "Турниры", href: "/" },
+    { label: "Matchday", href: currentTournament.matchday.route },
+    { label: "Архив", href: "/results" },
+    { label: "О проекте", href: "/about" },
+  ];
+  const pageNav = isHome ? homeNav : isTournament ? [
     { label: "Турниры", href: "/" },
     { label: "Matchday", href: currentTournament.matchday.route },
     { label: "Трансляции", href: "/broadcasts" },
@@ -88,7 +95,7 @@ function PageFrame({ children, navigate, path }) {
   };
 
   return (
-    <div className={`site-shell${isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
+    <div className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
@@ -109,7 +116,7 @@ function PageFrame({ children, navigate, path }) {
           ))}
         </nav>
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
-          {isMatchday || isTournament ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
+          {isHome || isMatchday || isTournament ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>
       </header>
       {menuOpen && (
@@ -123,7 +130,7 @@ function PageFrame({ children, navigate, path }) {
         </nav>
       )}
       {children}
-      <Footer navigate={navigate} compact={isTournament} />
+      {!isHome && <Footer navigate={navigate} compact={isTournament} />}
     </div>
   );
 }
@@ -177,91 +184,103 @@ function PageIntro({ eyebrow, title, body, action, navigate }) {
   );
 }
 
+function getHomePlayoffMatch(tournament) {
+  const playoff = tournament.stages?.find((stage) => stage.id === "playoffs");
+  if (!playoff?.rounds) return null;
+  const rounds = playoff.rounds.flatMap((round) => round.matches.map((match) => ({ ...match, roundLabel: round.label })));
+  return rounds.find((match) => match.status !== "completed" && match.id.includes("grand-final"))
+    || rounds.find((match) => match.status !== "completed")
+    || rounds.at(-1)
+    || null;
+}
+
+function HomeGameMark({ src, label }) {
+  return <img className="home-game-mark" src={src} alt={label} />;
+}
+
 function HomePage({ navigate }) {
   const archivePreview = archivedTournaments.slice(0, 3);
-  const nextDate = nextTournament.homeDate || {
-    days: nextTournament.dates.display,
-    month: "",
-    marker: `2026 / ${nextTournament.discipline}`,
-  };
+  const featuredMatch = getHomePlayoffMatch(currentTournament);
+  const registration = nextTournament.timeline?.find((item) => item.label.toLowerCase().includes("регистрац"));
+  const deadline = registration?.date || nextTournament.facts?.find((fact) => fact.toLowerCase().includes("регистрац"));
 
   return (
-    <main>
-      <section className="home-hero container">
-        <div className="hero-main">
-          <p className="eyebrow">Ярославль / киберспорт / сезон 2026</p>
-          <h1 className="hero-title">YAR<br />CYBER<br /><span>SEASON</span></h1>
-          <p className="hero-subtitle">Открытые турниры. Прямая конкуренция. Одна сезонная линия.</p>
-        </div>
-        <aside className="home-status-panel">
-          <div className="panel-topline">
-            <StatusPill state={getTournamentStatusState(currentTournament)}>{currentTournament.statusLabel}</StatusPill>
-            <span className="panel-index">01 / 03</span>
-          </div>
-          <p className="panel-game">{currentTournament.discipline}</p>
-          <h2>{currentTournament.title}</h2>
-          <p className="panel-date">{currentTournament.dates.display}</p>
-          <div className="panel-facts">
-            {currentTournament.facts.map((fact) => <span key={fact}>{fact}</span>)}
-          </div>
-          <ActionButton action={{ label: "Открыть текущий турнир", target: `/tournaments/${currentTournament.slug}` }} navigate={navigate} />
-        </aside>
-      </section>
-
-      <section className="container current-strip">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">01 / Текущий статус</p>
-            <h2>Играем прямо сейчас</h2>
-          </div>
-          <button className="text-link" type="button" onClick={() => navigate(`/tournaments/${currentTournament.slug}`)}>Этапы и таблицы</button>
-        </div>
-        <div className="status-grid">
-          {currentTournament.timeline.map((item, index) => (
-            <div className="timeline-card" key={item.label}>
-              <p className="timeline-no">0{index + 1}</p>
-              <StatusDot state={item.state} />
-              <h3>{item.label}</h3>
-              <p>{item.date}</p>
+    <>
+      <main className="home-page">
+        <section className="home-conversion" aria-labelledby="home-title">
+          <img className="home-conversion-art" src="/assets/home-team-stage.webp" alt="" aria-hidden="true" />
+          <div className="home-conversion-inner container">
+            <div className="home-conversion-copy">
+              <p className="home-kicker">YAR CYBER SEASON / 2026</p>
+              <h1 id="home-title">Твоя команда.<br /><span>Твой сезон.</span></h1>
+              <div className="home-next-lockup">
+                <HomeGameMark src="/assets/games/dota2.svg" label="Dota 2" />
+                <div>
+                  <p>{nextTournament.title}</p>
+                  <span>{nextTournament.season}</span>
+                </div>
+              </div>
+              <p className="home-next-date">{nextTournament.dates.display}</p>
+              <ul className="home-facts" aria-label="Условия участия">
+                {nextTournament.facts?.slice(0, 3).map((fact) => <li key={fact}>{fact}</li>)}
+              </ul>
+              {deadline && <p className="home-deadline">Регистрация {deadline}</p>}
+              <div className="home-conversion-actions">
+                <ActionButton action={nextTournament.primaryAction} navigate={navigate} />
+                <button className="home-subtle-link" type="button" onClick={() => navigate(`/tournaments/${nextTournament.slug}#format`)}>
+                  Условия участия <ArrowUpRight weight="bold" aria-hidden="true" />
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="container next-feature">
-        <div className="next-feature-copy">
-          <p className="eyebrow">02 / Следующий турнир</p>
-          <h2>{nextTournament.discipline}<br /><span>{nextTournament.statusLabel}</span></h2>
-          <p>{nextTournament.summary}</p>
-          <ActionButton action={{ label: "Открыть анонс", target: `/tournaments/${nextTournament.slug}` }} navigate={navigate} />
-        </div>
-        <div className="next-feature-meta">
-          <StatusPill state={getTournamentStatusState(nextTournament)}>{nextTournament.statusLabel}</StatusPill>
-          <strong>{nextDate.days}<br />{nextDate.month}</strong>
-          <span>{nextDate.marker}</span>
-        </div>
-      </section>
-
-      <section className="container archive-preview">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">03 / Архив</p>
-            <h2>Сохранённые результаты</h2>
           </div>
-          <button className="text-link" type="button" onClick={() => navigate("/results")}>Весь архив</button>
-        </div>
-        <div className="archive-preview-list">
-          {archivePreview.map((tournament, index) => (
-            <button className="archive-row" key={tournament.slug} type="button" onClick={() => navigate(`/tournaments/${tournament.slug}`)}>
-              <span className="archive-row-index">АРХИВ / {String(index + 1).padStart(2, "0")}</span>
-              <span className="archive-row-title">{tournament.title}</span>
-              <span className="archive-row-date">{tournament.dates.display}</span>
-              <span className="archive-row-cta">Открыть</span>
-            </button>
-          ))}
-        </div>
-      </section>
-    </main>
+        </section>
+
+        <section className="home-season container" aria-label="Текущий сезон">
+          <div className="home-season-main">
+            <div className="home-section-intro">
+              <p className="home-kicker">СЕЙЧАС В СЕЗОНЕ</p>
+              <h2>{currentTournament.title}</h2>
+              <p>{currentTournament.dates.display}</p>
+            </div>
+            {featuredMatch && <article className="home-featured-match">
+              <div className="home-match-meta">
+                <span>{featuredMatch.dateDisplay}{featuredMatch.time ? ` · ${featuredMatch.time}` : ""}</span>
+                <span>{featuredMatch.roundLabel} · {featuredMatch.bestOf}</span>
+              </div>
+              <div className="home-match-teams">
+                <TeamIdentity tournament={currentTournament} team={featuredMatch.team1} size="feature" />
+                <span className="home-versus">VS</span>
+                <TeamIdentity tournament={currentTournament} team={featuredMatch.team2} align="end" size="feature" />
+              </div>
+              <button className="home-match-link" type="button" onClick={() => navigate(currentTournament.matchday.route)}>
+                Открыть Matchday <CaretRight weight="bold" aria-hidden="true" />
+              </button>
+            </article>}
+          </div>
+
+          <aside className="home-archive" aria-labelledby="home-archive-title">
+            <div className="home-archive-heading">
+              <p className="home-kicker">В ПРОШЛЫХ СЕЗОНАХ</p>
+              <h2 id="home-archive-title">Архив</h2>
+            </div>
+            <div className="home-archive-list">
+              {archivePreview.map((tournament) => (
+                <button className="home-archive-row" key={tournament.slug} type="button" onClick={() => navigate(`/tournaments/${tournament.slug}`)}>
+                  <HomeGameMark src={tournament.discipline === "Dota 2" ? "/assets/games/dota2.svg" : "/assets/games/counterstrike.svg"} label={tournament.discipline} />
+                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small></span>
+                  <ArrowUpRight weight="bold" aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+            <button className="home-all-results" type="button" onClick={() => navigate("/results")}>Все результаты <ArrowUpRight weight="bold" aria-hidden="true" /></button>
+          </aside>
+        </section>
+      </main>
+      <footer className="home-footer container">
+        <p>© 2026 YAR CYBER SEASON</p>
+        <nav aria-label="Подвал главной"><button type="button" onClick={() => navigate("/about")}>О проекте</button><a href="mailto:info@ycs.bar">info@ycs.bar</a></nav>
+      </footer>
+    </>
   );
 }
 

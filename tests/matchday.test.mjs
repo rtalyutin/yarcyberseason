@@ -7,16 +7,16 @@ const tournament = JSON.parse(readFileSync(new URL('../src/data/tournaments/curr
 test('current matchday shares dated results and upcoming finals', () => {
   const model = getMatchdayModel(tournament);
   assert.deepEqual(model.days.map(d => [d.date, d.completed.length, d.scheduled.length]), [
-    ['2026-09-04', 2, 0], ['2026-09-05', 0, 1], ['2026-09-06', 0, 1],
+    ['2026-09-05', 1, 0], ['2026-09-06', 0, 1],
   ]);
-  assert.equal(model.defaultDate, '2026-09-05');
+  assert.equal(model.defaultDate, '2026-09-06');
   const results = model.days[0].completed.map(getDisplayedResult);
   assert.deepEqual(results.map(r => [r.first, r.score1, r.second, r.score2, r.maps.map(m => [m.name, m.score1, m.score2])]), [
-    ['bobr1ki', 2, 'SAITEN x BAD.RABBIT', 0, [['Ancient', 13, 11], ['Mirage', 13, 8]]],
-    ['PIVNAYA KEGA', 2, 'GoonGang', 0, [['Mirage', 13, 11], ['Ancient', 13, 9]]],
+    ['PIVNAYA KEGA', 2, 'SAITEN x BAD.RABBIT', 1, [['Mirage', 13, 10], ['Ancient', 10, 13], ['Anubis', 13, 5]]],
   ]);
-  assert.match(getMatchConsequence(model.days[1].scheduled[0], model.matches), /bobr1ki.*6 сентября/);
-  assert.equal(model.days[2].scheduled[0].team2, 'Победитель Н6');
+  assert.equal(getMatchConsequence(model.days[1].scheduled[0], model.matches), null);
+  assert.equal(model.days[1].scheduled[0].team2, 'PIVNAYA KEGA');
+  assert.equal(model.days[1].scheduled[0].time, '15:00');
 });
 
 test('winner-first display reverses map scores without modifying the source', () => {

@@ -5,15 +5,23 @@
   "title": "CS2 / YCS",
   "discipline": "Counter-Strike 2",
   "season": "Yar Cyber Season 2025/26",
-  "status": "matches_live",
-  "statusLabel": "Идёт турнир",
-  "summary": "Текущий этап сезона: следите за этапами, таблицами и сеткой по мере публикации результатов.",
+  "status": "completed",
+  "statusLabel": "Турнир завершён",
+  "summary": "PIVNAYA KEGA — победитель турнира. В гранд-финале 6 сентября команда обыграла bobr1ki со счётом 3:2. Третье место — SAITEN x BAD.RABBIT.",
   "dates": {
     "start": "2026-08-22",
     "end": "2026-09-06",
     "display": "22 августа — 6 сентября 2026"
   },
   "facts": ["16 команд", "Бесплатно", "30 000 ₽", "16+"],
+  "results": {
+    "finalMatchId": "cs2-aug-grand-final",
+    "placements": [
+      { "position": 1, "team": "PIVNAYA KEGA" },
+      { "position": 2, "team": "bobr1ki" },
+      { "position": 3, "team": "SAITEN x BAD.RABBIT" }
+    ]
+  },
   "teamLogos": {
     "HellWarriors": "/assets/teams/cs2-august-2026/hellwarriors/logo.jpg",
     "PIVNAYA KEGA": "/assets/teams/cs2-august-2026/pivnaya-kega/logo.jpg",
@@ -29,8 +37,8 @@
     "Resistance": "/assets/teams/cs2-august-2026/resistance/logo.jpg"
   },
   "primaryAction": {
-    "label": "Финал нижней сетки",
-    "target": "#playoffs"
+    "label": "Итоги турнира",
+    "target": "#results"
   },
   "secondaryAction": {
     "label": "Смотреть трансляции",
@@ -40,16 +48,16 @@
   "matchday": {
     "route": "/tournaments/cs2-august-2026/matchday",
     "eyebrow": "Чат турнира / CS2",
-    "title": "Финал нижней сетки",
-    "dateLabel": "Финал нижней сетки",
-    "dateDisplay": "5 сентября 2026",
-    "matchdayLabel": "Playoffs / Lower Final",
+    "title": "Итоги турнира",
+    "dateLabel": "Гранд-финал",
+    "dateDisplay": "6 сентября 2026",
+    "matchdayLabel": "Playoffs / Grand Final",
     "formatRule": "8 команд · Double Elimination · BO5",
     "nextStageId": "playoffs",
-    "nextRoundIds": ["lower-final"],
+    "nextRoundIds": [],
     "previousStageId": "playoffs",
-    "previousRoundIds": ["upper-final", "lower-round-3"],
-    "previousLabel": "Итоги 4 сентября",
+    "previousRoundIds": ["grand-final"],
+    "previousLabel": "Итоги гранд-финала",
     "partners": [
       { "name": "Минспорт ЯО", "role": "Информационная поддержка" },
       { "name": "ФКС ЯО", "role": "Информационная поддержка" },
@@ -59,8 +67,8 @@
   "timeline": [
     { "label": "Регистрация", "state": "closed", "date": "до 1 августа" },
     { "label": "Круговой этап", "state": "closed", "date": "22 августа — 28 августа" },
-    { "label": "Плей-офф", "state": "active", "date": "30 августа — 6 сентября" },
-    { "label": "Финал", "state": "upcoming", "date": "6 сентября" }
+    { "label": "Плей-офф", "state": "closed", "date": "30 августа — 6 сентября" },
+    { "label": "Финал", "state": "closed", "date": "6 сентября" }
   ],
   "stages": [
     {
@@ -364,15 +372,15 @@
       "id": "playoffs",
       "type": "double_elimination",
       "title": "Плей-офф · Double Elimination",
-      "notice": "5 сентября PIVNAYA KEGA выиграли финал нижней сетки у SAITEN x BAD.RABBIT со счётом 2:1 и вышли в гранд-финал. 6 сентября в 15:00 PIVNAYA KEGA сыграют с bobr1ki.",
+      "notice": "Плей-офф завершён. PIVNAYA KEGA выиграли гранд-финал у bobr1ki 3:2. Третье место — SAITEN x BAD.RABBIT.",
       "formatNotes": [
         { "label": "Стартовый посев", "value": "1–8 · 3–6 · 2–7 · 4–5" },
         { "label": "Разведение посевов", "value": "1/3/6/8 · 2/4/5/7" },
         { "label": "После 1-го поражения", "value": "Переход в нижнюю сетку" },
         { "label": "После 2-го поражения", "value": "Выбывание из турнира" },
-        { "label": "Формат финалов", "value": "Нижний финал и гранд-финал — BO5" }
+        { "label": "Формат финалов", "value": "Нижний финал — BO3, гранд-финал — BO5" }
       ],
-      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Соседние посевы разведены по разным половинам: пары 1–2, 3–4, 5–6 и 7–8 могут встретиться в верхней сетке только в её финале. Нижний финал и гранд-финал проходят в формате BO5; правило reset не опубликовано.",
+      "caption": "В корзине 3–2 Resistance получили посев 6, PSB_Bank — 7, Hunger to victories — 8. Соседние посевы разведены по разным половинам: пары 1–2, 3–4, 5–6 и 7–8 могут встретиться в верхней сетке только в её финале. Нижний финал сыгран в формате BO3, гранд-финал — BO5.",
       "rounds": [
         {
           "id": "upper-quarterfinals",
@@ -426,14 +434,14 @@
           "id": "lower-final",
           "label": "Финал нижней сетки",
           "matches": [
-            { "id": "cs2-aug-lower-final", "status": "completed", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO5", "sourceLabel": "Н6", "team1": "PIVNAYA KEGA", "score1": 2, "team2": "SAITEN x BAD.RABBIT", "score2": 1, "roundRecord": "36:28", "maps": [{ "name": "Mirage", "score1": 13, "score2": 10 }, { "name": "Ancient", "score1": 10, "score2": 13 }, { "name": "Anubis", "score1": 13, "score2": 5 }], "note": "PIVNAYA KEGA победили 2:1. Счёт по картам: Mirage 13:10, Ancient 10:13, Anubis 13:5. Раунды: 36:28." }
+            { "id": "cs2-aug-lower-final", "status": "completed", "date": "2026-09-05", "dateDisplay": "5 сентября", "bestOf": "BO3", "sourceLabel": "Н6", "team1": "PIVNAYA KEGA", "score1": 2, "team2": "SAITEN x BAD.RABBIT", "score2": 1, "roundRecord": "36:28", "maps": [{ "name": "Mirage", "score1": 13, "score2": 10 }, { "name": "Ancient", "score1": 10, "score2": 13 }, { "name": "Anubis", "score1": 13, "score2": 5 }], "note": "PIVNAYA KEGA победили 2:1. Счёт по картам: Mirage 13:10, Ancient 10:13, Anubis 13:5. Раунды: 36:28." }
           ]
         },
         {
           "id": "grand-final",
           "label": "Гранд-финал",
           "matches": [
-            { "id": "cs2-aug-grand-final", "status": "scheduled", "date": "2026-09-06", "dateDisplay": "6 сентября", "time": "15:00", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "bobr1ki", "team2": "PIVNAYA KEGA", "note": "Гранд-финал начнётся 6 сентября в 15:00. В Faceit команда bobr1ki указана как RSATU." }
+            { "id": "cs2-aug-grand-final", "status": "completed", "date": "2026-09-06", "dateDisplay": "6 сентября", "time": "15:00", "bestOf": "BO5", "sourceLabel": "Ф1", "team1": "bobr1ki", "score1": 2, "team2": "PIVNAYA KEGA", "score2": 3, "note": "PIVNAYA KEGA — победитель турнира, счёт гранд-финала 3:2. Счёт отдельных карт не опубликован. В Faceit команда bobr1ki указана как RSATU." }
           ]
         }
       ]

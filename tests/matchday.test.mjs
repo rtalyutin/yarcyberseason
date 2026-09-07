@@ -4,19 +4,19 @@ import { readFileSync } from 'node:fs';
 import { getMatchdayModel, getDisplayedResult, getMatchConsequence } from '../src/lib/matchday.js';
 const tournament = JSON.parse(readFileSync(new URL('../src/data/tournaments/current-cs2-2026.json', import.meta.url), 'utf8'));
 
-test('current matchday shares dated results and upcoming finals', () => {
+test('completed matchday opens the grand final and retains every playoff date', () => {
   const model = getMatchdayModel(tournament);
-  assert.deepEqual(model.days.map(d => [d.date, d.completed.length, d.scheduled.length]), [
-    ['2026-09-05', 1, 0], ['2026-09-06', 0, 1],
-  ]);
+  assert.equal(model.days.length, 8);
   assert.equal(model.defaultDate, '2026-09-06');
-  const results = model.days[0].completed.map(getDisplayedResult);
-  assert.deepEqual(results.map(r => [r.first, r.score1, r.second, r.score2, r.maps.map(m => [m.name, m.score1, m.score2])]), [
-    ['PIVNAYA KEGA', 2, 'SAITEN x BAD.RABBIT', 1, [['Mirage', 13, 10], ['Ancient', 10, 13], ['Anubis', 13, 5]]],
-  ]);
-  assert.equal(getMatchConsequence(model.days[1].scheduled[0], model.matches), null);
-  assert.equal(model.days[1].scheduled[0].team2, 'PIVNAYA KEGA');
-  assert.equal(model.days[1].scheduled[0].time, '15:00');
+  assert.ok(model.days.every(day => day.scheduled.length === 0));
+  assert.equal(model.days[0].date, '2026-08-30');
+  const final = model.days.at(-1).completed[0];
+  assert.deepEqual([getDisplayedResult(final).first, getDisplayedResult(final).score1, getDisplayedResult(final).score2], ['PIVNAYA KEGA', 3, 2]);
+  assert.deepEqual(getDisplayedResult(final).maps, []);
+  assert.equal(getMatchConsequence(final, model.matches), 'PIVNAYA KEGA — победитель турнира');
+  const lower = model.days.find(day => day.date === '2026-09-05').completed[0];
+  assert.equal(lower.bestOf, 'BO3');
+  assert.deepEqual(getDisplayedResult(lower).maps.map(m => [m.name, m.score1, m.score2]), [['Mirage', 13, 10], ['Ancient', 10, 13], ['Anubis', 13, 5]]);
 });
 
 test('winner-first display reverses map scores without modifying the source', () => {
@@ -43,8 +43,8 @@ test('completed tournament retains its final result', () => {
   }
   const model = getMatchdayModel(finished);
   assert.equal(model.defaultDate, '2026-09-06');
-  assert.equal(model.days[0].completed.length, 1);
-  assert.equal(model.days[0].scheduled.length, 0);
+  assert.equal(model.days.at(-1).completed.length, 1);
+  assert.equal(model.days.at(-1).scheduled.length, 0);
 });
 
 test('direct stage matches work and absent dates remain absent', () => {

@@ -3734,6 +3734,10 @@ a {
   font-weight: 700;
   letter-spacing: 0.12em;
 }
+.home-versus.home-final-score { color: #eff4ff; font-size: clamp(24px, 3vw, 40px); letter-spacing: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.home-champion { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; margin: 0 0 24px; color: #8fbbff; font-size: 14px; }
+.home-champion strong { color: #eff4ff; font-size: 24px; }
+.result-champion { color: #8fbbff; }
 
 .home-match-link {
   color: #a4b9e8;

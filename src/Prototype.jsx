@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, CaretRight, List, X } from "@phosphor-icons/react";
+import { getTournamentOutcome, isArchive, hasScore } from "./lib/tournament.js";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import {
@@ -10,7 +11,7 @@ import {
 } from "./data/tournaments/index.js";
 
 const navItems = [
-  { label: "Сейчас", href: "/tournaments/cs2-august-2026" },
+  { label: isArchive(currentTournament) ? "Итоги CS2" : "Сейчас", href: `/tournaments/${currentTournament.slug}` },
   { label: "Следующий Dota 2", href: "/tournaments/dota2-autumn-2026" },
   { label: "Архив", href: "/results" },
   { label: "Трансляции", href: "/broadcasts" },
@@ -185,6 +186,8 @@ function PageIntro({ eyebrow, title, body, action, navigate }) {
 }
 
 function getHomePlayoffMatch(tournament) {
+  const outcome = getTournamentOutcome(tournament);
+  if (outcome?.final) return { ...outcome.final, roundLabel: "Гранд-финал" };
   const playoff = tournament.stages?.find((stage) => stage.id === "playoffs");
   if (!playoff?.rounds) return null;
   const rounds = playoff.rounds.flatMap((round) => round.matches.map((match) => ({ ...match, roundLabel: round.label })));
@@ -201,6 +204,8 @@ function HomeGameMark({ src, label }) {
 function HomePage({ navigate }) {
   const archivePreview = archivedTournaments.slice(0, 3);
   const featuredMatch = getHomePlayoffMatch(currentTournament);
+  const outcome = getTournamentOutcome(currentTournament);
+  const finished = isArchive(currentTournament);
   const registration = nextTournament.timeline?.find((item) => item.label.toLowerCase().includes("регистрац"));
   const deadline = registration?.date || nextTournament.facts?.find((fact) => fact.toLowerCase().includes("регистрац"));
 
@@ -238,36 +243,37 @@ function HomePage({ navigate }) {
         <section className="home-season container" aria-label="Текущий сезон">
           <div className="home-season-main">
             <div className="home-section-intro">
-              <p className="home-kicker">СЕЙЧАС В СЕЗОНЕ</p>
+              <p className="home-kicker">{finished ? "ТУРНИР ЗАВЕРШЁН" : "СЕЙЧАС В СЕЗОНЕ"}</p>
               <h2>{currentTournament.title}</h2>
               <p>{currentTournament.dates.display}</p>
             </div>
             {featuredMatch && <article className="home-featured-match">
+              {outcome?.champion && <p className="home-champion">Чемпион <strong>{outcome.champion}</strong></p>}
               <div className="home-match-meta">
                 <span>{featuredMatch.dateDisplay}{featuredMatch.time ? ` · ${featuredMatch.time}` : ""}</span>
                 <span>{featuredMatch.roundLabel} · {featuredMatch.bestOf}</span>
               </div>
               <div className="home-match-teams">
                 <TeamIdentity tournament={currentTournament} team={featuredMatch.team1} size="feature" />
-                <span className="home-versus">VS</span>
+                <span className={`home-versus${hasScore(featuredMatch) ? " home-final-score" : ""}`}>{hasScore(featuredMatch) ? `${featuredMatch.score1}:${featuredMatch.score2}` : "VS"}</span>
                 <TeamIdentity tournament={currentTournament} team={featuredMatch.team2} align="end" size="feature" />
               </div>
-              <button className="home-match-link" type="button" onClick={() => navigate(currentTournament.matchday.route)}>
-                Открыть Matchday <CaretRight weight="bold" aria-hidden="true" />
+              <button className="home-match-link" type="button" onClick={() => navigate(finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route)}>
+                {finished ? "Итоги турнира" : "Открыть Matchday"} <CaretRight weight="bold" aria-hidden="true" />
               </button>
             </article>}
           </div>
 
           <aside className="home-archive" aria-labelledby="home-archive-title">
             <div className="home-archive-heading">
-              <p className="home-kicker">В ПРОШЛЫХ СЕЗОНАХ</p>
+              <p className="home-kicker">ЗАВЕРШЁННЫЕ ТУРНИРЫ</p>
               <h2 id="home-archive-title">Архив</h2>
             </div>
             <div className="home-archive-list">
               {archivePreview.map((tournament) => (
                 <button className="home-archive-row" key={tournament.slug} type="button" onClick={() => navigate(`/tournaments/${tournament.slug}`)}>
                   <HomeGameMark src={tournament.discipline === "Dota 2" ? "/assets/games/dota2.svg" : "/assets/games/counterstrike.svg"} label={tournament.discipline} />
-                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small></span>
+                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small>{getTournamentOutcome(tournament)?.champion && <small>Чемпион · {getTournamentOutcome(tournament).champion}</small>}</span>
                   <ArrowUpRight weight="bold" aria-hidden="true" />
                 </button>
               ))}
@@ -671,16 +677,22 @@ function ResultsPage({ navigate }) {
             <div><span>АРХИВ / {String(index + 1).padStart(2, "0")}</span><StatusPill state="closed">{tournament.statusLabel}</StatusPill></div>
             <h2>{tournament.title}</h2>
             <p>{tournament.dates.display}</p>
+            {getTournamentOutcome(tournament)?.champion && <p className="result-champion">Чемпион · {getTournamentOutcome(tournament).champion}</p>}
             <strong>{getArchiveLabel(tournament)}</strong>
           </button>
         ))}
       </section>
-      <section className="container archive-note"><p className="eyebrow">Хранение данных</p><p>Страницы не зависят от одной общей таблицы: для каждого турнира предусмотрен отдельный JSON‑файл с этапами и матчами.</p></section>
+
     </main>
   );
 }
 
 function BroadcastsPage({ navigate }) {
+  const outcome = getTournamentOutcome(currentTournament);
+  if (isArchive(currentTournament)) return <main>
+    <PageIntro eyebrow="Трансляции" title={<>Турнир<br /><span>завершён</span></>} body={outcome?.champion ? `${outcome.champion} — чемпион ${currentTournament.title}.` : currentTournament.summary} />
+    <section className="container broadcast-layout"><div className="broadcast-main-card"><StatusPill state="closed">{currentTournament.statusLabel}</StatusPill><h2>{currentTournament.title}</h2>{outcome?.final?.replayUrl ? <a className="button button--primary" href={outcome.final.replayUrl} target="_blank" rel="noreferrer">Запись гранд-финала</a> : <p>Запись гранд-финала пока не опубликована.</p>}<ActionButton action={{ label: "Итоги турнира", target: `/tournaments/${currentTournament.slug}` }} navigate={navigate} /></div></section>
+  </main>;
   return (
     <main>
       <PageIntro eyebrow="Эфир / трансляции" title={<>Матчи —<br /><span>в прямом эфире</span></>} body="Расписание эфиров собирается вокруг активного турнира. Ссылки на эфиры появляются на карточках матчей после утверждения сетки." />

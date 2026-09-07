@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { filterTournamentMatches, getTournamentModel, hasScore, isFinished, matchDateParts, resolveTournamentView } from "../src/lib/tournament.js";
+import { filterTournamentMatches, getTournamentModel, getTournamentOutcome, hasScore, isFinished, matchDateParts, resolveTournamentView } from "../src/lib/tournament.js";
 
 const read = (file) => JSON.parse(fs.readFileSync(new URL(`../src/data/tournaments/${file}.json`, import.meta.url)));
 const archive = read("cs2-february-2026");
@@ -31,15 +31,22 @@ test("Search covers both opponents, respects the phase and handles missing resul
   assert.equal(filterTournamentMatches(model.matches, "all", "Несуществующая команда").length, 0);
 });
 
-test("Current matches preserve the lower-final result, scheduled grand final and technical 1:0", () => {
+test("Completed CS2 preserves final standings, results and technical 1:0", () => {
   const snapshot = JSON.stringify(current);
   const model = getTournamentModel(current);
   const upcoming = model.matches.filter((match) => !isFinished(match));
-  assert.equal(upcoming.length, 1);
-  assert.equal(upcoming[0].date, "2026-09-06");
-  assert.equal(upcoming[0].time, "15:00");
-  assert.equal(upcoming[0].team2, "PIVNAYA KEGA");
-  assert.ok(upcoming.every((match) => !hasScore(match)));
+  assert.equal(upcoming.length, 0);
+  assert.equal(current.status, "completed");
+  const outcome = getTournamentOutcome(current);
+  assert.equal(outcome.champion, "PIVNAYA KEGA");
+  assert.deepEqual(outcome.placements.map((entry) => [entry.position, entry.team]), [[1, "PIVNAYA KEGA"], [2, "bobr1ki"], [3, "SAITEN x BAD.RABBIT"]]);
+  assert.deepEqual([outcome.final.team1, outcome.final.score1, outcome.final.team2, outcome.final.score2], ["bobr1ki", 2, "PIVNAYA KEGA", 3]);
+  assert.equal(outcome.final.date, "2026-09-06");
+  assert.equal(outcome.final.time, "15:00");
+  assert.equal(outcome.final.maps, undefined);
+  assert.equal(model.defaultSection, "results");
+  assert.equal(getTournamentOutcome(archive), null);
+  assert.equal(getTournamentOutcome({ ...current, status: "matches_live" }), null);
   const lowerFinal = model.matches.find((match) => match.id === "cs2-aug-lower-final");
   assert.deepEqual([lowerFinal.score1, lowerFinal.score2], [2, 1]);
   assert.equal(lowerFinal.roundRecord, "36:28");
@@ -72,7 +79,7 @@ test("Deep links and browser history resolve sections and filters without invent
   assert.equal(resolveTournamentView(model, "", "#round-robin").section, "round-robin");
   assert.equal(resolveTournamentView(model, "", "#round-5").phase, "round-5");
   assert.deepEqual(resolveTournamentView(model, "?section=matches&phase=all&q=Resistance"), { section: "matches", phase: "all", query: "Resistance" });
-  assert.equal(resolveTournamentView(model, "?section=invalid&phase=invalid").section, "matches");
+  assert.equal(resolveTournamentView(model, "?section=invalid&phase=invalid").section, "results");
   assert.doesNotThrow(() => resolveTournamentView(model, "", "#%broken"));
   assert.equal(resolveTournamentView(getTournamentModel(read("dota2-autumn-2026")), "", "#format").section, "info");
 });

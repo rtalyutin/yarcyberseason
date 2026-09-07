@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check } from "@phosphor-icons/react";
 import { formatMatchday, getDisplayedResult, getMatchConsequence, getMatchdayModel } from "../lib/matchday.js";
+import { isArchive } from "../lib/tournament.js";
 import "../matchday.css";
 
 function MatchdayActions({ tournament, navigate }) {
@@ -28,6 +29,7 @@ function Result({ match, matches, compact = false }) {
       <div className="md-result-team md-result-team--second"><strong>{result.second}</strong></div>
       <div className="md-maps">{result.maps.length > 0 ? result.maps.map((map) => <span key={map.name}>{map.name} <b>{map.score1}:{map.score2}</b></span>) : <span>{match.status === "completed" ? "Счёт карт не опубликован" : label}</span>}</div>
     </div>
+    {match.replayUrl && <a className="md-link" href={match.replayUrl} target="_blank" rel="noreferrer">Запись матча <ArrowRight aria-hidden="true" /></a>}
     {consequence && <p className="md-consequence"><strong>{result.winner}</strong>{consequence.slice(result.winner.length)}</p>}
   </article>;
 }
@@ -55,11 +57,17 @@ export function MatchdayPage({ tournament, navigate }) {
   };
   const [selectedDate, setSelectedDate] = useState(readDate);
   const tabRefs = useRef([]);
+  const archived = isArchive(tournament);
   useEffect(() => {
     const onPopState = () => setSelectedDate(readDate());
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, [model]);
+  useEffect(() => {
+    const index = model.days.findIndex((day) => day.date === selectedDate);
+    const tab = tabRefs.current[index];
+    if (tab && archived) tab.parentElement.scrollLeft = tab.offsetLeft - tab.parentElement.offsetLeft;
+  }, [selectedDate, model, archived]);
   const selectDate = (date) => {
     if (date === selectedDate) return;
     setSelectedDate(date);
@@ -73,9 +81,9 @@ export function MatchdayPage({ tournament, navigate }) {
   const title = day ? `${formatMatchday(day.date)} · ${day.label}` : "Матчи ещё не опубликованы";
   return <main className="matchday">
     <div className="md-container">
-      <div className="md-page-heading"><div><h1>Matchday</h1><p>CS2 · YCS’26</p></div><button className="md-link md-desktop-link" type="button" onClick={() => navigate(`/tournaments/${tournament.id}#playoffs`)}>К сетке турнира <ArrowRight aria-hidden="true" /></button></div>
-      <button className="md-link md-back" type="button" onClick={() => navigate(`/tournaments/${tournament.id}`)}><ArrowLeft aria-hidden="true" /> Турнир CS2</button>
-      <div className="md-days" role="tablist" aria-label="Игровой день">
+      <div className="md-page-heading"><div><h1>Matchday</h1><p>{tournament.title}{archived ? " · Турнир завершён" : ""}</p></div><button className="md-link md-desktop-link" type="button" onClick={() => navigate(`/tournaments/${tournament.id}#playoffs`)}>К сетке турнира <ArrowRight aria-hidden="true" /></button></div>
+      <button className="md-link md-back" type="button" onClick={() => navigate(`/tournaments/${tournament.id}`)}><ArrowLeft aria-hidden="true" /> {archived ? "Итоги турнира" : tournament.title}</button>
+      <div className={`md-days${archived ? " md-days--archive" : ""}`} role="tablist" aria-label="Игровой день">
         {model.days.map((item, index) => <button type="button" role="tab" id={`md-tab-${item.date}`} aria-controls="md-day-panel" aria-selected={day?.date === item.date} tabIndex={day?.date === item.date ? 0 : -1} key={item.date} ref={(node) => { tabRefs.current[index] = node; }} onClick={() => selectDate(item.date)} onKeyDown={(event) => {
           let next;
           if (event.key === "ArrowRight") next = (index + 1) % model.days.length;

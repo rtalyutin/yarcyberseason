@@ -1,3 +1,5 @@
+import { isArchive } from "./tournament.js";
+
 const finishedStatuses = new Set(["completed", "walkover", "bye"]);
 
 const roundTitles = {
@@ -41,8 +43,8 @@ export function getMatchdayModel(tournament) {
   const matches = [...new Map(records.filter((match) => /^\d{4}-\d{2}-\d{2}$/.test(match.date || "")).map((match) => [match.id, match])).values()]
     .sort((a, b) => a.date.localeCompare(b.date));
   const latestCompletedDate = matches.filter(isFinishedMatch).at(-1)?.date;
-  // Matchday covers the latest results and all remaining scheduled days. Full history stays on the tournament page.
-  const dates = [...new Set(matches.map((match) => match.date))].filter((date) => !latestCompletedDate || date >= latestCompletedDate);
+  // Completed tournaments retain dated playoff history; live events focus on the latest results and upcoming days.
+  const dates = [...new Set(matches.map((match) => match.date))].filter((date) => isArchive(tournament) || !latestCompletedDate || date >= latestCompletedDate);
   const days = dates.map((date) => {
     const dayMatches = matches.filter((match) => match.date === date);
     const completed = dayMatches.filter(isFinishedMatch);

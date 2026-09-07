@@ -29,6 +29,9 @@
 .md-days span { display: block; font-size: 16px; line-height: 1.4; }
 .md-days [aria-selected="true"] { color: var(--md-blue); border-bottom-color: var(--md-blue); }
 .md-days button:not([aria-selected="true"]):hover { color: #f5f6fa; }
+.md-days.md-days--archive { grid-auto-columns: minmax(135px, 1fr); overflow-x: auto; }
+.md-days--archive strong { font-size: 18px; }
+.md-days--archive span { font-size: 14px; }
 .md-day-panel:focus-visible { outline: 2px solid var(--md-blue); outline-offset: 5px; }
 .md-result { position: relative; padding: 26px 20px 20px; border-bottom: 1px solid var(--md-rule); }
 .md-result-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--md-muted); }

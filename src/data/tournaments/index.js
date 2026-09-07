@@ -12,7 +12,7 @@ export const tournamentBySlug = Object.fromEntries(
 
 export const currentTournament = currentCs2;
 export const nextTournament = dota2Autumn;
-export const archivedTournaments = [dota2Main, cs2February, dota2Qual];
+export const archivedTournaments = tournaments.filter((tournament) => ["archive", "completed"].includes(tournament.status));
 
 export function getTournament(slug) {
   return tournamentBySlug[slug];

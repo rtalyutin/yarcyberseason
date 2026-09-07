@@ -4017,3 +4017,22 @@ a {
     font-size: clamp(54px, 5.1vw, 76px);
   }
 }
+
+/* Approved home sponsor block, before the footer. */
+.home-partners { padding-top: 52px; padding-bottom: 48px; border-top: 1px solid #263040; }
+.home-partners h2 { margin: 0 0 30px; font-size: clamp(26px, 3.4vw, 48px); line-height: 1.1; text-transform: uppercase; letter-spacing: -.04em; }
+.home-partners h2::before { content: ""; display: block; width: 48px; height: 3px; background: #3774f6; margin-bottom: 24px; }
+.home-partners-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.home-partner { min-height: 216px; padding: 24px 18px; border: 1px solid #303a4b; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center; }
+.home-partner img { display: block; max-width: 100%; object-fit: contain; }
+.home-partner p { margin: 0; color: #abb9d1; font-size: 14px; line-height: 1.5; }
+.home-partner--join { color: #6698ff; border-color: #3774f6; text-decoration: none; transition: background .15s, color .15s; }
+.home-partner--join span { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+.home-partner--join:hover { background: #101c32; color: white; }
+.home-partner--join:focus-visible { outline: 3px solid #a7c4ff; outline-offset: 4px; }
+@media (max-width: 860px) { .home-partners-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .home-partners { padding-top: 32px; padding-bottom: 32px; } .home-partners-grid { gap: 10px; } .home-partner { padding: 18px 10px; min-height: 210px; } .home-partner img { width: 130px; height: 76px; } .home-partner p { font-size: 13px; } .home-partner--join span { font-size: 14px; gap: 3px; } }
+.home-partner img { width: 150px; height: 100px; }
+.home-partner:first-child img { background: #fff; width: 112px; height: 112px; }
+.home-partner--dodo img { width: 210px; height: auto; }
+@media (max-width: 480px) { .home-partner img { max-width: 100%; } .home-partner--dodo img { width: 150px; } }

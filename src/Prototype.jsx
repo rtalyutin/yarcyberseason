@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, CaretRight, List, X } from "@phosphor-icons/react";
+import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
 import { getTournamentOutcome, isArchive, hasScore } from "./lib/tournament.js";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
@@ -280,6 +280,26 @@ function HomePage({ navigate }) {
             </div>
             <button className="home-all-results" type="button" onClick={() => navigate("/results")}>Все результаты <ArrowUpRight weight="bold" aria-hidden="true" /></button>
           </aside>
+        </section>
+        <section className="home-partners container" aria-labelledby="home-partners-title">
+          <h2 id="home-partners-title">Спонсоры и партнёры</h2>
+          <div className="home-partners-grid">
+            <div className="home-partner">
+              <img src="/assets/partners/fks-yao.png" alt="ФКС ЯО" width="160" height="80" loading="lazy" />
+              <p>Федерация компьютерного спорта Ярославской области</p>
+            </div>
+            <div className="home-partner">
+              <img src="/assets/partners/minsport-yao.png" alt="Минспорта ЯО" width="160" height="80" loading="lazy" />
+              <p>Министерство спорта Ярославской области</p>
+            </div>
+            <div className="home-partner home-partner--dodo">
+              <img src="/assets/partners/dodo-pizza.jpg" alt="Додо Пицца" width="180" height="100" loading="lazy" />
+            </div>
+            <a className="home-partner home-partner--join" href="mailto:info@ycs.bar?subject=Партнёрство%20с%20ЯрКиберСезоном">
+              <Plus size={58} weight="light" aria-hidden="true" />
+              <span>Стать партнёром <CaretRight size={16} weight="bold" aria-hidden="true" /></span>
+            </a>
+          </div>
         </section>
       </main>
       <footer className="home-footer container">

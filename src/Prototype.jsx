@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
 import { getTournamentOutcome, isArchive, hasScore } from "./lib/tournament.js";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
+import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import {
   archivedTournaments,
   currentTournament,
@@ -203,6 +204,7 @@ function HomeGameMark({ src, label }) {
 }
 
 function HomePage({ navigate }) {
+  const heroImageRef = useRef(null);
   const archivePreview = archivedTournaments.slice(0, 3);
   const featuredMatch = getHomePlayoffMatch(currentTournament);
   const outcome = getTournamentOutcome(currentTournament);
@@ -214,7 +216,8 @@ function HomePage({ navigate }) {
     <>
       <main className="home-page">
         <section className="home-conversion" aria-labelledby="home-title">
-          <img className="home-conversion-art" src="/assets/home-team-stage.webp" alt="" aria-hidden="true" />
+          <img ref={heroImageRef} className="home-conversion-art" src="/assets/home-team-stage.webp" alt="" aria-hidden="true" />
+          <ClickHighlight imageRef={heroImageRef} />
           <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
               <p className="home-kicker">YAR CYBER SEASON / 2026</p>

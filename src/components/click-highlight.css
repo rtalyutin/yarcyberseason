@@ -1,0 +1,97 @@
+/* The hit target follows a point in the hero artwork, including object-fit crops. */
+.click-highlight-anchor { position: absolute; z-index: 3; width: 60px; height: 60px; transform: translate(-50%, -50%); }
+.click-highlight-trigger { position: relative; display: grid; place-items: center; width: 60px; height: 60px; padding: 0; color: #fff; cursor: crosshair; background: #061225b8; border: 1px solid #7eaeff; border-radius: 50%; box-shadow: 0 0 0 5px #0a1c4290, 0 0 25px #397fff90; transition: background .18s, box-shadow .18s; touch-action: manipulation; }
+.click-highlight-trigger > svg { filter: drop-shadow(0 0 5px #528cff); }
+.click-highlight-trigger::after { content: ""; position: absolute; inset: -7px; border: 1px solid #82aeff; border-radius: 50%; animation: click-highlight-beacon 3.2s ease-out infinite; pointer-events: none; }
+.click-highlight-trigger:hover { background: #1754b6; box-shadow: 0 0 0 5px #15356ba0, 0 0 32px #649cff; }
+.click-highlight-trigger:focus-visible { outline: 3px solid #fff; outline-offset: 7px; }
+.click-highlight-trigger.is-discovered::after { animation: none; opacity: .3; }
+.click-highlight-keepsake { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 7px 10px; width: max-content; background: #071323; border: 1px solid #446da5; color: #dce9ff; font-size: 12px; font-weight: 700; line-height: 1.3; cursor: pointer; }
+@keyframes click-highlight-beacon { 0%, 16% { transform: scale(.9); opacity: .65; } 76%, 100% { transform: scale(1.3); opacity: 0; } }
+
+/* Native modal supplies focus containment; the portal is independent of hero clipping. */
+.click-highlight-film { position: fixed; inset: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; color: #f3f6ff; background: #040910e8; overflow: hidden; overscroll-behavior: contain; }
+.click-highlight-film::backdrop { background: #02060c60; backdrop-filter: grayscale(1) brightness(.5); }
+.click-highlight-camera { position: absolute; inset: 0; transform-origin: var(--shot-x) var(--shot-y); filter: grayscale(1); opacity: .55; transition: transform 1.35s cubic-bezier(.19, 1, .22, 1), filter .3s, opacity .4s; pointer-events: none; }
+.click-highlight-image { position: absolute; max-width: none; object-fit: cover; }
+.click-highlight-reticle { position: absolute; left: var(--shot-x); top: var(--shot-y); display: grid; place-items: center; width: 56px; height: 56px; transform: translate(-50%, -50%); color: #fff; border: 1px solid #6e9fff; border-radius: 50%; background: #071323a0; }
+.click-highlight-pointer { --pointer-end: -13px; position: absolute; top: var(--shot-y); left: var(--shot-x); color: #fff; opacity: 0; transform-origin: 0 0; filter: drop-shadow(3px 4px 0 #050b18); }
+.click-highlight-pointer.is-touch { --pointer-end: 0px; }
+.click-highlight-pointer svg { display: block; }
+.click-highlight-pointer.is-touch > span { display: block; width: 50px; height: 50px; border: 3px solid #fff; border-radius: 50%; box-shadow: 0 0 0 8px #76a9ff44; background: #91bbff55; transform: translate(-50%, -50%); }
+.click-highlight-film--replay .click-highlight-camera,
+.click-highlight-film--impact .click-highlight-camera,
+.click-highlight-film--interview .click-highlight-camera { transform: translate(calc(50vw - var(--shot-x)), calc(54dvh - var(--shot-y))) scale(2.65); }
+.click-highlight-film--replay .click-highlight-camera { opacity: .9; }
+.click-highlight-film--replay .click-highlight-pointer { opacity: 1; animation: click-highlight-aim 2.6s cubic-bezier(.15, .5, .5, 1) both; }
+@keyframes click-highlight-aim { 0% { transform: translate(-130px, -95px) scale(1.12); } 58% { transform: translate(-24px, -21px) scale(1.12); } 88% { transform: translate(var(--pointer-end), var(--pointer-end)) scale(1.12); } 100% { transform: translate(var(--pointer-end), var(--pointer-end)) scale(.94); } }
+.click-highlight-film--impact .click-highlight-camera { filter: grayscale(0); opacity: .7; }
+.click-highlight-film--interview .click-highlight-camera { filter: grayscale(0); opacity: .2; }
+.click-highlight-shockwave { position: absolute; left: 50%; top: 54%; width: 70px; height: 70px; margin: -35px; border: 4px solid #7db1ff; border-radius: 50%; opacity: 0; box-shadow: 0 0 40px #4b83e9; pointer-events: none; }
+.click-highlight-film--impact .click-highlight-shockwave { animation: click-highlight-impact 1s ease-out both; }
+@keyframes click-highlight-impact { 0% { opacity: 1; transform: scale(.4); } 100% { opacity: 0; transform: scale(24); } }
+.click-highlight-chrome { position: absolute; inset: 0; display: flex; flex-direction: column; padding: max(24px, env(safe-area-inset-top)) clamp(20px, 4.5vw, 80px) max(24px, env(safe-area-inset-bottom)); }
+.click-highlight-header { display: flex; align-items: center; gap: 24px; min-height: 44px; color: #cadcff; font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+.click-highlight-replay-label { padding: 6px 10px; color: #fff; border: 1px solid #82aafa; font-size: 11px; }
+.click-highlight-close { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; margin-left: auto; padding: 0; color: #fff; border: 1px solid #6b85ad; background: #071222; cursor: pointer; }
+.click-highlight-close:hover { background: #234b89; }
+.click-highlight-close:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.click-highlight-copy { position: relative; display: grid; place-items: center; flex: 1; min-height: 0; }
+.click-highlight-beat { text-align: center; }
+.click-highlight-eyebrow { display: block; color: #99baff; font-size: clamp(11px, 1vw, 14px); font-weight: 700; letter-spacing: .19em; line-height: 1.5; }
+.click-highlight-headline { margin: 16px 0 6px; color: #fff; font-family: "YCS Sans", Arial, sans-serif; font-size: clamp(84px, 16vw, 250px); font-weight: 900; letter-spacing: -.065em; line-height: .85; }
+.click-highlight-subtitle { margin: 22px 0 0; font-size: clamp(16px, 3.2vw, 44px); font-weight: 900; letter-spacing: .06em; line-height: 1.15; }
+.click-highlight-victory { animation: click-highlight-title-in .24s ease-out both; }
+@keyframes click-highlight-title-in { from { transform: scale(1.12); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.click-highlight-replay-copy { position: absolute; bottom: 4%; left: 0; text-align: left; }
+.click-highlight-replay-copy p { margin: 8px 0 18px; font-size: clamp(22px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; }
+.click-highlight-slowmo { display: inline-block; padding: 6px 8px; border: 1px solid #b1caff; color: #eaf1ff; font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+.click-highlight-interview { display: flex; align-items: center; gap: clamp(24px, 5vw, 90px); max-width: 100%; }
+.click-highlight-player { display: grid; place-items: center; width: clamp(110px, 17vw, 240px); aspect-ratio: 1; color: #fff; background: #285dd3; border: 1px solid #78a5ff; }
+.click-highlight-question { margin: 20px 0 16px; color: #cbdaf3; font-size: clamp(16px, 2vw, 26px); line-height: 1.4; }
+.click-highlight-answer { margin: 0; color: #fff; font-family: "YCS Sans", Arial, sans-serif; font-size: clamp(48px, 8.5vw, 124px); font-weight: 900; letter-spacing: -.055em; line-height: 1; text-transform: uppercase; }
+.click-highlight-footer { display: flex; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid #466083; color: #95abd2; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+.click-highlight-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; overflow: hidden; background: #13213b; }
+.click-highlight-progress span { display: block; width: 100%; height: 100%; background: #75a5ff; transform-origin: left; animation: click-highlight-duration 8.2s linear both; }
+@keyframes click-highlight-duration { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.click-highlight-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.click-highlight-film.is-reduced-motion .click-highlight-camera { transform: none; }
+.click-highlight-film.is-reduced-motion .click-highlight-progress { display: none; }
+
+@media (max-width: 860px) {
+  /* Reserve an unobstructed part of the artwork below the registration copy. */
+  .home-conversion:has(.click-highlight-anchor) .home-conversion-inner { padding-bottom: 230px; }
+  .click-highlight-anchor, .click-highlight-trigger { width: 54px; height: 54px; }
+  .click-highlight-trigger > svg { width: 36px; height: 36px; }
+}
+@media (max-width: 560px) {
+  .click-highlight-chrome { padding-inline: 20px; }
+  .click-highlight-header { gap: 12px; font-size: 10px; letter-spacing: .04em; }
+  .click-highlight-replay-label { display: none; }
+  .click-highlight-headline { font-size: clamp(80px, 22vw, 130px); }
+  .click-highlight-victory .click-highlight-headline { font-size: clamp(70px, 20vw, 112px); }
+  .click-highlight-victory .click-highlight-headline span { display: block; }
+  .click-highlight-interview { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .click-highlight-player { width: 76px; }
+  .click-highlight-player svg { width: 50px; height: 50px; }
+  .click-highlight-question { margin-block: 16px 12px; }
+  .click-highlight-answer { font-size: clamp(52px, 15vw, 80px); }
+  .click-highlight-footer { font-size: 9px; letter-spacing: .04em; }
+}
+@media (max-height: 480px) {
+  .click-highlight-chrome { padding-block: 12px; }
+  .click-highlight-headline { font-size: 90px; margin: 6px 0; }
+  .click-highlight-subtitle { margin-top: 10px; font-size: 22px; }
+  .click-highlight-interview { flex-direction: row; gap: 24px; }
+  .click-highlight-player { width: 70px; }
+  .click-highlight-player svg { width: 46px; height: 46px; }
+  .click-highlight-answer { font-size: 48px; }
+  .click-highlight-question { margin: 10px 0; font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .click-highlight-trigger, .click-highlight-camera { transition: none; }
+  .click-highlight-trigger::after, .click-highlight-pointer, .click-highlight-shockwave, .click-highlight-victory, .click-highlight-progress span { animation: none !important; }
+  .click-highlight-trigger::after { opacity: .4; }
+  .click-highlight-camera { transform: none !important; }
+  .click-highlight-progress { display: none; }
+}

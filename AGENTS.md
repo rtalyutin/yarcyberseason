@@ -8,6 +8,8 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## YCS design decisions
 
+- The home hero has the approved «Хайлайт твоего клика» Easter egg: a clearly visible white/cobalt crosshair in the gap between the first two chairs (the user-marked location). Anchor it to the image crop on desktop and mobile. One click/tap plays a short local freeze → slow-motion click → «ОН ПОПАЛ. С ПЕРВОГО РАЗА.» → «Я просто нажал» sequence, then returns to the page with a replay marker. Preserve keyboard dismissal and reduced-motion behavior; keep it separate from real tournament data and the existing organizer-room Easter egg.
+
 - Tournament detail pages use the selected universal archive navigator layout (option 3): compact status/date header, left section navigation, central searchable match list, phase filters and progressive reveal. The same component serves every tournament; sections, counts, statuses, scores, table columns and bracket structure derive from its JSON. Preserve partial archives and unknown dates. Do not hardcode a champion, tournament slug, sample result count or final-stage story into the layout. On mobile, the sidebar becomes a wrapping section menu. Keep Matchday as its separate approved surface.
 
 - The selected visual direction is an editorial esports interface: near-black/navy canvas, cobalt blue accents, white condensed-feeling type, thin technical dividers, and sparse warm status nodes. Do not use gradients.

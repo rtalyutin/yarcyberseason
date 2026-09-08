@@ -1,4 +1,5 @@
 import { isArchive } from "./tournament.js";
+import { normalizeResult } from './community.js';
 
 const finishedStatuses = new Set(["completed", "walkover", "bye"]);
 
@@ -13,7 +14,7 @@ const roundTitles = {
   "grand-final": "Гранд-финал",
 };
 
-export const isFinishedMatch = (match) => finishedStatuses.has(match.status);
+export const isFinishedMatch = (match) => match.resultConfirmed !== false && finishedStatuses.has(match.status);
 
 export function formatMatchday(date, includeYear = false) {
   return new Intl.DateTimeFormat("ru-RU", {
@@ -56,6 +57,17 @@ export function getMatchdayModel(tournament) {
 }
 
 export function getDisplayedResult(match) {
+  if (match.scoreKind) {
+    const result = normalizeResult(match, 'Counter-Strike 2');
+    const swap = result.winnerSide === 2;
+    return {
+      first: swap ? match.team2 : match.team1, second: swap ? match.team1 : match.team2,
+      score1: result.score ? result.score[swap ? 1 : 0] : null,
+      score2: result.score ? result.score[swap ? 0 : 1] : null,
+      winner: result.winnerSide ? match[`team${result.winnerSide}`] : null,
+      maps: result.maps.filter((m) => m.score).map((m) => ({ name: m.name, score1: m.score[swap ? 1 : 0], score2: m.score[swap ? 0 : 1] })),
+    };
+  }
   const scored = Number.isFinite(match.score1) && Number.isFinite(match.score2);
   const swap = scored ? match.score2 > match.score1 : match.winner === match.team2;
   return {

@@ -1,27 +1,32 @@
+import { TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
+import { normalizeResult, matchStates } from '../lib/community.js';
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowUpRight, MagnifyingGlass, Trophy, Users, X } from "@phosphor-icons/react";
 import { displayMatchDate, filterTournamentMatches, getTournamentModel, getTournamentOutcome, hasScore, isArchive, isFinished, matchLabel, isPlayoffStage, resolveTournamentView, resultLabel } from "../lib/tournament.js";
 import "../tournament.css";
 
-function MatchRow({ match }) {
-  const scored = hasScore(match);
+function MatchRow({ match, tournament }) {
+  const result = normalizeResult(match, tournament.discipline);
+  const scored = Boolean(result.score);
   const finished = isFinished(match);
-  const winner = finished ? (scored && match.score1 !== match.score2 ? (match.score1 > match.score2 ? match.team1 : match.team2) : match.winner) : null;
+  const winner = result.winnerSide ? match[`team${result.winnerSide}`] : null;
   const date = displayMatchDate(match);
-  const status = match.status === "walkover" ? "Техническая победа" : match.status === "bye" ? "Проход без игры" : !finished ? "Матч назначен" : null;
-  const metadata = [date, match.time && !date.includes(match.time) ? match.time : null, match.roundTitle, match.bestOf, status].filter(Boolean);
+  const status = match.status === "walkover" ? "Техническая победа" : match.status === "bye" ? "Проход без игры" : !finished ? match.status === 'completed' ? 'Итог не подтверждён' : matchStates[match.status] || "Статус уточняется" : null;
+  const metadata = [date, match.time && !date.includes(match.time) ? match.time : null, match.roundTitle, match.bestOf, status, scored && !result.technical ? result.label : null].filter(Boolean);
   const details = Boolean(match.note || match.maps?.length || match.faceitUrl || match.roundRecord);
   return (
     <article className={`tn-match${!finished ? " tn-match--scheduled" : ""}`} data-match-id={match.id || match.key}>
       <p className="tn-match-meta">{metadata.join(" · ")}</p>
       <div className="tn-scoreboard">
-        <strong className={`tn-team${!winner || winner === match.team1 ? " is-winner" : ""}`}>{match.team1 || "Соперник определяется"}</strong>
-        <span className="tn-score" aria-label={scored ? `Счёт ${match.score1}:${match.score2}` : "Счёт пока не опубликован"}>{scored ? `${match.score1} : ${match.score2}` : "— : —"}</span>
-        <strong className={`tn-team tn-team--second${!winner || winner === match.team2 ? " is-winner" : ""}`}>{match.team2 || "Соперник определяется"}</strong>
+        <strong className={`tn-team${!winner || winner === match.team1 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team1} /></strong>
+        <span className="tn-score" aria-label={scored ? `Счёт ${result.score.join(":")}` : "Счёт пока не опубликован"}>{scored ? result.score.join(" : ") : "— : —"}</span>
+        <strong className={`tn-team tn-team--second${!winner || winner === match.team2 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team2} /></strong>
       </div>
+      {match.resultIssue && <p>{match.resultIssue}</p>}
+      <MatchLink tournamentId={tournament.id} matchId={match.id} />
       {details && <details className="tn-match-details">
         <summary>Подробности матча</summary>
-        {match.maps?.length > 0 && <ul>{match.maps.map((map, index) => <li key={`${map.name}-${index}`}><span>{map.name}</span><b>{Number.isFinite(map.score1) && Number.isFinite(map.score2) ? `${map.score1}:${map.score2}` : "Не сыграна"}</b></li>)}</ul>}
+        {result.maps.length > 0 && <ul>{result.maps.map((map, index) => <li key={`${map.name}-${index}`}><span>{map.name} · {map.unit}</span><b>{map.score ? map.score.join(":") : "Результат не опубликован"}</b></li>)}</ul>}
         {match.note && <p>{match.note}</p>}
         {match.roundRecord && !match.note && <p>Раунды: {match.roundRecord}</p>}
         {match.faceitUrl && <a href={match.faceitUrl} target="_blank" rel="noreferrer">Результат FACEIT <ArrowUpRight aria-hidden="true" /></a>}
@@ -37,9 +42,9 @@ function TournamentResults({ tournament, changeView, navigate }) {
     <ol className="tn-podium" aria-label="Призовые места">{outcome.placements.map((entry) => <li key={`${entry.position}-${entry.team}`} className={entry.position === 1 ? "tn-podium-champion" : ""}>
       <span className="tn-place">{entry.position === 1 && <Trophy aria-hidden="true" />}{entry.position === 1 ? "Чемпион" : `${entry.position} место`}</span>
       {tournament.teamLogos?.[entry.team] && <img src={tournament.teamLogos[entry.team]} alt="" />}
-      <strong>{entry.team}</strong>
+      <strong><TeamLink tournamentId={tournament.id} name={entry.team} /></strong>
     </li>)}</ol>
-    {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow match={{ ...outcome.final, roundTitle: "Гранд-финал" }} /></div>}
+    {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow tournament={tournament} match={{ ...outcome.final, roundTitle: "Гранд-финал" }} /></div>}
     <div className="tn-header-actions">
       <button className="tn-outline" type="button" onClick={() => changeView({ section: "matches", phase: "all" })}>Все матчи</button>
       {tournament.matchday && <button className="tn-outline" type="button" onClick={() => navigate(tournament.matchday.route)}>Matchday</button>}
@@ -48,7 +53,7 @@ function TournamentResults({ tournament, changeView, navigate }) {
   </section>;
 }
 
-function MatchList({ model, view, changeView, fixedStage }) {
+function MatchList({ model, view, changeView, fixedStage, tournament }) {
   const [visibleCount, setVisibleCount] = useState(5);
   const phase = fixedStage?.id || view.phase;
   const matches = useMemo(() => filterTournamentMatches(model.matches, phase, view.query), [model, phase, view.query]);
@@ -65,7 +70,7 @@ function MatchList({ model, view, changeView, fixedStage }) {
       </div>
       {!fixedStage && <nav className="tn-filters" aria-label="Фильтр матчей по этапу">{model.filters.map((filter) => <button type="button" key={filter.id} aria-pressed={view.phase === filter.id} onClick={() => changeView({ phase: filter.id })}>{filter.title} <span>{filter.count}</span></button>)}</nav>}
       <p className="tn-list-summary" role="status">{view.query ? `Найдено: ${matchLabel(matches.length)}. Показано: ${shown.length}.` : `Показаны ${complete ? "последние " : ""}${shown.length} из ${matches.length} матчей${subsetTitle ? ` ${subsetTitle}` : ""}.`}</p>
-      <div className="tn-match-list">{shown.map((match) => <MatchRow key={match.key} match={match} />)}</div>
+      <div className="tn-match-list">{shown.map((match) => <MatchRow key={match.key} match={match} tournament={tournament} />)}</div>
       {!shown.length && <div className="tn-empty"><h3>{view.query ? "Команда не найдена" : "Матчи ещё не опубликованы"}</h3><p>{view.query ? "Проверьте название команды или выберите другой этап." : "Пары и результаты появятся после публикации организатором."}</p>{view.query && <button className="tn-outline" type="button" onClick={() => changeView({ query: "", phase: "all" })}>Сбросить поиск и фильтр</button>}</div>}
       <div className="tn-list-footer">{matches.length > visibleCount && <button className="tn-outline" type="button" onClick={() => setVisibleCount(matches.length)}>Показать ещё {matchLabel(matches.length - visibleCount)}</button>}{notes.filter(Boolean).map((note) => <p key={note}>{note}</p>)}</div>
     </section>
@@ -109,6 +114,7 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
         <div className="tn-title-row"><h1>{tournament.title}</h1><span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span></div>
         {tournament.dates?.display && <p className="tn-date">{tournament.dates.display}</p>}
         {!archived && <div className="tn-header-actions">{[tournament.primaryAction, tournament.secondaryAction, ...(tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter(Boolean).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <button type="button" className="tn-outline" key={action.target} onClick={() => go(action.target)}>{action.label}</button>)}</div>}
+        {!archived && <CommunitySearch />}
       </header>
       <div className="tn-layout">
         <aside className="tn-sidebar">
@@ -119,7 +125,7 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
           <button className="tn-back" type="button" onClick={() => navigate(archived ? "/results" : "/")}><ArrowLeft aria-hidden="true" />Все турниры</button>
         </aside>
         <div className="tn-content" key={active?.id}>
-          {active?.id === "results" ? <TournamentResults tournament={tournament} changeView={changeView} navigate={navigate} /> : active?.id === "matches" ? <MatchList model={model} view={view} changeView={changeView} /> : active?.id === "info" ? <section className="tn-info" id="info"><h2>О турнире</h2>{tournament.season && <p className="tn-season">{tournament.season}</p>}{tournament.summary && <p>{tournament.summary}</p>}{tournament.timeline?.length > 0 && <dl className="tn-timeline">{tournament.timeline.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.date}</dd></div>)}</dl>}{model.stages.some((stage) => stage.rules?.length || stage.notice) && <div className="tn-format" id="format"><h3>Формат турнира</h3>{model.stages.filter((stage) => stage.rules?.length || stage.notice).map((stage) => <div key={stage.id}><h4>{stage.title}</h4>{stage.notice && <p>{stage.notice}</p>}{stage.rules?.length > 0 && <ul>{stage.rules.map((rule, index) => <li key={index}>{typeof rule === "string" ? rule : <><strong>{rule.label}: </strong>{rule.value}</>}</li>)}</ul>}</div>)}</div>}{renderRewards()}{tournament.support && <p>{tournament.support}</p>}{tournament.sourceNote && <p className="tn-source-note">{tournament.sourceNote}</p>}</section> : active?.stage?.type === "historical_matches" ? <MatchList model={model} view={view} changeView={changeView} fixedStage={active.stage} /> : active?.stage ? renderStage(active.stage, String(model.stages.indexOf(active.stage) + 1).padStart(2, "0")) : <p>Информация о турнире появится после публикации.</p>}
+          {active?.id === "results" ? <TournamentResults tournament={tournament} changeView={changeView} navigate={navigate} /> : active?.id === "matches" ? <MatchList tournament={tournament} model={model} view={view} changeView={changeView} /> : active?.id === "info" ? <section className="tn-info" id="info"><h2>О турнире</h2>{tournament.season && <p className="tn-season">{tournament.season}</p>}{tournament.summary && <p>{tournament.summary}</p>}{tournament.timeline?.length > 0 && <dl className="tn-timeline">{tournament.timeline.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.date}</dd></div>)}</dl>}{model.stages.some((stage) => stage.rules?.length || stage.notice) && <div className="tn-format" id="format"><h3>Формат турнира</h3>{model.stages.filter((stage) => stage.rules?.length || stage.notice).map((stage) => <div key={stage.id}><h4>{stage.title}</h4>{stage.notice && <p>{stage.notice}</p>}{stage.rules?.length > 0 && <ul>{stage.rules.map((rule, index) => <li key={index}>{typeof rule === "string" ? rule : <><strong>{rule.label}: </strong>{rule.value}</>}</li>)}</ul>}</div>)}</div>}{renderRewards()}{tournament.support && <p>{tournament.support}</p>}{tournament.sourceNote && <p className="tn-source-note">{tournament.sourceNote}</p>}</section> : active?.stage?.type === "historical_matches" ? <MatchList tournament={tournament} model={model} view={view} changeView={changeView} fixedStage={active.stage} /> : active?.stage ? renderStage(active.stage, String(model.stages.indexOf(active.stage) + 1).padStart(2, "0")) : <p>Информация о турнире появится после публикации.</p>}
         </div>
       </div>
     </main>

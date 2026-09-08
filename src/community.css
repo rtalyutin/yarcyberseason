@@ -1,0 +1,94 @@
+.community-page { --cp-text: #f3f6ff; --cp-muted: #a8b6ce; --cp-line: #29364c; --cp-panel: #0c1525; color: var(--cp-text); max-width: 1280px; margin: 0 auto; padding: 42px 28px 80px; font-size: 16px; line-height: 1.55; }
+.community-page a { color: inherit; }
+.community-page h1 { font-family: 'YCS Condensed', sans-serif; font-size: clamp(36px, 4.5vw, 64px); line-height: 1.06; margin: 0 0 14px; overflow-wrap: anywhere; }
+.community-page h2 { font-family: 'YCS Condensed', sans-serif; font-size: 28px; line-height: 1.2; margin: 0 0 24px; }
+.community-page p { margin: 10px 0; }
+.community-breadcrumb { display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--cp-muted); margin-bottom: 30px; }
+.community-breadcrumb a { text-decoration: none; }
+.community-eyebrow { text-transform: uppercase; letter-spacing: .08em; color: #93b2ff; font-size: 14px; font-weight: 700; }
+.community-team-header { display: flex; align-items: center; gap: 26px; margin-bottom: 32px; }
+.community-team-header > img { width: 100px; height: 100px; object-fit: contain; background: #fff; padding: 8px; }
+.community-muted { color: var(--cp-muted); font-size: 14px; }
+.community-stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--cp-line); border-bottom: 1px solid var(--cp-line); }
+.community-stats > div { display: grid; gap: 0; padding: 20px; border-left: 1px solid var(--cp-line); }
+.community-stats > div:first-child { border-left: 0; }
+.community-stats strong { font-family: 'YCS Condensed', sans-serif; font-size: 44px; line-height: 1.15; }
+.community-stats span { color: var(--cp-muted); font-size: 14px; }
+.community-stat-note { margin: 12px 0 30px !important; }
+.community-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 24px; }
+.community-main-column, .community-side-column { min-width: 0; }
+.community-panel { margin: 0 0 24px; padding: 26px; border: 1px solid var(--cp-line); background: var(--cp-panel); overflow-wrap: anywhere; }
+.community-count { font-family: 'YCS Sans', sans-serif; font-size: 14px; color: var(--cp-muted); vertical-align: middle; }
+.community-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 12px 16px; margin: 8px 0; background: transparent; border: 1px solid var(--cp-line); color: inherit; text-align: center; text-decoration: none; font-size: 14px; line-height: 1.5; cursor: pointer; }
+.community-button--primary { background: #1654ed; border-color: #1654ed; color: #fff !important; }
+.community-button:disabled { cursor: not-allowed; opacity: .55; }
+.community-button:focus-visible, .community-page a:focus-visible, .community-page summary:focus-visible { outline: 2px solid #83aeff; outline-offset: 4px; }
+.community-copy { display: grid; gap: 8px; margin: 12px 0 20px; }
+.community-visible-url { display: block; overflow-wrap: anywhere; font-size: 14px; color: var(--cp-muted) !important; }
+.community-copy [role=status] { font-size: 14px; }
+.community-calendar summary { cursor: pointer; font-weight: 700; font-size: 18px; }
+.community-calendar summary span { display: block; margin: 4px 0 0 18px; font-size: 14px; font-weight: 400; color: var(--cp-muted); }
+.community-match-row { padding: 18px 0; border-top: 1px solid var(--cp-line); }
+.community-match-row:first-of-type { border-top: 0; padding-top: 0; }
+.community-match-row > p { color: var(--cp-muted); font-size: 14px; }
+.community-row-score { display: grid; grid-template-columns: minmax(0, 1fr) 100px minmax(0, 1fr); align-items: center; gap: 10px; padding: 12px 0; }
+.community-row-score > :last-child { text-align: right; }
+.community-row-score > :nth-child(2) { text-align: center; text-decoration: none; font-size: 24px; white-space: nowrap; }
+.community-row-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--cp-muted); }
+.community-team-link { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.community-team-link:hover { color: #90b6ff; }
+.community-match-link { display: inline-flex; gap: 8px; align-items: center; color: inherit; font-size: 14px; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; }
+.community-entry, .community-trophy { display: grid; gap: 7px; padding: 16px 0; border-top: 1px solid var(--cp-line); }
+.community-entry span, .community-trophy span { color: var(--cp-muted); font-size: 14px; }
+.community-trophy strong { color: #a8c1ff; font-size: 24px; }
+.community-opponent { border-top: 1px solid var(--cp-line); padding: 16px 0; }
+.community-opponent summary { cursor: pointer; }
+.community-opponent summary > span:last-child { display: block; font-size: 14px; color: var(--cp-muted); }
+.community-inline-action { display: block; margin: 14px 0; font-size: 14px; }
+.community-match-header { margin-bottom: 32px; }
+.community-match-header h1 { font-size: clamp(32px, 4vw, 52px); }
+.community-match-header h1 > span { color: var(--cp-muted); }
+.community-match-header > p:last-child { color: var(--cp-muted); }
+.community-score-panel { background: var(--cp-panel); border: 1px solid var(--cp-line); padding: 32px 26px; margin-bottom: 26px; }
+.community-status { display: block; text-align: center; font-size: 14px; color: var(--cp-muted); }
+.community-big-score { display: grid; grid-template-columns: minmax(0, 1fr) minmax(170px, .8fr) minmax(0, 1fr); gap: 20px; align-items: center; padding: 28px 0; }
+.community-big-score > div { display: grid; justify-items: center; gap: 14px; text-align: center; min-width: 0; overflow-wrap: anywhere; }
+.community-big-score img { width: 80px; height: 80px; object-fit: contain; background: #fff; padding: 6px; }
+.community-big-score a { font-weight: 700; }
+.community-series strong { font-family: 'YCS Condensed', sans-serif; font-size: clamp(48px, 6vw, 88px); white-space: nowrap; line-height: 1; }
+.community-series span { color: var(--cp-muted); font-size: 14px; }
+.community-consequence { text-align: center; color: #a8c1ff; padding-top: 20px; border-top: 1px solid var(--cp-line); }
+.community-map-list { list-style: none; padding: 0; margin: 0; }
+.community-map-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--cp-line); }
+.community-map-list li > span:last-child { color: var(--cp-muted); font-size: 14px; }
+.community-search { margin-top: 18px; font-size: 14px; line-height: 1.5; }
+.community-search > p { margin: 0 0 6px; }
+.community-search > span { opacity: .7; }
+.community-search > div { display: flex; gap: 18px; flex-wrap: wrap; }
+.community-search a { color: inherit; text-underline-offset: 4px; }
+.community-home-search { padding-block: 16px; border-bottom: 1px solid #29364c; }
+.community-home-search .community-search { margin-top: 0; }
+.community-source-issue { border-left: 3px solid #6f97e8; padding: 12px 18px; margin-bottom: 24px !important; }
+[data-theme=corporate] .community-page { --cp-text: #142b53; --cp-muted: #4d6383; --cp-line: #cbd5e4; --cp-panel: #f9fbff; }
+[data-theme=corporate] .community-eyebrow, [data-theme=corporate] .community-trophy strong, [data-theme=corporate] .community-consequence { color: #2353a9; }
+[data-theme=dota2] .community-page { --cp-panel: #0b1c21; --cp-line: #29454b; --cp-muted: #acbec2; }
+[data-theme=dota2] .community-button--primary { background: #196b77; border-color: #268a97; }
+@media (max-width: 760px) {
+ .community-page { padding: 28px 18px 50px; }
+ .community-columns { grid-template-columns: minmax(0, 1fr); }
+ .community-team-header { gap: 16px; align-items: flex-start; }
+ .community-team-header > img { width: 64px; height: 64px; }
+ .community-team-header h1 { font-size: 36px; }
+ .community-stats { grid-template-columns: repeat(2, 1fr); }
+ .community-stats > div { padding: 14px; border-bottom: 1px solid var(--cp-line); }
+ .community-stats > div:nth-child(3) { border-left: 0; }
+ .community-panel { padding: 20px 16px; }
+ .community-row-score { grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr); font-size: 14px; gap: 8px; }
+ .community-big-score { grid-template-columns: minmax(0, 1fr) 90px minmax(0, 1fr); gap: 10px; }
+ .community-big-score img { width: 50px; height: 50px; }
+ .community-big-score a { font-size: 14px; }
+ .community-score-panel { padding: 22px 12px; }
+ .community-series strong { font-size: 42px; }
+ .community-map-list li { gap: 10px; grid-template-columns: minmax(0, 1fr) auto; }
+ .community-map-list li > span:last-child { grid-column: 1 / -1; }
+}

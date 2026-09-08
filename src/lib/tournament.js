@@ -4,7 +4,7 @@ const months = ["янв", "фев", "мар", "апр", "мая", "июн", "и�
 
 export const isArchive = (tournament) => ["archive", "completed"].includes(tournament.status);
 export const hasScore = (match) => Number.isFinite(match.score1) && Number.isFinite(match.score2);
-export const isFinished = (match) => finishedStatuses.has(match.status) || (!match.status && hasScore(match));
+export const isFinished = (match) => match.resultConfirmed === false ? false : finishedStatuses.has(match.status) || (!match.status && hasScore(match));
 export const isPlayoffStage = (stage) => bracketTypes.has(stage.type) || stage.phase === "playoffs" || (!/before|group|до\s+плей/i.test(`${stage.id} ${stage.title}`) && /playoff|плей.?офф/i.test(`${stage.id} ${stage.title}`));
 export function getTournamentOutcome(tournament) {
   if (!isArchive(tournament) || !tournament.results) return null;

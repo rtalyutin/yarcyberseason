@@ -1,0 +1,2524 @@
+{
+  "sourceCommit": "06bc55ec74490abeea96f4c5aea5bcaabd2f8c34",
+  "matches": [
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 0,
+      "matchId": "cs2-group-01",
+      "original": {
+        "id": "cs2-group-01",
+        "dateDisplay": "5 фев · 19:00",
+        "stage": "Тур 1",
+        "bestOf": "BO1",
+        "team1": "НМР",
+        "score1": 0,
+        "team2": "Saint Worms",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 1,
+      "matchId": "cs2-group-02",
+      "original": {
+        "id": "cs2-group-02",
+        "dateDisplay": "5 фев · 20:00",
+        "stage": "Тур 1",
+        "bestOf": "BO1",
+        "team1": "Resistance",
+        "score1": 1,
+        "team2": "Vpopengagen wolves",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 2,
+      "matchId": "cs2-group-03",
+      "original": {
+        "id": "cs2-group-03",
+        "dateDisplay": "6 фев · 19:00",
+        "stage": "Тур 1",
+        "bestOf": "BO1",
+        "team1": "FIST&BEER (Кулачки&Пиво)",
+        "score1": 1,
+        "team2": "The Eagles",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 3,
+      "matchId": "cs2-group-04",
+      "original": {
+        "id": "cs2-group-04",
+        "dateDisplay": "6 фев · 20:00",
+        "stage": "Тур 1",
+        "bestOf": "BO1",
+        "team1": "CipHer",
+        "score1": 1,
+        "team2": "КИТ, Кипар и татары",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 4,
+      "matchId": "cs2-group-05",
+      "original": {
+        "id": "cs2-group-05",
+        "dateDisplay": "6 фев · 21:00",
+        "stage": "Тур 1",
+        "bestOf": "BO1",
+        "team1": "Slabeyshie",
+        "score1": 0,
+        "team2": "LigaChad",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 5,
+      "matchId": "cs2-group-06",
+      "original": {
+        "id": "cs2-group-06",
+        "dateDisplay": "7 фев · 19:00",
+        "stage": "Тур 2",
+        "bestOf": "BO1",
+        "team1": "Resistance",
+        "score1": 1,
+        "team2": "Pickmi Guys",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 6,
+      "matchId": "cs2-group-07",
+      "original": {
+        "id": "cs2-group-07",
+        "dateDisplay": "7 фев · 20:00",
+        "stage": "Тур 2",
+        "bestOf": "BO1",
+        "team1": "LigaChad",
+        "score1": 1,
+        "team2": "CipHer",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 7,
+      "matchId": "cs2-group-08",
+      "original": {
+        "id": "cs2-group-08",
+        "dateDisplay": "8 фев · 19:00",
+        "stage": "Тур 2",
+        "bestOf": "BO1",
+        "team1": "Saint Worms",
+        "score1": 1,
+        "team2": "FIST&BEER (Кулачки&Пиво)",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 8,
+      "matchId": "cs2-group-09",
+      "original": {
+        "id": "cs2-group-09",
+        "dateDisplay": "8 фев · 20:00",
+        "stage": "Тур 2",
+        "bestOf": "BO1",
+        "team1": "НМР",
+        "score1": 0,
+        "team2": "Slabeyshie",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 9,
+      "matchId": "cs2-group-10",
+      "original": {
+        "id": "cs2-group-10",
+        "dateDisplay": "8 фев · 21:00",
+        "stage": "Тур 2",
+        "bestOf": "BO1",
+        "team1": "The Eagles",
+        "score1": 0,
+        "team2": "Vpopengagen wolves",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 10,
+      "matchId": "cs2-group-11",
+      "original": {
+        "id": "cs2-group-11",
+        "dateDisplay": "12 фев · 18:00",
+        "stage": "Тур 3",
+        "bestOf": "BO3",
+        "team1": "The Eagles",
+        "score1": 2,
+        "team2": "НМР",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 11,
+      "matchId": "cs2-group-12",
+      "original": {
+        "id": "cs2-group-12",
+        "dateDisplay": "12 фев · 19:00",
+        "stage": "Тур 3",
+        "bestOf": "BO1",
+        "team1": "КИТ, Кипар и татары",
+        "score1": 0,
+        "team2": "Vpopengagen wolves",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 12,
+      "matchId": "cs2-group-13",
+      "original": {
+        "id": "cs2-group-13",
+        "dateDisplay": "12 фев · 21:00",
+        "stage": "Тур 3",
+        "bestOf": "BO1",
+        "team1": "CipHer",
+        "score1": 1,
+        "team2": "Pickmi Guys",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 13,
+      "matchId": "cs2-group-14",
+      "original": {
+        "id": "cs2-group-14",
+        "dateDisplay": "13 фев · 20:00",
+        "stage": "Тур 3",
+        "bestOf": "BO1",
+        "team1": "Resistance",
+        "score1": 0,
+        "team2": "LigaChad",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 14,
+      "matchId": "cs2-group-15",
+      "original": {
+        "id": "cs2-group-15",
+        "dateDisplay": "13 фев · 22:00",
+        "stage": "Тур 3",
+        "bestOf": "BO1",
+        "team1": "Slabeyshie",
+        "score1": 1,
+        "team2": "FIST&BEER (Кулачки&Пиво)",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 15,
+      "matchId": "cs2-group-16",
+      "original": {
+        "id": "cs2-group-16",
+        "dateDisplay": "14 фев · 20:00",
+        "stage": "Тур 4",
+        "bestOf": "BO3",
+        "team1": "Pickmi Guys",
+        "score1": 0,
+        "team2": "FIST&BEER (Кулачки&Пиво)",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 16,
+      "matchId": "cs2-group-17",
+      "original": {
+        "id": "cs2-group-17",
+        "dateDisplay": "15 фев · 19:00",
+        "stage": "Тур 4",
+        "bestOf": "BO1",
+        "team1": "Vpopengagen wolves",
+        "score1": 1,
+        "team2": "CipHer",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 17,
+      "matchId": "cs2-group-18",
+      "original": {
+        "id": "cs2-group-18",
+        "dateDisplay": "15 фев · 20:00",
+        "stage": "Тур 4",
+        "bestOf": "BO1",
+        "team1": "LigaChad",
+        "score1": 1,
+        "team2": "Saint Worms",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 18,
+      "matchId": "cs2-group-19",
+      "original": {
+        "id": "cs2-group-19",
+        "dateDisplay": "15 фев · 21:00",
+        "stage": "Тур 4",
+        "bestOf": "BO3",
+        "team1": "КИТ, Кипар и татары",
+        "score1": 2,
+        "team2": "The Eagles",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 19,
+      "matchId": "cs2-group-20",
+      "original": {
+        "id": "cs2-group-20",
+        "dateDisplay": "16 фев · 20:00",
+        "stage": "Тур 4",
+        "bestOf": "BO1",
+        "team1": "Resistance",
+        "score1": 1,
+        "team2": "Slabeyshie",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-upper-qf-1",
+      "original": {
+        "id": "cs2-upper-qf-1",
+        "date": "2026-02-17",
+        "dateDisplay": "17.2",
+        "bestOf": "BO1",
+        "team1": "LigaChad",
+        "score1": 1,
+        "team2": "Slabeyshie",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-upper-qf-2",
+      "original": {
+        "id": "cs2-upper-qf-2",
+        "date": "2026-02-17",
+        "dateDisplay": "17.2",
+        "bestOf": "BO1",
+        "team1": "Resistance",
+        "score1": 1,
+        "team2": "CipHer",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 2,
+      "matchId": "cs2-upper-qf-3",
+      "original": {
+        "id": "cs2-upper-qf-3",
+        "date": "2026-02-17",
+        "dateDisplay": "17.2",
+        "bestOf": "BO1",
+        "team1": "Vpopengagen wolves",
+        "score1": 1,
+        "team2": "КИТ, Кипар и татары",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 3,
+      "matchId": "cs2-upper-qf-4",
+      "original": {
+        "id": "cs2-upper-qf-4",
+        "date": "2026-02-17",
+        "dateDisplay": "17.2",
+        "bestOf": "BO1",
+        "team1": "Saint Worms",
+        "score1": 0,
+        "team2": "FIST&BEER",
+        "score2": 1,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-upper-sf-5",
+      "original": {
+        "id": "cs2-upper-sf-5",
+        "date": "2026-02-21",
+        "dateDisplay": "21.2",
+        "bestOf": "BO3",
+        "team1": "LigaChad",
+        "score1": 1,
+        "team2": "Resistance",
+        "score2": 2,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-upper-sf-6",
+      "original": {
+        "id": "cs2-upper-sf-6",
+        "date": "2026-02-21",
+        "dateDisplay": "21.2",
+        "bestOf": "BO3",
+        "team1": "Vpopengagen wolves",
+        "score1": 2,
+        "team2": "FIST&BEER",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-upper-final-7",
+      "original": {
+        "id": "cs2-upper-final-7",
+        "date": "2026-02-25",
+        "dateDisplay": "25.2",
+        "bestOf": "BO3",
+        "team1": "Resistance",
+        "score1": 2,
+        "team2": "Vpopengagen wolves",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-lower-r1-1",
+      "original": {
+        "id": "cs2-lower-r1-1",
+        "date": "2026-02-18",
+        "dateDisplay": "18.2",
+        "bestOf": "BO3",
+        "team1": "CipHer",
+        "score1": 0,
+        "team2": "Slabeyshie",
+        "score2": 2,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-lower-r1-2",
+      "original": {
+        "id": "cs2-lower-r1-2",
+        "date": "2026-02-18",
+        "dateDisplay": "18.2",
+        "bestOf": "BO3",
+        "team1": "Saint Worms",
+        "score1": 2,
+        "team2": "КИТ, Кипар и татары",
+        "score2": 1,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-lower-r2-3",
+      "original": {
+        "id": "cs2-lower-r2-3",
+        "date": "2026-02-24",
+        "dateDisplay": "24.2",
+        "bestOf": "BO3",
+        "team1": "Slabeyshie",
+        "score1": 0,
+        "team2": "LigaChad",
+        "score2": 2,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-lower-r2-4",
+      "original": {
+        "id": "cs2-lower-r2-4",
+        "date": "2026-02-24",
+        "dateDisplay": "24.2",
+        "bestOf": "BO3",
+        "team1": "Saint Worms",
+        "score1": 2,
+        "team2": "FIST&BEER",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-lower-r3-5",
+      "original": {
+        "id": "cs2-lower-r3-5",
+        "date": "2026-02-25",
+        "dateDisplay": "25.2",
+        "bestOf": "BO3",
+        "team1": "LigaChad",
+        "score1": 2,
+        "team2": "Saint Worms",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-lower-final-7",
+      "original": {
+        "id": "cs2-lower-final-7",
+        "date": "2026-02-26",
+        "dateDisplay": "26.2",
+        "bestOf": "BO3",
+        "team1": "LigaChad",
+        "score1": 2,
+        "team2": "Vpopengagen wolves",
+        "score2": 0,
+        "status": "completed"
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-5",
+      "sourcePosition": 0,
+      "matchId": "cs2-r5-vesely-grob-psb-bank",
+      "original": {
+        "id": "cs2-r5-vesely-grob-psb-bank",
+        "status": "completed",
+        "date": "2026-08-28",
+        "dateDisplay": "28 августа",
+        "bestOf": "BO3",
+        "team1": "Веселый гроб",
+        "score1": 0,
+        "team2": "PSB_Bank",
+        "score2": 2,
+        "roundRecord": "11:26",
+        "maps": [
+          {
+            "name": "Inferno",
+            "score1": 8,
+            "score2": 13
+          },
+          {
+            "name": "Nuke",
+            "score1": 3,
+            "score2": 13
+          }
+        ],
+        "note": "Счёт по картам: Inferno 8:13, Nuke 3:13. Раунды: 11:26."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-5",
+      "sourcePosition": 1,
+      "matchId": "cs2-r5-resistance-flouk",
+      "original": {
+        "id": "cs2-r5-resistance-flouk",
+        "status": "completed",
+        "date": "2026-08-28",
+        "dateDisplay": "28 августа",
+        "bestOf": "BO3",
+        "team1": "Resistance",
+        "score1": 2,
+        "team2": "Flouk Team",
+        "score2": 0,
+        "roundRecord": "26:6",
+        "maps": [
+          {
+            "name": "Inferno",
+            "score1": 13,
+            "score2": 1
+          },
+          {
+            "name": "Anubis",
+            "score1": 13,
+            "score2": 5
+          }
+        ],
+        "note": "Счёт по картам: Inferno 13:1, Anubis 13:5. Раунды: 26:6."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-5",
+      "sourcePosition": 2,
+      "matchId": "cs2-r5-hellwarriors-hunger",
+      "original": {
+        "id": "cs2-r5-hellwarriors-hunger",
+        "status": "completed",
+        "date": "2026-08-28",
+        "dateDisplay": "28 августа",
+        "bestOf": "BO3",
+        "team1": "HellWarriors",
+        "score1": 0,
+        "team2": "Hunger to victories",
+        "score2": 2,
+        "roundRecord": "14:29",
+        "maps": [
+          {
+            "name": "Anubis",
+            "score1": 12,
+            "score2": 16
+          },
+          {
+            "name": "Inferno",
+            "score1": 2,
+            "score2": 13
+          }
+        ],
+        "note": "Счёт по картам: Anubis 12:16, Inferno 2:13. Раунды: 14:29."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-4",
+      "sourcePosition": 0,
+      "matchId": "cs2-r4-resistance-pivnaya-kega",
+      "original": {
+        "id": "cs2-r4-resistance-pivnaya-kega",
+        "status": "completed",
+        "date": "2026-08-27",
+        "dateDisplay": "27 августа",
+        "time": "21:30",
+        "bestOf": "BO3",
+        "team1": "Resistance",
+        "score1": 0,
+        "team2": "PIVNAYA KEGA",
+        "score2": 2,
+        "roundRecord": "23:29",
+        "maps": [
+          {
+            "name": "Inferno",
+            "score1": 10,
+            "score2": 13
+          },
+          {
+            "name": "Anubis",
+            "score1": 13,
+            "score2": 16
+          }
+        ],
+        "note": "Счёт по картам: Inferno 10:13, Anubis 13:16. Раунды: 23:29."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-4",
+      "sourcePosition": 1,
+      "matchId": "cs2-r4-hunger-goongang",
+      "original": {
+        "id": "cs2-r4-hunger-goongang",
+        "status": "completed",
+        "date": "2026-08-27",
+        "dateDisplay": "27 августа",
+        "time": "20:00",
+        "bestOf": "BO3",
+        "team1": "Hunger to victories",
+        "score1": 1,
+        "team2": "GoonGang",
+        "score2": 2,
+        "roundRecord": "24:35",
+        "maps": [
+          {
+            "name": "Anubis",
+            "score1": 13,
+            "score2": 9
+          },
+          {
+            "name": "Ancient",
+            "score1": 8,
+            "score2": 13
+          },
+          {
+            "name": "Mirage",
+            "score1": 3,
+            "score2": 13
+          }
+        ],
+        "note": "Счёт по картам: Anubis 13:9, Ancient 8:13, Mirage 3:13. Раунды: 24:35."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-4",
+      "sourcePosition": 2,
+      "matchId": "cs2-r4-dealducks-flouk",
+      "original": {
+        "id": "cs2-r4-dealducks-flouk",
+        "status": "completed",
+        "date": "2026-08-27",
+        "dateDisplay": "27 августа",
+        "time": "23:30",
+        "bestOf": "BO3",
+        "team1": "DealDucks",
+        "score1": 2,
+        "team2": "Flouk Team",
+        "score2": 0,
+        "roundRecord": "26:9",
+        "maps": [
+          {
+            "score1": 13,
+            "score2": 5
+          },
+          {
+            "score1": 13,
+            "score2": 4
+          }
+        ],
+        "note": "Счёт по картам: 13:5, 13:4. Раунды: 26:9."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-4",
+      "sourcePosition": 3,
+      "matchId": "cs2-r4-cipher-psb-bank",
+      "original": {
+        "id": "cs2-r4-cipher-psb-bank",
+        "status": "completed",
+        "date": "2026-08-27",
+        "dateDisplay": "27 августа",
+        "time": "20:30",
+        "bestOf": "BO3",
+        "team1": "CipHer",
+        "score1": 1,
+        "team2": "PSB_Bank",
+        "score2": 2,
+        "roundRecord": "33:40",
+        "maps": [
+          {
+            "name": "Anubis",
+            "score1": 16,
+            "score2": 14
+          },
+          {
+            "name": "Dust2",
+            "score1": 10,
+            "score2": 13
+          },
+          {
+            "name": "Mirage",
+            "score1": 7,
+            "score2": 13
+          }
+        ],
+        "note": "Счёт по картам: Anubis 16:14, Dust2 10:13, Mirage 7:13. Раунды: 33:40."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-4",
+      "sourcePosition": 4,
+      "matchId": "cs2-r4-vesely-grob-bye",
+      "original": {
+        "id": "cs2-r4-vesely-grob-bye",
+        "status": "bye",
+        "date": "2026-08-27",
+        "dateDisplay": "27 августа",
+        "team1": "Веселый гроб",
+        "score1": 1,
+        "team2": "Без соперника",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Победа без игры · 1:0."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-4",
+      "sourcePosition": 5,
+      "matchId": "cs2-r4-hellwarriors-bye",
+      "original": {
+        "id": "cs2-r4-hellwarriors-bye",
+        "status": "bye",
+        "date": "2026-08-27",
+        "dateDisplay": "27 августа",
+        "team1": "HellWarriors",
+        "score1": 1,
+        "team2": "Без соперника",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Победа без игры · 1:0."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-3",
+      "sourcePosition": 0,
+      "matchId": "cs2-r3-resistance-saiten",
+      "original": {
+        "id": "cs2-r3-resistance-saiten",
+        "status": "completed",
+        "date": "2026-08-26",
+        "dateDisplay": "26 августа",
+        "bestOf": "BO3",
+        "team1": "Resistance",
+        "score1": 1,
+        "team2": "SAITEN x BAD.RABBIT",
+        "score2": 2,
+        "roundRecord": "29:32",
+        "maps": [
+          {
+            "name": "Ancient",
+            "score1": 9,
+            "score2": 13
+          },
+          {
+            "name": "Inferno",
+            "score1": 13,
+            "score2": 6
+          },
+          {
+            "name": "Dust2",
+            "score1": 7,
+            "score2": 13
+          }
+        ],
+        "note": "Счёт по картам: Ancient 9:13, Inferno 13:6, Dust2 7:13. Раунды: 29:32."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-3",
+      "sourcePosition": 1,
+      "matchId": "cs2-r3-pivnaya-kega-bobr1ki",
+      "original": {
+        "id": "cs2-r3-pivnaya-kega-bobr1ki",
+        "status": "completed",
+        "date": "2026-08-26",
+        "dateDisplay": "26 августа",
+        "bestOf": "BO3",
+        "team1": "PIVNAYA KEGA",
+        "score1": 0,
+        "team2": "bobr1ki",
+        "score2": 2,
+        "roundRecord": "10:26",
+        "maps": [
+          {
+            "name": "Mirage",
+            "score1": 7,
+            "score2": 13
+          },
+          {
+            "name": "Ancient",
+            "score1": 3,
+            "score2": 13
+          }
+        ],
+        "note": "Команда RSATU учтена под названием bobr1ki. Счёт по картам: Mirage 7:13, Ancient 3:13. Раунды: 10:26."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-3",
+      "sourcePosition": 2,
+      "matchId": "cs2-r3-cipher-hunger",
+      "original": {
+        "id": "cs2-r3-cipher-hunger",
+        "status": "completed",
+        "date": "2026-08-26",
+        "dateDisplay": "26 августа",
+        "bestOf": "BO1",
+        "team1": "CipHer",
+        "score1": 5,
+        "team2": "Hunger to victories",
+        "score2": 13,
+        "roundRecord": "5:13",
+        "map": "Ancient",
+        "note": "Ancient 5:13. Раунды: 5:13."
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-3",
+      "sourcePosition": 3,
+      "matchId": "cs2-r3-psb-goongang",
+      "original": {
+        "id": "cs2-r3-psb-goongang",
+        "status": "completed",
+        "date": "2026-08-26",
+        "dateDisplay": "26 августа",
+        "bestOf": "BO1",
+        "team1": "PSB_Bank",
+        "score1": 6,
+        "team2": "GoonGang",
+        "score2": 13,
+        "map": "Inferno"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-3",
+      "sourcePosition": 4,
+      "matchId": "cs2-r3-dealducks-vesely-grob",
+      "original": {
+        "id": "cs2-r3-dealducks-vesely-grob",
+        "status": "completed",
+        "date": "2026-08-26",
+        "dateDisplay": "26 августа",
+        "bestOf": "BO1",
+        "team1": "DealDucks",
+        "score1": 13,
+        "team2": "Веселый гроб",
+        "score2": 4,
+        "map": "Nuke"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-3",
+      "sourcePosition": 5,
+      "matchId": "cs2-r3-flouk-hellwarriors",
+      "original": {
+        "id": "cs2-r3-flouk-hellwarriors",
+        "status": "completed",
+        "date": "2026-08-26",
+        "dateDisplay": "26 августа",
+        "bestOf": "BO1",
+        "team1": "Flouk Team",
+        "score1": 16,
+        "team2": "HellWarriors",
+        "score2": 14
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 0,
+      "matchId": "cs2-r2-saiten-hellwarriors",
+      "original": {
+        "id": "cs2-r2-saiten-hellwarriors",
+        "status": "walkover",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "team1": "SAITEN x BAD.RABBIT",
+        "score1": 1,
+        "team2": "HellWarriors",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Техническая победа SAITEN x BAD.RABBIT 1:0 · HellWarriors получает техническое поражение."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 1,
+      "matchId": "cs2-r2-hunger-pivnaya-kega",
+      "original": {
+        "id": "cs2-r2-hunger-pivnaya-kega",
+        "status": "completed",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "bestOf": "BO1",
+        "team1": "Hunger to victories",
+        "score1": 2,
+        "team2": "PIVNAYA KEGA",
+        "score2": 13,
+        "map": "Ancient"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 2,
+      "matchId": "cs2-r2-resistance-goongang",
+      "original": {
+        "id": "cs2-r2-resistance-goongang",
+        "status": "completed",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "bestOf": "BO1",
+        "team1": "Resistance",
+        "score1": 16,
+        "team2": "GoonGang",
+        "score2": 13,
+        "map": "Cache"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 3,
+      "matchId": "cs2-r2-dealducks-bobr1ki",
+      "original": {
+        "id": "cs2-r2-dealducks-bobr1ki",
+        "status": "completed",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "bestOf": "BO1",
+        "team1": "DealDucks",
+        "score1": 10,
+        "team2": "bobr1ki",
+        "score2": 13,
+        "map": "Nuke",
+        "note": "Команда RSATU учтена под названием bobr1ki."
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 4,
+      "matchId": "cs2-r2-vesely-grob-bye",
+      "original": {
+        "id": "cs2-r2-vesely-grob-bye",
+        "status": "bye",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "team1": "Веселый гроб",
+        "score1": 1,
+        "team2": "Без соперника",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Победа без игры · 1:0."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 5,
+      "matchId": "cs2-r2-psb-bank-bye",
+      "original": {
+        "id": "cs2-r2-psb-bank-bye",
+        "status": "bye",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "team1": "PSB_Bank",
+        "score1": 1,
+        "team2": "Без соперника",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Победа без игры · 1:0."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 6,
+      "matchId": "cs2-r2-flouk-team-bye",
+      "original": {
+        "id": "cs2-r2-flouk-team-bye",
+        "status": "bye",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "team1": "Flouk Team",
+        "score1": 1,
+        "team2": "Без соперника",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Победа без игры · 1:0."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-2",
+      "sourcePosition": 7,
+      "matchId": "cs2-r2-cipher-bye",
+      "original": {
+        "id": "cs2-r2-cipher-bye",
+        "status": "bye",
+        "date": "2026-08-25",
+        "dateDisplay": "25 августа",
+        "team1": "CipHer",
+        "score1": 1,
+        "team2": "Без соперника",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Победа без игры · 1:0."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 0,
+      "matchId": "cs2-r1-hellwarriors",
+      "original": {
+        "id": "cs2-r1-hellwarriors",
+        "status": "walkover",
+        "dateDisplay": "24 августа",
+        "team1": "HellWarriors",
+        "score1": 1,
+        "team2": "Не заявленная команда",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Техническая победа 1:0 · команда пропускает 1-й круг."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 1,
+      "matchId": "cs2-r1-pivnaya-kega",
+      "original": {
+        "id": "cs2-r1-pivnaya-kega",
+        "status": "walkover",
+        "dateDisplay": "24 августа",
+        "team1": "PIVNAYA KEGA",
+        "score1": 1,
+        "team2": "Не заявленная команда",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Техническая победа 1:0 · команда пропускает 1-й круг."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 2,
+      "matchId": "cs2-r1-hunger",
+      "original": {
+        "id": "cs2-r1-hunger",
+        "status": "walkover",
+        "dateDisplay": "24 августа",
+        "team1": "Hunger to victories",
+        "score1": 1,
+        "team2": "Не заявленная команда",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Техническая победа 1:0 · команда пропускает 1-й круг."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 3,
+      "matchId": "cs2-r1-saiten",
+      "original": {
+        "id": "cs2-r1-saiten",
+        "status": "walkover",
+        "dateDisplay": "24 августа",
+        "team1": "SAITEN x BAD.RABBIT",
+        "score1": 1,
+        "team2": "Не заявленная команда",
+        "score2": 0,
+        "roundRecord": "1:0",
+        "note": "Техническая победа 1:0 · команда пропускает 1-й круг."
+      },
+      "scoreKind": "technical",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 4,
+      "matchId": "cs2-r1-cipher-goongang",
+      "original": {
+        "id": "cs2-r1-cipher-goongang",
+        "status": "completed",
+        "date": "2026-08-24",
+        "dateDisplay": "24 августа",
+        "time": "20:00",
+        "bestOf": "BO1",
+        "team1": "CipHer",
+        "score1": 1,
+        "team2": "GoonGang",
+        "score2": 13,
+        "map": "Ancient"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 5,
+      "matchId": "cs2-r1-vesely-grob-dealducks",
+      "original": {
+        "id": "cs2-r1-vesely-grob-dealducks",
+        "status": "completed",
+        "date": "2026-08-24",
+        "dateDisplay": "24 августа",
+        "time": "20:30",
+        "bestOf": "BO1",
+        "team1": "Веселый гроб",
+        "score1": 2,
+        "team2": "DealDucks",
+        "score2": 13,
+        "map": "Mirage"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 6,
+      "matchId": "cs2-r1-psb-resistance",
+      "original": {
+        "id": "cs2-r1-psb-resistance",
+        "status": "completed",
+        "date": "2026-08-24",
+        "dateDisplay": "24 августа",
+        "time": "21:00",
+        "bestOf": "BO1",
+        "team1": "PSB_Bank",
+        "score1": 1,
+        "team2": "Resistance",
+        "score2": 13,
+        "map": "Dust2"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "round-1",
+      "sourcePosition": 7,
+      "matchId": "cs2-r1-bobr1ki-flouk",
+      "original": {
+        "id": "cs2-r1-bobr1ki-flouk",
+        "status": "completed",
+        "date": "2026-08-24",
+        "dateDisplay": "24 августа",
+        "time": "23:30",
+        "bestOf": "BO1",
+        "team1": "bobr1ki",
+        "score1": 13,
+        "team2": "Flouk Team",
+        "score2": 1,
+        "map": "Ancient",
+        "faceitUrl": "https://www.faceit.com/ru/cs2/room/1-58e681d9-be65-4fad-a5c0-16e565fa9c08/scoreboard"
+      },
+      "scoreKind": "rounds",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-upper-qf-1",
+      "original": {
+        "id": "cs2-aug-upper-qf-1",
+        "status": "completed",
+        "date": "2026-08-31",
+        "dateDisplay": "31 августа",
+        "bestOf": "BO3",
+        "sourceLabel": "В1 · посев 1–8",
+        "seed1": 1,
+        "team1": "bobr1ki",
+        "score1": 2,
+        "seed2": 8,
+        "team2": "Hunger to victories",
+        "score2": 0,
+        "note": "bobr1ki победили 2:0. Счёт отдельных карт не опубликован."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-aug-upper-qf-2",
+      "original": {
+        "id": "cs2-aug-upper-qf-2",
+        "status": "completed",
+        "date": "2026-08-30",
+        "dateDisplay": "30 августа",
+        "bestOf": "BO3",
+        "sourceLabel": "В2 · посев 3–6",
+        "seed1": 3,
+        "team1": "PIVNAYA KEGA",
+        "score1": 2,
+        "seed2": 6,
+        "team2": "Resistance",
+        "score2": 0,
+        "note": "PIVNAYA KEGA победили 2:0. Счёт отдельных карт не опубликован."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 2,
+      "matchId": "cs2-aug-upper-qf-3",
+      "original": {
+        "id": "cs2-aug-upper-qf-3",
+        "status": "completed",
+        "date": "2026-08-30",
+        "dateDisplay": "30 августа",
+        "bestOf": "BO3",
+        "sourceLabel": "В3 · посев 2–7",
+        "seed1": 2,
+        "team1": "SAITEN x BAD.RABBIT",
+        "score1": 2,
+        "seed2": 7,
+        "team2": "PSB_Bank",
+        "score2": 0,
+        "note": "SAITEN x BAD.RABBIT победили 2:0. Счёт отдельных карт не опубликован."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 3,
+      "matchId": "cs2-aug-upper-qf-4",
+      "original": {
+        "id": "cs2-aug-upper-qf-4",
+        "status": "completed",
+        "date": "2026-08-31",
+        "dateDisplay": "31 августа",
+        "bestOf": "BO3",
+        "sourceLabel": "В4 · посев 4–5",
+        "seed1": 4,
+        "team1": "GoonGang",
+        "score1": 0,
+        "seed2": 5,
+        "team2": "DealDucks",
+        "score2": 2,
+        "roundRecord": "17:26",
+        "maps": [
+          {
+            "name": "Ancient",
+            "score1": 7,
+            "score2": 13
+          },
+          {
+            "name": "Mirage",
+            "score1": 10,
+            "score2": 13
+          }
+        ],
+        "note": "Счёт по картам: Ancient 7:13, Mirage 10:13. Раунды: 17:26."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-upper-sf-1",
+      "original": {
+        "id": "cs2-aug-upper-sf-1",
+        "status": "completed",
+        "date": "2026-09-02",
+        "dateDisplay": "2 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "В5",
+        "team1": "bobr1ki",
+        "score1": 2,
+        "team2": "PIVNAYA KEGA",
+        "score2": 1,
+        "roundRecord": "40:31",
+        "maps": [
+          {
+            "name": "Mirage",
+            "score1": 13,
+            "score2": 11
+          },
+          {
+            "name": "Anubis",
+            "score1": 14,
+            "score2": 16
+          },
+          {
+            "name": "Dust2",
+            "score1": 13,
+            "score2": 4
+          }
+        ],
+        "note": "Счёт по картам: Mirage 13:11, Anubis 14:16, Dust2 13:4. Раунды: 40:31. В Faceit команда указана как RSATU."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-aug-upper-sf-2",
+      "original": {
+        "id": "cs2-aug-upper-sf-2",
+        "status": "completed",
+        "date": "2026-09-02",
+        "dateDisplay": "2 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "В6",
+        "team1": "SAITEN x BAD.RABBIT",
+        "score1": 2,
+        "team2": "DealDucks",
+        "score2": 1,
+        "roundRecord": "37:27",
+        "maps": [
+          {
+            "name": "Ancient",
+            "score1": 13,
+            "score2": 6
+          },
+          {
+            "name": "Mirage",
+            "score1": 11,
+            "score2": 13
+          },
+          {
+            "name": "Dust2",
+            "score1": 13,
+            "score2": 8
+          }
+        ],
+        "note": "Счёт по картам: Ancient 13:6, Mirage 11:13, Dust2 13:8. Раунды: 37:27."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-upper-final",
+      "original": {
+        "id": "cs2-aug-upper-final",
+        "status": "completed",
+        "date": "2026-09-04",
+        "dateDisplay": "4 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "В7",
+        "team1": "bobr1ki",
+        "score1": 2,
+        "team2": "SAITEN x BAD.RABBIT",
+        "score2": 0,
+        "roundRecord": "26:19",
+        "maps": [
+          {
+            "name": "Ancient",
+            "score1": 13,
+            "score2": 11
+          },
+          {
+            "name": "Mirage",
+            "score1": 13,
+            "score2": 8
+          }
+        ],
+        "note": "bobr1ki победили 2:0. Счёт по картам: Ancient 13:11, Mirage 13:8. Раунды: 26:19. В Faceit команда указана как RSATU."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-lower-r1-1",
+      "original": {
+        "id": "cs2-aug-lower-r1-1",
+        "status": "completed",
+        "date": "2026-09-01",
+        "dateDisplay": "1 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "Н1",
+        "team1": "Hunger to victories",
+        "score1": 0,
+        "team2": "Resistance",
+        "score2": 2,
+        "note": "Счёт серии: 2:0."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-aug-lower-r1-2",
+      "original": {
+        "id": "cs2-aug-lower-r1-2",
+        "status": "completed",
+        "date": "2026-09-01",
+        "dateDisplay": "1 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "Н2",
+        "team1": "PSB_Bank",
+        "score1": 1,
+        "team2": "GoonGang",
+        "score2": 2,
+        "note": "Счёт серии: 2:1. Счёт отдельных карт не опубликован."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-lower-r2-1",
+      "original": {
+        "id": "cs2-aug-lower-r2-1",
+        "status": "completed",
+        "date": "2026-09-03",
+        "dateDisplay": "3 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "Н3",
+        "team1": "GoonGang",
+        "score1": 2,
+        "team2": "DealDucks",
+        "score2": 0,
+        "note": "Счёт серии: 2:0. Счёт отдельных карт не опубликован."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "cs2-aug-lower-r2-2",
+      "original": {
+        "id": "cs2-aug-lower-r2-2",
+        "status": "completed",
+        "date": "2026-09-03",
+        "dateDisplay": "3 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "Н4",
+        "team1": "Resistance",
+        "score1": 0,
+        "team2": "PIVNAYA KEGA",
+        "score2": 2,
+        "note": "Счёт серии: 2:0. Счёт отдельных карт не опубликован."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-lower-r3",
+      "original": {
+        "id": "cs2-aug-lower-r3",
+        "status": "completed",
+        "date": "2026-09-04",
+        "dateDisplay": "4 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "Н5",
+        "team1": "GoonGang",
+        "score1": 0,
+        "team2": "PIVNAYA KEGA",
+        "score2": 2,
+        "roundRecord": "20:26",
+        "maps": [
+          {
+            "name": "Mirage",
+            "score1": 11,
+            "score2": 13
+          },
+          {
+            "name": "Ancient",
+            "score1": 9,
+            "score2": 13
+          }
+        ],
+        "note": "PIVNAYA KEGA победили 2:0. Счёт по картам: Mirage 11:13, Ancient 9:13. Раунды: 20:26."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-lower-final",
+      "original": {
+        "id": "cs2-aug-lower-final",
+        "status": "completed",
+        "date": "2026-09-05",
+        "dateDisplay": "5 сентября",
+        "bestOf": "BO3",
+        "sourceLabel": "Н6",
+        "team1": "PIVNAYA KEGA",
+        "score1": 2,
+        "team2": "SAITEN x BAD.RABBIT",
+        "score2": 1,
+        "roundRecord": "36:28",
+        "maps": [
+          {
+            "name": "Mirage",
+            "score1": 13,
+            "score2": 10
+          },
+          {
+            "name": "Ancient",
+            "score1": 10,
+            "score2": 13
+          },
+          {
+            "name": "Anubis",
+            "score1": 13,
+            "score2": 5
+          }
+        ],
+        "note": "PIVNAYA KEGA победили 2:1. Счёт по картам: Mirage 13:10, Ancient 10:13, Anubis 13:5. Раунды: 36:28."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "cs2-aug-grand-final",
+      "original": {
+        "id": "cs2-aug-grand-final",
+        "status": "completed",
+        "date": "2026-09-06",
+        "dateDisplay": "6 сентября",
+        "time": "15:00",
+        "bestOf": "BO5",
+        "sourceLabel": "Ф1",
+        "team1": "bobr1ki",
+        "score1": 2,
+        "team2": "PIVNAYA KEGA",
+        "score2": 3,
+        "note": "PIVNAYA KEGA — победитель турнира, счёт гранд-финала 3:2. Счёт отдельных карт не опубликован. В Faceit команда bobr1ki указана как RSATU."
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 0,
+      "matchId": "dota-main-group-01",
+      "original": {
+        "id": "dota-main-group-01",
+        "dateDisplay": "27 мар · 21:00",
+        "stage": "Тур 1 · Группа A",
+        "bestOf": "BO3",
+        "team1": "Самозванцы",
+        "score1": 2,
+        "team2": "Колбасный ЦЭХ",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 1,
+      "matchId": "dota-main-group-02",
+      "original": {
+        "id": "dota-main-group-02",
+        "dateDisplay": "26 мар · 20:00",
+        "stage": "Тур 1 · Группа A",
+        "bestOf": "BO3",
+        "team1": "Japan 日本",
+        "score1": 2,
+        "team2": "Yellow Submarine",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 2,
+      "matchId": "dota-main-group-03",
+      "original": {
+        "id": "dota-main-group-03",
+        "dateDisplay": "6 апр · 18:00",
+        "stage": "Тур 1 · Группа B",
+        "bestOf": "BO3",
+        "team1": "jazzfive",
+        "score1": 0,
+        "team2": "Mi ne Pushim!",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 3,
+      "matchId": "dota-main-group-04",
+      "original": {
+        "id": "dota-main-group-04",
+        "dateDisplay": "5 апр · 19:00",
+        "stage": "Тур 1 · Группа B",
+        "bestOf": "BO3",
+        "team1": "pojarniki",
+        "score1": 0,
+        "team2": "Buyback Academy",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 4,
+      "matchId": "dota-main-group-05",
+      "original": {
+        "id": "dota-main-group-05",
+        "dateDisplay": "28 мар · 09:00",
+        "stage": "Тур 1 · Группа C",
+        "bestOf": "BO3",
+        "team1": "Tech Titans",
+        "score1": 2,
+        "team2": "ВИФК",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 5,
+      "matchId": "dota-main-group-06",
+      "original": {
+        "id": "dota-main-group-06",
+        "dateDisplay": "25 мар · 21:00",
+        "stage": "Тур 1 · Группа C",
+        "bestOf": "BO3",
+        "team1": "ЯГК",
+        "score1": 0,
+        "team2": "Синергия ср",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 6,
+      "matchId": "dota-main-group-07",
+      "original": {
+        "id": "dota-main-group-07",
+        "dateDisplay": "27 мар · 21:00",
+        "stage": "Тур 1 · Группа D",
+        "bestOf": "BO3",
+        "team1": "Way Prod.",
+        "score1": 2,
+        "team2": "Гики",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 7,
+      "matchId": "dota-main-group-08",
+      "original": {
+        "id": "dota-main-group-08",
+        "dateDisplay": "27 мар · 20:00",
+        "stage": "Тур 1 · Группа D",
+        "bestOf": "BO3",
+        "team1": "Steel Titans",
+        "score1": 0,
+        "team2": "Team Borisogleb",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 8,
+      "matchId": "dota-main-group-09",
+      "original": {
+        "id": "dota-main-group-09",
+        "dateDisplay": "1 апр · 21:30",
+        "stage": "Тур 2 · Группа A",
+        "bestOf": "BO3",
+        "team1": "Самозванцы",
+        "score1": 2,
+        "team2": "Japan 日本",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 9,
+      "matchId": "dota-main-group-10",
+      "original": {
+        "id": "dota-main-group-10",
+        "dateDisplay": "29 мар · 21:00",
+        "stage": "Тур 2 · Группа A",
+        "bestOf": "BO3",
+        "team1": "Колбасный ЦЭХ",
+        "score1": 0,
+        "team2": "Yellow Submarine",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 10,
+      "matchId": "dota-main-group-11",
+      "original": {
+        "id": "dota-main-group-11",
+        "dateDisplay": "31 мар · 19:00",
+        "stage": "Тур 2 · Группа B",
+        "bestOf": "BO3",
+        "team1": "Mi ne Pushim!",
+        "score1": 2,
+        "team2": "Buyback Academy",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 11,
+      "matchId": "dota-main-group-12",
+      "original": {
+        "id": "dota-main-group-12",
+        "dateDisplay": "30 мар · 19:00",
+        "stage": "Тур 2 · Группа C",
+        "bestOf": "BO3",
+        "team1": "Tech Titans",
+        "score1": 2,
+        "team2": "ЯГК",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 12,
+      "matchId": "dota-main-group-13",
+      "original": {
+        "id": "dota-main-group-13",
+        "dateDisplay": "30 мар · 20:00",
+        "stage": "Тур 2 · Группа C",
+        "bestOf": "BO3",
+        "team1": "ВИФК",
+        "score1": 0,
+        "team2": "Синергия",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 13,
+      "matchId": "dota-main-group-14",
+      "original": {
+        "id": "dota-main-group-14",
+        "dateDisplay": "29 мар · 18:00",
+        "stage": "Тур 2 · Группа D",
+        "bestOf": "BO3",
+        "team1": "Team Borisogleb",
+        "score1": 2,
+        "team2": "Гики",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 14,
+      "matchId": "dota-main-group-15",
+      "original": {
+        "id": "dota-main-group-15",
+        "dateDisplay": "31 мар · 21:00",
+        "stage": "Тур 2 · Группа D",
+        "bestOf": "BO3",
+        "team1": "Steel Titans",
+        "score1": 0,
+        "team2": "Way Prod.",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 15,
+      "matchId": "dota-main-group-16",
+      "original": {
+        "id": "dota-main-group-16",
+        "dateDisplay": "5 апр · 19:00",
+        "stage": "Тур 3 · Группа A",
+        "bestOf": "BO3",
+        "team1": "Самозванцы",
+        "score1": 1,
+        "team2": "Yellow Submarine",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 16,
+      "matchId": "dota-main-group-17",
+      "original": {
+        "id": "dota-main-group-17",
+        "dateDisplay": "4 апр · 16:00",
+        "stage": "Тур 3 · Группа A",
+        "bestOf": "BO3",
+        "team1": "Колбасный ЦЭХ",
+        "score1": 0,
+        "team2": "Japan 日本",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 17,
+      "matchId": "dota-main-group-18",
+      "original": {
+        "id": "dota-main-group-18",
+        "dateDisplay": "5 апр · 18:00",
+        "stage": "Тур 3 · Группа B",
+        "bestOf": "BO3",
+        "team1": "pojarniki",
+        "score1": 0,
+        "team2": "Buyback Academy",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 18,
+      "matchId": "dota-main-group-19",
+      "original": {
+        "id": "dota-main-group-19",
+        "dateDisplay": "5 апр · 18:00",
+        "stage": "Тур 3 · Группа B",
+        "bestOf": "BO3",
+        "team1": "Mi ne Pushim!",
+        "score1": 2,
+        "team2": "jazzfive",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 19,
+      "matchId": "dota-main-group-20",
+      "original": {
+        "id": "dota-main-group-20",
+        "dateDisplay": "6 апр · 18:00",
+        "stage": "Тур 3 · Группа C",
+        "bestOf": "BO3",
+        "team1": "Tech Titans",
+        "score1": 2,
+        "team2": "Синергия",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 20,
+      "matchId": "dota-main-group-21",
+      "original": {
+        "id": "dota-main-group-21",
+        "dateDisplay": "6 апр · 18:00",
+        "stage": "Тур 3 · Группа C",
+        "bestOf": "BO3",
+        "team1": "ВИФК",
+        "score1": 0,
+        "team2": "ЯГК",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 21,
+      "matchId": "dota-main-group-22",
+      "original": {
+        "id": "dota-main-group-22",
+        "dateDisplay": "4 апр · 21:00",
+        "stage": "Тур 3 · Группа D",
+        "bestOf": "BO3",
+        "team1": "Team Borisogleb",
+        "score1": 0,
+        "team2": "Way Prod.",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "group-matches",
+      "sourcePosition": 22,
+      "matchId": "dota-main-group-23",
+      "original": {
+        "id": "dota-main-group-23",
+        "dateDisplay": "6 апр · 18:00",
+        "stage": "Тур 3 · Группа D",
+        "bestOf": "BO3",
+        "team1": "Steel Titans",
+        "score1": 0,
+        "team2": "Гики",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 0,
+      "matchId": "dota2-main-2026-playoffs-01",
+      "original": {
+        "date": "15 апреля",
+        "stage": "Россия",
+        "bestOf": "BO2",
+        "team1": "Самозванцы",
+        "score1": 2,
+        "team2": "Buyback Academy",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 1,
+      "matchId": "dota2-main-2026-playoffs-02",
+      "original": {
+        "date": "19 апреля",
+        "stage": "Россия",
+        "bestOf": "BO5",
+        "team1": "Самозванцы",
+        "score1": 3,
+        "team2": "Japan",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 2,
+      "matchId": "dota2-main-2026-playoffs-03",
+      "original": {
+        "date": "20 апреля",
+        "stage": "Европа",
+        "bestOf": "BO3",
+        "team1": "Tech Titans",
+        "score1": 2,
+        "team2": "Team Borisogleb",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 3,
+      "matchId": "dota2-main-2026-playoffs-04",
+      "original": {
+        "date": "22 апреля",
+        "stage": "Россия",
+        "bestOf": "BO2",
+        "team1": "Japan",
+        "score1": 2,
+        "team2": "Mi ne pushim",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 4,
+      "matchId": "dota2-main-2026-playoffs-05",
+      "original": {
+        "date": "26 апреля",
+        "stage": "Россия",
+        "bestOf": "BO2",
+        "team1": "Wayprod.",
+        "score1": 2,
+        "team2": "Синергия",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "stageId": "playoffs",
+      "sourcePosition": 5,
+      "matchId": "dota2-main-2026-playoffs-06",
+      "original": {
+        "date": "26 апреля",
+        "stage": "Россия",
+        "bestOf": "BO5",
+        "team1": "Wayprod.",
+        "score1": 3,
+        "team2": "Tech Titans",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 0,
+      "matchId": "dota-qual-01",
+      "original": {
+        "id": "dota-qual-01",
+        "dateDisplay": "2 дек · 19:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "Mi ne Pushim!",
+        "score1": 1,
+        "team2": "Ближайшие",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 1,
+      "matchId": "dota-qual-02",
+      "original": {
+        "id": "dota-qual-02",
+        "dateDisplay": "4 дек · 19:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "ARB ESports",
+        "score1": 0,
+        "team2": "Japan 日本",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 2,
+      "matchId": "dota-qual-03",
+      "original": {
+        "id": "dota-qual-03",
+        "dateDisplay": "5 дек · 19:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "YGK",
+        "score1": 0,
+        "team2": "Buyback Academy",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 3,
+      "matchId": "dota-qual-04",
+      "original": {
+        "id": "dota-qual-04",
+        "dateDisplay": "6 дек · 15:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "Team Borisogleb",
+        "score1": 2,
+        "team2": "Steel Titans",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 4,
+      "matchId": "dota-qual-05",
+      "original": {
+        "id": "dota-qual-05",
+        "dateDisplay": "6 дек · 19:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "Гики",
+        "score1": 2,
+        "team2": "Не Знающие Побед",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 5,
+      "matchId": "dota-qual-06",
+      "original": {
+        "id": "dota-qual-06",
+        "dateDisplay": "7 дек · 17:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "Tech Titans",
+        "score1": 0,
+        "team2": "Way Prod.",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 6,
+      "matchId": "dota-qual-07",
+      "original": {
+        "id": "dota-qual-07",
+        "dateDisplay": "7 дек · 19:00",
+        "stage": "Круг 3",
+        "bestOf": "BO3",
+        "team1": "Labubu Team",
+        "score1": 0,
+        "team2": "Yellow Submarine",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 7,
+      "matchId": "dota-qual-08",
+      "original": {
+        "id": "dota-qual-08",
+        "dateDisplay": "9 дек · 21:00",
+        "stage": "Круг 4",
+        "bestOf": "BO3",
+        "team1": "Team Borisogleb",
+        "score1": 0,
+        "team2": "Mi ne Pushim!",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 8,
+      "matchId": "dota-qual-09",
+      "original": {
+        "id": "dota-qual-09",
+        "dateDisplay": "10 дек · 19:00",
+        "stage": "Круг 4",
+        "bestOf": "BO3",
+        "team1": "Steel Titans",
+        "score1": 2,
+        "team2": "Buyback Academy",
+        "score2": 1
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 9,
+      "matchId": "dota-qual-10",
+      "original": {
+        "id": "dota-qual-10",
+        "dateDisplay": "11 дек · 19:30",
+        "stage": "Круг 4",
+        "bestOf": "BO3",
+        "team1": "Гики",
+        "score1": 2,
+        "team2": "YGK",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 10,
+      "matchId": "dota-qual-11",
+      "original": {
+        "id": "dota-qual-11",
+        "dateDisplay": "11 дек · 19:30",
+        "stage": "Круг 4",
+        "bestOf": "BO3",
+        "team1": "Tech Titans",
+        "score1": 2,
+        "team2": "ARB ESports",
+        "score2": 0
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 11,
+      "matchId": "dota-qual-12",
+      "original": {
+        "id": "dota-qual-12",
+        "dateDisplay": "12 дек · 19:00",
+        "stage": "Круг 4",
+        "bestOf": "BO3",
+        "team1": "Yellow Submarine",
+        "score1": 0,
+        "team2": "Ближайшие",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "stageId": "qual-matches",
+      "sourcePosition": 12,
+      "matchId": "dota-qual-13",
+      "original": {
+        "id": "dota-qual-13",
+        "dateDisplay": "14 дек · 19:00",
+        "stage": "Круг 4",
+        "bestOf": "BO3",
+        "team1": "Japan 日本",
+        "score1": 0,
+        "team2": "Way Prod.",
+        "score2": 2
+      },
+      "scoreKind": "series",
+      "basis": "Published tournament JSON; technical status explicit; current CS2 BO1 rounds, other archived scores series."
+    }
+  ],
+  "identityPolicy": "Tournament-scoped identities; no inferred cross-tournament merges.",
+  "unresolvedResults": [
+    {
+      "tournamentId": "dota2-main-2026",
+      "matchId": "dota-main-group-16",
+      "reason": "Published BO3 with 1:1. Original score and format preserved. No inferred winner, card or statistical result until clarified."
+    }
+  ],
+  "playoffLinksBasis": "Current CS2 published double-elimination rounds, participants and confirmed outcomes. No historical Dota topology reconstructed."
+}

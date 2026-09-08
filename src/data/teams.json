@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "teams": [
+    {
+      "id": "cs2-february-2026-cipher",
+      "name": "CipHer",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-fist-beer",
+      "name": "FIST&BEER",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-fist-beer-960854",
+      "name": "FIST&BEER (Кулачки&Пиво)",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-ligachad",
+      "name": "LigaChad",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-pickmi-guys",
+      "name": "Pickmi Guys",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-resistance",
+      "name": "Resistance",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-saint-worms",
+      "name": "Saint Worms",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-slabeyshie",
+      "name": "Slabeyshie",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-the-eagles",
+      "name": "The Eagles",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-vpopengagen-wolves",
+      "name": "Vpopengagen wolves",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-team-77844195",
+      "name": "КИТ, Кипар и татары",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-february-2026-team-dc754699",
+      "name": "НМР",
+      "discipline": "Counter-Strike 2"
+    },
+    {
+      "id": "cs2-august-2026-cipher",
+      "name": "CipHer",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/cipher/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-dealducks",
+      "name": "DealDucks",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/dealducks/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-flouk-team",
+      "name": "Flouk Team",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/flouk-team/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-goongang",
+      "name": "GoonGang",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/goongang/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-hellwarriors",
+      "name": "HellWarriors",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/hellwarriors/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-hunger-to-victories",
+      "name": "Hunger to victories",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/hunger-to-victories/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-pivnaya-kega",
+      "name": "PIVNAYA KEGA",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/pivnaya-kega/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-psb-bank",
+      "name": "PSB_Bank",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/psb-bank/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-resistance",
+      "name": "Resistance",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/resistance/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-saiten-x-bad-rabbit",
+      "name": "SAITEN x BAD.RABBIT",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/saiten/logo.jpg"
+    },
+    {
+      "id": "cs2-august-2026-bobr1ki",
+      "name": "bobr1ki",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/bobr1ki/logo.jpg",
+      "previousNames": [
+        {
+          "name": "RSATU",
+          "context": "Название команды на FACEIT в CS2, август–сентябрь 2026"
+        }
+      ]
+    },
+    {
+      "id": "cs2-august-2026-team-a42ce322",
+      "name": "Веселый гроб",
+      "discipline": "Counter-Strike 2",
+      "logo": "/assets/teams/cs2-august-2026/vesely-grob/logo.jpg"
+    },
+    {
+      "id": "dota2-main-2026-buyback-academy",
+      "name": "Buyback Academy",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-japan",
+      "name": "Japan",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-japan-81b095",
+      "name": "Japan 日本",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-jazzfive",
+      "name": "JazzFive",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-mi-ne-pushim",
+      "name": "Mi ne Pushim!",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-mi-ne-pushim-d32fa9",
+      "name": "Mi ne pushim",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-pojarniki",
+      "name": "Pojarniki",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-steel-titans",
+      "name": "Steel Titans",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-borisogleb",
+      "name": "Team Borisogleb",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-tech-titans",
+      "name": "Tech Titans",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-way-prod",
+      "name": "Way Prod.",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-way-prod-df4bb7",
+      "name": "Way prod.",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-wayprod",
+      "name": "Wayprod.",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-yellow-submarine",
+      "name": "Yellow Submarine",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-jazzfive-7b1d2b",
+      "name": "jazzfive",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-pojarniki-ab4031",
+      "name": "pojarniki",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-tech-titans-45a7d5",
+      "name": "tech titans",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-0d249c62",
+      "name": "ВИФК",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-89e35bfd",
+      "name": "Гики",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-98bfe027",
+      "name": "Колбасный ЦЭХ",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-2ed3a528",
+      "name": "Самозванцы",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-3d71e49d",
+      "name": "Синергия",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-ef07fb1f",
+      "name": "Синергия ср",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-main-2026-team-e2c97c00",
+      "name": "ЯГК",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-arb-esports",
+      "name": "ARB ESports",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-buyback-academy",
+      "name": "Buyback Academy",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-japan",
+      "name": "Japan 日本",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-labubu-team",
+      "name": "Labubu Team",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-mi-ne-pushim",
+      "name": "Mi ne Pushim!",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-steel-titans",
+      "name": "Steel Titans",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-borisogleb",
+      "name": "Team Borisogleb",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-tech-titans",
+      "name": "Tech Titans",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-way-prod",
+      "name": "Way Prod.",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-ygk",
+      "name": "YGK",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-yellow-submarine",
+      "name": "Yellow Submarine",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-jazzfive",
+      "name": "jazzfive",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-pojarniki",
+      "name": "pojarniki",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-6b60ec1c",
+      "name": "Ближайшие",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-0d249c62",
+      "name": "ВИФК",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-89e35bfd",
+      "name": "Гики",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-98bfe027",
+      "name": "Колбасный ЦЭХ",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-49a43472",
+      "name": "Не Знающие Побед",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-2ed3a528",
+      "name": "Самозванцы",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-3d71e49d",
+      "name": "Синергия",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-ef07fb1f",
+      "name": "Синергия ср",
+      "discipline": "Dota 2"
+    },
+    {
+      "id": "dota2-qual-2026-team-e2c97c00",
+      "name": "ЯГК",
+      "discipline": "Dota 2"
+    }
+  ],
+  "bindings": [
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "CipHer",
+      "teamId": "cs2-february-2026-cipher"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "FIST&BEER",
+      "teamId": "cs2-february-2026-fist-beer"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "FIST&BEER (Кулачки&Пиво)",
+      "teamId": "cs2-february-2026-fist-beer-960854"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "LigaChad",
+      "teamId": "cs2-february-2026-ligachad"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "Pickmi Guys",
+      "teamId": "cs2-february-2026-pickmi-guys"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "Resistance",
+      "teamId": "cs2-february-2026-resistance"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "Saint Worms",
+      "teamId": "cs2-february-2026-saint-worms"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "Slabeyshie",
+      "teamId": "cs2-february-2026-slabeyshie"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "The Eagles",
+      "teamId": "cs2-february-2026-the-eagles"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "Vpopengagen wolves",
+      "teamId": "cs2-february-2026-vpopengagen-wolves"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "КИТ, Кипар и татары",
+      "teamId": "cs2-february-2026-team-77844195"
+    },
+    {
+      "tournamentId": "cs2-february-2026",
+      "sourceName": "НМР",
+      "teamId": "cs2-february-2026-team-dc754699"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "CipHer",
+      "teamId": "cs2-august-2026-cipher"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "DealDucks",
+      "teamId": "cs2-august-2026-dealducks"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "Flouk Team",
+      "teamId": "cs2-august-2026-flouk-team"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "GoonGang",
+      "teamId": "cs2-august-2026-goongang"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "HellWarriors",
+      "teamId": "cs2-august-2026-hellwarriors"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "Hunger to victories",
+      "teamId": "cs2-august-2026-hunger-to-victories"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "PIVNAYA KEGA",
+      "teamId": "cs2-august-2026-pivnaya-kega"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "PSB_Bank",
+      "teamId": "cs2-august-2026-psb-bank"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "Resistance",
+      "teamId": "cs2-august-2026-resistance"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "SAITEN x BAD.RABBIT",
+      "teamId": "cs2-august-2026-saiten-x-bad-rabbit"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "bobr1ki",
+      "teamId": "cs2-august-2026-bobr1ki"
+    },
+    {
+      "tournamentId": "cs2-august-2026",
+      "sourceName": "Веселый гроб",
+      "teamId": "cs2-august-2026-team-a42ce322"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Buyback Academy",
+      "teamId": "dota2-main-2026-buyback-academy"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Japan",
+      "teamId": "dota2-main-2026-japan"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Japan 日本",
+      "teamId": "dota2-main-2026-japan-81b095"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "JazzFive",
+      "teamId": "dota2-main-2026-jazzfive"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Mi ne Pushim!",
+      "teamId": "dota2-main-2026-mi-ne-pushim"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Mi ne pushim",
+      "teamId": "dota2-main-2026-mi-ne-pushim-d32fa9"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Pojarniki",
+      "teamId": "dota2-main-2026-pojarniki"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Steel Titans",
+      "teamId": "dota2-main-2026-steel-titans"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Team Borisogleb",
+      "teamId": "dota2-main-2026-team-borisogleb"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Tech Titans",
+      "teamId": "dota2-main-2026-tech-titans"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Way Prod.",
+      "teamId": "dota2-main-2026-way-prod"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Way prod.",
+      "teamId": "dota2-main-2026-way-prod-df4bb7"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Wayprod.",
+      "teamId": "dota2-main-2026-wayprod"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Yellow Submarine",
+      "teamId": "dota2-main-2026-yellow-submarine"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "jazzfive",
+      "teamId": "dota2-main-2026-jazzfive-7b1d2b"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "pojarniki",
+      "teamId": "dota2-main-2026-pojarniki-ab4031"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "tech titans",
+      "teamId": "dota2-main-2026-tech-titans-45a7d5"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "ВИФК",
+      "teamId": "dota2-main-2026-team-0d249c62"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Гики",
+      "teamId": "dota2-main-2026-team-89e35bfd"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Колбасный ЦЭХ",
+      "teamId": "dota2-main-2026-team-98bfe027"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Самозванцы",
+      "teamId": "dota2-main-2026-team-2ed3a528"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Синергия",
+      "teamId": "dota2-main-2026-team-3d71e49d"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "Синергия ср",
+      "teamId": "dota2-main-2026-team-ef07fb1f"
+    },
+    {
+      "tournamentId": "dota2-main-2026",
+      "sourceName": "ЯГК",
+      "teamId": "dota2-main-2026-team-e2c97c00"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "ARB ESports",
+      "teamId": "dota2-qual-2026-arb-esports"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Buyback Academy",
+      "teamId": "dota2-qual-2026-buyback-academy"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Japan 日本",
+      "teamId": "dota2-qual-2026-japan"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Labubu Team",
+      "teamId": "dota2-qual-2026-labubu-team"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Mi ne Pushim!",
+      "teamId": "dota2-qual-2026-mi-ne-pushim"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Steel Titans",
+      "teamId": "dota2-qual-2026-steel-titans"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Team Borisogleb",
+      "teamId": "dota2-qual-2026-team-borisogleb"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Tech Titans",
+      "teamId": "dota2-qual-2026-tech-titans"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Way Prod.",
+      "teamId": "dota2-qual-2026-way-prod"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "YGK",
+      "teamId": "dota2-qual-2026-ygk"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Yellow Submarine",
+      "teamId": "dota2-qual-2026-yellow-submarine"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "jazzfive",
+      "teamId": "dota2-qual-2026-jazzfive"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "pojarniki",
+      "teamId": "dota2-qual-2026-pojarniki"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Ближайшие",
+      "teamId": "dota2-qual-2026-team-6b60ec1c"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "ВИФК",
+      "teamId": "dota2-qual-2026-team-0d249c62"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Гики",
+      "teamId": "dota2-qual-2026-team-89e35bfd"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Колбасный ЦЭХ",
+      "teamId": "dota2-qual-2026-team-98bfe027"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Не Знающие Побед",
+      "teamId": "dota2-qual-2026-team-49a43472"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Самозванцы",
+      "teamId": "dota2-qual-2026-team-2ed3a528"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Синергия",
+      "teamId": "dota2-qual-2026-team-3d71e49d"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "Синергия ср",
+      "teamId": "dota2-qual-2026-team-ef07fb1f"
+    },
+    {
+      "tournamentId": "dota2-qual-2026",
+      "sourceName": "ЯГК",
+      "teamId": "dota2-qual-2026-team-e2c97c00"
+    }
+  ]
+}

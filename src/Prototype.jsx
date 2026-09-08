@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
-import { getTournamentOutcome, isArchive, hasScore } from "./lib/tournament.js";
+import { getTournamentOutcome, isArchive, hasScore, isFinished } from "./lib/tournament.js";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
 import { ThemeSwitcher, ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
 import "./themes.css";
+import { normalizeResult } from './lib/community.js';
+import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
+import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './components/CommunityLinks.jsx';
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import {
   archivedTournaments,
@@ -69,7 +72,7 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
   return (
     <span className={`team-identity team-identity--${align} team-identity--${size}`}>
       {logo && <img src={logo} alt="" aria-hidden="true" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = "/assets/teams/_default.svg"; }} />}
-      <span>{team}</span>
+      <TeamLink tournamentId={tournament?.id} name={team} />
     </span>
   );
 }
@@ -259,6 +262,8 @@ function HomePage({ navigate, theme }) {
           </div>
         </section>
 
+        <div className="container community-home-search"><CommunitySearch /></div>
+
         <section className="home-season container" aria-label="Текущий сезон">
           <div className="home-season-main">
             <div className="home-section-intro">
@@ -274,7 +279,7 @@ function HomePage({ navigate, theme }) {
               </div>
               <div className="home-match-teams">
                 <TeamIdentity tournament={currentTournament} team={featuredMatch.team1} size="feature" />
-                <span className={`home-versus${hasScore(featuredMatch) ? " home-final-score" : ""}`}>{hasScore(featuredMatch) ? `${featuredMatch.score1}:${featuredMatch.score2}` : "VS"}</span>
+                <span className={`home-versus${isFinished(featuredMatch) && hasScore(featuredMatch) ? " home-final-score" : ""}`}>{isFinished(featuredMatch) && hasScore(featuredMatch) ? `${featuredMatch.score1}:${featuredMatch.score2}` : "VS"}</span>
                 <TeamIdentity tournament={currentTournament} team={featuredMatch.team2} align="end" size="feature" />
               </div>
               <button className="home-match-link" type="button" onClick={() => navigate(finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route)}>
@@ -576,25 +581,27 @@ function ScheduleStage({ stage, number, tournament }) {
   );
 }
 
-function BracketMatch({ match }) {
+function BracketMatch({ match, tournament }) {
+  const result = normalizeResult(match, tournament.discipline);
   const team1 = match.team1 || "Ожидает соперника";
   const team2 = match.team2 || "Ожидает соперника";
   const meta = [match.sourceLabel, match.dateDisplay, match.time, match.bestOf].filter(Boolean).join(" · ");
   return (
     <div className="bracket-match">
       {meta && <p className="bracket-match-meta">{meta}</p>}
-      <div><span className="bracket-team-name">{match.seed1 && <small className="bracket-seed">{match.seed1}</small>}{team1}</span><strong>{match.score1 ?? "—"}</strong></div>
-      <div><span className="bracket-team-name">{match.seed2 && <small className="bracket-seed">{match.seed2}</small>}{team2}</span><strong>{match.score2 ?? "—"}</strong></div>
+      <div><span className="bracket-team-name">{match.seed1 && <small className="bracket-seed">{match.seed1}</small>}<TeamLink tournamentId={tournament.id} name={team1} /></span><strong>{result.score?.[0] ?? "—"}</strong></div>
+      <div><span className="bracket-team-name">{match.seed2 && <small className="bracket-seed">{match.seed2}</small>}<TeamLink tournamentId={tournament.id} name={team2} /></span><strong>{result.score?.[1] ?? "—"}</strong></div>
+      <MatchLink tournamentId={tournament.id} matchId={match.id} />
     </div>
   );
 }
 
-function BracketRound({ round, index, total, showConnectors = true }) {
+function BracketRound({ round, index, total, showConnectors = true, tournament }) {
   return (
     <div className={`bracket-round ${index === total - 1 ? "is-last" : ""} ${showConnectors ? "" : "bracket-round--no-connectors"}`}>
       <div className="bracket-round-heading"><span>{String(index + 1).padStart(2, "0")}</span><h3>{round.label}</h3></div>
       <div className={`bracket-matches bracket-matches--${round.matches.length}`}>
-        {round.matches.map((match) => <BracketMatch key={match.id} match={match} />)}
+        {round.matches.map((match) => <BracketMatch key={match.id} match={match} tournament={tournament} />)}
       </div>
     </div>
   );
@@ -614,7 +621,7 @@ function getDoubleEliminationTracks(stage) {
   ].filter((track) => track.rounds.length > 0);
 }
 
-function BracketStage({ stage, number }) {
+function BracketStage({ stage, number, tournament }) {
   const tracks = stage.type === "double_elimination" ? getDoubleEliminationTracks(stage) : null;
   const hasPublishedMatches = stage.rounds.some((round) => round.matches.some((match) => (
     match.team1 || match.team2 || match.score1 !== undefined || match.score2 !== undefined
@@ -640,10 +647,10 @@ function BracketStage({ stage, number }) {
               <section className={`bracket-track bracket-track--${track.id}`} key={track.id}>
                 <p className="bracket-track-title">{track.title}</p>
                 <div className="bracket-track-rounds" style={{ gridTemplateColumns: `repeat(${track.rounds.length}, minmax(188px, 1fr))` }}>
-                  {track.rounds.map((round, index) => <BracketRound key={round.id} round={round} index={index} total={track.rounds.length} showConnectors={false} />)}
+                  {track.rounds.map((round, index) => <BracketRound tournament={tournament} key={round.id} round={round} index={index} total={track.rounds.length} showConnectors={false} />)}
                 </div>
               </section>
-            )) : stage.rounds.map((round, index) => <BracketRound key={round.id} round={round} index={index} total={stage.rounds.length} />)}
+            )) : stage.rounds.map((round, index) => <BracketRound tournament={tournament} key={round.id} round={round} index={index} total={stage.rounds.length} />)}
           </div>
         </div>
         <p className="data-caption">{stage.caption || "Показаны только опубликованные раунды и результаты. Пустые слоты не означают результат."}</p>
@@ -697,7 +704,7 @@ function TournamentPage({ tournament, navigate }) {
   const renderStage = (stage, number) => {
     if (stage.type === "round_robin") return <RoundRobinStage stage={stage} number={number} tournament={tournament} />;
     if (stage.type === "swiss") return <SwissStage stage={stage} number={number} />;
-    if (stage.rounds) return <BracketStage stage={stage} number={number} />;
+    if (stage.rounds) return <BracketStage stage={stage} number={number} tournament={tournament} />;
     return <section className="tn-info"><h2>{stage.title}</h2>{stage.notice && <p>{stage.notice}</p>}</section>;
   };
   return <TournamentNavigator key={tournament.id} tournament={tournament} navigate={navigate} renderStage={renderStage} renderRewards={() => <TournamentPerks tournament={tournament} />} />;
@@ -845,6 +852,10 @@ export function Prototype() {
     if (path === "/about") return <AboutPage navigate={navigate} />;
     if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} />;
     if (path === currentTournament.matchday?.route) return <MatchdayPage tournament={currentTournament} navigate={navigate} />;
+    const teamRoute = path.match(/^\/teams\/([a-z0-9-]+)\/?$/);
+    if (teamRoute) return <TeamPage key={teamRoute[1]} teamId={teamRoute[1]} />;
+    const matchRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matches\/([a-z0-9-]+)\/?$/);
+    if (matchRoute) return <MatchPage key={path} tournamentSlug={matchRoute[1]} matchId={matchRoute[2]} />;
     if (path.startsWith("/tournaments/")) {
       const tournament = getTournament(path.replace("/tournaments/", ""));
       if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} />;
@@ -852,5 +863,5 @@ export function Prototype() {
     return <NotFound navigate={navigate} />;
   }, [path, theme]);
 
-  return <PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>{page}</PageFrame>;
+  return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>{page}</PageFrame></NavigationContext.Provider>;
 }

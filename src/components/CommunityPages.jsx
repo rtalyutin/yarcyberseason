@@ -44,7 +44,7 @@ function CalendarPanel({ team }) {
 }
 
 export function TeamPage({ teamId }) {
-  const team = community.teams.get(teamId);
+  const team = community.getTeam(teamId);
   const [visibleCount, setVisibleCount] = useState(10);
   useEffect(() => { if (team) document.title = `${team.name} — ЯрКиберСезон`; }, [team]);
   if (!team) return <UnknownPage kind="Команда" />;

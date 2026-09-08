@@ -36,17 +36,41 @@ test('BO1 rounds, series scores and final with missing maps remain distinct', ()
   assert.equal(final.result.maps.length, 0);
   assert.match(matchPath(final), /cs2-august-2026\/matches\/cs2-aug-grand-final$/);
 });
-test('no fictional opponent entities and no silent cross-tournament name merging', () => {
+test('no fictional opponents; confirmed identities span tournaments', () => {
   assert.equal(model.resolveTeam(current.id, 'Не заявленная команда'), null);
   assert.equal(get('cs2-r1-pivnaya-kega').team2Id, null);
   assert.ok(get('cs2-r2-saiten-hellwarriors').team2Id);
   assert.equal(model.resolveTeam(current.id, 'Без соперника'), null);
-  assert.notEqual(model.resolveTeam(current.id, 'Resistance').id, model.resolveTeam('cs2-february-2026', 'Resistance').id);
+  assert.equal(model.resolveTeam(current.id, 'Resistance').id, model.resolveTeam('cs2-february-2026', 'Resistance').id);
   const renamed = structuredClone(registry), teamId = model.resolveTeam(current.id, 'PIVNAYA KEGA').id;
   renamed.teams.find((t) => t.id === teamId).name = 'Новое название';
   const next = buildCommunityModel(tournaments, renamed);
   assert.equal(next.teams.get(teamId).name, 'Новое название');
   assert.equal(next.matches.get(get('cs2-aug-grand-final').key).team2, 'PIVNAYA KEGA');
+});
+test('confirmed merges preserve all old links and count matches and tournaments once', () => {
+  const original = read('docs/community/team-merges.json');
+  assert.equal(model.teams.size, 42);
+  assert.equal(model.teamAliases.size, 28);
+  for (const merge of original.merges) {
+    const team = model.getTeam(merge.teamId);
+    for (const id of merge.sourceIds) assert.equal(model.getTeam(id), team, id);
+    assert.equal(team.entries.length, 2, merge.name);
+    const expected = [...model.matches.values()].filter((m) => m.team1Id === team.id || m.team2Id === team.id);
+    assert.deepEqual(team.matches.map((m) => m.key).sort(), expected.map((m) => m.key).sort());
+    assert.equal(new Set(team.matches.map((m) => m.key)).size, team.matches.length);
+    assert.ok(team.matches.every((m) => m.team1Id !== m.team2Id));
+    const summary = teamSummary(team);
+    assert.ok(summary.opponents.every((o) => o.id !== team.id));
+  }
+  for (const tid of ['dota2-main-2026', 'dota2-qual-2026']) {
+    assert.equal(model.resolveTeam(tid, 'Синергия'), model.resolveTeam(tid, 'Синергия ср'));
+  }
+  assert.equal(model.getTeam('missing'), null);
+  for (const alias of [{ id: registry.teams[0].id, teamId: registry.teams[1].id }, { id: 'old', teamId: 'missing' }, { id: '../unsafe', teamId: registry.teams[0].id }]) {
+    const broken = structuredClone(registry); broken.aliases.push(alias);
+    assert.ok(validateCommunity(tournaments, broken).some((e) => e.includes('Invalid team alias')));
+  }
 });
 test('draws and technical decisions do not become sporting wins', () => {
   const draw = normalizeResult({ status: 'completed', resultConfirmed: true, scoreKind: 'series', score1: 1, score2: 1, bestOf: 'BO2' }, 'Dota 2');
@@ -96,6 +120,19 @@ test('review regressions: map disagreement, unreachable IDs and personal fields 
 const now = '2026-09-08T10:00:00.000Z';
 const sample = { id: 'match-1', tournamentId: 'test', tournamentSlug: 'test', tournamentTitle: 'Тест; Кубок', team1: 'Команда А', team2: 'Команда Б', team1Id: 'a', team2Id: 'b', status: 'scheduled', scheduledAt: '2026-10-10T15:00:00+03:00' };
 const empty = { schemaVersion: 1, records: [] };
+test('merged calendar retains legacy events and follows future canonical events without duplicates', () => {
+  const team = { id: 'canonical', name: 'Команда', legacyIds: ['a', 'other-old'] };
+  const initial = reconcilePublications([sample], empty, now);
+  const before = teamCalendar(team, initial, 'https://example.test');
+  assert.match(before, /STATUS:CONFIRMED/);
+  const merged = reconcilePublications([{ ...sample, team1Id: 'canonical' }], initial, now);
+  const after = teamCalendar(team, merged, 'https://example.test');
+  assert.equal(after.split('BEGIN:VEVENT').length - 1, 1);
+  assert.equal(after.match(/UID:(.*)/)[1], before.match(/UID:(.*)/)[1]);
+  assert.match(after, /STATUS:CONFIRMED/);
+  const removed = reconcilePublications([], merged, now);
+  assert.match(teamCalendar(team, removed, 'https://example.test'), /STATUS:CANCELLED/);
+});
 test('calendar uses real instants; yearless and timezone-free dates do not create events', () => {
   assert.equal(exactStart('2026-10-10T15:00:00'), null);
   assert.equal(exactStart('2026-02-31T15:00:00+03:00'), null);

@@ -22,6 +22,7 @@ if (process.argv.includes('--sync')) {
     const target = resolve(root, 'dist/client/calendars/teams');
     mkdirSync(target, { recursive: true });
     for (const team of model.teams.values()) writeFileSync(resolve(target, `${team.id}.ics`), teamCalendar(team, previous, 'https://ycs.bar'));
+    for (const [oldId, teamId] of model.teamAliases) writeFileSync(resolve(target, `${oldId}.ics`), teamCalendar(model.getTeam(teamId), previous, 'https://ycs.bar'));
   }
   console.log(`Validated ${model.teams.size} team records and ${model.matches.size} matches; calendars ready.`);
 }

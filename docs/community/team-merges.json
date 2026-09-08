@@ -1,0 +1,160 @@
+{
+  "confirmedAt": "2026-09-08",
+  "basis": "Организатор подтвердил таблицу совпадений между турнирами и единую команду Синергия / Синергия ср.",
+  "merges": [
+    {
+      "teamId": "cs2-august-2026-cipher",
+      "name": "CipHer",
+      "sourceIds": [
+        "cs2-february-2026-cipher",
+        "cs2-august-2026-cipher"
+      ]
+    },
+    {
+      "teamId": "cs2-august-2026-resistance",
+      "name": "Resistance",
+      "sourceIds": [
+        "cs2-february-2026-resistance",
+        "cs2-august-2026-resistance"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-buyback-academy",
+      "name": "Buyback Academy",
+      "sourceIds": [
+        "dota2-main-2026-buyback-academy",
+        "dota2-qual-2026-buyback-academy"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-japan",
+      "name": "Japan",
+      "sourceIds": [
+        "dota2-main-2026-japan",
+        "dota2-main-2026-japan-81b095",
+        "dota2-qual-2026-japan"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-jazzfive",
+      "name": "JazzFive",
+      "sourceIds": [
+        "dota2-main-2026-jazzfive",
+        "dota2-main-2026-jazzfive-7b1d2b",
+        "dota2-qual-2026-jazzfive"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-mi-ne-pushim",
+      "name": "Mi ne Pushim!",
+      "sourceIds": [
+        "dota2-main-2026-mi-ne-pushim",
+        "dota2-main-2026-mi-ne-pushim-d32fa9",
+        "dota2-qual-2026-mi-ne-pushim"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-pojarniki",
+      "name": "Pojarniki",
+      "sourceIds": [
+        "dota2-main-2026-pojarniki",
+        "dota2-main-2026-pojarniki-ab4031",
+        "dota2-qual-2026-pojarniki"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-steel-titans",
+      "name": "Steel Titans",
+      "sourceIds": [
+        "dota2-main-2026-steel-titans",
+        "dota2-qual-2026-steel-titans"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-borisogleb",
+      "name": "Team Borisogleb",
+      "sourceIds": [
+        "dota2-main-2026-team-borisogleb",
+        "dota2-qual-2026-team-borisogleb"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-tech-titans",
+      "name": "Tech Titans",
+      "sourceIds": [
+        "dota2-main-2026-tech-titans",
+        "dota2-main-2026-tech-titans-45a7d5",
+        "dota2-qual-2026-tech-titans"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-way-prod",
+      "name": "Way Prod.",
+      "sourceIds": [
+        "dota2-main-2026-way-prod",
+        "dota2-main-2026-way-prod-df4bb7",
+        "dota2-main-2026-wayprod",
+        "dota2-qual-2026-way-prod"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-yellow-submarine",
+      "name": "Yellow Submarine",
+      "sourceIds": [
+        "dota2-main-2026-yellow-submarine",
+        "dota2-qual-2026-yellow-submarine"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-0d249c62",
+      "name": "ВИФК",
+      "sourceIds": [
+        "dota2-main-2026-team-0d249c62",
+        "dota2-qual-2026-team-0d249c62"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-89e35bfd",
+      "name": "Гики",
+      "sourceIds": [
+        "dota2-main-2026-team-89e35bfd",
+        "dota2-qual-2026-team-89e35bfd"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-98bfe027",
+      "name": "Колбасный ЦЭХ",
+      "sourceIds": [
+        "dota2-main-2026-team-98bfe027",
+        "dota2-qual-2026-team-98bfe027"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-2ed3a528",
+      "name": "Самозванцы",
+      "sourceIds": [
+        "dota2-main-2026-team-2ed3a528",
+        "dota2-qual-2026-team-2ed3a528"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-3d71e49d",
+      "name": "Синергия",
+      "sourceIds": [
+        "dota2-main-2026-team-3d71e49d",
+        "dota2-main-2026-team-ef07fb1f",
+        "dota2-qual-2026-team-3d71e49d",
+        "dota2-qual-2026-team-ef07fb1f"
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-e2c97c00",
+      "name": "ЯГК",
+      "sourceIds": [
+        "dota2-main-2026-team-e2c97c00",
+        "dota2-qual-2026-ygk",
+        "dota2-qual-2026-team-e2c97c00"
+      ]
+    }
+  ]
+}

@@ -18,6 +18,11 @@ test('all published team and match templates render with real JSON', async () =>
       assert.ok(html.includes(`/calendars/teams/${team.id}.ics`), team.id);
       assert.ok(!html.includes('<form'), team.id);
     }
+    for (const [oldId, teamId] of community.teamAliases) {
+      const oldHtml = renderToStaticMarkup(React.createElement(TeamPage, { teamId: oldId }));
+      const canonicalHtml = renderToStaticMarkup(React.createElement(TeamPage, { teamId }));
+      assert.equal(oldHtml, canonicalHtml, oldId);
+    }
     for (const match of community.matches.values()) {
       const html = renderToStaticMarkup(React.createElement(MatchPage, { tournamentSlug: match.tournamentSlug, matchId: match.id }));
       assert.ok(html.includes('Скопировать ссылку'), match.id);

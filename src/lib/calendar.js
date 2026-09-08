@@ -46,9 +46,10 @@ export function reconcilePublications(matches, previous, now) {
 }
 
 export function teamCalendar(team, publications, origin) {
+  const ids = new Set([team.id, ...(team.legacyIds || [])]);
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//YAR CYBER SEASON//Team calendar//RU', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:${escapeText(team.name + ' · ЯрКиберСезон')}`];
-  for (const record of publications.records.filter((r) => r.publishedTeamIds.includes(team.id))) {
-    const cancelled = record.cancelled || !record.currentTeamIds.includes(team.id);
+  for (const record of publications.records.filter((r) => r.publishedTeamIds.some((id) => ids.has(id)))) {
+    const cancelled = record.cancelled || !record.currentTeamIds.some((id) => ids.has(id));
     lines.push('BEGIN:VEVENT', `UID:${record.uid}`, `DTSTAMP:${utc(record.updatedAt)}`, `LAST-MODIFIED:${utc(record.updatedAt)}`,
       `SEQUENCE:${record.revision}`, `DTSTART:${utc(record.start)}`, `SUMMARY:${escapeText(record.summary)}`,
       `DESCRIPTION:${escapeText(cancelled && !record.cancelled ? 'Участие этой команды в матче отменено.' : record.description)}`,

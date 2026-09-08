@@ -60,6 +60,9 @@ export function flattenMatches(tournaments) {
 
 export function buildCommunityModel(tournaments, registry) {
   const teams = new Map(registry.teams.map((team) => [team.id, { ...team, matches: [], entries: [] }]));
+  const teamAliases = new Map((registry.aliases || []).map((alias) => [alias.id, alias.teamId]));
+  const getTeam = (id) => teams.get(teamAliases.get(id) || id) || null;
+  for (const team of teams.values()) team.legacyIds = [...teamAliases].filter(([, id]) => id === team.id).map(([id]) => id);
   const bindings = new Map(registry.bindings.map((binding) => [matchKey(binding.tournamentId, binding.sourceName), binding.teamId]));
   const resolveTeam = (tournamentId, name) => isPlaceholder(name) ? null : teams.get(bindings.get(matchKey(tournamentId, name))) || null;
   const matches = new Map();
@@ -77,7 +80,7 @@ export function buildCommunityModel(tournaments, registry) {
     const placement = tournament.results?.placements?.find((p) => names.includes(p.team))?.position || null;
     team.entries.push({ tournament, names, placement });
   }
-  return { teams, matches, resolveTeam };
+  return { teams, matches, resolveTeam, getTeam, teamAliases };
 }
 
 export function teamSummary(team) {
@@ -142,6 +145,11 @@ export function validateCommunity(tournaments, registry) {
     if (!/^[a-z0-9-]+$/.test(team.id) || ids.has(team.id) || isPlaceholder(team.name) || !team.discipline) errors.push(`Invalid team: ${team.id}`);
     ids.add(team.id);
   }
+  const aliasIds = new Set();
+  for (const alias of registry.aliases || []) {
+    if (!/^[a-z0-9-]+$/.test(alias.id) || ids.has(alias.id) || aliasIds.has(alias.id) || !ids.has(alias.teamId)) errors.push(`Invalid team alias: ${alias.id}`);
+    aliasIds.add(alias.id);
+  }
   for (const b of registry.bindings) {
     const key = matchKey(b.tournamentId, b.sourceName);
     const tournament = tournaments.find((t) => t.id === b.tournamentId);
@@ -172,6 +180,10 @@ export function validateCommunity(tournaments, registry) {
   }
   const all = flattenMatches(tournaments);
   const bindingId = (tid, name) => registry.bindings.find((b) => b.tournamentId === tid && b.sourceName === name)?.teamId;
+  for (const m of all) {
+    const first = bindingId(m.tournamentId, m.team1), second = bindingId(m.tournamentId, m.team2);
+    if (first && first === second) errors.push(`Team plays itself: ${m.tournamentId}/${m.id}`);
+  }
   for (const m of all) for (const field of ['winnerTo', 'loserTo']) {
     const target = m[field];
     if (target && !keys.has(matchKey(target.tournamentId || m.tournamentId, target.matchId))) errors.push(`Missing ${field}: ${m.id}`);

@@ -3,6 +3,7 @@ import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
 import { getTournamentOutcome, isArchive, hasScore } from "./lib/tournament.js";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
+import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
 import {
   archivedTournaments,
   currentTournament,
@@ -153,6 +154,7 @@ function Footer({ navigate }) {
       </nav>
     </div>
     <p className="legal-copyright">© 2026 ЯрКиберСезон</p>
+    <OrganizerRoom />
   </footer>;
 }
 

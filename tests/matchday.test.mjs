@@ -1,8 +1,40 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { getMatchdayModel, getDisplayedResult, getMatchConsequence } from '../src/lib/matchday.js';
+import { getMatchdayModel, getDisplayedResult, getMatchConsequence, getPreviousMatchday } from '../src/lib/matchday.js';
 const tournament = JSON.parse(readFileSync(new URL('../src/data/tournaments/current-cs2-2026.json', import.meta.url), 'utf8'));
+
+test('previous day follows selected date, including completed days and month boundaries', () => {
+  const model = getMatchdayModel(tournament);
+  const lower = getPreviousMatchday(model, '2026-09-06');
+  assert.equal(lower.date, '2026-09-05');
+  assert.equal(lower.completed.length, 1);
+  assert.equal(lower.completed[0].bestOf, 'BO3');
+  assert.deepEqual([lower.completed[0].score1, lower.completed[0].score2], [2, 1]);
+  assert.equal(getPreviousMatchday(model, '2026-09-05').completed.length, 2);
+  assert.equal(getPreviousMatchday(model, '2026-09-01').date, '2026-08-31');
+  assert.equal(getPreviousMatchday(model, '2026-08-30'), null);
+});
+
+test('previous results come from full history even when live date tabs hide older dates', () => {
+  const live = {stages:[{id:'playoffs',matches:[
+    {id:'a',date:'2026-09-01',status:'completed'},
+    {id:'b',date:'2026-09-03',status:'completed'},
+    {id:'c',date:'2026-09-04',status:'scheduled'},
+  ]}],matchday:{nextStageId:'playoffs'}};
+  const model = getMatchdayModel(live);
+  assert.deepEqual(model.days.map(day => day.date), ['2026-09-03','2026-09-04']);
+  assert.equal(getPreviousMatchday(model,'2026-09-03').date,'2026-09-01');
+  assert.deepEqual(getPreviousMatchday(model,'2026-09-04').completed.map(m=>m.id),['b']);
+  assert.equal(getPreviousMatchday(model,null),null);
+});
+
+test('source-order display keeps scores and map scores tied to the correct teams', () => {
+  const match={team1:'A',team2:'B',score1:1,score2:2,maps:[{name:'Ancient',score1:8,score2:13}]};
+  const result=getDisplayedResult(match,{winnerFirst:false});
+  assert.deepEqual([result.first,result.score1,result.second,result.score2,result.winner],['A',1,'B',2,'B']);
+  assert.deepEqual(result.maps.map(m=>[m.score1,m.score2]),[[8,13]]);
+});
 
 test('completed matchday opens the grand final and retains every playoff date', () => {
   const model = getMatchdayModel(tournament);

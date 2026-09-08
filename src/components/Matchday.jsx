@@ -1,7 +1,7 @@
 import { TeamLink, MatchLink } from './CommunityLinks.jsx';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check } from "@phosphor-icons/react";
-import { formatMatchday, getDisplayedResult, getMatchConsequence, getMatchdayModel } from "../lib/matchday.js";
+import { formatMatchday, getDisplayedResult, getMatchConsequence, getMatchdayModel, getPreviousMatchday } from "../lib/matchday.js";
 import { isArchive } from "../lib/tournament.js";
 import "../matchday.css";
 
@@ -12,22 +12,23 @@ function MatchdayActions({ tournament, navigate }) {
   </div>;
 }
 
-function Result({ match, matches, compact = false, tournament }) {
-  const result = getDisplayedResult(match);
+function Result({ match, matches, tournament, compact = false }) {
+  const result = getDisplayedResult(match, { winnerFirst: false });
   const consequence = getMatchConsequence(match, matches);
   const label = match.status === "walkover" ? "Техническая победа" : match.status === "bye" ? "Победа без игры" : "Завершён";
-  return <article className={`md-result${compact ? " md-result--compact" : ""}`} aria-label={`${result.first} ${result.score1 ?? "—"}:${result.score2 ?? "—"} ${result.second}`}>
+  return <article className={`md-result${compact ? " md-result--compact" : ""}`} data-match-id={match.id} aria-label={`${result.first} ${result.score1 ?? "—"}:${result.score2 ?? "—"} ${result.second}`}>
     <div className="md-result-meta"><h3>{match.roundTitle}</h3><span>{label}{match.bestOf ? ` · ${match.bestOf}` : ""} <Check aria-hidden="true" /></span></div>
+    <p className="md-result-date">{formatMatchday(match.date, true)}{match.time && ` · ${match.time}`}</p>
     <div className="md-result-scoreboard">
       <div className={`md-result-team md-result-team--first${result.winner === result.first ? " is-winner" : ""}`}>
-        {result.winner === result.first && <Check className="md-winner-mark" aria-hidden="true" />}
+        {tournament.teamLogos?.[result.first] && <img className="md-team-logo" src={tournament.teamLogos[result.first]} alt="" />}
         <strong><TeamLink tournamentId={tournament.id} name={result.first} /></strong>
         {result.first === "bobr1ki" && <small>RSATU на FACEIT</small>}
       </div>
       <div className="md-series" aria-label={`Счёт ${result.score1 ?? "не опубликован"}:${result.score2 ?? "не опубликован"}`}>
-        <span className="md-series-first">{result.score1 ?? "—"}</span><span className="md-series-separator">:</span><span className="md-series-second">{result.score2 ?? "—"}</span>
+        <span className={`md-series-first${result.winner === result.first ? " is-winner" : ""}`}>{result.score1 ?? "—"}</span><span className="md-series-separator">:</span><span className={`md-series-second${result.winner === result.second ? " is-winner" : ""}`}>{result.score2 ?? "—"}</span>
       </div>
-      <div className="md-result-team md-result-team--second"><strong><TeamLink tournamentId={tournament.id} name={result.second} /></strong></div>
+      <div className={`md-result-team md-result-team--second${result.winner === result.second ? " is-winner" : ""}`}><strong><TeamLink tournamentId={tournament.id} name={result.second} /></strong>{tournament.teamLogos?.[result.second] && <img className="md-team-logo" src={tournament.teamLogos[result.second]} alt="" />}</div>
       <div className="md-maps">{result.maps.length > 0 ? result.maps.map((map) => <span key={map.name}>{map.name} <b>{map.score1}:{map.score2}</b></span>) : <span>{match.status === "completed" ? "Счёт карт не опубликован" : label}</span>}</div>
     </div>
     <MatchLink tournamentId={tournament.id} matchId={match.id} />
@@ -79,7 +80,7 @@ export function MatchdayPage({ tournament, navigate }) {
     window.history.pushState({}, "", `${url.pathname}${url.search}${url.hash}`);
   };
   const day = model.days.find((candidate) => candidate.date === selectedDate) || model.days[0];
-  const latestResults = model.days.filter((candidate) => candidate.date < day?.date && candidate.completed.length).at(-1);
+  const latestResults = getPreviousMatchday(model, day?.date);
   const following = model.days.find((candidate) => candidate.date > day?.date && candidate.scheduled.length);
   const title = day ? `${formatMatchday(day.date)} · ${day.label}` : "Матчи ещё не опубликованы";
   return <main className="matchday">
@@ -89,8 +90,8 @@ export function MatchdayPage({ tournament, navigate }) {
       <div className={`md-days${archived ? " md-days--archive" : ""}`} role="tablist" aria-label="Игровой день">
         {model.days.map((item, index) => <button type="button" role="tab" id={`md-tab-${item.date}`} aria-controls="md-day-panel" aria-selected={day?.date === item.date} tabIndex={day?.date === item.date ? 0 : -1} key={item.date} ref={(node) => { tabRefs.current[index] = node; }} onClick={() => selectDate(item.date)} onKeyDown={(event) => {
           let next;
-          if (event.key === "ArrowRight") next = (index + 1) % model.days.length;
-          if (event.key === "ArrowLeft") next = (index - 1 + model.days.length) % model.days.length;
+          if (["ArrowRight", "ArrowDown"].includes(event.key)) next = (index + 1) % model.days.length;
+          if (["ArrowLeft", "ArrowUp"].includes(event.key)) next = (index - 1 + model.days.length) % model.days.length;
           if (event.key === "Home") next = 0;
           if (event.key === "End") next = model.days.length - 1;
           if (next !== undefined) { event.preventDefault(); selectDate(model.days[next].date); tabRefs.current[next]?.focus(); }
@@ -99,10 +100,10 @@ export function MatchdayPage({ tournament, navigate }) {
       {day ? <section id="md-day-panel" role="tabpanel" aria-labelledby={`md-tab-${day.date}`} tabIndex={0} className="md-day-panel">
         <p className="sr-only" aria-live="polite">{title}</p>
         {day.scheduled.map((match) => <ScheduledMatch key={match.id} match={match} tournament={tournament} matches={model.matches} navigate={navigate} />)}
-        {day.completed.map((match) => <Result tournament={tournament} key={match.id} match={match} matches={model.matches} />)}
-        {day.scheduled.length > 0 && latestResults && <section className="md-recent" aria-labelledby="md-recent-title"><h2 id="md-recent-title">Итоги {formatMatchday(latestResults.date)}</h2>{latestResults.completed.map((match) => <Result tournament={tournament} key={match.id} match={match} matches={model.matches} compact />)}</section>}
+        {day.completed.map((match) => <Result key={match.id} match={match} matches={model.matches} tournament={tournament} />)}
         {day.scheduled.length === 0 && following && <section className="md-next"><div><p>Следующий матч · {formatMatchday(following.date)}{following.scheduled[0].bestOf && ` · ${following.scheduled[0].bestOf}`}</p><h2>{following.scheduled[0].team1} — {following.scheduled[0].team2}</h2><span>{following.scheduled[0].time || "Время уточняется"}</span></div><MatchdayActions tournament={tournament} navigate={navigate} /></section>}
         {day.scheduled.length === 0 && !following && <div className="md-last-actions"><MatchdayActions tournament={tournament} navigate={navigate} /></div>}
+        {latestResults && <section className="md-recent" aria-labelledby="md-recent-title" data-previous-date={latestResults.date}><div className="md-recent-heading"><div><p>Предыдущий игровой день</p><h2 id="md-recent-title">Итоги {formatMatchday(latestResults.date)}</h2></div>{model.days.some((item) => item.date === latestResults.date) && <button className="md-link" type="button" onClick={() => selectDate(latestResults.date)}>Открыть день <ArrowRight aria-hidden="true" /></button>}</div>{latestResults.completed.map((match) => <Result key={match.id} match={match} matches={model.matches} tournament={tournament} compact />)}</section>}
       </section> : <section className="md-empty"><h2>Матчи ещё не опубликованы</h2><button className="md-link" type="button" onClick={() => navigate(`/tournaments/${tournament.id}`)}>На страницу турнира <ArrowRight aria-hidden="true" /></button></section>}
       <footer className="md-partners" aria-label="Партнёры турнира"><span>При поддержке</span><div>{tournament.matchday.partners.map((partner) => <div key={partner.name}>{partner.logo ? <img src={partner.logo} alt={partner.name} /> : <span title={partner.role}>{partner.name}</span>}</div>)}</div></footer>
     </div>

@@ -56,10 +56,17 @@ export function getMatchdayModel(tournament) {
   return { matches, days, defaultDate: days.find((day) => day.scheduled.length)?.date || days.at(-1)?.date || null };
 }
 
-export function getDisplayedResult(match) {
+export function getPreviousMatchday(model, selectedDate) {
+  if (!selectedDate) return null;
+  const completed = model.matches.filter((match) => match.date < selectedDate && isFinishedMatch(match));
+  const date = completed.at(-1)?.date;
+  return date ? { date, completed: completed.filter((match) => match.date === date) } : null;
+}
+
+export function getDisplayedResult(match, { winnerFirst = true } = {}) {
   if (match.scoreKind) {
     const result = normalizeResult(match, 'Counter-Strike 2');
-    const swap = result.winnerSide === 2;
+    const swap = winnerFirst && result.winnerSide === 2;
     return {
       first: swap ? match.team2 : match.team1, second: swap ? match.team1 : match.team2,
       score1: result.score ? result.score[swap ? 1 : 0] : null,
@@ -69,13 +76,13 @@ export function getDisplayedResult(match) {
     };
   }
   const scored = Number.isFinite(match.score1) && Number.isFinite(match.score2);
-  const swap = scored ? match.score2 > match.score1 : match.winner === match.team2;
+  const swap = winnerFirst && (scored ? match.score2 > match.score1 : match.winner === match.team2);
   return {
     first: swap ? match.team2 : match.team1,
     second: swap ? match.team1 : match.team2,
     score1: scored ? (swap ? match.score2 : match.score1) : null,
     score2: scored ? (swap ? match.score1 : match.score2) : null,
-    winner: scored && match.score1 !== match.score2 ? (swap ? match.team2 : match.team1) : match.winner || null,
+    winner: scored && match.score1 !== match.score2 ? (match.score1 > match.score2 ? match.team1 : match.team2) : match.winner || null,
     maps: (match.maps || []).filter((map) => Number.isFinite(map.score1) && Number.isFinite(map.score2)).map((map) => ({
       ...map, score1: swap ? map.score2 : map.score1, score2: swap ? map.score1 : map.score2,
     })),

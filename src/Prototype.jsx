@@ -7,6 +7,7 @@ import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
 import { ThemeSwitcher, ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
 import "./themes.css";
+import "./internal-themes.css";
 import { normalizeResult } from './lib/community.js';
 import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
 import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './components/CommunityLinks.jsx';
@@ -82,6 +83,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const isHome = path === "/";
   const isMatchday = path === currentTournament.matchday?.route;
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
+  const integratedTheme = (isHome && theme === "dota2") || ((isTournament || isMatchday) && theme !== "dota2");
   const homeNav = [
     { label: "Турниры", href: "/" },
     { label: "Matchday", href: currentTournament.matchday.route },
@@ -106,7 +108,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   return (
     <div data-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
       <div className="site-background" aria-hidden="true" />
-      {!(isHome && theme === "dota2") && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
+      {!integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
       <div className="site-header">
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
@@ -126,7 +128,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
             </button>
           ))}
         </nav>
-        {isHome && theme === "dota2" && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
+        {integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
           {isHome || isMatchday || isTournament ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>

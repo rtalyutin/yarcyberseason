@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowUpRight, MagnifyingGlass, Trophy, Users, X } from "@pho
 import { displayMatchDate, filterTournamentMatches, getTournamentModel, getTournamentOutcome, hasScore, isArchive, isFinished, matchLabel, isPlayoffStage, resolveTournamentView, resultLabel } from "../lib/tournament.js";
 import "../tournament.css";
 
-function MatchRow({ match, tournament }) {
+function MatchRow({ match, tournament, teamLogos }) {
   const result = normalizeResult(match, tournament.discipline);
   const scored = Boolean(result.score);
   const finished = isFinished(match);
@@ -18,9 +18,9 @@ function MatchRow({ match, tournament }) {
     <article className={`tn-match${!finished ? " tn-match--scheduled" : ""}`} data-match-id={match.id || match.key}>
       <p className="tn-match-meta">{metadata.join(" · ")}</p>
       <div className="tn-scoreboard">
-        <strong className={`tn-team${!winner || winner === match.team1 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team1} /></strong>
+        <strong className={`tn-team${!winner || winner === match.team1 ? " is-winner" : ""}`}>{teamLogos?.[match.team1] && <img src={teamLogos[match.team1]} alt="" />}<TeamLink tournamentId={tournament.id} name={match.team1} /></strong>
         <span className="tn-score" aria-label={scored ? `Счёт ${result.score.join(":")}` : "Счёт пока не опубликован"}>{scored ? result.score.join(" : ") : "— : —"}</span>
-        <strong className={`tn-team tn-team--second${!winner || winner === match.team2 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team2} /></strong>
+        <strong className={`tn-team tn-team--second${!winner || winner === match.team2 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team2} />{teamLogos?.[match.team2] && <img src={teamLogos[match.team2]} alt="" />}</strong>
       </div>
       {match.resultIssue && <p>{match.resultIssue}</p>}
       <MatchLink tournamentId={tournament.id} matchId={match.id} />
@@ -39,13 +39,14 @@ function TournamentResults({ tournament, changeView, navigate }) {
   const outcome = getTournamentOutcome(tournament);
   return <section className="tn-results" aria-labelledby="tn-results-title">
     <div className="tn-panel-heading"><h2 id="tn-results-title">Итоги турнира</h2></div>
-    <ol className="tn-podium" aria-label="Призовые места">{outcome.placements.map((entry) => <li key={`${entry.position}-${entry.team}`} className={entry.position === 1 ? "tn-podium-champion" : ""}>
+    <ol className="tn-podium" aria-label="Призовые места">{outcome.placements.map((entry) => <li key={`${entry.position}-${entry.team}`} data-place={entry.position} className={entry.position === 1 ? "tn-podium-champion" : ""}>
+      <span className="tn-ordinal" aria-hidden="true">{entry.position}</span>
       <span className="tn-place">{entry.position === 1 && <Trophy aria-hidden="true" />}{entry.position === 1 ? "Чемпион" : `${entry.position} место`}</span>
       {tournament.teamLogos?.[entry.team] && <img src={tournament.teamLogos[entry.team]} alt="" />}
       <strong><TeamLink tournamentId={tournament.id} name={entry.team} /></strong>
     </li>)}</ol>
-    {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow tournament={tournament} match={{ ...outcome.final, roundTitle: "Гранд-финал" }} /></div>}
-    <div className="tn-header-actions">
+    {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow tournament={tournament} match={{ ...outcome.final, roundTitle: "Гранд-финал" }} teamLogos={tournament.teamLogos} /></div>}
+    <div className="tn-header-actions tn-result-actions">
       <button className="tn-outline" type="button" onClick={() => changeView({ section: "matches", phase: "all" })}>Все матчи</button>
       {tournament.matchday && <button className="tn-outline" type="button" onClick={() => navigate(tournament.matchday.route)}>Matchday</button>}
       {outcome.final?.replayUrl && <a className="tn-outline" href={outcome.final.replayUrl} target="_blank" rel="noreferrer">Запись финала<ArrowUpRight aria-hidden="true" /></a>}
@@ -108,7 +109,7 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
   const archived = isArchive(tournament);
   const sourceFacts = (tournament.facts || []).filter((fact) => !/подтвержд[её]нн.*матч/i.test(fact));
   return (
-    <main className="tn-page">
+    <main className="tn-page" data-section={view.section}>
       <header className="tn-heading">
         <nav className="tn-breadcrumb" aria-label="Путь к турниру"><button type="button" onClick={() => navigate("/")}>Турниры</button><span>/</span>{archived ? <button type="button" onClick={() => navigate("/results")}>Архив</button> : <span>{tournament.discipline}</span>}</nav>
         <div className="tn-title-row"><h1>{tournament.title}</h1><span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span></div>

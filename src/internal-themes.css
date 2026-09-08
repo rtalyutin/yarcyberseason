@@ -1,0 +1,417 @@
+/* The same tournament and matchday DOM/data, with three complete presentations. */
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] {
+  --inside-bg: #050c16; --inside-text: #f3f5fa; --inside-muted: #b0bfd3;
+  --inside-accent: #297bff; --inside-rule: #2a3c53; --inside-panel: #091625;
+  background: var(--inside-bg); color: var(--inside-text);
+}
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme="dota2"] {
+  --inside-bg: #061f22; --inside-text: #f3efdc; --inside-muted: #b7d0ca;
+  --inside-accent: #8ff3e5; --inside-rule: #365753; --inside-panel: #102c2d;
+}
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme="corporate"] {
+  --inside-bg: #f7f8f5; --inside-text: #08172e; --inside-muted: #54657c;
+  --inside-accent: #0757e8; --inside-rule: #cdd5df; --inside-panel: #edf2f8;
+}
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar {
+  width: min(1480px, calc(100% - 80px)); min-height: 86px; gap: 28px;
+  border-color: var(--inside-rule); font-family: Arial, sans-serif;
+}
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .brand img { width: 120px; height: 52px; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .brand span { font-size: 10px; color: var(--inside-muted); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .nav-link { font-size: 14px; color: var(--inside-muted); padding: 18px 0; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .desktop-nav { gap: 28px; margin-left: auto; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .nav-link.is-active { color: var(--inside-accent); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .nav-link::after { background: var(--inside-accent); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar .theme-toolbar { border: 0; background: transparent; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar .theme-toolbar-inner { width: auto; min-height: 0; gap: 12px; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .theme-switcher { border-radius: 2px; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .theme-switcher button { padding: 10px 13px; font-size: 11px; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .mobile-nav { background: var(--inside-panel); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .mobile-nav button,
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .menu-toggle { color: var(--inside-text); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .legal-footer,
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .legal-footer a { color: var(--inside-muted); border-color: var(--inside-rule); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .legal-company { color: var(--inside-text); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .legal-footer nav { border-color: var(--inside-rule); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] :is(a, button, input):focus-visible { outline-color: var(--inside-accent); }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .community-team-link { color: inherit; text-decoration: none; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .community-team-link:hover { color: var(--inside-accent); text-decoration: underline; }
+:is(.site-shell--tournament, .site-shell--matchday)[data-theme] .community-match-link { color: var(--inside-accent); }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result .community-match-link,
+.site-shell--tournament[data-theme="corporate"] .tn-final-result .community-team-link:hover { color: white; }
+
+/* Shared tournament mechanics. */
+.site-shell--tournament[data-theme] .tn-page { --tn-rule: var(--inside-rule); --tn-muted: var(--inside-muted); --tn-blue: var(--inside-accent); color: var(--inside-text); font-family: Arial, sans-serif; }
+.site-shell--tournament[data-theme] .tn-heading { position: relative; isolation: isolate; }
+.site-shell--tournament[data-theme] .tn-title-row h1 { font-family: Arial, sans-serif; font-weight: 800; }
+.site-shell--tournament[data-theme] .tn-status { color: var(--inside-accent); }
+.site-shell--tournament[data-theme] :is(.tn-section-nav button, .tn-match-meta, .tn-team, .tn-search input, .tn-search > svg, .tn-empty h3, .tn-info .tn-season, .tn-format h3, .tn-format h4, .tn-match-details b) { color: var(--inside-text); }
+.site-shell--tournament[data-theme] :is(.tn-section-nav button:hover, .tn-outline:hover) { background: var(--inside-panel); color: var(--inside-accent); }
+.site-shell--tournament[data-theme] :is(.tn-outline, .tn-match-details a, .tn-match-details summary) { color: var(--inside-accent); border-color: var(--inside-accent); }
+.site-shell--tournament[data-theme] .tn-filters button:hover { color: var(--inside-accent); }
+.site-shell--tournament[data-theme] .tn-section-nav [aria-current="page"] { color: var(--inside-accent); background: transparent; }
+.site-shell--tournament[data-theme] .tn-search { border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme] .tn-podium li { background: transparent; border: 0; }
+.site-shell--tournament[data-theme] .tn-ordinal { font-size: 92px; line-height: 1; font-weight: 700; color: var(--inside-muted); }
+.site-shell--tournament[data-theme] .tn-podium-champion .tn-ordinal,
+.site-shell--tournament[data-theme] .tn-podium-champion .tn-place { color: var(--inside-accent); }
+.site-shell--tournament[data-theme] .tn-podium strong { font-family: Arial, sans-serif; font-size: clamp(22px, 2.7vw, 38px); }
+.site-shell--tournament[data-theme] .tn-team { display: flex; align-items: center; gap: 16px; }
+.site-shell--tournament[data-theme] .tn-team--second { justify-content: flex-end; }
+.site-shell--tournament[data-theme] .tn-team img { width: 64px; height: 64px; border-radius: 50%; object-fit: contain; flex-shrink: 0; }
+.site-shell--tournament[data-theme] .tn-result-actions { justify-content: flex-end; }
+.site-shell--tournament[data-theme] .tn-result-actions .tn-outline:last-child { color: var(--inside-bg); background: var(--inside-accent); }
+.site-shell--tournament[data-theme] .tn-layout { min-height: 0; }
+
+/* CS2: horizontal navigation, winner strip and broadcast scoreboard. */
+.site-shell--tournament[data-theme="cs2"] .tn-heading { min-height: 245px; padding-top: 25px; background: url('/assets/home-team-stage.webp') right center / 64% auto no-repeat; }
+.site-shell--tournament[data-theme="cs2"] .tn-title-row { justify-content: flex-start; align-items: baseline; flex-wrap: wrap; max-width: 70%; }
+.site-shell--tournament[data-theme="cs2"] .tn-title-row h1 { font-size: clamp(42px, 6vw, 86px); letter-spacing: -.065em; line-height: 1.05; }
+.site-shell--tournament[data-theme="cs2"] .tn-date { max-width: 55%; }
+.site-shell--tournament[data-theme="cs2"] .tn-layout { width: min(1480px, calc(100% - 80px)); grid-template-columns: minmax(0, 1fr); }
+.site-shell--tournament[data-theme="cs2"] .tn-sidebar { display: contents; }
+.site-shell--tournament[data-theme="cs2"] .tn-eyebrow { display: none; }
+.site-shell--tournament[data-theme="cs2"] .tn-section-nav { flex-direction: row; flex-wrap: wrap; gap: 26px; order: -2; border-bottom: 1px solid var(--inside-rule); }
+.site-shell--tournament[data-theme="cs2"] .tn-section-nav button { padding: 18px 0; border-radius: 0; border-bottom: 3px solid transparent; font-size: 15px; }
+.site-shell--tournament[data-theme="cs2"] .tn-section-nav [aria-current="page"] { border-bottom-color: var(--inside-accent); }
+.site-shell--tournament[data-theme="cs2"] .tn-content { padding: 24px 0; order: 0; }
+.site-shell--tournament[data-theme="cs2"] .tn-facts { display: flex; flex-wrap: wrap; gap: 20px 42px; margin: 0; padding: 22px 0; justify-content: center; order: 2; }
+.site-shell--tournament[data-theme="cs2"] .tn-facts p { margin: 0; font-size: 15px; gap: 10px; }
+.site-shell--tournament[data-theme="cs2"] .tn-archive-count { order: 5; margin: 14px 0; }
+.site-shell--tournament[data-theme="cs2"] .tn-back { order: 6; padding: 8px 0 24px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium { grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); margin: 28px 0; gap: 0; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium li { display: grid; grid-template-columns: 44px 60px minmax(0, 1fr); align-items: center; column-gap: 18px; row-gap: 6px; padding: 18px 24px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium .tn-place { grid-column: 2 / -1; font-size: 12px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium img { width: 60px; height: 60px; grid-column: 2; grid-row: 2; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium strong { grid-column: 3; grid-row: 2; font-size: 24px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium .tn-ordinal { grid-column: 1; grid-row: 1 / 3; font-size: 48px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium li.tn-podium-champion { grid-row: 1 / 3; grid-template-columns: 112px 110px minmax(0, 1fr); border-right: 1px solid var(--inside-rule); padding-left: 0; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium-champion .tn-ordinal { font-size: 164px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium-champion img { width: 100px; height: 100px; }
+.site-shell--tournament[data-theme="cs2"] .tn-podium-champion strong { font-size: clamp(28px, 3vw, 44px); }
+.site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] :is(.tn-content, .tn-results) { display: contents; }
+.site-shell--tournament[data-theme="cs2"] .tn-results > .tn-panel-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.site-shell--tournament[data-theme="cs2"] .tn-podium { order: 1; }
+.site-shell--tournament[data-theme="cs2"] .tn-final-result { order: 3; padding-top: 24px; }
+.site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-scoreboard { background: var(--inside-panel); padding: 20px; border-right: 4px solid var(--inside-accent); }
+.site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-score { font-size: 66px; }
+.site-shell--tournament[data-theme="cs2"] .tn-result-actions { order: 4; margin-bottom: 16px; }
+.site-shell--tournament[data-theme="cs2"] .tn-result-actions .tn-outline:last-child { color: white; }
+
+/* Dota: open typographic podium, chapter navigation and the supplied map. */
+.site-shell--tournament[data-theme="dota2"] .tn-heading { width: 100%; min-height: 320px; text-align: center; padding: 30px 40px 28px; }
+.site-shell--tournament[data-theme="dota2"] .tn-heading::before { content: ''; position: absolute; z-index: -1; inset: 0; background: url('/assets/themes/yaroslavl-dota-map.webp') center 12% / cover; opacity: .37; }
+.site-shell--tournament[data-theme="dota2"] .tn-breadcrumb { justify-content: center; }
+.site-shell--tournament[data-theme="dota2"] .tn-title-row { display: flex; flex-direction: column; gap: 16px; margin: 35px 0 12px; }
+.site-shell--tournament[data-theme="dota2"] .tn-title-row h1 { font: 400 clamp(42px, 5.5vw, 76px)/1.1 Georgia, serif; letter-spacing: -.035em; }
+.site-shell--tournament[data-theme="dota2"] .tn-header-actions { justify-content: center; }
+.site-shell--tournament[data-theme="dota2"] .tn-date { font: 400 25px/1.4 Georgia, serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-layout { grid-template-columns: 220px minmax(0, 1fr); width: min(1420px, calc(100% - 80px)); border-top: 0; }
+.site-shell--tournament[data-theme="dota2"] .tn-sidebar { padding-top: 28px; }
+.site-shell--tournament[data-theme="dota2"] .tn-eyebrow { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-section-nav { gap: 8px; }
+.site-shell--tournament[data-theme="dota2"] .tn-section-nav button { border-left: 2px solid transparent; font-size: 15px; }
+.site-shell--tournament[data-theme="dota2"] .tn-section-nav [aria-current="page"] { border-color: var(--inside-accent); color: var(--inside-text); }
+.site-shell--tournament[data-theme="dota2"] .tn-results > .tn-panel-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.site-shell--tournament[data-theme="dota2"] .tn-podium { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 40px; margin: 0 auto 34px; max-width: 800px; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium li { display: grid; grid-template-columns: 75px minmax(0, 1fr); gap: 10px 16px; justify-items: center; align-items: center; padding: 12px; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium .tn-place { grid-column: 1 / -1; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium .tn-ordinal { grid-column: 1; grid-row: 2; font: 400 94px/1 Georgia, serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium img { grid-column: 2; grid-row: 2; width: 84px; height: 84px; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium strong { grid-column: 1 / -1; text-align: center; font: 400 clamp(22px, 2.4vw, 34px)/1.15 Georgia, serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium li.tn-podium-champion { grid-column: 1 / -1; width: min(430px, 100%); justify-self: center; grid-template-columns: 105px minmax(0, 1fr); }
+.site-shell--tournament[data-theme="dota2"] .tn-podium-champion .tn-ordinal { font-size: 146px; color: #c7d1b4; }
+.site-shell--tournament[data-theme="dota2"] .tn-podium-champion img { width: 112px; height: 112px; }
+.site-shell--tournament[data-theme="dota2"] .tn-final-result { text-align: center; border-top: 1px solid var(--inside-rule); padding-top: 22px; }
+.site-shell--tournament[data-theme="dota2"] .tn-final-result h3 { font: 400 30px/1.2 Georgia, serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-final-result .tn-score { font: 400 70px/1.2 Georgia, serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-final-result .tn-team img { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-panel-heading h2 { font-family: Georgia, serif; font-weight: 400; }
+
+/* Corporate: a broad editorial ledger with the event context at left. */
+.site-shell--tournament[data-theme="corporate"] .tn-page { display: grid; grid-template-columns: minmax(310px, 35%) minmax(0, 65%); grid-template-rows: min-content 1fr; width: min(1480px, calc(100% - 80px)); margin: auto; }
+.site-shell--tournament[data-theme="corporate"] .tn-heading { grid-column: 1; width: 100%; padding: 30px 28px 24px 0; margin: 0; }
+.site-shell--tournament[data-theme="corporate"] .tn-title-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+.site-shell--tournament[data-theme="corporate"] .tn-title-row h1 { font-size: clamp(38px, 4.4vw, 68px); letter-spacing: -.065em; }
+.site-shell--tournament[data-theme="corporate"] .tn-date { font: 400 25px/1.35 Georgia, serif; }
+.site-shell--tournament[data-theme="corporate"] .tn-layout { display: contents; }
+.site-shell--tournament[data-theme="corporate"] .tn-sidebar { grid-column: 1; grid-row: 2; border: 0; padding: 0 28px 28px 0; }
+.site-shell--tournament[data-theme="corporate"] .tn-eyebrow { display: none; }
+.site-shell--tournament[data-theme="corporate"] .tn-section-nav { flex-direction: row; flex-wrap: wrap; gap: 8px 22px; }
+.site-shell--tournament[data-theme="corporate"] .tn-section-nav button { padding: 10px 0; font-size: 14px; border-bottom: 2px solid transparent; border-radius: 0; }
+.site-shell--tournament[data-theme="corporate"] .tn-section-nav [aria-current="page"] { border-color: var(--inside-accent); }
+.site-shell--tournament[data-theme="corporate"] .tn-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px; margin: 20px 0; }
+.site-shell--tournament[data-theme="corporate"] .tn-facts p { font-size: 14px; margin: 0; gap: 12px; }
+.site-shell--tournament[data-theme="corporate"] .tn-sidebar::after { content: ''; display: block; min-height: 230px; margin-top: 26px; background: url('/assets/themes/yaroslavl-strelka.webp') center / cover; }
+.site-shell--tournament[data-theme="corporate"] .tn-content { grid-column: 2; grid-row: 1 / 3; border-left: 1px solid var(--inside-rule); padding: 30px 0 28px 34px; }
+.site-shell--tournament[data-theme="corporate"] .tn-podium { display: flex; flex-direction: column; margin: 22px 0 28px; gap: 0; }
+.site-shell--tournament[data-theme="corporate"] .tn-podium li { display: grid; grid-template-columns: 118px minmax(0, 1fr) 80px; column-gap: 24px; row-gap: 6px; padding: 24px 0; border-bottom: 1px solid var(--inside-rule); align-items: center; }
+.site-shell--tournament[data-theme="corporate"] .tn-podium .tn-ordinal { grid-column: 1; grid-row: 1 / 3; font: 400 92px/1 Georgia, serif; }
+.site-shell--tournament[data-theme="corporate"] .tn-ordinal::before { content: '0'; }
+.site-shell--tournament[data-theme="corporate"] .tn-podium-champion .tn-ordinal { font-size: 110px; }
+.site-shell--tournament[data-theme="corporate"] .tn-podium .tn-place { grid-column: 2; grid-row: 1; }
+.site-shell--tournament[data-theme="corporate"] .tn-podium strong { grid-column: 2; grid-row: 2; font-size: clamp(24px, 2.6vw, 38px); }
+.site-shell--tournament[data-theme="corporate"] .tn-podium img { grid-column: 3; grid-row: 1 / 3; width: 80px; height: 80px; }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result { padding: 24px; background: var(--inside-accent); color: #fff; }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result :is(.tn-match-meta, .tn-team, .tn-match-details, .tn-match-details summary) { color: white; }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result .tn-scoreboard { padding: 8px 0; grid-template-columns: minmax(0, 1fr) 130px minmax(0, 1fr); }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result .tn-score { font-size: 55px; }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result .tn-team { font-size: 18px; }
+.site-shell--tournament[data-theme="corporate"] .tn-final-result .tn-team img { display: none; }
+.site-shell--tournament[data-theme="corporate"] .tn-panel-heading h2 { font: 700 42px/1.15 Georgia, serif; }
+
+/* Shared Matchday anatomy. Previous-day results remain compact in all themes. */
+.site-shell--matchday[data-theme] .matchday { --md-blue: var(--inside-accent); --md-muted: var(--inside-muted); --md-rule: var(--inside-rule); color: var(--inside-text); font-family: Arial, sans-serif; }
+.site-shell--matchday[data-theme] .md-container { width: min(1480px, calc(100% - 80px)); }
+.site-shell--matchday[data-theme] .md-result { padding: 30px 0 20px; }
+.site-shell--matchday[data-theme] .md-result-date { margin: 6px 0 18px; font-size: 14px; color: var(--inside-muted); }
+.site-shell--matchday[data-theme] .md-result-team { display: flex; align-items: center; gap: 22px; padding: 0; }
+.site-shell--matchday[data-theme] .md-result-team--first { flex-wrap: wrap; }
+.site-shell--matchday[data-theme] .md-result-team--second { justify-content: flex-end; }
+.site-shell--matchday[data-theme] .md-result-team strong { font-size: clamp(23px, 2.5vw, 38px); }
+.site-shell--matchday[data-theme] .md-result-team small { flex-basis: 100%; font-size: 12px; }
+.site-shell--matchday[data-theme] .md-result-team.is-winner,
+.site-shell--matchday[data-theme] .md-maps b { color: var(--inside-text); }
+.site-shell--matchday[data-theme] .md-team-logo { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; flex-shrink: 0; }
+.site-shell--matchday[data-theme] .md-series { font-size: 96px; color: var(--inside-muted); }
+.site-shell--matchday[data-theme] .md-series .is-winner { color: var(--inside-accent); }
+.site-shell--matchday[data-theme] .md-maps { margin-top: 18px; }
+.site-shell--matchday[data-theme] .md-consequence { position: static; max-width: none; text-align: center; margin: 20px 0 0; padding: 12px 20px; color: var(--inside-text); }
+.site-shell--matchday[data-theme] .md-actions { flex-direction: row; justify-content: center; gap: 26px; }
+.site-shell--matchday[data-theme] .md-primary { background: var(--inside-accent); color: var(--inside-bg); min-height: 50px; font-size: 16px; }
+.site-shell--matchday[data-theme] .md-primary:hover { filter: brightness(1.15); }
+.site-shell--matchday[data-theme] .md-link:hover { color: var(--inside-text); }
+.site-shell--matchday[data-theme] .md-recent { padding: 26px 0 0; }
+.site-shell--matchday[data-theme] .md-recent-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--inside-rule); padding-bottom: 16px; }
+.site-shell--matchday[data-theme] .md-recent-heading p { color: var(--inside-muted); font-size: 12px; margin: 0 0 6px; }
+.site-shell--matchday[data-theme] .md-recent-heading h2 { font-size: 26px; margin: 0; }
+.site-shell--matchday[data-theme] .md-result--compact { padding: 20px 0; }
+.site-shell--matchday[data-theme] .md-result--compact .md-result-meta { display: flex; font-size: 12px; }
+.site-shell--matchday[data-theme] .md-result--compact .md-result-date { display: none; }
+.site-shell--matchday[data-theme] .md-result--compact .md-team-logo { width: 42px; height: 42px; }
+.site-shell--matchday[data-theme] .md-result--compact .md-result-team { gap: 12px; }
+.site-shell--matchday[data-theme] .md-result--compact .md-result-team strong { font-size: 22px; }
+.site-shell--matchday[data-theme] .md-result--compact .md-series { font-size: 42px; }
+.site-shell--matchday[data-theme] .md-result--compact .md-maps { margin-top: 8px; }
+.site-shell--matchday[data-theme] .md-result--compact .md-consequence { display: none; }
+.site-shell--matchday[data-theme] .md-partners { margin-top: 26px; border-top: 1px solid var(--inside-rule); padding-top: 26px; }
+.site-shell--matchday[data-theme] .md-partners img { width: 175px; height: 68px; }
+.site-shell--matchday[data-theme] .md-partners > div span { font-size: 22px; }
+.site-shell--matchday[data-theme] .md-days button:hover { color: var(--inside-accent); }
+.site-shell--matchday[data-theme] .md-days--archive { grid-auto-columns: minmax(116px, 1fr); }
+.site-shell--matchday[data-theme] .md-days strong { font-size: 17px; }
+.site-shell--matchday[data-theme] .md-days span { font-size: 12px; }
+
+.site-shell--matchday[data-theme="cs2"] .md-page-heading h1 { font-size: 64px; letter-spacing: -.055em; }
+.site-shell--matchday[data-theme="cs2"] .md-days [aria-selected="true"] { background: #0c2546; color: #9bc6ff; }
+.site-shell--matchday[data-theme="cs2"] .md-day-panel > .md-result .md-result-meta { justify-content: center; }
+.site-shell--matchday[data-theme="cs2"] .md-day-panel > .md-result .md-result-date { text-align: center; }
+.site-shell--matchday[data-theme="cs2"] .md-consequence { background: #0757da; color: white; }
+.site-shell--matchday[data-theme="cs2"] .md-consequence strong { color: white; }
+.site-shell--matchday[data-theme="cs2"] .md-primary { color: white; }
+
+.site-shell--matchday[data-theme="dota2"] .md-page-heading { justify-content: center; text-align: center; }
+.site-shell--matchday[data-theme="dota2"] .md-page-heading h1 { font: 400 72px/1.1 Georgia, serif; }
+.site-shell--matchday[data-theme="dota2"] .md-desktop-link { position: absolute; right: 40px; top: 170px; font-size: 13px; }
+.site-shell--matchday[data-theme="dota2"] .md-days { border-top: 1px solid var(--inside-rule); border-bottom: 0; }
+.site-shell--matchday[data-theme="dota2"] .md-days button { padding-top: 18px; text-align: center; border-top: 3px solid transparent; border-bottom: 0; margin-top: -2px; }
+.site-shell--matchday[data-theme="dota2"] .md-days [aria-selected="true"] { border-top-color: var(--inside-accent); }
+.site-shell--matchday[data-theme="dota2"] .md-day-panel { position: relative; isolation: isolate; }
+.site-shell--matchday[data-theme="dota2"] .md-day-panel::before { content: ''; position: absolute; z-index: -1; inset: 120px 0 auto; height: 350px; background: url('/assets/themes/yaroslavl-dota-map.webp') center 28% / cover; opacity: .2; pointer-events: none; }
+.site-shell--matchday[data-theme="dota2"] .md-result-meta { justify-content: center; }
+.site-shell--matchday[data-theme="dota2"] .md-result-meta h3 { font: 400 26px/1.15 Georgia, serif; letter-spacing: 0; text-transform: none; }
+.site-shell--matchday[data-theme="dota2"] .md-result-date { text-align: center; }
+.site-shell--matchday[data-theme="dota2"] .md-series { font: 400 108px/1.1 Georgia, serif; color: var(--inside-text); }
+.site-shell--matchday[data-theme="dota2"] .md-series .is-winner { color: var(--inside-text); }
+.site-shell--matchday[data-theme="dota2"] .md-result-team strong { font: 400 clamp(24px, 2.5vw, 37px)/1.2 Georgia, serif; }
+.site-shell--matchday[data-theme="dota2"] .md-consequence { font: 400 26px/1.3 Georgia, serif; }
+.site-shell--matchday[data-theme="dota2"] .md-consequence strong { color: var(--inside-text); }
+.site-shell--matchday[data-theme="dota2"] .md-recent-heading h2 { font-family: Georgia, serif; font-weight: 400; }
+
+.site-shell--matchday[data-theme="corporate"] .md-container { display: grid; grid-template-columns: 215px minmax(0, 1fr); gap: 0 36px; }
+.site-shell--matchday[data-theme="corporate"] .md-page-heading { grid-column: 2; grid-row: 1; align-self: start; padding-top: 18px; }
+.site-shell--matchday[data-theme="corporate"] .md-page-heading h1 { font-size: 70px; letter-spacing: -.06em; }
+.site-shell--matchday[data-theme="corporate"] .md-days { grid-column: 1; grid-row: 1 / 4; display: flex; flex-direction: column; border: 0; border-right: 1px solid var(--inside-rule); overflow: visible; padding-right: 18px; }
+.site-shell--matchday[data-theme="corporate"] .md-days button { padding: 15px 10px; margin: 0; border: 0; border-bottom: 1px solid var(--inside-rule); text-align: left; }
+.site-shell--matchday[data-theme="corporate"] .md-days [aria-selected="true"] { color: white; background: var(--inside-accent); padding-block: 25px; }
+.site-shell--matchday[data-theme="corporate"] .md-days [aria-selected="true"] strong { font-size: 24px; }
+.site-shell--matchday[data-theme="corporate"] .md-day-panel { grid-column: 2; grid-row: 2; }
+.site-shell--matchday[data-theme="corporate"] .md-partners { grid-column: 2; grid-row: 3; }
+.site-shell--matchday[data-theme="corporate"] .md-day-panel > .md-result { padding-top: 0; }
+.site-shell--matchday[data-theme="corporate"] .md-result-scoreboard { grid-template-columns: minmax(0, 1fr) 120px; gap: 0 22px; }
+.site-shell--matchday[data-theme="corporate"] .md-series { display: contents; }
+.site-shell--matchday[data-theme="corporate"] .md-series-separator { display: none; }
+.site-shell--matchday[data-theme="corporate"] .md-series-first { grid-column: 2; grid-row: 1; }
+.site-shell--matchday[data-theme="corporate"] .md-series-second { grid-column: 2; grid-row: 2; }
+.site-shell--matchday[data-theme="corporate"] .md-series :is(.md-series-first, .md-series-second) { font-size: 104px; line-height: 1.1; text-align: right; padding: 16px 0; color: var(--inside-text); }
+.site-shell--matchday[data-theme="corporate"] .md-series .is-winner { color: var(--inside-accent); }
+.site-shell--matchday[data-theme="corporate"] .md-result-team--first { grid-column: 1; grid-row: 1; }
+.site-shell--matchday[data-theme="corporate"] .md-result-team--second { grid-column: 1; grid-row: 2; text-align: left; justify-content: flex-start; flex-direction: row-reverse; }
+.site-shell--matchday[data-theme="corporate"] .md-result-team { padding: 20px 0; }
+.site-shell--matchday[data-theme="corporate"] .md-result-team.is-winner { color: var(--inside-accent); }
+.site-shell--matchday[data-theme="corporate"] .md-result-team strong { font-size: clamp(26px, 3.5vw, 48px); }
+.site-shell--matchday[data-theme="corporate"] .md-maps { grid-row: 3; justify-content: flex-start; }
+.site-shell--matchday[data-theme="corporate"] .md-consequence { text-align: left; padding-left: 0; font-size: 22px; }
+.site-shell--matchday[data-theme="corporate"] .md-primary { color: white; }
+.site-shell--matchday[data-theme="corporate"] .md-actions { justify-content: flex-end; }
+.site-shell--matchday[data-theme="corporate"] .md-result--compact .md-series :is(.md-series-first, .md-series-second) { font-size: 44px; padding: 8px 0; }
+.site-shell--matchday[data-theme="corporate"] .md-result--compact .md-result-team { padding: 10px 0; }
+
+/* Tables, brackets and format sections inherit each theme, not just the result view. */
+.site-shell--tournament[data-theme="corporate"] .tn-content :is(.standings-table, .standings-panel, .bracket-board, .bracket-track, .bracket-match, .swiss-rule-card, .bracket-rule, .tournament-perk-card) { background: var(--inside-panel); color: var(--inside-text); border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme="corporate"] .tn-content :is(th, td, .team-identity, .bracket-match strong, .bracket-match span, .bracket-column h3, .bracket-round h3, .standings-key, .data-caption, .standings-order, .group-tab, .swiss-rule-card strong, .bracket-rule strong, .tournament-perk-card h3, .tournament-perk-card p, .tournament-perk-card a) { color: var(--inside-text); border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme="corporate"] .tn-content .group-tab.is-active { background: var(--inside-accent); color: white; }
+.site-shell--tournament[data-theme="dota2"] .tn-content :is(.standings-panel, .bracket-track, .bracket-match, .swiss-rule-card, .bracket-rule, .tournament-perk-card) { background: var(--inside-panel); border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme="corporate"] .tn-content :is(.stage-title h2, .standings-order li, .tournament-perk-list strong, .tournament-perk-list span, .tournament-prize-total, .tournament-prize-list strong) { color: var(--inside-text); }
+.site-shell--tournament[data-theme="corporate"] .tn-content :is(.table-wrap, .standings-order, .bracket-rules, .bracket, .group-tab) { background: var(--inside-panel); border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme="corporate"] .tn-content :is(.standings-order-label, .standings-order li span, .bracket-rule span, .bracket-track-title, .bracket-round-heading span, .bracket-match-meta, .tournament-perk-card .eyebrow) { color: var(--inside-muted); border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme="corporate"] .tn-content .group-tab.is-active { background: var(--inside-accent); color: white; }
+.site-shell--tournament[data-theme="corporate"] .tn-content :is(.standings-key-item--wins, .standings-seed-lock) { color: #146442; }
+.site-shell--tournament[data-theme="corporate"] .tn-content .standings-key-item--losses { color: #a53325; }
+.site-shell--tournament[data-theme="corporate"] .tn-content .standings-seed-lock { border-color: #6a9e89; }
+.site-shell--tournament[data-theme="dota2"] .tn-content :is(.stage-title h2, .bracket-round h3, .bracket-match span, .standings-table td) { color: var(--inside-text); }
+.site-shell--tournament[data-theme="dota2"] .tn-content :is(.standings-order, .bracket-rules, .bracket) { background: var(--inside-panel); border-color: var(--inside-rule); }
+.site-shell--tournament[data-theme="dota2"] .tn-content .group-tab.is-active { color: var(--inside-bg); background: var(--inside-accent); border-color: var(--inside-accent); }
+
+@media (max-width: 1100px) {
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .brand span { display: none; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar { gap: 18px; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .desktop-nav { gap: 18px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium li.tn-podium-champion { grid-template-columns: 78px 76px minmax(0, 1fr); }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium-champion .tn-ordinal { font-size: 120px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium-champion img { width: 72px; height: 72px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium li { column-gap: 12px; padding-right: 8px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-page { grid-template-columns: 30% 70%; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium li { grid-template-columns: 85px minmax(0, 1fr) 54px; gap: 8px 15px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium .tn-ordinal { font-size: 70px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium img { width: 54px; height: 54px; }
+ .site-shell--matchday[data-theme] .md-team-logo { width: 58px; height: 58px; }
+ .site-shell--matchday[data-theme] .md-result-scoreboard { column-gap: 16px; }
+ .site-shell--matchday[data-theme="corporate"] .md-container { grid-template-columns: 170px minmax(0, 1fr); column-gap: 24px; }
+ .site-shell--matchday[data-theme="corporate"] .md-partners { flex-wrap: wrap; }
+}
+@media (max-width: 800px) {
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar { width: calc(100% - 32px); min-height: 66px; flex-wrap: wrap; padding: 8px 0; gap: 8px; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .brand img { width: 92px; height: 42px; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .desktop-nav { display: none; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .menu-toggle { display: flex; margin-left: auto; align-items: center; justify-content: center; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar .theme-toolbar { width: 100%; order: 4; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar .theme-toolbar-inner { width: 100%; padding-bottom: 5px; }
+ :is(.site-shell--tournament, .site-shell--matchday)[data-theme] .topbar .theme-switcher { max-width: none; }
+ .site-shell--tournament[data-theme] .tn-page { display: block; width: 100%; }
+ .site-shell--tournament[data-theme] .tn-heading { width: 100%; min-height: 0; padding: 24px 20px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-heading { background-size: auto 100%; background-position: 65% center; }
+ .site-shell--tournament[data-theme="cs2"] .tn-heading::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(3, 12, 22, .55); }
+ .site-shell--tournament[data-theme] .tn-title-row { max-width: none; margin: 14px 0; }
+ .site-shell--tournament[data-theme] .tn-title-row h1 { font-size: 42px; }
+ .site-shell--tournament[data-theme] .tn-date { max-width: none; font-size: 18px; }
+ .site-shell--tournament[data-theme] .tn-layout { display: flex; flex-direction: column; width: calc(100% - 40px); }
+ .site-shell--tournament[data-theme] .tn-sidebar { display: contents; }
+ .site-shell--tournament[data-theme] .tn-section-nav { display: flex; flex-direction: row; flex-wrap: wrap; gap: 5px 14px; order: -2; border-bottom: 1px solid var(--inside-rule); padding-block: 8px; }
+ .site-shell--tournament[data-theme] .tn-section-nav button { font-size: 13px; padding: 10px 0; min-height: 44px; }
+ .site-shell--tournament[data-theme] .tn-facts { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 12px 20px; order: -1; padding: 18px 0; margin: 0; }
+ .site-shell--tournament[data-theme] .tn-facts p { margin: 0; font-size: 13px; gap: 8px; }
+ .site-shell--tournament[data-theme] .tn-facts svg { width: 18px; height: 18px; }
+ .site-shell--tournament[data-theme] .tn-content { padding: 24px 0; border: 0; }
+ .site-shell--tournament[data-theme] .tn-archive-count { display: block; order: 5; margin: 14px 0; font-size: 12px; }
+ .site-shell--tournament[data-theme] .tn-back { display: flex; order: 6; font-size: 14px; padding: 14px 0 24px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-sidebar::after { display: none; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium { display: flex; flex-direction: column; gap: 0; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium li,
+ .site-shell--tournament[data-theme="cs2"] .tn-podium li.tn-podium-champion { display: grid; grid-template-columns: 48px 54px minmax(0, 1fr); padding: 18px 0; border: 0; border-bottom: 1px solid var(--inside-rule); gap: 4px 12px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium-champion .tn-ordinal,
+ .site-shell--tournament[data-theme="cs2"] .tn-podium .tn-ordinal { font-size: 64px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium img { width: 54px; height: 54px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium strong,
+ .site-shell--tournament[data-theme="cs2"] .tn-podium-champion strong { font-size: 24px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium { gap: 8px; margin-top: 10px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium li { padding: 8px 0; grid-template-columns: 45px minmax(0, 1fr); gap: 10px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium .tn-ordinal { font-size: 64px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium img { width: 62px; height: 62px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium-champion img { width: 84px; height: 84px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium strong { font-size: 21px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium li { grid-template-columns: 65px minmax(0, 1fr) 52px; column-gap: 12px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium .tn-ordinal { font-size: 58px; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium strong { font-size: 24px; }
+ .site-shell--tournament[data-theme] .tn-final-result .tn-scoreboard { grid-template-columns: minmax(0, 1fr) 85px minmax(0, 1fr); gap: 10px; padding: 12px 0; }
+ .site-shell--tournament[data-theme] .tn-final-result .tn-score { font-size: 38px; }
+ .site-shell--tournament[data-theme] .tn-final-result .tn-team { font-size: 16px; }
+ .site-shell--tournament[data-theme] .tn-final-result .tn-team img { display: none; }
+ .site-shell--tournament[data-theme="corporate"] .tn-final-result { padding: 18px; }
+ .site-shell--tournament[data-theme] .tn-panel-heading h2 { font-size: 32px; }
+ .site-shell--matchday[data-theme] .md-container { display: block; width: calc(100% - 36px); }
+ .site-shell--matchday[data-theme] .md-page-heading { display: flex; padding: 18px 0 0; margin-bottom: 22px; }
+ .site-shell--matchday[data-theme] .md-page-heading h1 { font-size: 44px; }
+ .site-shell--matchday[data-theme] .md-page-heading p { font-size: 13px; }
+ .site-shell--matchday[data-theme] .md-desktop-link, .site-shell--matchday[data-theme] .md-mobile-title { display: none; }
+ .site-shell--matchday[data-theme] .md-back { display: none; }
+ .site-shell--matchday[data-theme] .md-days { display: grid; grid-auto-flow: column; grid-auto-columns: 112px; overflow-x: auto; border-right: 0; padding: 0; }
+ .site-shell--matchday[data-theme] .md-days button { padding: 12px 8px; border-bottom: 3px solid transparent; min-height: 64px; }
+ .site-shell--matchday[data-theme] .md-days strong,
+ .site-shell--matchday[data-theme="corporate"] .md-days [aria-selected="true"] strong { font-size: 14px; white-space: nowrap; }
+ .site-shell--matchday[data-theme] .md-days span { display: block; font-size: 11px; }
+ .site-shell--matchday[data-theme] .md-result-scoreboard { display: grid; grid-template-columns: minmax(0, 1fr) 56px; column-gap: 12px; row-gap: 12px; }
+ .site-shell--matchday[data-theme] .md-series { display: contents; }
+ .site-shell--matchday[data-theme] .md-series-separator { display: none; }
+ .site-shell--matchday[data-theme] .md-series-first { grid-column: 2; grid-row: 1; }
+ .site-shell--matchday[data-theme] .md-series-second { grid-column: 2; grid-row: 2; }
+ .site-shell--matchday[data-theme] .md-series :is(.md-series-first, .md-series-second) { font-size: 46px; line-height: 1.1; text-align: right; padding: 0; color: var(--inside-muted); }
+ .site-shell--matchday[data-theme] .md-series .is-winner { color: var(--inside-accent); }
+ .site-shell--matchday[data-theme] .md-result-team { flex-wrap: nowrap; padding: 0; gap: 12px; text-align: left; }
+ .site-shell--matchday[data-theme] .md-result-team--first { grid-column: 1; grid-row: 1; }
+ .site-shell--matchday[data-theme] .md-result-team--second { grid-column: 1; grid-row: 2; flex-direction: row-reverse; justify-content: flex-end; }
+ .site-shell--matchday[data-theme] .md-result-team small { display: none; }
+ .site-shell--matchday[data-theme] .md-result-team strong { font-size: 22px; line-height: 1.15; }
+ .site-shell--matchday[data-theme] .md-team-logo { width: 48px; height: 48px; }
+ .site-shell--matchday[data-theme] .md-maps { grid-row: 3; font-size: 12px; justify-content: flex-start; gap: 6px 14px; margin-top: 8px; }
+ .site-shell--matchday[data-theme] .md-result-meta { justify-content: space-between; gap: 10px; }
+ .site-shell--matchday[data-theme] .md-result-meta h3 { font-size: 17px; }
+ .site-shell--matchday[data-theme] .md-result-meta > span { font-size: 11px; gap: 4px; }
+ .site-shell--matchday[data-theme] .md-result-date { text-align: left; font-size: 12px; }
+ .site-shell--matchday[data-theme] .md-consequence { font-size: 18px; line-height: 1.4; padding: 10px; }
+ .site-shell--matchday[data-theme] .md-actions { flex-wrap: wrap; justify-content: center; gap: 10px; }
+ .site-shell--matchday[data-theme] .md-primary { min-width: 0; flex: 1; font-size: 14px; }
+ .site-shell--matchday[data-theme] .md-actions .md-link { font-size: 14px; }
+ .site-shell--matchday[data-theme] .md-recent-heading h2 { font-size: 23px; }
+ .site-shell--matchday[data-theme] .md-recent-heading .md-link { font-size: 12px; gap: 5px; }
+ .site-shell--matchday[data-theme] .md-result--compact .md-result-team strong { font-size: 18px; }
+ .site-shell--matchday[data-theme] .md-result--compact .md-series :is(.md-series-first, .md-series-second) { font-size: 34px; }
+ .site-shell--matchday[data-theme] .md-partners { display: flex; flex-wrap: wrap; gap: 18px; }
+ .site-shell--matchday[data-theme] .md-partners > div { display: flex; gap: 16px; }
+ .site-shell--matchday[data-theme] .md-partners > div span { font-size: 12px; }
+ .site-shell--matchday[data-theme] .md-partners img { width: 110px; height: 52px; }
+}
+@media (prefers-reduced-motion: reduce) { :is(.site-shell--tournament, .site-shell--matchday)[data-theme] * { scroll-behavior: auto; } }
+@media (min-width: 801px) {
+ .site-shell--tournament[data-theme="cs2"] .tn-heading { min-height: 210px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium { margin-block: 18px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium li { padding-block: 10px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium-champion .tn-ordinal { font-size: 140px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium-champion strong { font-size: clamp(32px, 3.6vw, 52px); }
+ .site-shell--tournament[data-theme="cs2"] .tn-podium li:not(.tn-podium-champion) strong { font-size: 26px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-scoreboard { padding: 12px 20px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-score { font-size: 56px; }
+ .site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] :is(.tn-result-actions, .tn-archive-count) { grid-row: 5; grid-column: 1; align-self: center; }
+ .site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] .tn-archive-count { max-width: 300px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-title-row h1 { font-size: clamp(50px, 6.4vw, 88px); }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium-champion .tn-ordinal { font-size: 170px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium-champion img { width: 136px; height: 136px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium strong { font-size: clamp(26px, 2.8vw, 38px); }
+ .site-shell--tournament[data-theme="dota2"] .tn-podium-champion strong { font-size: clamp(30px, 3.6vw, 48px); }
+ .site-shell--tournament[data-theme="dota2"] .tn-final-result .tn-team { font: 400 clamp(22px, 2.4vw, 34px)/1.2 Georgia, serif; }
+ .site-shell--tournament[data-theme="dota2"] .tn-final-result .tn-score { font-size: 84px; }
+ .site-shell--matchday[data-theme="corporate"] .md-page-heading h1 { font-size: clamp(64px, 7vw, 100px); }
+}
+.site-shell--matchday[data-theme] .md-days.md-days--archive { overflow-y: hidden; scrollbar-color: var(--inside-muted) var(--inside-panel); }
+.site-shell--matchday[data-theme] .md-days button { margin-bottom: 0; }
+@media (min-width: 801px) {
+ .site-shell--matchday[data-theme="corporate"] .md-result-team--second { justify-content: flex-end; }
+ .site-shell--matchday[data-theme="corporate"] .md-result-team--first,
+ .site-shell--matchday[data-theme="corporate"] .md-series-first { border-bottom: 1px solid var(--inside-rule); }
+ .site-shell--tournament[data-theme="corporate"] .tn-title-row h1 { font-size: clamp(40px, 6.5vw, 96px); letter-spacing: -.075em; }
+ .site-shell--tournament[data-theme="corporate"] .tn-podium .tn-ordinal { font-weight: 700; }
+}
+@media (max-width: 800px) {
+ .site-shell--matchday[data-theme="corporate"] .md-days [aria-selected="true"] { padding: 12px 8px; }
+ .site-shell--matchday[data-theme] .md-days { scrollbar-width: thin; }
+}

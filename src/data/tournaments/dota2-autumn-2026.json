@@ -36,7 +36,7 @@
       "Одна команда — один пригласивший."
     ]
   },
-  "primaryAction": { "label": "Зарегистрировать команду", "target": "mailto:info@ycs.bar?subject=Регистрация%20на%20YCS%20Dota%202" },
+  "primaryAction": { "label": "Зарегистрировать команду", "target": "https://forms.yandex.ru/u/6a84359e6d2d7373b491e1e4" },
   "secondaryAction": { "label": "Регламент", "target": "#format" },
   "timeline": [
     { "label": "Регистрация", "state": "active", "date": "до 21 сентября" },

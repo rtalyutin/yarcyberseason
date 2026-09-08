@@ -251,7 +251,6 @@ function HomePage({ navigate, theme }) {
                 </button>
               </div>
               <div className="registration-documents">
-                <p>Заявка отправляется на <a href="mailto:info@ycs.bar">info@ycs.bar</a></p>
                 <div><a href={`/tournaments/${nextTournament.slug}#format`}>Правила турнира <ArrowUpRight aria-hidden="true" /></a>
                 <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a></div>
               </div>

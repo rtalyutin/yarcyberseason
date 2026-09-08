@@ -136,25 +136,24 @@ function PageFrame({ children, navigate, path }) {
   );
 }
 
-function Footer({ navigate, compact = false }) {
-  if (compact) return <footer className="tn-footer"><p>© 2026 YAR CYBER SEASON. Все права защищены.</p><nav aria-label="Навигация в подвале"><button type="button" onClick={() => navigate("/")}>Турниры</button><button type="button" onClick={() => navigate(currentTournament.matchday.route)}>Matchday</button><button type="button" onClick={() => navigate("/broadcasts")}>Трансляции</button></nav></footer>;
-  return (
-    <footer className="footer">
-      <div className="footer-rule" />
-      <div className="footer-grid">
-        <div>
-          <p className="eyebrow">YAR CYBER SEASON</p>
-          <p className="footer-copy">Открытые киберспортивные турниры Ярославля.</p>
-        </div>
-        <div className="footer-links">
-          <button type="button" onClick={() => navigate("/about")}>О проекте</button>
-          <button type="button" onClick={() => navigate("/partners")}>Партнёрам</button>
-          <a href="mailto:info@ycs.bar">info@ycs.bar</a>
-        </div>
-        <p className="footer-meta">© 2026 YCS<br />16+</p>
+const PRIVACY_URL = "https://ycs.bar/docs/" + encodeURIComponent("Политика_в_отношении_обработки_персональных_данных.pdf");
+
+function Footer({ navigate }) {
+  return <footer className="legal-footer container">
+    <div className="legal-footer-grid">
+      <div><p className="legal-company">ООО «ЯрКиберСезон»</p>
+        <address>150040, Ярославская область, г. Ярославль,<br />ул. Володарского, д. 64, кв. 37</address>
+        <p>ИНН 7606143578 · ОГРН 1257600007500</p>
       </div>
-    </footer>
-  );
+      <nav aria-label="Документы и контакты">
+        <a href="mailto:info@ycs.bar">info@ycs.bar</a>
+        <a href="/about#requisites">Контакты и реквизиты</a>
+        <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
+        <a href={`/tournaments/${nextTournament.slug}#format`}>Правила участия</a>
+      </nav>
+    </div>
+    <p className="legal-copyright">© 2026 ЯрКиберСезон</p>
+  </footer>;
 }
 
 function ActionButton({ action, variant = "primary", navigate }) {
@@ -236,6 +235,11 @@ function HomePage({ navigate }) {
                   Условия участия <ArrowUpRight weight="bold" aria-hidden="true" />
                 </button>
               </div>
+              <div className="registration-documents">
+                <p>Заявка отправляется на <a href="mailto:info@ycs.bar">info@ycs.bar</a></p>
+                <div><a href={`/tournaments/${nextTournament.slug}#format`}>Правила турнира <ArrowUpRight aria-hidden="true" /></a>
+                <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a></div>
+              </div>
             </div>
           </div>
         </section>
@@ -302,10 +306,7 @@ function HomePage({ navigate }) {
           </div>
         </section>
       </main>
-      <footer className="home-footer container">
-        <p>© 2026 YAR CYBER SEASON</p>
-        <nav aria-label="Подвал главной"><button type="button" onClick={() => navigate("/about")}>О проекте</button><a href="mailto:info@ycs.bar">info@ycs.bar</a></nav>
-      </footer>
+      <Footer navigate={navigate} />
     </>
   );
 }
@@ -760,6 +761,13 @@ function AboutPage({ navigate }) {
     <main>
       <PageIntro eyebrow="О проекте" title={<>YCS — сезон для<br /><span>соревновательной игры</span></>} body="Ярославский киберспортивный сезон объединяет турниры, трансляции и архив результатов в одной понятной системе." action={{ label: "Посмотреть текущий турнир", target: "/tournaments/cs2-august-2026" }} navigate={navigate} />
       <section className="container about-grid"><div><p className="eyebrow">Принцип</p><h2>Открытая точка входа для команды.</h2></div><div><p className="eyebrow">Структура</p><p>Анонс, турнирная страница, таблицы и сетки, сохранённый архив.</p></div><div><p className="eyebrow">Контакт</p><a href="mailto:info@ycs.bar">info@ycs.bar</a></div></section>
+      <section className="container legal-requisites" id="requisites">
+        <h2>Контакты и реквизиты</h2>
+        <p>Общество с ограниченной ответственностью «ЯрКиберСезон»</p>
+        <dl><dt>Юридический адрес</dt><dd>150040, Ярославская область, г. Ярославль, ул. Володарского, д. 64, кв. 37</dd>
+        <dt>ИНН / КПП</dt><dd>7606143578 / 760601001</dd><dt>ОГРН</dt><dd>1257600007500</dd>
+        <dt>Электронная почта</dt><dd><a href="mailto:info@ycs.bar">info@ycs.bar</a></dd></dl>
+      </section>
     </main>
   );
 }

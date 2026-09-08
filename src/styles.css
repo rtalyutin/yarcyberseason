@@ -4036,3 +4036,29 @@ a {
 .home-partner:first-child img { background: #fff; width: 112px; height: 112px; }
 .home-partner--dodo img { width: 210px; height: auto; }
 @media (max-width: 480px) { .home-partner img { max-width: 100%; } .home-partner--dodo img { width: 150px; } }
+
+/* Approved registration documents and company footer. */
+.registration-documents { margin-top: 20px; color: #aebed5; font-size: 13px; line-height: 1.6; }
+.registration-documents p { margin: 0 0 10px; }
+.registration-documents > div { display:flex; flex-wrap:wrap; gap:10px 24px; }
+.registration-documents a, .legal-footer a { color: #b2c6e5; text-underline-offset: 4px; }
+.registration-documents svg, .legal-footer svg { width:14px; height:14px; vertical-align:middle; }
+.legal-footer { border-top:1px solid #303d50; padding-top:32px; padding-bottom:28px; margin-top:48px; color:#aebed5; font-size:14px; line-height:1.7; }
+.legal-footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+.legal-footer p { margin:0 0 6px; }
+.legal-footer .legal-company { color:#f2f5fa; font-weight:600; }
+.legal-footer address { font-style:normal; margin-bottom:6px; }
+.legal-footer nav { border-left:1px solid #303d50; padding-left:48px; display:flex; flex-direction:column; align-items:flex-start; gap:6px; }
+.legal-footer .legal-copyright { margin-top:24px; font-size:12px; }
+.legal-requisites { padding-top:40px; padding-bottom:48px; scroll-margin-top:100px; }
+.legal-requisites dl { display:grid; grid-template-columns:180px 1fr; gap:16px 32px; max-width:850px; }
+.legal-requisites dd { margin:0; }
+.legal-requisites dt { color:#aebed5; }
+.registration-documents a:focus-visible, .legal-footer a:focus-visible { outline:2px solid #5285ff; outline-offset:5px; }
+@media (max-width:640px) {
+ .legal-footer-grid { grid-template-columns:1fr; gap:24px; }
+ .legal-footer nav { border-left:0; border-top:1px solid #303d50; padding:20px 0 0; }
+ .legal-requisites dl { grid-template-columns:1fr; gap:6px; }
+ .legal-requisites dd { margin-bottom:14px; }
+ .registration-documents > div { flex-direction:column; gap:10px; }
+}

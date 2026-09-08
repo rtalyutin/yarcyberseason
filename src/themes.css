@@ -234,3 +234,11 @@
  .site-shell--home[data-theme="dota2"] .nav-link { font-size: 14px; }
  .site-shell--home[data-theme="dota2"] .home-conversion-copy > .home-kicker { font-size: 18px; }
 }
+
+/* Soften the enlarged Dota map on 2K–4K windows; keep foreground UI sharp. */
+@media (min-width: 2048px) {
+ .site-shell--home[data-theme="dota2"] .theme-city {
+  filter: blur(clamp(6px, .3vw, 12px));
+  transform: scale(1.04);
+ }
+}

@@ -31,3 +31,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 
 - Completed tournaments with published `results` open on the universal «Итоги» section: podium and final score come from their JSON. Keep group seeds and bracket history intact. The home page keeps Dota registration first and shows the completed CS2 champion/result below; archive membership follows tournament status. Archived Matchday keeps all dated playoff days and defaults to the final. Never invent missing map scores or replay links.
 - CS2 ended 6 September 2026: PIVNAYA KEGA beat bobr1ki 3:2 in the BO5 grand final; SAITEN x BAD.RABBIT finished third. Grand-final map scores are not published. The actual lower final on 5 September was BO3, KEGA 2:1 SAITEN (FACEIT result supersedes the original BO5 schedule). These confirmed results supersede the earlier upcoming-final notes.
+
+- Dota home redesign selected September 8: displayed option 3. Huge ivory serif headline over the original map, compact header with theme selector, and full-width bottom tournament/registration dock with cyan CTA. Mobile stacks the dock below the map. Preserve shared content and official Yandex form.

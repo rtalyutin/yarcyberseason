@@ -103,7 +103,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   return (
     <div data-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
       <div className="site-background" aria-hidden="true" />
-      <ThemeSwitcher theme={theme} onChange={onThemeChange} />
+      {!(isHome && theme === "dota2") && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
       <div className="site-header">
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
@@ -123,6 +123,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
             </button>
           ))}
         </nav>
+        {isHome && theme === "dota2" && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
           {isHome || isMatchday || isTournament ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>

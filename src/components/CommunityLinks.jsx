@@ -20,7 +20,9 @@ export function MatchLink({ tournamentId, matchId, className = '' }) {
 }
 export function CommunitySearch() {
   const url = safeHttps(config.teamSearchChatUrl);
+  const soloUrl = safeHttps(config.soloRegistrationUrl);
   return <div className="community-search">
+    {soloUrl && <p>Нет команды? <a href={soloUrl} target="_blank" rel="noreferrer">Зарегистрироваться как соло-игрок ↗</a></p>}
     <p>Поиск команды и игроков — в чате сообщества</p>
     {url ? <div><a href={url} target="_blank" rel="noreferrer">Найти команду ↗</a><a href={url} target="_blank" rel="noreferrer">Нужен игрок ↗</a></div> : <span>Ссылка на чат появится позже</span>}
   </div>;

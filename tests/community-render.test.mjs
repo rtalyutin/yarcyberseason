@@ -34,6 +34,10 @@ test('all published team and match templates render with real JSON', async () =>
     assert.ok(renderToStaticMarkup(React.createElement(MatchPage, { tournamentSlug: 'missing', matchId: 'missing' })).includes('Матч не найден'));
     const { CommunitySearch } = await server.ssrLoadModule('/src/components/CommunityLinks.jsx');
     const search = renderToStaticMarkup(React.createElement(CommunitySearch));
-    assert.ok(search.includes('Ссылка на чат появится позже')); assert.ok(!search.includes('href='));
+    assert.ok(search.includes('Ссылка на чат появится позже'));
+    assert.ok(search.includes('href="https://forms.yandex.ru/u/6a84776d5056903d3b881f6b"'));
+    assert.ok(search.includes('Зарегистрироваться как соло-игрок'));
+    assert.ok(!search.includes('Найти команду ↗'));
+    assert.ok(!search.includes('Нужен игрок ↗'));
   } finally { globalThis.window = previousWindow; await server.close(); }
 });

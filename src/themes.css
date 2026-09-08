@@ -1,0 +1,138 @@
+/* The CS2 theme uses the existing site CSS unchanged. New skins share its DOM. */
+@font-face {
+  font-family: "YCS Chronicle";
+  src: url("/assets/fonts/DejaVuSerif.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+.theme-toolbar { position: relative; z-index: 3; background: #080e18; border-bottom: 1px solid #263040; color: #c7d2e5; }
+.theme-toolbar-inner { width: min(1440px, calc(100% - 80px)); margin: auto; min-height: 58px; display: flex; align-items: center; gap: 20px; font-size: 13px; }
+.theme-switcher { display: flex; background: #111a29; border: 1px solid #2b384d; border-radius: 7px; overflow: hidden; }
+.theme-switcher button { padding: 11px 24px; min-height: 42px; background: transparent; color: inherit; cursor: pointer; font-weight: 700; font-size: 12px; }
+.theme-switcher button + button { border-left: 1px solid #2b384d; }
+.theme-switcher button:hover { background: #253550; }
+.theme-switcher button[aria-pressed="true"] { color: #fff; background: #346ee7; }
+.theme-switcher button:focus-visible { position: relative; z-index: 1; outline: 2px solid #fff; outline-offset: -4px; }
+.site-header { position: relative; z-index: 2; }
+.site-shell[data-theme] .mobile-nav { top: 100%; }
+.theme-artwork { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.theme-city, .theme-city-shade, .theme-decoration { position: absolute; }
+.theme-city { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.theme-city-shade { inset: 0; }
+.theme-decoration { pointer-events: none; object-fit: contain; }
+.image-credits { margin: 22px 0 0; max-width: 760px; font-size: 11px; line-height: 1.7; }
+.image-credits summary { cursor: pointer; width: fit-content; }
+.image-credits p { padding-top: 10px; }
+
+/* Dota: the user-supplied Yaroslavl map, with content over the river. */
+.site-shell[data-theme="dota2"] { --theme-accent: #a7f6c4; }
+.site-shell[data-theme="dota2"] .theme-toolbar { background: #081c1a; color: #dcefe6; border-color: #33574b; }
+.site-shell[data-theme="dota2"] .theme-switcher { background: #17332b; border-color: #426454; }
+.site-shell[data-theme="dota2"] .theme-switcher button + button { border-color: #426454; }
+.site-shell[data-theme="dota2"] .theme-switcher button[aria-pressed="true"] { background: #a7f6c4; color: #092218; }
+.site-shell[data-theme="dota2"] .theme-switcher button:hover { background: #3b6654; color: white; }
+.site-shell[data-theme="dota2"] .theme-switcher button[aria-pressed="true"]:hover { background: #b8fbd0; color: #092218; }
+.site-shell--home[data-theme="dota2"] { background: #091c18; color: #eff4e9; }
+.site-shell--home[data-theme="dota2"] .site-background,
+.site-shell--home[data-theme="dota2"]::before { display: none; }
+.site-shell--home[data-theme="dota2"] .topbar { border-color: #2c4c3f; }
+.site-shell--home[data-theme="dota2"] .home-conversion { background: #081c17; border-color: #3b5848; min-height: 820px; }
+.site-shell--home[data-theme="dota2"] .home-conversion-inner { min-height: 820px; justify-content: flex-end; align-items: flex-start; }
+.site-shell--home[data-theme="dota2"] .theme-city { object-position: center; }
+.site-shell--home[data-theme="dota2"] .theme-city-shade { background: rgba(3, 15, 23, .08); }
+.site-shell--home[data-theme="dota2"] .home-conversion-copy { width: 450px; margin: 34px 0 140px; padding: 28px 24px; text-align: center; background: rgba(5, 22, 29, .9); border: 1px solid rgba(164, 218, 211, .25); }
+.site-shell--home[data-theme="dota2"] .home-conversion h1 { max-width: none; margin: 22px 0 32px; font-family: "YCS Chronicle", Georgia, serif; font-size: clamp(36px, 3.25vw, 46px); font-weight: 400; letter-spacing: -.055em; line-height: 1.08; color: #f3f6e8; }
+.site-shell--home[data-theme="dota2"] .home-conversion h1 span { color: #f3f6e8; }
+.site-shell--home[data-theme="dota2"] .home-next-lockup,
+.site-shell--home[data-theme="dota2"] .home-conversion-actions { justify-content: center; }
+.site-shell--home[data-theme="dota2"] .home-conversion-actions { align-items: center; }
+.site-shell--home[data-theme="dota2"] .home-facts { justify-content: center; max-width: none; }
+.site-shell--home[data-theme="dota2"] .registration-documents > div { justify-content: center; }
+.site-shell--home[data-theme="dota2"] :is(.home-kicker, .home-subtle-link, .home-match-link, .home-all-results, .home-match-meta, .home-champion) { color: #a7e9c4; }
+.site-shell--home[data-theme="dota2"] :is(.home-facts, .home-deadline, .home-next-date, .home-next-lockup span, .registration-documents, .registration-documents a, .home-partner p, .home-archive-copy small, .home-section-intro > p:last-child, .legal-footer, .legal-footer a) { color: #ceded5; }
+.site-shell--home[data-theme="dota2"] .button--primary { background: #a7f6c4; color: #092218; border-color: #a7f6c4; }
+.site-shell--home[data-theme="dota2"] .button--primary:hover { background: #d4f8dd; }
+.site-shell--home[data-theme="dota2"] :is(.home-section-intro h2, .home-archive-heading h2, .home-partners h2) { font-family: "YCS Chronicle", Georgia, serif; text-transform: none; font-weight: 400; line-height: 1.15; }
+.site-shell--home[data-theme="dota2"] :is(.home-season, .home-season-main, .home-match-meta, .home-archive-list, .home-archive-row, .home-partners, .home-partner, .legal-footer, .legal-footer nav) { border-color: #365345; }
+.site-shell--home[data-theme="dota2"] .home-partners h2::before { background: #a7f6c4; }
+.site-shell--home[data-theme="dota2"] .home-partner--join { color: #a7f6c4; border-color: #78b494; }
+.site-shell--home[data-theme="dota2"] .home-partner--join:hover { background: #18392a; }
+.site-shell--home[data-theme="dota2"] .nav-link.is-active { color: #a7f6c4; }
+.site-shell--home[data-theme="dota2"] .nav-link::after { background: #a7f6c4; }
+.site-shell--home[data-theme="dota2"] :is(button, a):focus-visible { outline-color: #a7f6c4; }
+
+/* Corporate: cobalt campaign, actual Strelka photo and original YCS mark. */
+.site-shell[data-theme="corporate"] .theme-toolbar { background: #eef3fa; color: #15253d; border-color: #d3dceb; }
+.site-shell[data-theme="corporate"] .theme-switcher { background: #e0e7f1; border-color: #d3dceb; }
+.site-shell[data-theme="corporate"] .theme-switcher button + button { border-color: #d3dceb; }
+.site-shell[data-theme="corporate"] .theme-switcher button:hover { background: #c7d8f5; }
+.site-shell[data-theme="corporate"] .theme-switcher button[aria-pressed="true"] { background: #1759de; color: white; }
+.site-shell--home[data-theme="corporate"] { background: #f5f7fb; color: #101c30; }
+.site-shell--home[data-theme="corporate"] .site-background,
+.site-shell--home[data-theme="corporate"]::before { display: none; }
+.site-shell--home[data-theme="corporate"] .topbar { border-color: #cbd6e7; }
+.site-shell--home[data-theme="corporate"] .brand span { color: #273a58; }
+.site-shell--home[data-theme="corporate"] .brand img { border-radius: 2px; }
+.site-shell--home[data-theme="corporate"] :is(.nav-link, .menu-toggle) { color: #263954; }
+.site-shell--home[data-theme="corporate"] .nav-link.is-active { color: #1759de; }
+.site-shell--home[data-theme="corporate"] .nav-link::after { background: #1759de; }
+.site-shell--home[data-theme="corporate"] .mobile-nav { background: #eaf0f9; }
+.site-shell--home[data-theme="corporate"] .mobile-nav button { color: #162943; }
+.site-shell--home[data-theme="corporate"] .home-conversion { background: #103783; min-height: 720px; }
+.site-shell--home[data-theme="corporate"] .home-conversion-inner { min-height: 720px; }
+.site-shell--home[data-theme="corporate"] .theme-city { width: 58%; left: auto; object-position: 20% center; filter: saturate(.7); }
+.site-shell--home[data-theme="corporate"] .theme-city-shade { background: rgba(12, 49, 124, .36); }
+.site-shell--home[data-theme="corporate"] .home-conversion::after { content: ""; position: absolute; inset: 0; background: #123b89; clip-path: polygon(0 0, 59% 0, 44% 100%, 0 100%); pointer-events: none; }
+.site-shell--home[data-theme="corporate"] .theme-decoration { right: 4%; bottom: 9%; height: auto; aspect-ratio: 2.5; width: 36%; object-fit: cover; object-position: center; mix-blend-mode: screen; }
+.site-shell--home[data-theme="corporate"] .home-conversion-copy { width: min(640px, 55%); padding: 64px 0; }
+.site-shell--home[data-theme="corporate"] .home-conversion-inner { z-index: 1; }
+.site-shell--home[data-theme="corporate"] .home-conversion h1 { font-size: clamp(48px, 4.9vw, 72px); line-height: .98; letter-spacing: -.07em; color: #fff; }
+.site-shell--home[data-theme="corporate"] .home-conversion h1 span { color: #fff; }
+.site-shell--home[data-theme="corporate"] .home-conversion :is(.home-kicker, .home-facts, .home-deadline, .home-next-lockup span, .home-next-date, .registration-documents, .registration-documents a, .home-subtle-link) { color: #e7efff; }
+.site-shell--home[data-theme="corporate"] .button--primary { background: #fff; color: #123b89; border-color: #fff; }
+.site-shell--home[data-theme="corporate"] .button--primary:hover { background: #dfeaff; }
+.site-shell--home[data-theme="corporate"] :is(.home-section-intro h2, .home-archive-heading h2, .home-archive-row, .home-champion strong, .home-match-teams .team-identity, .home-final-score, .legal-company) { color: #101c30; }
+.site-shell--home[data-theme="corporate"] :is(.home-section-intro > p:last-child, .home-archive-copy small, .home-partner p, .legal-footer, .legal-footer a) { color: #4e607c; }
+.site-shell--home[data-theme="corporate"] :is(.home-season .home-kicker, .home-champion, .home-match-meta, .home-match-link, .home-all-results) { color: #1759de; }
+.site-shell--home[data-theme="corporate"] :is(.home-season, .home-season-main, .home-match-meta, .home-archive-list, .home-archive-row, .home-partners, .home-partner, .legal-footer, .legal-footer nav) { border-color: #c5d1e2; }
+.site-shell--home[data-theme="corporate"] .home-archive-row .home-game-mark { filter: brightness(0) saturate(100%); }
+.site-shell--home[data-theme="corporate"] .home-partner--join { color: #1759de; border-color: #1759de; }
+.site-shell--home[data-theme="corporate"] .home-partner--join:hover { background: #e3ecfb; }
+.site-shell--home[data-theme="corporate"] :is(.home-archive-row, .home-all-results, .home-match-link):hover { color: #003dba; }
+.site-shell--home[data-theme="corporate"] .home-conversion :is(a, button):focus-visible { outline-color: white; }
+
+@media (max-width: 860px) {
+  .theme-toolbar-inner { width: calc(100% - 40px); gap: 12px; }
+  .theme-switcher { flex: 1; max-width: 420px; }
+  .theme-switcher button { flex: 1; padding: 10px 12px; }
+  .site-shell--home[data-theme="dota2"] .home-conversion-copy { width: min(580px, 100%); margin: calc(100vw * 941 / 1672) auto 0; padding: 32px 0 44px; border: 0; background: transparent; }
+  .site-shell--home[data-theme="dota2"] .theme-artwork { bottom: auto; aspect-ratio: 1672 / 941; }
+  .site-shell--home[data-theme="dota2"] .theme-city { object-fit: contain; }
+  .site-shell--home[data-theme="dota2"] .theme-city-shade { display: none; }
+  .site-shell--home[data-theme="dota2"] .home-conversion,
+  .site-shell--home[data-theme="dota2"] .home-conversion-inner { min-height: 0; }
+  .site-shell--home[data-theme="corporate"] .home-conversion-copy { width: min(550px, 83%); padding: 70px 0 270px; }
+  .site-shell--home[data-theme="corporate"] .home-conversion,
+  .site-shell--home[data-theme="corporate"] .home-conversion-inner { min-height: 870px; }
+  .site-shell--home[data-theme="corporate"] .theme-city { width: 100%; object-position: 30% bottom; }
+  .site-shell--home[data-theme="corporate"] .theme-decoration { height: auto; width: 45%; bottom: 4%; right: 4%; }
+  .site-shell--home[data-theme="corporate"] .home-conversion::after { clip-path: polygon(0 0, 100% 0, 100% 56%, 0 76%); }
+}
+@media (max-width: 480px) {
+  .theme-toolbar-inner { width: calc(100% - 28px); gap: 8px; font-size: 12px; }
+  .theme-switcher button { padding: 10px 8px; font-size: 11px; }
+  .site-shell--home[data-theme="dota2"] .home-conversion h1 { font-size: clamp(31px, 8.2vw, 39px); line-height: 1.12; letter-spacing: -.06em; }
+  .site-shell--home[data-theme="dota2"] .home-conversion-actions { gap: 12px; }
+  .site-shell--home[data-theme="dota2"] .home-facts { gap: 8px 14px; }
+  .site-shell--home[data-theme="corporate"] .home-conversion-copy { width: 100%; padding-top: 45px; }
+  .site-shell--home[data-theme="corporate"] .home-conversion h1 { font-size: 8.2vw; max-width: 100%; }
+  .site-shell--home[data-theme="corporate"] .theme-city { top: auto; bottom: 0; height: 340px; object-position: 25% center; }
+  .site-shell--home[data-theme="corporate"] .theme-decoration { height: auto; width: 48%; bottom: 4%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-switcher button { transition: background-color .15s, color .15s; }
+  .theme-artwork { animation: theme-reveal .35s ease-out; }
+  @keyframes theme-reveal { from { opacity: .35; } to { opacity: 1; } }
+}

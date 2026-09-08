@@ -4,6 +4,9 @@ import { getTournamentOutcome, isArchive, hasScore } from "./lib/tournament.js";
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
+import { ThemeSwitcher, ThemeArtwork } from "./components/ThemeSwitcher.jsx";
+import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
+import "./themes.css";
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import {
   archivedTournaments,
@@ -71,7 +74,7 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
   );
 }
 
-function PageFrame({ children, navigate, path }) {
+function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const isHome = path === "/";
   const isMatchday = path === currentTournament.matchday?.route;
@@ -98,8 +101,10 @@ function PageFrame({ children, navigate, path }) {
   };
 
   return (
-    <div className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
+    <div data-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
       <div className="site-background" aria-hidden="true" />
+      <ThemeSwitcher theme={theme} onChange={onThemeChange} />
+      <div className="site-header">
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
           <img src="/assets/ycs-logo.jpg" alt="ЯКС" />
@@ -132,6 +137,7 @@ function PageFrame({ children, navigate, path }) {
           <button type="button" onClick={() => go("/about")}>О проекте</button>
         </nav>
       )}
+      </div>
       {children}
       {!isHome && <Footer navigate={navigate} compact={isTournament} />}
     </div>
@@ -155,6 +161,10 @@ function Footer({ navigate }) {
       </nav>
     </div>
     <p className="legal-copyright">© 2026 ЯрКиберСезон</p>
+    <details className="image-credits">
+      <summary>Фотография Ярославля</summary>
+      <p>Стрелка и Успенский собор. Фото: © Алексей Фёдоров (Florstein), 2015 · <a href="https://commons.wikimedia.org/wiki/File:Strelka_of_Yaroslavl_03.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Снимок уменьшен для сайта; цветовое оформление и логотип наложены отдельно.</p>
+    </details>
     <OrganizerRoom />
   </footer>;
 }
@@ -203,7 +213,7 @@ function HomeGameMark({ src, label }) {
   return <img className="home-game-mark" src={src} alt={label} />;
 }
 
-function HomePage({ navigate }) {
+function HomePage({ navigate, theme }) {
   const heroImageRef = useRef(null);
   const archivePreview = archivedTournaments.slice(0, 3);
   const featuredMatch = getHomePlayoffMatch(currentTournament);
@@ -216,8 +226,8 @@ function HomePage({ navigate }) {
     <>
       <main className="home-page">
         <section className="home-conversion" aria-labelledby="home-title">
-          <img ref={heroImageRef} className="home-conversion-art" src="/assets/home-team-stage.webp" alt="" aria-hidden="true" />
-          <ClickHighlight imageRef={heroImageRef} />
+          <ThemeArtwork theme={theme} imageRef={heroImageRef} />
+          {theme === "cs2" && <ClickHighlight imageRef={heroImageRef} />}
           <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
               <p className="home-kicker">YAR CYBER SEASON / 2026</p>
@@ -783,6 +793,21 @@ function NotFound({ navigate }) {
 
 export function Prototype() {
   const [path, setPath] = useLocationPath();
+  const [theme, setTheme] = useState(readTheme);
+
+  const changeTheme = (value) => {
+    const next = normalizeTheme(value);
+    setTheme(next);
+    saveTheme(next);
+  };
+
+  useEffect(() => {
+    const syncTheme = (event) => {
+      if (event.key === THEME_STORAGE_KEY || event.key === null) setTheme(readTheme());
+    };
+    window.addEventListener("storage", syncTheme);
+    return () => window.removeEventListener("storage", syncTheme);
+  }, []);
 
   useEffect(() => {
     if (!window.location.hash) return;
@@ -813,7 +838,7 @@ export function Prototype() {
   };
 
   const page = useMemo(() => {
-    if (path === "/") return <HomePage navigate={navigate} />;
+    if (path === "/") return <HomePage navigate={navigate} theme={theme} />;
     if (path === "/results") return <ResultsPage navigate={navigate} />;
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;
     if (path === "/partners") return <PartnersPage navigate={navigate} />;
@@ -825,7 +850,7 @@ export function Prototype() {
       if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} />;
     }
     return <NotFound navigate={navigate} />;
-  }, [path]);
+  }, [path, theme]);
 
-  return <PageFrame navigate={navigate} path={path}>{page}</PageFrame>;
+  return <PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>{page}</PageFrame>;
 }

@@ -19,7 +19,7 @@ export function ThemeArtwork({ theme, imageRef }) {
   if (theme === "dota2") return <div className="theme-artwork dota-home-artwork" aria-hidden="true">
     <img ref={imageRef} className="theme-city" src="/assets/themes/yaroslavl-dota-1672.webp"
       srcSet="/assets/themes/yaroslavl-dota-768.webp 768w, /assets/themes/yaroslavl-dota-1200.webp 1200w, /assets/themes/yaroslavl-dota-1672.webp 1672w"
-      sizes="(max-width: 1600px) 100vw, 1600px"
+      sizes="(max-width: 1280px) 100vw, 1280px"
       alt="" fetchPriority="high" decoding="async" />
     <img className="dota-fracture-frame" src="/assets/themes/dota-fracture-frame.webp" alt="" />
   </div>;

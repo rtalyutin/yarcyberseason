@@ -53,3 +53,6 @@ Generated stone and brush silhouettes are not pixel-identical to the selected ra
 - Paired browser screenshots of published baseline and local optimized homepage compared at the same viewport. Title, frame, content, spacing and source-map composition preserved; map uses lossy WebP at quality 84. No actionable visual regression after retaining PNG mask.
 - Browser selected responsive WebP currentSrc and displayed the actual bundled WOFF2 fonts; build passed. Original source assets remain in the repository but are no longer referenced by the optimized map/font URLs.
 - These are file-byte reductions, not a claimed LCP or wall-clock speed multiplier. Actual first-load duration depends on connection and device.
+
+## Wide-screen width correction
+Dota home capped at 1280px with matching 1177.6px inner content/footer. Typography and scene height use the capped width. Browser at 2560px: home width1280, left632.5, body width/scrollWidth2545 (15px scrollbar), title147.2px. At 1920px: width1280, left312.5, title147.2px. No horizontal overflow in the actual page. Independent static verifier confirmed CSS scoping, cascade, image sizes and preservation of formulas below1280px. Temporary viewport harness removed. Build passed.

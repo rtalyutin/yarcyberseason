@@ -1,0 +1,168 @@
+/* Approved September 9 Dota homepage. All tournament content remains shared. */
+@font-face { font-family: "YCS Dota Display"; src: url('/assets/fonts/RobotoCondensed-Italic.ttf') format('truetype'); font-style: italic; font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "YCS Dota Display"; src: url('/assets/fonts/RobotoCondensed.ttf') format('truetype'); font-style: normal; font-weight: 100 900; font-display: swap; }
+
+.site-shell--home[data-theme="dota2"] {
+  --dota-width: min(100vw, 1600px);
+  --dota-scene: calc(var(--dota-width) * .9066);
+  --dota-rule: #35434a;
+  --dota-ink: #f5f3eb;
+  color: var(--dota-ink);
+  background: #39444b url('/assets/themes/dota-charcoal.webp') center top / 1000px auto repeat;
+  background-blend-mode: multiply;
+  font-family: Arial, sans-serif;
+}
+.site-shell--home[data-theme="dota2"] .home-page,
+.site-shell--home[data-theme="dota2"] .site-header { max-width: 1600px; margin-inline: auto; }
+.site-shell--home[data-theme="dota2"] .container { width: 92%; max-width: 1472px; }
+.site-shell--home[data-theme="dota2"] .topbar { min-height: 72px; padding-inline: 4%; gap: 20px; background: #061118; }
+.site-shell--home[data-theme="dota2"] .brand img { width: 90px; height: 38px; }
+.site-shell--home[data-theme="dota2"] .brand span { font-size: 12px; letter-spacing: .16em; }
+.site-shell--home[data-theme="dota2"] .desktop-nav { gap: 22px; }
+.site-shell--home[data-theme="dota2"] .nav-link { font-size: 12px; color: #e7eef1; }
+.site-shell--home[data-theme="dota2"] .theme-toolbar-inner { gap: 12px; font-size: 12px; }
+.site-shell--home[data-theme="dota2"] .theme-switcher button { padding: 10px 13px; }
+.site-shell--home[data-theme="dota2"] .home-conversion { min-height: 0; background: transparent; border-color: var(--dota-rule); }
+.site-shell--home[data-theme="dota2"] .home-conversion-inner { min-height: 0; width: 100%; max-width: none; }
+.site-shell--home[data-theme="dota2"] .dota-home-artwork { inset: 0 0 auto; height: var(--dota-scene); animation: none; }
+.site-shell--home[data-theme="dota2"] .theme-city { top: 18%; height: 81%; object-fit: cover; object-position: center; }
+.site-shell--home[data-theme="dota2"] .dota-fracture-frame {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill;
+  mask-image: url('/assets/themes/dota-fracture-mask.png'); mask-mode: luminance; mask-size: 100% 100%; mask-repeat: no-repeat;
+}
+.site-shell--home[data-theme="dota2"] .home-conversion-copy {
+  min-height: 0; margin: 0; width: 100%; padding: var(--dota-scene) 4% 28px;
+  display: grid; grid-template-columns: 30% 31% minmax(0, 1fr); grid-template-rows: auto auto auto;
+  gap: 10px 2%; text-align: left; background: transparent; border: 0;
+}
+.site-shell--home[data-theme="dota2"] .home-conversion-copy::before { display: none; }
+.site-shell--home[data-theme="dota2"] .home-conversion-copy > .home-kicker {
+  position: absolute; top: calc(var(--dota-width) * .035); left: 5%; text-align: left;
+  font-size: clamp(11px, 1vw, 16px); letter-spacing: .35em; color: #9be9ef;
+}
+.site-shell--home[data-theme="dota2"] .home-conversion h1 {
+  position: absolute; top: calc(var(--dota-width) * .07); left: 1%; width: 94%; margin: 0; padding: 0;
+  font: italic 900 clamp(52px, 11.5vw, 184px)/.92 "YCS Dota Display", sans-serif;
+  letter-spacing: -.045em; text-align: left; white-space: nowrap; color: var(--dota-ink); text-shadow: none;
+  transform: scaleX(.9); transform-origin: left top;
+}
+.site-shell--home[data-theme="dota2"] .home-conversion h1 br { display: block; }
+.site-shell--home[data-theme="dota2"] .home-conversion h1 span { margin-left: 4%; color: inherit; }
+.site-shell--home[data-theme="dota2"] .home-next-lockup { grid-column: 1; grid-row: 1 / 4; border-right: 1px solid var(--dota-rule); min-height: 110px; gap: 20px; justify-content: flex-start; }
+.site-shell--home[data-theme="dota2"] .home-next-lockup .home-game-mark { width: 76px; height: 76px; background: transparent; filter: brightness(0) saturate(100%) invert(28%) sepia(96%) saturate(3251%) hue-rotate(349deg) brightness(101%) contrast(91%); }
+.site-shell--home[data-theme="dota2"] .home-next-lockup p { font: 800 clamp(24px, 2.35vw, 38px)/1.15 "YCS Dota Display", sans-serif; }
+.site-shell--home[data-theme="dota2"] .home-next-lockup span { font-size: 11px; }
+.site-shell--home[data-theme="dota2"] .home-next-date { grid-column: 2; grid-row: 1 / 3; align-self: center; font: 400 clamp(23px, 2.4vw, 38px)/1.25 "YCS Dota Display", sans-serif; white-space: normal; color: var(--dota-ink); }
+.site-shell--home[data-theme="dota2"] .home-facts { grid-column: 2; grid-row: 3; margin: 0; font-size: 13px; flex-wrap: wrap; gap: 10px; }
+.site-shell--home[data-theme="dota2"] .home-facts li + li { padding-left: 10px; }
+.site-shell--home[data-theme="dota2"] .home-deadline { grid-column: 3; grid-row: 1; margin: 0; font-size: 14px; color: #f0f0ee; }
+.site-shell--home[data-theme="dota2"] .home-conversion-actions { grid-column: 3; grid-row: 2; display: flex; flex-direction: column; align-items: stretch; gap: 12px; margin: 0; }
+.site-shell--home[data-theme="dota2"] .home-conversion .button--primary { min-height: 58px; width: 100%; background: #ed3228; border-color: #ed3228; color: white; font-size: 16px; font-weight: 700; white-space: normal; }
+.site-shell--home[data-theme="dota2"] .home-conversion .button--primary:hover { background: #ff4f42; border-color: #ff4f42; }
+.site-shell--home[data-theme="dota2"] .home-subtle-link { align-self: center; font-size: 13px; color: #f2f0eb; }
+.site-shell--home[data-theme="dota2"] .registration-documents { grid-column: 3; grid-row: 3; margin: 0; font-size: 11px; }
+.site-shell--home[data-theme="dota2"] .registration-documents > div { gap: 6px 14px; justify-content: flex-start; }
+.site-shell--home[data-theme="dota2"] .community-home-search { padding-block: 26px; margin-block: 0; border-bottom: 1px solid var(--dota-rule); }
+.site-shell--home[data-theme="dota2"] .community-search { padding: 0; border: 0; font-size: 16px; }
+.site-shell--home[data-theme="dota2"] .community-search p { margin: 0 0 10px; }
+.site-shell--home[data-theme="dota2"] .community-search span { color: #bec8cc; }
+.site-shell--home[data-theme="dota2"] .home-season { grid-template-columns: 60% 40%; min-height: 0; border: 0; }
+.site-shell--home[data-theme="dota2"] .home-season-main { padding: 50px 7% 60px 0; border-color: var(--dota-rule); background: none; }
+.site-shell--home[data-theme="dota2"] .home-archive { padding: 50px 0 50px 9%; }
+.site-shell--home[data-theme="dota2"] .home-section-intro h2 { font: 900 clamp(42px, 5.5vw, 88px)/1 "YCS Dota Display", sans-serif; letter-spacing: -.025em; }
+.site-shell--home[data-theme="dota2"] .home-archive-heading h2 { font: 700 clamp(36px, 4vw, 64px)/1.1 "YCS Dota Display", sans-serif; }
+.site-shell--home[data-theme="dota2"] .home-section-intro > p:last-child { margin-top: 12px; font-size: 16px; }
+.site-shell--home[data-theme="dota2"] .home-featured-match { margin-top: 28px; }
+.site-shell--home[data-theme="dota2"] .home-champion { font-size: 21px; }
+.site-shell--home[data-theme="dota2"] .home-champion strong { color: #f5f3eb; font: 800 30px "YCS Dota Display", sans-serif; }
+.site-shell--home[data-theme="dota2"] .home-match-meta { margin-top: 44px; font-size: 12px; border-color: var(--dota-rule); }
+.site-shell--home[data-theme="dota2"] .home-match-teams { gap: 16px; padding-block: 18px; }
+.site-shell--home[data-theme="dota2"] .home-match-teams .team-identity { font: 800 clamp(21px, 2.3vw, 36px)/1.15 "YCS Dota Display", sans-serif; gap: 12px; }
+.site-shell--home[data-theme="dota2"] .home-match-teams .team-identity img { width: 54px; height: 54px; }
+.site-shell--home[data-theme="dota2"] .home-final-score { font: 900 clamp(52px, 6vw, 90px)/1 "YCS Dota Display", sans-serif; color: #f7f4ee; }
+.site-shell--home[data-theme="dota2"] .home-archive-row { padding-block: 20px; border-color: var(--dota-rule); }
+.site-shell--home[data-theme="dota2"] .home-archive-copy strong { font-size: 17px; }
+.site-shell--home[data-theme="dota2"] .home-archive-copy small { font-size: 13px; line-height: 1.55; }
+.site-shell--home[data-theme="dota2"] .home-kicker,
+.site-shell--home[data-theme="dota2"] :is(.home-match-link,.home-all-results,.home-match-meta,.home-champion) { color: #9aeee7; }
+.site-shell--home[data-theme="dota2"] .home-partners { width: 100%; max-width: none; padding: 100px 4% 150px; border: 0; background: url('/assets/themes/dota-parchment.webp') center / 100% 100% no-repeat; color: #111a1d; }
+.site-shell--home[data-theme="dota2"] .home-partners h2 { font: 400 clamp(34px, 4.1vw, 65px)/1.12 Georgia, serif; margin-bottom: 32px; letter-spacing: -.035em; color: #111a1d; }
+.site-shell--home[data-theme="dota2"] .home-partners h2::before { display: none; }
+.site-shell--home[data-theme="dota2"] .home-partner { background: transparent; border: 0; padding: 12px; min-height: 180px; }
+.site-shell--home[data-theme="dota2"] .home-partner p { color: #172027; font-size: 15px; }
+.site-shell--home[data-theme="dota2"] .home-partner--join { border: 1px solid #b6b9b1; color: #124048; }
+.site-shell--home[data-theme="dota2"] .home-partner--join:hover { background: #e6e1d4; }
+.site-shell--home[data-theme="dota2"] .legal-footer { max-width: 1472px; border: 0; padding-block: 54px 42px; font-size: 14px; background: none; }
+.site-shell--home[data-theme="dota2"] :is(a,button):focus-visible { outline: 2px solid #9aeee7; outline-offset: 4px; }
+@media (min-width: 2048px) {
+  .site-shell--home[data-theme="dota2"] .theme-city { filter: blur(6px); transform: scale(1.025); }
+}
+@media (max-width: 1100px) {
+  .site-shell--home[data-theme="dota2"] .brand span { display: none; }
+  .site-shell--home[data-theme="dota2"] .topbar { gap: 12px; }
+  .site-shell--home[data-theme="dota2"] .home-next-lockup { gap: 12px; }
+  .site-shell--home[data-theme="dota2"] .home-next-lockup .home-game-mark { width: 48px; height: 48px; }
+  .site-shell--home[data-theme="dota2"] .home-match-teams .team-identity img { width: 38px; height: 38px; }
+}
+@media (max-width: 860px) {
+  .site-shell--home[data-theme="dota2"] .topbar { padding: 12px 4%; }
+  .site-shell--home[data-theme="dota2"] .brand span { display: block; }
+  .site-shell--home[data-theme="dota2"] .home-conversion-copy { display: flex; flex-direction: column; padding: var(--dota-scene) 5% 28px; gap: 0; }
+  .site-shell--home[data-theme="dota2"] .home-conversion-copy > .home-kicker { top: 4vw; font-size: 9px; letter-spacing: .25em; }
+  .site-shell--home[data-theme="dota2"] .home-conversion h1 { top: 9vw; font-size: 11.5vw; width: 94%; margin: 0; }
+  .site-shell--home[data-theme="dota2"] .home-next-lockup { margin: 8px 0 0; min-height: 0; padding: 0; border: 0; }
+  .site-shell--home[data-theme="dota2"] .home-next-lockup p { font-size: 28px; }
+  .site-shell--home[data-theme="dota2"] .home-next-date { margin: 22px 0 12px; align-self: stretch; font-size: 29px; }
+  .site-shell--home[data-theme="dota2"] .home-facts { font-size: 13px; }
+  .site-shell--home[data-theme="dota2"] .home-deadline { margin: 24px 0 10px; }
+  .site-shell--home[data-theme="dota2"] .home-conversion-actions { gap: 14px; width: 100%; }
+  .site-shell--home[data-theme="dota2"] .home-conversion .button--primary { flex-basis: auto; }
+  .site-shell--home[data-theme="dota2"] .registration-documents { margin-top: 16px; line-height: 1.6; }
+  .site-shell--home[data-theme="dota2"] .home-season { display: block; }
+  .site-shell--home[data-theme="dota2"] .home-season-main { border: 0; border-bottom: 1px solid var(--dota-rule); padding: 32px 0; }
+  .site-shell--home[data-theme="dota2"] .home-archive { padding: 32px 0 16px; }
+  .site-shell--home[data-theme="dota2"] .home-match-meta { margin-top: 25px; font-size: 10px; gap: 8px; }
+  .site-shell--home[data-theme="dota2"] .home-match-teams { gap: 8px; }
+  .site-shell--home[data-theme="dota2"] .home-match-teams .team-identity { font-size: 21px; gap: 6px; }
+  .site-shell--home[data-theme="dota2"] .home-match-teams .team-identity img { width: 30px; height: 30px; }
+  .site-shell--home[data-theme="dota2"] .home-champion strong { font-size: 26px; }
+  .site-shell--home[data-theme="dota2"] .home-partners { padding-block: 70px 80px; }
+  .site-shell--home[data-theme="dota2"] .home-partners h2 { font-size: 36px; }
+  .site-shell--home[data-theme="dota2"] .home-partners-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .site-shell--home[data-theme="dota2"] .home-partner { min-height: 185px; padding: 10px 6px; }
+  .site-shell--home[data-theme="dota2"] .home-partner p { font-size: 13px; }
+  .site-shell--home[data-theme="dota2"] .legal-footer { padding-block: 32px; }
+}
+
+@media (min-width: 861px) {
+  .site-shell--home[data-theme="dota2"] .community-search { font-size: clamp(16px, 1.6vw, 24px); }
+  .site-shell--home[data-theme="dota2"] .home-section-intro > p:last-child { font-size: clamp(16px, 1.6vw, 24px); }
+  .site-shell--home[data-theme="dota2"] .home-archive-copy strong { font-size: clamp(17px, 1.6vw, 24px); }
+  .site-shell--home[data-theme="dota2"] .home-archive-copy small { font-size: clamp(13px, 1.3vw, 20px); }
+  .site-shell--home[data-theme="dota2"] :is(.home-match-link,.home-all-results,.home-partner p,.legal-footer) { font-size: clamp(14px, 1.4vw, 21px); }
+  .site-shell--home[data-theme="dota2"] .home-facts { font-size: clamp(13px, 1.25vw, 19px); }
+}
+@media (min-width: 861px) {
+  .site-shell--home[data-theme="dota2"] .home-next-lockup p { font-size: clamp(26px, 3vw, 46px); }
+  .site-shell--home[data-theme="dota2"] .home-next-lockup span { font-size: clamp(11px, 1vw, 15px); }
+  .site-shell--home[data-theme="dota2"] .home-next-date { font-size: clamp(26px, 2.8vw, 44px); }
+  .site-shell--home[data-theme="dota2"] .home-facts { font-size: clamp(13px, 1.4vw, 21px); }
+  .site-shell--home[data-theme="dota2"] .home-deadline { font-size: clamp(14px, 1.3vw, 20px); }
+  .site-shell--home[data-theme="dota2"] .home-conversion .button--primary { font-size: clamp(16px, 1.5vw, 23px); }
+  .site-shell--home[data-theme="dota2"] .home-subtle-link { font-size: clamp(13px, 1.3vw, 20px); }
+  .site-shell--home[data-theme="dota2"] .registration-documents { font-size: clamp(11px, 1vw, 15px); }
+  .site-shell--home[data-theme="dota2"] .home-season-main { padding-top: 64px; padding-bottom: 76px; }
+  .site-shell--home[data-theme="dota2"] .home-archive { padding-top: 64px; padding-bottom: 64px; }
+  .site-shell--home[data-theme="dota2"] .home-archive-row { padding-block: 26px; }
+}
+.site-shell--home[data-theme="dota2"] .home-partners .home-partner p { color: #172027; }
+@media (min-width: 861px) {
+  .site-shell--home[data-theme="dota2"] .home-section-intro h2 { font-size: clamp(48px, 7vw, 112px); }
+  .site-shell--home[data-theme="dota2"] .home-partners .home-partner p { font-size: clamp(15px, 1.6vw, 24px); }
+  .site-shell--home[data-theme="dota2"] .home-partner img { width: 200px; height: 145px; }
+  .site-shell--home[data-theme="dota2"] .home-partner:first-child img { width: 145px; height: 145px; }
+  .site-shell--home[data-theme="dota2"] .home-partner--dodo img { width: 240px; height: auto; }
+}
+@media (max-width: 860px) {
+  .site-shell--home[data-theme="dota2"] .home-partners { padding-top: 125px; padding-bottom: 125px; }
+}

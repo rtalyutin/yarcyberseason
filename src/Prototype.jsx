@@ -8,6 +8,7 @@ import { ThemeSwitcher, ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
 import "./themes.css";
 import "./internal-themes.css";
+import "./dota-home.css";
 import { normalizeResult } from './lib/community.js';
 import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
 import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './components/CommunityLinks.jsx';

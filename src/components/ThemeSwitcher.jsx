@@ -21,7 +21,7 @@ export function ThemeArtwork({ theme, imageRef }) {
       srcSet="/assets/themes/yaroslavl-dota-768.webp 768w, /assets/themes/yaroslavl-dota-1200.webp 1200w, /assets/themes/yaroslavl-dota-1672.webp 1672w"
       sizes="(max-width: 1280px) 100vw, 1280px"
       alt="" fetchPriority="high" decoding="async" />
-    <img className="dota-fracture-frame" src="/assets/themes/dota-fracture-frame.webp" alt="" />
+    <img className="dota-fracture-frame" src="/assets/themes/dota-fracture-frame-lite.webp" alt="" />
   </div>;
 
   return <div className="theme-artwork" aria-hidden="true">

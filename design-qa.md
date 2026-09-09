@@ -56,3 +56,8 @@ Generated stone and brush silhouettes are not pixel-identical to the selected ra
 
 ## Wide-screen width correction
 Dota home capped at 1280px with matching 1177.6px inner content/footer. Typography and scene height use the capped width. Browser at 2560px: home width1280, left632.5, body width/scrollWidth2545 (15px scrollbar), title147.2px. At 1920px: width1280, left312.5, title147.2px. No horizontal overflow in the actual page. Independent static verifier confirmed CSS scoping, cascade, image sizes and preservation of formulas below1280px. Temporary viewport harness removed. Build passed.
+
+
+## Dota background payload — September 9
+
+Optimized remaining four background layers; all five background resources now total 691,964 bytes versus 2,097,082 (67.0% reduction). Lossy texture/frame compression and a 768px indexed PNG luminance mask retain the composition. Final local browser screenshot checked after assets loaded; no visible edge/layout regression. Independent file/diff verification passed, content and 1280px cap unchanged. Production build passed. This measures resource bytes, not load-time/LCP improvement.

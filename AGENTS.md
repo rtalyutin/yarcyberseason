@@ -39,3 +39,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - First-load optimization: serve responsive WebP derivatives of the exact supplied map while retaining the original PNG mask and source images. WOFF2 repackaging preserves all glyphs and font weights. Content, map composition and existing theme behavior must remain unchanged.
 
 - Dota homepage wide-screen fix: cap the whole composition at 1280px, center it, and scale title/type from that capped width, not the entire viewport. Keep 2K+ map blur and responsive image sizes aligned with the cap.
+
+- Remaining Dota home background layers use optimized `-lite` assets: charcoal/parchment/frame WebP and an indexed PNG luminance mask. Keep originals as sources. All five background files including the map total 691,964 bytes, down from 2,097,082; preserve the 1280px cap and shared content.

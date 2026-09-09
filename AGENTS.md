@@ -43,3 +43,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - Remaining Dota home background layers use optimized `-lite` assets: charcoal/parchment/frame WebP and an indexed PNG luminance mask. Keep originals as sources. All five background files including the map total 691,964 bytes, down from 2,097,082; preserve the 1280px cap and shared content.
 
 - User correction: Dota homepage cap is now 1800px (inner content 1656px), superseding 1280px. Fade only the hero artwork bottom and partner background edges into the continuous charcoal shell; text and logos remain unmasked. Preserve optimized assets.
+
+- September 9 Techies minesweeper Easter egg: Dota HOME only, triggered by the small bomb marked «Не трогать» in the hero artwork. Preserve the selected slate/bronze/green generated graphics, 8x8 board with 10 mines, safe first opening, browser-local best time, accessible modal, touch mode toggle, and lazy loading of game code/art. Other themes and existing Easter eggs remain independent. Rules live in `src/lib/minesweeper.js`; run `npm run test:minesweeper` after changes.

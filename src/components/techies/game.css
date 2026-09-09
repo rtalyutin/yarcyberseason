@@ -1,0 +1,46 @@
+.techies-dialog { box-sizing: border-box; width: min(440px, calc(100vw - 16px)); max-width: none; max-height: calc(100dvh - 24px); margin: auto; padding: 0; border: 1px solid #8a7951; border-radius: 8px; background: #152128; color: #f4ecd6; box-shadow: 0 22px 90px #000b; overflow: auto; font-family: Arial, sans-serif; }
+.techies-dialog::backdrop { background: #03080bd9; backdrop-filter: blur(5px); }
+.techies-dialog { scrollbar-width: none; }
+.techies-dialog::-webkit-scrollbar { display: none; }
+.techies-game { position: relative; padding: 14px 18px 16px; }
+.techies-game * { box-sizing: border-box; }
+.techies-game button { -webkit-tap-highlight-color: transparent; cursor: pointer; font-family: inherit; }
+.techies-game button:focus-visible { outline: 2px solid #a8ffdc; outline-offset: 2px; z-index: 2; }
+.techies-close { position: absolute; right: 6px; top: 6px; z-index: 3; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #111b21; color: #e9e4d4; }
+.techies-close:hover { background: #394b53; }
+.techies-heading { display: grid; grid-template-columns: 110px 1fr; align-items: center; min-height: 124px; gap: 4px; padding-right: 8px; }
+.techies-mascot { width: 108px; height: 136px; object-fit: contain; align-self: end; }
+.techies-eyebrow { margin: 8px 0 0; color: #94c4b9; font-size: 9px; letter-spacing: .16em; text-align: center; }
+.techies-heading h2 { margin: 2px 0; line-height: 0; }
+.techies-heading h2 img { display: block; width: 100%; height: auto; max-height: 96px; object-fit: contain; }
+.techies-subtitle { margin: 0; text-align: center; font-size: 10px; line-height: 1.4; color: #becec9; }
+.techies-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 10px 0; }
+.techies-stats > div { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 7px 2px; border: 1px solid #4c5958; background: #1c2a30; border-radius: 3px; }
+.techies-stats img { width: 27px; height: 30px; object-fit: contain; }
+.techies-stats span { display: block; font-size: 10px; color: #c0ccc6; }
+.techies-stats strong { display: block; color: #f1e4bf; font: 700 20px/1.15 Georgia, serif; font-variant-numeric: tabular-nums; }
+.techies-switch { display: grid; grid-template-columns: 1fr 1fr; width: 82%; aspect-ratio: 370 / 99; background-size: 100% 100%; background-repeat: no-repeat; margin: 0 auto 10px; }
+.techies-switch button { border: 0; padding: 0; background: transparent; min-height: 38px; border-radius: 4px; }
+.techies-switch button:disabled { cursor: default; }
+.techies-board-frame { border: 12px solid transparent; border-image: url('/assets/techies/frame.webp') 55 stretch; padding: 3px; }
+.techies-board { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 1px; background: #0d1519; }
+.techies-cell { position: relative; display: block; min-width: 0; aspect-ratio: 1; padding: 0; border: 0; background: #162127; touch-action: manipulation; user-select: none; }
+.techies-cell img { display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
+.techies-cell--closed:hover { background: url('/assets/techies/hover.webp') center / 100% 100%; }
+.techies-cell--closed:hover img { visibility: hidden; }
+.techies-cell--closed:active { background-image: url('/assets/techies/pressed.webp'); }
+.techies-cell[aria-disabled='true'] { cursor: default; }
+.techies-result { min-height: 47px; padding: 10px 0 4px; text-align: center; font-size: 12px; line-height: 1.5; color: #b4d2c7; }
+.techies-result strong { display: block; color: #f4e6bd; font: 700 15px/1.3 Georgia, serif; }
+.techies-result span { display: block; }
+.techies-restart { display: block; width: 168px; height: 58px; margin: 2px auto 7px; padding: 0; border: 0; background: url('/assets/techies/restart-hover.webp') center / contain no-repeat; }
+.techies-restart img { width: 100%; height: 100%; object-fit: contain; }
+.techies-restart:hover img { visibility: hidden; }
+.techies-restart:active { background-image: url('/assets/techies/restart-pressed.webp'); }
+.techies-help { margin: 5px 0 0; color: #b7c4c7; font-size: 11px; line-height: 1.5; text-align: center; }
+.techies-help span { display: block; margin-top: 5px; color: #9caeb3; font-size: 10px; }
+.techies-storage-note { color: #eed6a0; font-size: 11px; text-align: center; margin: 2px 0; }
+@media (max-width: 380px) { .techies-game { padding: 9px 8px 12px; } .techies-heading { grid-template-columns: 86px 1fr; } .techies-mascot { width: 86px; height: 117px; } .techies-board-frame { border-width: 7px; padding: 2px; } .techies-stats strong { font-size: 18px; } .techies-stats img { width: 24px; } }
+@media (hover: none) { .techies-help span { display: none; } .techies-cell--closed:hover { background: #162127; } .techies-cell--closed:hover img { visibility: visible; } }
+@media (max-width: 600px) { .techies-help span { display: none; } }
+@media (prefers-reduced-motion: reduce) { .techies-game * { scroll-behavior: auto; animation: none; transition: none; } }

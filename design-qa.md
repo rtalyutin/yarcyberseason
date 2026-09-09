@@ -66,3 +66,11 @@ Optimized remaining four background layers; all five background resources now to
 ## Dota width and seams correction
 
 Cap raised to 1800px, inner containers 1656px and responsive map sizes updated. CSS alpha masks blend the hero bottom and partner background edges into the continuous charcoal shell; content is never masked. Browser verified 1800px actual content width inside a 2560px iframe and inspected hero-to-registration and archive-to-partner transitions. Existing image files unchanged. Temporary QA harness removed before build.
+
+## Techies Minesweeper Easter egg — September 9
+
+Implemented only in the Dota homepage hero; game code/styles load on demand. Source: two approved transparent 1254×1254 artwork sheets. Compared source sheets and actual browser capture together: same tiles, characters, controls and title; dynamic counters/results use readable DOM text. Board frame is adapted with border-image rather than stretching the cell grid.
+
+Browser evidence: desktop 1363×936; responsive layout in a 320×780 iframe (not a physical handset). Verified opening, safe first click, ward mode and right-click/keyboard interactions, restart, loss, stopped terminal timer, Escape and focus return. CS2 and corporate themes contain no trigger. Fixed frame occlusion, focus restoration and narrow-layout scrollbar loss; minimum cells measured 32.625px at 320px. No horizontal overflow. No remaining actionable P0/P1/P2 visual findings in the checked views. Browser extension metadata errors were excluded from application errors.
+
+Logic coverage: 1280 first-click cases; exact mine count, independent adjacency oracle, flood boundaries, flagged cells, victory/loss, immutable terminal state, elapsed time and invalid/unavailable local record storage. First scene references approximately 78 KB of optimized artwork; this is file size, not a measured latency promise. All 33 transparent WebP assets total 174,308 bytes. Prior homepage/data/themes retained.

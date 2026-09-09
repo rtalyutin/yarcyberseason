@@ -13,6 +13,7 @@ import { normalizeResult } from './lib/community.js';
 import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
 import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './components/CommunityLinks.jsx';
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
+import { TechiesEgg } from "./components/TechiesEgg.jsx";
 import {
   archivedTournaments,
   currentTournament,
@@ -235,6 +236,7 @@ function HomePage({ navigate, theme }) {
         <section className="home-conversion" aria-labelledby="home-title">
           <ThemeArtwork theme={theme} imageRef={heroImageRef} />
           {theme === "cs2" && <ClickHighlight imageRef={heroImageRef} />}
+          {theme === "dota2" && <TechiesEgg />}
           <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
               <p className="home-kicker">YAR CYBER SEASON / 2026</p>

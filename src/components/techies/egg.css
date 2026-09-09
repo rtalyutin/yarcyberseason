@@ -1,0 +1,9 @@
+.techies-egg { position: absolute; z-index: 5; top: calc(var(--dota-width, 100vw) * .67); right: 7%; }
+.techies-egg-trigger { display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: #e9d7b7; cursor: pointer; transform: rotate(-9deg); transition: transform .2s; }
+.techies-egg-trigger:hover,.techies-egg-trigger:focus-visible { transform: rotate(0) scale(1.08); }
+.techies-egg-trigger img { width: clamp(52px, 5.5vw, 88px); height: auto; filter: drop-shadow(0 4px 5px #0009); }
+.techies-egg-trigger span { padding: 4px 8px; background: #182329; font: 700 10px/1.2 Arial, sans-serif; letter-spacing: .07em; }
+.techies-egg-trigger:focus-visible { outline: 2px solid #a8f5d1; outline-offset: 6px; }
+.techies-egg-error { display: block; max-width: 180px; padding: 8px; background: #182329; color: #fff; font: 12px/1.4 Arial, sans-serif; }
+@media (max-width: 600px) { .techies-egg { top: calc(var(--dota-width, 100vw) * .66); right: 6%; } .techies-egg-trigger img { width: 50px; } }
+@media (prefers-reduced-motion: reduce) { .techies-egg-trigger { transition: none; } }

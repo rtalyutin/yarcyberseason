@@ -44,3 +44,12 @@ Generated stone and brush silhouettes are not pixel-identical to the selected ra
 - [x] Desktop, mobile, 4K inspected
 - [x] Fidelity fixes recaptured and independently reviewed
 - [x] Production build and existing packaging checks
+
+## First-load optimization follow-up
+- Responsive map derivatives preserve source composition: 768×432 / 1200×675 / 1672×941. Largest map is 271,612 bytes versus PNG 2,464,426 (88.98% less); smaller files 76,172 / 159,742 bytes.
+- Five full WOFF2 fonts total 1,004,736 bytes versus TTF 2,609,040 (61.49% less). No glyph subsetting. Independent verifier compared glyph order, cmap, hmtx, hhea, outlines and Roboto variation data: equal.
+- Original PNG fracture mask retained to avoid changing browser luminance-mask rendering; this is excluded from savings.
+- Map + Dota's two display fonts total 632,864 bytes versus 3,224,166: 80.37% less. Shared fonts bring additional savings only when requested by that page's rendered text.
+- Paired browser screenshots of published baseline and local optimized homepage compared at the same viewport. Title, frame, content, spacing and source-map composition preserved; map uses lossy WebP at quality 84. No actionable visual regression after retaining PNG mask.
+- Browser selected responsive WebP currentSrc and displayed the actual bundled WOFF2 fonts; build passed. Original source assets remain in the repository but are no longer referenced by the optimized map/font URLs.
+- These are file-byte reductions, not a claimed LCP or wall-clock speed multiplier. Actual first-load duration depends on connection and device.

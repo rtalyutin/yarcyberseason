@@ -1,6 +1,6 @@
 /* Approved September 9 Dota homepage. All tournament content remains shared. */
-@font-face { font-family: "YCS Dota Display"; src: url('/assets/fonts/RobotoCondensed-Italic.ttf') format('truetype'); font-style: italic; font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "YCS Dota Display"; src: url('/assets/fonts/RobotoCondensed.ttf') format('truetype'); font-style: normal; font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "YCS Dota Display"; src: url('/assets/fonts/RobotoCondensed-Italic.woff2') format('woff2'); font-style: italic; font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "YCS Dota Display"; src: url('/assets/fonts/RobotoCondensed.woff2') format('woff2'); font-style: normal; font-weight: 100 900; font-display: swap; }
 
 .site-shell--home[data-theme="dota2"] {
   --dota-width: min(100vw, 1600px);

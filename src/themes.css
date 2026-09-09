@@ -1,7 +1,7 @@
 /* The CS2 theme uses the existing site CSS unchanged. New skins share its DOM. */
 @font-face {
   font-family: "YCS Chronicle";
-  src: url("/assets/fonts/DejaVuSerif.ttf") format("truetype");
+  src: url("/assets/fonts/DejaVuSerif.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }

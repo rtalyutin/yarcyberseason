@@ -17,7 +17,10 @@ export function ThemeArtwork({ theme, imageRef }) {
     src="/assets/home-team-stage.webp" alt="" aria-hidden="true" />;
 
   if (theme === "dota2") return <div className="theme-artwork dota-home-artwork" aria-hidden="true">
-    <img ref={imageRef} className="theme-city" src="/assets/themes/yaroslavl-dota-low-view.png" alt="" fetchPriority="high" />
+    <img ref={imageRef} className="theme-city" src="/assets/themes/yaroslavl-dota-1672.webp"
+      srcSet="/assets/themes/yaroslavl-dota-768.webp 768w, /assets/themes/yaroslavl-dota-1200.webp 1200w, /assets/themes/yaroslavl-dota-1672.webp 1672w"
+      sizes="(max-width: 1600px) 100vw, 1600px"
+      alt="" fetchPriority="high" decoding="async" />
     <img className="dota-fracture-frame" src="/assets/themes/dota-fracture-frame.webp" alt="" />
   </div>;
 

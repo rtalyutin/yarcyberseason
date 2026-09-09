@@ -41,3 +41,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - Dota homepage wide-screen fix: cap the whole composition at 1280px, center it, and scale title/type from that capped width, not the entire viewport. Keep 2K+ map blur and responsive image sizes aligned with the cap.
 
 - Remaining Dota home background layers use optimized `-lite` assets: charcoal/parchment/frame WebP and an indexed PNG luminance mask. Keep originals as sources. All five background files including the map total 691,964 bytes, down from 2,097,082; preserve the 1280px cap and shared content.
+
+- User correction: Dota homepage cap is now 1800px (inner content 1656px), superseding 1280px. Fade only the hero artwork bottom and partner background edges into the continuous charcoal shell; text and logos remain unmasked. Preserve optimized assets.

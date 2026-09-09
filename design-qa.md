@@ -61,3 +61,8 @@ Dota home capped at 1280px with matching 1177.6px inner content/footer. Typograp
 ## Dota background payload — September 9
 
 Optimized remaining four background layers; all five background resources now total 691,964 bytes versus 2,097,082 (67.0% reduction). Lossy texture/frame compression and a 768px indexed PNG luminance mask retain the composition. Final local browser screenshot checked after assets loaded; no visible edge/layout regression. Independent file/diff verification passed, content and 1280px cap unchanged. Production build passed. This measures resource bytes, not load-time/LCP improvement.
+
+
+## Dota width and seams correction
+
+Cap raised to 1800px, inner containers 1656px and responsive map sizes updated. CSS alpha masks blend the hero bottom and partner background edges into the continuous charcoal shell; content is never masked. Browser verified 1800px actual content width inside a 2560px iframe and inspected hero-to-registration and archive-to-partner transitions. Existing image files unchanged. Temporary QA harness removed before build.

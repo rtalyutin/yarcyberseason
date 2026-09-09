@@ -1,7 +1,8 @@
+import { TeamLogo } from './TeamLogo.jsx';
 import { useEffect, useState } from 'react';
 import { community } from '../data/community.js';
 import { tournaments } from '../data/tournaments/index.js';
-import { calendarPath, matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps, teamPath, teamSummary, upcomingMatches } from '../lib/community.js';
+import { calendarPath, matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps, teamPath, teamSummary, teamForDiscipline, upcomingMatches } from '../lib/community.js';
 import { downloadResultCard } from '../lib/result-card.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
@@ -12,9 +13,6 @@ function CopyLink({ value, label }) {
     try { await navigator.clipboard.writeText(value); setMessage('Ссылка скопирована'); }
     catch { setMessage('Не удалось скопировать автоматически. Выделите ссылку ниже.'); }
   }}>{label}</button><a className="community-visible-url" href={value}>{value}</a>{message && <span role="status">{message}</span>}</div>;
-}
-function TeamLogo({ team, className = '' }) {
-  return <img className={className} src={team?.logo || '/assets/teams/_default.svg'} alt="" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = '/assets/teams/_default.svg'; }} />;
 }
 function UnknownPage({ kind }) {
   useEffect(() => { document.title = `${kind} не найден${kind === 'Команда' ? 'а' : ''} — ЯрКиберСезон`; }, [kind]);
@@ -36,6 +34,7 @@ function CalendarPanel({ team }) {
   const url = new URL(calendarPath(team.id), window.location.origin).href;
   return <details className="community-panel community-calendar" id="calendar">
     <summary>Следить за командой <span>Календарь матчей</span></summary>
+    {team.disciplines.length > 1 && <p>Все дисциплины команды</p>}
     <p>Добавьте календарь по ссылке в своём календарном приложении. Переносы появятся после его следующего обновления.</p>
     <a className="community-button community-button--primary" href={url.replace(/^https?:/, 'webcal:')}>Подписаться на календарь</a>
     <CopyLink label="Скопировать ссылку календаря" value={url} />
@@ -43,17 +42,14 @@ function CalendarPanel({ team }) {
   </details>;
 }
 
-export function TeamPage({ teamId }) {
-  const team = community.getTeam(teamId);
+function DisciplineHistory({ sourceTeam, discipline }) {
+  const team = teamForDiscipline(sourceTeam, discipline);
   const [visibleCount, setVisibleCount] = useState(10);
-  useEffect(() => { if (team) document.title = `${team.name} — ЯрКиберСезон`; }, [team]);
-  if (!team) return <UnknownPage kind="Команда" />;
   const summary = teamSummary(team), next = upcomingMatches(team)[0];
   const matches = [...team.matches].sort((a, b) => (b.scheduledAt || b.date || '').localeCompare(a.scheduledAt || a.date || ''));
   const trophies = team.entries.filter((entry) => entry.placement && entry.placement <= 3);
-  return <main className="community-page">
-    <nav className="community-breadcrumb" aria-label="Путь к команде"><InternalLink href="/">Турниры</InternalLink><span>/ Команда</span></nav>
-    <header className="community-team-header"><TeamLogo team={team} /><div><p className="community-eyebrow">{team.discipline}</p><h1>{team.name}</h1><p className="community-muted">Турнирная история</p><button type="button" className="community-button" onClick={() => { const panel = document.getElementById('calendar'); if (panel) { panel.open = true; panel.scrollIntoView({ block: 'start' }); panel.querySelector('summary')?.focus(); } }}>Следить за командой</button></div></header>
+  return <section className="community-discipline" aria-label={discipline}>
+    <h2 className="community-discipline-title">{discipline === 'Counter-Strike 2' ? 'CS2' : discipline}</h2>
     <div className="community-stats" aria-label="По опубликованным матчам">{[['wins', 'Победы'], ['losses', 'Поражения'], ['draws', 'Ничьи'], ['technical', 'Тех. решения']].map(([key, label]) => <div key={key}><strong>{summary[key]}</strong><span>{label}</span></div>)}</div>
     <p className="community-muted community-stat-note">По опубликованным матчам. Технические решения учитываются отдельно.</p>
     <div className="community-columns">
@@ -63,12 +59,24 @@ export function TeamPage({ teamId }) {
         <section className="community-panel"><h2>История встреч</h2>{summary.opponents.length ? summary.opponents.map((opponent) => <details key={opponent.id} className="community-opponent"><summary><span>{community.teams.get(opponent.id)?.name}</span><span>{opponent.wins} В · {opponent.losses} П · {opponent.draws} Н · {opponent.technical} тех.</span></summary><InternalLink className="community-inline-action" href={teamPath(opponent.id)}>Страница соперника ↗</InternalLink>{opponent.matches.map((match) => <CommunityMatchRow key={match.key} match={match} />)}</details>) : <p>Подтверждённые встречи с соперниками пока не опубликованы.</p>}</section>
       </div>
       <aside className="community-side-column">
-        <CalendarPanel team={team} />
         <section className="community-panel"><h2>Трофеи</h2>{trophies.length ? trophies.map((entry) => <div className="community-trophy" key={entry.tournament.id}><strong>{entry.placement === 1 ? 'Чемпионы' : `${entry.placement} место`}</strong><InternalLink href={`/tournaments/${entry.tournament.slug}#results`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span></div>) : <p>Призовые места пока не опубликованы.</p>}</section>
-        <section className="community-panel"><h2>Турниры</h2>{team.entries.map((entry) => <div className="community-entry" key={entry.tournament.id}><InternalLink href={`/tournaments/${entry.tournament.slug}`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span><span>{entry.placement ? `${entry.placement} место` : 'Итоговое место не опубликовано'}</span></div>)}</section>
+        <section className="community-panel"><h2>Турниры</h2>{team.entries.map((entry) => <div className="community-entry" key={entry.tournament.id}><InternalLink href={`/tournaments/${entry.tournament.slug}`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span><span>{entry.displayName}</span><span>{entry.status === 'registered' && !['completed', 'archive'].includes(entry.tournament.status) ? 'Заявлена · турнир ещё не начался' : entry.placement ? `${entry.placement} место` : 'Итоговое место не опубликовано'}</span></div>)}</section>
+        <section className="community-panel"><h2>Состав</h2><p>Состав не опубликован</p></section>
         {team.previousNames?.length > 0 && <section className="community-panel"><h2>Другие названия</h2>{team.previousNames.map((alias) => <p key={alias.name}><strong>{alias.name}</strong><br /><span className="community-muted">{alias.context}</span></p>)}</section>}
       </aside>
     </div>
+  </section>;
+}
+
+export function TeamPage({ teamId }) {
+  const team = community.getTeam(teamId);
+  useEffect(() => { if (team) document.title = `${team.name} — ЯрКиберСезон`; }, [team]);
+  if (!team) return <UnknownPage kind="Команда" />;
+  return <main className="community-page">
+    <nav className="community-breadcrumb" aria-label="Путь к команде"><InternalLink href="/">Турниры</InternalLink><span>/ Команда</span></nav>
+    <header className="community-team-header"><TeamLogo team={team} /><div><p className="community-eyebrow">{team.disciplines.join(' · ')}</p><h1>{team.name}</h1><p className="community-muted">Турнирная история</p><button type="button" className="community-button" onClick={() => { const panel = document.getElementById('calendar'); if (panel) { panel.open = true; panel.scrollIntoView({ block: 'start' }); panel.querySelector('summary')?.focus(); } }}>Следить за командой</button></div></header>
+    <CalendarPanel team={team} />
+    {team.disciplines.map((discipline) => <DisciplineHistory key={`${team.id}/${discipline}`} sourceTeam={team} discipline={discipline} />)}
   </main>;
 }
 

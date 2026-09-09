@@ -1,5 +1,7 @@
 const bracketTypes = new Set(["double_elimination", "single_elimination"]);
 const finishedStatuses = new Set(["completed", "walkover", "bye"]);
+export const participantCount = (tournament) => new Set((tournament.participants || []).map((p) => p.teamId)).size;
+export const registrationCountLabel = (tournament) => `${participantCount(tournament)} из ${tournament.registration.capacity} команд`;
 const months = ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
 
 export const isArchive = (tournament) => ["archive", "completed"].includes(tournament.status);
@@ -71,6 +73,7 @@ export function getTournamentModel(tournament) {
   const otherStages = stages.filter((stage) => !tableStages.includes(stage) && !playoffStages.includes(stage) && !["match_schedule", "historical_matches"].includes(stage.type));
   const sections = [
     ...(getTournamentOutcome(tournament) ? [{ id: "results", title: "Итоги" }] : []),
+    ...(tournament.participants ? [{ id: "participants", title: "Заявленные команды", count: participantCount(tournament) }] : []),
     ...tableStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
     ...(matches.length ? [{ id: "matches", title: "Матчи", count: matches.length }] : []),
     ...playoffStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),

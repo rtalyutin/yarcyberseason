@@ -73,20 +73,27 @@ export function buildCommunityModel(tournaments, registry) {
     matches.set(key, record);
     for (const id of new Set([record.team1Id, record.team2Id].filter(Boolean))) teams.get(id).matches.push(record);
   }
-  for (const binding of registry.bindings) {
+  const participationBindings = [...registry.bindings, ...tournaments.flatMap((t) => (t.participants || []).map((p) => ({ tournamentId: t.id, sourceName: p.displayName, teamId: p.teamId })))];
+  for (const binding of participationBindings) {
     const team = teams.get(binding.teamId), tournament = tournaments.find((t) => t.id === binding.tournamentId);
     if (!team || !tournament || team.entries.some((entry) => entry.tournament.id === tournament.id)) continue;
-    const names = registry.bindings.filter((b) => b.teamId === team.id && b.tournamentId === tournament.id).map((b) => b.sourceName);
+    const names = [...new Set(participationBindings.filter((b) => b.teamId === team.id && b.tournamentId === tournament.id).map((b) => b.sourceName))];
     const placement = tournament.results?.placements?.find((p) => names.includes(p.team))?.position || null;
-    team.entries.push({ tournament, names, placement });
+    const participant = tournament.participants?.find((p) => p.teamId === team.id);
+    team.entries.push({ tournament, names, placement, status: participant?.status || null, displayName: participant?.displayName || names[0] });
   }
   return { teams, matches, resolveTeam, getTeam, teamAliases };
 }
 
-export function teamSummary(team) {
+export function teamForDiscipline(team, discipline) {
+  return { ...team, matches: team.matches.filter((m) => m.discipline === discipline), entries: team.entries.filter((e) => e.tournament.discipline === discipline) };
+}
+
+export function teamSummary(team, discipline) {
   const totals = { wins: 0, losses: 0, draws: 0, technical: 0 };
   const opponents = new Map();
   for (const match of team.matches) {
+    if (discipline && match.discipline !== discipline) continue;
     const result = match.result;
     if (!result.confirmed || !result.known || !result.score) continue;
     const side = match.team1Id === team.id ? 1 : 2;
@@ -142,7 +149,7 @@ export function validateCommunity(tournaments, registry) {
   checkFields(registry, 'registry'); checkFields(tournaments, 'tournaments');
   for (const t of tournaments) if (!/^[a-z0-9-]+$/.test(t.id) || !/^[a-z0-9-]+$/.test(t.slug)) errors.push(`Invalid tournament ID/slug: ${t.id}`);
   for (const team of registry.teams) {
-    if (!/^[a-z0-9-]+$/.test(team.id) || ids.has(team.id) || isPlaceholder(team.name) || !team.discipline) errors.push(`Invalid team: ${team.id}`);
+    if (!/^[a-z0-9-]+$/.test(team.id) || ids.has(team.id) || isPlaceholder(team.name) || !Array.isArray(team.disciplines) || !team.disciplines.length || new Set(team.disciplines).size !== team.disciplines.length || team.disciplines.some((d) => !['Dota 2', 'Counter-Strike 2'].includes(d)) || 'discipline' in team) errors.push(`Invalid team: ${team.id}`);
     ids.add(team.id);
   }
   const aliasIds = new Set();
@@ -154,8 +161,17 @@ export function validateCommunity(tournaments, registry) {
     const key = matchKey(b.tournamentId, b.sourceName);
     const tournament = tournaments.find((t) => t.id === b.tournamentId);
     const team = registry.teams.find((t) => t.id === b.teamId);
-    if (bindings.has(key) || !tournament || !team || tournament.discipline !== team.discipline || isPlaceholder(b.sourceName)) errors.push(`Invalid binding: ${key}`);
+    if (bindings.has(key) || !tournament || !team || !team.disciplines?.includes(tournament.discipline) || isPlaceholder(b.sourceName)) errors.push(`Invalid binding: ${key}`);
     bindings.add(key);
+  }
+  for (const t of tournaments) {
+    const participants = new Set();
+    for (const p of t.participants || []) {
+      const team = registry.teams.find((team) => team.id === p.teamId);
+      if (participants.has(p.teamId) || !team?.disciplines?.includes(t.discipline) || isPlaceholder(p.displayName) || p.status !== 'registered' || !registry.bindings.some((b) => b.tournamentId === t.id && b.sourceName === p.displayName && b.teamId === p.teamId)) errors.push(`Invalid participant: ${t.id}/${p.teamId}`);
+      participants.add(p.teamId);
+    }
+    if (t.registration?.reason === 'capacity_reached' && (t.registration.status !== 'closed' || !Number.isInteger(t.registration.capacity) || participants.size !== t.registration.capacity)) errors.push(`Invalid registration capacity: ${t.id}`);
   }
   const keys = new Set();
   for (const m of flattenMatches(tournaments)) {

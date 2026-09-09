@@ -21,3 +21,15 @@
 Не выполнены: проверка интерфейса и фактического скачивания PNG в браузере, подписка в настольном/мобильном календарном клиенте, аудит инфраструктурных access-логов и проверка рабочего сайта после выпуска. Рендер HTML и разбор ICS эти проверки не заменяют.
 
 Ссылка на Telegram-чат по договорённости остаётся `null`. Для исторических дат без подтверждённого времени/пояса события не создаются. Сейчас все ленты пусты; работа назначений, переносов и отмен проверялась на отдельных синтетических данных, не добавленных в турнирные JSON.
+
+## Dota registration and cross-discipline teams — 2026-09-09
+
+Implemented against `97c5084922390773a79d24d6efd88e97c56c56e7`:
+- 16 organizer-provided names, 8 reused IDs + 8 new IDs, 50 canonical teams, 86 bindings and the same 28 aliases.
+- Shared closed-registration state and participants section; Dota/CS2 history, statistics and empty roster states separated.
+- 20 community tests, 6 tournament tests and 4 Sites packaging tests passed; production build passed.
+- Independent read-only verifier deep-compared all 120 raw and normalized matches, historical tournament JSON, existing aliases/bindings, logos and historical discipline statistics with HEAD. No changes to those historical facts.
+- Browser checked the home CTA, participants, same-page navigation from info back to participants, and KEGA's separate Dota/CS2 histories at the available 1363px viewport. No horizontal overflow on that team page. The full 390/1440/2560 viewport matrix has not been executed.
+- No supported roster input exists: do not claim the hypothetical published-CS2-only-roster case was tested.
+- The external Yandex team form remains available for submission; the browser is not signed in as its owner. Form settings were not changed. Solo registration is unchanged pending the organizer's decision.
+- Changes are prepared for review; production deployment is not part of this verification.

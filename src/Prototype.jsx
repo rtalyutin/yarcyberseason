@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
-import { getTournamentOutcome, isArchive, hasScore, isFinished } from "./lib/tournament.js";
+import { getTournamentOutcome, isArchive, hasScore, isFinished, registrationCountLabel } from "./lib/tournament.js";
+import { community } from './data/community.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
@@ -70,7 +71,7 @@ function StatusPill({ children, state = "active" }) {
 }
 
 function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
-  const logo = tournament?.teamLogos?.[team];
+  const logo = tournament?.teamLogos?.[team] || community.resolveTeam(tournament?.id, team)?.logo || '/assets/teams/_default.svg';
 
   return (
     <span className={`team-identity team-identity--${align} team-identity--${size}`}>
@@ -250,9 +251,9 @@ function HomePage({ navigate, theme }) {
               </div>
               <p className="home-next-date">{nextTournament.dates.display}</p>
               <ul className="home-facts" aria-label="Условия участия">
-                {nextTournament.facts?.slice(0, 3).map((fact) => <li key={fact}>{fact}</li>)}
+                {nextTournament.facts?.slice(0, 3).map((fact) => <li key={fact}>{/команд/i.test(fact) && nextTournament.registration ? registrationCountLabel(nextTournament) : fact}</li>)}
               </ul>
-              {deadline && <p className="home-deadline">Регистрация {deadline}</p>}
+              {nextTournament.registration?.status === 'closed' ? <p className="home-deadline">{nextTournament.registration.message}</p> : deadline && <p className="home-deadline">Регистрация {deadline}</p>}
               <div className="home-conversion-actions">
                 <ActionButton action={nextTournament.primaryAction} navigate={navigate} />
                 <button className="home-subtle-link" type="button" onClick={() => navigate(`/tournaments/${nextTournament.slug}#format`)}>
@@ -846,6 +847,7 @@ export function Prototype() {
     }
     window.history.pushState({}, "", target);
     setPath(new URL(target, window.location.origin).pathname);
+    window.dispatchEvent(new Event("popstate"));
     window.scrollTo({ top: 0, behavior: "auto" });
   };
 

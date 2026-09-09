@@ -156,5 +156,92 @@
         "dota2-qual-2026-team-e2c97c00"
       ]
     }
-  ]
+  ],
+  "registrations": {
+    "tournamentId": "dota2-autumn-2026",
+    "recordedAt": "2026-09-09",
+    "basis": "Организатор передал 16 заявок и поручил объединить общие команды Dota/CS2. РГАТУ и bobr1ki — ранее установленное соответствие; историческое имя RSATU сохранено.",
+    "participants": [
+      {
+        "teamId": "dota2-autumn-2026-vnext",
+        "displayName": "Vnext",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-leto-jr",
+        "displayName": "Leto Jr",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-main-2026-mi-ne-pushim",
+        "displayName": "Mi Ne Pushim!",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-strela-team",
+        "displayName": "strela team",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-main-2026-way-prod",
+        "displayName": "WAYPROD.",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-fummo",
+        "displayName": "Fummo",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-4fans",
+        "displayName": "4fans",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-qual-2026-arb-esports",
+        "displayName": "ARB Esports",
+        "status": "registered"
+      },
+      {
+        "teamId": "cs2-august-2026-pivnaya-kega",
+        "displayName": "PIVNAYA KEGA",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-main-2026-tech-titans",
+        "displayName": "Tech Titans",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-easy-gaming",
+        "displayName": "Easy Gaming",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-main-2026-team-borisogleb",
+        "displayName": "Team Borisogleb",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-parallax-team",
+        "displayName": "parallax team",
+        "status": "registered"
+      },
+      {
+        "teamId": "dota2-autumn-2026-liqa-sto",
+        "displayName": "liqa sto",
+        "status": "registered"
+      },
+      {
+        "teamId": "cs2-august-2026-psb-bank",
+        "displayName": "psb_bank",
+        "status": "registered"
+      },
+      {
+        "teamId": "cs2-august-2026-bobr1ki",
+        "displayName": "РГАТУ",
+        "status": "registered"
+      }
+    ]
+  }
 }

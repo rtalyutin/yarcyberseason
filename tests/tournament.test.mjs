@@ -60,7 +60,7 @@ test("Registration-only event exposes its rules and information, never counts em
   const model = getTournamentModel(read("dota2-autumn-2026"));
   assert.equal(model.matches.length, 0);
   assert.equal(model.defaultSection, "info");
-  assert.deepEqual(model.sections.map((section) => section.id), ["swiss", "playoffs", "info"]);
+  assert.deepEqual(model.sections.map((section) => section.id), ["participants", "swiss", "playoffs", "info"]);
 });
 
 test("Legacy archives keep partial stages, stable unique match keys and yearless dates", () => {

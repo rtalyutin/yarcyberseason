@@ -195,3 +195,14 @@
   .tn-footer { flex-direction: column; padding: 24px 16px; font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .tn-page *, .site-shell--tournament .nav-link::after { scroll-behavior: auto; transition: none; } }
+
+.tn-registration-closed { font-size: 1rem; line-height: 1.5; }
+.tn-participants h2 { font-size: 1.5rem; }
+.tn-participant-list { list-style: none; counter-reset: participants; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; }
+.tn-participant-list li { counter-increment: participants; display: flex; align-items: center; gap: 1rem; min-width: 0; padding: 1.25rem .75rem; border-bottom: 1px solid currentColor; }
+.tn-participant-list li::before { content: counter(participants, decimal-leading-zero); font-size: .875rem; opacity: .6; }
+.tn-participant-list img { width: 3rem; height: 3rem; flex: 0 0 3rem; object-fit: contain; }
+.tn-participant-list li > div { min-width: 0; }
+.tn-participant-list a { font-size: 1rem; overflow-wrap: anywhere; }
+.tn-participant-list p { margin: .25rem 0 0; font-size: .875rem; opacity: .7; }
+@media (max-width: 640px) { .tn-participant-list { grid-template-columns: minmax(0, 1fr); } }

@@ -50,12 +50,12 @@ test('no fictional opponents; confirmed identities span tournaments', () => {
 });
 test('confirmed merges preserve all old links and count matches and tournaments once', () => {
   const original = read('docs/community/team-merges.json');
-  assert.equal(model.teams.size, 42);
+  assert.equal(model.teams.size, 50);
   assert.equal(model.teamAliases.size, 28);
   for (const merge of original.merges) {
     const team = model.getTeam(merge.teamId);
     for (const id of merge.sourceIds) assert.equal(model.getTeam(id), team, id);
-    assert.equal(team.entries.length, 2, merge.name);
+    assert.equal(team.entries.length, tournaments.find((t) => t.id === 'dota2-autumn-2026').participants.some((p) => p.teamId === team.id) ? 3 : 2, merge.name);
     const expected = [...model.matches.values()].filter((m) => m.team1Id === team.id || m.team2Id === team.id);
     assert.deepEqual(team.matches.map((m) => m.key).sort(), expected.map((m) => m.key).sort());
     assert.equal(new Set(team.matches.map((m) => m.key)).size, team.matches.length);
@@ -186,9 +186,10 @@ test('calendar GET/HEAD returns a calendar and missing feeds never return HTML',
   const response = await worker.fetch(new Request('https://example.test/calendars/teams/missing.ics', { headers: { accept: 'text/html' } }), { ASSETS: { fetch: async () => { calls++; return new Response('missing', { status: 404 }); } } });
   assert.equal(response.status, 404); assert.equal(calls, 1);
 });
-test('Telegram chat remains unset and registration URL is unchanged', () => {
+test('Telegram chat and solo registration are preserved while team registration closes', () => {
   assert.equal(read('src/data/community-config.json').teamSearchChatUrl, null);
-  assert.equal(tournaments.find((t) => t.id === 'dota2-autumn-2026').primaryAction.target, 'https://forms.yandex.ru/u/6a84359e6d2d7373b491e1e4');
+  assert.equal(tournaments.find((t) => t.id === 'dota2-autumn-2026').primaryAction.target, '/tournaments/dota2-autumn-2026?section=participants');
+  assert.equal(read('src/data/community-config.json').soloRegistrationUrl, 'https://forms.yandex.ru/u/6a84776d5056903d3b881f6b');
   const registryText = JSON.stringify(registry);
   assert.doesNotMatch(registryText, /"(?:email|phone|captain|players|roster|telegramId|steamId|faceitId)"/i);
 });

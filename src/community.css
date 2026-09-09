@@ -92,3 +92,7 @@
  .community-map-list li { gap: 10px; grid-template-columns: minmax(0, 1fr) auto; }
  .community-map-list li > span:last-child { grid-column: 1 / -1; }
 }
+
+.community-discipline { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid currentColor; }
+.community-discipline-title { font-size: 1.5rem; margin: 0 0 1.5rem; }
+.community-entry > * { overflow-wrap: anywhere; }

@@ -1,0 +1,40 @@
+{
+  "sourceCommit": "90126c18dbbf47af9ed00bebc030cc425e273cef",
+  "checkedAt": "2026-09-11",
+  "environment": {
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "os": "Linux"
+  },
+  "tests": {
+    "chunk_id": "a1405d",
+    "exit_code": 0,
+    "original_token_count": 1176,
+    "output": "✔ the reticle stays on the same artwork pixel through desktop and mobile crops (2.445394ms)\n✔ mouse and touch clicks keep their actual position; keyboard uses the target centre (1.848449ms)\n✔ one click completes the agreed sequence and automatically returns to the page (1.157513ms)\n✔ closing at any phase cancels all callbacks; a new play starts cleanly (0.807498ms)\n✔ reduced motion skips the moving replay and impact while preserving the payoff (0.723983ms)\n✔ all sixteen organizer names are registered in order, without matches or seeds (22.062239ms)\n✔ Dota entries reuse CS identities without inheriting CS results (2.082904ms)\n✔ discipline filter separates both played and upcoming games against a shared opponent (0.436011ms)\n✔ invalid participation and disciplines block the build; aliases do not duplicate entries (62.504931ms)\n✔ all published team and match templates render with real JSON (1295.978575ms)\n✔ migrated data preserves every original field and stable ID (51.859186ms)\n✔ BO1 rounds, series scores and final with missing maps remain distinct (1.046652ms)\n✔ no fictional opponents; confirmed identities span tournaments (21.570905ms)\n✔ confirmed merges preserve all old links and count matches and tournaments once (39.453128ms)\n✔ draws and technical decisions do not become sporting wins (0.515614ms)\n✔ unconfirmed and unknown scores cannot create cards or final statistics (0.433782ms)\n✔ conflicting canonical records and final placements block publication (9.78012ms)\n✔ review regressions: map disagreement, unreachable IDs and personal fields are rejected (68.139945ms)\n✔ merged calendar retains legacy events and follows future canonical events without duplicates (4.385392ms)\n✔ calendar uses real instants; yearless and timezone-free dates do not create events (2.292225ms)\n✔ calendar move, cancellation, unset time and reassignment retain event identity (1.274048ms)\n✔ old team receives a cancellation and new team gets the same UID (2.176051ms)\n✔ UTF-8 folding and escaping protect calendar records from text injection (1.882232ms)\n✔ calendar GET/HEAD returns a calendar and missing feeds never return HTML (9.077535ms)\n✔ Telegram chat and solo registration are preserved while team registration closes (1.091903ms)\n✔ previous day follows selected date, including completed days and month boundaries (30.816438ms)\n✔ previous results come from full history even when live date tabs hide older dates (1.006646ms)\n✔ source-order display keeps scores and map scores tied to the correct teams (0.855211ms)\n✔ completed matchday opens the grand final and retains every playoff date (1.558827ms)\n✔ winner-first display reverses map scores without modifying the source (0.938086ms)\n✔ technical wins and unavailable map scores are not fabricated (0.395404ms)\n✔ completed tournament retains its final result (1.947075ms)\n✔ direct stage matches work and absent dates remain absent (2.589795ms)\n✔ every first cell is safe, exact mine count, state immutable (132.738485ms)\n✔ corner and edge neighbours never wrap (2.074748ms)\n✔ fixed field counts, flood stops at wards, removal does not open (1.033214ms)\n✔ wards before start, limit, flags cannot win, first-open blockers (0.732602ms)\n✔ mine ends game, terminal operations and repeated open are no-ops (0.342218ms)\n✔ timer includes elapsed wall time, zero timestamp and rounding (0.318893ms)\n✔ record improves only, handles invalid and unavailable storage (1.241125ms)\n✔ serves existing static assets without a fallback (10.44898ms)\n✔ falls back to index.html for an unknown app route (3.700685ms)\n✔ does not turn missing API or write requests into the app shell (2.447856ms)\n✔ emits the files required by Sites packaging (21.143092ms)\n✔ reference examples and independent journal replay (29.329946ms)\n✔ maximum pairing and bye priority (0.479191ms)\n✔ invalid inputs and resource failure never fabricate a playoff (0.526804ms)\n✔ February archive shows all 33 published matches and the correct five latest playoff results (9.286258ms)\n✔ Search covers both opponents, respects the phase and handles missing results (2.736097ms)\n✔ Completed CS2 preserves final standings, results and technical 1:0 (12.366407ms)\n✔ Registration-only event exposes its rules and information, never counts empty bracket slots (1.432277ms)\n✔ Legacy archives keep partial stages, stable unique match keys and yearless dates (4.775234ms)\n✔ Deep links and browser history resolve sections and filters without inventing a section (9.965541ms)\nℹ tests 53\nℹ suites 0\nℹ pass 53\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2098.752645\n",
+    "wall_time_seconds": 2.5106085
+  },
+  "build": {
+    "initial": {
+      "chunk_id": "cc3704",
+      "original_token_count": 63,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> ycs-site@0.0.0 build\n> vite build && node scripts/community-build.mjs && node scripts/prepare-sites-build.mjs\n\nvite v6.4.2 building for production...\n",
+      "session_id": 26931,
+      "wall_time_seconds": 1.000725026
+    },
+    "completion": {
+      "chunk_id": "109bf3",
+      "exit_code": 0,
+      "original_token_count": 313,
+      "output": "transforming...\n\n/assets/fonts/NimbusSansNarrow-Regular.otf referenced in /assets/fonts/NimbusSansNarrow-Regular.otf didn't resolve at build time, it will remain unchanged to be resolved at runtime\n\n/assets/fonts/NimbusSansNarrow-Bold.otf referenced in /assets/fonts/NimbusSansNarrow-Bold.otf didn't resolve at build time, it will remain unchanged to be resolved at runtime\n✓ 4611 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/index.html                                  0.57 kB │ gzip:   0.39 kB\ndist/client/assets/swissSimulator.worker-maPUVPMX.js    3.03 kB\ndist/client/assets/TechiesGame-7C1vh8iC.css             4.50 kB │ gzip:   1.52 kB\ndist/client/assets/ForMari-03Z7lVQQ.css                 8.04 kB │ gzip:   2.32 kB\ndist/client/assets/index-DvScojuf.css                 182.36 kB │ gzip:  32.45 kB\ndist/client/assets/TechiesGame-B9M31hDM.js              8.63 kB │ gzip:   3.63 kB\ndist/client/assets/ForMari-BErVMcnJ.js                 10.27 kB │ gzip:   3.73 kB\ndist/client/assets/index-BBZy5dSD.js                  402.39 kB │ gzip: 111.69 kB\n✓ built in 7.82s\nValidated 50 team records and 120 matches; calendars ready.\nPrepared Sites build: dist/server/index.js and dist/.openai/hosting.json\n",
+      "wall_time_seconds": 0.000002427
+    }
+  },
+  "artifact": {
+    "chunk_id": "46365a",
+    "exit_code": 0,
+    "original_token_count": 127,
+    "output": "{\n  \"projectId\": \"appgprj_6a8b38b48cec819184375be4f3b5495a\",\n  \"files\": [\n    {\n      \"path\": \"dist/client/index.html\",\n      \"sha256\": \"bdb2c203b9cc2bfef1337d5a9b238520536da13e876b6af7d558bc4e75bef31b\"\n    },\n    {\n      \"path\": \"dist/server/index.js\",\n      \"sha256\": \"0e007c170890052d1d8d875f9b148f33899fd28cfb1596aca8c24c4f06291a6c\"\n    },\n    {\n      \"path\": \"dist/.openai/hosting.json\",\n      \"sha256\": \"de99797f258f7ef231f620ee82cd87a92723d429cc87e0b4ad8533d50eb96a56\"\n    }\n  ],\n  \"calendars\": 78\n}\n",
+    "wall_time_seconds": 0.435714085
+  },
+  "scope": "Baseline existing website only; not miniapp acceptance or production verification"
+}

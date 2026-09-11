@@ -245,6 +245,7 @@
     {
       "id": "dota2-main-2026-team-borisogleb",
       "name": "Team Borisogleb",
+      "logo": "/assets/teams/dota2/borisogleb/logo.jpg",
       "disciplines": [
         "Dota 2"
       ]
@@ -252,6 +253,7 @@
     {
       "id": "dota2-main-2026-tech-titans",
       "name": "Tech Titans",
+      "logo": "/assets/teams/dota2/tech-titans/logo.jpg",
       "previousNames": [
         {
           "name": "tech titans",
@@ -265,6 +267,7 @@
     {
       "id": "dota2-main-2026-way-prod",
       "name": "Way Prod.",
+      "logo": "/assets/teams/dota2/way-prod/logo.jpg",
       "previousNames": [
         {
           "name": "Way prod.",

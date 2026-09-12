@@ -16,15 +16,15 @@
 ## TASK_STATE
 
 - Режим: `EXECUTE`; primary_trace: `Handoff`.
-- Завершённый шаг: **1/7 — восстановить основу**.
-- evidence_status: `VERIFIED`; gate_verdict: `PASS` подготовки основы. Сохранение считается подтверждённым только при совпадении дерева и readback удалённой ветки; локальный commit сам по себе недостаточен.
+- Текущий результат: **2/7 — контракты L0 завершены и независимо проверены**.
+- evidence_status: `VERIFIED`; gate_verdict: `PASS`.
 - handoff_schema: `FEATURE_HANDOFF/1`; handoff_digest: `880ed9d2dc0004f39250f4a5c3739840cc1f9c4b37edf78b652dc787f5aa44e4`.
-- feature_id: `telegram-miniapp`; producer: основной исполнитель `/root`; consumer проверки основы: `/root/verify_step1`; consumer продолжения: исполнитель L0 следующего запуска.
-- Ветка: `codex/telegram-miniapp`; исходная версия: `90126c18dbbf47af9ed00bebc030cc425e273cef`.
-- Результат шага: отдельная ветка, сверенная исходная версия, границы и воспроизводимая базовая проверка. Код приложения ещё не изменён.
+- feature_id: `telegram-miniapp`; producer: основной исполнитель `/root`; независимый verifier L0: `/root/verify_l0`; consumer продолжения: исполнители дизайна, адаптера данных и RuntimePort шага 3.
+- Ветка: `codex/telegram-miniapp`; исходная проверенная версия: `90126c18dbbf47af9ed00bebc030cc425e273cef`; актуальный main при начале шага 2: `4b134f3b1c4647418ebe671ec494449d88942fb0`.
+- Результат шага: исполняемые контракты конфигурации, двух маршрутов, MiniAppModel, RuntimePort, UiAction и VersionManifest; реальная и восемь синтетических fixtures; контрактные тесты. Экраны и порты ещё не реализованы.
 - Публикация/бот: `NOT_STARTED`. Проверка реального Telegram и production: **не выполнялась**.
-- action_decision: `CONTINUE` после проверки/подтверждённого сохранения шага 1; hypothesis_assessment: `NOT_ASSESSED`.
-- Следующий шаг: **2/7 — контракты L0**, только в этой ветке после повторной сверки актуального main и изменений пользователя.
+- action_decision: `CONTINUE_TO_STEP_3`; hypothesis_assessment: `SUPPORTED` — контракты выполнимы, проверяемы и не захватывают возможности вне согласованных двух экранов.
+- Следующий шаг: **3/7 — дизайн, адаптер данных и Telegram/browser ports**, только после gate L0. Дизайн должен пройти Метаморф и дать пользователю конкретный выбор; отсутствие выбора не блокирует подготовку L2/L4.
 
 ### Авторитетные входы
 
@@ -41,6 +41,7 @@
 - Повторно использован существующий checkout; новый репозиторий, worktree или Site не создавался. До переключения отслеживаемые файлы checkout были чистыми.
 - Прежняя локальная ветка `fix/dota-1800-transitions` сохранена на `da2ddcf4085eb247feb66aae56dfaaf661f29cd6`. В ней есть не вошедшие в GitHub main изменения меню, включая `b6d4773fdb06ae27fd9963977938fe501c6c66a3`. Они НЕ удалялись, НЕ переносились в miniapp и НЕ объявлялись опубликованными.
 - Другие обнаруженные рабочие копии с пользовательскими изменениями не редактировались. При поступлении правок меню в main повторно сверить `App.jsx`, `main.jsx`, `Prototype.jsx`, заголовок и CSS перед интеграцией оболочек. Не возвращать старое меню поверх новых правок.
+- Перед шагом 2 main изменился с `90126c1` на `4b134f3`: добавлены оригинальные логотипы Borisogleb, Tech Titans и WAYPROD и три пути `logo` в `teams.json`. Изменение объединено в ветку без конфликта; реальная fixture проверяет эти актуальные пути. Прежние документы шага 1 сохранены.
 - Зависимости пришлось восстановить: существовавшая ссылка node_modules указывала на отсутствующий временный каталог. Установлены 66 пакетов из текущего package-lock через `npm ci --ignore-scripts --no-audit --no-fund`; package.json/lockfile не изменились.
 
 ## Шаг 1 — сопоставление с ТЗ
@@ -77,13 +78,34 @@
 1. Открыть существующий проект и ветку `codex/telegram-miniapp` на GitHub; если checkout пропал, восстановить эту ветку того же репозитория, не создавать новый репозиторий/Site.
 2. Прочитать этот журнал, актуальное ТЗ и применимые AGENTS.md. Сверить удалённую ветку и main; не перезаписывать локальные/внешние изменения.
 3. Проверить подтверждение сохранения последнего результата через remote ref/readback. Commit результата — commit, содержащий актуальную ревизию этого журнала (`git log -1 -- docs/telegram-miniapp/STATE.md`); это не commit опубликованной сборки.
-4. После VERIFIED шага 1 начать L0: `config.js`, `contracts.js`, таблицы маршрутов/действий, RuntimePort, VersionManifest и реальные/маркированные синтетические fixtures по §4 ТЗ. Не реализовывать адаптер/экраны раньше зависимого этапа.
+4. После VERIFIED шага 2 продолжить шагом 3: через Метаморф подготовить варианты двух экранов, реализовать адаптер реальных JSON и browser/Telegram RuntimePort по зафиксированным контрактам. Не переходить к сквозному сценарию шага 4 до проверки согласованности слоя.
 5. Не перескакивать gate дизайна на шаге 3 и разрешение выпуска на шаге 7. Ни успешный push, ни PASS тестов не разрешают публикацию.
+
+## Шаг 2 — пакет L0
+
+- `src/telegram/config.js`: фиксирует `/tg`, `dota2-autumn-2026`, `Europe/Moscow`, восемь section и девять startapp targets; botUsername остаётся `null`.
+- `src/telegram/contracts.js`: JSDoc-модели и исполняемые guards/преобразования для MiniAppRoute, UiAction, MiniAppModel, StageViewModel, RuntimePort и VersionManifest.
+- `resolveMiniAppLocation`: распознаёт только `/tg` и `/tg/tournament`; неизвестный section или параметр другого турнира нормализуется; путь вне `/tg` не перехватывается.
+- `matches[]` — единственный владелец normalized result; StageViewModel ссылается на него по `matchKey`. Guard отклоняет отсутствующую ссылку и дубликаты match/slot key.
+- `tests/fixtures/telegram/fixtures.mjs`: одна реальная fixture читает актуальные JSON из source; восемь синтетических помечены `fixture: true` и покрывают empty/scheduled/confirmed/unconfirmed/technical/bad-team/hidden/ID-only-target.
+- `tests/telegram-contracts.test.mjs`: 9 сценариев; доступна команда `npm run test:telegram`.
+- Наглядная карта контрактов, маршрутов и fixtures: `docs/telegram-miniapp/L0-contracts.md`.
+
+### Проверки L0 12.09.2026
+
+- `npm run test:telegram`: **9/9 PASS**.
+- `node --test tests/*.test.mjs`: **62/62 PASS**, включая 53 прежних и 9 новых.
+- `npm run build`: **PASS**; Vite собрал 4611 модулей; проверены 50 команд и 120 матчей; Sites outputs подготовлены. Два прежних предупреждения NimbusSansNarrow сохранены как ограничение, не исправлялись в L0.
+- `npm run test:sites`: **4/4 PASS** после сборки; `.openai/hosting.json` сохранил project_id `appgprj_6a8b38b48cec819184375be4f3b5495a`.
+- `node --check` для новых JS/MJS и `git diff --check`: PASS.
+- Независимый verifier сначала обнаружил три пробела guard: лишние raw-поля в слотах, непроверенный формат `slotKey` и неполную структурную проверку DTO. После исправлений повторная проверка дала **PASS**; held-out probes отклоняют неверные `maps`, `additionalAwards`, raw-поля и чужие/ошибочные slot keys. Контрольные хеши до и после read-only probes совпали. Подробности: `independent-l0-verification.md`.
+- Браузер, UI, Telegram, tg-version.json и production не проверялись: они ещё не реализованы. Успешная сборка — регрессия основы, не приёмка miniapp.
+- Машиночитаемая сводка: `docs/telegram-miniapp/l0-verification-2026-09-12.json`.
 
 ### Семь шагов
 
-1. Восстановить основу — VERIFIED / PASS; продолжать со следующего шага после подтверждённого сохранения этой ревизии.
-2. Контракты L0 — NOT_STARTED.
+1. Восстановить основу — VERIFIED / PASS.
+2. Контракты L0 — VERIFIED / PASS.
 3. Дизайн, адаптер данных, Telegram/browser порты; выбор дизайна пользователем — NOT_STARTED.
 4. Сценарий главная → турнир → участники → назад, direct/startapp — NOT_STARTED.
 5. Полный экран турнира и обновление версии — NOT_STARTED.

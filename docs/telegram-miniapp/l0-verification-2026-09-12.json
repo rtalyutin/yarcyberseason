@@ -1,0 +1,68 @@
+{
+  "step": "2/7",
+  "checkedAt": "2026-09-12",
+  "input": {
+    "specification": "YarCyberSeason-Telegram-MiniApp-TZ.md 1.1",
+    "specificationSha256": "8c89b5ea1a07a8131b420b12a9f5eb9f66264bfb405252fe7e74733380a774cb",
+    "previousBranchCommit": "8bf3081b2567ceaf4f7e275d33372927975053b2",
+    "currentMain": "4b134f3b1c4647418ebe671ec494449d88942fb0",
+    "reconciledChange": "Three original Dota team logos and registry logo paths"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "siteProjectId": "appgprj_6a8b38b48cec819184375be4f3b5495a"
+  },
+  "results": [
+    {
+      "check": "npm run test:telegram",
+      "status": "PASS",
+      "passed": 9,
+      "failed": 0
+    },
+    {
+      "check": "node --test tests/*.test.mjs",
+      "status": "PASS",
+      "passed": 62,
+      "failed": 0
+    },
+    {
+      "check": "npm run build",
+      "status": "PASS",
+      "validatedTeams": 50,
+      "validatedMatches": 120
+    },
+    {
+      "check": "npm run test:sites",
+      "status": "PASS",
+      "passed": 4,
+      "failed": 0
+    },
+    {
+      "check": "node --check + git diff --check",
+      "status": "PASS"
+    },
+    {
+      "check": "Sites identity and expected build outputs",
+      "status": "PASS"
+    },
+    {
+      "check": "Independent L0 verification and held-out negative probes",
+      "status": "PASS",
+      "verifier": "/root/verify_l0",
+      "scope": [
+        "closed SlotView shape",
+        "slotKey tournament and match identity",
+        "normalized result maps",
+        "additional awards",
+        "complete MiniAppModel structure"
+      ]
+    }
+  ],
+  "limitations": [
+    "No miniapp screen, adapter, RuntimePort implementation or generated tg-version.json exists yet.",
+    "No browser, Telegram or production behavior was tested.",
+    "Build retains pre-existing unresolved NimbusSansNarrow font URL warnings.",
+    "The independent verifier did not rerun the full suite/build; those checks were executed by the primary implementer."
+  ]
+}

@@ -65,7 +65,7 @@
     "target": "/tournaments/dota2-autumn-2026?section=participants"
   },
   "secondaryAction": {
-    "label": "Регламент",
+    "label": "Формат турнира",
     "target": "#format"
   },
   "timeline": [

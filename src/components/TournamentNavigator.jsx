@@ -1,5 +1,6 @@
 import { TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
 import { community } from '../data/community.js';
+import { regulationsByDiscipline } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
 import { registrationCountLabel } from '../lib/tournament.js';
 import { normalizeResult, matchStates } from '../lib/community.js';
@@ -110,6 +111,7 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
   };
   const active = model.sections.find((section) => section.id === view.section);
   const archived = isArchive(tournament);
+  const regulation = regulationsByDiscipline[tournament.discipline];
   const sourceFacts = (tournament.facts || []).filter((fact) => !/подтвержд[её]нн.*матч/i.test(fact));
   return (
     <main className="tn-page" data-section={view.section}>
@@ -118,7 +120,10 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
         <div className="tn-title-row"><h1>{tournament.title}</h1><span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span></div>
         {tournament.dates?.display && <p className="tn-date">{tournament.dates.display}</p>}
         {tournament.registration?.status === 'closed' && <p className="tn-registration-closed">{tournament.registration.message} · {registrationCountLabel(tournament)}</p>}
-        {!archived && <div className="tn-header-actions">{[tournament.primaryAction, tournament.secondaryAction, ...(tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter(Boolean).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <button type="button" className="tn-outline" key={action.target} onClick={() => go(action.target)}>{action.label}</button>)}</div>}
+        {(!archived || regulation) && <div className="tn-header-actions">
+          {!archived && [tournament.primaryAction, tournament.secondaryAction, ...(tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter(Boolean).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <button type="button" className="tn-outline" key={action.target} onClick={() => go(action.target)}>{action.label}</button>)}
+          {regulation && <a className="tn-outline" href={regulation.url} target="_blank" rel="noopener noreferrer">{regulation.label}<ArrowUpRight aria-hidden="true" /></a>}
+        </div>}
         {!archived && <CommunitySearch />}
       </header>
       <div className="tn-layout">

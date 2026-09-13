@@ -8,6 +8,7 @@
     "build": "vite build && node scripts/community-build.mjs && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs",
+    "test:webmcp": "node --test tests/webmcp.test.mjs",
     "test:matchday": "node --test tests/matchday.test.mjs",
     "test:tournament": "node --test tests/tournament.test.mjs",
     "calendar:sync": "node scripts/community-build.mjs --sync",

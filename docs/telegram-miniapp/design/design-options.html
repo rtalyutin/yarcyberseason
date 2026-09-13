@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YCS Telegram Mini App — варианты дизайна</title>
+  <link rel="stylesheet" href="/src/telegram/design/tokens.css" />
+  <link rel="stylesheet" href="./design-options.css" />
+</head>
+<body>
+  <main class="board">
+    <header class="board__intro">
+      <p>YAR CYBER SEASON · TELEGRAM MINI APP</p>
+      <h1>Два направления.<br />Одни реальные данные.</h1>
+      <span>390 × 844 · макеты главной и раздела участников</span>
+    </header>
+
+    <section class="direction direction--rift" id="option-a">
+      <div class="direction__heading">
+        <p>ВАРИАНТ A · РЕКОМЕНДАЦИЯ</p>
+        <h2>Разлом</h2>
+        <span>Продолжает утверждённый образ Dota-главной: город буквально находится внутри красно-синего разлома. Эмоция — афиша турнира, структура — строгая.</span>
+      </div>
+      <div class="phones">
+        <article class="phone rift-home" aria-label="Вариант A, главная">
+          <div class="phone__safe"><span>10:41</span><span>•••</span></div>
+          <header class="mini-head">
+            <img src="/assets/ycs-logo.jpg" alt="ЯКС" />
+            <span>MINI APP</span>
+          </header>
+          <div class="rift-art"><div class="rift-map"></div></div>
+          <section class="rift-hero">
+            <p class="kicker">DOTA 2 · YCS’26 VER.2</p>
+            <h3>ГОРОД<br />ВХОДИТ<br /><em>В ИГРУ</em></h3>
+            <p class="date">10—25 <span>ОКТЯБРЯ</span></p>
+          </section>
+          <section class="dock">
+            <div class="status"><i></i><span>Регистрация закрыта</span><strong>16 / 16</strong></div>
+            <button>ОТКРЫТЬ ТУРНИР <b>↗</b></button>
+            <a>Заявленные команды · 16</a>
+          </section>
+          <div class="partner-line">
+            <img src="/assets/partners/fks-yao.png" alt="ФКС ЯО" />
+            <img src="/assets/partners/minsport-yao.png" alt="Минспорта ЯО" />
+            <img src="/assets/partners/dodo-pizza.jpg" alt="Додо Пицца" />
+          </div>
+        </article>
+
+        <article class="phone rift-tournament" aria-label="Вариант A, турнир">
+          <div class="phone__safe"><span>10:41</span><span>•••</span></div>
+          <header class="t-head"><button>←</button><img src="/assets/ycs-logo.jpg" alt="ЯКС" /><span>DOTA 2</span></header>
+          <section class="t-title">
+            <p class="kicker">ТЕКУЩИЙ ТУРНИР</p>
+            <h3>YCS’26<br /><em>VER.2</em></h3>
+            <div><span>10—25 ОКТЯБРЯ</span><strong>16 КОМАНД</strong></div>
+          </section>
+          <nav class="section-strip"><span>О турнире</span><strong>Участники</strong><span>Формат</span><span>Расписание</span></nav>
+          <section class="participant-list">
+            <header><div><p>УЧАСТНИКИ</p><h4>16 команд</h4></div><span>регистрация закрыта</span></header>
+            <div class="team-row"><b>01</b><span class="team-mark">V</span><strong>Vnext</strong><small>заявлена</small></div>
+            <div class="team-row"><b>02</b><span class="team-mark">L</span><strong>Leto Jr</strong><small>заявлена</small></div>
+            <div class="team-row"><b>03</b><span class="team-mark">M</span><strong>Mi Ne Pushim!</strong><small>заявлена</small></div>
+            <div class="team-row"><b>04</b><span class="team-mark">S</span><strong>strela team</strong><small>заявлена</small></div>
+            <div class="team-row"><b>05</b><img src="/assets/teams/dota2/way-prod/logo.jpg" alt="" /><strong>WAYPROD.</strong><small>заявлена</small></div>
+            <div class="team-row team-row--fade"><b>06</b><span class="team-mark">F</span><strong>Fummo</strong><small>заявлена</small></div>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <section class="direction direction--grid" id="option-b">
+      <div class="direction__heading">
+        <p>ВАРИАНТ B · АЛЬТЕРНАТИВА</p>
+        <h2>Турнирная сетка</h2>
+        <span>Меньше афиши, больше приборной панели. Данные читаются быстрее, но связь с утверждённым «Разломом» основного сайта слабее.</span>
+      </div>
+      <div class="phones">
+        <article class="phone grid-home" aria-label="Вариант B, главная">
+          <div class="phone__safe"><span>10:41</span><span>•••</span></div>
+          <header class="grid-head"><img src="/assets/ycs-logo.jpg" alt="ЯКС" /><span>ЯРОСЛАВЛЬ · 2026</span></header>
+          <section class="grid-hero">
+            <div class="grid-hero__map"></div>
+            <p>СЛЕДУЮЩИЙ ТУРНИР</p>
+            <h3>DOTA 2<br /><span>YCS’26 VER.2</span></h3>
+          </section>
+          <section class="scoreboard">
+            <div><small>ДАТЫ</small><strong>10—25.10</strong></div>
+            <div><small>КОМАНДЫ</small><strong>16 / 16</strong></div>
+            <div><small>ФОРМАТ</small><strong>SWISS → DE</strong></div>
+          </section>
+          <div class="closed-note"><i></i><span>Регистрация закрыта — набрано 16 команд</span></div>
+          <button class="grid-cta">Открыть турнир <b>→</b></button>
+          <a class="grid-subaction">Смотреть участников</a>
+          <footer class="grid-partners"><span>ПАРТНЁРЫ</span><img src="/assets/partners/fks-yao.png" alt="ФКС ЯО" /><img src="/assets/partners/minsport-yao.png" alt="Минспорта ЯО" /><img src="/assets/partners/dodo-pizza.jpg" alt="Додо Пицца" /></footer>
+        </article>
+
+        <article class="phone grid-tournament" aria-label="Вариант B, турнир">
+          <div class="phone__safe"><span>10:41</span><span>•••</span></div>
+          <header class="grid-head"><button>←</button><strong>ТУРНИР</strong><span>YCS</span></header>
+          <section class="grid-event"><p>DOTA 2 · 10—25 ОКТЯБРЯ</p><h3>YCS’26 VER.2</h3><div><i></i> РЕГИСТРАЦИЯ ЗАКРЫТА</div></section>
+          <nav class="grid-tabs"><span>Обзор</span><strong>Участники <b>16</b></strong><span>Формат</span><span>Матчи</span></nav>
+          <section class="grid-teams">
+            <header><h4>ЗАЯВЛЕННЫЕ КОМАНДЫ</h4><small>16 / 16</small></header>
+            <div><b>01</b><span>Vnext</span><em>V</em></div>
+            <div><b>02</b><span>Leto Jr</span><em>L</em></div>
+            <div><b>03</b><span>Mi Ne Pushim!</span><em>M</em></div>
+            <div><b>04</b><span>strela team</span><em>S</em></div>
+            <div><b>05</b><span>WAYPROD.</span><img src="/assets/teams/dota2/way-prod/logo.jpg" alt="" /></div>
+            <div><b>06</b><span>Fummo</span><em>F</em></div>
+            <div><b>07</b><span>TEAM SPERMINT</span><em>S</em></div>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

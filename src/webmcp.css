@@ -1,0 +1,23 @@
+.webmcp-page { width: min(1100px, calc(100% - 48px)); margin: 0 auto; padding-bottom: 40px; }
+.webmcp-header { display: flex; align-items: center; justify-content: space-between; min-height: 100px; border-bottom: 1px solid #26324c; }
+.webmcp-header img { display: block; object-fit: cover; }
+.webmcp-header a:last-child { color: #b6c8ef; font-size: 14px; }
+.webmcp-eyebrow { color: #85aaff; letter-spacing: .14em; font-size: 12px; margin-top: 56px; }
+.webmcp-page h1 { font-family: 'YCS Sans', sans-serif; font-size: clamp(40px, 6vw, 76px); line-height: 1.08; letter-spacing: -.04em; margin: 24px 0; }
+.webmcp-intro { max-width: 720px; font-size: 18px; line-height: 1.65; color: #c8d3eb; }
+.webmcp-status { padding: 16px 20px; background: #101c34; border-left: 3px solid #6698ff; margin: 28px 0; line-height: 1.5; }
+.webmcp-status--unsupported, .webmcp-status--error { border-color: #e7bc75; }
+.webmcp-counts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 24px 0 36px; border-bottom: 1px solid #26324c; }
+.webmcp-counts strong { display: block; font-size: 38px; }
+.webmcp-counts span { color: #9daccc; font-size: 14px; }
+.webmcp-page section { margin: 36px 0; }
+.webmcp-page section > p { max-width: 810px; color: #c8d3eb; line-height: 1.7; }
+.webmcp-page h2 { font-size: 24px; }
+.webmcp-catalog { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.webmcp-catalog article { border-top: 2px solid #3476ff; padding: 6px 0 12px; }
+.webmcp-catalog p { color: #c8d3eb; line-height: 1.6; }
+.webmcp-page code { font-size: 12px; line-height: 1.7; color: #9daccc; overflow-wrap: anywhere; }
+.webmcp-page footer { border-top: 1px solid #26324c; padding-top: 24px; color: #9daccc; font-size: 12px; line-height: 1.7; }
+.webmcp-page details { margin-top: 12px; }
+.webmcp-page summary { cursor: pointer; }
+@media (max-width: 650px) { .webmcp-catalog { grid-template-columns: 1fr; } .webmcp-page { width: calc(100% - 32px); } .webmcp-eyebrow { margin-top: 36px; } .webmcp-counts { gap: 12px; } .webmcp-counts strong { font-size: 32px; } }

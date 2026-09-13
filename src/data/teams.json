@@ -388,6 +388,7 @@
     {
       "id": "dota2-autumn-2026-strela-team",
       "name": "strela team",
+      "logo": "/assets/teams/dota2/strela-team/logo.png",
       "disciplines": [
         "Dota 2"
       ]
@@ -401,7 +402,8 @@
     },
     {
       "id": "dota2-autumn-2026-4fans",
-      "name": "4fans",
+      "name": "TEAM SPERMINT",
+      "logo": "/assets/teams/dota2/spermint/logo.png",
       "disciplines": [
         "Dota 2"
       ]
@@ -423,6 +425,7 @@
     {
       "id": "dota2-autumn-2026-liqa-sto",
       "name": "liqa sto",
+      "logo": "/assets/teams/dota2/liqa-sto/logo.png",
       "disciplines": [
         "Dota 2"
       ]
@@ -812,6 +815,11 @@
     {
       "tournamentId": "dota2-autumn-2026",
       "sourceName": "4fans",
+      "teamId": "dota2-autumn-2026-4fans"
+    },
+    {
+      "tournamentId": "dota2-autumn-2026",
+      "sourceName": "TEAM SPERMINT",
       "teamId": "dota2-autumn-2026-4fans"
     },
     {

@@ -52,7 +52,7 @@ export function flattenMatches(tournaments) {
       (round.matches || []).filter((m) => m.published !== false && (m.team1 || m.team2)).map((match) => ({
         ...match, tournamentId: tournament.id, tournamentSlug: tournament.slug,
         tournamentTitle: tournament.title, discipline: tournament.discipline,
-        stageId: stage.id, stageTitle: stage.title, roundTitle: round.label || match.stage || stage.title,
+        stageId: stage.id, stageTitle: stage.title, roundId: round.id || null, roundTitle: round.label || match.stage || stage.title,
       })),
     ),
   ));
@@ -173,6 +173,15 @@ export function validateCommunity(tournaments, registry) {
     }
     if (t.registration?.reason === 'capacity_reached' && (t.registration.status !== 'closed' || !Number.isInteger(t.registration.capacity) || participants.size !== t.registration.capacity)) errors.push(`Invalid registration capacity: ${t.id}`);
   }
+  const declaredMatches = new Map();
+  for (const tournament of tournaments) for (const stage of tournament.stages || []) {
+    const rounds = stage.rounds || [{ matches: stage.matches || [] }];
+    for (const round of rounds) for (const match of round.matches || []) {
+      const key = matchKey(tournament.id, match.id);
+      if (!match.id || !/^[a-z0-9-]+$/.test(match.id) || declaredMatches.has(key)) errors.push(`Duplicate or invalid declared match: ${key}`);
+      else declaredMatches.set(key, { ...match, tournamentId: tournament.id, discipline: tournament.discipline });
+    }
+  }
   const keys = new Set();
   for (const m of flattenMatches(tournaments)) {
     const key = matchKey(m.tournamentId, m.id), result = normalizeResult(m, m.discipline);
@@ -202,8 +211,10 @@ export function validateCommunity(tournaments, registry) {
   }
   for (const m of all) for (const field of ['winnerTo', 'loserTo']) {
     const target = m[field];
-    if (target && !keys.has(matchKey(target.tournamentId || m.tournamentId, target.matchId))) errors.push(`Missing ${field}: ${m.id}`);
-    const next = target && all.find((n) => n.tournamentId === (target.tournamentId || m.tournamentId) && n.id === target.matchId);
+    const targetKey = target && matchKey(target.tournamentId || m.tournamentId, target.matchId);
+    if (target && !declaredMatches.has(targetKey)) errors.push(`Missing ${field}: ${m.id}`);
+    if (target?.slot != null && ![1, 2].includes(target.slot)) errors.push(`Invalid ${field} slot: ${m.id}`);
+    const next = target && declaredMatches.get(targetKey);
     const result = normalizeResult(m, m.discipline);
     if (next && result.winnerSide) {
       const name = m[`team${field === 'winnerTo' ? result.winnerSide : 3 - result.winnerSide}`];

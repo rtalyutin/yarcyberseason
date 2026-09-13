@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
 import { getTournamentOutcome, isArchive, hasScore, isFinished, registrationCountLabel } from "./lib/tournament.js";
 import { community } from './data/community.js';
+import { projectContent } from './data/project-content.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
@@ -314,17 +315,12 @@ function HomePage({ navigate, theme }) {
         <section className="home-partners container" aria-labelledby="home-partners-title">
           <h2 id="home-partners-title">Спонсоры и партнёры</h2>
           <div className="home-partners-grid">
-            <div className="home-partner">
-              <img src="/assets/partners/fks-yao.png" alt="ФКС ЯО" width="160" height="80" loading="lazy" />
-              <p>Федерация компьютерного спорта Ярославской области</p>
-            </div>
-            <div className="home-partner">
-              <img src="/assets/partners/minsport-yao.png" alt="Минспорта ЯО" width="160" height="80" loading="lazy" />
-              <p>Министерство спорта Ярославской области</p>
-            </div>
-            <div className="home-partner home-partner--dodo">
-              <img src="/assets/partners/dodo-pizza.jpg" alt="Додо Пицца" width="180" height="100" loading="lazy" />
-            </div>
+            {projectContent.partners.map((partner) => (
+              <div className={`home-partner${partner.shortName === "Додо Пицца" ? " home-partner--dodo" : ""}`} key={partner.name}>
+                <img src={partner.logoUrl} alt={partner.shortName} width={partner.shortName === "Додо Пицца" ? 180 : 160} height={partner.shortName === "Додо Пицца" ? 100 : 80} loading="lazy" />
+                {partner.shortName !== "Додо Пицца" && <p>{partner.name}</p>}
+              </div>
+            ))}
             <a className="home-partner home-partner--join" href="mailto:info@ycs.bar?subject=Партнёрство%20с%20ЯрКиберСезоном">
               <Plus size={58} weight="light" aria-hidden="true" />
               <span>Стать партнёром <CaretRight size={16} weight="bold" aria-hidden="true" /></span>

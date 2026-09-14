@@ -1,6 +1,6 @@
 import { TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
 import { community } from '../data/community.js';
-import { regulationsByDiscipline } from '../data/regulations.js';
+import { regulationsByDiscipline, regulationsByTournament } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
 import { registrationCountLabel } from '../lib/tournament.js';
@@ -113,7 +113,7 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
   };
   const active = model.sections.find((section) => section.id === view.section);
   const archived = isArchive(tournament);
-  const regulation = regulationsByDiscipline[tournament.discipline];
+  const regulation = regulationsByTournament[tournament.id] ?? regulationsByDiscipline[tournament.discipline];
   const sourceFacts = (tournament.facts || []).filter((fact) => !/подтвержд[её]нн.*матч/i.test(fact));
   return (
     <main className="tn-page" data-section={view.section}>

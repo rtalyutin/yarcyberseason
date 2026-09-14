@@ -1,5 +1,6 @@
 import { tournaments } from './tournaments/index.js';
 import registry from './teams.json';
+import rosters from './team-rosters.json';
 import { buildCommunityModel } from '../lib/community.js';
 
-export const community = buildCommunityModel(tournaments, registry);
+export const community = buildCommunityModel(tournaments, registry, rosters);

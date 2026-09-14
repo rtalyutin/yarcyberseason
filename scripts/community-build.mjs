@@ -2,15 +2,17 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCommunityModel, validateCommunity } from '../src/lib/community.js';
+import { validatePublicRosters } from '../src/lib/rosters.js';
 import { reconcilePublications, teamCalendar } from '../src/lib/calendar.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = (name) => JSON.parse(readFileSync(resolve(root, name), 'utf8'));
 const tournaments = readdirSync(resolve(root, 'src/data/tournaments')).filter((f) => f.endsWith('.json')).map((f) => read('src/data/tournaments/' + f));
 const registry = read('src/data/teams.json');
-const errors = validateCommunity(tournaments, registry);
+const rosters = read('src/data/team-rosters.json');
+const errors = [...validateCommunity(tournaments, registry), ...validatePublicRosters(tournaments, registry, rosters)];
 if (errors.length) throw new Error(errors.join('\n'));
-const model = buildCommunityModel(tournaments, registry);
+const model = buildCommunityModel(tournaments, registry, rosters);
 const previous = read('src/data/calendar-publications.json');
 const next = reconcilePublications([...model.matches.values()], previous, new Date().toISOString());
 if (process.argv.includes('--sync')) {

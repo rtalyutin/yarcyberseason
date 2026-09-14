@@ -15,6 +15,7 @@ import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
 import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './components/CommunityLinks.jsx';
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import { TechiesEgg } from "./components/TechiesEgg.jsx";
+import { AboutPage } from "./components/AboutPage.jsx";
 import {
   archivedTournaments,
   currentTournament,
@@ -84,6 +85,7 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const isHome = path === "/";
+  const isAbout = path.replace(/\/$/, "") === "/about";
   const isTeam = path.startsWith("/teams/");
   const isMatchday = path === currentTournament.matchday?.route;
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
@@ -94,7 +96,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
     { label: "Архив", href: "/results" },
     { label: "О проекте", href: "/about" },
   ];
-  const pageNav = isHome || isTeam ? homeNav : isTournament ? [
+  const pageNav = isHome || isTeam || isAbout ? homeNav : isTournament ? [
     { label: "Турниры", href: "/" },
     { label: "Matchday", href: currentTournament.matchday.route },
     { label: "Трансляции", href: "/broadcasts" },
@@ -110,9 +112,9 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   };
 
   return (
-    <div data-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
+    <div data-theme={isAbout ? "ycs" : theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
       <div className="site-background" aria-hidden="true" />
-      {!integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
+      {!isAbout && !integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
       <div className="site-header">
       <header className="topbar">
         <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
@@ -125,16 +127,16 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
             <button
               key={item.href}
               type="button"
-              className={path === item.href || (isTournament && item.href === "/") ? "nav-link is-active" : "nav-link"}
+              className={path === item.href || (isAbout && item.href === "/about") || (isTournament && item.href === "/") ? "nav-link is-active" : "nav-link"}
               onClick={() => go(item.href)}
             >
               {item.label}
             </button>
           ))}
         </nav>
-        {integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
+        {!isAbout && integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
-          {isHome || isMatchday || isTournament || isTeam ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
+          {isHome || isAbout || isMatchday || isTournament || isTeam ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>
       </header>
       {menuOpen && (
@@ -144,7 +146,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
               {item.label}
             </button>
           ))}
-          <button type="button" onClick={() => go("/about")}>О проекте</button>
+          {!isAbout && <button type="button" onClick={() => go("/about")}>О проекте</button>}
         </nav>
       )}
       </div>
@@ -785,22 +787,6 @@ function PartnersPage() {
   );
 }
 
-function AboutPage({ navigate }) {
-  return (
-    <main>
-      <PageIntro eyebrow="О проекте" title={<>YCS — сезон для<br /><span>соревновательной игры</span></>} body="Ярославский киберспортивный сезон объединяет турниры, трансляции и архив результатов в одной понятной системе." action={{ label: "Посмотреть текущий турнир", target: "/tournaments/cs2-august-2026" }} navigate={navigate} />
-      <section className="container about-grid"><div><p className="eyebrow">Принцип</p><h2>Открытая точка входа для команды.</h2></div><div><p className="eyebrow">Структура</p><p>Анонс, турнирная страница, таблицы и сетки, сохранённый архив.</p></div><div><p className="eyebrow">Контакт</p><a href="mailto:info@ycs.bar">info@ycs.bar</a></div></section>
-      <section className="container legal-requisites" id="requisites">
-        <h2>Контакты и реквизиты</h2>
-        <p>Общество с ограниченной ответственностью «ЯрКиберСезон»</p>
-        <dl><dt>Юридический адрес</dt><dd>150040, Ярославская область, г. Ярославль, ул. Володарского, д. 64, кв. 37</dd>
-        <dt>ИНН / КПП</dt><dd>7606143578 / 760601001</dd><dt>ОГРН</dt><dd>1257600007500</dd>
-        <dt>Электронная почта</dt><dd><a href="mailto:info@ycs.bar">info@ycs.bar</a></dd></dl>
-      </section>
-    </main>
-  );
-}
-
 function NotFound({ navigate }) {
   return <main><PageIntro eyebrow="404" title={<>Маршрут<br /><span>не найден</span></>} body="Вернитесь к активному турниру или в архив сезона." action={{ label: "На главную", target: "/" }} navigate={navigate} /></main>;
 }
@@ -857,7 +843,7 @@ export function Prototype() {
     if (path === "/results") return <ResultsPage navigate={navigate} />;
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;
     if (path === "/partners") return <PartnersPage navigate={navigate} />;
-    if (path === "/about") return <AboutPage navigate={navigate} />;
+    if (path.replace(/\/$/, "") === "/about") return <AboutPage />;
     if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} />;
     if (path === currentTournament.matchday?.route) return <MatchdayPage tournament={currentTournament} navigate={navigate} />;
     const teamRoute = path.match(/^\/teams\/([a-z0-9-]+)\/?$/);

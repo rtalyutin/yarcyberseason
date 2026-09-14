@@ -84,16 +84,17 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const isHome = path === "/";
+  const isTeam = path.startsWith("/teams/");
   const isMatchday = path === currentTournament.matchday?.route;
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
-  const integratedTheme = (isHome && theme === "dota2") || ((isTournament || isMatchday) && theme !== "dota2");
+  const integratedTheme = isTeam || (isHome && theme === "dota2") || ((isTournament || isMatchday) && theme !== "dota2");
   const homeNav = [
     { label: "Турниры", href: "/" },
     { label: "Matchday", href: currentTournament.matchday.route },
     { label: "Архив", href: "/results" },
     { label: "О проекте", href: "/about" },
   ];
-  const pageNav = isHome ? homeNav : isTournament ? [
+  const pageNav = isHome || isTeam ? homeNav : isTournament ? [
     { label: "Турниры", href: "/" },
     { label: "Matchday", href: currentTournament.matchday.route },
     { label: "Трансляции", href: "/broadcasts" },
@@ -109,7 +110,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   };
 
   return (
-    <div data-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : ""}`}>
+    <div data-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       {!integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
       <div className="site-header">
@@ -133,7 +134,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
         </nav>
         {integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
         <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
-          {isHome || isMatchday || isTournament ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
+          {isHome || isMatchday || isTournament || isTeam ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
         </button>
       </header>
       {menuOpen && (
@@ -860,7 +861,7 @@ export function Prototype() {
     if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} />;
     if (path === currentTournament.matchday?.route) return <MatchdayPage tournament={currentTournament} navigate={navigate} />;
     const teamRoute = path.match(/^\/teams\/([a-z0-9-]+)\/?$/);
-    if (teamRoute) return <TeamPage key={teamRoute[1]} teamId={teamRoute[1]} />;
+    if (teamRoute) return <TeamPage key={teamRoute[1]} teamId={teamRoute[1]} theme={theme} />;
     const matchRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matches\/([a-z0-9-]+)\/?$/);
     if (matchRoute) return <MatchPage key={path} tournamentSlug={matchRoute[1]} matchId={matchRoute[2]} />;
     if (path.startsWith("/tournaments/")) {

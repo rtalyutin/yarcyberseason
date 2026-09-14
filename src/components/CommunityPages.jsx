@@ -1,11 +1,13 @@
 import { TeamLogo } from './TeamLogo.jsx';
 import { useEffect, useState } from 'react';
+import { ArrowUpRight, CalendarBlank, CaretDown, Trophy } from '@phosphor-icons/react';
 import { community } from '../data/community.js';
 import { tournaments } from '../data/tournaments/index.js';
 import { calendarPath, matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps, teamPath, teamSummary, teamForDiscipline, upcomingMatches } from '../lib/community.js';
 import { downloadResultCard } from '../lib/result-card.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
+import '../team-profile.css';
 
 function CopyLink({ value, label }) {
   const [message, setMessage] = useState('');
@@ -18,22 +20,23 @@ function UnknownPage({ kind }) {
   useEffect(() => { document.title = `${kind} не найден${kind === 'Команда' ? 'а' : ''} — ЯрКиберСезон`; }, [kind]);
   return <main className="community-page"><p className="community-eyebrow">404</p><h1>{kind} не найден{kind === 'Команда' ? 'а' : ''}</h1><InternalLink className="community-button" href="/">К турнирам</InternalLink></main>;
 }
-export function CommunityMatchRow({ match }) {
-  return <article className="community-match-row">
+export function CommunityMatchRow({ match, profile = false }) {
+  const identity = (side) => profile ? <span className={`tp-match-team tp-match-team--${side}`}><TeamLogo team={community.teams.get(match[`team${side}Id`])} /><TeamLink tournamentId={match.tournamentId} name={match[`team${side}`]} /></span> : <TeamLink tournamentId={match.tournamentId} name={match[`team${side}`]} />;
+  return <article className={`community-match-row${profile ? ' tp-match' : ''}`}>
     <p>{matchDateLabel(match)} · {match.roundTitle}</p>
     <div className="community-row-score">
-      <TeamLink tournamentId={match.tournamentId} name={match.team1} />
+      {identity(1)}
       <InternalLink href={matchPath(match)} aria-label={`Страница матча ${match.team1} — ${match.team2}`}><strong>{match.result.score ? match.result.score.join(' : ') : '— : —'}</strong></InternalLink>
-      <TeamLink tournamentId={match.tournamentId} name={match.team2} />
+      {identity(2)}
     </div>
     {(match.resultIssue || match.scoreKind === 'unknown') && match.result.sourceScore && <p>Опубликованный счёт: {match.result.sourceScore.join(':')}. {match.resultIssue || 'Единицы счёта уточняются.'}</p>}
     <div className="community-row-bottom"><span>{matchStates[match.status] || matchStates.unknown}{match.bestOf && ` · ${match.bestOf}`}{match.result.score && !match.result.technical ? ' · серия' : ''}</span><InternalLink href={matchPath(match)}>О матче ↗</InternalLink></div>
   </article>;
 }
-function CalendarPanel({ team }) {
+function CalendarPanel({ team, compact = false }) {
   const url = new URL(calendarPath(team.id), window.location.origin).href;
-  return <details className="community-panel community-calendar" id="calendar">
-    <summary>Следить за командой <span>Календарь матчей</span></summary>
+  return <details className={`community-panel community-calendar${compact ? ' tp-follow' : ''}`} id="calendar">
+    <summary>{compact && <CalendarBlank aria-hidden="true" size={20} />}Следить за командой {compact ? <CaretDown aria-hidden="true" size={16} /> : <span>Календарь матчей</span>}</summary>
     {team.disciplines.length > 1 && <p>Все дисциплины команды</p>}
     <p>Добавьте календарь по ссылке в своём календарном приложении. Переносы появятся после его следующего обновления.</p>
     <a className="community-button community-button--primary" href={url.replace(/^https?:/, 'webcal:')}>Подписаться на календарь</a>
@@ -46,8 +49,8 @@ function TournamentRoster({ entry }) {
   const roster = entry.roster;
   if (!roster) return <p className="community-muted">Состав на этот турнир не опубликован.</p>;
   const sourceUrl = safeHttps(roster.source?.url);
-  return <details className="community-roster" open>
-    <summary>Состав на турнир <span className="community-count">· {roster.members.length}</span></summary>
+  return <details className="community-roster">
+    <summary>Состав на турнир <span className="community-count">· {roster.members.length}</span><span className="tp-roster-preview">{roster.members.map((member) => <span key={member.name}>{member.name.match(/«([^»]+)»/)?.[1] || member.name}</span>)}</span></summary>
     <ul className="community-roster-list" aria-label={`Состав ${roster.sourceName} — ${entry.tournament.title}`}>
       {roster.members.map((member) => <li key={member.name}><strong>{member.name}</strong><span>{member.role}</span></li>)}
     </ul>
@@ -55,40 +58,71 @@ function TournamentRoster({ entry }) {
   </details>;
 }
 
-function DisciplineHistory({ sourceTeam, discipline }) {
+function TeamStats({ team, discipline = team.disciplines[0] }) {
+  const summary = teamSummary(team);
+  return <div className="tp-statistics">
+    <div className="community-stats" aria-label={`${discipline} · По опубликованным матчам`}>
+      {[['wins', 'Победы'], ['losses', 'Поражения'], ['draws', 'Ничьи'], ['technical', 'Тех. решения']].map(([key, label]) => <div key={key}><strong>{summary[key]}</strong><span>{label}</span></div>)}
+    </div>
+    <p className="community-muted community-stat-note">По матчам на сайте. Тех. решения — отдельно.</p>
+  </div>;
+}
+
+function DisciplineHistory({ sourceTeam, discipline, first, multiple, railStats }) {
   const team = teamForDiscipline(sourceTeam, discipline);
-  const [visibleCount, setVisibleCount] = useState(10);
+  const [visibleCount, setVisibleCount] = useState(3);
   const summary = teamSummary(team), next = upcomingMatches(team)[0];
   const matches = [...team.matches].sort((a, b) => (b.scheduledAt || b.date || '').localeCompare(a.scheduledAt || a.date || ''));
   const trophies = team.entries.filter((entry) => entry.placement && entry.placement <= 3);
-  return <section className="community-discipline" aria-label={discipline}>
-    <h2 className="community-discipline-title">{discipline === 'Counter-Strike 2' ? 'CS2' : discipline}</h2>
-    <div className="community-stats" aria-label="По опубликованным матчам">{[['wins', 'Победы'], ['losses', 'Поражения'], ['draws', 'Ничьи'], ['technical', 'Тех. решения']].map(([key, label]) => <div key={key}><strong>{summary[key]}</strong><span>{label}</span></div>)}</div>
-    <p className="community-muted community-stat-note">По опубликованным матчам. Технические решения учитываются отдельно.</p>
-    <div className="community-columns">
-      <div className="community-main-column">
-        <section className="community-panel"><h2>Ближайшая игра</h2>{next ? <CommunityMatchRow match={next} /> : <p>Ближайшие матчи пока не назначены.</p>}</section>
-        <section className="community-panel"><h2>Матчи <span className="community-count">{team.matches.length}</span></h2>{matches.length ? <>{matches.slice(0, visibleCount).map((match) => <CommunityMatchRow key={match.key} match={match} />)}{visibleCount < matches.length && <button className="community-button" type="button" onClick={() => setVisibleCount(matches.length)}>Показать все матчи</button>}</> : <p>Матчи пока не опубликованы.</p>}</section>
-        <section className="community-panel"><h2>История встреч</h2>{summary.opponents.length ? summary.opponents.map((opponent) => <details key={opponent.id} className="community-opponent"><summary><span>{community.teams.get(opponent.id)?.name}</span><span>{opponent.wins} В · {opponent.losses} П · {opponent.draws} Н · {opponent.technical} тех.</span></summary><InternalLink className="community-inline-action" href={teamPath(opponent.id)}>Страница соперника ↗</InternalLink>{opponent.matches.map((match) => <CommunityMatchRow key={match.key} match={match} />)}</details>) : <p>Подтверждённые встречи с соперниками пока не опубликованы.</p>}</section>
-      </div>
-      <aside className="community-side-column">
-        <section className="community-panel"><h2>Трофеи</h2>{trophies.length ? trophies.map((entry) => <div className="community-trophy" key={entry.tournament.id}><strong>{entry.placement === 1 ? 'Чемпионы' : `${entry.placement} место`}</strong><InternalLink href={`/tournaments/${entry.tournament.slug}#results`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span></div>) : <p>Призовые места пока не опубликованы.</p>}</section>
-        <section className="community-panel"><h2>Турниры и составы</h2>{team.entries.map((entry) => <div className="community-entry" key={entry.tournament.id} data-tournament-id={entry.tournament.id}><InternalLink href={`/tournaments/${entry.tournament.slug}`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span><span>{entry.displayName}</span><span>{entry.status === 'registered' && !['completed', 'archive'].includes(entry.tournament.status) ? 'Заявлена · турнир ещё не начался' : entry.placement ? `${entry.placement} место` : 'Итоговое место не опубликовано'}</span><TournamentRoster entry={entry} /></div>)}</section>
-        {team.previousNames?.length > 0 && <section className="community-panel"><h2>Другие названия</h2>{team.previousNames.map((alias) => <p key={alias.name}><strong>{alias.name}</strong><br /><span className="community-muted">{alias.context}</span></p>)}</section>}
-      </aside>
-    </div>
+  const entryRank = (entry) => !['completed', 'archive'].includes(entry.tournament.status) ? 0 : entry.roster ? 1 : 2;
+  const entries = [...team.entries].sort((a, b) => entryRank(a) - entryRank(b));
+  return <section className={`tp-discipline${first ? ' tp-discipline--first' : ''}`} aria-label={discipline}>
+    <h2 className={`tp-discipline-title${!multiple ? ' tp-visually-hidden' : ''}`}>{discipline === 'Counter-Strike 2' ? 'CS2' : discipline}</h2>
+    {!railStats && <TeamStats team={team} discipline={discipline} />}
+    <section className="tp-panel tp-matches">
+      <div className="tp-section-heading"><h2>Матчи <span className="community-count">· {team.matches.length}</span></h2>{matches.length > visibleCount && <button className="tp-text-action" type="button" onClick={() => setVisibleCount(matches.length)}>Все {matches.length} матчей <ArrowUpRight aria-hidden="true" /></button>}</div>
+      {matches.length ? <div className="tp-match-list">{matches.slice(0, visibleCount).map((match) => <CommunityMatchRow key={match.key} match={match} profile />)}</div> : <p className="tp-empty">Матчи пока не опубликованы.</p>}
+      {visibleCount > 3 && matches.length > 3 && <button className="tp-text-action" type="button" onClick={() => setVisibleCount(3)}>Свернуть список матчей</button>}
+      <section className="tp-next" aria-label="Ближайшая игра">{next ? <><h3>Ближайшая игра</h3><CommunityMatchRow match={next} profile /></> : <p><CalendarBlank aria-hidden="true" size={22} />Ближайшие матчи пока не назначены.</p>}</section>
+    </section>
+    <section className="tp-panel tp-tournaments"><div className="tp-section-heading"><h2>Турниры и составы</h2></div>
+      <div className="tp-tournament-grid">{entries.map((entry) => {
+        const upcoming = !['completed', 'archive'].includes(entry.tournament.status);
+        return <div className={`community-entry tp-entry${upcoming ? ' tp-entry--upcoming' : ''}`} key={entry.tournament.id} data-tournament-id={entry.tournament.id}>
+          <span className="tp-entry-label">{upcoming ? 'Ближайший турнир' : 'Архив турниров'}</span>
+          <InternalLink className="tp-entry-title" href={`/tournaments/${entry.tournament.slug}`}>{entry.tournament.title}<ArrowUpRight aria-hidden="true" /></InternalLink>
+          <span>{entry.tournament.dates?.display}</span>
+          {entry.displayName !== sourceTeam.name && <span>{entry.displayName}</span>}
+          <span className={upcoming && entry.status === 'registered' ? 'tp-registered' : ''}>{entry.status === 'registered' && upcoming ? 'Заявлена · турнир ещё не начался' : entry.placement ? `${entry.placement} место` : 'Итоговое место не опубликовано'}</span>
+          <TournamentRoster entry={entry} />
+        </div>;
+      })}</div>
+    </section>
+    <section className="tp-panel tp-trophies"><div className="tp-section-heading"><h2><Trophy aria-hidden="true" />Трофеи</h2></div>{trophies.length ? trophies.map((entry) => <div className="community-trophy" key={entry.tournament.id}><strong>{entry.placement === 1 ? 'Чемпионы' : `${entry.placement} место`}</strong><InternalLink href={`/tournaments/${entry.tournament.slug}#results`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span></div>) : <p className="tp-empty">Призовые места пока не опубликованы.</p>}</section>
+    <section className="tp-panel tp-opponents"><div className="tp-section-heading"><h2>История встреч</h2></div>{summary.opponents.length ? summary.opponents.map((opponent) => <details key={opponent.id} className="community-opponent"><summary><span>{community.teams.get(opponent.id)?.name}</span><span>{opponent.wins} В · {opponent.losses} П · {opponent.draws} Н · {opponent.technical} тех.</span></summary><InternalLink className="community-inline-action" href={teamPath(opponent.id)}>Страница соперника ↗</InternalLink>{opponent.matches.map((match) => <CommunityMatchRow key={match.key} match={match} profile />)}</details>) : <p className="tp-empty">Подтверждённые встречи с соперниками пока не опубликованы.</p>}</section>
+    {team.previousNames?.length > 0 && <section className="tp-panel tp-aliases"><h2>Другие названия</h2>{team.previousNames.map((alias) => <p key={alias.name}><strong>{alias.name}</strong><br /><span className="community-muted">{alias.context}</span></p>)}</section>}
   </section>;
 }
 
-export function TeamPage({ teamId }) {
+export function TeamPage({ teamId, theme = 'cs2' }) {
   const team = community.getTeam(teamId);
   useEffect(() => { if (team) document.title = `${team.name} — ЯрКиберСезон`; }, [team]);
   if (!team) return <UnknownPage kind="Команда" />;
-  return <main className="community-page">
+  const multiple = team.disciplines.length > 1;
+  return <main className={`community-page team-profile${multiple ? ' team-profile--multiple' : ''}`} data-team-theme={theme}>
     <nav className="community-breadcrumb" aria-label="Путь к команде"><InternalLink href="/">Турниры</InternalLink><span>/ Команда</span></nav>
-    <header className="community-team-header"><TeamLogo team={team} /><div><p className="community-eyebrow">{team.disciplines.join(' · ')}</p><h1>{team.name}</h1><p className="community-muted">Турнирная история</p><button type="button" className="community-button" onClick={() => { const panel = document.getElementById('calendar'); if (panel) { panel.open = true; panel.scrollIntoView({ block: 'start' }); panel.querySelector('summary')?.focus(); } }}>Следить за командой</button></div></header>
-    <CalendarPanel team={team} />
-    {team.disciplines.map((discipline) => <DisciplineHistory key={`${team.id}/${discipline}`} sourceTeam={team} discipline={discipline} />)}
+    <div className="tp-layout">
+      <header className="tp-identity">
+        <p className="community-eyebrow">{team.disciplines.join(' · ')}</p>
+        <h1>{team.name}</h1>
+        <TeamLogo className="tp-team-logo" team={team} />
+        <CalendarPanel team={team} compact />
+        {theme === 'dota2' && <>{multiple && <p className="tp-rail-discipline">Статистика · {team.disciplines[0] === 'Counter-Strike 2' ? 'CS2' : team.disciplines[0]}</p>}<TeamStats team={teamForDiscipline(team, team.disciplines[0])} /><div className="tp-city" aria-hidden="true"><img src="/assets/themes/yaroslavl-dota-768.webp" alt="" /><span>Ярославль</span></div></>}
+        {theme === 'cs2' && <img className="tp-identity-brand" src="/assets/ycs-logo.jpg" alt="" aria-hidden="true" />}
+      </header>
+      {theme === 'corporate' && <div className="tp-city" aria-hidden="true"><img src={theme === 'corporate' ? '/assets/themes/yaroslavl-strelka.webp' : '/assets/themes/yaroslavl-dota-768.webp'} alt="" /><span>Ярославль</span></div>}
+      {team.disciplines.map((discipline, i) => <DisciplineHistory key={`${team.id}/${discipline}`} sourceTeam={team} discipline={discipline} first={i === 0} multiple={multiple} railStats={theme === 'dota2' && i === 0} />)}
+    </div>
   </main>;
 }
 

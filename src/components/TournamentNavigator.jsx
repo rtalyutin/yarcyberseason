@@ -2,6 +2,7 @@ import { TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
 import { community } from '../data/community.js';
 import { regulationsByDiscipline } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
+import { MatchMapLinks } from './MatchMapLinks.jsx';
 import { registrationCountLabel } from '../lib/tournament.js';
 import { normalizeResult, matchStates } from '../lib/community.js';
 import { useEffect, useMemo, useState } from "react";
@@ -28,6 +29,7 @@ function MatchRow({ match, tournament, teamLogos }) {
       </div>
       {match.resultIssue && <p>{match.resultIssue}</p>}
       <MatchLink tournamentId={tournament.id} matchId={match.id} />
+      <MatchMapLinks match={match} />
       {details && <details className="tn-match-details">
         <summary>Подробности матча</summary>
         {result.maps.length > 0 && <ul>{result.maps.map((map, index) => <li key={`${map.name}-${index}`}><span>{map.name} · {map.unit}</span><b>{map.score ? map.score.join(":") : "Результат не опубликован"}</b></li>)}</ul>}

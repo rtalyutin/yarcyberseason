@@ -1,4 +1,5 @@
 import { TeamLogo } from './TeamLogo.jsx';
+import { MatchMapLinks } from './MatchMapLinks.jsx';
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, CalendarBlank, CaretDown, Trophy } from '@phosphor-icons/react';
 import { community } from '../data/community.js';
@@ -31,6 +32,7 @@ export function CommunityMatchRow({ match, profile = false }) {
     </div>
     {(match.resultIssue || match.scoreKind === 'unknown') && match.result.sourceScore && <p>Опубликованный счёт: {match.result.sourceScore.join(':')}. {match.resultIssue || 'Единицы счёта уточняются.'}</p>}
     <div className="community-row-bottom"><span>{matchStates[match.status] || matchStates.unknown}{match.bestOf && ` · ${match.bestOf}`}{match.result.score && !match.result.technical ? ' · серия' : ''}</span><InternalLink href={matchPath(match)}>О матче ↗</InternalLink></div>
+    <MatchMapLinks match={match} />
   </article>;
 }
 function CalendarPanel({ team, compact = false }) {
@@ -147,7 +149,7 @@ export function MatchPage({ tournamentSlug, matchId }) {
     {(match.resultIssue || match.scoreKind === 'unknown') && result.sourceScore && <p className="community-source-issue">Опубликованный счёт: {result.sourceScore.join(':')}. {match.resultIssue || 'Единицы счёта уточняются.'}</p>}
     <div className="community-columns">
       <div className="community-main-column">
-        <section className="community-panel"><h2>Карты</h2>{result.maps.length ? <ol className="community-map-list">{result.maps.map((map, i) => <li key={i}><span>{map.name}</span><strong>{map.score ? map.score.join(' : ') : map.outcome || 'Результат не опубликован'}</strong><span>{map.score ? map.unit : ''}</span></li>)}</ol> : <p>{result.technical ? 'Техническое решение: сыгранные карты не добавляются.' : result.confirmed ? 'Счёт отдельных карт не опубликован.' : 'Результаты карт пока не опубликованы.'}</p>}</section>
+        <section className="community-panel"><h2>Карты</h2><MatchMapLinks match={match} />{result.maps.length ? <ol className="community-map-list">{result.maps.map((map, i) => <li key={i}><span>{map.name}</span><strong>{map.score ? map.score.join(' : ') : map.outcome || 'Результат не опубликован'}</strong><span>{map.score ? map.unit : ''}</span></li>)}</ol> : !match.mapLinks?.length && <p>{result.technical ? 'Техническое решение: сыгранные карты не добавляются.' : result.confirmed ? 'Счёт отдельных карт не опубликован.' : 'Результаты карт пока не опубликованы.'}</p>}</section>
         <section className="community-panel"><h2>В турнирной сетке</h2>{consequence && <p>{consequence}</p>}{['winnerTo', 'loserTo'].map((field) => {
           const target = match[field], next = target && community.matches.get(matchKey(target.tournamentId || match.tournamentId, target.matchId));
           return next ? <p key={field}><InternalLink href={matchPath(next)}>{field === 'winnerTo' ? 'Победитель' : 'Проигравший'} → {next.roundTitle}</InternalLink></p> : null;

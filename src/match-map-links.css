@@ -1,0 +1,5 @@
+.match-map-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 8px; max-width: 100%; color: var(--cp-text, var(--inside-text, inherit)); font-size: 14px; line-height: 1.4; }
+.match-map-links-label { font-size: 14px; }
+.match-map-links a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 4px 2px; color: inherit; font-size: 14px; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
+.match-map-links a:hover { text-decoration-thickness: 2px; }
+.match-map-links a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }

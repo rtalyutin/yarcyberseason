@@ -40,6 +40,12 @@
 .community-match-link { display: inline-flex; gap: 8px; align-items: center; color: inherit; font-size: 14px; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; }
 .community-entry, .community-trophy { display: grid; gap: 7px; padding: 16px 0; border-top: 1px solid var(--cp-line); }
 .community-entry span, .community-trophy span { color: var(--cp-muted); font-size: 14px; }
+.community-roster { margin-top: 8px; }
+.community-roster summary { cursor: pointer; font-weight: 700; }
+.community-roster-list { list-style: none; padding: 0; margin: 12px 0; }
+.community-roster-list li { display: grid; gap: 3px; padding: 10px 0; border-bottom: 1px solid var(--cp-line); }
+.community-roster-list strong { font-size: 15px; font-weight: 600; }
+.community-roster-source { font-size: 12px; color: var(--cp-muted); }
 .community-trophy strong { color: #a8c1ff; font-size: 24px; }
 .community-opponent { border-top: 1px solid var(--cp-line); padding: 16px 0; }
 .community-opponent summary { cursor: pointer; }

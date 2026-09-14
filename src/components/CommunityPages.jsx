@@ -42,6 +42,19 @@ function CalendarPanel({ team }) {
   </details>;
 }
 
+function TournamentRoster({ entry }) {
+  const roster = entry.roster;
+  if (!roster) return <p className="community-muted">Состав на этот турнир не опубликован.</p>;
+  const sourceUrl = safeHttps(roster.source?.url);
+  return <details className="community-roster" open>
+    <summary>Состав на турнир <span className="community-count">· {roster.members.length}</span></summary>
+    <ul className="community-roster-list" aria-label={`Состав ${roster.sourceName} — ${entry.tournament.title}`}>
+      {roster.members.map((member) => <li key={member.name}><strong>{member.name}</strong><span>{member.role}</span></li>)}
+    </ul>
+    {sourceUrl && <p className="community-roster-source"><a href={sourceUrl} target="_blank" rel="noreferrer">Источник: {new URL(sourceUrl).hostname} · {roster.source.section} ↗</a></p>}
+  </details>;
+}
+
 function DisciplineHistory({ sourceTeam, discipline }) {
   const team = teamForDiscipline(sourceTeam, discipline);
   const [visibleCount, setVisibleCount] = useState(10);
@@ -60,8 +73,7 @@ function DisciplineHistory({ sourceTeam, discipline }) {
       </div>
       <aside className="community-side-column">
         <section className="community-panel"><h2>Трофеи</h2>{trophies.length ? trophies.map((entry) => <div className="community-trophy" key={entry.tournament.id}><strong>{entry.placement === 1 ? 'Чемпионы' : `${entry.placement} место`}</strong><InternalLink href={`/tournaments/${entry.tournament.slug}#results`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span></div>) : <p>Призовые места пока не опубликованы.</p>}</section>
-        <section className="community-panel"><h2>Турниры</h2>{team.entries.map((entry) => <div className="community-entry" key={entry.tournament.id}><InternalLink href={`/tournaments/${entry.tournament.slug}`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span><span>{entry.displayName}</span><span>{entry.status === 'registered' && !['completed', 'archive'].includes(entry.tournament.status) ? 'Заявлена · турнир ещё не начался' : entry.placement ? `${entry.placement} место` : 'Итоговое место не опубликовано'}</span></div>)}</section>
-        <section className="community-panel"><h2>Состав</h2><p>Состав не опубликован</p></section>
+        <section className="community-panel"><h2>Турниры и составы</h2>{team.entries.map((entry) => <div className="community-entry" key={entry.tournament.id} data-tournament-id={entry.tournament.id}><InternalLink href={`/tournaments/${entry.tournament.slug}`}>{entry.tournament.title}</InternalLink><span>{entry.tournament.dates?.display}</span><span>{entry.displayName}</span><span>{entry.status === 'registered' && !['completed', 'archive'].includes(entry.tournament.status) ? 'Заявлена · турнир ещё не начался' : entry.placement ? `${entry.placement} место` : 'Итоговое место не опубликовано'}</span><TournamentRoster entry={entry} /></div>)}</section>
         {team.previousNames?.length > 0 && <section className="community-panel"><h2>Другие названия</h2>{team.previousNames.map((alias) => <p key={alias.name}><strong>{alias.name}</strong><br /><span className="community-muted">{alias.context}</span></p>)}</section>}
       </aside>
     </div>

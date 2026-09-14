@@ -17,6 +17,21 @@ test('all published team and match templates render with real JSON', async () =>
       assert.ok(html.includes('Следить за командой'), team.id);
       assert.ok(html.includes(`/calendars/teams/${team.id}.ics`), team.id);
       assert.ok(!html.includes('<form'), team.id);
+      for (const entry of team.entries) {
+        const entryHtml = html.split(`data-tournament-id="${entry.tournament.id}"`)[1]?.split('</div>')[0];
+        assert.ok(entryHtml, `${team.id}/${entry.tournament.id}`);
+        if (entry.roster) {
+          assert.equal((entryHtml.match(/<li>/g) || []).length, entry.roster.members.length);
+          for (const member of entry.roster.members) {
+            const escapedName = renderToStaticMarkup(React.createElement('strong', null, member.name));
+            assert.ok(entryHtml.includes(escapedName), member.name);
+          }
+          assert.ok(entryHtml.includes('Источник: ycs.bar'));
+        } else {
+          assert.ok(entryHtml.includes('Состав на этот турнир не опубликован.'));
+          assert.ok(!entryHtml.includes('community-roster-list'));
+        }
+      }
     }
     for (const [oldId, teamId] of community.teamAliases) {
       const oldHtml = renderToStaticMarkup(React.createElement(TeamPage, { teamId: oldId }));

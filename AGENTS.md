@@ -1,5 +1,7 @@
 # Prototype Instructions
 
+- Telegram Mini App decision (September 14, 2026): MVP has only the accepted «Разлом» theme and Russian. Keep extensible theme and language registries, scoped tokens, interface dictionaries and device-local preference persistence. Show a selector only after its registry contains a second option. Miniapp is limited to `/tg` and `/tg/tournament` for explicit `dota2-autumn-2026`; preserve all main-site themes/routes. No production publication or bot setup without separate permission.
+
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
 Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
@@ -49,3 +51,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - September 9 registration update: Dota autumn team registration is closed at 16 applications. Shared primary action opens the participants section. Team registry v2 supports multiple disciplines, with separate histories and statistics; existing IDs/aliases and historical names stay stable. No player rosters are stored. Solo registration is unchanged pending the organizer’s decision. Website status does not prove the external Yandex team form was closed.
 
 - Organizer decision, September 9: leave the external Yandex team form OPEN intentionally as a fallback. Do not close it or request owner authentication. Website registration stays closed at 16 teams. Merge of this implementation into main is explicitly authorized.
+
+- September 14 public roster archive: the organizer requested importing published lineups from ycs.bar into team pages, tied to their source tournament. Store only the published names/nicknames and roles in `src/data/team-rosters.json`, with source and tournament provenance. This supersedes the earlier empty-roster state. Keep registration/contact data excluded. A roster belongs to one team/tournament pair and must never be inherited by another tournament or discipline. Dota 2.Qual and February CS2 have source galleries; Dota 2.Main has none. Keep the Qual year unknown as in the tournament archive.

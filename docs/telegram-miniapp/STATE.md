@@ -2,7 +2,7 @@
 
 ## ACTIVE_CONTRACT
 
-- Ревизия: `implementation-1`, поручение от 10.09.2026; ТЗ 1.1 от 10.09.2026.
+- Ревизия: `implementation-2`, поручение от 10.09.2026; ТЗ 1.1 от 10.09.2026 + подтверждённая поправка пользователя 14.09.2026: принятый «Разлом», русский, расширяемые темы/языки и сохранение выбора.
 - Цель: miniapp на данных и стеке существующего `rtalyutin/yarcyberseason`, без отдельного backend.
 - Ровно два экрана: `/tg` и `/tg/tournament`. Разделы участники, регламент, расписание, матчи, результаты, Swiss и плей-офф находятся внутри турнира.
 - Выбран только `dota2-autumn-2026`, 10–25 октября 2026; не использовать `currentTournament` для выбора.
@@ -11,20 +11,22 @@
 - Разрешены реализация по плану, локальные проверки и сохранение кода/журнала в изолированной ветке этого репозитория. Один следующий незавершённый шаг за запуск.
 - Запрещены без отдельного разрешения: merge в main, production-публикация, настройки бота, изменение аудитории, сообщения третьим лицам. Историческое разрешение AGENTS.md на merge регистрации не относится к miniapp.
 - Дизайн принимает пользователь на шаге 3. Бот, целевой адрес/среда и выпуск согласуются перед зависимыми действиями шага 7. Неизвестные значения не блокируют L0–L4.
+- Design gate закрыт: «Дизайн разлома пока пусть будет»; на уточнение набора — «Только разлом и русский». Переключатели показывать лишь при появлении второго доступного варианта; не добавлять английский или вариант B в MVP.
 - Старый ACTIVE_CONTRACT «только ТЗ» закрыт; он не ограничивает текущее поручение реализации.
 
 ## TASK_STATE
 
 - Режим: `EXECUTE`; primary_trace: `Handoff`.
-- Текущий результат: **3/7 — дизайн, адаптер данных и RuntimePort реализованы; технические subgate пройдены, выбор визуального направления пользователем ещё не получен**.
-- evidence_status: `EXECUTED`; gate_verdict: `BLOCKED` только по обязательному design-choice gate.
+- Текущий результат: **4/7 — реализован сквозной React-сценарий главная → турнир → участники → назад; browser gate пройден**.
+- evidence_status: `VERIFIED`; gate_verdict: `PASS` для browser/Node/SSR-границы шага 4. Реальные Telegram-клиенты остаются непроверенными; полный gate всего приложения НЕ закрыт.
 - handoff_schema: `FEATURE_HANDOFF/1`; handoff_digest: `880ed9d2dc0004f39250f4a5c3739840cc1f9c4b37edf78b652dc787f5aa44e4`.
-- feature_id: `telegram-miniapp`; producer: основной исполнитель `/root`; независимый verifier L0: `/root/verify_l0`; verifier шага 3: `/root/verify_step3`; consumer визуального решения: пользователь; consumer следующего технического шага: интеграция L3.
+- feature_id: `telegram-miniapp`; producer: `/root`; verifier шага 4: `/root/verify_step4`; consumer следующего результата: интеграция полного экрана турнира и обновлений на шаге 5.
 - Ветка: `codex/telegram-miniapp`; исходная проверенная версия: `90126c18dbbf47af9ed00bebc030cc425e273cef`; актуальный main при финальной сверке шага 3: `f62a113bbec92e3049508313b93ce1ab78b87073`.
-- Результат шага: два визуальных направления для двух экранов; общий модуль фактического содержания проекта; чистый L2-адаптер выбранного JSON; исправленная проверка ссылок на ID-only слоты; browser и Telegram RuntimePort. Рабочие React-экраны ещё не собраны: это шаг 4.
+- artifact_revision шага 4: код `6b8cc74`, затем merge актуального main `6da86af3b16b89a66a323d677bef84f89b51fc15` в `0b91fcb8c2b2949f45cfd6e22c08a1ae589df9fe`; финальный evidence-коммит содержит только журнал, отчёт, HTML-стенд и фактический screenshot.
+- Результат шага: отдельный miniapp entry/CSS; два React-экрана; router; SDK bootstrap/fallback; сохраняемые предпочтения rift/ru; фактические 16 участников и 12 существующих логотипов. Остальные разделы турнира ещё не реализованы и честно обозначены как готовящиеся при прямом входе; navigation показывает только обзор и участников.
 - Публикация/бот: `NOT_STARTED`. Проверка реального Telegram и production: **не выполнялась**.
-- action_decision: `UNDECIDED` до выбора A «Разлом» или B «Турнирная сетка»; hypothesis_assessment: `NOT_ASSESSED` — визуальная реакция пользователя ещё не получена.
-- Следующий шаг: завершить gate шага 3 выбранным направлением, затем **4/7 — React-сценарий главная → турнир → участники → назад**, direct/startapp на фактической модели.
+- action_decision: `CONTINUE`; hypothesis_assessment: `NOT_ASSESSED` — реализация, не эксперимент о спросе или эстетическом превосходстве.
+- Следующий шаг: **5/7 — полный экран турнира: регламент, расписание, матчи, результаты, Swiss/плей-офф и обновление версии**. Переиспользовать новый `src/data/regulations.js` и PDF из main; не создавать регламент заново. Единый normalized model остаётся источником для всех представлений. Статус схем/manifest не объявлять реализованным заранее.
 
 ### Авторитетные входы
 
@@ -143,8 +145,35 @@
 
 1. Восстановить основу — VERIFIED / PASS.
 2. Контракты L0 — VERIFIED / PASS.
-3. Дизайн, адаптер данных, Telegram/browser порты; выбор дизайна пользователем — EXECUTED / BLOCKED_USER_SELECTION.
-4. Сценарий главная → турнир → участники → назад, direct/startapp — NOT_STARTED.
+3. Дизайн, адаптер данных, Telegram/browser порты; выбор дизайна пользователем — VERIFIED / PASS, «Разлом» принят.
+4. Сценарий главная → турнир → участники → назад, direct/startapp — VERIFIED / PASS в browser и Node/SSR; реальные Telegram-клиенты непроверены.
 5. Полный экран турнира и обновление версии — NOT_STARTED.
 6. Независимая приёмка 24 сценариев и регрессия — NOT_STARTED.
 7. Подготовка выпуска/отката, разрешённый выпуск и проверка Telegram — NOT_STARTED.
+
+## Шаг 4 — рабочий сценарий, 14.09.2026
+
+### Восстановление и изменения
+
+- Актуальное ТЗ 1.1 повторно прочитано по стабильному Library ID; источник остаётся 504 строки/71384 байта. Актуальные указания о теме и языке приняты из сообщений пользователя; обновлён AGENTS.md, исходное ТЗ не переписано.
+- Существующий checkout был чистым на `3bec94b`; использована прежняя ветка, новый repo/worktree/Site не создавался. Read-only get_site подтвердил прежний project_id и version 26.
+- Важное правило продолжения: remote.origin.fetch настроен только на miniapp-ветку. Обычного `git fetch origin` НЕДОСТАТОЧНО для сверки main; использовать `git ls-remote origin refs/heads/main` и явный `git fetch origin main:refs/remotes/origin/main`.
+- Выявлены и без конфликтов объединены четыре новых commit main: Leto Jr logo, общий PDF регламента Dota, ARB/Mi Ne Pushim logos, исторические roster snapshots. Новые действия/данные не удалены; составы и статистика не включены в ограниченный ParticipantView miniapp.
+- `src/main.jsx` выбирает оболочку до импорта App/CSS. `/forMari`, `/webmcp`, обычные страницы и стили сохранены, файлы worker/hosting не изменены.
+- `router.js`: home→tournament push; section/back replace; прямой back всегда `/tg`; launch приоритетен один раз, затем raw query/hash удаляются. WeakSet + безопасный boolean в history.state защищают retry/remount/reload от повторного SDK launch. Raw Telegram данные не сохраняются.
+- `load-bridge.js`: официальный SDK только для miniapp, максимум 4 секунды ожидания, shared promise, fallback при ошибке; SDK с platform=unknown использует browser port. Источник: https://core.telegram.org/bots/webapps (проверен 14.09.2026).
+- `MiniApp.jsx`: boot/loading/error/retry, lifecycle cleanup, ready после появления модели/UI, header BackButton, главная/обзор/участники, нейтральный fallback отсутствующего/сломанного логотипа. Реальные записи показываются без ссылок на дополнительные экраны.
+- `preferences.js`: versioned device-local key, allowlisted registries, ru словарь UI, нормализация/сохранение и отказоустойчивость. Встроенных вариантов только rift/ru; скрытые до второго варианта selectors. Опубликованный текст данных остаётся в общем JSON; добавление перевода данных — отдельная будущая задача.
+- Перенос «Разлома» выполнен через Метаморф: карта и оригинальная raster frame сохранены, luminance-mask подключена после выявленного визуального дефекта checkerboard. Основной сайт визуально не менялся.
+
+### Проверки и пределы
+
+- На коде `0b91fcb`: `npm run build` PASS, 4633 модуля, 50 команд/120 матчей; `node --test tests/*.test.mjs` **99/99 PASS**; `npm run test:sites` **4/4 PASS**; отдельный miniapp suite **32/32 PASS** (10 новых тестов шага 4).
+- Bundle identity: entry JS `entry-C7_1bOwf.js`, SHA256 `a184333d3f2b694b56085c6eee832caacda657c2d214ef0ae87d561a37fd5de4`; entry CSS `entry-xXhKGvy7.css`, SHA256 `f4e92b5bf181e1db60484e3656f3c53a72dccf939728a64b9559a1616c3e4484`.
+- Браузер Cloud Chrome, supervised Vite preview: реальный home→tournament→participants→back, direct participants→back, browser startapp=participants, back→reload PASS. DOM содержит 16 записей, правильные Dota названия и закрытую регистрацию. Успешные браузерные действия — на исходниках dev preview, не доказательство запуска production bundle в Telegram.
+- Два настоящих React-приложения в iframe QA-стенда проверены с width 360/390/430/768. document clientWidth/scrollWidth совпали: home 360/360,390/390,430/430,753/753; participants 345/345,375/375,415/415,753/753. Разница с frame width — вертикальный scrollbar; горизонтального переполнения нет. Это не эмуляция ОС или Telegram safe-area.
+- Фактический browser screenshot: `step4-preview.jpg`, после merge новых логотипов и исправления маски. `step4-preview.html` — только QA-стенд, не третий маршрут приложения и не публикуемый интерфейс.
+- Независимый verifier воспроизвёл replay SDK launch после remount и fresh-module reload; оба дефекта устранены и перепроверены. Node held-out bridge success/error/timeout, cleanup, navigation, SSR и data compatibility PASS. Подробности: `independent-step4-verification.md`.
+- Не проверены: настоящий Telegram Android/iOS/Desktop; 200% текст; интерактивный отказ/повтор модели и React remount в browser; полный сетевой граф, CDN, production URL; остальные 24 QA сценария целиком. Отдельная загрузка проверена исходниками/сборкой, не полным сетевым trace.
+- Сохранены прежние предупреждения отсутствующих NimbusSansNarrow OTF обычного сайта. Miniapp использует имеющиеся WOFF2. Full-page screenshot infrastructure timeout: сохранён и осмотрен screenshot viewport, а не заявлен full-page export.
+- operation_status выпуска: `NOT_STARTED`. Никаких publish, bot changes, merge в main или сообщений третьим лицам.

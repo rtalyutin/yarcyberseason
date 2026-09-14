@@ -1,4 +1,4 @@
-:root {
+:root, .tg-app[data-theme="rift"] {
   --tg-ink: #070a0d;
   --tg-panel: #10161a;
   --tg-panel-raised: #161d21;

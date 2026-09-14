@@ -1,0 +1,719 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "ycs-bar-dota2-qual",
+      "url": "https://ycs.bar/",
+      "section": "DotA 2.Qual",
+      "retrievedAt": "2026-09-14"
+    },
+    {
+      "id": "ycs-bar-cs2-february",
+      "url": "https://ycs.bar/",
+      "section": "CS2",
+      "retrievedAt": "2026-09-14"
+    }
+  ],
+  "records": [
+    {
+      "teamId": "dota2-qual-2026-labubu-team",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Labubu Team",
+      "members": [
+        {
+          "name": "Кирилл «yunoqwee» Яловой",
+          "role": "Капитан, мид"
+        },
+        {
+          "name": "Рауль «Liwez» Алыев",
+          "role": "Оффлейн"
+        },
+        {
+          "name": "Тимофей «diablo666» Чистяков",
+          "role": "Керри"
+        },
+        {
+          "name": "Дмитрий «Foggy» Юдин",
+          "role": "Поддержка"
+        },
+        {
+          "name": "Константин «Kostua90» Попов",
+          "role": "Полная поддержка"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-qual-2026-arb-esports",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "ARB ESports",
+      "members": [
+        {
+          "name": "Кирилл «kyoutetsu凛» Малиновский",
+          "role": "Капитан, позиция 1"
+        },
+        {
+          "name": "Александр «dr4ma» Спасов",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Михаил «Ганджубасик» Кременской",
+          "role": "Поддержка"
+        },
+        {
+          "name": "Денис «хочу татарочку» Крюков",
+          "role": "Мид"
+        },
+        {
+          "name": "Дмитрий «jxdzxq» Кочин",
+          "role": "Хардлейн"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-way-prod",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Way Prod.",
+      "members": [
+        {
+          "name": "Максим «hope» Архипов",
+          "role": "Создатель, капитан"
+        },
+        {
+          "name": "Егор «егор»",
+          "role": "Позиция 2"
+        },
+        {
+          "name": "Серафим «kt0_0n»",
+          "role": "Аналитик, коммуникация"
+        },
+        {
+          "name": "Настя «Lan»",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Александр «Tmorekon» Горенков",
+          "role": "Позиция 5"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-qual-2026-team-6b60ec1c",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Ближайшие",
+      "members": [
+        {
+          "name": "Дмитрий «Pomyanem» Штольц",
+          "role": "Позиция 5"
+        },
+        {
+          "name": "Даниил «MiX» Ефимов",
+          "role": "Позиция 1"
+        },
+        {
+          "name": "Егор «NONONO» Троицкий",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Сергей «12tango» Воробьёв",
+          "role": "Позиция 2"
+        },
+        {
+          "name": "Евгений «Prodigy» Гурьев",
+          "role": "Позиция 3, капитан"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-tech-titans",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Tech Titans",
+      "members": [
+        {
+          "name": "Арсений Павлов",
+          "role": "Позиция 1"
+        },
+        {
+          "name": "Андрей «STRUTFITGO» Круглов",
+          "role": "Позиция 2"
+        },
+        {
+          "name": "Савелий «Majengo» Павлов",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Артём «паршивец» Любичев",
+          "role": "Позиция 3"
+        },
+        {
+          "name": "Алексей «Ryūketsu | 竜血» Мушенко",
+          "role": "Позиция 5"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-qual-2026-team-49a43472",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Не Знающие Побед",
+      "members": [
+        {
+          "name": "Нил «my life is the moon» Громов",
+          "role": "Позиция 1, капитан"
+        },
+        {
+          "name": "Сергей «kawaler» Агеев",
+          "role": "Позиция 2"
+        },
+        {
+          "name": "Роман «eternal aggressive 14 y.o kid» Щербович",
+          "role": "Позиция 3"
+        },
+        {
+          "name": "Богдан «RealDurak» Мусаев",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Тимофей «5POZZZZnyasha» Карпунин",
+          "role": "Позиция 5"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-e2c97c00",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "YGK",
+      "members": [
+        {
+          "name": "Матвей «Shudi» Костров",
+          "role": "Оффлейн"
+        },
+        {
+          "name": "Дмитрий «s1dstep» Донцов",
+          "role": "Мид"
+        },
+        {
+          "name": "Владимир «Empant1k» Ефимов",
+          "role": "Поддержка"
+        },
+        {
+          "name": "Роман «kuoqu» Савватеев",
+          "role": "Керри"
+        },
+        {
+          "name": "Савелий «kudrii» Корякин",
+          "role": "Позиция 5, капитан"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-buyback-academy",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Buyback Academy",
+      "members": [
+        {
+          "name": "Игорь «Юрий Цезарь» Ужусенис",
+          "role": "Оффлейн"
+        },
+        {
+          "name": "Евгений «Ладно» Хохлов",
+          "role": "Мид"
+        },
+        {
+          "name": "Максим «Arlekin» Борзов",
+          "role": "Поддержка"
+        },
+        {
+          "name": "Дмитрий «GolfRinger» Арестов",
+          "role": "Керри"
+        },
+        {
+          "name": "Андрей «Patapuf» Романовский",
+          "role": "Позиция 5, капитан"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-89e35bfd",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Гики",
+      "members": [
+        {
+          "name": "Семён «letsgojedi» Федоров",
+          "role": "Позиция 5"
+        },
+        {
+          "name": "Сергей «sErk0i» Габулян",
+          "role": "Керри"
+        },
+        {
+          "name": "Егор «3902163» Лысенко",
+          "role": "Оффлейн"
+        },
+        {
+          "name": "Денис «den» Воеводин",
+          "role": "Поддержка"
+        },
+        {
+          "name": "Вадим «vizi» Крутиков",
+          "role": "Мид"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-steel-titans",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Steel Titans",
+      "members": [
+        {
+          "name": "Эльнур «CraftOne» Алыев",
+          "role": "Поддержка"
+        },
+        {
+          "name": "Вадим «Backer» Куликов",
+          "role": "Оффлейн"
+        },
+        {
+          "name": "Артём «eyaewo» Мазнев",
+          "role": "Мид"
+        },
+        {
+          "name": "Богдан «danone» Гнусин",
+          "role": "Позиция 5"
+        },
+        {
+          "name": "Алексей «PaPa_karpa» Елесичев",
+          "role": "Керри"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-yellow-submarine",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Yellow Submarine",
+      "members": [
+        {
+          "name": "Арсений «Saint’»",
+          "role": "Позиция 4, капитан"
+        },
+        {
+          "name": "Эльдар «Stglin»",
+          "role": "Мид"
+        },
+        {
+          "name": "Михаил «Fun mode»",
+          "role": "Позиция 3"
+        },
+        {
+          "name": "Данил «六六六»",
+          "role": "Керри"
+        },
+        {
+          "name": "Иван «Величайший»",
+          "role": "Позиция 5"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-japan",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Japan日本",
+      "members": [
+        {
+          "name": "Валера «卵を食べる» Крохмаль",
+          "role": "Позиция 5"
+        },
+        {
+          "name": "Кирилл «浪人 Ronin» Лазарев",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Кирилл «Veni Vidi Vigor» Вязиков",
+          "role": "Позиция 3"
+        },
+        {
+          "name": "Евгений «PradaBlades» Сухарев",
+          "role": "Позиция 2"
+        },
+        {
+          "name": "Никита «凪 Seishiro» Быстров",
+          "role": "Позиция 1"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-borisogleb",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Team Borisogleb",
+      "members": [
+        {
+          "name": "Андрей «Dedredd» Бородулин",
+          "role": "Позиция 1, капитан"
+        },
+        {
+          "name": "Артём «123» Кулигин",
+          "role": "Позиция 5"
+        },
+        {
+          "name": "Сергей «AVGSam» Аракелян",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Евгений «Eclipse» Ржаников",
+          "role": "Позиция 3"
+        },
+        {
+          "name": "Сергей «gorjiik» Горюнов",
+          "role": "Позиция 2"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-mi-ne-pushim",
+      "tournamentId": "dota2-qual-2026",
+      "sourceId": "ycs-bar-dota2-qual",
+      "sourceName": "Mi Ne Pushim!",
+      "members": [
+        {
+          "name": "Кирилл «Ucomion» Олешков",
+          "role": "Позиция 1"
+        },
+        {
+          "name": "Мутаев «Bi-Khan» Хасан",
+          "role": "Позиция 3"
+        },
+        {
+          "name": "Александр «Narfle» Карсаков",
+          "role": "Позиция 4"
+        },
+        {
+          "name": "Сергей «КАМЕНЬ» Дружининский",
+          "role": "Позиция 2, капитан"
+        },
+        {
+          "name": "Евгений «Arbuzer» Титов",
+          "role": "Позиция 5"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-saint-worms",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "Saint Worms",
+      "members": [
+        {
+          "name": "Арсений «Ze1ter» Вяткин",
+          "role": "Капитан, IGL"
+        },
+        {
+          "name": "Василий «dassh» Суриков",
+          "role": "Снайпер"
+        },
+        {
+          "name": "Владимир «-rmb» Карпенко",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Александр «alvilevnet» Левковский",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Михаил «Kazyal266» Царёв",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-the-eagles",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "The Eagles",
+      "members": [
+        {
+          "name": "Тимофей «kyucoma» Лобанов",
+          "role": "Капитан"
+        },
+        {
+          "name": "Рома «frezee» Додонов",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Артем «Kill dante» Шухалов",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Артём «mado» Леонов",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Гордей «Qw1n» Масленников",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-august-2026-cipher",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "CipHer",
+      "members": [
+        {
+          "name": "Евгений «frost1klq»",
+          "role": "Капитан, AWP"
+        },
+        {
+          "name": "Юрий «покекал»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Владислав «Жны)(fr»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Максим «$FeXR»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "poteryannn",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-pickmi-guys",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "Pickmi Guys",
+      "members": [
+        {
+          "name": "Wo1rey",
+          "role": "Капитан"
+        },
+        {
+          "name": "PE1MEN",
+          "role": "Рифлер"
+        },
+        {
+          "name": "фуримаэстро",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Raitee",
+          "role": "Рифлер"
+        },
+        {
+          "name": "K1rka",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-slabeyshie",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "Slabeyshie",
+      "members": [
+        {
+          "name": "david «Davbratiskin»",
+          "role": "Капитан"
+        },
+        {
+          "name": "Егор «XelX»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "fedya «dodiq»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "kirill «quentanisaqu»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Stepa «Stepa»",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-team-dc754699",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "НМР",
+      "members": [
+        {
+          "name": "Герман «Om Nom»",
+          "role": "Капитан"
+        },
+        {
+          "name": "ignat «namen0v»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "stepa «1312»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Roma «drops»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Илья «easily»",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-ligachad",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "LigaChad",
+      "members": [
+        {
+          "name": "Алексей «kid»",
+          "role": "Капитан"
+        },
+        {
+          "name": "Никита «TRAKTOR1337»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Камиль «Decoy»",
+          "role": "Замена"
+        },
+        {
+          "name": "Николай «Латезик»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Семён «Akterhall»",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-vpopengagen-wolves",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "Vpopengagen wolves",
+      "members": [
+        {
+          "name": "J0rdan",
+          "role": "Капитан, люрк"
+        },
+        {
+          "name": "Brokedaysl",
+          "role": "Энтри"
+        },
+        {
+          "name": "sslightlymad",
+          "role": "Рифлер"
+        },
+        {
+          "name": "hottest",
+          "role": "Снайпер"
+        },
+        {
+          "name": "Леонардо",
+          "role": "Клоузер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-team-77844195",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "КИТ, Кипар и татары",
+      "members": [
+        {
+          "name": "ТатаР",
+          "role": "Капитан"
+        },
+        {
+          "name": "K1par",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Vektor)) Кирилл",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Алекс",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Александр «XANDRRR»",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-february-2026-fist-beer-960854",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "FIST&BEER (Кулачки&Пиво)",
+      "members": [
+        {
+          "name": "[将] ZAN",
+          "role": "Капитан, инициатор"
+        },
+        {
+          "name": "🧢 SoLeK",
+          "role": "Ветеран"
+        },
+        {
+          "name": "Uneety",
+          "role": "Рифлер"
+        },
+        {
+          "name": "🌊 Aqua好的",
+          "role": "Стратег"
+        },
+        {
+          "name": "🐍 mambaX",
+          "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-august-2026-resistance",
+      "tournamentId": "cs2-february-2026",
+      "sourceId": "ycs-bar-cs2-february",
+      "sourceName": "Resistance",
+      "members": [
+        {
+          "name": "Дмитрий smane",
+          "role": "Капитан"
+        },
+        {
+          "name": "Артём «nechinazes»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Игорь «lamoz»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Дмитрий «De7ire»",
+          "role": "Рифлер"
+        },
+        {
+          "name": "Павел «Axe»",
+          "role": "Рифлер"
+        }
+      ]
+    }
+  ]
+}

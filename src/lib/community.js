@@ -1,4 +1,4 @@
-// Public sporting data only. No visitor, player or application records.
+// Public sporting data only. Published tournament rosters are separate from registration data.
 export const finishedStatuses = new Set(['completed', 'walkover', 'bye']);
 export const matchStates = {
   scheduled: 'Матч назначен', live: 'Идёт матч', completed: 'Матч завершён',
@@ -58,7 +58,9 @@ export function flattenMatches(tournaments) {
   ));
 }
 
-export function buildCommunityModel(tournaments, registry) {
+export function buildCommunityModel(tournaments, registry, rosters = { records: [], sources: [] }) {
+  const rosterSources = new Map(rosters.sources.map((source) => [source.id, source]));
+  const rosterByEntry = new Map(rosters.records.map((record) => [matchKey(record.tournamentId, record.teamId), { ...record, source: rosterSources.get(record.sourceId) }]));
   const teams = new Map(registry.teams.map((team) => [team.id, { ...team, matches: [], entries: [] }]));
   const teamAliases = new Map((registry.aliases || []).map((alias) => [alias.id, alias.teamId]));
   const getTeam = (id) => teams.get(teamAliases.get(id) || id) || null;
@@ -80,7 +82,7 @@ export function buildCommunityModel(tournaments, registry) {
     const names = [...new Set(participationBindings.filter((b) => b.teamId === team.id && b.tournamentId === tournament.id).map((b) => b.sourceName))];
     const placement = tournament.results?.placements?.find((p) => names.includes(p.team))?.position || null;
     const participant = tournament.participants?.find((p) => p.teamId === team.id);
-    team.entries.push({ tournament, names, placement, status: participant?.status || null, displayName: participant?.displayName || names[0] });
+    team.entries.push({ tournament, names, placement, status: participant?.status || null, displayName: participant?.displayName || names[0], roster: rosterByEntry.get(matchKey(tournament.id, team.id)) || null });
   }
   return { teams, matches, resolveTeam, getTeam, teamAliases };
 }

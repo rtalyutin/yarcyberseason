@@ -1,0 +1,66 @@
+@import "../design/tokens.css";
+@font-face { font-family: "YCS Sans"; src: url("/assets/fonts/DejaVuSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "YCS Sans"; src: url("/assets/fonts/DejaVuSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Roboto Condensed"; src: url("/assets/fonts/RobotoCondensed.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Roboto Condensed"; src: url("/assets/fonts/RobotoCondensed-Italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+html { background: #070a0d; color-scheme: dark; }
+body { margin: 0; }
+.tg-app { box-sizing: border-box; max-width: var(--tg-content-max); min-height: var(--tg-viewport-height, 100dvh); margin: auto; background: var(--tg-ink); color: var(--tg-ivory); font: 1rem/1.5 var(--tg-font-body); padding: calc(max(env(safe-area-inset-top, 0px), var(--tg-safe-area-top, 0px)) + var(--tg-content-safe-area-top, 0px)) calc(max(env(safe-area-inset-right, 0px), var(--tg-safe-area-right, 0px)) + var(--tg-content-safe-area-right, 0px)) calc(max(env(safe-area-inset-bottom, 0px), var(--tg-safe-area-bottom, 0px)) + var(--tg-content-safe-area-bottom, 0px)) calc(max(env(safe-area-inset-left, 0px), var(--tg-safe-area-left, 0px)) + var(--tg-content-safe-area-left, 0px)); }
+.tg-app *, .tg-app *::before, .tg-app *::after { box-sizing: border-box; }
+.tg-app button, .tg-app select { font: inherit; color: inherit; }
+.tg-app button { cursor: pointer; border: 0; min-height: 44px; }
+.tg-app button:focus-visible, .tg-app select:focus-visible { outline: 3px solid var(--tg-cyan); outline-offset: 3px; }
+.tg-app h1:focus { outline: none; }
+.tg-app h1, .tg-app h2 { overflow-wrap: anywhere; }
+.tg-header { position: relative; z-index: 2; display: flex; gap: 12px; justify-content: space-between; align-items: center; min-height: 68px; padding: 10px 18px; border-bottom: 1px solid var(--tg-line); }
+.tg-logo { object-fit: contain; }
+.tg-header .tg-kicker, .tg-discipline { font: 700 .875rem/1.2 var(--tg-font-display); }
+.tg-discipline { color: var(--tg-red); }
+.tg-back { width: 48px; font-size: 1.75rem !important; background: transparent; }
+.tg-kicker { margin: 0; font: 700 .875rem/1.4 var(--tg-font-display); letter-spacing: .1em; text-transform: uppercase; }
+.tg-hero { position: relative; isolation: isolate; min-height: 450px; padding: 38px 24px 32px; display: flex; flex-direction: column; justify-content: flex-start; }
+.tg-art { position: absolute; z-index: -1; inset: 0; overflow: hidden; }
+.tg-art::after { content: ""; position: absolute; inset: 0; background: url("/assets/themes/dota-fracture-frame-lite.webp") 54% 0 / auto 580px no-repeat; mask: url("/assets/themes/dota-fracture-mask-lite.png") 54% 0 / auto 580px no-repeat; mask-mode: luminance; }
+.tg-map { position: absolute; inset: 0; background: url("/assets/themes/yaroslavl-dota-768.webp") 52% center / cover no-repeat; }
+.tg-map::after { content: ""; position: absolute; inset: 0; background: #07111677; }
+.tg-hero h1 { margin: 22px 0 0; font: 900 italic clamp(3.8rem, 15vw, 6rem)/.98 var(--tg-font-display); letter-spacing: -.04em; transform: skewY(-3deg); text-shadow: 0 3px 0 #111; }
+.tg-hero h1 span, .tg-hero h1 em { display: block; }
+.tg-hero h1 em { color: var(--tg-red); }
+.tg-date { margin: auto 0 0; padding-top: 28px; font: 700 1.65rem/1.15 var(--tg-font-display); text-transform: uppercase; text-shadow: 0 2px 3px #000; }
+.tg-dock { position: relative; margin: 0 16px 20px; padding: 16px; background: var(--tg-panel); border: 1px solid var(--tg-line); }
+.tg-status { display: flex; justify-content: space-between; align-items: center; gap: 16px; font: 700 .875rem/1.4 var(--tg-font-display); padding-bottom: 14px; }
+.tg-status > span { color: var(--tg-muted); }
+.tg-status strong { white-space: nowrap; }
+.tg-primary { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; background: var(--tg-red); color: #fff !important; font: 700 1.05rem/1.3 var(--tg-font-display) !important; text-transform: uppercase; text-align: left; }
+.tg-primary > span { font-size: 1.6rem; }
+.tg-secondary { width: 100%; margin-top: 8px; background: transparent; color: var(--tg-muted) !important; font-size: .875rem !important; }
+.tg-partners { margin: 0 16px 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--tg-line); }
+.tg-partners > div { min-width: 0; background: var(--tg-ivory); padding: 12px; }
+.tg-partners img { display: block; width: 100%; height: 46px; object-fit: contain; }
+.tg-tournament-title { padding: 26px 20px; background: var(--tg-panel); border-bottom: 1px solid var(--tg-line); }
+.tg-tournament-title h1 { max-width: 12ch; margin: 12px 0 24px; font: 900 italic 3.5rem/1 var(--tg-font-display); color: var(--tg-ivory); }
+.tg-tournament-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font: 700 .95rem/1.4 var(--tg-font-display); }
+.tg-tournament-meta strong { color: var(--tg-cyan); }
+.tg-section-strip { display: flex; gap: 24px; padding: 0 20px; overflow-x: auto; border-bottom: 1px solid var(--tg-line); }
+.tg-section-strip button { flex-shrink: 0; padding: 14px 0; background: transparent; color: var(--tg-muted); border-bottom: 3px solid transparent; }
+.tg-section-strip button[aria-current] { color: var(--tg-ivory); border-bottom-color: var(--tg-red); }
+.tg-participants, .tg-overview { padding: 24px 20px; }
+.tg-participants > .tg-kicker { color: var(--tg-red); }
+.tg-participants h2 { font: 700 2rem/1.2 var(--tg-font-display); margin: 8px 0 16px; }
+.tg-participants ol { list-style: none; padding: 0; margin: 0; }
+.tg-participants li { display: grid; grid-template-columns: 22px 36px minmax(0, 1fr); column-gap: 10px; align-items: center; min-height: 76px; padding: 12px 0; border-top: 1px solid var(--tg-line); }
+.tg-team-number { color: var(--tg-muted); font: 700 .8rem var(--tg-font-display); grid-row: span 2; }
+.tg-team-mark { display: grid; place-items: center; width: 36px; height: 36px; object-fit: contain; background: var(--tg-panel-raised); color: var(--tg-cyan); grid-row: span 2; }
+.tg-participants li strong { font: 700 1.125rem/1.25 var(--tg-font-display); overflow-wrap: anywhere; }
+.tg-participants li small { grid-column: 3; color: var(--tg-success); font-size: .8rem; }
+.tg-overview > p { margin-top: 0; }
+.tg-facts { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.tg-facts li { padding: 8px 12px; border: 1px solid var(--tg-line); font-family: var(--tg-font-display); }
+.tg-notice { color: var(--tg-muted); padding: 12px 20px; }
+.tg-overview .tg-notice { padding: 12px 0; }
+.tg-message { padding: 28px; }
+.tg-message button { padding: 12px 18px; color: #fff; background: var(--tg-red); }
+.tg-settings { padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 12px; }
+.tg-settings select { margin-left: 8px; }
+@media (min-width: 600px) { .tg-hero { min-height: 510px; padding: 40px; } .tg-art::after { background-size: cover; mask-size: cover; } .tg-tournament-title, .tg-overview, .tg-participants { padding: 32px; } .tg-participants li { grid-template-columns: 30px 40px minmax(0, 1fr) auto; } .tg-team-number, .tg-team-mark { grid-row: auto; } .tg-participants li small { grid-column: auto; } }
+@media (prefers-reduced-motion: reduce) { .tg-app *, .tg-app *::before, .tg-app *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }

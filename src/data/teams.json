@@ -212,6 +212,7 @@
     {
       "id": "dota2-main-2026-mi-ne-pushim",
       "name": "Mi ne Pushim!",
+      "logo": "/assets/teams/dota2/mi-ne-pushim/logo.jpg",
       "previousNames": [
         {
           "name": "Mi ne pushim",
@@ -346,6 +347,7 @@
     {
       "id": "dota2-qual-2026-arb-esports",
       "name": "ARB ESports",
+      "logo": "/assets/teams/dota2/arb-esports/logo.jpg",
       "disciplines": [
         "Dota 2"
       ]
@@ -381,6 +383,7 @@
     {
       "id": "dota2-autumn-2026-leto-jr",
       "name": "Leto Jr",
+      "logo": "/assets/teams/dota2/leto-jr/logo.png",
       "disciplines": [
         "Dota 2"
       ]

@@ -1,0 +1,129 @@
+/* One header geometry on every route; page-specific styles only set its palette. */
+.ycs-header {
+  --header-bg: #060d17;
+  --header-text: #eef3ff;
+  --header-muted: #aebbd1;
+  --header-rule: #29394e;
+  --header-accent: #75a4ff;
+  --header-selected: #2867ee;
+  --header-selected-text: #fff;
+  --header-hover: #15263e;
+  position: relative;
+  z-index: 50;
+  width: min(100%, 1800px);
+  margin-inline: auto;
+  background: var(--header-bg);
+  color: var(--header-text);
+  border-bottom: 1px solid var(--header-rule);
+  font-family: "YCS Sans", Arial, sans-serif;
+}
+.site-shell[data-theme="dota2"] .ycs-header {
+  --header-bg: #061f22; --header-text: #f3efdc; --header-muted: #b7d0ca;
+  --header-rule: #365753; --header-accent: #8ff3e5; --header-selected: #8ff3e5;
+  --header-selected-text: #062623; --header-hover: #153c3c;
+}
+.site-shell--home[data-theme="dota2"] .ycs-header { --header-bg: #061118; }
+.site-shell[data-theme="corporate"] .ycs-header {
+  --header-bg: #f5f7fb; --header-text: #101c30; --header-muted: #4e607c;
+  --header-rule: #cbd6e7; --header-accent: #1759de; --header-selected: #1759de;
+  --header-selected-text: #fff; --header-hover: #e3ecfb;
+}
+.site-shell--about .ycs-header { --header-bg: #080b12; --header-rule: #2a3241; }
+.ycs-header-row {
+  min-height: 88px;
+  padding: 16px 36px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.ycs-header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  min-height: 44px;
+  color: var(--header-muted);
+  text-decoration: none;
+}
+.ycs-header-brand img { display: block; width: 92px; height: 42px; object-fit: cover; }
+.ycs-header-brand span { font-size: 9px; line-height: 1.5; font-weight: 700; letter-spacing: .15em; }
+.ycs-header-desktop { display: flex; align-items: center; gap: 20px; margin-left: auto; }
+.ycs-header-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 0;
+  border-bottom: 2px solid transparent;
+  color: var(--header-text);
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.ycs-header-link:hover, .ycs-header-link[aria-current] { color: var(--header-accent); border-bottom-color: var(--header-accent); }
+.ycs-header-theme { flex-shrink: 0; }
+.ycs-theme-toolbar { display: flex; align-items: center; gap: 10px; }
+.ycs-theme-label { color: var(--header-muted); font-size: 11px; }
+.ycs-theme-switcher { display: flex; border: 1px solid var(--header-rule); }
+.ycs-theme-switcher button {
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--header-text);
+  background: transparent;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ycs-theme-switcher button + button { border-left: 1px solid var(--header-rule); }
+.ycs-theme-switcher button:hover { background: var(--header-hover); }
+.ycs-theme-switcher button[aria-pressed="true"] { background: var(--header-selected); color: var(--header-selected-text); }
+.ycs-header-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: auto;
+  padding: 8px 10px;
+  border: 1px solid var(--header-rule);
+  background: transparent;
+  color: var(--header-text);
+  font-size: 12px;
+  cursor: pointer;
+}
+.ycs-header-toggle svg { width: 24px; height: 24px; flex-shrink: 0; }
+.ycs-header-panel { display: none; }
+.ycs-header :is(a, button):focus-visible { outline: 2px solid var(--header-accent); outline-offset: 3px; }
+@media (max-width: 1199px) {
+  .ycs-header-row { min-height: 76px; padding: 14px 24px; gap: 16px; }
+  .ycs-header-desktop, .ycs-header-theme { display: none; }
+  .ycs-header-toggle { display: inline-flex; }
+  .ycs-header-panel:not([hidden]) {
+    display: block;
+    position: absolute;
+    inset: 100% 0 auto;
+    max-height: calc(100dvh - 77px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 10px 24px 24px;
+    border-bottom: 1px solid var(--header-rule);
+    background: var(--header-bg);
+    box-shadow: 0 16px 32px #0004;
+  }
+  .ycs-header-mobile { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+  .ycs-header-mobile .ycs-header-link { min-height: 48px; font-size: 14px; border-bottom-color: var(--header-rule); }
+  .ycs-header-mobile .ycs-header-link[aria-current] { border-bottom-color: var(--header-accent); }
+  .ycs-header-panel .ycs-theme-toolbar { margin-top: 22px; }
+}
+@media (max-width: 480px) {
+  .ycs-header-row { padding-inline: 16px; gap: 12px; }
+  .ycs-header-brand span { font-size: 8px; letter-spacing: .1em; }
+  .ycs-header-toggle span { display: none; }
+  .ycs-header-panel:not([hidden]) { padding-inline: 16px; }
+  .ycs-header-mobile { grid-template-columns: minmax(0, 1fr); }
+  .ycs-header-panel .ycs-theme-toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .ycs-theme-switcher button { flex: 1; padding-inline: 10px; }
+}

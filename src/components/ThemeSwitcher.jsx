@@ -1,13 +1,13 @@
+import { useId } from "react";
 import { THEMES } from "../lib/theme.js";
 
 export function ThemeSwitcher({ theme, onChange }) {
-  return <div className="theme-toolbar">
-    <div className="theme-toolbar-inner">
-      <span id="theme-label">Тема:</span>
-      <div className="theme-switcher" role="group" aria-labelledby="theme-label">
-        {THEMES.map(({ id, label }) => <button key={id} type="button"
-          aria-pressed={theme === id} onClick={() => onChange(id)}>{label}</button>)}
-      </div>
+  const labelId = useId();
+  return <div className="ycs-theme-toolbar">
+    <span className="ycs-theme-label" id={labelId}>Тема:</span>
+    <div className="ycs-theme-switcher" role="group" aria-labelledby={labelId}>
+      {THEMES.map(({ id, label }) => <button key={id} type="button"
+        aria-pressed={theme === id} onClick={() => onChange(id)}>{label}</button>)}
     </div>
   </div>;
 }

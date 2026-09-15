@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, CaretRight, List, Plus, X } from "@phosphor-icons/react";
+import { ArrowUpRight, CaretRight, Plus } from "@phosphor-icons/react";
 import { getTournamentOutcome, isArchive, hasScore, isFinished, registrationCountLabel } from "./lib/tournament.js";
 import { community } from './data/community.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
-import { ThemeSwitcher, ThemeArtwork } from "./components/ThemeSwitcher.jsx";
+import { ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
 import "./themes.css";
 import "./internal-themes.css";
@@ -16,20 +16,13 @@ import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './compo
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import { TechiesEgg } from "./components/TechiesEgg.jsx";
 import { AboutPage } from "./components/AboutPage.jsx";
+import { SiteHeader } from "./components/SiteHeader.jsx";
 import {
   archivedTournaments,
   currentTournament,
   getTournament,
   nextTournament,
 } from "./data/tournaments/index.js";
-
-const navItems = [
-  { label: isArchive(currentTournament) ? "Итоги CS2" : "Сейчас", href: `/tournaments/${currentTournament.slug}` },
-  { label: "Следующий Dota 2", href: "/tournaments/dota2-autumn-2026" },
-  { label: "Архив", href: "/results" },
-  { label: "Трансляции", href: "/broadcasts" },
-  { label: "Партнёры", href: "/partners" },
-];
 
 function useLocationPath() {
   const [path, setPath] = useState(() => window.location.pathname || "/");
@@ -83,73 +76,17 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 }
 
 function PageFrame({ children, navigate, path, theme, onThemeChange }) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const isHome = path === "/";
   const isAbout = path.replace(/\/$/, "") === "/about";
   const isTeam = path.startsWith("/teams/");
   const isMatchday = path === currentTournament.matchday?.route;
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
-  const integratedTheme = isTeam || (isHome && theme === "dota2") || ((isTournament || isMatchday) && theme !== "dota2");
-  const homeNav = [
-    { label: "Турниры", href: "/" },
-    { label: "Matchday", href: currentTournament.matchday.route },
-    { label: "Архив", href: "/results" },
-    { label: "О проекте", href: "/about" },
-  ];
-  const pageNav = isHome || isTeam || isAbout ? homeNav : isTournament ? [
-    { label: "Турниры", href: "/" },
-    { label: "Matchday", href: currentTournament.matchday.route },
-    { label: "Трансляции", href: "/broadcasts" },
-  ] : isMatchday ? [
-    { label: "Турнир", href: `/tournaments/${currentTournament.id}` },
-    { label: "Matchday", href: currentTournament.matchday.route },
-    { label: "Трансляции", href: "/broadcasts" },
-  ] : navItems;
-
-  const go = (href) => {
-    setMenuOpen(false);
-    navigate(href);
-  };
 
   return (
     <div data-theme={isAbout ? "ycs" : theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
       <div className="site-background" aria-hidden="true" />
-      {!isAbout && !integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
-      <div className="site-header">
-      <header className="topbar">
-        <button className="brand" type="button" onClick={() => go("/")} aria-label="YCS — на главную">
-          <img src="/assets/ycs-logo.jpg" alt="ЯКС" />
-          <span>YAR CYBER SEASON</span>
-        </button>
-        {isMatchday && <p className="md-mobile-title">Matchday</p>}
-        <nav className="desktop-nav" aria-label="Основная навигация">
-          {pageNav.map((item) => (
-            <button
-              key={item.href}
-              type="button"
-              className={path === item.href || (isAbout && item.href === "/about") || (isTournament && item.href === "/") ? "nav-link is-active" : "nav-link"}
-              onClick={() => go(item.href)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-        {!isAbout && integratedTheme && <ThemeSwitcher theme={theme} onChange={onThemeChange} />}
-        <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>
-          {isHome || isAbout || isMatchday || isTournament || isTeam ? (menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />) : (menuOpen ? "Закрыть" : "Меню")}
-        </button>
-      </header>
-      {menuOpen && (
-        <nav className="mobile-nav" aria-label="Мобильная навигация">
-          {pageNav.map((item) => (
-            <button key={item.href} type="button" onClick={() => go(item.href)}>
-              {item.label}
-            </button>
-          ))}
-          {!isAbout && <button type="button" onClick={() => go("/about")}>О проекте</button>}
-        </nav>
-      )}
-      </div>
+      <SiteHeader path={path} navigate={navigate} theme={theme} onThemeChange={onThemeChange}
+        matchdayRoute={currentTournament.matchday.route} fixedTheme={isAbout} />
       {children}
       {!isHome && <Footer navigate={navigate} compact={isTournament} />}
     </div>

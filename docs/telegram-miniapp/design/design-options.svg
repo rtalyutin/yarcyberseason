@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980">
+  <defs>
+    <clipPath id="a-map"><path d="M95 245 L350 215 L374 474 L72 512 Z"/></clipPath>
+    <clipPath id="b-map"><rect x="800" y="193" width="310" height="230"/></clipPath>
+  </defs>
+  <rect width="1500" height="980" fill="#050608"/>
+  <text x="64" y="55" fill="#42d9ee" font-family="DejaVu Sans" font-size="13" font-weight="700" letter-spacing="3">YCS · TELEGRAM MINI APP · DESIGN GATE</text>
+  <text x="64" y="108" fill="#f1eadc" font-family="DejaVu Sans" font-size="44" font-weight="700">Два экрана. Два характера.</text>
+  <line x1="64" y1="138" x2="1436" y2="138" stroke="#343b3f"/>
+
+  <text x="64" y="180" fill="#ef3b2d" font-family="DejaVu Sans" font-size="12" font-weight="700" letter-spacing="2">A · РЕКОМЕНДАЦИЯ</text>
+  <text x="64" y="213" fill="#f1eadc" font-family="DejaVu Sans" font-size="30" font-weight="700">РАЗЛОМ</text>
+  <text x="790" y="180" fill="#42d9ee" font-family="DejaVu Sans" font-size="12" font-weight="700" letter-spacing="2">B · АЛЬТЕРНАТИВА</text>
+  <text x="790" y="213" fill="#f1eadc" font-family="DejaVu Sans" font-size="30" font-weight="700">ТУРНИРНАЯ СЕТКА</text>
+
+  <!-- A / home -->
+  <rect x="64" y="235" width="330" height="680" rx="28" fill="#080909" stroke="#596166" stroke-width="2"/>
+  <rect x="79" y="250" width="300" height="44" fill="#111517"/>
+  <image href="../../../public/assets/ycs-logo.jpg" x="94" y="257" width="70" height="31" preserveAspectRatio="xMidYMid slice"/>
+  <text x="358" y="276" text-anchor="end" fill="#c4cdcf" font-family="DejaVu Sans" font-size="9" letter-spacing="2">MINI APP</text>
+  <image href="../../../public/assets/themes/yaroslavl-dota-768.webp" x="72" y="205" width="330" height="360" clip-path="url(#a-map)" opacity=".62" preserveAspectRatio="xMidYMid slice"/>
+  <path d="M79 225 H379 V345 Q286 310 218 355 T79 410 Z" fill="#131719" stroke="#ef3b2d" stroke-width="4"/>
+  <path d="M79 514 Q155 470 220 505 T379 465 V560 H79 Z" fill="#0d1518" stroke="#42d9ee" stroke-width="4"/>
+  <text x="94" y="326" fill="#c6d0d1" font-family="DejaVu Sans" font-size="10" font-weight="700" letter-spacing="2">DOTA 2 · YCS’26 VER.2</text>
+  <text x="94" y="372" fill="#f1eadc" font-family="DejaVu Sans" font-size="43" font-weight="700">ГОРОД</text>
+  <text x="94" y="414" fill="#f1eadc" font-family="DejaVu Sans" font-size="43" font-weight="700">ВХОДИТ</text>
+  <text x="94" y="456" fill="#ef3b2d" font-family="DejaVu Sans" font-size="43" font-weight="700">В ИГРУ</text>
+  <text x="94" y="505" fill="#f1eadc" font-family="DejaVu Sans" font-size="29" font-weight="700">10—25</text>
+  <text x="202" y="505" fill="#bac5c7" font-family="DejaVu Sans" font-size="11" font-weight="700">ОКТЯБРЯ</text>
+  <rect x="79" y="595" width="300" height="194" fill="#111517" stroke="#3a4548"/>
+  <circle cx="96" cy="620" r="5" fill="#ef3b2d"/>
+  <text x="109" y="624" fill="#c9d1d2" font-family="DejaVu Sans" font-size="10">РЕГИСТРАЦИЯ ЗАКРЫТА</text>
+  <text x="361" y="624" text-anchor="end" fill="#f1eadc" font-family="DejaVu Sans" font-size="11" font-weight="700">16 / 16</text>
+  <rect x="94" y="646" width="270" height="56" fill="#ef3b2d"/>
+  <text x="112" y="681" fill="white" font-family="DejaVu Sans" font-size="14" font-weight="700">ОТКРЫТЬ ТУРНИР</text>
+  <text x="344" y="681" text-anchor="end" fill="white" font-family="DejaVu Sans" font-size="24">↗</text>
+  <text x="229" y="735" text-anchor="middle" fill="#bac5c7" font-family="DejaVu Sans" font-size="11">Заявленные команды · 16</text>
+  <rect x="79" y="809" width="300" height="84" fill="#eee7db"/>
+  <text x="95" y="842" fill="#17191a" font-family="DejaVu Sans" font-size="9" font-weight="700">ФКС ЯО</text>
+  <text x="229" y="842" text-anchor="middle" fill="#17191a" font-family="DejaVu Sans" font-size="9" font-weight="700">МИНСПОРТА</text>
+  <text x="363" y="842" text-anchor="end" fill="#17191a" font-family="DejaVu Sans" font-size="9" font-weight="700">ДОДО ПИЦЦА</text>
+  <text x="229" y="939" text-anchor="middle" fill="#7d878a" font-family="DejaVu Sans" font-size="11">ГЛАВНАЯ</text>
+
+  <!-- A / tournament -->
+  <rect x="420" y="235" width="330" height="680" rx="28" fill="#080b0d" stroke="#596166" stroke-width="2"/>
+  <rect x="435" y="250" width="300" height="49" fill="#101416"/>
+  <text x="453" y="280" fill="#f1eadc" font-family="DejaVu Sans" font-size="22">←</text>
+  <image href="../../../public/assets/ycs-logo.jpg" x="550" y="258" width="66" height="30" preserveAspectRatio="xMidYMid slice"/>
+  <text x="718" y="278" text-anchor="end" fill="#ef3b2d" font-family="DejaVu Sans" font-size="9" font-weight="700">DOTA 2</text>
+  <text x="451" y="337" fill="#aebabb" font-family="DejaVu Sans" font-size="9" letter-spacing="2">ТЕКУЩИЙ ТУРНИР</text>
+  <text x="451" y="381" fill="#f1eadc" font-family="DejaVu Sans" font-size="37" font-weight="700">YCS’26</text>
+  <text x="451" y="417" fill="#ef3b2d" font-family="DejaVu Sans" font-size="37" font-weight="700">VER.2</text>
+  <text x="451" y="449" fill="#c0cbcc" font-family="DejaVu Sans" font-size="10">10—25 ОКТЯБРЯ</text>
+  <text x="718" y="449" text-anchor="end" fill="#42d9ee" font-family="DejaVu Sans" font-size="10" font-weight="700">16 КОМАНД</text>
+  <line x1="435" y1="471" x2="735" y2="471" stroke="#343d40"/>
+  <text x="451" y="501" fill="#7c888b" font-family="DejaVu Sans" font-size="10">О турнире</text>
+  <text x="526" y="501" fill="#f1eadc" font-family="DejaVu Sans" font-size="10" font-weight="700">Участники</text>
+  <line x1="526" y1="517" x2="582" y2="517" stroke="#ef3b2d" stroke-width="3"/>
+  <text x="609" y="501" fill="#7c888b" font-family="DejaVu Sans" font-size="10">Формат</text>
+  <text x="451" y="558" fill="#ef3b2d" font-family="DejaVu Sans" font-size="9" font-weight="700">УЧАСТНИКИ</text>
+  <text x="451" y="586" fill="#f1eadc" font-family="DejaVu Sans" font-size="25" font-weight="700">16 команд</text>
+  <g fill="#111719" stroke="#2f383b">
+    <rect x="451" y="610" width="267" height="51"/><rect x="451" y="661" width="267" height="51"/><rect x="451" y="712" width="267" height="51"/><rect x="451" y="763" width="267" height="51"/><rect x="451" y="814" width="267" height="51"/>
+  </g>
+  <g fill="#eef0e8" font-family="DejaVu Sans" font-size="13" font-weight="700">
+    <text x="490" y="641">Vnext</text><text x="490" y="692">Leto Jr</text><text x="490" y="743">Mi Ne Pushim!</text><text x="490" y="794">strela team</text><text x="490" y="845">WAYPROD.</text>
+  </g>
+  <g fill="#62c58a" font-family="DejaVu Sans" font-size="8"><text x="700" y="641" text-anchor="end">ЗАЯВЛЕНА</text><text x="700" y="692" text-anchor="end">ЗАЯВЛЕНА</text><text x="700" y="743" text-anchor="end">ЗАЯВЛЕНА</text><text x="700" y="794" text-anchor="end">ЗАЯВЛЕНА</text><text x="700" y="845" text-anchor="end">ЗАЯВЛЕНА</text></g>
+  <text x="585" y="939" text-anchor="middle" fill="#7d878a" font-family="DejaVu Sans" font-size="11">ТУРНИР · УЧАСТНИКИ</text>
+
+  <!-- B / home -->
+  <rect x="790" y="235" width="330" height="680" rx="28" fill="#07101b" stroke="#48617f" stroke-width="2"/>
+  <rect x="805" y="250" width="300" height="51" fill="#091421"/>
+  <image href="../../../public/assets/ycs-logo.jpg" x="820" y="260" width="66" height="30" preserveAspectRatio="xMidYMid slice"/>
+  <text x="1090" y="280" text-anchor="end" fill="#7c91aa" font-family="DejaVu Sans" font-size="9" letter-spacing="2">ЯРОСЛАВЛЬ · 2026</text>
+  <image href="../../../public/assets/themes/yaroslavl-dota-768.webp" x="800" y="190" width="320" height="260" clip-path="url(#b-map)" opacity=".45" preserveAspectRatio="xMidYMid slice"/>
+  <rect x="805" y="301" width="300" height="221" fill="#07101b" opacity=".6"/>
+  <text x="823" y="339" fill="#42d9ee" font-family="DejaVu Sans" font-size="9" font-weight="700" letter-spacing="2">СЛЕДУЮЩИЙ ТУРНИР</text>
+  <text x="823" y="420" fill="#f1eadc" font-family="DejaVu Sans" font-size="45" font-weight="700">DOTA 2</text>
+  <text x="823" y="456" fill="#bfccda" font-family="DejaVu Sans" font-size="22" font-weight="700">YCS’26 VER.2</text>
+  <g fill="#0b1624" stroke="#30415a"><rect x="805" y="523" width="100" height="92"/><rect x="905" y="523" width="100" height="92"/><rect x="1005" y="523" width="100" height="92"/></g>
+  <g fill="#7187a1" font-family="DejaVu Sans" font-size="8"><text x="820" y="548">ДАТЫ</text><text x="920" y="548">КОМАНДЫ</text><text x="1020" y="548">ФОРМАТ</text></g>
+  <g fill="#f1eadc" font-family="DejaVu Sans" font-size="13" font-weight="700"><text x="820" y="582">10—25.10</text><text x="920" y="582">16 / 16</text><text x="1020" y="582">SWISS</text></g>
+  <circle cx="823" cy="647" r="5" fill="#ef3b2d"/><text x="838" y="651" fill="#c2ccd7" font-family="DejaVu Sans" font-size="9">РЕГИСТРАЦИЯ ЗАКРЫТА</text>
+  <rect x="823" y="681" width="264" height="58" fill="#2674ff" stroke="#79a2ff"/>
+  <text x="843" y="717" fill="white" font-family="DejaVu Sans" font-size="14" font-weight="700">Открыть турнир</text><text x="1068" y="717" text-anchor="end" fill="white" font-family="DejaVu Sans" font-size="22">→</text>
+  <text x="955" y="777" text-anchor="middle" fill="#aab9ca" font-family="DejaVu Sans" font-size="11">Смотреть участников</text>
+  <line x1="823" y1="818" x2="1087" y2="818" stroke="#30415a"/>
+  <text x="823" y="851" fill="#6f849e" font-family="DejaVu Sans" font-size="8" letter-spacing="1">ПАРТНЁРЫ · ФКС ЯО · МИНСПОРТА · ДОДО</text>
+  <text x="955" y="939" text-anchor="middle" fill="#71829a" font-family="DejaVu Sans" font-size="11">ГЛАВНАЯ</text>
+
+  <!-- B / tournament -->
+  <rect x="1146" y="235" width="330" height="680" rx="28" fill="#07101b" stroke="#48617f" stroke-width="2"/>
+  <rect x="1161" y="250" width="300" height="51" fill="#091421"/>
+  <text x="1178" y="282" fill="#f1eadc" font-family="DejaVu Sans" font-size="22">←</text><text x="1311" y="280" text-anchor="middle" fill="#f1eadc" font-family="DejaVu Sans" font-size="12" font-weight="700">ТУРНИР</text><text x="1444" y="280" text-anchor="end" fill="#42d9ee" font-family="DejaVu Sans" font-size="9">YCS</text>
+  <rect x="1161" y="301" width="300" height="145" fill="#0a1522"/>
+  <text x="1178" y="337" fill="#42d9ee" font-family="DejaVu Sans" font-size="9" letter-spacing="1">DOTA 2 · 10—25 ОКТЯБРЯ</text>
+  <text x="1178" y="380" fill="#f1eadc" font-family="DejaVu Sans" font-size="30" font-weight="700">YCS’26 VER.2</text>
+  <circle cx="1183" cy="411" r="5" fill="#ef3b2d"/><text x="1196" y="415" fill="#acbac8" font-family="DejaVu Sans" font-size="9">РЕГИСТРАЦИЯ ЗАКРЫТА</text>
+  <rect x="1161" y="446" width="300" height="52" fill="#08111d" stroke="#30415a"/>
+  <text x="1178" y="478" fill="#7d8da3" font-family="DejaVu Sans" font-size="9">Обзор</text><text x="1230" y="478" fill="white" font-family="DejaVu Sans" font-size="9" font-weight="700">Участники 16</text><text x="1313" y="478" fill="#7d8da3" font-family="DejaVu Sans" font-size="9">Формат</text><text x="1368" y="478" fill="#7d8da3" font-family="DejaVu Sans" font-size="9">Матчи</text>
+  <line x1="1230" y1="496" x2="1298" y2="496" stroke="#42d9ee" stroke-width="3"/>
+  <rect x="1176" y="523" width="270" height="336" fill="#09131f" stroke="#30415a"/>
+  <text x="1191" y="558" fill="#f1eadc" font-family="DejaVu Sans" font-size="11" font-weight="700">ЗАЯВЛЕННЫЕ КОМАНДЫ</text><text x="1430" y="558" text-anchor="end" fill="#42d9ee" font-family="DejaVu Sans" font-size="9">16 / 16</text>
+  <g stroke="#263a51"><line x1="1176" y1="577" x2="1446" y2="577"/><line x1="1176" y1="625" x2="1446" y2="625"/><line x1="1176" y1="673" x2="1446" y2="673"/><line x1="1176" y1="721" x2="1446" y2="721"/><line x1="1176" y1="769" x2="1446" y2="769"/><line x1="1176" y1="817" x2="1446" y2="817"/></g>
+  <g fill="#607894" font-family="DejaVu Sans" font-size="8"><text x="1191" y="607">01</text><text x="1191" y="655">02</text><text x="1191" y="703">03</text><text x="1191" y="751">04</text><text x="1191" y="799">05</text><text x="1191" y="847">06</text></g>
+  <g fill="#eef3f8" font-family="DejaVu Sans" font-size="12" font-weight="700"><text x="1222" y="607">Vnext</text><text x="1222" y="655">Leto Jr</text><text x="1222" y="703">Mi Ne Pushim!</text><text x="1222" y="751">strela team</text><text x="1222" y="799">WAYPROD.</text><text x="1222" y="847">Fummo</text></g>
+  <g fill="#42d9ee" font-family="DejaVu Sans" font-size="9" font-weight="700"><text x="1428" y="607" text-anchor="end">V</text><text x="1428" y="655" text-anchor="end">L</text><text x="1428" y="703" text-anchor="end">M</text><text x="1428" y="751" text-anchor="end">S</text><text x="1428" y="799" text-anchor="end">W</text><text x="1428" y="847" text-anchor="end">F</text></g>
+  <text x="1311" y="939" text-anchor="middle" fill="#71829a" font-family="DejaVu Sans" font-size="11">ТУРНИР · УЧАСТНИКИ</text>
+</svg>

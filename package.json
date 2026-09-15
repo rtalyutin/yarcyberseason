@@ -11,6 +11,7 @@
     "test:webmcp": "node --test tests/webmcp.test.mjs",
     "test:matchday": "node --test tests/matchday.test.mjs",
     "test:tournament": "node --test tests/tournament.test.mjs",
+    "test:telegram": "node --test tests/telegram*.test.mjs",
     "calendar:sync": "node scripts/community-build.mjs --sync",
     "test:community": "node --test tests/community*.test.mjs",
     "test:minesweeper": "node --test tests/minesweeper.test.mjs"

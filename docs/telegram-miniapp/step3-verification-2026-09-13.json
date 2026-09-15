@@ -1,0 +1,47 @@
+{
+  "step": "3/7",
+  "checkedAt": "2026-09-13",
+  "input": {
+    "specification": "YarCyberSeason-Telegram-MiniApp-TZ.md 1.1",
+    "specificationSha256": "8c89b5ea1a07a8131b420b12a9f5eb9f66264bfb405252fe7e74733380a774cb",
+    "previousBranchCommit": "f7003fc28f911c201c47a99d3538be59b719459b",
+    "currentMain": "f62a113bbec92e3049508313b93ce1ab78b87073",
+    "siteProjectId": "appgprj_6a8b38b48cec819184375be4f3b5495a"
+  },
+  "modelReadback": {
+    "tournamentSlug": "dota2-autumn-2026",
+    "registration": "closed",
+    "participantCount": 16,
+    "publishedMatchCount": 0,
+    "swissAvailability": "empty",
+    "playoffEmptySlots": 7,
+    "resultsSection": false,
+    "renamedParticipant": "TEAM SPERMINT",
+    "renamedParticipantLogo": "/assets/teams/dota2/spermint/logo.png"
+  },
+  "results": [
+    { "check": "npm run test:telegram", "status": "PASS", "passed": 22, "failed": 0 },
+    { "check": "node --test tests/*.test.mjs after merging main f62a113", "status": "PASS", "passed": 85, "failed": 0 },
+    { "check": "npm run build after merging main f62a113", "status": "PASS", "modules": 4616, "validatedTeams": 50, "validatedMatches": 120 },
+    { "check": "npm run test:sites", "status": "PASS", "passed": 4, "failed": 0 },
+    { "check": "node --check + git diff --check", "status": "PASS" },
+    { "check": "Vite serves design HTML and referenced source assets", "status": "PASS", "phoneMockups": 4 },
+    { "check": "Independent L1/L2/L4 verification after fixes", "status": "PASS", "heldOutGroups": 9 },
+    { "check": "Independent post-merge verification on c792e7a", "status": "PASS", "fullSuitePassed": 85, "telegramPassed": 22, "sitesPassed": 4 }
+  ],
+  "independentFindingsClosed": [
+    "Swiss rows are ordered by published position; rows without position retain stable source order.",
+    "Results require a present, published and confirmed final match.",
+    "Closed registration primary action is label-independent and must resolve to the internal participants section; foreign-origin bypasses are rejected."
+  ],
+  "nonDefectEvents": [
+    "A first parallel full-suite run started Sites packaging checks before the simultaneous build created dist/client/index.html and reported 71/72. Sequential rerun after build passed 72/72."
+  ],
+  "limitations": [
+    "The design direction has not been selected by the user, so the step gate is BLOCKED_USER_SELECTION.",
+    "Cloud Browser could not access the local loopback preview; no browser screenshot or user visual reaction is claimed.",
+    "React screens and the end-to-end navigation scenario belong to step 4 and do not exist yet.",
+    "No real Telegram client or production environment was tested.",
+    "Build retains the pre-existing unresolved NimbusSansNarrow font URL warnings."
+  ]
+}

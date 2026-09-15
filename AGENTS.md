@@ -1,6 +1,7 @@
 # Prototype Instructions
 
 - Telegram Mini App decision (September 14, 2026): MVP has only the accepted «Разлом» theme and Russian. Keep extensible theme and language registries, scoped tokens, interface dictionaries and device-local preference persistence. Show a selector only after its registry contains a second option. Miniapp is limited to `/tg` and `/tg/tournament` for explicit `dota2-autumn-2026`; preserve all main-site themes/routes. No production publication or bot setup without separate permission.
+- Telegram Mini App plan correction (September 14, 2026): eight steps, with step 5 reserved for joint review with Roman on the pinned step 4 build, including real Telegram and explicit acceptance. Do not implement step 6 (remaining tournament sections/version updates) before this gate passes. Agree bot, test HTTPS environment and placement/setup permission before dependent external work. Follow docs/telegram-miniapp/STATE.md; historical seven-step reports do not override this correction.
 
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 

@@ -29,11 +29,12 @@ export function normalizeResult(match, discipline = '') {
   const kind = match.scoreKind || 'unknown';
   const series = kind === 'series' ? raw : kind === 'rounds' && match.bestOf === 'BO1' && raw && raw[0] !== raw[1] ? [Number(raw[0] > raw[1]), Number(raw[1] > raw[0])] : null;
   let maps = (match.maps || []).map((map, i) => ({
+    id: map.id || null,
     name: map.name || `Карта ${i + 1}`, score: pair(map.score1, map.score2),
     unit: discipline === 'Counter-Strike 2' ? 'Раунды' : 'Счёт карты',
     outcome: map.outcome || null,
   }));
-  if (kind === 'rounds' && raw && !maps.length) maps = [{ name: match.map || 'Карта 1', score: raw, unit: 'Раунды', outcome: null }];
+  if (kind === 'rounds' && raw && !maps.length) maps = [{ id: match.mapId || null, name: match.map || 'Карта 1', score: raw, unit: 'Раунды', outcome: null }];
   const known = kind !== 'unknown' && Boolean(raw);
   const score = confirmed && known ? technical ? raw : series : null;
   return {
@@ -71,7 +72,7 @@ export function buildCommunityModel(tournaments, registry, rosters = { records: 
   for (const match of flattenMatches(tournaments)) {
     const key = matchKey(match.tournamentId, match.id);
     if (!match.id || matches.has(key)) throw new Error(`Duplicate or missing match ID: ${key}`);
-    const record = { ...match, key, team1Id: resolveTeam(match.tournamentId, match.team1)?.id || null, team2Id: resolveTeam(match.tournamentId, match.team2)?.id || null, result: normalizeResult(match, match.discipline) };
+    const record = { ...match, key, team1Id: match.team1Id ?? resolveTeam(match.tournamentId, match.team1)?.id ?? null, team2Id: match.team2Id ?? resolveTeam(match.tournamentId, match.team2)?.id ?? null, result: normalizeResult(match, match.discipline) };
     matches.set(key, record);
     for (const id of new Set([record.team1Id, record.team2Id].filter(Boolean))) teams.get(id).matches.push(record);
   }
@@ -82,9 +83,23 @@ export function buildCommunityModel(tournaments, registry, rosters = { records: 
     const names = [...new Set(participationBindings.filter((b) => b.teamId === team.id && b.tournamentId === tournament.id).map((b) => b.sourceName))];
     const placement = tournament.results?.placements?.find((p) => names.includes(p.team))?.position || null;
     const participant = tournament.participants?.find((p) => p.teamId === team.id);
-    team.entries.push({ tournament, names, placement, status: participant?.status || null, displayName: participant?.displayName || names[0], roster: rosterByEntry.get(matchKey(tournament.id, team.id)) || null });
+    const roster = rosterByEntry.get(matchKey(tournament.id, team.id)) || null;
+    team.entries.push({ tournament, names, placement, status: participant?.status || null, displayName: participant?.displayName || names[0], roster, rosterStatus: roster ? 'published' : 'unknown' });
   }
-  return { teams, matches, resolveTeam, getTeam, teamAliases };
+  const maps = new Map();
+  for (const match of matches.values()) {
+    const listed = [
+      ...(match.maps || []),
+      ...(match.mapLinks || []).map((link) => ({ ...link, name: null, score1: null, score2: null })),
+      ...(match.mapId && !match.maps?.length ? [{ id: match.mapId, name: match.map || null, score1: match.score1 ?? null, score2: match.score2 ?? null }] : []),
+    ];
+    for (const map of listed) if (map.id) {
+      const key = matchKey(match.tournamentId, map.id);
+      if (maps.has(key)) throw new Error(`Duplicate map ID: ${key}`);
+      maps.set(key, { ...map, tournamentId: match.tournamentId, seriesId: match.id, seriesKey: match.key, team1Id: match.team1Id, team2Id: match.team2Id });
+    }
+  }
+  return { teams, matches, maps, resolveTeam, getTeam, teamAliases };
 }
 
 export function teamForDiscipline(team, discipline) {

@@ -13,8 +13,8 @@ const rosterAt = (id, tournamentId) => model.getTeam(id).entries.find((entry) =>
 
 test('public archive has provenance and keeps each roster within its source tournament', () => {
   assert.deepEqual(validatePublicRosters(tournaments, registry, rosters), []);
-  assert.equal(rosters.records.length, 25);
-  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 125);
+  assert.equal(rosters.records.length, 26);
+  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 130);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'dota2-qual-2026').length, 14);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'cs2-february-2026').length, 11);
   for (const team of model.teams.values()) for (const entry of team.entries) {

@@ -248,5 +248,5 @@
       "displayName": "РГАТУ",
       "status": "registered"
     }
-  ], "rosterCollection": {"expectedBy": "2026-09-21", "status": "awaiting", "source": "organizer-confirmation-2026-09-16"}
+  ], "rosterCollection": {"expectedBy": "2026-09-21", "status": "collecting", "source": "organizer-confirmation-2026-09-16"}
 }

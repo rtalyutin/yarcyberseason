@@ -26,7 +26,8 @@ test('all published team and match templates render with real JSON', async () =>
             const escapedName = renderToStaticMarkup(React.createElement('strong', null, member.name));
             assert.ok(entryHtml.includes(escapedName), member.name);
           }
-          assert.ok(entryHtml.includes('Источник: ycs.bar'));
+          assert.ok(entryHtml.includes(`Источник: ${new URL(entry.roster.source.url).hostname}`));
+          assert.ok(entryHtml.includes(`href="${entry.roster.source.url}"`));
         } else {
           assert.ok(entryHtml.includes('Состав на этот турнир не опубликован.'));
           assert.ok(!entryHtml.includes('community-roster-list'));

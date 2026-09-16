@@ -14,7 +14,7 @@ const tournaments = filenames.map((f) => read(`src/data/tournaments/${f}`));
 const registry = read('src/data/teams.json'), rosters = read('src/data/team-rosters.json'), sources = read('src/data/data-sources.json');
 const validate = (ts) => validateDataIntegrity(ts, registry, rosters, sources);
 
-test('all prior sporting values survive; only identity and collection metadata is added', () => {
+test('prior sporting values survive identity metadata and the approved KEGA logo update', () => {
   const preserve = (before, after, path) => {
     if (Array.isArray(before)) {
       assert.equal(after.length, before.length, path);
@@ -25,12 +25,14 @@ test('all prior sporting values survive; only identity and collection metadata i
   };
   for (const f of filenames) {
     const before = JSON.parse(execFileSync('git', ['show', `2800ce2e4aa48642ffe0f86343b2ffb0b160bc40:src/data/tournaments/${f}`], { cwd: root, encoding: 'utf8' }));
+    // Organizer-supplied replacement approved on 2026-09-16; all sporting values remain pinned.
+    if (f === 'current-cs2-2026.json') before.teamLogos['PIVNAYA KEGA'] = '/assets/teams/pivnaya-kega/logo-2026-09.png';
     preserve(before, read(`src/data/tournaments/${f}`), f);
   }
   assert.deepEqual(validate(tournaments), []);
 });
 
-test('stable team and map links survive reordering; current rosters stay unknown', () => {
+test('stable links survive reordering; only the submitted autumn roster is published', () => {
   const model = buildCommunityModel(tournaments, registry, rosters);
   const shuffled = structuredClone(tournaments);
   for (const t of shuffled) for (const m of declaredMatches(t)) { m.maps?.reverse(); m.mapLinks?.reverse(); }
@@ -43,9 +45,17 @@ test('stable team and map links survive reordering; current rosters stay unknown
   const autumn = tournaments.find((t) => t.id === 'dota2-autumn-2026');
   for (const p of autumn.participants) {
     const entry = model.getTeam(p.teamId).entries.find((e) => e.tournament.id === autumn.id);
-    assert.equal(entry.roster, null); assert.equal(entry.rosterStatus, 'unknown');
+    if (p.teamId === 'cs2-august-2026-pivnaya-kega') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Pryzrock', 'Y0r1K', 'arti4e', '3pleS', 'Merkel19']);
+      assert.equal(entry.roster.sourceId, 'pivnaya-kega-dota2-autumn-2026-submitted');
+      assert.equal(model.getTeam(p.teamId).entries.find((e) => e.tournament.id === 'cs2-august-2026').roster, null);
+    } else {
+      assert.equal(entry.roster, null); assert.equal(entry.rosterStatus, 'unknown');
+    }
   }
   assert.equal(autumn.rosterCollection.expectedBy, '2026-09-21');
+  assert.equal(autumn.rosterCollection.status, 'collecting');
   const dispute = model.matches.get('dota2-main-2026/dota-main-group-16');
   assert.equal(dispute.result.confirmed, false); assert.equal(dispute.result.series, null);
 });

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/rtalyutin/yarcyberseason",
+  "files": [
+    {
+      "path": "src/data/tournaments/cs2-february-2026.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/tournaments/cs2-february-2026.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    },
+    {
+      "path": "src/data/tournaments/current-cs2-2026.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/tournaments/current-cs2-2026.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    },
+    {
+      "path": "src/data/tournaments/dota2-autumn-2026.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/tournaments/dota2-autumn-2026.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    },
+    {
+      "path": "src/data/tournaments/dota2-main-2026.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/tournaments/dota2-main-2026.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    },
+    {
+      "path": "src/data/tournaments/dota2-qual-2026.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/tournaments/dota2-qual-2026.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    },
+    {
+      "path": "src/data/teams.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/teams.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    },
+    {
+      "path": "src/data/team-rosters.json",
+      "sourceUrl": "https://github.com/rtalyutin/yarcyberseason/blob/2800ce2e4aa48642ffe0f86343b2ffb0b160bc40/src/data/team-rosters.json",
+      "status": "recorded",
+      "observedAt": "2026-09-16"
+    }
+  ],
+  "confirmationPolicy": "recorded means inherited from the pinned repository version, not independently reconfirmed. Match resultConfirmed and roster source records retain their original meaning. Missing rosters are unknown; historical rosters never populate another tournament."
+}

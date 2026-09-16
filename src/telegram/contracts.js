@@ -16,6 +16,7 @@ import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
  * @property {'telegram'|'browser'} kind
  * @property {() => Promise<void>} init
  * @property {() => void} ready
+ * @property {() => void} close
  * @property {() => MiniAppRoute|null} readLaunchTarget
  * @property {(handler: (() => void)|null) => void} setBackHandler
  * @property {(action: Extract<UiAction, {kind: 'external'}>) => void} openExternal
@@ -131,7 +132,7 @@ export function isUiAction(value) {
 
 /** @returns {RuntimePort} */
 export function assertRuntimePort(port) {
-  const methods = ["init", "ready", "readLaunchTarget", "setBackHandler", "openExternal", "onResume", "dispose"];
+  const methods = ["init", "ready", "close", "readLaunchTarget", "setBackHandler", "openExternal", "onResume", "dispose"];
   if (!record(port) || !["telegram", "browser"].includes(port.kind) || methods.some((name) => typeof port[name] !== "function")) {
     throw new TypeError("RuntimePort does not implement the L0 contract");
   }

@@ -12,6 +12,12 @@
       "url": "https://ycs.bar/",
       "section": "CS2",
       "retrievedAt": "2026-09-14"
+    },
+    {
+      "id": "pivnaya-kega-dota2-autumn-2026-submitted",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/assets/teams/pivnaya-kega/dota2-autumn-2026-roster.png",
+      "section": "Состав от команды, передан организатором",
+      "retrievedAt": "2026-09-16"
     }
   ],
   "records": [
@@ -712,6 +718,34 @@
         {
           "name": "Павел «Axe»",
           "role": "Рифлер"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-august-2026-pivnaya-kega",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "pivnaya-kega-dota2-autumn-2026-submitted",
+      "sourceName": "PIVNAYA KEGA",
+      "members": [
+        {
+          "name": "Pryzrock",
+          "role": "Игрок"
+        },
+        {
+          "name": "Y0r1K",
+          "role": "Игрок"
+        },
+        {
+          "name": "arti4e",
+          "role": "Игрок"
+        },
+        {
+          "name": "3pleS",
+          "role": "Игрок"
+        },
+        {
+          "name": "Merkel19",
+          "role": "Игрок"
         }
       ]
     }

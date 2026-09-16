@@ -32,7 +32,7 @@ class FakeTarget {
     this.listeners.get(name).add(handler);
   }
   removeEventListener(name, handler) { this.listeners.get(name)?.delete(handler); }
-  emit(name) { for (const handler of this.listeners.get(name) || []) handler(); }
+  emit(name, event) { for (const handler of this.listeners.get(name) || []) handler(event); }
   count(name) { return this.listeners.get(name)?.size || 0; }
 }
 
@@ -56,7 +56,7 @@ function fakeTelegram(startParam = "participants") {
   return {
     calls, events, BackButton, viewportHeight: 720, safeAreaInset: { top: 8, right: 0, bottom: 12, left: 0 },
     contentSafeAreaInset: { top: 4, right: 0, bottom: 6, left: 0 }, initDataUnsafe: { start_param: startParam },
-    expand() { calls.push("expand"); }, ready() { calls.push("ready"); },
+    expand() { calls.push("expand"); }, ready() { calls.push("ready"); }, close() { calls.push("close"); },
     onEvent(name, handler) { if (!events.has(name)) events.set(name, new Set()); events.get(name).add(handler); },
     offEvent(name, handler) { events.get(name)?.delete(handler); },
     openLink(url) { calls.push(`open:${url}`); }, openTelegramLink(url) { calls.push(`telegram:${url}`); },
@@ -235,4 +235,54 @@ test("runtime factory falls back to browser when the bridge is unavailable", () 
   const port = createRuntime(telegramWindow);
   assert.equal(port.kind, "telegram");
   assert.equal(port.readLaunchTarget(), null);
+});
+
+test("closing Telegram calls the host instead of the in-app BackButton", async () => {
+  const windowObject = fakeWindow();
+  const webApp = fakeTelegram();
+  const port = createTelegramRuntime(webApp, windowObject);
+  await port.init();
+  let navigated = 0;
+  port.setBackHandler(() => navigated++);
+  port.close();
+  assert.equal(webApp.calls.filter((call) => call === "close").length, 1);
+  assert.equal(navigated, 0);
+  port.dispose();
+  port.close();
+  assert.equal(webApp.calls.filter((call) => call === "close").length, 1);
+});
+
+test("Escape closes Telegram once, respects controls, and is removed on disposal", async () => {
+  const windowObject = fakeWindow();
+  const webApp = fakeTelegram();
+  const port = createTelegramRuntime(webApp, windowObject);
+  await port.init();
+  let prevented = 0;
+  const escape = { key: "Escape", target: { tagName: "BUTTON" }, preventDefault() { prevented++; } };
+  for (const override of [{ key: "Enter" }, { defaultPrevented: true }, { isComposing: true }, { repeat: true },
+    { ctrlKey: true }, { target: { tagName: "SELECT" } }, { target: { tagName: "INPUT" } },
+    { target: { tagName: "TEXTAREA" } }, { target: { isContentEditable: true } }]) {
+    windowObject.document.emit("keydown", { ...escape, ...override });
+  }
+  assert.equal(webApp.calls.includes("close"), false);
+  windowObject.document.emit("keydown", escape);
+  assert.equal(prevented, 1);
+  assert.equal(webApp.calls.filter((call) => call === "close").length, 1);
+  port.dispose();
+  assert.equal(windowObject.document.count("keydown"), 0);
+  windowObject.document.emit("keydown", escape);
+  assert.equal(webApp.calls.filter((call) => call === "close").length, 1);
+});
+
+test("browser exit opens the main site without trying to close a user's tab", () => {
+  const windowObject = fakeWindow();
+  const visits = [];
+  windowObject.location.assign = (path) => visits.push(path);
+  windowObject.close = () => assert.fail("Normal browser tabs must not be closed");
+  const port = createBrowserRuntime(windowObject);
+  port.close();
+  assert.deepEqual(visits, ["/"]);
+  port.dispose();
+  port.close();
+  assert.deepEqual(visits, ["/"]);
 });

@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "data:check": "node scripts/community-build.mjs --check",
+    "data:import-rosters": "node scripts/import-public-rosters.mjs",
+    "test:data": "node --test tests/data-integrity.test.mjs",
     "dev": "vite",
     "build": "vite build && node scripts/community-build.mjs && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",

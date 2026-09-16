@@ -44,8 +44,19 @@ export function createTelegramRuntime(webApp, windowObject = globalThis.window) 
       addWebAppEvent("viewportChanged", setViewportVariables);
       addWebAppEvent("safeAreaChanged", setViewportVariables);
       addWebAppEvent("contentSafeAreaChanged", setViewportVariables);
+      const documentObject = windowObject.document;
+      const onEscape = (event) => {
+        if (event.key !== "Escape" || event.defaultPrevented || event.isComposing || event.repeat ||
+            event.ctrlKey || event.altKey || event.metaKey || event.shiftKey ||
+            event.target?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)) return;
+        event.preventDefault();
+        port.close();
+      };
+      documentObject.addEventListener("keydown", onEscape);
+      cleanups.add(() => documentObject.removeEventListener("keydown", onEscape));
     },
     ready() { if (!disposed) webApp.ready?.(); },
+    close() { if (!disposed) webApp.close?.(); },
     readLaunchTarget() {
       if (disposed) return null;
       return routeFromStartTarget(webApp.initDataUnsafe?.start_param);

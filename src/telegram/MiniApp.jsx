@@ -15,6 +15,7 @@ class RenderBoundary extends Component {
 export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel }) {
   const [attempt, setAttempt] = useState(0);
   const [session, setSession] = useState(null);
+  const [activeRuntime, setActiveRuntime] = useState(null);
   const [error, setError] = useState(false);
   const [preferences, setPreferences] = useState(() => readPreferences(deviceStorage()));
   const copy = getMessages(preferences.language);
@@ -27,6 +28,7 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
     let cancelled = false;
     let router;
     const runtime = runtimeFactory();
+    setActiveRuntime(runtime);
     setSession(null);
     setError(false);
     (async () => {
@@ -37,20 +39,37 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
         if (cancelled) return;
         router = createMiniAppRouter(window, runtime, model.sections.map((section) => section.id));
         setSession({ model, runtime, router });
-      } catch { if (!cancelled) { runtime.dispose(); setError(true); } }
+      // Keep the host exit available when data loading fails. Retry/unmount owns cleanup.
+      } catch { if (!cancelled) setError(true); }
     })();
     return () => { cancelled = true; router?.dispose(); runtime.dispose(); };
   }, [attempt, runtimeFactory, modelLoader]);
   const retry = () => setAttempt((value) => value + 1);
-  const failure = <div className="tg-message"><p role="alert">{copy.error}</p><button onClick={retry}>{copy.retry}</button></div>;
+  const failure = <><MiniAppHeader runtime={activeRuntime} copy={copy} /><div className="tg-message"><p role="alert">{copy.error}</p><button onClick={retry}>{copy.retry}</button></div></>;
   return <div className="tg-app" data-theme={preferences.theme} lang={preferences.language}>
     {error ? failure : session ? <RenderBoundary key={attempt} fallback={failure}>
       <MiniAppView {...session} copy={copy} preferences={preferences} onPreferences={(next) => setPreferences(savePreferences(deviceStorage(), next))} />
-    </RenderBoundary> : <p className="tg-message" role="status">{copy.loading}</p>}
+    </RenderBoundary> : <><MiniAppHeader runtime={activeRuntime} copy={copy} /><p className="tg-message" role="status">{copy.loading}</p></>}
   </div>;
 }
 
-function MiniAppView({ model, runtime, router, copy, preferences, onPreferences }) {
+export function MiniAppHeader({ model, runtime, copy, route = homeRoute(), onBack }) {
+  const inTelegram = runtime?.kind === "telegram";
+  return <header className="tg-header">
+      {route.screen === "tournament" ? <button className="tg-back" aria-label={copy.back} onClick={onBack}>←</button> : <span className="tg-kicker">{copy.app}</span>}
+      <img className="tg-logo" src={model?.project.logoUrl || "/assets/ycs-logo.jpg"} alt={model?.project.brandName || "ЯрКиберСезон"} width="76" height="38" />
+      <div className="tg-header-actions">
+        {model && <span className="tg-discipline">{model.tournament.discipline}</span>}
+        <button className="tg-close" type="button" disabled={!runtime} aria-label={inTelegram ? copy.closeApp : copy.website}
+          title={inTelegram ? `${copy.closeApp} (Esc)` : copy.website} onClick={() => runtime.close()}>
+          <span className="tg-close-label">{inTelegram ? copy.close : copy.website}</span>
+          <span aria-hidden="true">{inTelegram ? "×" : "↗"}</span>
+        </button>
+      </div>
+    </header>;
+}
+
+export function MiniAppView({ model, runtime, router, copy, preferences, onPreferences }) {
   const state = useSyncExternalStore(router.subscribe, router.getSnapshot, router.getSnapshot);
   const { route } = state;
   const heading = useRef(null);
@@ -62,11 +81,7 @@ function MiniAppView({ model, runtime, router, copy, preferences, onPreferences 
   useEffect(() => { heading.current?.focus({ preventScroll: true }); window.scrollTo(0, 0); }, [state.canonicalUrl]);
   const navigate = (next) => router.navigate(next);
   return <>
-    <header className="tg-header">
-      {route.screen === "tournament" ? <button className="tg-back" aria-label={copy.back} onClick={() => navigate(homeRoute())}>←</button> : <span className="tg-kicker">{copy.app}</span>}
-      <img className="tg-logo" src={model.project.logoUrl} alt={model.project.brandName} width="76" height="38" />
-      <span className="tg-discipline">{model.tournament.discipline}</span>
-    </header>
+    <MiniAppHeader model={model} runtime={runtime} route={route} copy={copy} onBack={() => navigate(homeRoute())} />
     {(THEMES.length > 1 || LANGUAGES.length > 1) && <div className="tg-settings">
       {THEMES.length > 1 && <label>{copy.theme}<select value={preferences.theme} onChange={(event) => onPreferences({ ...preferences, theme: event.target.value })}>{THEMES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
       {LANGUAGES.length > 1 && <label>{copy.language}<select value={preferences.language} onChange={(event) => onPreferences({ ...preferences, language: event.target.value })}>{LANGUAGES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
@@ -83,7 +98,7 @@ export function RegistrationStatus({ model, copy }) {
 }
 
 export function HomeScreen({ model, copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef }) {
-  return <>
+  return <div className="tg-home-layout">
     <section className="tg-hero">
       <div className="tg-art" aria-hidden="true"><div className="tg-map" /></div>
       <p className="tg-kicker">{model.tournament.discipline} · {model.tournament.season}</p>
@@ -96,7 +111,7 @@ export function HomeScreen({ model, copy = getMessages(DEFAULT_PREFERENCES.langu
       <button className="tg-secondary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants} · {model.participants.length}</button>
     </section>
     <footer className="tg-partners" aria-label={copy.partners}>{model.project.partners.map((partner) => <div key={partner.name}><img src={partner.logoUrl} alt={partner.name} /></div>)}</footer>
-  </>;
+  </div>;
 }
 
 function TeamLogo({ participant }) {
@@ -107,7 +122,7 @@ function TeamLogo({ participant }) {
 
 export function TournamentScreen({ model, copy = getMessages("ru"), route, navigate, headingRef }) {
   const isParticipants = route.section === "participants";
-  return <>
+  return <div className="tg-tournament-layout">
     <section className="tg-tournament-title">
       <p className="tg-kicker">{copy.current}</p>
       <h1 ref={headingRef} tabIndex={-1}>{model.tournament.season.replace("YAR CYBER SEASON", "YCS")}</h1>
@@ -132,5 +147,5 @@ export function TournamentScreen({ model, copy = getMessages("ru"), route, navig
       <p className="tg-notice">{model.registration.message}</p>
       <button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}<span aria-hidden="true">→</span></button>
     </section> : <section className="tg-overview"><h2>{model.sections.find((section) => section.id === route.section)?.label}</h2><p>{copy.pendingSection}</p><button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}</button></section>}
-  </>;
+  </div>;
 }

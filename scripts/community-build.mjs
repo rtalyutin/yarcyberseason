@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCommunityModel, validateCommunity } from '../src/lib/community.js';
 import { validatePublicRosters } from '../src/lib/rosters.js';
+import { validateDataIntegrity } from '../src/lib/data-integrity.js';
 import { reconcilePublications, teamCalendar } from '../src/lib/calendar.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -10,7 +11,11 @@ const read = (name) => JSON.parse(readFileSync(resolve(root, name), 'utf8'));
 const tournaments = readdirSync(resolve(root, 'src/data/tournaments')).filter((f) => f.endsWith('.json')).map((f) => read('src/data/tournaments/' + f));
 const registry = read('src/data/teams.json');
 const rosters = read('src/data/team-rosters.json');
-const errors = [...validateCommunity(tournaments, registry), ...validatePublicRosters(tournaments, registry, rosters)];
+const provenance = read('src/data/data-sources.json');
+const errors = [...validateCommunity(tournaments, registry), ...validatePublicRosters(tournaments, registry, rosters), ...validateDataIntegrity(tournaments, registry, rosters, provenance)];
+for (const name of readdirSync(resolve(root, 'src/data/tournaments')).filter((f) => f.endsWith('.json'))) {
+  if (!provenance.files.some((file) => file.path === `src/data/tournaments/${name}`)) errors.push(`Missing tournament provenance: ${name}`);
+}
 if (errors.length) throw new Error(errors.join('\n'));
 const model = buildCommunityModel(tournaments, registry, rosters);
 const previous = read('src/data/calendar-publications.json');

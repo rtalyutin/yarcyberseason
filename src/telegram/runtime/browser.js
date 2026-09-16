@@ -8,6 +8,8 @@ export function createBrowserRuntime(windowObject = globalThis.window) {
     kind: "browser",
     async init() {},
     ready() {},
+    // A normal browser tab cannot reliably be closed by script.
+    close() { if (!disposed) windowObject.location.assign("/"); },
     readLaunchTarget() {
       if (disposed || !windowObject?.location) return null;
       const params = new URLSearchParams(windowObject.location.search || "");

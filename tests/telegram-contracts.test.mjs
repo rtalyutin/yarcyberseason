@@ -76,6 +76,7 @@ test("RuntimePort requires one complete browser or Telegram adapter", async () =
     kind: "browser",
     async init() {},
     ready() {},
+    close() {},
     readLaunchTarget() { return null; },
     setBackHandler() {},
     openExternal() {},
@@ -88,6 +89,7 @@ test("RuntimePort requires one complete browser or Telegram adapter", async () =
   assert.equal(resumed, 1);
   assert.equal(typeof unsubscribe, "function");
   assert.throws(() => assertRuntimePort({ ...port, kind: "web", dispose: null }), /RuntimePort/);
+  assert.throws(() => assertRuntimePort({ ...port, close: undefined }), /RuntimePort/);
 });
 
 test("the version manifest is exact and cannot select another tournament", () => {

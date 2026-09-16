@@ -18,7 +18,11 @@ test('migrated data preserves every original field and stable ID', () => {
   for (const record of ledger.matches) {
     const match = model.matches.get(`${record.tournamentId}/${record.matchId}`);
     assert.ok(match);
-    for (const [key, value] of Object.entries(record.original)) assert.deepEqual(match[key], value, `${record.matchId}.${key}`);
+    for (const [key, value] of Object.entries(record.original)) {
+      // Map identity was added in September; all previous sporting fields stay exact.
+      const actual = key === 'maps' ? match.maps.map(({ id, ...map }) => map) : match[key];
+      assert.deepEqual(actual, value, `${record.matchId}.${key}`);
+    }
   }
   const shuffled = structuredClone(tournaments);
   shuffled.forEach((t) => t.stages.reverse());

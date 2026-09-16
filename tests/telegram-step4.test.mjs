@@ -100,7 +100,7 @@ const bundle = await build({ entryPoints: ["src/telegram/MiniApp.jsx"], bundle: 
 const { createRequire } = await import("node:module");
 const result = { exports: {} };
 new Function("require", "module", "exports", bundle.outputFiles[0].text)(createRequire(import.meta.url), result, result.exports);
-const { HomeScreen, TournamentScreen } = result.exports;
+const { HomeScreen, TournamentScreen, MiniAppView, MiniAppHeader } = result.exports;
 const model = loadMiniAppModel();
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, { model, navigate() {}, ...props }));
 test("step4 real home renders chosen Dota data and truthful registration", () => {
@@ -111,6 +111,22 @@ test("step4 real home renders chosen Dota data and truthful registration", () =>
   assert.match(html, /Открыть турнир/);
   assert.ok(!html.includes("forms.yandex"));
   assert.equal((html.match(/<footer/g) || []).length, 1);
+});
+test("the shared header offers a distinct exit on both screens and a truthful browser label", () => {
+  for (const route of [homeRoute(), tournamentRoute(), tournamentRoute("participants")]) {
+    const snapshot = { route, canonicalUrl: "/tg", notice: null };
+    const router = { subscribe() { return () => {}; }, getSnapshot: () => snapshot, navigate() {} };
+    for (const kind of ["telegram", "browser"]) {
+      const html = render(MiniAppView, { router, runtime: { kind, close() {} }, copy: getMessages("ru"), preferences: { theme: "rift", language: "ru" }, onPreferences() {} });
+      assert.match(html, kind === "telegram" ? /aria-label="Закрыть приложение"/ : /aria-label="На сайт"/);
+      assert.equal((html.match(/class="tg-close"/g) || []).length, 1);
+      assert.equal(html.includes('class="tg-back"'), route.screen === "tournament");
+      assert.ok(!html.includes("<select"));
+    }
+  }
+  const fallback = render(MiniAppHeader, { model: undefined, runtime: { kind: "telegram", close() {} }, copy: getMessages("ru") });
+  assert.match(fallback, /aria-label="Закрыть приложение"/);
+  assert.ok(!fallback.includes("disabled="));
 });
 test("step4 real participant UI contains all source names, no links and no invented scores", () => {
   const html = render(TournamentScreen, { route: tournamentRoute("participants") });

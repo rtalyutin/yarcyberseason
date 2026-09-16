@@ -5,14 +5,20 @@
 @font-face { font-family: "Roboto Condensed"; src: url("/assets/fonts/RobotoCondensed-Italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
 html { background: #070a0d; color-scheme: dark; }
 body { margin: 0; }
-.tg-app { box-sizing: border-box; max-width: var(--tg-content-max); min-height: var(--tg-viewport-height, 100dvh); margin: auto; background: var(--tg-ink); color: var(--tg-ivory); font: 1rem/1.5 var(--tg-font-body); padding: calc(max(env(safe-area-inset-top, 0px), var(--tg-safe-area-top, 0px)) + var(--tg-content-safe-area-top, 0px)) calc(max(env(safe-area-inset-right, 0px), var(--tg-safe-area-right, 0px)) + var(--tg-content-safe-area-right, 0px)) calc(max(env(safe-area-inset-bottom, 0px), var(--tg-safe-area-bottom, 0px)) + var(--tg-content-safe-area-bottom, 0px)) calc(max(env(safe-area-inset-left, 0px), var(--tg-safe-area-left, 0px)) + var(--tg-content-safe-area-left, 0px)); }
+.tg-app { --tg-top-inset: calc(max(env(safe-area-inset-top, 0px), var(--tg-safe-area-top, 0px)) + var(--tg-content-safe-area-top, 0px)); box-sizing: border-box; max-width: var(--tg-content-max); min-height: var(--tg-viewport-height, 100dvh); margin: auto; background: var(--tg-ink); color: var(--tg-ivory); font: 1rem/1.5 var(--tg-font-body); padding: var(--tg-top-inset) calc(max(env(safe-area-inset-right, 0px), var(--tg-safe-area-right, 0px)) + var(--tg-content-safe-area-right, 0px)) calc(max(env(safe-area-inset-bottom, 0px), var(--tg-safe-area-bottom, 0px)) + var(--tg-content-safe-area-bottom, 0px)) calc(max(env(safe-area-inset-left, 0px), var(--tg-safe-area-left, 0px)) + var(--tg-content-safe-area-left, 0px)); }
 .tg-app *, .tg-app *::before, .tg-app *::after { box-sizing: border-box; }
 .tg-app button, .tg-app select { font: inherit; color: inherit; }
 .tg-app button { cursor: pointer; border: 0; min-height: 44px; }
 .tg-app button:focus-visible, .tg-app select:focus-visible { outline: 3px solid var(--tg-cyan); outline-offset: 3px; }
 .tg-app h1:focus { outline: none; }
 .tg-app h1, .tg-app h2 { overflow-wrap: anywhere; }
-.tg-header { position: relative; z-index: 2; display: flex; gap: 12px; justify-content: space-between; align-items: center; min-height: 68px; padding: 10px 18px; border-bottom: 1px solid var(--tg-line); }
+.tg-header { position: sticky; top: var(--tg-top-inset); z-index: 3; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; min-height: 68px; padding: 10px 18px; border-bottom: 1px solid var(--tg-line); background: var(--tg-ink); }
+.tg-header::before { content: ""; position: absolute; height: var(--tg-top-inset); bottom: 100%; inset-inline: 0; background: var(--tg-ink); }
+.tg-header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 20px; }
+.tg-close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 10px; min-width: 44px; padding: 8px 12px; background: var(--tg-panel-raised); border: 1px solid var(--tg-line) !important; border-radius: var(--tg-radius-sm); }
+.tg-close > [aria-hidden] { font: 400 1.65rem/1 Arial, sans-serif; }
+.tg-close-label { font: 700 .95rem/1.2 var(--tg-font-display); }
+.tg-close:hover { border-color: var(--tg-ivory) !important; }
 .tg-logo { object-fit: contain; }
 .tg-header .tg-kicker, .tg-discipline { font: 700 .875rem/1.2 var(--tg-font-display); }
 .tg-discipline { color: var(--tg-red); }
@@ -63,4 +69,38 @@ body { margin: 0; }
 .tg-settings { padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 12px; }
 .tg-settings select { margin-left: 8px; }
 @media (min-width: 600px) { .tg-hero { min-height: 510px; padding: 40px; } .tg-art::after { background-size: cover; mask-size: cover; } .tg-tournament-title, .tg-overview, .tg-participants { padding: 32px; } .tg-participants li { grid-template-columns: 30px 40px minmax(0, 1fr) auto; } .tg-team-number, .tg-team-mark { grid-row: auto; } .tg-participants li small { grid-column: auto; } }
+@media (max-width: 599px) {
+  .tg-close-label, .tg-header-actions .tg-discipline { display: none; }
+  .tg-header .tg-kicker { font-size: .75rem; overflow-wrap: anywhere; }
+}
+@media (min-width: 960px) {
+  .tg-app { max-width: min(1440px, calc(100% - 64px)); font-size: 1.125rem; }
+  .tg-header { min-height: 84px; padding: 16px 0; }
+  .tg-logo { width: 96px; height: 48px; }
+  .tg-header .tg-kicker, .tg-discipline { font-size: 1rem; }
+  .tg-home-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); grid-template-rows: 1fr auto; gap: 24px; padding-block: 24px; }
+  .tg-home-layout .tg-hero { grid-row: 1 / span 2; min-height: clamp(540px, 70dvh, 720px); padding: 44px 36px; }
+  .tg-hero h1 { font-size: clamp(5rem, 6.7vw, 7.75rem); }
+  .tg-map { background-image: url("/assets/themes/yaroslavl-dota-1200.webp"); }
+  .tg-home-layout .tg-dock { margin: 0; padding: 28px; align-self: center; }
+  .tg-home-layout .tg-partners { margin: 0; }
+  .tg-partners img { height: 64px; }
+  .tg-tournament-layout { display: grid; grid-template-columns: minmax(280px, .8fr) minmax(0, 1.8fr); grid-template-rows: auto 1fr; column-gap: 32px; padding-block: 32px; align-items: start; }
+  .tg-tournament-title { grid-row: 1 / span 2; padding: 32px; border: 1px solid var(--tg-line); }
+  .tg-tournament-title h1 { font-size: clamp(3.5rem, 4.3vw, 4.75rem); margin-block: 20px 32px; }
+  .tg-tournament-meta { gap: 20px; font-size: 1.125rem; }
+  .tg-section-strip { grid-column: 2; padding-inline: 0; gap: 32px; }
+  .tg-overview, .tg-participants { grid-column: 2; padding: 28px 0; min-width: 0; }
+  .tg-overview > p { max-width: 65ch; line-height: 1.65; }
+  .tg-primary { min-height: 60px; font-size: 1.125rem !important; }
+  .tg-status { font-size: 1rem; }
+}
+@media (min-width: 1200px) {
+  .tg-participants ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+  .tg-participants li { grid-template-columns: 26px 44px minmax(0, 1fr); min-height: 88px; column-gap: 12px; }
+  .tg-team-number, .tg-team-mark { grid-row: span 2; }
+  .tg-team-mark { width: 44px; height: 44px; }
+  .tg-participants li strong { font-size: 1.25rem; }
+  .tg-participants li small { grid-column: 3; }
+}
 @media (prefers-reduced-motion: reduce) { .tg-app *, .tg-app *::before, .tg-app *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }

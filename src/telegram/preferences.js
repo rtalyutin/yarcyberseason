@@ -23,6 +23,7 @@ export function savePreferences(storage, value) {
 export const messages = Object.freeze({ ru: Object.freeze({
   app: "Мини-приложение", loading: "Загружаем турнир…", error: "Не удалось загрузить турнир.",
   retry: "Попробовать ещё раз", back: "На главную", open: "Открыть турнир", current: "Текущий турнир",
+  close: "Закрыть", closeApp: "Закрыть приложение", website: "На сайт",
   homeTitle: ["ГОРОД", "ВХОДИТ", "В ИГРУ"], participants: "Заявленные команды", partners: "Партнёры",
   overview: "О турнире", participantSection: "Участники", registered: "Заявлена", unknownStatus: "Статус не опубликован",
   closed: "Регистрация закрыта", openRegistration: "Регистрация открыта", unknownRegistration: "Статус регистрации не опубликован",

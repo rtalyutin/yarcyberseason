@@ -138,7 +138,7 @@ test("step4 real participant UI contains all source names, no links and no inven
 });
 test("step4 empty participants are explicit; sections not implemented are not claimed empty", () => {
   assert.match(render(TournamentScreen, { model: { ...model, participants: [] }, route: tournamentRoute("participants") }), /Участники пока не опубликованы/);
-  assert.match(render(TournamentScreen, { route: tournamentRoute("rules") }), /Этот раздел ещё готовится/);
+  assert.match(render(TournamentScreen, { route: tournamentRoute("matches") }), /Этот раздел ещё готовится/);
 });
 test("step4 initial entry does not statically import the main site or CSS", async () => {
   const main = await readFile("src/main.jsx", "utf8");

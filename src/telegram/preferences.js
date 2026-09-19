@@ -28,6 +28,12 @@ export const messages = Object.freeze({ ru: Object.freeze({
   overview: "О турнире", participantSection: "Участники", registered: "Заявлена", unknownStatus: "Статус не опубликован",
   closed: "Регистрация закрыта", openRegistration: "Регистрация открыта", unknownRegistration: "Статус регистрации не опубликован",
   noDates: "Даты не опубликованы", noTeams: "Участники пока не опубликованы", count: "Команд",
+  rules: "Формат", schedule: "Расписание", matchSchedule: "Расписание матчей",
+  noRules: "Регламент ещё не опубликован", noSchedule: "Расписание ещё не опубликовано",
+  noMatches: "Матчи ещё не опубликованы", unknownTeam: "Соперник ещё не определён",
+  datePending: "Дата уточняется", resultPending: "Результат ожидает подтверждения",
+  timelineStates: Object.freeze({ completed: "Завершено", upcoming: "Запланировано", active: "Идёт" }),
+  matchStates: Object.freeze({ scheduled: "Запланирован", live: "Идёт", completed: "Завершён", walkover: "Техническая победа", bye: "Проход без игры", cancelled: "Отменён", postponed: "Перенесён" }),
   pendingSection: "Этот раздел ещё готовится. Участники уже доступны.", theme: "Тема", language: "Язык",
 }) });
 export const getMessages = (language) => messages[language] || messages.ru;

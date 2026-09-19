@@ -1,11 +1,10 @@
 import { buildCommunityModel, matchDateLabel } from "../../lib/community.js";
-import { MINI_APP_CONFIG } from "../config.js";
 import { transformActions } from "./actions.js";
 import { assertMiniAppModel, createRegistryProjection, validateSelectedSource } from "./validate.js";
 
 const labels = {
   overview: "О турнире", participants: "Участники", rules: "Формат", schedule: "Расписание",
-  matches: "Матчи", swiss: "Swiss", playoffs: "Плей-офф", results: "Итоги",
+  matches: "Матчи", standings: "Таблицы", swiss: "Swiss", playoffs: "Плей-офф", results: "Итоги",
 };
 
 const emptyTexts = {
@@ -63,7 +62,7 @@ function tableForGroup(group, stage, community, tournamentId, index) {
     { key: "position", label: "Место" }, { key: "played", label: "И" },
     { key: "won", label: "В" }, { key: "lost", label: "П" },
     ...(hasMapRecord ? [{ key: "mapRecord", label: group.recordColumnLabel || "Счёт" }] : []),
-    ...(hasFinal ? [{ key: "final", label: group.finalColumnLabel || "Итог" }] : []),
+    ...(hasFinal ? [{ key: "final", label: group.finalColumnLabel || (rows.some((row) => Object.hasOwn(row, "finalLabel")) ? "Итог" : "Очки") }] : []),
   ];
   return {
     id: group.id || `${stage.id}-group-${index + 1}`,
@@ -122,7 +121,7 @@ function mapStage(stage, tournament, matchMap, community) {
   const occupied = rounds.reduce((sum, round) => sum + round.slots.filter((slot) => slot.kind === "match").length, 0);
   const empty = rounds.reduce((sum, round) => sum + round.slots.filter((slot) => slot.kind === "empty").length, 0);
   const hasRows = tables.some((table) => table.rows.length);
-  const availability = occupied || hasRows ? (empty ? "partial" : "ready") : "empty";
+  const availability = occupied || hasRows ? (empty || (stage.type === "historical_matches" && stage.id === "playoffs") ? "partial" : "ready") : "empty";
   return {
     id: stage.id,
     type: stage.type,
@@ -149,11 +148,13 @@ export function buildMiniAppModel(tournament, registry, projectContent) {
   const matchMap = new Map(matches.map((match) => [match.key, match]));
   const stages = (tournament.stages || []).map((stage) => mapStage(stage, tournament, matchMap, community));
   const swiss = stages.find((stage) => stage.type === "swiss");
-  const playoffs = stages.find((stage) => stage.type === "double_elimination");
+  const playoffs = stages.find((stage) => stage.type === "double_elimination" || stage.id === "playoffs");
+  const standings = stages.filter((stage) => stage.type === "round_robin");
   const results = tournament.results ? cloneValue(tournament.results, null) : null;
   const participantIds = new Set();
   const registryTeams = new Map(projection.teams.map((team) => [team.id, team]));
-  const participants = (tournament.participants || []).map((participant) => {
+  const sourceParticipants = tournament.participants || [...new Map(projection.bindings.map((binding) => [binding.teamId, { teamId: binding.teamId, displayName: binding.sourceName, status: "played" }])).values()];
+  const participants = sourceParticipants.map((participant) => {
     participantIds.add(participant.teamId);
     return {
       teamId: participant.teamId,
@@ -170,8 +171,9 @@ export function buildMiniAppModel(tournament, registry, projectContent) {
     section("rules", rulesReady, emptyTexts.rules),
     section("schedule", scheduleReady, emptyTexts.schedule),
     section("matches", matches.length > 0, emptyTexts.matches),
-    section("swiss", Boolean(swiss && swiss.availability !== "empty"), emptyTexts.swiss),
-    section("playoffs", Boolean(playoffs && playoffs.availability !== "empty"), tournament.stages?.find((stage) => stage.id === "playoffs")?.emptyState || emptyTexts.playoffs),
+    ...(swiss ? [section("swiss", swiss.availability !== "empty", emptyTexts.swiss)] : []),
+    ...(standings.length ? [section("standings", standings.some((stage) => stage.tables.some((table) => table.rows.length)), "Таблицы ещё не опубликованы")] : []),
+    ...(playoffs ? [section("playoffs", playoffs.availability !== "empty", tournament.stages?.find((stage) => stage.id === "playoffs")?.emptyState || emptyTexts.playoffs)] : []),
     ...(results ? [section("results", true)] : []),
   ];
   const model = {
@@ -213,6 +215,5 @@ export function buildMiniAppModel(tournament, registry, projectContent) {
       contactEmail: projectContent.contactEmail,
     },
   };
-  if (model.tournament.slug !== MINI_APP_CONFIG.tournamentSlug) throw new Error("Miniapp tournament configuration changed during adaptation");
   return assertMiniAppModel(model);
 }

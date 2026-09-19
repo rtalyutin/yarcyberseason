@@ -139,7 +139,7 @@ export function SwissSection({ model, runtime, copy = getMessages("ru") }) {
 }
 
 export function PlayoffSection({ model, runtime, copy = getMessages("ru") }) {
-  const stages = model.stages.filter((stage) => stage.type === "double_elimination");
+  const stages = model.stages.filter((stage) => stage.type === "double_elimination" || stage.id === "playoffs");
   return <section className="tg-section-content" aria-labelledby="playoffs-title">
     <h2 id="playoffs-title">{copy.playoffs}</h2>
     {!stages.length && <p className="tg-empty">{copy.noPlayoffPairs}</p>}
@@ -148,6 +148,16 @@ export function PlayoffSection({ model, runtime, copy = getMessages("ru") }) {
       <StageNotes stage={stage} copy={copy} />
       {stage.availability === "empty" && <p className="tg-empty">{model.sections.find((section) => section.id === "playoffs")?.emptyText || copy.noPlayoffPairs}</p>}
       <StageBracket stage={stage} matches={model.matches} runtime={runtime} copy={copy} />
+    </article>)}
+  </section>;
+}
+
+export function StandingsSection({ model, copy = getMessages("ru") }) {
+  return <section className="tg-section-content" aria-labelledby="standings-title">
+    <h2 id="standings-title">{copy.standings}</h2>
+    {model.stages.filter((stage) => stage.type === "round_robin").map((stage) => <article className="tg-stage" key={stage.id}>
+      <h3>{stage.title}</h3><StageNotes stage={stage} copy={copy} />
+      {stage.tables.map((table) => <SwissTable key={table.id} table={table} copy={copy} />)}
     </article>)}
   </section>;
 }

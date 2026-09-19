@@ -1,10 +1,10 @@
 import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
 
-/** @typedef {'overview'|'participants'|'rules'|'schedule'|'matches'|'swiss'|'playoffs'|'results'} SectionId */
-/** @typedef {{screen: 'home'}|{screen: 'tournament', section: SectionId}} MiniAppRoute */
+/** @typedef {'overview'|'participants'|'rules'|'schedule'|'matches'|'swiss'|'standings'|'playoffs'|'results'} SectionId */
+/** @typedef {{screen: 'home'}|{screen: 'tournament', section: SectionId, tournamentSlug?: string}} MiniAppRoute */
 /** @typedef {{kind: 'internal', label: string, route: MiniAppRoute}|{kind: 'external', label: string, url: string}} UiAction */
 /** @typedef {{schemaVersion: 1, buildId: string, sourceCommit: string, tournamentSlug: 'dota2-autumn-2026'}} VersionManifest */
-/** @typedef {{id: string, slug: 'dota2-autumn-2026', title: string, discipline: string, season: string, status: string, statusLabel: string, dates: {start: string|null, end: string|null, display: string|null}, summary: string, facts: string[]}} TournamentView */
+/** @typedef {{id: string, slug: string, title: string, discipline: string, season: string, status: string, statusLabel: string, dates: {start: string|null, end: string|null, display: string|null}, summary: string, facts: string[]}} TournamentView */
 /** @typedef {{status: string|null, message: string|null, capacity: number|null, count: number}} RegistrationView */
 /** @typedef {{teamId: string, displayName: string, logoUrl: string|null, status: string}} ParticipantView */
 /** @typedef {{id: string|null, name: string, score: [number, number]|null, unit: string, outcome: string|null}} NormalizedMap */
@@ -26,7 +26,7 @@ import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
  */
 /** @typedef {{slotKey: string, kind: 'empty'}|{slotKey: string, kind: 'match', matchKey: string}} SlotView */
 /** @typedef {{id: string, title: string, columns: {key: string, label: string}[], rows: {teamId: string|null, displayName: string, cells: Record<string, string|number|null>, seed: number|null, placeLocked: boolean}[]}} TableView */
-/** @typedef {{id: string, type: 'swiss'|'double_elimination', title: string, notice: string|null, rules: {label: string|null, value: string}[], availability: 'ready'|'empty'|'partial', tables: TableView[], rounds: {id: string, label: string, slots: SlotView[]}[], edges: {fromSlotKey: string, toSlotKey: string, outcome: 'winner'|'loser', targetSide: 1|2|null}[]}} StageViewModel */
+/** @typedef {{id: string, type: 'swiss'|'double_elimination'|'round_robin'|'historical_matches'|'match_schedule', title: string, notice: string|null, rules: {label: string|null, value: string}[], availability: 'ready'|'empty'|'partial', tables: TableView[], rounds: {id: string, label: string, slots: SlotView[]}[], edges: {fromSlotKey: string, toSlotKey: string, outcome: 'winner'|'loser', targetSide: 1|2|null}[]}} StageViewModel */
 /** @typedef {{schemaVersion: 1, tournament: TournamentView, registration: RegistrationView, participants: ParticipantView[], actions: UiAction[], timeline: {label: string, state: string, date: string}[], stages: StageViewModel[], matches: MatchViewModel[], rewards: {prizeDistribution: object|null, additionalAwards: object[], referralContest: object|null}, results: object|null, sections: SectionView[], project: ProjectView}} MiniAppModel */
 
 const sectionSet = new Set(SECTION_IDS);
@@ -49,20 +49,23 @@ export function isMiniAppPath(pathname) {
 
 export const homeRoute = () => ({ screen: "home" });
 
-export function tournamentRoute(section = "overview") {
+export function tournamentRoute(section = "overview", tournamentSlug = MINI_APP_CONFIG.tournamentSlug) {
   if (!isSectionId(section)) throw new TypeError(`Unknown miniapp section: ${section}`);
-  return { screen: "tournament", section };
+  return { screen: "tournament", section, ...(tournamentSlug === MINI_APP_CONFIG.tournamentSlug ? {} : { tournamentSlug }) };
 }
 
 export function isMiniAppRoute(value) {
   return record(value) && (value.screen === "home" ||
-    (value.screen === "tournament" && isSectionId(value.section)));
+    (value.screen === "tournament" && isSectionId(value.section) && (value.tournamentSlug === undefined || /^[a-z0-9-]+$/.test(value.tournamentSlug))));
 }
 
 export function serializeMiniAppRoute(route) {
   if (!isMiniAppRoute(route)) throw new TypeError("Invalid miniapp route");
   if (route.screen === "home") return MINI_APP_CONFIG.basePath;
-  const suffix = route.section === "overview" ? "" : `?section=${encodeURIComponent(route.section)}`;
+  const params = new URLSearchParams();
+  if (route.tournamentSlug && route.tournamentSlug !== MINI_APP_CONFIG.tournamentSlug) params.set("tournament", route.tournamentSlug);
+  if (route.section !== "overview" || route.tournamentSlug) params.set("section", route.section);
+  const suffix = params.size ? `?${params}` : "";
   return `${MINI_APP_CONFIG.basePath}/tournament${suffix}`;
 }
 
@@ -70,12 +73,15 @@ export function serializeMiniAppRoute(route) {
  * Resolve only the miniapp address space. `availableSections` lets L2 remove
  * results until valid tournament results exist without inventing a third route.
  *
- * @param {{pathname: string, search?: string, availableSections?: readonly SectionId[]}} input
+ * @param {{pathname: string, search?: string, availableSections?: readonly SectionId[]|((slug: string) => readonly SectionId[]), tournamentSlugs?: string[]}} input
  * @returns {{route: MiniAppRoute, canonicalUrl: string, needsReplace: boolean, notice: string|null}|null}
  */
-export function resolveMiniAppLocation({ pathname, search = "", availableSections = SECTION_IDS }) {
+export function resolveMiniAppLocation({ pathname, search = "", availableSections = SECTION_IDS, tournamentSlugs = [MINI_APP_CONFIG.tournamentSlug] }) {
   if (!isMiniAppPath(pathname)) return null;
-  const available = new Set(availableSections.filter(isSectionId));
+  const params = new URLSearchParams(search);
+  const requestedSlug = params.get("tournament") || MINI_APP_CONFIG.tournamentSlug;
+  const slug = tournamentSlugs.includes(requestedSlug) ? requestedSlug : MINI_APP_CONFIG.tournamentSlug;
+  const available = new Set((typeof availableSections === "function" ? availableSections(slug) : availableSections).filter(isSectionId));
   available.add("overview");
   if (pathname === MINI_APP_CONFIG.basePath || pathname === `${MINI_APP_CONFIG.basePath}/`) {
     return {
@@ -93,9 +99,10 @@ export function resolveMiniAppLocation({ pathname, search = "", availableSection
       notice: "Этот раздел недоступен в мини-приложении",
     };
   }
-  const requested = new URLSearchParams(search).get("section") || "overview";
+  const defaultSection = slug !== MINI_APP_CONFIG.tournamentSlug ? (available.has("results") ? "results" : available.has("standings") ? "standings" : "overview") : "overview";
+  const requested = params.get("section") || defaultSection;
   const section = isSectionId(requested) && available.has(requested) ? requested : "overview";
-  const route = tournamentRoute(section);
+  const route = tournamentRoute(section, slug);
   const canonicalUrl = serializeMiniAppRoute(route);
   const sourceUrl = `${pathname}${search}`;
   return {
@@ -218,7 +225,7 @@ export function validateMiniAppModel(value) {
     if (!ownKeys(value.tournament, required) || ["id", "title", "discipline", "season", "status", "statusLabel", "summary"].some((key) => !nonEmpty(value.tournament[key])) || !record(value.tournament.dates) || !ownKeys(value.tournament.dates, ["start", "end", "display"]) || ["start", "end", "display"].some((key) => !nullableString(value.tournament.dates[key])) || !Array.isArray(value.tournament.facts) || value.tournament.facts.some((fact) => !nonEmpty(fact))) {
       errors.push("tournament is not a TournamentView");
     }
-    if (value.tournament.slug !== MINI_APP_CONFIG.tournamentSlug) errors.push("tournament.slug does not match miniapp configuration");
+    if (!nonEmpty(value.tournament.slug) || value.tournament.slug !== value.tournament.id) errors.push("tournament.slug must match tournament.id");
   }
   if (record(value.registration) && (!ownKeys(value.registration, ["status", "message", "capacity", "count"]) || !nullableString(value.registration.status) || !nullableString(value.registration.message) || !(value.registration.capacity === null || nonNegativeInteger(value.registration.capacity)) || !nonNegativeInteger(value.registration.count))) errors.push("registration is not a RegistrationView");
   if (Array.isArray(value.participants)) value.participants.forEach((participant, index) => {
@@ -250,6 +257,7 @@ export function validateMiniAppModel(value) {
       if (!ownKeys(match, required)) errors.push(`matches[${index}] is not a MatchViewModel`);
       if (!nonEmpty(match.id) || !nonEmpty(match.tournamentId) || match.key !== `${match.tournamentId}/${match.id}`) errors.push(`matches[${index}].key does not match tournamentId/id`);
       if (!nonEmpty(match.stageId) || !nullableString(match.roundId) || !nonEmpty(match.roundTitle) || !nullableString(match.team1) || !nullableString(match.team2) || !nullableString(match.team1Id) || !nullableString(match.team2Id) || !nonEmpty(match.status) || ["scheduledAt", "date", "dateDisplay", "bestOf", "note"].some((key) => !nullableString(match[key]))) errors.push(`matches[${index}] contains invalid fields`);
+      if (match.tournamentId !== value.tournament?.id) errors.push(`matches[${index}] belongs to another tournament`);
       validateResult(match.result, errors, `matches[${index}].result`);
       if (!Array.isArray(match.links) || match.links.some((link) => !isUiAction(link))) errors.push(`matches[${index}].links is invalid`);
     }
@@ -257,7 +265,7 @@ export function validateMiniAppModel(value) {
   const slotKeys = new Set();
   if (Array.isArray(value.stages)) value.stages.forEach((stage, stageIndex) => {
     const path = `stages[${stageIndex}]`;
-    if (!record(stage) || !ownKeys(stage, ["id", "type", "title", "notice", "rules", "availability", "tables", "rounds", "edges"]) || !nonEmpty(stage.id) || !nonEmpty(stage.title) || !["swiss", "double_elimination"].includes(stage.type) || !nullableString(stage.notice) || !["ready", "empty", "partial"].includes(stage.availability)) errors.push(`${path} is not a StageViewModel`);
+    if (!record(stage) || !ownKeys(stage, ["id", "type", "title", "notice", "rules", "availability", "tables", "rounds", "edges"]) || !nonEmpty(stage.id) || !nonEmpty(stage.title) || !["swiss", "double_elimination", "round_robin", "historical_matches", "match_schedule"].includes(stage.type) || !nullableString(stage.notice) || !["ready", "empty", "partial"].includes(stage.availability)) errors.push(`${path} is not a StageViewModel`);
     if (!Array.isArray(stage?.rules) || stage.rules.some((rule) => !record(rule) || !ownKeys(rule, ["label", "value"]) || !nullableString(rule.label) || !nonEmpty(rule.value))) errors.push(`${path}.rules is invalid`);
     if (!Array.isArray(stage?.tables)) errors.push(`${path}.tables must be an array`);
     else stage.tables.forEach((table, tableIndex) => validateTable(table, errors, `${path}.tables[${tableIndex}]`));

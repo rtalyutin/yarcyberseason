@@ -189,3 +189,18 @@ body { margin: 0; }
   .tg-participants li small { grid-column: 3; }
 }
 @media (prefers-reduced-motion: reduce) { .tg-app *, .tg-app *::before, .tg-app *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+/* Archives share the neutral tournament palette across disciplines. */
+.tg-archive { grid-column: 1 / -1; min-width: 0; padding: 24px 20px; border-top: 1px solid var(--tg-line); }
+.tg-archive h2 { margin: 0 0 20px; font: 700 2rem/1.2 var(--tg-font-display); }
+.tg-archive ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: 12px; }
+.tg-archive li { min-width: 0; }
+.tg-archive button { display: flex; flex-direction: column; gap: 10px; width: 100%; height: 100%; padding: 20px; text-align: left; background: var(--tg-panel); border: 1px solid var(--tg-line); overflow-wrap: anywhere; }
+.tg-archive button:hover { border-color: var(--tg-cyan); }
+.tg-archive button > strong { font: 700 1.65rem/1.2 var(--tg-font-display); }
+.tg-archive-meta { font-size: .8rem; color: var(--tg-muted); }
+.tg-archive-link { width: 100%; display: flex; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 12px; color: var(--tg-cyan); font-weight: 700; }
+@media (min-width: 960px) {
+  .tg-home-layout .tg-archive { grid-row: 3; }
+  .tg-home-layout .tg-partners { grid-column: 2; grid-row: 2; }
+}

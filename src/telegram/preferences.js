@@ -21,6 +21,8 @@ export function savePreferences(storage, value) {
 
 // Only interface copy lives here. Published tournament text stays in the shared JSON.
 export const messages = Object.freeze({ ru: Object.freeze({
+  archiveCount: "Записей команд", archiveTeamsNotice: "Показаны команды, найденные в сохранённых данных. Список может быть неполным; исторические названия сохранены.",
+  archive: "Прошедшие турниры", archived: "Завершённый турнир", standings: "Таблицы", played: "Участник турнира",
   results: "Итоги", publishedPlaces: "Опубликованные места", place: "место", finalMatch: "Финал",
   noPlacements: "Итоговые места ещё не опубликованы",
   swiss: "Swiss", playoffs: "Плей-офф", team: "Команда", seed: "Посев", placeLocked: "Место зафиксировано",

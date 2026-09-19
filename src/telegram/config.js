@@ -12,6 +12,7 @@ export const SECTION_IDS = Object.freeze([
   "schedule",
   "matches",
   "swiss",
+  "standings",
   "playoffs",
   "results",
 ]);
@@ -24,6 +25,7 @@ export const STARTAPP_TARGETS = Object.freeze([
   "schedule",
   "matches",
   "swiss",
+  "standings",
   "playoffs",
   "results",
 ]);

@@ -1,4 +1,3 @@
-import { MINI_APP_CONFIG } from "../config.js";
 import { validateMiniAppModel } from "../contracts.js";
 import { normalizeResult, validateCommunity } from "../../lib/community.js";
 import { transformAction } from "./actions.js";
@@ -94,8 +93,8 @@ export function createRegistryProjection(tournament, registry) {
 
 export function validateSelectedSource(tournament, registry) {
   const errors = [];
-  if (!tournament || tournament.slug !== MINI_APP_CONFIG.tournamentSlug || tournament.id !== MINI_APP_CONFIG.tournamentSlug) {
-    return [`Selected tournament must be ${MINI_APP_CONFIG.tournamentSlug}`];
+  if (!tournament || !/^[a-z0-9-]+$/.test(tournament.slug || "") || tournament.id !== tournament.slug) {
+    return ["Selected tournament must have matching valid id and slug"];
   }
   const projection = createRegistryProjection(tournament, registry);
   errors.push(...validateCommunity([tournament], projection));

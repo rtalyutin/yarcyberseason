@@ -1,11 +1,11 @@
 import React, { Component, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { loadMiniAppModel } from "./data/load.js";
+import { loadMiniAppModel, loadArchivedModels } from "./data/load.js";
 import { createMiniAppRouter } from "./router.js";
 import { homeRoute, tournamentRoute } from "./contracts.js";
 import { DEFAULT_PREFERENCES, THEMES, LANGUAGES, readPreferences, savePreferences, getMessages } from "./preferences.js";
 import { RulesSection, ScheduleSection } from "./TournamentSections.jsx";
 import { MatchesSection } from "./MatchesSection.jsx";
-import { SwissSection, PlayoffSection } from "./StageSections.jsx";
+import { SwissSection, PlayoffSection, StandingsSection } from "./StageSections.jsx";
 import { ResultsSection } from "./ResultsSection.jsx";
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
@@ -16,7 +16,7 @@ class RenderBoundary extends Component {
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
-export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel }) {
+export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel, archiveLoader = loadArchivedModels }) {
   const [attempt, setAttempt] = useState(0);
   const [session, setSession] = useState(null);
   const [activeRuntime, setActiveRuntime] = useState(null);
@@ -41,13 +41,16 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
         if (cancelled) return;
         const model = await modelLoader();
         if (cancelled) return;
-        router = createMiniAppRouter(window, runtime, model.sections.map((section) => section.id));
-        setSession({ model, runtime, router });
+        const archives = await archiveLoader();
+        if (cancelled) return;
+        const models = new Map([model, ...archives].map((item) => [item.tournament.slug, item]));
+        router = createMiniAppRouter(window, runtime, (slug) => models.get(slug).sections.map((section) => section.id), [...models.keys()]);
+        setSession({ model, archives, models, runtime, router });
       // Keep the host exit available when data loading fails. Retry/unmount owns cleanup.
       } catch { if (!cancelled) setError(true); }
     })();
     return () => { cancelled = true; router?.dispose(); runtime.dispose(); };
-  }, [attempt, runtimeFactory, modelLoader]);
+  }, [attempt, runtimeFactory, modelLoader, archiveLoader]);
   const retry = () => setAttempt((value) => value + 1);
   const failure = <><MiniAppHeader runtime={activeRuntime} copy={copy} /><div className="tg-message"><p role="alert">{copy.error}</p><button onClick={retry}>{copy.retry}</button></div></>;
   return <div className="tg-app" data-theme={preferences.theme} lang={preferences.language}>
@@ -73,9 +76,10 @@ export function MiniAppHeader({ model, runtime, copy, route = homeRoute(), onBac
     </header>;
 }
 
-export function MiniAppView({ model, runtime, router, copy, preferences, onPreferences }) {
+export function MiniAppView({ model, archives = [], models, runtime, router, copy, preferences, onPreferences }) {
   const state = useSyncExternalStore(router.subscribe, router.getSnapshot, router.getSnapshot);
   const { route } = state;
+  const selectedModel = route.screen === "tournament" && route.tournamentSlug ? models?.get(route.tournamentSlug) || model : model;
   const heading = useRef(null);
   useEffect(() => {
     runtime.setBackHandler(route.screen === "tournament" ? () => router.navigate(homeRoute()) : null);
@@ -85,14 +89,14 @@ export function MiniAppView({ model, runtime, router, copy, preferences, onPrefe
   useEffect(() => { heading.current?.focus({ preventScroll: true }); window.scrollTo(0, 0); }, [state.canonicalUrl]);
   const navigate = (next) => router.navigate(next);
   return <>
-    <MiniAppHeader model={model} runtime={runtime} route={route} copy={copy} onBack={() => navigate(homeRoute())} />
+    <MiniAppHeader model={selectedModel} runtime={runtime} route={route} copy={copy} onBack={() => navigate(homeRoute())} />
     {(THEMES.length > 1 || LANGUAGES.length > 1) && <div className="tg-settings">
       {THEMES.length > 1 && <label>{copy.theme}<select value={preferences.theme} onChange={(event) => onPreferences({ ...preferences, theme: event.target.value })}>{THEMES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
       {LANGUAGES.length > 1 && <label>{copy.language}<select value={preferences.language} onChange={(event) => onPreferences({ ...preferences, language: event.target.value })}>{LANGUAGES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
     </div>}
     {state.notice && <p className="tg-notice" role="status">{state.notice}</p>}
-    <main>{route.screen === "home" ? <HomeScreen model={model} copy={copy} navigate={navigate} headingRef={heading} />
-      : <TournamentScreen model={model} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
+    <main>{route.screen === "home" ? <HomeScreen model={model} archives={archives} copy={copy} navigate={navigate} headingRef={heading} />
+      : <TournamentScreen key={selectedModel.tournament.slug} model={selectedModel} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
   </>;
 }
 
@@ -101,7 +105,7 @@ export function RegistrationStatus({ model, copy }) {
   return <div className="tg-status"><span>{label}</span><strong>{model.registration.count}{model.registration.capacity !== null ? ` / ${model.registration.capacity}` : ""}</strong></div>;
 }
 
-export function HomeScreen({ model, copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef }) {
+export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef }) {
   return <div className="tg-home-layout">
     <section className="tg-hero">
       <div className="tg-art" aria-hidden="true"><div className="tg-map" /></div>
@@ -114,8 +118,24 @@ export function HomeScreen({ model, copy = getMessages(DEFAULT_PREFERENCES.langu
       <button className="tg-primary" onClick={() => navigate(tournamentRoute())}>{copy.open}<span aria-hidden="true">↗</span></button>
       <button className="tg-secondary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants} · {model.participants.length}</button>
     </section>
+    <ArchiveList archives={archives} copy={copy} navigate={navigate} />
     <footer className="tg-partners" aria-label={copy.partners}>{model.project.partners.map((partner) => <div key={partner.name}><img src={partner.logoUrl} alt={partner.name} /></div>)}</footer>
   </div>;
+}
+
+export function ArchiveList({ archives, copy = getMessages("ru"), navigate }) {
+  if (!archives.length) return null;
+  return <section className="tg-archive" aria-labelledby="archive-title">
+    <h2 id="archive-title">{copy.archive}</h2>
+    <ul>{archives.map((archive) => <li key={archive.tournament.slug}>
+      <button type="button" onClick={() => navigate(tournamentRoute(archive.results ? "results" : archive.sections.some((section) => section.id === "standings") ? "standings" : "overview", archive.tournament.slug))}>
+        <span className="tg-archive-meta">{archive.tournament.discipline} · {archive.tournament.statusLabel}</span>
+        <strong>{archive.tournament.title}</strong>
+        <span>{archive.tournament.dates.display || copy.noDates}</span>
+        <span className="tg-archive-link">{copy.open} <span aria-hidden="true">↗</span></span>
+      </button>
+    </li>)}</ul>
+  </section>;
 }
 
 function TeamLogo({ participant }) {
@@ -126,36 +146,39 @@ function TeamLogo({ participant }) {
 
 export function TournamentScreen({ model, runtime, copy = getMessages("ru"), route, navigate, headingRef }) {
   const isParticipants = route.section === "participants";
+  const archived = ["archive", "completed"].includes(model.tournament.status);
+  const target = (section) => tournamentRoute(section, model.tournament.slug);
   return <div className="tg-tournament-layout">
     <section className="tg-tournament-title">
-      <p className="tg-kicker">{copy.current}</p>
-      <h1 ref={headingRef} tabIndex={-1}>{model.tournament.season.replace("YAR CYBER SEASON", "YCS")}</h1>
-      <div className="tg-tournament-meta"><span>{model.tournament.dates.display || copy.noDates}</span><strong>{copy.count}: {model.participants.length}</strong></div>
+      <p className="tg-kicker">{archived ? `${copy.archived} · ${model.tournament.statusLabel}` : copy.current}</p>
+      <h1 ref={headingRef} tabIndex={-1}>{archived ? model.tournament.title : model.tournament.season.replace("YAR CYBER SEASON", "YCS")}</h1>
+      <div className="tg-tournament-meta"><span>{model.tournament.dates.display || copy.noDates}</span><strong>{archived ? copy.archiveCount : copy.count}: {model.participants.length}</strong></div>
     </section>
-    <nav className="tg-section-strip" aria-label={copy.current}>
-      {model.sections.filter((section) => ["overview", "participants", "rules", "schedule", "matches", "swiss", "playoffs", "results"].includes(section.id)).map((section) =>
-        <button key={section.id} aria-current={route.section === section.id ? "page" : undefined} onClick={() => navigate(tournamentRoute(section.id))}>{section.label}</button>)}
+    <nav className="tg-section-strip" aria-label={model.tournament.title}>
+      {model.sections.map((section) =>
+        <button key={section.id} aria-current={route.section === section.id ? "page" : undefined} onClick={() => navigate(target(section.id))}>{section.label}</button>)}
     </nav>
     {isParticipants ? <section className="tg-participants" aria-labelledby="participant-title">
       <p className="tg-kicker">{copy.participantSection}</p>
-      <h2 id="participant-title">{copy.count}: {model.participants.length}</h2>
-      <RegistrationStatus model={model} copy={copy} />
+      <h2 id="participant-title">{archived ? copy.archiveCount : copy.count}: {model.participants.length}</h2>
+      {archived ? <p className="tg-source-state">{copy.archiveTeamsNotice}</p> : <RegistrationStatus model={model} copy={copy} />}
       {model.participants.length ? <ol>{model.participants.map((participant, index) => <li key={participant.teamId} data-team-id={participant.teamId}>
         <span className="tg-team-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
         <TeamLogo participant={participant} /><strong>{participant.displayName}</strong>
-        <small>{participant.status === "registered" ? copy.registered : copy.unknownStatus}</small>
+        <small>{participant.status === "registered" ? copy.registered : participant.status === "played" ? copy.played : copy.unknownStatus}</small>
       </li>)}</ol> : <p>{copy.noTeams}</p>}
     </section> : route.section === "overview" ? <section className="tg-overview">
       <p>{model.tournament.summary}</p>
       <ul className="tg-facts">{model.tournament.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
-      <p className="tg-notice">{model.registration.message}</p>
-      <button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}<span aria-hidden="true">→</span></button>
+      {model.registration.message && <p className="tg-notice">{model.registration.message}</p>}
+      <button className="tg-primary" onClick={() => navigate(target("participants"))}>{archived ? copy.participantSection : copy.participants}<span aria-hidden="true">→</span></button>
     </section> : route.section === "rules" ? <RulesSection model={model} copy={copy} />
       : route.section === "schedule" ? <ScheduleSection model={model} copy={copy} />
       : route.section === "matches" ? <MatchesSection model={model} runtime={runtime} copy={copy} />
       : route.section === "swiss" ? <SwissSection model={model} runtime={runtime} copy={copy} />
+      : route.section === "standings" ? <StandingsSection model={model} copy={copy} />
       : route.section === "playoffs" ? <PlayoffSection model={model} runtime={runtime} copy={copy} />
       : route.section === "results" ? <ResultsSection model={model} runtime={runtime} copy={copy} />
-      : <section className="tg-overview"><h2>{model.sections.find((section) => section.id === route.section)?.label}</h2><p>{copy.pendingSection}</p><button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}</button></section>}
+      : <section className="tg-overview"><h2>{model.sections.find((section) => section.id === route.section)?.label}</h2><p>{copy.pendingSection}</p><button className="tg-primary" onClick={() => navigate(target("participants"))}>{copy.participants}</button></section>}
   </div>;
 }

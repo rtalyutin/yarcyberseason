@@ -1,3 +1,7 @@
+# Current Telegram scope
+
+- September 19, 2026: Roman requested past tournaments in Mini App and explicitly authorized publication of the changes on the existing domain. Preserve the current Dota home, Rift/Russian, and the two paths; add the four published completed/archive tournaments with selection in the tournament query string. This supersedes the earlier single-tournament/archive exclusion only in this scope. Preserve historical names, incomplete playoffs and unknown dates; do not infer results. Existing Swiss/Playoffs/Results are included in this release. The reordered 16-step plan resumes afterward with the match Rich Card prototype.
+
 # Prototype Instructions
 
 - Telegram desktop correction (September 16, 2026): the user reported a tiny 768px column inside a very wide Telegram window and inconvenient closing. Preserve Rift/Russian and both screens; use a wider desktop composition from 960px with readable text and a two-column participants list from 1200px. Keep a sticky safe-area-aware header and a distinct Close action calling WebApp.close; Back only returns home. Escape may close Telegram except when consumed by controls/editing. In a normal browser, label the exit "На сайт" and navigate to the site root. Do not use window.close for normal tabs. This patch is separate from adding the remaining step-6 sections.

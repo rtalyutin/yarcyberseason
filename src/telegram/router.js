@@ -5,18 +5,18 @@ import { homeRoute, isMiniAppRoute, resolveMiniAppLocation, serializeMiniAppRout
 const launchConsumed = new WeakSet();
 
 /** URL is the source of truth. Sections replace history; explicit back never leaves miniapp. */
-export function createMiniAppRouter(windowObject, runtime, availableSections) {
+export function createMiniAppRouter(windowObject, runtime, availableSections, tournamentSlugs) {
   const listeners = new Set();
   let disposed = false;
   const resolve = () => resolveMiniAppLocation({ ...windowObject.location,
-    pathname: windowObject.location.pathname, search: windowObject.location.search, availableSections });
+    pathname: windowObject.location.pathname, search: windowObject.location.search, availableSections, tournamentSlugs });
   let state = resolve();
   const launch = launchConsumed.has(windowObject) || windowObject.history.state?.ycsLaunchConsumed === true
     ? null : runtime.readLaunchTarget();
   launchConsumed.add(windowObject);
   if (launch) {
     const url = new URL(serializeMiniAppRoute(launch), "https://miniapp.invalid");
-    state = resolveMiniAppLocation({ pathname: url.pathname, search: url.search, availableSections });
+    state = resolveMiniAppLocation({ pathname: url.pathname, search: url.search, availableSections, tournamentSlugs });
   }
   state ||= { route: homeRoute(), canonicalUrl: "/tg", notice: null };
   const historyState = () => ({ ycsMiniApp: true, ycsLaunchConsumed: true });
@@ -36,7 +36,7 @@ export function createMiniAppRouter(windowObject, runtime, availableSections) {
     navigate(route) {
       if (disposed || !isMiniAppRoute(route)) return;
       const url = new URL(serializeMiniAppRoute(route), "https://miniapp.invalid");
-      const next = resolveMiniAppLocation({ pathname: url.pathname, search: url.search, availableSections });
+      const next = resolveMiniAppLocation({ pathname: url.pathname, search: url.search, availableSections, tournamentSlugs });
       if (next.canonicalUrl === state.canonicalUrl) return;
       const method = state.route.screen === "home" && next.route.screen === "tournament" ? "pushState" : "replaceState";
       windowObject.history[method](historyState(), "", next.canonicalUrl);

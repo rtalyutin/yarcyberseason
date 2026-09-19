@@ -4,11 +4,11 @@ import { isUiAction, tournamentRoute } from "../contracts.js";
 const sectionSet = new Set(SECTION_IDS);
 const internalBase = "https://miniapp.invalid";
 
-function internalAction(label, section) {
-  return { kind: "internal", label, route: tournamentRoute(section) };
+function internalAction(label, section, tournamentSlug) {
+  return { kind: "internal", label, route: tournamentRoute(section, tournamentSlug) };
 }
 
-export function transformAction(action, { hasResults = false } = {}) {
+export function transformAction(action, { hasResults = false, tournamentSlug = MINI_APP_CONFIG.tournamentSlug } = {}) {
   if (!action || typeof action.label !== "string" || typeof action.target !== "string") return null;
   const label = action.label.trim();
   const target = action.target.trim();
@@ -23,23 +23,23 @@ export function transformAction(action, { hasResults = false } = {}) {
   let section = null;
   if (target.startsWith("#")) {
     const anchor = target.slice(1);
-    section = ({ format: "rules", info: "overview", rewards: "overview" })[anchor] || anchor;
+    section = ({ format: "rules", info: "overview", rewards: "overview", groups: "standings", "qual-standings": "standings" })[anchor] || anchor;
   } else {
     let parsed;
     try { parsed = new URL(target, internalBase); } catch { return null; }
     if (parsed.origin !== internalBase) return null;
-    if (![`/tournaments/${MINI_APP_CONFIG.tournamentSlug}`, `${MINI_APP_CONFIG.basePath}/tournament`].includes(parsed.pathname)) return null;
+    if (![`/tournaments/${tournamentSlug}`, `${MINI_APP_CONFIG.basePath}/tournament`].includes(parsed.pathname)) return null;
     section = parsed.searchParams.get("section") || "overview";
     if (section === "info") section = "overview";
   }
 
   if (!sectionSet.has(section)) return null;
   if (section === "results" && !hasResults) section = "overview";
-  return internalAction(label, section);
+  return internalAction(label, section, tournamentSlug);
 }
 
 export function transformActions(tournament, options) {
   return [tournament.primaryAction, tournament.secondaryAction]
-    .map((action) => transformAction(action, options))
+    .map((action) => transformAction(action, { ...options, tournamentSlug: tournament.slug }))
     .filter(Boolean);
 }

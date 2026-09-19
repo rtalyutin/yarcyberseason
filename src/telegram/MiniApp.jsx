@@ -6,6 +6,7 @@ import { DEFAULT_PREFERENCES, THEMES, LANGUAGES, readPreferences, savePreference
 import { RulesSection, ScheduleSection } from "./TournamentSections.jsx";
 import { MatchesSection } from "./MatchesSection.jsx";
 import { SwissSection, PlayoffSection } from "./StageSections.jsx";
+import { ResultsSection } from "./ResultsSection.jsx";
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
 
@@ -132,7 +133,7 @@ export function TournamentScreen({ model, runtime, copy = getMessages("ru"), rou
       <div className="tg-tournament-meta"><span>{model.tournament.dates.display || copy.noDates}</span><strong>{copy.count}: {model.participants.length}</strong></div>
     </section>
     <nav className="tg-section-strip" aria-label={copy.current}>
-      {model.sections.filter((section) => ["overview", "participants", "rules", "schedule", "matches", "swiss", "playoffs"].includes(section.id)).map((section) =>
+      {model.sections.filter((section) => ["overview", "participants", "rules", "schedule", "matches", "swiss", "playoffs", "results"].includes(section.id)).map((section) =>
         <button key={section.id} aria-current={route.section === section.id ? "page" : undefined} onClick={() => navigate(tournamentRoute(section.id))}>{section.label}</button>)}
     </nav>
     {isParticipants ? <section className="tg-participants" aria-labelledby="participant-title">
@@ -154,6 +155,7 @@ export function TournamentScreen({ model, runtime, copy = getMessages("ru"), rou
       : route.section === "matches" ? <MatchesSection model={model} runtime={runtime} copy={copy} />
       : route.section === "swiss" ? <SwissSection model={model} runtime={runtime} copy={copy} />
       : route.section === "playoffs" ? <PlayoffSection model={model} runtime={runtime} copy={copy} />
+      : route.section === "results" ? <ResultsSection model={model} runtime={runtime} copy={copy} />
       : <section className="tg-overview"><h2>{model.sections.find((section) => section.id === route.section)?.label}</h2><p>{copy.pendingSection}</p><button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}</button></section>}
   </div>;
 }

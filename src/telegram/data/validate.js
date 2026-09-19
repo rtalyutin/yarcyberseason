@@ -10,7 +10,7 @@ const rawMatches = (tournament) => (tournament.stages || []).flatMap((stage) =>
 const record = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);
 const nonEmpty = (value) => typeof value === "string" && value.trim().length > 0;
 
-function validateTournamentResults(tournament, declared) {
+function validateTournamentResults(tournament, declared, registry) {
   if (tournament.results == null) return [];
   const errors = [];
   const results = tournament.results;
@@ -18,11 +18,12 @@ function validateTournamentResults(tournament, declared) {
   if (!nonEmpty(results.finalMatchId)) return [`Results finalMatchId is required: ${tournament.id}`];
 
   const final = declared.get(results.finalMatchId);
+  let finalResult;
   if (!final || final.published === false || !final.team1 || !final.team2) {
     errors.push(`Results final match is missing or unpublished: ${tournament.id}/${results.finalMatchId}`);
   } else {
-    const normalized = normalizeResult(final, tournament.discipline);
-    if (!normalized.confirmed || !normalized.score || !normalized.winnerSide) {
+    finalResult = normalizeResult(final, tournament.discipline);
+    if (!finalResult.confirmed || !finalResult.score || !finalResult.winnerSide) {
       errors.push(`Results final match is not confirmed: ${tournament.id}/${results.finalMatchId}`);
     }
   }
@@ -32,6 +33,13 @@ function validateTournamentResults(tournament, declared) {
       errors.push(`Results placements must be a non-empty array: ${tournament.id}`);
     } else {
       const positions = new Set();
+      const teams = new Set();
+      const teamIds = new Map([
+        ...(registry.bindings || []).map((binding) => [binding.sourceName, binding.teamId]),
+        ...(tournament.participants || []).map((participant) => [participant.displayName, participant.teamId]),
+      ]);
+      const winnerId = finalResult?.confirmed && finalResult.winnerSide ? teamIds.get(final[`team${finalResult.winnerSide}`]) : null;
+      const runnerUpId = winnerId ? teamIds.get(final[`team${finalResult.winnerSide === 1 ? 2 : 1}`]) : null;
       for (const placement of results.placements) {
         if (!record(placement) || !Number.isInteger(placement.position) || placement.position < 1 || !nonEmpty(placement.team)) {
           errors.push(`Invalid result placement: ${tournament.id}`);
@@ -39,6 +47,16 @@ function validateTournamentResults(tournament, declared) {
         }
         if (positions.has(placement.position)) errors.push(`Duplicate result position: ${tournament.id}/${placement.position}`);
         positions.add(placement.position);
+        const teamId = teamIds.get(placement.team);
+        if (!teamId) errors.push(`Unknown result team: ${tournament.id}/${placement.team}`);
+        else {
+          if (teams.has(teamId)) errors.push(`Duplicate result team: ${tournament.id}/${placement.team}`);
+          teams.add(teamId);
+          if (winnerId && ((placement.position === 1) !== (teamId === winnerId) ||
+            (placement.position === 2) !== (teamId === runnerUpId))) {
+            errors.push(`Final/placement conflict: ${tournament.id}/${placement.position}`);
+          }
+        }
       }
     }
   }
@@ -94,7 +112,7 @@ export function validateSelectedSource(tournament, registry) {
     if (!declared.has(target.matchId)) errors.push(`Missing ${field}: ${match.id}`);
     if (target.slot != null && ![1, 2].includes(target.slot)) errors.push(`Invalid ${field} slot: ${match.id}`);
   }
-  errors.push(...validateTournamentResults(tournament, declared));
+  errors.push(...validateTournamentResults(tournament, declared, projection));
   errors.push(...validateClosedRegistrationActions(tournament));
   return [...new Set(errors)];
 }

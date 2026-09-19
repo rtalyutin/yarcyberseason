@@ -62,6 +62,12 @@ src/data/tournaments/dota2-autumn-2026.json
 - `validateMiniAppModel()` отклоняет другой slug, дубликаты match key, неправильные sections/actions и ссылку слота на отсутствующий match.
 - Предметная проверка исходного JSON и построение модели остаются ответственностью L2 шага 3.
 
+## Уточнение для раздела «Матчи», 19.09.2026
+
+`NormalizedResult.maps` теперь имеет явный тип `NormalizedMap[]`: `id: string|null`, `name: string`, `score: [number,number]|null`, `unit: string`, `outcome: string|null`. Guard проверяет каждое поле; счёт состоит из двух неотрицательных целых чисел. Это форма выхода существующего общего normalizer, без второй модели результата. Отображение не использует `sourceScore` вместо подтверждённого счёта серии. Для неподтверждённых и технических исходов сыгранные карты не выводятся.
+
+`MatchViewModel.links` остаётся набором `UiAction`; источник может назвать трансляцию `streamUrl` или `broadcastUrl`. Одинаковые HTTPS-адреса объединяются. Действие вызывает `RuntimePort.openExternal` только после нажатия, раскрытие подробностей маршрута не меняет.
+
 ## RuntimePort
 
 Frontend получает один порт вида `browser` или `telegram` с методами:

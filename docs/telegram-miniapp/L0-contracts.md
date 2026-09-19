@@ -1,3 +1,5 @@
+> Дополнение 19.09.2026: по прямому поручению Романа архив разрешён (§14 актуального ТЗ). Два пути сохраняются; tournament query выбирает опубликованный архив, без query остаётся dota2-autumn-2026. MiniAppRoute допускает tournamentSlug, SectionId — standings, StageViewModel — round_robin/historical_matches/match_schedule. Модель сохраняет один tournament id/slug и изоляцию match keys. Прежние ограничения фиксированного slug ниже исторические; VersionManifest продолжает обозначать турнир по умолчанию.
+
 # L0-контракты Telegram Mini App
 
 Статус: исполняемая граница слоёв для ТЗ 1.1. Этот пакет не реализует экран, адаптер данных, Telegram bridge, manifest-файл сборки или публикацию.

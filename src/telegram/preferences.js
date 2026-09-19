@@ -21,6 +21,12 @@ export function savePreferences(storage, value) {
 
 // Only interface copy lives here. Published tournament text stays in the shared JSON.
 export const messages = Object.freeze({ ru: Object.freeze({
+  swiss: "Swiss", playoffs: "Плей-офф", team: "Команда", seed: "Посев", placeLocked: "Место зафиксировано",
+  noSwissTable: "Таблица Swiss ещё не опубликована", noPlayoffPairs: "Пары плей-офф ещё не опубликованы",
+  stageRules: "Правила этапа", slot: "Пара", emptyPair: "Пара ещё не определена",
+  roundEmpty: "Пары раунда ещё не опубликованы", winnerAdvance: "Победитель", loserAdvance: "Проигравший",
+  targetSide: "участник", bracketScroll: "Сетка турнира — горизонтальная прокрутка", tableScroll: "Таблица — горизонтальная прокрутка",
+  publishedEdges: "Показаны только опубликованные переходы между парами.", noEdges: "Переходы между парами ещё не опубликованы.",
   app: "Мини-приложение", loading: "Загружаем турнир…", error: "Не удалось загрузить турнир.",
   retry: "Попробовать ещё раз", back: "На главную", open: "Открыть турнир", current: "Текущий турнир",
   close: "Закрыть", closeApp: "Закрыть приложение", website: "На сайт",

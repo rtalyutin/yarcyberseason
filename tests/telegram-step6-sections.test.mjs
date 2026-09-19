@@ -48,11 +48,11 @@ test("step6 schedule renders the exact published timeline, not fabricated pairin
   assert.ok(!html.includes("0:0"));
   assert.ok(!html.includes("00:00"));
 });
-test("step6 empty rules and schedule remain distinct from pending implementation", () => {
+test("step6 implemented sections use their distinct empty states", () => {
   const model = fixture("empty");
   assert.match(render(model, "rules"), /Регламент ещё не опубликован/);
   assert.match(render(model, "schedule"), /Расписание ещё не опубликовано/);
-  assert.match(render(model, "swiss"), /Этот раздел ещё готовится/);
+  assert.match(render(model, "swiss"), /Таблица Swiss ещё не опубликована/);
 });
 test("step6 exact offset timestamp uses L2 Moscow label and keeps source status", () => {
   const model = fixture("scheduledMatch", (t) => { t.stages[0].matches[0].scheduledAt = "2020-01-01T23:30:00Z"; });
@@ -117,9 +117,9 @@ test("step6 navigation exposes only implemented sections and rendering is read-o
   const before = structuredClone(real);
   const html = render(real, "rules");
   const nav = html.match(/<nav.*?<\/nav>/s)[0];
-  assert.equal((nav.match(/<button/g) || []).length, 5);
+  assert.equal((nav.match(/<button/g) || []).length, 7);
   assert.match(nav, /aria-current="page"[^>]*>Формат/);
-  assert.ok(!nav.includes("Плей-офф") && !nav.includes("Итоги"));
+  assert.ok(nav.includes("Swiss") && nav.includes("Плей-офф") && !nav.includes("Итоги"));
   render(real, "schedule");
   assert.deepEqual(real, before);
 });

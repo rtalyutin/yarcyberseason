@@ -19,7 +19,7 @@ const emptyTexts = {
 
 const cloneValue = (value, fallback) => value == null ? fallback : structuredClone(value);
 const nonEmpty = (value) => typeof value === "string" && value.trim().length > 0;
-const stageRounds = (stage) => stage.rounds || [{ id: `${stage.id}-matches`, label: stage.title, matches: stage.matches || [] }];
+const stageRounds = (stage) => stage.rounds || (stage.matches ? [{ id: `${stage.id}-matches`, label: stage.title, matches: stage.matches }] : []);
 const visibleRaw = (match) => match?.published !== false;
 const isPublishedMatch = (match) => visibleRaw(match) && Boolean(match.team1 || match.team2);
 
@@ -106,7 +106,7 @@ function mapStage(stage, tournament, matchMap, community) {
     }),
   }));
   const edges = [];
-  for (const raw of stageRounds(stage).flatMap((round) => round.matches || []).filter(isPublishedMatch)) {
+  for (const raw of stageRounds(stage).flatMap((round) => round.matches || []).filter(visibleRaw)) {
     for (const [field, outcome] of [["winnerTo", "winner"], ["loserTo", "loser"]]) {
       const target = raw[field];
       if (!target || !visibleIds.has(target.matchId)) continue;

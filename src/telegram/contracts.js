@@ -7,7 +7,8 @@ import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
 /** @typedef {{id: string, slug: 'dota2-autumn-2026', title: string, discipline: string, season: string, status: string, statusLabel: string, dates: {start: string|null, end: string|null, display: string|null}, summary: string, facts: string[]}} TournamentView */
 /** @typedef {{status: string|null, message: string|null, capacity: number|null, count: number}} RegistrationView */
 /** @typedef {{teamId: string, displayName: string, logoUrl: string|null, status: string}} ParticipantView */
-/** @typedef {{confirmed: boolean, technical: boolean, known: boolean, sourceScore: [number, number]|null, series: [number, number]|null, score: [number, number]|null, maps: object[], winnerSide: 1|2|null, draw: boolean, label: string, canDownload: boolean}} NormalizedResult */
+/** @typedef {{id: string|null, name: string, score: [number, number]|null, unit: string, outcome: string|null}} NormalizedMap */
+/** @typedef {{confirmed: boolean, technical: boolean, known: boolean, sourceScore: [number, number]|null, series: [number, number]|null, score: [number, number]|null, maps: NormalizedMap[], winnerSide: 1|2|null, draw: boolean, label: string, canDownload: boolean}} NormalizedResult */
 /** @typedef {{key: string, id: string, tournamentId: string, stageId: string, roundId: string|null, roundTitle: string, team1: string|null, team2: string|null, team1Id: string|null, team2Id: string|null, status: string, scheduledAt: string|null, date: string|null, dateDisplay: string|null, bestOf: string|null, note: string|null, result: NormalizedResult, links: UiAction[]}} MatchViewModel */
 /** @typedef {{id: SectionId, label: string, availability: 'ready'|'empty', emptyText: string|null}} SectionView */
 /** @typedef {{brandName: string, logoUrl: string, partners: {name: string, logoUrl: string}[], contactEmail: string}} ProjectView */
@@ -173,6 +174,11 @@ function validateResult(result, errors, path) {
   for (const key of ["confirmed", "technical", "known", "draw", "canDownload"]) if (typeof result[key] !== "boolean") errors.push(`${path}.${key} must be boolean`);
   for (const key of ["sourceScore", "series", "score"]) if (!scorePair(result[key])) errors.push(`${path}.${key} must be a score pair or null`);
   if (!Array.isArray(result.maps) || result.maps.some((map) => !record(map))) errors.push(`${path}.maps must be an object array`);
+  else result.maps.forEach((map, index) => {
+    if (!ownKeys(map, ["id", "name", "score", "unit", "outcome"]) || !nullableString(map.id) || !nonEmpty(map.name) || !scorePair(map.score) || !nonEmpty(map.unit) || !nullableString(map.outcome)) {
+      errors.push(`${path}.maps[${index}] is not a NormalizedMap`);
+    }
+  });
   if (![null, 1, 2].includes(result.winnerSide)) errors.push(`${path}.winnerSide is invalid`);
   if (!nonEmpty(result.label)) errors.push(`${path}.label is required`);
 }

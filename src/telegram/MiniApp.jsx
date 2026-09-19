@@ -4,6 +4,7 @@ import { createMiniAppRouter } from "./router.js";
 import { homeRoute, tournamentRoute } from "./contracts.js";
 import { DEFAULT_PREFERENCES, THEMES, LANGUAGES, readPreferences, savePreferences, getMessages } from "./preferences.js";
 import { RulesSection, ScheduleSection } from "./TournamentSections.jsx";
+import { MatchesSection } from "./MatchesSection.jsx";
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
 
@@ -89,7 +90,7 @@ export function MiniAppView({ model, runtime, router, copy, preferences, onPrefe
     </div>}
     {state.notice && <p className="tg-notice" role="status">{state.notice}</p>}
     <main>{route.screen === "home" ? <HomeScreen model={model} copy={copy} navigate={navigate} headingRef={heading} />
-      : <TournamentScreen model={model} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
+      : <TournamentScreen model={model} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
   </>;
 }
 
@@ -121,7 +122,7 @@ function TeamLogo({ participant }) {
     : <span className="tg-team-mark" aria-hidden="true">{participant.displayName.slice(0, 1).toUpperCase()}</span>;
 }
 
-export function TournamentScreen({ model, copy = getMessages("ru"), route, navigate, headingRef }) {
+export function TournamentScreen({ model, runtime, copy = getMessages("ru"), route, navigate, headingRef }) {
   const isParticipants = route.section === "participants";
   return <div className="tg-tournament-layout">
     <section className="tg-tournament-title">
@@ -130,7 +131,7 @@ export function TournamentScreen({ model, copy = getMessages("ru"), route, navig
       <div className="tg-tournament-meta"><span>{model.tournament.dates.display || copy.noDates}</span><strong>{copy.count}: {model.participants.length}</strong></div>
     </section>
     <nav className="tg-section-strip" aria-label={copy.current}>
-      {model.sections.filter((section) => ["overview", "participants", "rules", "schedule"].includes(section.id)).map((section) =>
+      {model.sections.filter((section) => ["overview", "participants", "rules", "schedule", "matches"].includes(section.id)).map((section) =>
         <button key={section.id} aria-current={route.section === section.id ? "page" : undefined} onClick={() => navigate(tournamentRoute(section.id))}>{section.label}</button>)}
     </nav>
     {isParticipants ? <section className="tg-participants" aria-labelledby="participant-title">
@@ -149,6 +150,7 @@ export function TournamentScreen({ model, copy = getMessages("ru"), route, navig
       <button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}<span aria-hidden="true">→</span></button>
     </section> : route.section === "rules" ? <RulesSection model={model} copy={copy} />
       : route.section === "schedule" ? <ScheduleSection model={model} copy={copy} />
+      : route.section === "matches" ? <MatchesSection model={model} runtime={runtime} copy={copy} />
       : <section className="tg-overview"><h2>{model.sections.find((section) => section.id === route.section)?.label}</h2><p>{copy.pendingSection}</p><button className="tg-primary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants}</button></section>}
   </div>;
 }

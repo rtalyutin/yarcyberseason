@@ -52,7 +52,7 @@ test("step6 empty rules and schedule remain distinct from pending implementation
   const model = fixture("empty");
   assert.match(render(model, "rules"), /Регламент ещё не опубликован/);
   assert.match(render(model, "schedule"), /Расписание ещё не опубликовано/);
-  assert.match(render(model, "matches"), /Этот раздел ещё готовится/);
+  assert.match(render(model, "swiss"), /Этот раздел ещё готовится/);
 });
 test("step6 exact offset timestamp uses L2 Moscow label and keeps source status", () => {
   const model = fixture("scheduledMatch", (t) => { t.stages[0].matches[0].scheduledAt = "2020-01-01T23:30:00Z"; });
@@ -117,9 +117,16 @@ test("step6 navigation exposes only implemented sections and rendering is read-o
   const before = structuredClone(real);
   const html = render(real, "rules");
   const nav = html.match(/<nav.*?<\/nav>/s)[0];
-  assert.equal((nav.match(/<button/g) || []).length, 4);
+  assert.equal((nav.match(/<button/g) || []).length, 5);
   assert.match(nav, /aria-current="page"[^>]*>Формат/);
   assert.ok(!nav.includes("Плей-офф") && !nav.includes("Итоги"));
   render(real, "schedule");
   assert.deepEqual(real, before);
+});
+test("step6 matches is wired into the existing tournament screen and section menu", () => {
+  const html = render(real, "matches");
+  assert.match(html, /aria-current="page"[^>]*>Матчи/);
+  assert.match(html, /<h2 id="matches-title">Матчи/);
+  assert.match(html, /Матчи ещё не опубликованы/);
+  assert.doesNotMatch(html, /Этот раздел ещё готовится/);
 });

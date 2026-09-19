@@ -89,6 +89,30 @@ body { margin: 0; }
 .tg-schedule-matches h4 { margin: 12px 0; font: 700 1.3rem/1.4 var(--tg-font-display); }
 .tg-schedule-matches p { margin-block: 8px; }
 .tg-match-date { color: var(--tg-cyan); }
+.tg-match-list { display: grid; gap: 16px; }
+.tg-match-row { min-width: 0; border: 1px solid var(--tg-line); background: var(--tg-panel); }
+.tg-match-row summary { display: block; padding: 18px; cursor: pointer; list-style: none; }
+.tg-match-row summary::-webkit-details-marker { display: none; }
+.tg-match-row summary:focus-visible { outline: 3px solid var(--tg-cyan); outline-offset: 3px; }
+.tg-match-row[open] { border-left: 2px solid var(--tg-cyan); }
+.tg-match-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; font-size: .875rem; }
+.tg-match-pair { display: grid; gap: 16px; margin-block: 18px; }
+.tg-match-pair > strong { font: 700 1.4rem/1.35 var(--tg-font-display); }
+.tg-match-score { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.tg-match-score > span, .tg-match-score-empty { color: var(--tg-muted); font-size: .875rem; }
+.tg-match-score strong { font: 700 2rem/1.2 var(--tg-font-display); color: var(--tg-ivory); }
+.tg-match-toggle { display: flex; gap: 8px; align-items: center; min-height: 44px; color: var(--tg-cyan); }
+.tg-match-row .tg-when-open, .tg-match-row[open] .tg-when-closed { display: none; }
+.tg-match-row[open] .tg-when-open { display: inline; }
+.tg-match-row[open] .tg-match-toggle > [aria-hidden] { transform: rotate(180deg); }
+.tg-match-details { padding: 18px; border-top: 1px solid var(--tg-line); }
+.tg-match-details > p:first-child { margin-top: 0; }
+.tg-map-results { list-style: none; padding: 0; margin: 16px 0; }
+.tg-map-results li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding-block: 12px; border-top: 1px solid var(--tg-line); }
+.tg-map-results li > span { color: var(--tg-muted); }
+.tg-map-results li > p { flex-basis: 100%; margin: 0; }
+.tg-match-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.tg-match-links button { max-width: 100%; padding: 10px 14px; border: 1px solid var(--tg-line); background: var(--tg-panel-raised); color: var(--tg-cyan); }
 @media (min-width: 600px) { .tg-section-content { padding: 32px; } }
 @media (min-width: 960px) { .tg-section-content { grid-column: 2; padding: 28px 0; } }
 @media (min-width: 600px) { .tg-hero { min-height: 510px; padding: 40px; } .tg-art::after { background-size: cover; mask-size: cover; } .tg-tournament-title, .tg-overview, .tg-participants { padding: 32px; } .tg-participants li { grid-template-columns: 30px 40px minmax(0, 1fr) auto; } .tg-team-number, .tg-team-mark { grid-row: auto; } .tg-participants li small { grid-column: auto; } }

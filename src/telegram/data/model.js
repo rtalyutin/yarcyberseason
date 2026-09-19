@@ -25,12 +25,12 @@ const isPublishedMatch = (match) => visibleRaw(match) && Boolean(match.team1 || 
 
 function mapMatch(record) {
   const external = [];
-  for (const [field, label] of [["streamUrl", "Трансляция"], ["replayUrl", "Запись"], ["documentUrl", "Документ"]]) {
+  for (const [field, label] of [["streamUrl", "Трансляция"], ["broadcastUrl", "Трансляция"], ["replayUrl", "Запись"], ["documentUrl", "Документ"]]) {
     const url = record[field];
     if (!nonEmpty(url)) continue;
     try {
       const parsed = new URL(url);
-      if (parsed.protocol === "https:" && !parsed.username && !parsed.password) external.push({ kind: "external", label, url: parsed.href });
+      if (parsed.protocol === "https:" && !parsed.username && !parsed.password && !external.some((action) => action.url === parsed.href)) external.push({ kind: "external", label, url: parsed.href });
     } catch { /* Invalid source links are rejected by validation elsewhere. */ }
   }
   return {

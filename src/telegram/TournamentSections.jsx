@@ -1,5 +1,6 @@
 import React from "react";
 import { getMessages } from "./preferences.js";
+import { matchStatusLabel } from "./match-presentation.js";
 
 // These renderers consume only L2 DTOs. They never read raw tournament JSON,
 // infer a match state from the clock, or create another copy of a result.
@@ -36,8 +37,7 @@ export function ScheduleSection({ model, copy = getMessages("ru") }) {
       <p className="tg-kicker">{match.roundTitle}{match.bestOf ? ` · ${match.bestOf}` : ""}</p>
       <h4>{match.team1 || copy.unknownTeam} <span aria-hidden="true">—</span> {match.team2 || copy.unknownTeam}</h4>
       <p className="tg-match-date">{match.dateDisplay || copy.datePending}</p>
-      <p className="tg-source-state">{["completed", "walkover", "bye"].includes(match.status) && !match.result.confirmed
-        ? copy.resultPending : copy.matchStates[match.status] || copy.unknownStatus}</p>
+      <p className="tg-source-state">{matchStatusLabel(match, copy)}</p>
       {match.note && <p>{match.note}</p>}
     </li>)}</ol> : <p className="tg-empty">{copy.noMatches}</p>}
   </section>;

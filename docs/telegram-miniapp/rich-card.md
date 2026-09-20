@@ -1,0 +1,82 @@
+# Карточка матча — шаг 6/16
+
+20.09.2026. Локальный прототип по §13 ТЗ, после опубликованного архива (§14). Следующий шаг с постоянным бот-сервисом не начат. Отправок в Telegram, изменений BotFather, публикации на действующем сайте не было.
+
+Открываемый результат: [rich-card-prototype.html](rich-card-prototype.html). Это самостоятельный HTML со встроенными оригинальными логотипами и шрифтом Rift; четыре состояния переключаются выбором сценария. Макет показывает композицию ЯКС, а не обещание точного оформления в Telegram: RichMessage рисует сам клиент, без наших CSS и шрифта.
+
+## Данные и границы
+
+| Сценарий | Источник | Отображение |
+| --- | --- | --- |
+| Текущий Dota | Общая модель `dota2-autumn-2026` | 16 участников, 0 матчей; отдельное пустое состояние |
+| До матча | `rich-card-demo.json`, revision `rich-card-demo-v1` | Вымышленные Север/Юг, BO3, нет подтверждённого счёта |
+| В эфире | Та же явно помеченная fixture | Нет подтверждённого счёта; текущая карта только из явного тестового снимка с датой и источником |
+| Завершённый демо | Та же fixture | Подтверждённые тестовые 2:0; ноль не подменяет неизвестный результат |
+| Опубликованный финал | `src/data/tournaments/current-cs2-2026.json`, SHA-256 файла записан в DTO | bobr1ki — PIVNAYA KEGA, BO5, 2:3, 6 сентября; часовой пояс и счёт карт не додумываются |
+
+Тестовые данные не импортируются в рабочий Mini App. У демо ссылка «Все матчи» открывает реальный текущий Dota с пустым расписанием; это подписано в макете. У реального примера ссылка сохраняет `tournament=cs2-august-2026&section=matches`. Драфт, статистика и AI-анализ помечены как демо: локально кнопки объясняют отсутствие функции, в RichMessage они отключены, в обычном сообщении остаются текстовые предупреждения. У демо-команд нет вымышленных логотипов — только инициалы.
+
+## Устройство реализации
+
+- L0: `src/telegram/rich-card/model.js` — RichCard/1 с матчом, турниром, командами, происхождением данных и действиями. Идентичность матча проверяется общей `validateMiniAppModel`; результаты берутся из существующей нормализованной модели. Отсутствующий счёт — `null`.
+- L2: `scripts/telegram/rich-card-cases.mjs` использует существующий `buildMiniAppModel` для JSON fixture и `loadMiniAppModel` для опубликованного матча. Нового хранилища результатов нет. Необязательный `currentMap` — отдельное явное свидетельство `{name, number|null, confirmed:true, observedAt:ISO, source}` только для `live`. Оно не выводится из завершённых карт или времени. Рабочий источник такого live-поля пока не подключён.
+- L4: `messages.js` строит обычное сообщение и RichMessage из одинакового набора `cardFacts`; `preview.js` отображает локальный HTML. Входной текст экранируется для HTML, а RichText передаётся строками без HTML/Markdown; автоматическое распознавание сущностей выключено.
+- Серверная проба: `scripts/telegram/rich-card-probe.mjs`, один запрос за запуск. По умолчанию только подготовка JSON. Токен читается из окружения лишь с `--execute`; отсутствует в браузерном коде, аргументах и журнале результата. Это не постоянный сервис, webhook или опрос обновлений.
+
+Логотипы допускаются с известного домена ЯКС в `/assets/`; переход проверяет домен, маршрут и турнир. Запрос на редактирование требует явный `message_id`. Нет автоматической отправки обычного сообщения вслед за RichMessage: при потерянном ответе это создало бы дубликат.
+
+## Проверенная версия API и совместимость
+
+На 20.09.2026 официальная документация описывает Bot API **10.3 от 24.08.2026**. `InputRichMessage.blocks` и кнопки используются по текущей схеме. [Официальный Bot API](https://core.telegram.org/bots/api).
+
+| Операция | Подготовленный запрос |
+| --- | --- |
+| RichMessage | `sendRichMessage`, `chat_id`, `rich_message: {blocks, skip_entity_detection:true}` |
+| Обычный текст | `sendMessage`, `chat_id`, `text`, клавиатура с URL «Все матчи» |
+| Обновление | `editMessageText`, `chat_id`, `message_id`, ровно одно представление: `rich_message` или `text` |
+| Логотип | `InputRichBlockPhoto.photo` содержит `InputMediaPhoto` с HTTPS URL |
+| Демо-действие | `RichMessageButton` с `disabled:{}` |
+
+Источники схем: [InputRichMessage](https://core.telegram.org/bots/api#inputrichmessage), [InputRichBlockPhoto](https://core.telegram.org/bots/api#inputrichblockphoto), [RichMessageButton](https://core.telegram.org/bots/api#richmessagebutton), [sendRichMessage](https://core.telegram.org/bots/api#sendrichmessage), [editMessageText](https://core.telegram.org/bots/api#editmessagetext).
+
+Использован URL-переход: `web_app` имеет ограничения по типам чатов. Это HTTPS-путь Mini App, но открытие внутри Telegram и возврат должны быть проверены в реальном клиенте. Минимальные версии клиентов не установлены; успешная сериализация не доказывает поддержку.
+
+| Среда | Версия клиента | Отправка / редактирование / кнопки / возврат |
+| --- | --- | --- |
+| Telegram Android | Не получена | NOT_VERIFIED |
+| Telegram iOS | Не получена | NOT_VERIFIED |
+| Telegram Desktop | Не получена | NOT_VERIFIED |
+| Локальный HTML в Cloud Chrome | Локальный URL заблокирован `ERR_BLOCKED_BY_CLIENT` | Визуальная и интерактивная проверка NOT_VERIFIED |
+
+Совместимый вариант — явно выбрать `--format plain` до отправки: те же факты и URL, без RichMessage. Автоматическое определение версии клиента не реализовано; минимум версий не выдуман.
+
+## Воспроизведение и разрешённая проба
+
+Подготовка без сети и токена:
+
+```sh
+node scripts/telegram/render-rich-card-prototype.mjs
+node scripts/telegram/rich-card-probe.mjs --case published --format rich
+node scripts/telegram/rich-card-probe.mjs --case planned --format plain
+node --test tests/telegram-rich-card.test.mjs
+```
+
+Для реального теста сначала нужны выбранный владельцем тестовый чат, разрешение на два сообщения и редактирование первого, сервер с токеном `@YarCyberSeason_bot` и версии клиентов. Токен вводится в серверное окружение `YCS_TELEGRAM_BOT_TOKEN`, не в переписку и не в репозиторий. Эти действия ещё не разрешены и не выполнялись.
+
+Согласуемая последовательность: отправить `planned` как rich; записать ID возвращённого сообщения; изменить именно это сообщение на `zero`; отправить `planned` как plain; проверить содержание, демо-кнопки, переход «Все матчи» и возврат на каждом доступном клиенте. Не отправлять реальный финал в публичный канал ради теста.
+
+После согласования используются явные параметры (переменные задаёт оператор, команды сейчас не запускались):
+
+```sh
+node scripts/telegram/rich-card-probe.mjs --case planned --format rich --chat "$YCS_TEST_CHAT_ID" --allow-chat "$YCS_TEST_CHAT_ID" --receipt "$YCS_RECEIPT_DIR/send-rich.json" --execute
+node scripts/telegram/rich-card-probe.mjs --case zero --format rich --chat "$YCS_TEST_CHAT_ID" --allow-chat "$YCS_TEST_CHAT_ID" --message-id "$YCS_TEST_MESSAGE_ID" --receipt "$YCS_RECEIPT_DIR/edit-rich.json" --execute
+node scripts/telegram/rich-card-probe.mjs --case planned --format plain --chat "$YCS_TEST_CHAT_ID" --allow-chat "$YCS_TEST_CHAT_ID" --receipt "$YCS_RECEIPT_DIR/send-plain.json" --execute
+```
+
+`YCS_RECEIPT_DIR` — вне репозитория. Журнал создаётся эксклюзивно с правами 0600, перед запросом сохраняется IN_PROGRESS. SUCCEEDED требует совпавший chat ID и message ID в ответе; отклонение 4xx — FAILED; timeout, 5xx, нечитаемый ответ, несовпадение — UNKNOWN. UNKNOWN или оставшийся IN_PROGRESS требуют просмотра выбранного чата перед решением о повторе. Сам скрипт не повторяет запросы, не меняет формат и не удаляет сообщения. Test chat ID и квитанции не коммитить.
+
+## Приёмка
+
+Локальные проверки включают реальные/демо/пустые данные, отсутствие мутации модели, неизвестный и нулевой счёт, обе формы сообщения, маршруты, экранирование, API payload, default dry-run и mock-ответы отправки. На финальном code commit `1971e872ac20116c54a94785289f4248a9496d2d` независимо повторены 171/171 тестов и сборка (PASS); 8/8 независимых групп PASS. Найденное несоответствие message ID при редактировании исправлено и проверено. Независимый отчёт: [independent-rich-card.md](independent-rich-card.md).
+
+До реальной отправки и редактирования, проверки клиентов и совместного просмотра — **gate шага 6 BLOCKED**, даже при успешных локальных тестах. Шаг 7 не открыт. Отсутствие внешней проверки не означает провал локальной реализации.

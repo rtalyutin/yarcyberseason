@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "kind": "demo",
+    "revision": "rich-card-demo-v1",
+    "source": "tests/fixtures/telegram/rich-card-demo.json — вымышленные команды и результаты"
+  },
+  "variants": {
+    "zero": { "status": "completed", "resultConfirmed": true, "scoreKind": "series", "score1": 2, "score2": 0 },
+    "live": { "status": "live", "resultConfirmed": false, "currentMap": { "name": "Демонстрационная карта", "number": 1, "confirmed": true, "observedAt": "2026-09-20T10:00:00Z", "source": "Тестовый снимок, не живой поток" } }
+  },
+  "tournament": {
+    "id": "dota2-autumn-2026", "slug": "dota2-autumn-2026", "title": "Тест карточки ЯКС", "discipline": "Dota 2", "season": "Демонстрация", "status": "upcoming", "statusLabel": "Тестовые данные", "dates": { "start": null, "end": null, "display": null }, "summary": "Локальная демонстрация, не турнир ЯКС.", "facts": [],
+    "participants": [
+      { "teamId": "demo-north", "displayName": "Тестовая команда Север", "status": "registered" },
+      { "teamId": "demo-south", "displayName": "Тестовая команда Юг", "status": "registered" }
+    ],
+    "stages": [{ "id": "playoffs", "type": "double_elimination", "title": "Демонстрационный матч", "rounds": [{"id":"demo-round", "label":"Тестовый раунд", "matches":[{"id":"demo-match", "team1":"Тестовая команда Север", "team2":"Тестовая команда Юг", "bestOf":"BO3", "status":"scheduled", "resultConfirmed":false}]}]}]
+  },
+  "registry": {
+    "schemaVersion": 2,
+    "teams": [
+      {"id":"demo-north", "name":"Тестовая команда Север", "disciplines":["Dota 2"]},
+      {"id":"demo-south", "name":"Тестовая команда Юг", "disciplines":["Dota 2"]}
+    ],
+    "bindings": [
+      {"tournamentId":"dota2-autumn-2026", "sourceName":"Тестовая команда Север", "teamId":"demo-north"},
+      {"tournamentId":"dota2-autumn-2026", "sourceName":"Тестовая команда Юг", "teamId":"demo-south"}
+    ],
+    "aliases": []
+  }
+}

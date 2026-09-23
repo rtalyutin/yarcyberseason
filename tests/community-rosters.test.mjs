@@ -6,15 +6,17 @@ import { validatePublicRosters } from '../src/lib/rosters.js';
 
 const read = (path) => JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), 'utf8'));
 const registry = read('src/data/teams.json');
-const rosters = read('src/data/team-rosters.json');
+const historicalRosters = read('src/data/team-rosters.json');
+const currentRosters = read('src/data/team-rosters-autumn-2026.json');
+const rosters = { schemaVersion: 1, sources: [...historicalRosters.sources, ...currentRosters.sources], records: [...historicalRosters.records, ...currentRosters.records] };
 const tournaments = readdirSync(new URL('../src/data/tournaments/', import.meta.url)).filter((file) => file.endsWith('.json')).map((file) => read(`src/data/tournaments/${file}`));
 const model = buildCommunityModel(tournaments, registry, rosters);
 const rosterAt = (id, tournamentId) => model.getTeam(id).entries.find((entry) => entry.tournament.id === tournamentId)?.roster;
 
 test('public archive has provenance and keeps each roster within its source tournament', () => {
   assert.deepEqual(validatePublicRosters(tournaments, registry, rosters), []);
-  assert.equal(rosters.records.length, 26);
-  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 130);
+  assert.equal(rosters.records.length, 32);
+  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 165);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'dota2-qual-2026').length, 14);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'cs2-february-2026').length, 11);
   for (const team of model.teams.values()) for (const entry of team.entries) {

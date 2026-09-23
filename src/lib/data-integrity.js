@@ -90,7 +90,7 @@ export function validateDataIntegrity(tournaments, registry, rosters, provenance
   for (const file of provenance.files) {
     if (!fields(file, ['path', 'sourceUrl', 'status', 'observedAt'], 'data-source') || !/^src\/data\/(?:tournaments\/)?[a-z0-9-]+\.json$/.test(file.path) || !safeHttps(file.sourceUrl) || !['recorded', 'confirmed', 'disputed'].includes(file.status) || !date(file.observedAt)) errors.push(`Invalid data provenance: ${file.path}`);
   }
-  for (const path of ['src/data/teams.json', 'src/data/team-rosters.json']) if (!provenance.files.some((f) => f.path === path)) errors.push(`Missing source: ${path}`);
+  for (const path of ['src/data/teams.json', 'src/data/team-rosters.json', 'src/data/team-rosters-autumn-2026.json']) if (!provenance.files.some((f) => f.path === path)) errors.push(`Missing source: ${path}`);
   return errors;
 }
 

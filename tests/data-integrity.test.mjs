@@ -11,7 +11,8 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const read = (path) => JSON.parse(readFileSync(join(root, path), 'utf8'));
 const filenames = readdirSync(join(root, 'src/data/tournaments')).filter((f) => f.endsWith('.json'));
 const tournaments = filenames.map((f) => read(`src/data/tournaments/${f}`));
-const registry = read('src/data/teams.json'), rosters = read('src/data/team-rosters.json'), sources = read('src/data/data-sources.json');
+const registry = read('src/data/teams.json'), historicalRosters = read('src/data/team-rosters.json'), currentRosters = read('src/data/team-rosters-autumn-2026.json'), sources = read('src/data/data-sources.json');
+const rosters = { schemaVersion: 1, sources: [...historicalRosters.sources, ...currentRosters.sources], records: [...historicalRosters.records, ...currentRosters.records] };
 const validate = (ts) => validateDataIntegrity(ts, registry, rosters, sources);
 
 test('prior sporting values survive identity metadata and the approved KEGA logo update', () => {
@@ -27,12 +28,13 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
     const before = JSON.parse(execFileSync('git', ['show', `2800ce2e4aa48642ffe0f86343b2ffb0b160bc40:src/data/tournaments/${f}`], { cwd: root, encoding: 'utf8' }));
     // Organizer-supplied replacement approved on 2026-09-16; all sporting values remain pinned.
     if (f === 'current-cs2-2026.json') before.teamLogos['PIVNAYA KEGA'] = '/assets/teams/pivnaya-kega/logo-2026-09.png';
+    if (f === 'dota2-autumn-2026.json') before.teamLogos = { PSB_Bank: '/assets/teams/dota2-autumn-2026/psb-bank/logo.png' };
     preserve(before, read(`src/data/tournaments/${f}`), f);
   }
   assert.deepEqual(validate(tournaments), []);
 });
 
-test('stable links survive reordering; only the submitted autumn roster is published', () => {
+test('stable links survive reordering; only submitted autumn rosters are published', () => {
   const model = buildCommunityModel(tournaments, registry, rosters);
   const shuffled = structuredClone(tournaments);
   for (const t of shuffled) for (const m of declaredMatches(t)) { m.maps?.reverse(); m.mapLinks?.reverse(); }
@@ -50,10 +52,44 @@ test('stable links survive reordering; only the submitted autumn roster is publi
       assert.deepEqual(entry.roster.members.map((member) => member.name), ['Pryzrock', 'Y0r1K', 'arti4e', '3pleS', 'Merkel19']);
       assert.equal(entry.roster.sourceId, 'pivnaya-kega-dota2-autumn-2026-submitted');
       assert.equal(model.getTeam(p.teamId).entries.find((e) => e.tournament.id === 'cs2-august-2026').roster, null);
+    } else if (p.teamId === 'cs2-august-2026-psb-bank') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Илья Солодяшкин «Nepper»', 'Антон Сидоров «антон1690»', 'Илья Кузнецов «Marfrid»', 'Александр Фролов «KrAsAv4iK»', 'Руслан Чередов «GoldiK»']);
+      assert.equal(entry.roster.sourceId, 'psb-bank-dota2-autumn-2026-submitted');
+      assert.equal(model.getTeam(p.teamId).entries.find((e) => e.tournament.id === 'cs2-august-2026').roster, null);
+    } else if (p.teamId === 'dota2-autumn-2026-fummo') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Дмитрий Арестов «GolfRinger»', 'Максим Борзов «Magic»', 'Наталья Фролова «privetntsh»', 'Анастасия Голик «Mouse»', 'Виталий Зимин «ⲣⲁⲇυ ⲏⲉⲉ»']);
+      assert.equal(entry.roster.sourceId, 'fummo-dota2-autumn-2026-submitted');
+      assert.ok(entry.roster.members.every((member) => !('birthDate' in member) && !('dateOfBirth' in member)));
+    } else if (p.teamId === 'dota2-qual-2026-arb-esports') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Кирилл «kyoutetsu凛» Малиновский', 'Денис «хочу татарочку» Крюков', 'Дмитрий «jxdzxq» Кочин', 'Арсений «Saint’» Васильев', 'Михаил «ганджубасик» Кременской', 'Максим Александрович Крюков «nejestkij»']);
+      assert.equal(entry.roster.members[5].role, 'Запасной игрок');
+      assert.equal(entry.roster.sourceId, 'arb-esports-dota2-autumn-2026-submitted');
+      assert.equal(model.getTeam(p.teamId).entries.find((e) => e.tournament.id === 'dota2-qual-2026').roster.members[0].name, 'Кирилл «kyoutetsu凛» Малиновский');
+    } else if (p.teamId === 'dota2-autumn-2026-4fans') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Игорь «Юрий Цезарь» Ужусенис', 'Артём «UZHAS» Ужусенис', 'Егор «Xoris» Ужусенис', 'Данил «TJL» Глотов', 'Павел «Pahanj» Терпугов', 'Ярослав «Ἴκαρος» Оркин', 'Даниил «kyouzava» Завялов']);
+      assert.deepEqual(entry.roster.members.slice(5).map((member) => member.role), ['Запасной игрок', 'Запасной игрок']);
+      assert.equal(entry.roster.sourceId, 'team-spermint-dota2-autumn-2026-submitted');
+    } else if (p.teamId === 'dota2-main-2026-team-borisogleb') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Евгений Ржаников «Eclipse»', 'Сергей Аракелян «AVGSam»', 'Сергей Горюнов «tv/gorjiik»', 'Андрей Бородулин «Dedredd»', 'Артём Кулигин «123»', 'Ярослав Лагунин «yarastyle»', 'Павел Авилов «pashylkal»']);
+      assert.deepEqual(entry.roster.members.slice(5).map((member) => member.role), ['Запасной игрок', 'Запасной игрок']);
+      assert.equal(entry.roster.sourceId, 'team-borisogleb-dota2-autumn-2026-submitted');
+      assert.equal(model.getTeam(p.teamId).logo, '/assets/teams/dota2/borisogleb/logo.jpg');
+    } else if (p.teamId === 'dota2-autumn-2026-liqa-sto') {
+      assert.equal(entry.rosterStatus, 'published');
+      assert.deepEqual(entry.roster.members.map((member) => member.name), ['Виктор Боров Викторович «slip & let go»', 'Александр Добоевец Михайлович «kim4i»', 'Богдан Чубозаров Викторович «good morning Vietnam»', 'Давид Кизаручмой Павлович «Анальная трещина»', 'Илья Сталонович Александрович «Гойда!»']);
+      assert.ok(entry.roster.members.every((member) => !('birthDate' in member) && !('steamId' in member) && !('telegram' in member)));
+      assert.equal(entry.roster.sourceId, 'liqa-sto-dota2-autumn-2026-submitted');
+      assert.equal(autumn.teamLogos['liqa sto'], '/assets/teams/dota2-autumn-2026/liqa-sto/logo.png');
     } else {
       assert.equal(entry.roster, null); assert.equal(entry.rosterStatus, 'unknown');
     }
   }
+  assert.deepEqual(Object.keys(autumn.teamLogos).sort(), ['ARB Esports', 'Fummo', 'PSB_Bank', 'TEAM SPERMINT', 'liqa sto']);
   assert.equal(autumn.rosterCollection.expectedBy, '2026-09-21');
   assert.equal(autumn.rosterCollection.status, 'collecting');
   const dispute = model.matches.get('dota2-main-2026/dota-main-group-16');
@@ -114,7 +150,7 @@ test('CLI validates before writing, imports once, and rejects private data and c
     assert.equal(run().status, 0); assert.equal(readFileSync(target, 'utf8'), original);
     assert.equal(run('--write').status, 0);
     const imported = readFileSync(target, 'utf8');
-    assert.equal(JSON.parse(imported).records.length, rosters.records.length + 1);
+    assert.equal(JSON.parse(imported).records.length, historicalRosters.records.length + 1);
     const again = run('--write'); assert.equal(again.status, 0); assert.equal(JSON.parse(again.stdout).changed, false);
     assert.equal(readFileSync(target, 'utf8'), imported);
     payload.records[0].members[0].name = 'Conflicting version'; writeFileSync(input, JSON.stringify(payload));

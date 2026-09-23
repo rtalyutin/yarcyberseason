@@ -10,7 +10,13 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const read = (name) => JSON.parse(readFileSync(resolve(root, name), 'utf8'));
 const tournaments = readdirSync(resolve(root, 'src/data/tournaments')).filter((f) => f.endsWith('.json')).map((f) => read('src/data/tournaments/' + f));
 const registry = read('src/data/teams.json');
-const rosters = read('src/data/team-rosters.json');
+const historicalRosters = read('src/data/team-rosters.json');
+const currentRosters = read('src/data/team-rosters-autumn-2026.json');
+const rosters = {
+  schemaVersion: 1,
+  sources: [...historicalRosters.sources, ...currentRosters.sources],
+  records: [...historicalRosters.records, ...currentRosters.records],
+};
 const provenance = read('src/data/data-sources.json');
 const errors = [...validateCommunity(tournaments, registry), ...validatePublicRosters(tournaments, registry, rosters), ...validateDataIntegrity(tournaments, registry, rosters, provenance)];
 for (const name of readdirSync(resolve(root, 'src/data/tournaments')).filter((f) => f.endsWith('.json'))) {

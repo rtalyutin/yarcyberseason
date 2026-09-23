@@ -6,6 +6,13 @@
   "discipline": "Dota 2",
   "season": "YAR CYBER SEASON’26 VER.2",
   "status": "upcoming",
+  "teamLogos": {
+    "PSB_Bank": "/assets/teams/dota2-autumn-2026/psb-bank/logo.png",
+    "Fummo": "/assets/teams/dota2-autumn-2026/fummo/logo.png",
+    "ARB Esports": "/assets/teams/dota2-autumn-2026/arb-esports/logo.png",
+    "TEAM SPERMINT": "/assets/teams/dota2-autumn-2026/team-spermint/logo.png",
+    "liqa sto": "/assets/teams/dota2-autumn-2026/liqa-sto/logo.png"
+  },
   "statusLabel": "Регистрация закрыта",
   "summary": "Следующий турнир сезона: 16 команд, швейцарская система и плей-офф double elimination.",
   "homeDate": {
@@ -248,5 +255,10 @@
       "displayName": "РГАТУ",
       "status": "registered"
     }
-  ], "rosterCollection": {"expectedBy": "2026-09-21", "status": "collecting", "source": "organizer-confirmation-2026-09-16"}
+  ],
+  "rosterCollection": {
+    "expectedBy": "2026-09-21",
+    "status": "collecting",
+    "source": "organizer-confirmation-2026-09-16"
+  }
 }

@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "psb-bank-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава — сообщение организатора в этой беседе; URL проекта дан только как контекст, не как ссылка на сообщение; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-23"
+    },
+    {
+      "id": "fummo-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и логотипа — сообщение организатора в этой беседе; URL проекта дан только как контекст, не как ссылка на сообщение; даты рождения не публикуются, допуск отдельно не проверен",
+      "retrievedAt": "2026-09-23"
+    },
+    {
+      "id": "arb-esports-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и логотипа — сообщение организатора в этой беседе; URL проекта дан только как контекст, не как ссылка на сообщение; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-23"
+    },
+    {
+      "id": "team-spermint-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и логотипа — сообщение организатора в этой беседе; URL проекта дан только как контекст, не как ссылка на сообщение; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-23"
+    },
+    {
+      "id": "team-borisogleb-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава — сообщение организатора в этой беседе; URL проекта дан только как контекст, используется текущий логотип команды; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-23"
+    },
+    {
+      "id": "liqa-sto-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и нового логотипа — сообщение и вложение организатора в этой беседе; даты рождения, Steam ID и Telegram-контакты не публикуются; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-23"
+    }
+  ],
+  "records": [
+    {
+      "teamId": "cs2-august-2026-psb-bank",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "psb-bank-dota2-autumn-2026-submitted",
+      "sourceName": "PSB_Bank",
+      "members": [
+        {
+          "name": "Илья Солодяшкин «Nepper»",
+          "role": "Капитан, колю Раш б"
+        },
+        {
+          "name": "Антон Сидоров «антон1690»",
+          "role": "топ таб команды"
+        },
+        {
+          "name": "Илья Кузнецов «Marfrid»",
+          "role": "Анти-фрагер — специалист по непреднамеренным фейкам"
+        },
+        {
+          "name": "Александр Фролов «KrAsAv4iK»",
+          "role": "SkreaM завидовал его ван тапам"
+        },
+        {
+          "name": "Руслан Чередов «GoldiK»",
+          "role": "Вытащили из сиджа. Дали какую-то палку и послали на мид. На выстрел коплю ману дольше чем Солик."
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-fummo",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "fummo-dota2-autumn-2026-submitted",
+      "sourceName": "Fummo",
+      "members": [
+        {
+          "name": "Дмитрий Арестов «GolfRinger»",
+          "role": "Капитан"
+        },
+        {
+          "name": "Максим Борзов «Magic»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Наталья Фролова «privetntsh»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Анастасия Голик «Mouse»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Виталий Зимин «ⲣⲁⲇυ ⲏⲉⲉ»",
+          "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-qual-2026-arb-esports",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "arb-esports-dota2-autumn-2026-submitted",
+      "sourceName": "ARB Esports",
+      "members": [
+        {
+          "name": "Кирилл «kyoutetsu凛» Малиновский",
+          "role": "Игрок"
+        },
+        {
+          "name": "Денис «хочу татарочку» Крюков",
+          "role": "Игрок"
+        },
+        {
+          "name": "Дмитрий «jxdzxq» Кочин",
+          "role": "Игрок"
+        },
+        {
+          "name": "Арсений «Saint’» Васильев",
+          "role": "Игрок"
+        },
+        {
+          "name": "Михаил «ганджубасик» Кременской",
+          "role": "Игрок"
+        },
+        {
+          "name": "Максим Александрович Крюков «nejestkij»",
+          "role": "Запасной игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-4fans",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "team-spermint-dota2-autumn-2026-submitted",
+      "sourceName": "TEAM SPERMINT",
+      "members": [
+        {
+          "name": "Игорь «Юрий Цезарь» Ужусенис",
+          "role": "Игрок"
+        },
+        {
+          "name": "Артём «UZHAS» Ужусенис",
+          "role": "Игрок"
+        },
+        {
+          "name": "Егор «Xoris» Ужусенис",
+          "role": "Игрок"
+        },
+        {
+          "name": "Данил «TJL» Глотов",
+          "role": "Игрок"
+        },
+        {
+          "name": "Павел «Pahanj» Терпугов",
+          "role": "Игрок"
+        },
+        {
+          "name": "Ярослав «Ἴκαρος» Оркин",
+          "role": "Запасной игрок"
+        },
+        {
+          "name": "Даниил «kyouzava» Завялов",
+          "role": "Запасной игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-team-borisogleb",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "team-borisogleb-dota2-autumn-2026-submitted",
+      "sourceName": "Team Borisogleb",
+      "members": [
+        {
+          "name": "Евгений Ржаников «Eclipse»",
+          "role": "Mid"
+        },
+        {
+          "name": "Сергей Аракелян «AVGSam»",
+          "role": "Carry"
+        },
+        {
+          "name": "Сергей Горюнов «tv/gorjiik»",
+          "role": "4 pos"
+        },
+        {
+          "name": "Андрей Бородулин «Dedredd»",
+          "role": "Offlane, капитан"
+        },
+        {
+          "name": "Артём Кулигин «123»",
+          "role": "5-Pos"
+        },
+        {
+          "name": "Ярослав Лагунин «yarastyle»",
+          "role": "Запасной игрок"
+        },
+        {
+          "name": "Павел Авилов «pashylkal»",
+          "role": "Запасной игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-liqa-sto",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "liqa-sto-dota2-autumn-2026-submitted",
+      "sourceName": "liqa sto",
+      "members": [
+        {
+          "name": "Виктор Боров Викторович «slip & let go»",
+          "role": "Капитан"
+        },
+        {
+          "name": "Александр Добоевец Михайлович «kim4i»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Богдан Чубозаров Викторович «good morning Vietnam»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Давид Кизаручмой Павлович «Анальная трещина»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Илья Сталонович Александрович «Гойда!»",
+          "role": "Игрок"
+        }
+      ]
+    }
+  ]
+}

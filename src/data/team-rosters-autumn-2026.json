@@ -36,6 +36,18 @@
       "url": "https://ycs.bar/",
       "section": "Источник состава и нового логотипа — сообщение и вложение организатора в этой беседе; даты рождения, Steam ID и Telegram-контакты не публикуются; допуск отдельно не проверен",
       "retrievedAt": "2026-09-23"
+    },
+    {
+      "id": "mi-ne-pushim-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава — сообщение организатора в этой беседе; даты рождения, Steam ID и Telegram-контакты не публикуются; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-24"
+    },
+    {
+      "id": "strela-team-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава — сообщение организатора в этой беседе; даты рождения, Steam ID и Telegram-контакты не публикуются; допуск отдельно не проверен; используется текущий логотип команды",
+      "retrievedAt": "2026-09-24"
     }
   ],
   "records": [
@@ -224,6 +236,74 @@
         {
           "name": "Илья Сталонович Александрович «Гойда!»",
           "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-mi-ne-pushim",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "mi-ne-pushim-dota2-autumn-2026-submitted",
+      "sourceName": "Mi Ne Pushim!",
+      "members": [
+        {
+          "name": "Дружининский Сергей «Ovoosch»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Олежков Кирилл «Ucomion»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Цыпкин Александр «MoonLightObito»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Евгений Титов «ioanngrozniy»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Карсаков Александр «Narfle»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Курганович Денис «Perec_amigo»",
+          "role": "Запасной игрок"
+        },
+        {
+          "name": "Корнеев Станислав «Что такое победа?»",
+          "role": "Запасной игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-strela-team",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "strela-team-dota2-autumn-2026-submitted",
+      "sourceName": "strela team",
+      "members": [
+        {
+          "name": "Алексеев Данил Николаевич «六六六»",
+          "role": "Капитан"
+        },
+        {
+          "name": "Рыжков Роман Викторович «ПОГОНЯЛО ОБЕЗЬЯН»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Багацкий Денис Юрьевич «Xard0n»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Карпов Илья Андреевич «adenozine~»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Мартынова Евгения Александровна «emptxrn^^»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Носков Михаил Александрович «Fun Mode»",
+          "role": "Запасной игрок"
         }
       ]
     }

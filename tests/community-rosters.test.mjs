@@ -15,8 +15,8 @@ const rosterAt = (id, tournamentId) => model.getTeam(id).entries.find((entry) =>
 
 test('public archive has provenance and keeps each roster within its source tournament', () => {
   assert.deepEqual(validatePublicRosters(tournaments, registry, rosters), []);
-  assert.equal(rosters.records.length, 32);
-  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 165);
+  assert.equal(rosters.records.length, 34);
+  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 178);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'dota2-qual-2026').length, 14);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'cs2-february-2026').length, 11);
   for (const team of model.teams.values()) for (const entry of team.entries) {
@@ -31,13 +31,25 @@ test('merged team aliases retain historical rosters without inheriting them in l
   assert.equal(model.getTeam('dota2-qual-2026-mi-ne-pushim'), team);
   assert.equal(rosterAt(team.id, 'dota2-qual-2026').members[0].name, 'Кирилл «Ucomion» Олешков');
   assert.equal(rosterAt(team.id, 'dota2-main-2026'), null);
-  assert.equal(rosterAt(team.id, 'dota2-autumn-2026'), null);
+  assert.equal(rosterAt(team.id, 'dota2-autumn-2026').members.filter((member) => member.role === 'Игрок').length, 5);
+  assert.equal(rosterAt(team.id, 'dota2-autumn-2026').members.filter((member) => member.role === 'Запасной игрок').length, 2);
   const cipher = model.getTeam('cs2-august-2026-cipher');
   assert.equal(rosterAt(cipher.id, 'cs2-february-2026').members[0].name, 'Евгений «frost1klq»');
   assert.equal(rosterAt(cipher.id, 'cs2-august-2026'), null);
   assert.equal(rosterAt('cs2-february-2026-fist-beer', 'cs2-february-2026'), null);
   assert.equal(rosterAt('cs2-february-2026-fist-beer-960854', 'cs2-february-2026').members[0].name, '[将] ZAN');
   assert.equal(rosterAt('cs2-february-2026-ligachad', 'cs2-february-2026').members[2].role, 'Замена');
+});
+
+test('new autumn submissions keep Mi Ne Pushim substitutes and Strela reserve scoped to the autumn tournament', () => {
+  const miNe = rosterAt('dota2-main-2026-mi-ne-pushim', 'dota2-autumn-2026');
+  assert.deepEqual(miNe.members.filter((member) => member.role === 'Запасной игрок').map((member) => member.name), [
+    'Курганович Денис «Perec_amigo»',
+    'Корнеев Станислав «Что такое победа?»',
+  ]);
+  assert.equal(rosterAt('dota2-autumn-2026-strela-team', 'dota2-autumn-2026').members.length, 6);
+  assert.equal(rosterAt('dota2-autumn-2026-strela-team', 'dota2-autumn-2026').members.at(-1).role, 'Запасной игрок');
+  assert.equal(rosterAt('dota2-main-2026-mi-ne-pushim', 'dota2-main-2026'), null);
 });
 
 test('one public CS2 lineup cannot populate a shared team’s Dota history', () => {

@@ -4,13 +4,15 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { buildCommunityModel } from '../src/lib/community.js';
 import { createWebMcpTools } from '../src/lib/webmcp.js';
 import { attachWebMcp } from '../src/lib/webmcp-registration.js';
+import rosters from '../src/data/rosters.js';
 
 const read = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8'));
 const tournaments = readdirSync(new URL('../src/data/tournaments/', import.meta.url)).filter((name) => name.endsWith('.json')).map((name) => read('../src/data/tournaments/' + name));
 const registry = read('../src/data/teams.json');
-const community = buildCommunityModel(tournaments, registry);
+const community = buildCommunityModel(tournaments, registry, rosters);
 const dataVersion = 'fixture-version';
-const tools = createWebMcpTools({ tournaments, community, dataVersion });
+const buildGeneratedAt = '2026-09-24T10:30:00.000Z';
+const tools = createWebMcpTools({ tournaments, community, dataVersion, buildGeneratedAt });
 const call = (name, args) => tools.find((tool) => tool.name === name).execute(args);
 const tick = () => new Promise((resolve) => setImmediate(resolve));
 
@@ -23,6 +25,7 @@ test('all six tools read the shared snapshot and reject writes/invalid input', a
       assert.equal(result.ok, false, tool.name);
       assert.equal(result.error.code, 'INVALID_ARGUMENT');
       assert.equal(result.dataVersion, dataVersion);
+      assert.equal(result.buildGeneratedAt, buildGeneratedAt);
     }
   }
   for (const args of [{ limit: 101 }, { limit: 0 }, { offset: -1 }, { offset: 0.2 }, { query: ' ' }, { discipline: 'CS2' }]) assert.equal((await call('ycs_list_matches', args)).ok, false);
@@ -75,6 +78,35 @@ test('aliases, historical names and disciplines resolve without duplicate teams'
   assert.equal(new Set(cs2.items.map((team) => team.id)).size, cs2.total);
 });
 
+test('team rosters stay attached to their published tournament and URLs use the main domain', async () => {
+  const result = await call('ycs_get_team', { teamId: 'cs2-august-2026-pivnaya-kega' });
+  assert.equal(result.ok, true);
+  assert.equal(result.buildGeneratedAt, buildGeneratedAt);
+  assert.equal(result.team.url, '/teams/cs2-august-2026-pivnaya-kega');
+  assert.equal(result.team.absoluteUrl, 'https://xn--90aiaibl0ahlel5n.xn--p1ai/teams/cs2-august-2026-pivnaya-kega');
+  assert.equal(Object.hasOwn(result.team, 'rosterStatus'), false);
+
+  const autumn = result.team.entries.find((entry) => entry.tournament.id === 'dota2-autumn-2026');
+  assert.equal(autumn.rosterStatus, 'published');
+  assert.equal(autumn.roster.members.length, 5);
+  assert.ok(autumn.roster.members.every((member) => Object.keys(member).sort().join(',') === 'name,role'));
+  assert.equal(autumn.roster.pageUrl, result.team.absoluteUrl);
+  assert.equal(Object.hasOwn(autumn.roster, 'sourceUrl'), false);
+
+  const cs2 = result.team.entries.find((entry) => entry.tournament.discipline === 'Counter-Strike 2');
+  assert.ok(cs2);
+  assert.equal(cs2.rosterStatus, 'unknown');
+  assert.equal(Object.hasOwn(cs2, 'roster'), false);
+
+  const tournament = (await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' })).tournament;
+  assert.equal(tournament.url, '/tournaments/dota2-autumn-2026');
+  assert.equal(tournament.absoluteUrl, 'https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026');
+  const match = (await call('ycs_get_match', { tournamentId: 'cs2-august-2026', matchId: 'cs2-aug-grand-final' })).match;
+  assert.equal(match.url, '/tournaments/cs2-august-2026/matches/cs2-aug-grand-final');
+  assert.equal(match.absoluteUrl, `https://xn--90aiaibl0ahlel5n.xn--p1ai${match.url}`);
+  assert.doesNotMatch(JSON.stringify(result), /dateOfBirth|birthDate|email|phone|steamId|telegramId/i);
+});
+
 test('callers cannot mutate the source through nested response objects', async () => {
   const before = JSON.stringify({ tournaments, registry, matches: [...community.matches], teams: [...community.teams] });
   const response = await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' });
@@ -94,7 +126,7 @@ test('published context and source attribution remain attached to every match', 
 
 test('unpublished matches are absent from lists, detail, and tournament stage references', async () => {
   const fixture = [{ id: 'fixture', slug: 'fixture', title: 'Fixture', stages: [{ id: 'stage', rounds: [{ label: 'Round', matches: [{ id: 'secret', team1: 'A', team2: 'B', published: false }] }] }] }];
-  const readers = createWebMcpTools({ tournaments: fixture, community: buildCommunityModel(fixture, { teams: [], bindings: [] }), dataVersion });
+  const readers = createWebMcpTools({ tournaments: fixture, community: buildCommunityModel(fixture, { teams: [], bindings: [] }), dataVersion, buildGeneratedAt });
   const readTool = (name, args) => readers.find((tool) => tool.name === name).execute(args);
   assert.equal((await readTool('ycs_list_matches', {})).total, 0);
   assert.equal((await readTool('ycs_get_match', { tournamentId: 'fixture', matchId: 'secret' })).error.code, 'NOT_FOUND');

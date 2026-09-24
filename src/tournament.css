@@ -15,8 +15,8 @@
 .tn-page :is(button, a, input):focus-visible { outline: 2px solid #80b7ff; outline-offset: 4px; }
 .tn-heading { width: min(1480px, calc(100% - 80px)); margin: auto; padding: 16px 0 12px; }
 .tn-breadcrumb { display: flex; gap: 20px; align-items: center; color: var(--tn-muted); font-size: 15px; }
-.tn-breadcrumb button { background: none; color: inherit; padding: 4px 0; }
-.tn-breadcrumb button:hover { color: white; }
+.tn-breadcrumb :is(button, a) { background: none; color: inherit; padding: 4px 0; text-decoration: none; }
+.tn-breadcrumb :is(button, a):hover { color: white; }
 .tn-title-row { display: flex; gap: 28px; align-items: center; justify-content: space-between; margin: 16px 0 4px; }
 .tn-title-row h1 { margin: 0; font: 700 clamp(30px, 3.25vw, 48px)/1.16 "YCS Sans", Arial, sans-serif; letter-spacing: -.035em; overflow-wrap: anywhere; }
 .tn-status { flex-shrink: 0; color: var(--tn-muted); font-size: 16px; font-weight: 700; }
@@ -52,7 +52,7 @@
 .tn-facts p:last-child { margin-bottom: 0; }
 .tn-facts svg { flex-shrink: 0; color: var(--tn-muted); width: 23px; height: 23px; }
 .tn-archive-count { color: var(--tn-muted); line-height: 1.65; font-size: 15px; margin: 20px 10px; }
-.tn-back { display: flex; align-items: center; gap: 14px; margin: auto 0 0; padding: 24px 10px 8px; background: none; color: var(--tn-blue); text-align: left; font-size: 17px; }
+.tn-back { display: flex; align-items: center; gap: 14px; margin: auto 0 0; padding: 24px 10px 8px; background: none; color: var(--tn-blue); text-align: left; font-size: 17px; text-decoration: none; }
 .tn-back svg { width: 23px; height: 23px; }
 .tn-content { min-width: 0; padding: 30px 12px 30px 32px; }
 .tn-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin-bottom: 14px; }

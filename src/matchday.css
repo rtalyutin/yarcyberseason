@@ -58,7 +58,7 @@
 .md-next h2 { font-size: clamp(20px, 2vw, 29px); line-height: 1.3; margin: 0 0 10px; overflow-wrap: anywhere; letter-spacing: -.02em; }
 .md-next > div > span { color: var(--md-muted); font-size: 16px; }
 .md-actions { display: flex; flex-direction: column; align-items: center; gap: 7px; flex-shrink: 0; }
-.md-primary { display: inline-flex; align-items: center; justify-content: center; min-width: 240px; min-height: 58px; border: 0; padding: 14px 24px; background: #1460f5; color: white; font-size: 18px; font-weight: 700; text-align: center; }
+.md-primary { display: inline-flex; align-items: center; justify-content: center; min-width: 240px; min-height: 58px; border: 0; padding: 14px 24px; background: #1460f5; color: white; font-size: 18px; font-weight: 700; text-align: center; text-decoration: none; }
 .md-primary:hover { background: #2876ff; }
 .md-partners { display: flex; align-items: center; gap: 44px; padding-top: 22px; }
 .md-partners > span { color: var(--md-muted); text-transform: uppercase; font-size: 15px; white-space: nowrap; }

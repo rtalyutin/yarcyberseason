@@ -6,6 +6,7 @@ import { community } from '../data/community.js';
 import { tournaments } from '../data/tournaments/index.js';
 import { calendarPath, matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps, teamPath, teamSummary, teamForDiscipline, upcomingMatches } from '../lib/community.js';
 import { downloadResultCard } from '../lib/result-card.js';
+import { publicUrl } from '../lib/public-url.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
 import '../team-profile.css';
@@ -36,7 +37,7 @@ export function CommunityMatchRow({ match, profile = false }) {
   </article>;
 }
 function CalendarPanel({ team, compact = false }) {
-  const url = new URL(calendarPath(team.id), window.location.origin).href;
+  const url = publicUrl(calendarPath(team.id));
   return <details className={`community-panel community-calendar${compact ? ' tp-follow' : ''}`} id="calendar">
     <summary>{compact && <CalendarBlank aria-hidden="true" size={20} />}Следить за командой {compact ? <CaretDown aria-hidden="true" size={16} /> : <span>Календарь матчей</span>}</summary>
     {team.disciplines.length > 1 && <p>Все дисциплины команды</p>}
@@ -108,7 +109,6 @@ function DisciplineHistory({ sourceTeam, discipline, first, multiple, railStats 
 
 export function TeamPage({ teamId, theme = 'cs2' }) {
   const team = community.getTeam(teamId);
-  useEffect(() => { if (team) document.title = `${team.name} — ЯрКиберСезон`; }, [team]);
   if (!team) return <UnknownPage kind="Команда" />;
   const multiple = team.disciplines.length > 1;
   return <main className={`community-page team-profile${multiple ? ' team-profile--multiple' : ''}`} data-team-theme={theme}>
@@ -132,9 +132,8 @@ export function MatchPage({ tournamentSlug, matchId }) {
   const tournament = tournaments.find((t) => t.slug === tournamentSlug);
   const match = tournament && community.matches.get(matchKey(tournament.id, matchId));
   const [downloadState, setDownloadState] = useState('');
-  useEffect(() => { if (match) document.title = `${match.team1} — ${match.team2} · ЯрКиберСезон`; }, [match]);
   if (!match) return <UnknownPage kind="Матч" />;
-  const url = new URL(matchPath(match), window.location.origin).href;
+  const url = publicUrl(matchPath(match));
   const consequence = matchConsequence(match, community, tournaments);
   const result = match.result;
   const media = [['Трансляция', safeHttps(match.broadcastUrl)], ['Запись матча', safeHttps(match.vodUrl || match.replayUrl)], ...(match.highlights || []).map((h) => [h.title, safeHttps(h.url)])].filter(([, href]) => href);

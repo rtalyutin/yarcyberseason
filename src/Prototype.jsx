@@ -18,6 +18,7 @@ import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import { TechiesEgg } from "./components/TechiesEgg.jsx";
 import { AboutPage } from "./components/AboutPage.jsx";
 import { SiteHeader } from "./components/SiteHeader.jsx";
+import { applyPageMetadata } from "./lib/page-metadata.js";
 import {
   archivedTournaments,
   currentTournament,
@@ -25,8 +26,8 @@ import {
   nextTournament,
 } from "./data/tournaments/index.js";
 
-function useLocationPath() {
-  const [path, setPath] = useState(() => window.location.pathname || "/");
+function useLocationPath(initialPath) {
+  const [path, setPath] = useState(() => initialPath || (typeof window === "undefined" ? "/" : window.location.pathname || "/"));
 
   useEffect(() => {
     const onPopState = () => setPath(window.location.pathname || "/");
@@ -39,6 +40,12 @@ function useLocationPath() {
 
 function isExternal(target) {
   return /^(https?:|mailto:|tel:)/.test(target);
+}
+
+function followPublicLink(event, href, navigate) {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.currentTarget.target || event.currentTarget.hasAttribute("download")) return;
+  event.preventDefault();
+  navigate(href);
 }
 
 function getTournamentStatusState(tournament) {
@@ -106,6 +113,7 @@ function Footer({ navigate }) {
       <nav aria-label="Документы и контакты">
         <a href="mailto:info@ycs.bar">info@ycs.bar</a>
         <a href="/about#requisites">Контакты и реквизиты</a>
+        <a href="/webmcp">Данные для ИИ</a>
         <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
         <a href={`/tournaments/${nextTournament.slug}#format`}>Правила участия</a>
       </nav>
@@ -127,11 +135,7 @@ function ActionButton({ action, variant = "primary", navigate }) {
     return <a className={className} href={target}>{action.label}</a>;
   }
 
-  return (
-    <button className={className} type="button" onClick={() => navigate(target)}>
-      {action.label}
-    </button>
-  );
+  return <a className={className} href={target} onClick={(event) => followPublicLink(event, target, navigate)}>{action.label}</a>;
 }
 
 function PageIntro({ eyebrow, title, body, action, navigate }) {
@@ -197,9 +201,9 @@ function HomePage({ navigate, theme }) {
               {nextTournament.registration?.status === 'closed' ? <p className="home-deadline">{nextTournament.registration.message}</p> : deadline && <p className="home-deadline">Регистрация {deadline}</p>}
               <div className="home-conversion-actions">
                 <ActionButton action={nextTournament.primaryAction} navigate={navigate} />
-                <button className="home-subtle-link" type="button" onClick={() => navigate(`/tournaments/${nextTournament.slug}#format`)}>
+                <a className="home-subtle-link" href={`/tournaments/${nextTournament.slug}#format`} onClick={(event) => followPublicLink(event, `/tournaments/${nextTournament.slug}#format`, navigate)}>
                   Условия участия <ArrowUpRight weight="bold" aria-hidden="true" />
-                </button>
+                </a>
               </div>
               <div className="registration-documents">
                 <div><a href={`/tournaments/${nextTournament.slug}#format`}>Правила турнира <ArrowUpRight aria-hidden="true" /></a>
@@ -229,9 +233,9 @@ function HomePage({ navigate, theme }) {
                 <span className={`home-versus${isFinished(featuredMatch) && hasScore(featuredMatch) ? " home-final-score" : ""}`}>{isFinished(featuredMatch) && hasScore(featuredMatch) ? `${featuredMatch.score1}:${featuredMatch.score2}` : "VS"}</span>
                 <TeamIdentity tournament={currentTournament} team={featuredMatch.team2} align="end" size="feature" />
               </div>
-              <button className="home-match-link" type="button" onClick={() => navigate(finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route)}>
+              <a className="home-match-link" href={finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route} onClick={(event) => followPublicLink(event, finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route, navigate)}>
                 {finished ? "Итоги турнира" : "Открыть Matchday"} <CaretRight weight="bold" aria-hidden="true" />
-              </button>
+              </a>
             </article>}
           </div>
 
@@ -242,14 +246,14 @@ function HomePage({ navigate, theme }) {
             </div>
             <div className="home-archive-list">
               {archivePreview.map((tournament) => (
-                <button className="home-archive-row" key={tournament.slug} type="button" onClick={() => navigate(`/tournaments/${tournament.slug}`)}>
+                <a className="home-archive-row" key={tournament.slug} href={`/tournaments/${tournament.slug}`} onClick={(event) => followPublicLink(event, `/tournaments/${tournament.slug}`, navigate)}>
                   <HomeGameMark src={tournament.discipline === "Dota 2" ? "/assets/games/dota2.svg" : "/assets/games/counterstrike.svg"} label={tournament.discipline} />
                   <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small>{getTournamentOutcome(tournament)?.champion && <small>Чемпион · {getTournamentOutcome(tournament).champion}</small>}</span>
                   <ArrowUpRight weight="bold" aria-hidden="true" />
-                </button>
+                </a>
               ))}
             </div>
-            <button className="home-all-results" type="button" onClick={() => navigate("/results")}>Все результаты <ArrowUpRight weight="bold" aria-hidden="true" /></button>
+            <a className="home-all-results" href="/results" onClick={(event) => followPublicLink(event, "/results", navigate)}>Все результаты <ArrowUpRight weight="bold" aria-hidden="true" /></a>
           </aside>
         </section>
         <section className="home-partners container" aria-labelledby="home-partners-title">
@@ -658,13 +662,13 @@ function ResultsPage({ navigate }) {
       <PageIntro eyebrow="Архив / результаты" title={<>Каждый турнир<br /><span>остаётся в сезоне</span></>} body="Сохраняем результаты групповых этапов, подтверждённые матчи и исходные данные по каждому проведённому турниру." />
       <section className="container result-list">
         {archivedTournaments.map((tournament, index) => (
-          <button type="button" className="result-card" key={tournament.slug} onClick={() => navigate(`/tournaments/${tournament.slug}`)}>
+          <a className="result-card" key={tournament.slug} href={`/tournaments/${tournament.slug}`} onClick={(event) => followPublicLink(event, `/tournaments/${tournament.slug}`, navigate)}>
             <div><span>АРХИВ / {String(index + 1).padStart(2, "0")}</span><StatusPill state="closed">{tournament.statusLabel}</StatusPill></div>
             <h2>{tournament.title}</h2>
             <p>{tournament.dates.display}</p>
             {getTournamentOutcome(tournament)?.champion && <p className="result-champion">Чемпион · {getTournamentOutcome(tournament).champion}</p>}
             <strong>{getArchiveLabel(tournament)}</strong>
-          </button>
+          </a>
         ))}
       </section>
 
@@ -724,9 +728,9 @@ function NotFound({ navigate }) {
   return <main><PageIntro eyebrow="404" title={<>Маршрут<br /><span>не найден</span></>} body="Вернитесь к активному турниру или в архив сезона." action={{ label: "На главную", target: "/" }} navigate={navigate} /></main>;
 }
 
-export function Prototype() {
-  const [path, setPath] = useLocationPath();
-  const [theme, setTheme] = useState(readTheme);
+export function Prototype({ initialPath = "/" }) {
+  const [path, setPath] = useLocationPath(initialPath);
+  const [theme, setTheme] = useState("cs2");
 
   const changeTheme = (value) => {
     const next = normalizeTheme(value);
@@ -735,12 +739,15 @@ export function Prototype() {
   };
 
   useEffect(() => {
+    setTheme(readTheme());
     const syncTheme = (event) => {
       if (event.key === THEME_STORAGE_KEY || event.key === null) setTheme(readTheme());
     };
     window.addEventListener("storage", syncTheme);
     return () => window.removeEventListener("storage", syncTheme);
   }, []);
+
+  useEffect(() => { applyPageMetadata(path); }, [path]);
 
   useEffect(() => {
     if (!window.location.hash) return;
@@ -761,12 +768,20 @@ export function Prototype() {
       if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
+    const destination = new URL(target, window.location.origin);
+    if (destination.pathname === path && destination.hash) {
+      window.history.pushState({}, "", `${destination.pathname}${destination.search}${destination.hash}`);
+      window.dispatchEvent(new Event("hashchange"));
+      const id = decodeURIComponent(destination.hash.slice(1));
+      window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+      return;
+    }
     if (target === path) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    window.history.pushState({}, "", target);
-    setPath(new URL(target, window.location.origin).pathname);
+    window.history.pushState({}, "", `${destination.pathname}${destination.search}${destination.hash}`);
+    setPath(destination.pathname);
     window.dispatchEvent(new Event("popstate"));
     window.scrollTo({ top: 0, behavior: "auto" });
   };

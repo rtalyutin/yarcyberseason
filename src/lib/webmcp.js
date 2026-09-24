@@ -1,4 +1,5 @@
 import { matchKey, matchPath, teamPath, teamSummary } from './community.js';
+import { publicUrl } from './public-url.js';
 
 const normalize = (value) => String(value ?? '').normalize('NFKC').toLocaleLowerCase('ru-RU');
 const includes = (values, query) => !query || values.some((value) => normalize(value).includes(normalize(query)));
@@ -29,7 +30,7 @@ function validate(input, schema) {
 /** Read the SAME in-memory public data model as the site's community pages.
  * No fetch, storage, navigation or mutations. Every result is a detached copy.
  */
-export function createWebMcpTools({ tournaments, community, dataVersion }) {
+export function createWebMcpTools({ tournaments, community, dataVersion, buildGeneratedAt }) {
   const tournament = (id) => {
     const found = tournaments.find((item) => item.id === id || item.slug === id);
     if (!found) throw new QueryError('NOT_FOUND', `Турнир не найден: ${id}`);
@@ -46,16 +47,19 @@ export function createWebMcpTools({ tournaments, community, dataVersion }) {
   const tournamentView = (item) => ({
     ...pick(item, ['id', 'slug', 'title', 'discipline', 'season', 'status', 'statusLabel', 'summary', 'dates', 'sourceNote']),
     url: `/tournaments/${encodeURIComponent(item.slug)}`,
+    absoluteUrl: publicUrl(`/tournaments/${encodeURIComponent(item.slug)}`),
     matchCount: tournamentMatches(item.id).length,
     linkedTeamCount: [...community.teams.values()].filter((entry) => entry.entries.some((e) => e.tournament.id === item.id)).length,
   });
   const matchView = (item) => ({
     ...pick(item, ['key', 'id', 'tournamentId', 'tournamentSlug', 'tournamentTitle', 'discipline', 'stageId', 'stageTitle', 'roundTitle', 'team1', 'team2', 'team1Id', 'team2Id', 'seed1', 'seed2', 'status', 'bestOf', 'date', 'dateDisplay', 'time', 'scheduledAt', 'scoreKind', 'resultConfirmed', 'resultIssue', 'result', 'note', 'roundRecord', 'sourceLabel', 'sourceNote', 'replayUrl', 'broadcastUrl', 'faceitUrl', 'winnerTo', 'loserTo', 'consequenceText']),
     url: matchPath(item),
+    absoluteUrl: publicUrl(matchPath(item)),
   });
   const teamView = (item) => ({
     ...pick(item, ['id', 'name', 'disciplines', 'previousNames', 'legacyIds']),
     url: teamPath(item.id),
+    absoluteUrl: publicUrl(teamPath(item.id)),
     tournamentIds: item.entries.map((entry) => entry.tournament.id),
     matchCount: item.matches.length,
   });
@@ -70,10 +74,10 @@ export function createWebMcpTools({ tournaments, community, dataVersion }) {
       execute: async (input = {}) => {
         try {
           validate(input, inputSchema);
-          return copy({ ok: true, dataVersion, ...read(input) });
+          return copy({ ok: true, dataVersion, buildGeneratedAt, ...read(input) });
         } catch (error) {
           if (!(error instanceof QueryError)) throw error;
-          return { ok: false, dataVersion, error: { code: error.code, message: error.message } };
+          return { ok: false, dataVersion, buildGeneratedAt, error: { code: error.code, message: error.message } };
         }
       },
     };
@@ -112,10 +116,18 @@ export function createWebMcpTools({ tournaments, community, dataVersion }) {
         const tid = input.tournamentId ? tournament(input.tournamentId).id : null;
         return page([...community.teams.values()].filter((item) => (!tid || item.entries.some((entry) => entry.tournament.id === tid)) && (!input.discipline || item.disciplines.includes(input.discipline)) && includes(teamNames(item), input.query)).map(teamView), input);
       }),
-    define('ycs_get_team', 'Читать команду, прежние названия, участия, места и статистику отдельно по дисциплинам. Статистика только по опубликованным подтверждённым результатам; технические решения отдельно. Матчи получить через ycs_list_matches с teamId. Составы игроков не опубликованы.',
+    define('ycs_get_team', 'Читать команду, прежние названия, участия, места и статистику отдельно по дисциплинам. Статистика только по опубликованным подтверждённым результатам; технические решения отдельно. В каждом участии rosterStatus=published означает, что состав опубликован, unknown — что запись о составе отсутствует; неизвестность не означает, что состав не существует. Матчи получить через ycs_list_matches с teamId.',
       { teamId }, ['teamId'], (input) => {
         const item = team(input.teamId);
-        return { team: { ...teamView(item), rosterStatus: 'not_published', entries: item.entries.map((entry) => ({ tournament: tournamentView(entry.tournament), names: entry.names, placement: entry.placement, status: entry.status, displayName: entry.displayName })), statistics: item.disciplines.map((value) => {
+        return { team: { ...teamView(item), entries: item.entries.map((entry) => ({
+          tournament: tournamentView(entry.tournament), names: entry.names, placement: entry.placement, status: entry.status, displayName: entry.displayName,
+          rosterStatus: entry.roster ? 'published' : 'unknown',
+          ...(entry.roster ? { roster: {
+            sourceName: entry.roster.sourceName,
+            members: entry.roster.members.map((member) => ({ name: member.name, role: member.role })),
+            pageUrl: publicUrl(teamPath(item.id)),
+          } } : {}),
+        })), statistics: item.disciplines.map((value) => {
           const summary = teamSummary(item, value);
           return { discipline: value, ...summary, opponents: summary.opponents.map((opponent) => ({ ...opponent, matches: opponent.matches.map((match) => match.key) })) };
         }) } };

@@ -1,14 +1,14 @@
-import { TeamLink, MatchLink } from './CommunityLinks.jsx';
+import { InternalLink, TeamLink, MatchLink } from './CommunityLinks.jsx';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check } from "@phosphor-icons/react";
 import { formatMatchday, getDisplayedResult, getMatchConsequence, getMatchdayModel, getPreviousMatchday } from "../lib/matchday.js";
 import { isArchive } from "../lib/tournament.js";
 import "../matchday.css";
 
-function MatchdayActions({ tournament, navigate }) {
+function MatchdayActions({ tournament }) {
   return <div className="md-actions">
-    <button type="button" className="md-primary" onClick={() => navigate(`/tournaments/${tournament.id}#playoffs`)}>Открыть сетку</button>
-    <button type="button" className="md-link" onClick={() => navigate("/broadcasts")}>Трансляции <ArrowRight aria-hidden="true" /></button>
+    <InternalLink className="md-primary" href={`/tournaments/${tournament.id}#playoffs`}>Открыть сетку</InternalLink>
+    <InternalLink className="md-link" href="/broadcasts">Трансляции <ArrowRight aria-hidden="true" /></InternalLink>
   </div>;
 }
 
@@ -37,7 +37,7 @@ function Result({ match, matches, tournament, compact = false }) {
   </article>;
 }
 
-function ScheduledMatch({ match, tournament, matches, navigate }) {
+function ScheduledMatch({ match, tournament, matches }) {
   return <article className="md-scheduled">
     <div className="md-scheduled-heading"><h2>{match.roundTitle}</h2><p>{formatMatchday(match.date, true)}{match.bestOf && <span> · {match.bestOf}</span>}</p><p className="md-muted">{match.time || "Время уточняется"}</p></div>
     <div className="md-versus">
@@ -49,7 +49,7 @@ function ScheduledMatch({ match, tournament, matches, navigate }) {
     </div>
     {getMatchConsequence(match, matches) && <p className="md-next-consequence">{getMatchConsequence(match, matches)}</p>}
     <MatchLink tournamentId={tournament.id} matchId={match.id} />
-    <MatchdayActions tournament={tournament} navigate={navigate} />
+    <MatchdayActions tournament={tournament} />
   </article>;
 }
 
@@ -59,13 +59,14 @@ export function MatchdayPage({ tournament, navigate }) {
     const date = new URLSearchParams(window.location.search).get("date");
     return model.days.some((day) => day.date === date) ? date : model.defaultDate;
   };
-  const [selectedDate, setSelectedDate] = useState(readDate);
+  const [selectedDate, setSelectedDate] = useState(model.defaultDate);
   const tabRefs = useRef([]);
   const archived = isArchive(tournament);
   useEffect(() => {
-    const onPopState = () => setSelectedDate(readDate());
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
+    const sync = () => setSelectedDate(readDate());
+    sync();
+    window.addEventListener("popstate", sync);
+    return () => window.removeEventListener("popstate", sync);
   }, [model]);
   useEffect(() => {
     const index = model.days.findIndex((day) => day.date === selectedDate);
@@ -85,8 +86,8 @@ export function MatchdayPage({ tournament, navigate }) {
   const title = day ? `${formatMatchday(day.date)} · ${day.label}` : "Матчи ещё не опубликованы";
   return <main className="matchday">
     <div className="md-container">
-      <div className="md-page-heading"><div><h1>Matchday</h1><p>{tournament.title}{archived ? " · Турнир завершён" : ""}</p></div><button className="md-link md-desktop-link" type="button" onClick={() => navigate(`/tournaments/${tournament.id}#playoffs`)}>К сетке турнира <ArrowRight aria-hidden="true" /></button></div>
-      <button className="md-link md-back" type="button" onClick={() => navigate(`/tournaments/${tournament.id}`)}><ArrowLeft aria-hidden="true" /> {archived ? "Итоги турнира" : tournament.title}</button>
+      <div className="md-page-heading"><div><h1>Matchday</h1><p>{tournament.title}{archived ? " · Турнир завершён" : ""}</p></div><InternalLink className="md-link md-desktop-link" href={`/tournaments/${tournament.id}#playoffs`}>К сетке турнира <ArrowRight aria-hidden="true" /></InternalLink></div>
+      <InternalLink className="md-link md-back" href={`/tournaments/${tournament.id}`}><ArrowLeft aria-hidden="true" /> {archived ? "Итоги турнира" : tournament.title}</InternalLink>
       <div className={`md-days${archived ? " md-days--archive" : ""}`} role="tablist" aria-label="Игровой день">
         {model.days.map((item, index) => <button type="button" role="tab" id={`md-tab-${item.date}`} aria-controls="md-day-panel" aria-selected={day?.date === item.date} tabIndex={day?.date === item.date ? 0 : -1} key={item.date} ref={(node) => { tabRefs.current[index] = node; }} onClick={() => selectDate(item.date)} onKeyDown={(event) => {
           let next;
@@ -99,12 +100,12 @@ export function MatchdayPage({ tournament, navigate }) {
       </div>
       {day ? <section id="md-day-panel" role="tabpanel" aria-labelledby={`md-tab-${day.date}`} tabIndex={0} className="md-day-panel">
         <p className="sr-only" aria-live="polite">{title}</p>
-        {day.scheduled.map((match) => <ScheduledMatch key={match.id} match={match} tournament={tournament} matches={model.matches} navigate={navigate} />)}
+        {day.scheduled.map((match) => <ScheduledMatch key={match.id} match={match} tournament={tournament} matches={model.matches} />)}
         {day.completed.map((match) => <Result key={match.id} match={match} matches={model.matches} tournament={tournament} />)}
-        {day.scheduled.length === 0 && following && <section className="md-next"><div><p>Следующий матч · {formatMatchday(following.date)}{following.scheduled[0].bestOf && ` · ${following.scheduled[0].bestOf}`}</p><h2>{following.scheduled[0].team1} — {following.scheduled[0].team2}</h2><span>{following.scheduled[0].time || "Время уточняется"}</span></div><MatchdayActions tournament={tournament} navigate={navigate} /></section>}
-        {day.scheduled.length === 0 && !following && <div className="md-last-actions"><MatchdayActions tournament={tournament} navigate={navigate} /></div>}
+        {day.scheduled.length === 0 && following && <section className="md-next"><div><p>Следующий матч · {formatMatchday(following.date)}{following.scheduled[0].bestOf && ` · ${following.scheduled[0].bestOf}`}</p><h2>{following.scheduled[0].team1} — {following.scheduled[0].team2}</h2><span>{following.scheduled[0].time || "Время уточняется"}</span></div><MatchdayActions tournament={tournament} /></section>}
+        {day.scheduled.length === 0 && !following && <div className="md-last-actions"><MatchdayActions tournament={tournament} /></div>}
         {latestResults && <section className="md-recent" aria-labelledby="md-recent-title" data-previous-date={latestResults.date}><div className="md-recent-heading"><div><p>Предыдущий игровой день</p><h2 id="md-recent-title">Итоги {formatMatchday(latestResults.date)}</h2></div>{model.days.some((item) => item.date === latestResults.date) && <button className="md-link" type="button" onClick={() => selectDate(latestResults.date)}>Открыть день <ArrowRight aria-hidden="true" /></button>}</div>{latestResults.completed.map((match) => <Result key={match.id} match={match} matches={model.matches} tournament={tournament} compact />)}</section>}
-      </section> : <section className="md-empty"><h2>Матчи ещё не опубликованы</h2><button className="md-link" type="button" onClick={() => navigate(`/tournaments/${tournament.id}`)}>На страницу турнира <ArrowRight aria-hidden="true" /></button></section>}
+      </section> : <section className="md-empty"><h2>Матчи ещё не опубликованы</h2><InternalLink className="md-link" href={`/tournaments/${tournament.id}`}>На страницу турнира <ArrowRight aria-hidden="true" /></InternalLink></section>}
       <footer className="md-partners" aria-label="Партнёры турнира"><span>При поддержке</span><div>{tournament.matchday.partners.map((partner) => <div key={partner.name}>{partner.logo ? <img src={partner.logo} alt={partner.name} /> : <span title={partner.role}>{partner.name}</span>}</div>)}</div></footer>
     </div>
   </main>;

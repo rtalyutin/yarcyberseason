@@ -6,7 +6,8 @@ import { attachWebMcp } from '../lib/webmcp-registration.js';
 import '../webmcp.css';
 
 const dataVersion = __YCS_DATA_VERSION__;
-const tools = createWebMcpTools({ tournaments, community, dataVersion });
+const buildGeneratedAt = __YCS_BUILD_GENERATED_AT__;
+const tools = createWebMcpTools({ tournaments, community, dataVersion, buildGeneratedAt });
 const stateLabels = {
   connecting: 'Подключаем инструменты…',
   ready: '6 инструментов доступны для чтения',

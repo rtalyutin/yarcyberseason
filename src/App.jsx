@@ -1,13 +1,16 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Prototype } from "./Prototype.jsx";
+import WebMcpPage from "./components/WebMcpPage.jsx";
+import { applyPageMetadata } from "./lib/page-metadata.js";
 const ForMari = lazy(() => import("./components/ForMari.jsx"));
-const WebMcpPage = lazy(() => import("./components/WebMcpPage.jsx"));
-export function App() {
-  if (window.location.pathname.replace(/\/$/, "") === "/webmcp") {
-    return <Suspense fallback={<p role="status">Загружаем данные ЯКС…</p>}><WebMcpPage /></Suspense>;
-  }
-  if (window.location.pathname.replace(/\/$/, "") === "/forMari") {
+import { normalizePublicPath } from "./lib/public-routes.js";
+
+export function App({ initialPath }) {
+  const path = normalizePublicPath(initialPath ?? (typeof window === "undefined" ? "/" : window.location.pathname));
+  useEffect(() => { applyPageMetadata(path); }, [path]);
+  if (path === "/webmcp") return <WebMcpPage />;
+  if (path === "/forMari") {
     return <Suspense fallback={<p role="status">Загружаем схему…</p>}><ForMari /></Suspense>;
   }
-  return <Prototype />;
+  return <Prototype initialPath={path} />;
 }

@@ -1,4 +1,4 @@
-import { TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
+import { InternalLink, TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
 import { community } from '../data/community.js';
 import { regulationsByDiscipline, regulationsByTournament } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
@@ -54,7 +54,7 @@ function TournamentResults({ tournament, changeView, navigate }) {
     {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow tournament={tournament} match={{ ...outcome.final, roundTitle: "Гранд-финал" }} teamLogos={tournament.teamLogos} /></div>}
     <div className="tn-header-actions tn-result-actions">
       <button className="tn-outline" type="button" onClick={() => changeView({ section: "matches", phase: "all" })}>Все матчи</button>
-      {tournament.matchday && <button className="tn-outline" type="button" onClick={() => navigate(tournament.matchday.route)}>Matchday</button>}
+      {tournament.matchday && <InternalLink className="tn-outline" href={tournament.matchday.route}>Matchday</InternalLink>}
       {outcome.final?.replayUrl && <a className="tn-outline" href={outcome.final.replayUrl} target="_blank" rel="noreferrer">Запись финала<ArrowUpRight aria-hidden="true" /></a>}
     </div>
   </section>;
@@ -86,15 +86,14 @@ function MatchList({ model, view, changeView, fixedStage, tournament }) {
 
 export function TournamentNavigator({ tournament, navigate, renderStage, renderRewards }) {
   const model = useMemo(() => getTournamentModel(tournament), [tournament]);
-  const readView = () => resolveTournamentView(model, window.location.search, window.location.hash);
-  const [view, setView] = useState(readView);
+  const [view, setView] = useState(() => resolveTournamentView(model, "", ""));
   useEffect(() => {
-    const sync = () => setView(readView());
+    const sync = () => setView(resolveTournamentView(model, window.location.search, window.location.hash));
+    sync();
     window.addEventListener("popstate", sync);
     window.addEventListener("hashchange", sync);
     return () => { window.removeEventListener("popstate", sync); window.removeEventListener("hashchange", sync); };
   }, [model]);
-  useEffect(() => { document.title = `${tournament.title} — YAR CYBER SEASON`; }, [tournament.title]);
   const changeView = (patch, push = true) => {
     const next = { ...view, ...patch };
     const url = new URL(window.location.href);
@@ -105,12 +104,6 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
     window.history[push ? "pushState" : "replaceState"]({}, "", `${url.pathname}${url.search}`);
     setView(next);
   };
-  const go = (target) => {
-    if (target.startsWith("#")) {
-      const next = resolveTournamentView(model, "", target);
-      changeView(next);
-    } else navigate(target);
-  };
   const active = model.sections.find((section) => section.id === view.section);
   const archived = isArchive(tournament);
   const regulation = regulationsByTournament[tournament.id] ?? regulationsByDiscipline[tournament.discipline];
@@ -118,12 +111,12 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
   return (
     <main className="tn-page" data-section={view.section}>
       <header className="tn-heading">
-        <nav className="tn-breadcrumb" aria-label="Путь к турниру"><button type="button" onClick={() => navigate("/")}>Турниры</button><span>/</span>{archived ? <button type="button" onClick={() => navigate("/results")}>Архив</button> : <span>{tournament.discipline}</span>}</nav>
+        <nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/">Турниры</InternalLink><span>/</span>{archived ? <InternalLink href="/results">Архив</InternalLink> : <span>{tournament.discipline}</span>}</nav>
         <div className="tn-title-row"><h1>{tournament.title}</h1><span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span></div>
         {tournament.dates?.display && <p className="tn-date">{tournament.dates.display}</p>}
         {tournament.registration?.status === 'closed' && <p className="tn-registration-closed">{tournament.registration.message} · {registrationCountLabel(tournament)}</p>}
         {(!archived || regulation) && <div className="tn-header-actions">
-          {!archived && [tournament.primaryAction, tournament.secondaryAction, ...(tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter(Boolean).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <button type="button" className="tn-outline" key={action.target} onClick={() => go(action.target)}>{action.label}</button>)}
+          {!archived && [tournament.primaryAction, tournament.secondaryAction, ...(tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter(Boolean).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <InternalLink className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></InternalLink>)}
           {regulation && <a className="tn-outline" href={regulation.url} target="_blank" rel="noopener noreferrer">{regulation.label}<ArrowUpRight aria-hidden="true" /></a>}
         </div>}
         {!archived && <CommunitySearch />}
@@ -134,7 +127,7 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
           <nav className="tn-section-nav" aria-label="Разделы турнира">{model.sections.map((section) => <button type="button" key={section.id} aria-current={section.id === view.section ? "page" : undefined} onClick={() => changeView({ section: section.id })}>{section.title}{section.count !== undefined && <span>{section.count}</span>}</button>)}</nav>
           <div className="tn-facts">{sourceFacts.map((fact) => <p key={fact}>{/команд/i.test(fact) ? <Users aria-hidden="true" /> : <Trophy aria-hidden="true" />}<span>{/команд/i.test(fact) && tournament.registration ? registrationCountLabel(tournament) : fact}</span></p>)}</div>
           {model.finishedCount > 0 && <p className="tn-archive-count">{archived ? "В архиве сохранены" : "Подтверждено"}<br />{resultLabel(model.finishedCount)}.</p>}
-          <button className="tn-back" type="button" onClick={() => navigate(archived ? "/results" : "/")}><ArrowLeft aria-hidden="true" />Все турниры</button>
+          <InternalLink className="tn-back" href={archived ? "/results" : "/"}><ArrowLeft aria-hidden="true" />Все турниры</InternalLink>
         </aside>
         <div className="tn-content" key={active?.id}>
           {active?.id === "participants" ? <section className="tn-participants" aria-labelledby="participants-title"><h2 id="participants-title">Заявленные команды · {model.sections.find((s) => s.id === 'participants')?.count}</h2><ol className="tn-participant-list">{tournament.participants.map((participant) => <li key={participant.teamId}><TeamLogo team={community.getTeam(participant.teamId)} logo={tournament.teamLogos?.[participant.displayName]} /><div><TeamLink tournamentId={tournament.id} name={participant.displayName} /><p>Заявлена</p></div></li>)}</ol></section> : active?.id === "results" ? <TournamentResults tournament={tournament} changeView={changeView} navigate={navigate} /> : active?.id === "matches" ? <MatchList tournament={tournament} model={model} view={view} changeView={changeView} /> : active?.id === "info" ? <section className="tn-info" id="info"><h2>О турнире</h2>{tournament.season && <p className="tn-season">{tournament.season}</p>}{tournament.summary && <p>{tournament.summary}</p>}{tournament.timeline?.length > 0 && <dl className="tn-timeline">{tournament.timeline.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.date}</dd></div>)}</dl>}{model.stages.some((stage) => stage.rules?.length || stage.notice) && <div className="tn-format" id="format"><h3>Формат турнира</h3>{model.stages.filter((stage) => stage.rules?.length || stage.notice).map((stage) => <div key={stage.id}><h4>{stage.title}</h4>{stage.notice && <p>{stage.notice}</p>}{stage.rules?.length > 0 && <ul>{stage.rules.map((rule, index) => <li key={index}>{typeof rule === "string" ? rule : <><strong>{rule.label}: </strong>{rule.value}</>}</li>)}</ul>}</div>)}</div>}{renderRewards()}{tournament.support && <p>{tournament.support}</p>}{tournament.sourceNote && <p className="tn-source-note">{tournament.sourceNote}</p>}</section> : active?.stage?.type === "historical_matches" ? <MatchList tournament={tournament} model={model} view={view} changeView={changeView} fixedStage={active.stage} /> : active?.stage ? renderStage(active.stage, String(model.stages.indexOf(active.stage) + 1).padStart(2, "0")) : <p>Информация о турнире появится после публикации.</p>}

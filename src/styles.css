@@ -2322,6 +2322,7 @@ a {
   cursor: pointer;
   text-align: left;
   color: #eff3ff;
+  text-decoration: none;
   background: rgba(7, 11, 20, 0.68);
   border: 1px solid rgba(206, 219, 255, 0.23);
   transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
@@ -3648,6 +3649,7 @@ a {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 .home-subtle-link svg,
@@ -3774,6 +3776,7 @@ a {
   background: transparent;
   color: #e9f0ff;
   text-align: left;
+  text-decoration: none;
 }
 
 .home-archive-row:hover,

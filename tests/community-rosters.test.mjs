@@ -15,8 +15,8 @@ const rosterAt = (id, tournamentId) => model.getTeam(id).entries.find((entry) =>
 
 test('public archive has provenance and keeps each roster within its source tournament', () => {
   assert.deepEqual(validatePublicRosters(tournaments, registry, rosters), []);
-  assert.equal(rosters.records.length, 34);
-  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 178);
+  assert.equal(rosters.records.length, 35);
+  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 183);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'dota2-qual-2026').length, 14);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'cs2-february-2026').length, 11);
   for (const team of model.teams.values()) for (const entry of team.entries) {
@@ -50,6 +50,17 @@ test('new autumn submissions keep Mi Ne Pushim substitutes and Strela reserve sc
   assert.equal(rosterAt('dota2-autumn-2026-strela-team', 'dota2-autumn-2026').members.length, 6);
   assert.equal(rosterAt('dota2-autumn-2026-strela-team', 'dota2-autumn-2026').members.at(-1).role, 'Запасной игрок');
   assert.equal(rosterAt('dota2-main-2026-mi-ne-pushim', 'dota2-main-2026'), null);
+});
+
+test('organizer-confirmed WAYPROD. lineup reuses only the archived players and existing logo', () => {
+  const teamId = 'dota2-main-2026-way-prod';
+  const previous = rosterAt(teamId, 'dota2-qual-2026');
+  const autumn = rosterAt(teamId, 'dota2-autumn-2026');
+  assert.deepEqual(autumn.members, previous.members);
+  assert.equal(autumn.sourceId, 'wayprod-dota2-autumn-2026-confirmed');
+  assert.equal(rosterAt(teamId, 'dota2-main-2026'), null);
+  const tournament = tournaments.find((item) => item.id === 'dota2-autumn-2026');
+  assert.equal(tournament.teamLogos['WAYPROD.'], registry.teams.find((item) => item.id === teamId).logo);
 });
 
 test('one public CS2 lineup cannot populate a shared team’s Dota history', () => {

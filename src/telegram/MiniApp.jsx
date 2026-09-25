@@ -1,12 +1,13 @@
 import React, { Component, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { loadMiniAppModel, loadArchivedModels } from "./data/load.js";
 import { createMiniAppRouter } from "./router.js";
-import { homeRoute, tournamentRoute } from "./contracts.js";
+import { homeRoute, tournamentRoute, teamRoute } from "./contracts.js";
 import { DEFAULT_PREFERENCES, THEMES, LANGUAGES, readPreferences, savePreferences, getMessages } from "./preferences.js";
 import { RulesSection, ScheduleSection } from "./TournamentSections.jsx";
 import { MatchesSection } from "./MatchesSection.jsx";
 import { SwissSection, PlayoffSection, StandingsSection } from "./StageSections.jsx";
 import { ResultsSection } from "./ResultsSection.jsx";
+import { TeamProfile } from "./TeamProfile.jsx";
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
 
@@ -44,7 +45,8 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
         const archives = await archiveLoader();
         if (cancelled) return;
         const models = new Map([model, ...archives].map((item) => [item.tournament.slug, item]));
-        router = createMiniAppRouter(window, runtime, (slug) => models.get(slug).sections.map((section) => section.id), [...models.keys()]);
+        router = createMiniAppRouter(window, runtime, (slug) => models.get(slug).sections.map((section) => section.id), [...models.keys()],
+          (slug) => models.get(slug).participants.map((participant) => participant.teamId));
         setSession({ model, archives, models, runtime, router });
       // Keep the host exit available when data loading fails. Retry/unmount owns cleanup.
       } catch { if (!cancelled) setError(true); }
@@ -63,7 +65,7 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
 export function MiniAppHeader({ model, runtime, copy, route = homeRoute(), onBack }) {
   const inTelegram = runtime?.kind === "telegram";
   return <header className="tg-header">
-      {route.screen === "tournament" ? <button className="tg-back" aria-label={copy.back} onClick={onBack}>←</button> : <span className="tg-kicker">{copy.app}</span>}
+      {route.screen === "tournament" ? <button className="tg-back" aria-label={route.teamId ? copy.allTeams : copy.back} onClick={onBack}>←</button> : <span className="tg-kicker">{copy.app}</span>}
       <img className="tg-logo" src={model?.project.logoUrl || "/assets/ycs-logo.jpg"} alt={model?.project.brandName || "ЯрКиберСезон"} width="76" height="38" />
       <div className="tg-header-actions">
         {model && <span className="tg-discipline">{model.tournament.discipline}</span>}
@@ -82,21 +84,22 @@ export function MiniAppView({ model, archives = [], models, runtime, router, cop
   const selectedModel = route.screen === "tournament" && route.tournamentSlug ? models?.get(route.tournamentSlug) || model : model;
   const heading = useRef(null);
   useEffect(() => {
-    runtime.setBackHandler(route.screen === "tournament" ? () => router.navigate(homeRoute()) : null);
+    runtime.setBackHandler(route.screen === "tournament" ? () => router.navigate(route.teamId ? tournamentRoute("participants", route.tournamentSlug) : homeRoute()) : null);
     return () => runtime.setBackHandler(null);
-  }, [runtime, router, route.screen]);
+  }, [runtime, router, route.screen, route.teamId, route.tournamentSlug]);
   useEffect(() => { runtime.ready(); }, [runtime]);
   useEffect(() => { heading.current?.focus({ preventScroll: true }); window.scrollTo(0, 0); }, [state.canonicalUrl]);
   const navigate = (next) => router.navigate(next);
   return <>
-    <MiniAppHeader model={selectedModel} runtime={runtime} route={route} copy={copy} onBack={() => navigate(homeRoute())} />
+    <MiniAppHeader model={selectedModel} runtime={runtime} route={route} copy={copy} onBack={() => navigate(route.teamId ? tournamentRoute("participants", route.tournamentSlug) : homeRoute())} />
     {(THEMES.length > 1 || LANGUAGES.length > 1) && <div className="tg-settings">
       {THEMES.length > 1 && <label>{copy.theme}<select value={preferences.theme} onChange={(event) => onPreferences({ ...preferences, theme: event.target.value })}>{THEMES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
       {LANGUAGES.length > 1 && <label>{copy.language}<select value={preferences.language} onChange={(event) => onPreferences({ ...preferences, language: event.target.value })}>{LANGUAGES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
     </div>}
     {state.notice && <p className="tg-notice" role="status">{state.notice}</p>}
     <main>{route.screen === "home" ? <HomeScreen model={model} archives={archives} copy={copy} navigate={navigate} headingRef={heading} />
-      : <TournamentScreen key={selectedModel.tournament.slug} model={selectedModel} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
+      : route.teamId ? <TeamProfile model={selectedModel} teamId={route.teamId} runtime={runtime} copy={copy} navigate={navigate} headingRef={heading} />
+        : <TournamentScreen key={selectedModel.tournament.slug} model={selectedModel} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
   </>;
 }
 
@@ -164,7 +167,7 @@ export function TournamentScreen({ model, runtime, copy = getMessages("ru"), rou
       {archived ? <p className="tg-source-state">{copy.archiveTeamsNotice}</p> : <RegistrationStatus model={model} copy={copy} />}
       {model.participants.length ? <ol>{model.participants.map((participant, index) => <li key={participant.teamId} data-team-id={participant.teamId}>
         <span className="tg-team-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-        <TeamLogo participant={participant} /><strong>{participant.displayName}</strong>
+        <TeamLogo participant={participant} /><button className="tg-team-link" type="button" onClick={() => navigate(teamRoute(participant.teamId, model.tournament.slug))}>{participant.displayName}</button>
         <small>{participant.status === "registered" ? copy.registered : participant.status === "played" ? copy.played : copy.unknownStatus}</small>
       </li>)}</ol> : <p>{copy.noTeams}</p>}
     </section> : route.section === "overview" ? <section className="tg-overview">

@@ -1,5 +1,7 @@
 # Current Telegram scope
 
+- September 25, 2026: the accepted Figma team profile (mobile and wide Vnext examples) applies to every participant in the Mini App. Use one Rift template with the team's current published logo, tournament-specific roster and published matches. Keep the honest empty states and both existing Mini App paths; the team ID is a validated query parameter on the participants section. The top Back action and bottom button return to that tournament's participants. Preserve Telegram Close and browser exit behavior.
+
 - September 19, 2026: Roman requested past tournaments in Mini App and explicitly authorized publication of the changes on the existing domain. Preserve the current Dota home, Rift/Russian, and the two paths; add the four published completed/archive tournaments with selection in the tournament query string. This supersedes the earlier single-tournament/archive exclusion only in this scope. Preserve historical names, incomplete playoffs and unknown dates; do not infer results. Existing Swiss/Playoffs/Results are included in this release. The reordered 16-step plan resumes afterward with the match Rich Card prototype.
 
 # Prototype Instructions

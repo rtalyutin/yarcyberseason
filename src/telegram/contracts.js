@@ -1,7 +1,7 @@
 import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
 
 /** @typedef {'overview'|'participants'|'rules'|'schedule'|'matches'|'swiss'|'standings'|'playoffs'|'results'} SectionId */
-/** @typedef {{screen: 'home'}|{screen: 'tournament', section: SectionId, tournamentSlug?: string}} MiniAppRoute */
+/** @typedef {{screen: 'home'}|{screen: 'tournament', section: SectionId, tournamentSlug?: string, teamId?: string}} MiniAppRoute */
 /** @typedef {{kind: 'internal', label: string, route: MiniAppRoute}|{kind: 'external', label: string, url: string}} UiAction */
 /** @typedef {{schemaVersion: 1, buildId: string, sourceCommit: string, tournamentSlug: 'dota2-autumn-2026'}} VersionManifest */
 /** @typedef {{id: string, slug: string, title: string, discipline: string, season: string, status: string, statusLabel: string, dates: {start: string|null, end: string|null, display: string|null}, summary: string, facts: string[]}} TournamentView */
@@ -54,9 +54,15 @@ export function tournamentRoute(section = "overview", tournamentSlug = MINI_APP_
   return { screen: "tournament", section, ...(tournamentSlug === MINI_APP_CONFIG.tournamentSlug ? {} : { tournamentSlug }) };
 }
 
+export function teamRoute(teamId, tournamentSlug = MINI_APP_CONFIG.tournamentSlug) {
+  if (typeof teamId !== "string" || !/^[a-z0-9-]+$/.test(teamId)) throw new TypeError("Invalid miniapp team ID");
+  return { ...tournamentRoute("participants", tournamentSlug), teamId };
+}
+
 export function isMiniAppRoute(value) {
   return record(value) && (value.screen === "home" ||
-    (value.screen === "tournament" && isSectionId(value.section) && (value.tournamentSlug === undefined || /^[a-z0-9-]+$/.test(value.tournamentSlug))));
+    (value.screen === "tournament" && isSectionId(value.section) && (value.tournamentSlug === undefined || /^[a-z0-9-]+$/.test(value.tournamentSlug)) &&
+      (value.teamId === undefined || (value.section === "participants" && typeof value.teamId === "string" && /^[a-z0-9-]+$/.test(value.teamId)))));
 }
 
 export function serializeMiniAppRoute(route) {
@@ -65,6 +71,7 @@ export function serializeMiniAppRoute(route) {
   const params = new URLSearchParams();
   if (route.tournamentSlug && route.tournamentSlug !== MINI_APP_CONFIG.tournamentSlug) params.set("tournament", route.tournamentSlug);
   if (route.section !== "overview" || route.tournamentSlug) params.set("section", route.section);
+  if (route.teamId) params.set("team", route.teamId);
   const suffix = params.size ? `?${params}` : "";
   return `${MINI_APP_CONFIG.basePath}/tournament${suffix}`;
 }
@@ -73,10 +80,10 @@ export function serializeMiniAppRoute(route) {
  * Resolve only the miniapp address space. `availableSections` lets L2 remove
  * results until valid tournament results exist without inventing a third route.
  *
- * @param {{pathname: string, search?: string, availableSections?: readonly SectionId[]|((slug: string) => readonly SectionId[]), tournamentSlugs?: string[]}} input
+ * @param {{pathname: string, search?: string, availableSections?: readonly SectionId[]|((slug: string) => readonly SectionId[]), availableTeams?: ((slug: string) => readonly string[]), tournamentSlugs?: string[]}} input
  * @returns {{route: MiniAppRoute, canonicalUrl: string, needsReplace: boolean, notice: string|null}|null}
  */
-export function resolveMiniAppLocation({ pathname, search = "", availableSections = SECTION_IDS, tournamentSlugs = [MINI_APP_CONFIG.tournamentSlug] }) {
+export function resolveMiniAppLocation({ pathname, search = "", availableSections = SECTION_IDS, availableTeams, tournamentSlugs = [MINI_APP_CONFIG.tournamentSlug] }) {
   if (!isMiniAppPath(pathname)) return null;
   const params = new URLSearchParams(search);
   const requestedSlug = params.get("tournament") || MINI_APP_CONFIG.tournamentSlug;
@@ -102,7 +109,9 @@ export function resolveMiniAppLocation({ pathname, search = "", availableSection
   const defaultSection = slug !== MINI_APP_CONFIG.tournamentSlug ? (available.has("results") ? "results" : available.has("standings") ? "standings" : "overview") : "overview";
   const requested = params.get("section") || defaultSection;
   const section = isSectionId(requested) && available.has(requested) ? requested : "overview";
-  const route = tournamentRoute(section, slug);
+  const requestedTeam = params.get("team");
+  const teamAllowed = section === "participants" && requestedTeam && availableTeams?.(slug).includes(requestedTeam);
+  const route = teamAllowed ? teamRoute(requestedTeam, slug) : tournamentRoute(section, slug);
   const canonicalUrl = serializeMiniAppRoute(route);
   const sourceUrl = `${pathname}${search}`;
   return {

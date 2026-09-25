@@ -54,6 +54,36 @@
       "url": "https://ycs.bar/",
       "section": "Организатор 24.09.2026 подтвердил, что состав и логотип WAYPROD. не изменились с публичного архива DotA 2.Qual; URL проекта — контекст, не ссылка на сообщение; допуск игроков отдельно не проверен",
       "retrievedAt": "2026-09-24"
+    },
+    {
+      "id": "parallax-team-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и логотипа — сообщение и вложение организатора 25.09.2026; URL проекта — контекст, не ссылка на сообщение; допуск игроков отдельно не проверен",
+      "retrievedAt": "2026-09-25"
+    },
+    {
+      "id": "easy-gaming-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и логотипа — сообщение и вложение организатора 25.09.2026; URL проекта — контекст, не ссылка на сообщение; допуск игроков отдельно не проверен",
+      "retrievedAt": "2026-09-25"
+    },
+    {
+      "id": "aegis-guardians-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Организатор 25.09.2026 сообщил о замене Leto Jr на Aegis Guardians и передал состав и логотип; дата рождения и отчество из заявки не публикуются; допуск отдельно не проверен",
+      "retrievedAt": "2026-09-25"
+    },
+    {
+      "id": "vnext-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник состава и логотипа — сообщение и вложение организатора 25.09.2026; организатор уточнил, что Константин Шабанов 3pleS- не состоит в PIVNAYA KEGA, где заявлены пять игроков, включая отдельный ник 3pleS; URL проекта — контекст, не ссылка на сообщение",
+      "retrievedAt": "2026-09-25"
+    },
+    {
+      "id": "tech-titans-dota2-autumn-2026-submitted",
+      "url": "https://ycs.bar/",
+      "section": "Источник осеннего состава — заявка организатора 24.09.2026 и уточнение ника капитана 25.09.2026; в заявке ник игрока позиции 1 пуст, поэтому опубликовано только имя; используется прежний логотип; даты рождения и отчества не публикуются",
+      "retrievedAt": "2026-09-25"
     }
   ],
   "records": [
@@ -339,6 +369,75 @@
           "name": "Александр «Tmorekon» Горенков",
           "role": "Позиция 5"
         }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-parallax-team",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "parallax-team-dota2-autumn-2026-submitted",
+      "sourceName": "Parallax Team",
+      "members": [
+        { "name": "Яловой Кирилл «awakegod神»", "role": "Позиция 1" },
+        { "name": "Савватеев Роман «kuoqu»", "role": "Позиция 2" },
+        { "name": "Дибров Илья «Aver»", "role": "Позиция 3" },
+        { "name": "Донцов Дмитрий «Sunder»", "role": "Позиция 4" },
+        { "name": "Ефимов Владимир «flux»", "role": "Позиция 5" },
+        { "name": "Коваленко Егор «hruktor»", "role": "Запасной игрок, позиции 5/3" },
+        { "name": "Костров Матвей «Shudi»", "role": "Запасной игрок, позиция 4" }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-easy-gaming",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "easy-gaming-dota2-autumn-2026-submitted",
+      "sourceName": "Easy Gaming",
+      "members": [
+        { "name": "Поволоцкий Иван «IP777»", "role": "Капитан" },
+        { "name": "Бушуев Тимофей «Tint1»", "role": "Игрок" },
+        { "name": "Коломиец Данил «Risekyii»", "role": "Игрок" },
+        { "name": "Буймистров Даниил «Donbe»", "role": "Игрок" },
+        { "name": "Бутко Максим «Wayne»", "role": "Игрок" },
+        { "name": "Русанов Максим «Walfks»", "role": "Запасной игрок" },
+        { "name": "Копытин Ярослав «Zrk»", "role": "Запасной игрок" }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-aegis-guardians",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "aegis-guardians-dota2-autumn-2026-submitted",
+      "sourceName": "Aegis Guardians",
+      "members": [
+        { "name": "Гусев Даниил «Стример»", "role": "Игрок" },
+        { "name": "Кипар Даниил «K1par»", "role": "Игрок" },
+        { "name": "Удалов Владислав «Владик»", "role": "Игрок" },
+        { "name": "Острогин Егор «deadscarlett»", "role": "Игрок" },
+        { "name": "Елесичев Алексей «Чех»", "role": "Игрок" }
+      ]
+    },
+    {
+      "teamId": "dota2-autumn-2026-vnext",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "vnext-dota2-autumn-2026-submitted",
+      "sourceName": "Vnext",
+      "members": [
+        { "name": "Шабанов Константин «3pleS-»", "role": "Игрок" },
+        { "name": "Шабанов Максим «Omnipresent authority figure»", "role": "Игрок" },
+        { "name": "Троцюк Руслан «fash1on monst3r»", "role": "Игрок" },
+        { "name": "Марков Артём «anti_mogg»", "role": "Игрок" },
+        { "name": "Черваков Иван «T3NZ0»", "role": "Игрок" }
+      ]
+    },
+    {
+      "teamId": "dota2-main-2026-tech-titans",
+      "tournamentId": "dota2-autumn-2026",
+      "sourceId": "tech-titans-dota2-autumn-2026-submitted",
+      "sourceName": "Tech Titans",
+      "members": [
+        { "name": "Мушенко Алексей «Ryūketsu | 竜血»", "role": "Позиция 5, капитан" },
+        { "name": "Павлов Савелий «Giant»", "role": "Позиция 2" },
+        { "name": "Павлов Арсений", "role": "Позиция 1" },
+        { "name": "Бояринов Антон «DOXYAZ»", "role": "Позиция 3" },
+        { "name": "Чекашев Александр «cl0ser»", "role": "Позиция 4" }
       ]
     }
   ]

@@ -9,8 +9,10 @@ const tournaments = fs.readdirSync(new URL('../src/data/tournaments/', import.me
 const dota = tournaments.find((t) => t.id === 'dota2-autumn-2026');
 const model = buildCommunityModel(tournaments, registry);
 
-test('all sixteen organizer names are registered in order, without matches or seeds', () => {
-  assert.deepEqual(dota.participants.map((p) => p.displayName), ['Vnext', 'Leto Jr', 'Mi Ne Pushim!', 'strela team', 'WAYPROD.', 'Fummo', 'TEAM SPERMINT', 'ARB Esports', 'PIVNAYA KEGA', 'Tech Titans', 'Easy Gaming', 'Team Borisogleb', 'parallax team', 'liqa sto', 'psb_bank', 'РГАТУ']);
+test('replacement keeps sixteen current participants, without matches or seeds', () => {
+  assert.deepEqual(dota.participants.map((p) => p.displayName), ['Vnext', 'Aegis Guardians', 'Mi Ne Pushim!', 'strela team', 'WAYPROD.', 'Fummo', 'TEAM SPERMINT', 'ARB Esports', 'PIVNAYA KEGA', 'Tech Titans', 'Easy Gaming', 'Team Borisogleb', 'Parallax Team', 'liqa sto', 'psb_bank', 'РГАТУ']);
+  assert.equal(registry.bindings.some((item) => item.tournamentId === dota.id && item.teamId === 'dota2-autumn-2026-leto-jr'), false);
+  assert.ok(registry.teams.some((item) => item.id === 'dota2-autumn-2026-leto-jr'));
   assert.equal(participantCount(dota), 16);
   assert.equal(dota.registration.status, 'closed');
   assert.equal(dota.status, 'upcoming');

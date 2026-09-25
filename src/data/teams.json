@@ -376,6 +376,7 @@
     {
       "id": "dota2-autumn-2026-vnext",
       "name": "Vnext",
+      "logo": "/assets/teams/dota2/vnext/logo.png",
       "disciplines": [
         "Dota 2"
       ]
@@ -384,6 +385,14 @@
       "id": "dota2-autumn-2026-leto-jr",
       "name": "Leto Jr",
       "logo": "/assets/teams/dota2/leto-jr/logo.png",
+      "disciplines": [
+        "Dota 2"
+      ]
+    },
+    {
+      "id": "dota2-autumn-2026-aegis-guardians",
+      "name": "Aegis Guardians",
+      "logo": "/assets/teams/dota2/aegis-guardians/logo.png",
       "disciplines": [
         "Dota 2"
       ]
@@ -414,13 +423,15 @@
     {
       "id": "dota2-autumn-2026-easy-gaming",
       "name": "Easy Gaming",
+      "logo": "/assets/teams/dota2/easy-gaming/logo.png",
       "disciplines": [
         "Dota 2"
       ]
     },
     {
       "id": "dota2-autumn-2026-parallax-team",
-      "name": "parallax team",
+      "name": "Parallax Team",
+      "logo": "/assets/teams/dota2/parallax-team/logo.png",
       "disciplines": [
         "Dota 2"
       ]
@@ -792,8 +803,8 @@
     },
     {
       "tournamentId": "dota2-autumn-2026",
-      "sourceName": "Leto Jr",
-      "teamId": "dota2-autumn-2026-leto-jr"
+      "sourceName": "Aegis Guardians",
+      "teamId": "dota2-autumn-2026-aegis-guardians"
     },
     {
       "tournamentId": "dota2-autumn-2026",
@@ -852,7 +863,7 @@
     },
     {
       "tournamentId": "dota2-autumn-2026",
-      "sourceName": "parallax team",
+      "sourceName": "Parallax Team",
       "teamId": "dota2-autumn-2026-parallax-team"
     },
     {

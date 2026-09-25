@@ -12,7 +12,12 @@
     "ARB Esports": "/assets/teams/dota2-autumn-2026/arb-esports/logo.png",
     "TEAM SPERMINT": "/assets/teams/dota2-autumn-2026/team-spermint/logo.png",
     "liqa sto": "/assets/teams/dota2-autumn-2026/liqa-sto/logo.png",
-    "WAYPROD.": "/assets/teams/dota2/way-prod/logo.jpg"
+    "WAYPROD.": "/assets/teams/dota2/way-prod/logo.jpg",
+    "Aegis Guardians": "/assets/teams/dota2/aegis-guardians/logo.png",
+    "Easy Gaming": "/assets/teams/dota2/easy-gaming/logo.png",
+    "Parallax Team": "/assets/teams/dota2/parallax-team/logo.png",
+    "Vnext": "/assets/teams/dota2/vnext/logo.png",
+    "Tech Titans": "/assets/teams/dota2/tech-titans/logo.jpg"
   },
   "statusLabel": "Регистрация закрыта",
   "summary": "Следующий турнир сезона: 16 команд, швейцарская система и плей-офф double elimination.",
@@ -182,8 +187,8 @@
       "status": "registered"
     },
     {
-      "teamId": "dota2-autumn-2026-leto-jr",
-      "displayName": "Leto Jr",
+      "teamId": "dota2-autumn-2026-aegis-guardians",
+      "displayName": "Aegis Guardians",
       "status": "registered"
     },
     {
@@ -238,7 +243,7 @@
     },
     {
       "teamId": "dota2-autumn-2026-parallax-team",
-      "displayName": "parallax team",
+      "displayName": "Parallax Team",
       "status": "registered"
     },
     {

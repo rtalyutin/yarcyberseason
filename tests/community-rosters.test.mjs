@@ -15,8 +15,8 @@ const rosterAt = (id, tournamentId) => model.getTeam(id).entries.find((entry) =>
 
 test('public archive has provenance and keeps each roster within its source tournament', () => {
   assert.deepEqual(validatePublicRosters(tournaments, registry, rosters), []);
-  assert.equal(rosters.records.length, 35);
-  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 183);
+  assert.equal(rosters.records.length, 40);
+  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 212);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'dota2-qual-2026').length, 14);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'cs2-february-2026').length, 11);
   for (const team of model.teams.values()) for (const entry of team.entries) {
@@ -61,6 +61,28 @@ test('organizer-confirmed WAYPROD. lineup reuses only the archived players and e
   assert.equal(rosterAt(teamId, 'dota2-main-2026'), null);
   const tournament = tournaments.find((item) => item.id === 'dota2-autumn-2026');
   assert.equal(tournament.teamLogos['WAYPROD.'], registry.teams.find((item) => item.id === teamId).logo);
+});
+
+test('autumn applications keep the replacement, roles, logo links and missing Tech Titans nickname honest', () => {
+  const tournament = tournaments.find((item) => item.id === 'dota2-autumn-2026');
+  assert.equal(rosterAt('dota2-autumn-2026-leto-jr', tournament.id), undefined);
+  for (const [id, name, length] of [
+    ['dota2-autumn-2026-aegis-guardians', 'Aegis Guardians', 5],
+    ['dota2-autumn-2026-parallax-team', 'Parallax Team', 7],
+    ['dota2-autumn-2026-easy-gaming', 'Easy Gaming', 7],
+    ['dota2-autumn-2026-vnext', 'Vnext', 5],
+    ['dota2-main-2026-tech-titans', 'Tech Titans', 5],
+  ]) {
+    assert.equal(rosterAt(id, tournament.id).members.length, length);
+    assert.equal(tournament.teamLogos[name], registry.teams.find((team) => team.id === id).logo);
+  }
+  assert.equal(rosterAt('dota2-autumn-2026-parallax-team', tournament.id).members.filter((m) => m.role.startsWith('Запасной')).length, 2);
+  assert.equal(rosterAt('dota2-autumn-2026-easy-gaming', tournament.id).members.filter((m) => m.role === 'Запасной игрок').length, 2);
+  const tech = rosterAt('dota2-main-2026-tech-titans', tournament.id);
+  assert.equal(tech.members[0].name, 'Мушенко Алексей «Ryūketsu | 竜血»');
+  assert.equal(tech.members[2].name, 'Павлов Арсений');
+  assert.notDeepEqual(tech.members, rosterAt('dota2-main-2026-tech-titans', 'dota2-qual-2026').members);
+  assert.ok(rosters.records.every((r) => r.members.every((m) => !/\d{2}\.\d{2}\.\d{4}/.test(m.name))));
 });
 
 test('one public CS2 lineup cannot populate a shared team’s Dota history', () => {

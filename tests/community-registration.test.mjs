@@ -10,7 +10,7 @@ const dota = tournaments.find((t) => t.id === 'dota2-autumn-2026');
 const model = buildCommunityModel(tournaments, registry);
 
 test('replacement keeps sixteen current participants, without matches or seeds', () => {
-  assert.deepEqual(dota.participants.map((p) => p.displayName), ['Vnext', 'Aegis Guardians', 'Mi Ne Pushim!', 'strela team', 'WAYPROD.', 'Fummo', 'TEAM SPERMINT', 'ARB Esports', 'PIVNAYA KEGA', 'Tech Titans', 'Easy Gaming', 'Team Borisogleb', 'Parallax Team', 'liqa sto', 'psb_bank', 'РГАТУ']);
+  assert.deepEqual(dota.participants.map((p) => p.displayName), ['Vnext', 'Aegis Guardians', 'Mi Ne Pushim!', 'strela team', 'WAYPROD.', 'Fummo', 'TEAM SPERMINT', 'ARB Esports', 'PIVNAYA KEGA', 'Tech Titans', 'Easy Gaming', 'Team Borisogleb', 'Parallax Team', 'liqa sto', 'psb_bank', 'Team Leto']);
   assert.equal(registry.bindings.some((item) => item.tournamentId === dota.id && item.teamId === 'dota2-autumn-2026-leto-jr'), false);
   assert.ok(registry.teams.some((item) => item.id === 'dota2-autumn-2026-leto-jr'));
   assert.equal(participantCount(dota), 16);
@@ -25,7 +25,7 @@ test('replacement keeps sixteen current participants, without matches or seeds',
 });
 
 test('Dota entries reuse CS identities without inheriting CS results', () => {
-  for (const [name, id] of [['PIVNAYA KEGA', 'pivnaya-kega'], ['psb_bank', 'psb-bank'], ['РГАТУ', 'bobr1ki']]) {
+  for (const [name, id] of [['PIVNAYA KEGA', 'pivnaya-kega'], ['psb_bank', 'psb-bank']]) {
     const team = model.resolveTeam(dota.id, name);
     assert.equal(team.id, `cs2-august-2026-${id}`);
     const section = teamForDiscipline(team, 'Dota 2');
@@ -35,6 +35,8 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
     assert.equal(teamSummary(section).wins, 0);
     assert.equal(upcomingMatches(section).length, 0);
   }
+  assert.equal(model.resolveTeam(dota.id, 'РГАТУ'), null);
+  assert.equal(model.getTeam('cs2-august-2026-bobr1ki').entries.some((e) => e.tournament.id === dota.id), false);
   const kega = teamForDiscipline(model.getTeam('cs2-august-2026-pivnaya-kega'), 'Counter-Strike 2');
   const { opponents, ...score } = teamSummary(kega);
   assert.deepEqual(score, { wins: 7, losses: 2, draws: 0, technical: 1 });

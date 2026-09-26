@@ -28,13 +28,18 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
     const before = JSON.parse(execFileSync('git', ['show', `2800ce2e4aa48642ffe0f86343b2ffb0b160bc40:src/data/tournaments/${f}`], { cwd: root, encoding: 'utf8' }));
     // Organizer-supplied replacement approved on 2026-09-16; all sporting values remain pinned.
     if (f === 'current-cs2-2026.json') before.teamLogos['PIVNAYA KEGA'] = '/assets/teams/pivnaya-kega/logo-2026-09.png';
-    if (f === 'dota2-autumn-2026.json') before.teamLogos = { PSB_Bank: '/assets/teams/dota2-autumn-2026/psb-bank/logo.png' };
+    if (f === 'dota2-autumn-2026.json') {
+      before.teamLogos = { PSB_Bank: '/assets/teams/dota2-autumn-2026/psb-bank/logo.png' };
+      before.participants[1] = { teamId: 'dota2-autumn-2026-aegis-guardians', displayName: 'Aegis Guardians', status: 'registered' };
+      before.participants[12].displayName = 'Parallax Team';
+      before.participants[15] = { teamId: 'dota2-autumn-2026-team-leto', displayName: 'Team Leto', status: 'registered' };
+    }
     preserve(before, read(`src/data/tournaments/${f}`), f);
   }
   assert.deepEqual(validate(tournaments), []);
 });
 
-test('stable links survive reordering; only submitted autumn rosters are published', () => {
+test('stable links survive reordering; all submitted autumn rosters are published', () => {
   const model = buildCommunityModel(tournaments, registry, rosters);
   const shuffled = structuredClone(tournaments);
   for (const t of shuffled) for (const m of declaredMatches(t)) { m.maps?.reverse(); m.mapLinks?.reverse(); }
@@ -86,10 +91,11 @@ test('stable links survive reordering; only submitted autumn rosters are publish
       assert.equal(entry.roster.sourceId, 'liqa-sto-dota2-autumn-2026-submitted');
       assert.equal(autumn.teamLogos['liqa sto'], '/assets/teams/dota2-autumn-2026/liqa-sto/logo.png');
     } else {
-      assert.equal(entry.roster, null); assert.equal(entry.rosterStatus, 'unknown');
+      assert.equal(entry.rosterStatus, 'published');
+      assert.ok(entry.roster?.members.length >= 5);
     }
   }
-  assert.deepEqual(Object.keys(autumn.teamLogos).sort(), ['ARB Esports', 'Fummo', 'PSB_Bank', 'TEAM SPERMINT', 'liqa sto']);
+  assert.deepEqual(Object.keys(autumn.teamLogos).sort(), ['ARB Esports', 'Aegis Guardians', 'Easy Gaming', 'Fummo', 'PSB_Bank', 'Parallax Team', 'TEAM SPERMINT', 'Team Leto', 'Tech Titans', 'Vnext', 'WAYPROD.', 'liqa sto']);
   assert.equal(autumn.rosterCollection.expectedBy, '2026-09-21');
   assert.equal(autumn.rosterCollection.status, 'collecting');
   const dispute = model.matches.get('dota2-main-2026/dota-main-group-16');

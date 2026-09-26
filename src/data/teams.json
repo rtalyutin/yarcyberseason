@@ -398,6 +398,14 @@
       ]
     },
     {
+      "id": "dota2-autumn-2026-team-leto",
+      "name": "Team Leto",
+      "logo": "/assets/teams/dota2/team-leto/logo.jpg",
+      "disciplines": [
+        "Dota 2"
+      ]
+    },
+    {
       "id": "dota2-autumn-2026-strela-team",
       "name": "strela team",
       "logo": "/assets/teams/dota2/strela-team/logo.png",
@@ -878,8 +886,8 @@
     },
     {
       "tournamentId": "dota2-autumn-2026",
-      "sourceName": "РГАТУ",
-      "teamId": "cs2-august-2026-bobr1ki"
+      "sourceName": "Team Leto",
+      "teamId": "dota2-autumn-2026-team-leto"
     }
   ],
   "aliases": [

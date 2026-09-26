@@ -54,7 +54,7 @@ test('no fictional opponents; confirmed identities span tournaments', () => {
 });
 test('confirmed merges preserve all old links and count matches and tournaments once', () => {
   const original = read('docs/community/team-merges.json');
-  assert.equal(model.teams.size, 51); // Leto Jr remains in the registry after its withdrawal; Aegis Guardians has a separate ID.
+  assert.equal(model.teams.size, 52); // Withdrawn Leto Jr and CS2 bobr1ki stay historical; Team Leto has its own ID.
   assert.equal(model.teamAliases.size, 28);
   for (const merge of original.merges) {
     const team = model.getTeam(merge.teamId);

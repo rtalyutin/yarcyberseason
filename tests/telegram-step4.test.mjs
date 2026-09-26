@@ -134,7 +134,7 @@ test("step4 real participant UI contains all source names, no links and no inven
   assert.equal((html.match(/data-team-id=/g) || []).length, model.participants.length);
   assert.ok(!html.includes("href="));
   assert.ok(!html.includes("0:0"));
-  assert.ok(html.includes("psb_bank") && html.includes("РГАТУ"));
+  assert.ok(html.includes("psb_bank") && html.includes("Team Leto"));
 });
 test("step4 participants and implemented Swiss show their specific empty states", () => {
   assert.match(render(TournamentScreen, { model: { ...model, participants: [] }, route: tournamentRoute("participants") }), /Участники пока не опубликованы/);

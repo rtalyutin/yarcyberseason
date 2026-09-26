@@ -17,6 +17,7 @@
     "Easy Gaming": "/assets/teams/dota2/easy-gaming/logo.png",
     "Parallax Team": "/assets/teams/dota2/parallax-team/logo.png",
     "Vnext": "/assets/teams/dota2/vnext/logo.png",
+    "Team Leto": "/assets/teams/dota2/team-leto/logo.jpg",
     "Tech Titans": "/assets/teams/dota2/tech-titans/logo.jpg"
   },
   "statusLabel": "Регистрация закрыта",
@@ -257,8 +258,8 @@
       "status": "registered"
     },
     {
-      "teamId": "cs2-august-2026-bobr1ki",
-      "displayName": "РГАТУ",
+      "teamId": "dota2-autumn-2026-team-leto",
+      "displayName": "Team Leto",
       "status": "registered"
     }
   ],

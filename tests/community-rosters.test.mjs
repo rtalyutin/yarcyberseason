@@ -15,8 +15,8 @@ const rosterAt = (id, tournamentId) => model.getTeam(id).entries.find((entry) =>
 
 test('public archive has provenance and keeps each roster within its source tournament', () => {
   assert.deepEqual(validatePublicRosters(tournaments, registry, rosters), []);
-  assert.equal(rosters.records.length, 40);
-  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 212);
+  assert.equal(rosters.records.length, 41);
+  assert.equal(rosters.records.reduce((total, record) => total + record.members.length, 0), 217);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'dota2-qual-2026').length, 14);
   assert.equal(rosters.records.filter((record) => record.tournamentId === 'cs2-february-2026').length, 11);
   for (const team of model.teams.values()) for (const entry of team.entries) {
@@ -71,12 +71,22 @@ test('autumn applications keep the replacement, roles, logo links and missing Te
     ['dota2-autumn-2026-parallax-team', 'Parallax Team', 7],
     ['dota2-autumn-2026-easy-gaming', 'Easy Gaming', 7],
     ['dota2-autumn-2026-vnext', 'Vnext', 5],
+    ['dota2-autumn-2026-team-leto', 'Team Leto', 5],
     ['dota2-main-2026-tech-titans', 'Tech Titans', 5],
   ]) {
     assert.equal(rosterAt(id, tournament.id).members.length, length);
     assert.equal(tournament.teamLogos[name], registry.teams.find((team) => team.id === id).logo);
   }
   assert.equal(rosterAt('dota2-autumn-2026-parallax-team', tournament.id).members.filter((m) => m.role.startsWith('Запасной')).length, 2);
+  assert.equal(tournament.participants.some((p) => p.displayName === 'РГАТУ'), false);
+  assert.equal(model.getTeam('cs2-august-2026-bobr1ki').entries.some((e) => e.tournament.id === tournament.id), false);
+  const leto = rosterAt('dota2-autumn-2026-team-leto', tournament.id);
+  assert.deepEqual(leto.members.map((m) => m.name), [
+    'Рожнов Антон «cotsu»', 'Гусев Павел «Alisa»', 'Попов Глеб «popi»',
+    'Рощин Дмитрий «darklight»', 'Черных Владислав «Akama»',
+  ]);
+  assert.equal(leto.members[0].role, 'Позиция 1, капитан');
+  assert.ok(leto.members.every((m) => !m.name.includes('Каплан')));
   assert.equal(rosterAt('dota2-autumn-2026-easy-gaming', tournament.id).members.filter((m) => m.role === 'Запасной игрок').length, 2);
   const tech = rosterAt('dota2-main-2026-tech-titans', tournament.id);
   assert.equal(tech.members[0].name, 'Мушенко Алексей «Ryūketsu | 竜血»');

@@ -14,7 +14,9 @@ const get = (id) => model.matches.get('cs2-august-2026/' + id);
 
 test('migrated data preserves every original field and stable ID', () => {
   const ledger = read('docs/community/migration.json');
-  assert.equal(model.matches.size, ledger.matches.length);
+  const newMatches = [...model.matches.values()].filter((match) => match.tournamentId === 'dota2-autumn-2026');
+  assert.equal(newMatches.length, 8);
+  assert.equal(model.matches.size, ledger.matches.length + newMatches.length);
   for (const record of ledger.matches) {
     const match = model.matches.get(`${record.tournamentId}/${record.matchId}`);
     assert.ok(match);

@@ -29,11 +29,13 @@ function fixture(name, change = () => {}) {
 }
 const editMatch = (edit) => (t) => edit(t.stages[0].matches[0]);
 
-test("matches real tournament shows honest empty state, not placeholders or archive", () => {
-  assert.equal(real.matches.length, 0);
+test("matches real tournament shows eight planned first-round pairs without invented times or scores", () => {
+  assert.equal(real.matches.length, 8);
   const html = render(real);
-  assert.match(html, /Матчи ещё не опубликованы/);
-  assert.doesNotMatch(html, /<details|0:0|Alpha|bobr1ki|Этот раздел ещё готовится/);
+  assert.equal((html.match(/<details class="tg-match-row"/g) || []).length, 8);
+  assert.match(html, /Team Borisogleb.*ARB Esports/);
+  assert.match(html, /Запланирована трансляция матча/);
+  assert.doesNotMatch(html, /00:00|18:00|0:0|Alpha|bobr1ki|Этот раздел ещё готовится/);
 });
 test("matches use inline native disclosure with published pair, round, format and Moscow date", () => {
   const model = fixture("scheduledMatch");

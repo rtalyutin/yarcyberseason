@@ -38,13 +38,14 @@ test("step6 rules render all published stage rules and participation conditions"
   assert.ok(!html.includes("Этот раздел ещё готовится"));
   assert.ok(!html.includes("forms.yandex"));
 });
-test("step6 schedule renders the exact published timeline, not fabricated pairings", () => {
+test("step6 schedule renders the published timeline and eight October 10 pairs without invented time", () => {
   const html = render(real, "schedule");
   for (const item of real.timeline) {
     assert.ok(html.includes(item.label)); assert.ok(html.includes(item.date));
   }
-  assert.match(html, /Матчи ещё не опубликованы/);
-  assert.ok(!html.includes("data-match-key"));
+  assert.equal((html.match(/data-match-key=/g) || []).length, 8);
+  assert.match(html, /Team Borisogleb.*ARB Esports/);
+  assert.match(html, /Запланирована трансляция матча/);
   assert.ok(!html.includes("0:0"));
   assert.ok(!html.includes("00:00"));
 });
@@ -127,6 +128,6 @@ test("step6 matches is wired into the existing tournament screen and section men
   const html = render(real, "matches");
   assert.match(html, /aria-current="page"[^>]*>Матчи/);
   assert.match(html, /<h2 id="matches-title">Матчи/);
-  assert.match(html, /Матчи ещё не опубликованы/);
+  assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.doesNotMatch(html, /Этот раздел ещё готовится/);
 });

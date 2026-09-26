@@ -72,8 +72,8 @@ test("the real adapter builds the selected tournament without copying source dat
   assert.equal(model.tournament.slug, "dota2-autumn-2026");
   assert.equal(model.registration.status, "closed");
   assert.equal(model.registration.count, 16);
-  assert.equal(model.matches.length, 0);
-  assert.equal(model.stages.find((stage) => stage.id === "swiss").availability, "empty");
+  assert.equal(model.matches.length, 8);
+  assert.equal(model.stages.find((stage) => stage.id === "swiss").availability, "ready");
   assert.equal(model.stages.find((stage) => stage.id === "playoffs").rounds.flatMap((round) => round.slots).length, 7);
   assert.equal(model.stages.find((stage) => stage.id === "playoffs").rounds.flatMap((round) => round.slots).every((slot) => slot.kind === "empty"), true);
   assert.equal(model.sections.some((section) => section.id === "results"), false);

@@ -36,14 +36,15 @@ test("team links keep the tournament and reject unknown or unrelated teams", () 
   assert.throws(() => teamRoute("../outside"));
 });
 
-test("current team renders published nicknames, exact logo and honest empty match state", () => {
+test("current team renders published nicknames, exact logo and scheduled match", () => {
   const html = render(current, "dota2-autumn-2026-vnext");
   assert.match(html, /<h1[^>]*>Vnext<\/h1>/);
   assert.match(html, /src="\/assets\/teams\/dota2\/vnext\/logo.png"/);
   for (const nick of ["3pleS-", "Omnipresent authority figure", "fash1on monst3r", "anti_mogg", "T3NZ0"]) assert.ok(html.includes(nick));
   assert.equal((html.match(/class="tg-profile-roster"/g) || []).length, 1);
-  assert.match(html, /Расписание и результаты появятся здесь после публикации/);
-  assert.doesNotMatch(html, /tg-match-row/);
+  assert.match(html, /Mi Ne Pushim!.*Vnext/);
+  assert.match(html, /10 октября 2026 г./);
+  assert.match(html, /tg-match-row/);
 });
 
 test("archived profile draws only its tournament roster and published matches", () => {

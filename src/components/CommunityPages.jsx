@@ -139,7 +139,7 @@ export function MatchPage({ tournamentSlug, matchId }) {
   const media = [['Трансляция', safeHttps(match.broadcastUrl)], ['Запись матча', safeHttps(match.vodUrl || match.replayUrl)], ...(match.highlights || []).map((h) => [h.title, safeHttps(h.url)])].filter(([, href]) => href);
   return <main className="community-page">
     <nav className="community-breadcrumb" aria-label="Путь к матчу"><InternalLink href={`/tournaments/${tournament.slug}`}>{tournament.title}</InternalLink><span>/ Матч</span></nav>
-    <header className="community-match-header"><p className="community-eyebrow">{match.roundTitle}{match.bestOf && ` · ${match.bestOf}`}</p><h1>{match.team1 || 'Участник уточняется'} <span>—</span> {match.team2 || 'Участник уточняется'}</h1><p>{matchDateLabel(match)}</p></header>
+    <header className="community-match-header"><p className="community-eyebrow">{match.roundTitle}{match.bestOf && ` · ${match.bestOf}`}</p><h1>{match.team1 || 'Участник уточняется'} <span>—</span> {match.team2 || 'Участник уточняется'}</h1><p>{matchDateLabel(match)}</p>{match.status === 'scheduled' && match.note && <p>{match.note}</p>}</header>
     <section className="community-score-panel" aria-label="Результат матча"><span className={`community-status community-status--${match.status}`}>{matchStates[match.status] || matchStates.unknown}</span><div className="community-big-score">
       <div><TeamLogo team={community.teams.get(match.team1Id)} /><TeamLink tournamentId={match.tournamentId} name={match.team1} /></div>
       <div className="community-series"><strong>{result.score ? result.score.join(' : ') : '— : —'}</strong><span>{result.score ? result.label : result.confirmed ? 'Смысл счёта уточняется' : 'Итог не подтверждён'}</span></div>

@@ -49,7 +49,7 @@ test('every public match is reachable once through pagination and detailed read'
   assert.deepEqual(beyond.items, []); assert.equal(beyond.nextOffset, null);
 });
 
-test('confirmed final, unknown scores, yearless dates and empty upcoming matches keep their meaning', async () => {
+test('confirmed final, unknown scores, yearless dates and first-round matches keep their meaning', async () => {
   const final = (await call('ycs_get_match', { tournamentId: 'cs2-august-2026', matchId: 'cs2-aug-grand-final' })).match;
   assert.deepEqual(final.result.series, [2, 3]); assert.deepEqual(final.result.maps, []);
   const unknown = (await call('ycs_get_match', { tournamentId: 'dota2-main-2026', matchId: 'dota-main-group-16' })).match;
@@ -58,7 +58,8 @@ test('confirmed final, unknown scores, yearless dates and empty upcoming matches
   assert.ok(qual.items.length);
   assert.ok(qual.items.every((match) => !match.scheduledAt && !match.date));
   const upcoming = await call('ycs_list_matches', { tournamentId: 'dota2-autumn-2026' });
-  assert.equal(upcoming.total, 0);
+  assert.equal(upcoming.total, 8);
+  assert.ok(upcoming.items.every((match) => match.date === '2026-10-10' && !match.scheduledAt && match.result.score === null));
   const autumn = (await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' })).tournament;
   assert.equal(autumn.registration.status, 'closed'); assert.equal(autumn.participants.length, 16);
 });

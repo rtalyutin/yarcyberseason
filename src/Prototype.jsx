@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, CaretRight, Plus } from "@phosphor-icons/react";
-import { getTournamentOutcome, isArchive, hasScore, isFinished, registrationCountLabel } from "./lib/tournament.js";
+import { getTournamentOutcome, isArchive, hasScore, isFinished, participantCount } from "./lib/tournament.js";
 import { community } from './data/community.js';
 import { projectContent } from './data/project-content.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
@@ -11,9 +11,10 @@ import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/t
 import "./themes.css";
 import "./internal-themes.css";
 import "./dota-home.css";
-import { normalizeResult } from './lib/community.js';
+import { matchDateLabel, normalizeResult, safeHttps } from './lib/community.js';
+import { getHomeBroadcastBoard } from './lib/home-board.js';
 import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
-import { NavigationContext, TeamLink, MatchLink, CommunitySearch } from './components/CommunityLinks.jsx';
+import { NavigationContext, TeamLink, MatchLink } from './components/CommunityLinks.jsx';
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import { TechiesEgg } from "./components/TechiesEgg.jsx";
 import { AboutPage } from "./components/AboutPage.jsx";
@@ -167,14 +168,45 @@ function HomeGameMark({ src, label }) {
   return <img className="home-game-mark" src={src} alt={label} />;
 }
 
+function HomeBroadcastBoard({ tournament, navigate }) {
+  const { match, state, score, previous } = getHomeBroadcastBoard(tournament);
+  const schedule = `/tournaments/${tournament.slug}?section=matches`;
+  const label = {
+    scheduled: 'Следующий эфир', live: 'В эфире', result: 'Итог эфира', technical: 'Технический результат',
+    pending: 'Итог уточняется', postponed: 'Матч перенесён', unannounced: 'Следующий эфир',
+  }[state];
+  const stream = state === 'live' ? safeHttps(match?.broadcastUrl) || safeHttps(match?.streamUrl) : null;
+
+  return <aside className={`home-broadcast-board home-broadcast-board--${state}`} aria-label="Табло сезона">
+    <div className="home-board-topline"><span className="home-board-signal" aria-hidden="true" /><p>{label}</p><span>YCS / 2026</span></div>
+    {match ? <>
+      <p className="home-board-date">{state === 'postponed' ? 'Дата уточняется' : matchDateLabel(match)} · {match.bestOf || 'Формат уточняется'}</p>
+      <div className="home-board-teams">
+        <TeamIdentity tournament={tournament} team={match.team1} />
+        <strong aria-label={score ? `${state === 'technical' ? 'Технический счёт' : 'Счёт серии'} ${score.join(':')}` : 'Против'}>{score ? score.join(' : ') : 'VS'}</strong>
+        <TeamIdentity tournament={tournament} team={match.team2} align="end" />
+      </div>
+      {state === 'scheduled' && !match.scheduledAt && !match.time && <p className="home-board-note">Время начала уточняется. Трансляция запланирована.</p>}
+      {state === 'live' && !stream && <p className="home-board-note">Ссылка на эфир пока не опубликована.</p>}
+      {state === 'pending' && <p className="home-board-note">Подтверждённый счёт пока не опубликован.</p>}
+      {state === 'postponed' && <p className="home-board-note">Новая дата будет опубликована после согласования.</p>}
+      {state === 'technical' && <p className="home-board-note">{match.status === 'bye' ? 'Проход без игры.' : 'Техническая победа.'} Следующий эфир пока не объявлен.</p>}
+      {state === 'result' && <p className="home-board-note">Следующий эфир пока не объявлен.</p>}
+    </> : <p className="home-board-note">Пара следующей трансляции пока не опубликована.</p>}
+    {previous && <p className="home-board-previous">{previous.technical ? 'Предыдущий технический результат' : 'Предыдущий эфир'}: {previous.match.team1} {previous.score.join(':')} {previous.match.team2}</p>}
+    <div className="home-board-actions">
+      {stream && <a className="button button--primary" href={stream} target="_blank" rel="noopener noreferrer">Смотреть эфир <ArrowUpRight aria-hidden="true" /></a>}
+      <ActionButton action={{ label: ['result', 'technical'].includes(state) ? 'Все матчи' : 'Расписание матчей', target: schedule }} navigate={navigate} variant={stream ? 'secondary' : 'primary'} />
+    </div>
+  </aside>;
+}
+
 function HomePage({ navigate, theme }) {
   const heroImageRef = useRef(null);
   const archivePreview = archivedTournaments.slice(0, 3);
   const featuredMatch = getHomePlayoffMatch(currentTournament);
   const outcome = getTournamentOutcome(currentTournament);
   const finished = isArchive(currentTournament);
-  const registration = nextTournament.timeline?.find((item) => item.label.toLowerCase().includes("регистрац"));
-  const deadline = registration?.date || nextTournament.facts?.find((fact) => fact.toLowerCase().includes("регистрац"));
 
   return (
     <>
@@ -186,7 +218,7 @@ function HomePage({ navigate, theme }) {
           <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
               <p className="home-kicker">YAR CYBER SEASON / 2026</p>
-              <h1 id="home-title">Твоя команда.<br /><span>Твой сезон.</span></h1>
+              <h1 id="home-title">Заявки закрыты.<br /><span>Арена открыта.</span></h1>
               <div className="home-next-lockup">
                 <HomeGameMark src="/assets/games/dota2.svg" label="Dota 2" />
                 <div>
@@ -195,25 +227,14 @@ function HomePage({ navigate, theme }) {
                 </div>
               </div>
               <p className="home-next-date">{nextTournament.dates.display}</p>
-              <ul className="home-facts" aria-label="Условия участия">
-                {nextTournament.facts?.slice(0, 3).map((fact) => <li key={fact}>{/команд/i.test(fact) && nextTournament.registration ? registrationCountLabel(nextTournament) : fact}</li>)}
+              <ul className="home-facts" aria-label="Турнир в цифрах">
+                <li>{participantCount(nextTournament)} команд</li>
+                <li>Призовой фонд {nextTournament.prizeDistribution.total}</li>
               </ul>
-              {nextTournament.registration?.status === 'closed' ? <p className="home-deadline">{nextTournament.registration.message}</p> : deadline && <p className="home-deadline">Регистрация {deadline}</p>}
-              <div className="home-conversion-actions">
-                <ActionButton action={nextTournament.primaryAction} navigate={navigate} />
-                <a className="home-subtle-link" href={`/tournaments/${nextTournament.slug}#format`} onClick={(event) => followPublicLink(event, `/tournaments/${nextTournament.slug}#format`, navigate)}>
-                  Условия участия <ArrowUpRight weight="bold" aria-hidden="true" />
-                </a>
-              </div>
-              <div className="registration-documents">
-                <div><a href={`/tournaments/${nextTournament.slug}#format`}>Правила турнира <ArrowUpRight aria-hidden="true" /></a>
-                <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a></div>
-              </div>
+              <HomeBroadcastBoard tournament={nextTournament} navigate={navigate} />
             </div>
           </div>
         </section>
-
-        <div className="container community-home-search"><CommunitySearch /></div>
 
         <section className="home-season container" aria-label="Текущий сезон">
           <div className="home-season-main">

@@ -111,7 +111,7 @@ function Footer({ navigate }) {
         <p>ИНН 7606143578 · ОГРН 1257600007500</p>
       </div>
       <nav aria-label="Документы и контакты">
-        <a href="mailto:info@ycs.bar">info@ycs.bar</a>
+        <a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail}</a>
         <a href="/about#requisites">Контакты и реквизиты</a>
         <a href="/webmcp">Данные для ИИ</a>
         <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
@@ -265,7 +265,7 @@ function HomePage({ navigate, theme }) {
                 {partner.shortName !== "Додо Пицца" && <p>{partner.name}</p>}
               </div>
             ))}
-            <a className="home-partner home-partner--join" href="mailto:info@ycs.bar?subject=Партнёрство%20с%20ЯрКиберСезоном">
+            <a className="home-partner home-partner--join" href={`mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>
               <Plus size={58} weight="light" aria-hidden="true" />
               <span>Стать партнёром <CaretRight size={16} weight="bold" aria-hidden="true" /></span>
             </a>
@@ -696,7 +696,7 @@ function BroadcastsPage({ navigate }) {
 function PartnersPage() {
   return (
     <main>
-      <PageIntro eyebrow="Партнёры / сезон 2026" title={<>Партнёры<br /><span>YCS</span></>} body="Поддержка партнёров помогает YAR CYBER SEASON проводить турниры, эфиры и встречи игроков в Ярославле." action={{ label: "Стать партнёром", target: "mailto:info@ycs.bar?subject=Партнёрство%20с%20YCS" }} />
+      <PageIntro eyebrow="Партнёры / сезон 2026" title={<>Партнёры<br /><span>YCS</span></>} body="Поддержка партнёров помогает YAR CYBER SEASON проводить турниры, эфиры и встречи игроков в Ярославле." action={{ label: "Стать партнёром", target: `mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20YCS` }} />
       <section className="container partner-showcase" aria-labelledby="dodo-partner-title">
         <div className="partner-showcase__brand">
           <p className="eyebrow">01 / Партнёр сезона</p>
@@ -718,7 +718,7 @@ function PartnersPage() {
           <h2>Ваш бренд<br /><span>в следующем матче</span></h2>
         </div>
         <p>Если хотите поддержать турнир, команду или трансляцию — напишите YCS. Обсудим формат, который будет заметен игрокам и зрителям.</p>
-        <ActionButton action={{ label: "Связаться с YCS", target: "mailto:info@ycs.bar?subject=Партнёрство%20с%20YCS" }} variant="secondary" />
+        <ActionButton action={{ label: "Связаться с YCS", target: `mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20YCS` }} variant="secondary" />
       </section>
     </main>
   );

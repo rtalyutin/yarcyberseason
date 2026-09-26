@@ -1,5 +1,6 @@
 import { ArrowDownRight, ArrowUpRight } from "@phosphor-icons/react";
 import organizers from "../data/organizers.json";
+import { projectContent } from "../data/project-content.js";
 import "../about.css";
 
 function OrganizerCard({ person }) {
@@ -49,7 +50,7 @@ export function AboutPage({ people = organizers }) {
 
     <section className="about-contact container" aria-labelledby="about-contact-title">
       <div><p className="about-kicker">Прямая связь</p><h2 id="about-contact-title">Написать организаторам</h2></div>
-      <a href="mailto:info@ycs.bar">info@ycs.bar <ArrowUpRight aria-hidden="true" /></a>
+      <a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail} <ArrowUpRight aria-hidden="true" /></a>
     </section>
 
     <section className="container legal-requisites about-requisites" id="requisites" aria-labelledby="about-requisites-title">
@@ -57,7 +58,7 @@ export function AboutPage({ people = organizers }) {
       <p>Общество с ограниченной ответственностью «ЯрКиберСезон»</p>
       <dl><dt>Юридический адрес</dt><dd>150040, Ярославская область, г. Ярославль, ул. Володарского, д. 64, кв. 37</dd>
       <dt>ИНН / КПП</dt><dd>7606143578 / 760601001</dd><dt>ОГРН</dt><dd>1257600007500</dd>
-      <dt>Электронная почта</dt><dd><a href="mailto:info@ycs.bar">info@ycs.bar</a></dd></dl>
+      <dt>Электронная почта</dt><dd><a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail}</a></dd></dl>
     </section>
   </main>;
 }

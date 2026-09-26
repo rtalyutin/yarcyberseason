@@ -5,6 +5,7 @@ import { buildCommunityModel, validateCommunity } from '../src/lib/community.js'
 import { validatePublicRosters } from '../src/lib/rosters.js';
 import { validateDataIntegrity } from '../src/lib/data-integrity.js';
 import { reconcilePublications, teamCalendar } from '../src/lib/calendar.js';
+import { PUBLIC_ORIGIN } from '../src/lib/public-origin.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = (name) => JSON.parse(readFileSync(resolve(root, name), 'utf8'));
@@ -34,8 +35,8 @@ if (process.argv.includes('--sync')) {
   if (!process.argv.includes('--check')) {
     const target = resolve(root, 'dist/client/calendars/teams');
     mkdirSync(target, { recursive: true });
-    for (const team of model.teams.values()) writeFileSync(resolve(target, `${team.id}.ics`), teamCalendar(team, previous, 'https://ycs.bar'));
-    for (const [oldId, teamId] of model.teamAliases) writeFileSync(resolve(target, `${oldId}.ics`), teamCalendar(model.getTeam(teamId), previous, 'https://ycs.bar'));
+    for (const team of model.teams.values()) writeFileSync(resolve(target, `${team.id}.ics`), teamCalendar(team, previous, PUBLIC_ORIGIN));
+    for (const [oldId, teamId] of model.teamAliases) writeFileSync(resolve(target, `${oldId}.ics`), teamCalendar(model.getTeam(teamId), previous, PUBLIC_ORIGIN));
   }
   console.log(`Validated ${model.teams.size} team records and ${model.matches.size} matches; calendars ready.`);
 }

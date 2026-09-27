@@ -97,7 +97,8 @@ test('stable links survive reordering; all submitted autumn rosters are publishe
   }
   assert.deepEqual(Object.keys(autumn.teamLogos).sort(), ['ARB Esports', 'Aegis Guardians', 'Easy Gaming', 'Fummo', 'PSB_Bank', 'Parallax Team', 'TEAM SPERMINT', 'Team Leto', 'Tech Titans', 'Vnext', 'WAYPROD.', 'liqa sto']);
   assert.equal(autumn.rosterCollection.expectedBy, '2026-09-21');
-  assert.equal(autumn.rosterCollection.status, 'collecting');
+  assert.equal(autumn.rosterCollection.status, 'received');
+  assert.equal(autumn.rosterCollection.source, 'organizer-confirmation-2026-09-27');
   const dispute = model.matches.get('dota2-main-2026/dota-main-group-16');
   assert.equal(dispute.result.confirmed, false); assert.equal(dispute.result.series, null);
 });

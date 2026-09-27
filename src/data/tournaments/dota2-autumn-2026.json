@@ -282,7 +282,7 @@
   ],
   "rosterCollection": {
     "expectedBy": "2026-09-21",
-    "status": "collecting",
-    "source": "organizer-confirmation-2026-09-16"
+    "status": "received",
+    "source": "organizer-confirmation-2026-09-27"
   }
 }

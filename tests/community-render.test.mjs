@@ -53,12 +53,16 @@ test('all published team and match templates render with real JSON', async () =>
     assert.match(disputed, /disabled=""/);
     assert.ok(renderToStaticMarkup(React.createElement(TeamPage, { teamId: 'missing' })).includes('Команда не найдена'));
     assert.ok(renderToStaticMarkup(React.createElement(MatchPage, { tournamentSlug: 'missing', matchId: 'missing' })).includes('Матч не найден'));
-    const { CommunitySearch } = await server.ssrLoadModule('/src/components/CommunityLinks.jsx');
-    const search = renderToStaticMarkup(React.createElement(CommunitySearch));
-    assert.ok(search.includes('Ссылка на чат появится позже'));
-    assert.ok(search.includes('href="https://forms.yandex.ru/u/6a84776d5056903d3b881f6b"'));
-    assert.ok(search.includes('Зарегистрироваться как соло-игрок'));
-    assert.ok(!search.includes('Найти команду ↗'));
-    assert.ok(!search.includes('Нужен игрок ↗'));
+    const { TournamentNavigator } = await server.ssrLoadModule('/src/components/TournamentNavigator.jsx');
+    const { nextTournament } = await server.ssrLoadModule('/src/data/tournaments/index.js');
+    const tournament = renderToStaticMarkup(React.createElement(TournamentNavigator, {
+      tournament: nextTournament,
+      renderStage: () => null,
+      renderRewards: () => null,
+    }));
+    assert.ok(tournament.includes('Заявленные команды'));
+    assert.ok(tournament.includes('Регистрация закрыта — набрано 16 команд'));
+    assert.ok(!tournament.includes('forms.yandex.ru'));
+    assert.ok(!tournament.includes('Ссылка на чат появится позже'));
   } finally { globalThis.window = previousWindow; await server.close(); }
 });

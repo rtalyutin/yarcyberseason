@@ -1,4 +1,4 @@
-import { InternalLink, TeamLink, MatchLink, CommunitySearch } from './CommunityLinks.jsx';
+import { InternalLink, TeamLink, MatchLink } from './CommunityLinks.jsx';
 import { community } from '../data/community.js';
 import { regulationsByDiscipline, regulationsByTournament } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
@@ -119,7 +119,6 @@ export function TournamentNavigator({ tournament, navigate, renderStage, renderR
           {!archived && [tournament.primaryAction, tournament.secondaryAction, ...(tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter(Boolean).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <InternalLink className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></InternalLink>)}
           {regulation && <a className="tn-outline" href={regulation.url} target="_blank" rel="noopener noreferrer">{regulation.label}<ArrowUpRight aria-hidden="true" /></a>}
         </div>}
-        {!archived && <CommunitySearch />}
       </header>
       <div className="tn-layout">
         <aside className="tn-sidebar">

@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 import { community } from '../data/community.js';
-import config from '../data/community-config.json';
-import { matchKey, matchPath, safeHttps, teamPath } from '../lib/community.js';
+import { matchKey, matchPath, teamPath } from '../lib/community.js';
 
 export const NavigationContext = createContext(null);
 export function InternalLink({ href, children, ...props }) {
@@ -17,13 +16,4 @@ export function TeamLink({ tournamentId, name, children, className = '' }) {
 export function MatchLink({ tournamentId, matchId, className = '' }) {
   const match = community.matches.get(matchKey(tournamentId, matchId));
   return match ? <InternalLink href={matchPath(match)} className={`community-match-link ${className}`}>Страница матча <span aria-hidden="true">↗</span></InternalLink> : null;
-}
-export function CommunitySearch() {
-  const url = safeHttps(config.teamSearchChatUrl);
-  const soloUrl = safeHttps(config.soloRegistrationUrl);
-  return <div className="community-search">
-    {soloUrl && <p>Нет команды? <a href={soloUrl} target="_blank" rel="noreferrer">Зарегистрироваться как соло-игрок ↗</a></p>}
-    <p>Поиск команды и игроков — в чате сообщества</p>
-    {url ? <div><a href={url} target="_blank" rel="noreferrer">Найти команду ↗</a><a href={url} target="_blank" rel="noreferrer">Нужен игрок ↗</a></div> : <span>Ссылка на чат появится позже</span>}
-  </div>;
 }

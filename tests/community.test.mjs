@@ -192,10 +192,8 @@ test('calendar GET/HEAD returns a calendar and missing feeds never return HTML',
   const response = await worker.fetch(new Request('https://example.test/calendars/teams/missing.ics', { headers: { accept: 'text/html' } }), { ASSETS: { fetch: async () => { calls++; return new Response('missing', { status: 404 }); } } });
   assert.equal(response.status, 404); assert.equal(calls, 1);
 });
-test('Telegram chat and solo registration are preserved while team registration closes', () => {
-  assert.equal(read('src/data/community-config.json').teamSearchChatUrl, null);
+test('team registration remains closed and participant registry excludes private contacts', () => {
   assert.equal(tournaments.find((t) => t.id === 'dota2-autumn-2026').primaryAction.target, '/tournaments/dota2-autumn-2026?section=participants');
-  assert.equal(read('src/data/community-config.json').soloRegistrationUrl, 'https://forms.yandex.ru/u/6a84776d5056903d3b881f6b');
   const registryText = JSON.stringify(registry);
   assert.doesNotMatch(registryText, /"(?:email|phone|captain|players|roster|telegramId|steamId|faceitId)"/i);
 });

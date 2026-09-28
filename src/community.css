@@ -67,13 +67,6 @@
 .community-map-list { list-style: none; padding: 0; margin: 0; }
 .community-map-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--cp-line); }
 .community-map-list li > span:last-child { color: var(--cp-muted); font-size: 14px; }
-.community-search { margin-top: 18px; font-size: 14px; line-height: 1.5; }
-.community-search > p { margin: 0 0 6px; }
-.community-search > span { opacity: .7; }
-.community-search > div { display: flex; gap: 18px; flex-wrap: wrap; }
-.community-search a { color: inherit; text-underline-offset: 4px; }
-.community-home-search { padding-block: 16px; border-bottom: 1px solid #29364c; }
-.community-home-search .community-search { margin-top: 0; }
 .community-source-issue { border-left: 3px solid #6f97e8; padding: 12px 18px; margin-bottom: 24px !important; }
 [data-theme=corporate] .community-page { --cp-text: #142b53; --cp-muted: #4d6383; --cp-line: #cbd5e4; --cp-panel: #f9fbff; }
 [data-theme=corporate] .community-eyebrow, [data-theme=corporate] .community-trophy strong, [data-theme=corporate] .community-consequence { color: #2353a9; }

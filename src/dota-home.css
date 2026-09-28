@@ -72,10 +72,6 @@
 .site-shell--home[data-theme="dota2"] .home-subtle-link { align-self: center; font-size: 13px; color: #f2f0eb; }
 .site-shell--home[data-theme="dota2"] .registration-documents { grid-column: 3; grid-row: 3; margin: 0; font-size: 11px; }
 .site-shell--home[data-theme="dota2"] .registration-documents > div { gap: 6px 14px; justify-content: flex-start; }
-.site-shell--home[data-theme="dota2"] .community-home-search { padding-block: 26px; margin-block: 0; border-bottom: 1px solid var(--dota-rule); }
-.site-shell--home[data-theme="dota2"] .community-search { padding: 0; border: 0; font-size: 16px; }
-.site-shell--home[data-theme="dota2"] .community-search p { margin: 0 0 10px; }
-.site-shell--home[data-theme="dota2"] .community-search span { color: #bec8cc; }
 .site-shell--home[data-theme="dota2"] .home-season { grid-template-columns: 60% 40%; min-height: 0; border: 0; }
 .site-shell--home[data-theme="dota2"] .home-season-main { padding: 50px 7% 60px 0; border-color: var(--dota-rule); background: none; }
 .site-shell--home[data-theme="dota2"] .home-archive { padding: 50px 0 50px 9%; }
@@ -146,7 +142,6 @@
 }
 
 @media (min-width: 861px) {
-  .site-shell--home[data-theme="dota2"] .community-search { font-size: clamp(16px, calc(var(--dota-width) * 0.016), 24px); }
   .site-shell--home[data-theme="dota2"] .home-section-intro > p:last-child { font-size: clamp(16px, calc(var(--dota-width) * 0.016), 24px); }
   .site-shell--home[data-theme="dota2"] .home-archive-copy strong { font-size: clamp(17px, calc(var(--dota-width) * 0.016), 24px); }
   .site-shell--home[data-theme="dota2"] .home-archive-copy small { font-size: clamp(13px, calc(var(--dota-width) * 0.013), 20px); }

@@ -40,6 +40,7 @@ When implementing from a selected generated mock, treat that image as the source
 - The tournament hero is a status and context panel only. Round-robin tables and playoff brackets live in independent lower sections.
 - Every tournament uses its own JSON data file. A current/upcoming tournament may show deliberately empty tables or placeholder bracket slots until real match data is published; never invent results.
 - Historic Dota 2 Main has saved group tables and confirmed playoff matches, but not a complete bracket. Keep that distinction visible in the UI.
+- September 28 organizer correction: the spring Dota 2 Main had two divisions. Самозванцы won the open division; Way Prod. won the corporate division, Tech Titans finished second and Team Borisogleb third. Render both podiums from `results.divisions` in the shared archive and Mini App; do not fill unpublished open-division places or infer a complete bracket. Preserve archived match names and scores.
 - The season overview must clearly separate the live CS2 tournament, the announced next Dota 2 tournament, and the results archive; do not reuse historic CS2 data on the live CS2 page.
 - The archive includes Dota 2 Main, February CS2, and Dota 2 Qual. For Qual, dates on December match cards have no published year and no playoff topology is available.
 - Current CS2 first-round schedule is a live operational surface: four technical victories are recorded as wins, while scheduled matches remain explicitly pending until an organiser confirms their result.

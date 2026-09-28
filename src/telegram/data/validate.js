@@ -1,5 +1,6 @@
 import { validateMiniAppModel } from "../contracts.js";
 import { normalizeResult, validateCommunity } from "../../lib/community.js";
+import { resultGroups } from "../../lib/tournament.js";
 import { transformAction } from "./actions.js";
 
 const rawMatches = (tournament) => (tournament.stages || []).flatMap((stage) =>
@@ -14,46 +15,54 @@ function validateTournamentResults(tournament, declared, registry) {
   const errors = [];
   const results = tournament.results;
   if (!record(results)) return [`Invalid results object: ${tournament.id}`];
-  if (!nonEmpty(results.finalMatchId)) return [`Results finalMatchId is required: ${tournament.id}`];
-
-  const final = declared.get(results.finalMatchId);
-  let finalResult;
-  if (!final || final.published === false || !final.team1 || !final.team2) {
-    errors.push(`Results final match is missing or unpublished: ${tournament.id}/${results.finalMatchId}`);
-  } else {
-    finalResult = normalizeResult(final, tournament.discipline);
-    if (!finalResult.confirmed || !finalResult.score || !finalResult.winnerSide) {
-      errors.push(`Results final match is not confirmed: ${tournament.id}/${results.finalMatchId}`);
+  const divisions = results.divisions;
+  if (divisions != null && (!Array.isArray(divisions) || !divisions.length)) return [`Invalid result divisions: ${tournament.id}`];
+  if (divisions && (results.finalMatchId != null || results.placements != null)) errors.push(`Mixed result formats: ${tournament.id}`);
+  const divisionIds = new Set(), placedTeams = new Set();
+  const teamIds = new Map([
+    ...(registry.bindings || []).map((binding) => [binding.sourceName, binding.teamId]),
+    ...(tournament.participants || []).map((participant) => [participant.displayName, participant.teamId]),
+  ]);
+  for (const group of resultGroups(results)) {
+    const scope = `${tournament.id}/${group.id || 'overall'}`;
+    if (divisions) {
+      if (!nonEmpty(group.id) || !nonEmpty(group.title) || divisionIds.has(group.id)) errors.push(`Invalid result division: ${scope}`);
+      divisionIds.add(group.id);
     }
-  }
-
-  if (results.placements != null) {
-    if (!Array.isArray(results.placements) || results.placements.length === 0) {
-      errors.push(`Results placements must be a non-empty array: ${tournament.id}`);
-    } else {
+    if (!divisions && !nonEmpty(group.finalMatchId)) errors.push(`Results finalMatchId is required: ${scope}`);
+    let final, finalResult;
+    if (group.finalMatchId != null) {
+      final = declared.get(group.finalMatchId);
+      if (!nonEmpty(group.finalMatchId) || !final || final.published === false || !final.team1 || !final.team2) {
+        errors.push(`Results final match is missing or unpublished: ${scope}/${group.finalMatchId}`);
+      } else {
+        finalResult = normalizeResult(final, tournament.discipline);
+        if (!finalResult.confirmed || !finalResult.score || !finalResult.winnerSide) errors.push(`Results final match is not confirmed: ${scope}/${group.finalMatchId}`);
+      }
+    }
+    if (group.placements != null || divisions) {
+      if (!Array.isArray(group.placements) || group.placements.length === 0) {
+        errors.push(`Results placements must be a non-empty array: ${scope}`);
+        continue;
+      }
       const positions = new Set();
-      const teams = new Set();
-      const teamIds = new Map([
-        ...(registry.bindings || []).map((binding) => [binding.sourceName, binding.teamId]),
-        ...(tournament.participants || []).map((participant) => [participant.displayName, participant.teamId]),
-      ]);
       const winnerId = finalResult?.confirmed && finalResult.winnerSide ? teamIds.get(final[`team${finalResult.winnerSide}`]) : null;
       const runnerUpId = winnerId ? teamIds.get(final[`team${finalResult.winnerSide === 1 ? 2 : 1}`]) : null;
-      for (const placement of results.placements) {
+      for (const placement of group.placements) {
         if (!record(placement) || !Number.isInteger(placement.position) || placement.position < 1 || !nonEmpty(placement.team)) {
-          errors.push(`Invalid result placement: ${tournament.id}`);
+          errors.push(`Invalid result placement: ${scope}`);
           continue;
         }
-        if (positions.has(placement.position)) errors.push(`Duplicate result position: ${tournament.id}/${placement.position}`);
+        if (positions.has(placement.position)) errors.push(`Duplicate result position: ${scope}/${placement.position}`);
         positions.add(placement.position);
         const teamId = teamIds.get(placement.team);
-        if (!teamId) errors.push(`Unknown result team: ${tournament.id}/${placement.team}`);
+        if (!teamId) errors.push(`Unknown result team: ${scope}/${placement.team}`);
         else {
-          if (teams.has(teamId)) errors.push(`Duplicate result team: ${tournament.id}/${placement.team}`);
-          teams.add(teamId);
+          if (placedTeams.has(teamId)) errors.push(`Duplicate result team: ${scope}/${placement.team}`);
+          placedTeams.add(teamId);
           if (winnerId && ((placement.position === 1) !== (teamId === winnerId) ||
             (placement.position === 2) !== (teamId === runnerUpId))) {
-            errors.push(`Final/placement conflict: ${tournament.id}/${placement.position}`);
+            errors.push(`Final/placement conflict: ${scope}/${placement.position}`);
           }
         }
       }

@@ -1,4 +1,5 @@
 // Public sporting data only. Published tournament rosters are separate from registration data.
+import { resultGroups } from './tournament.js';
 export const finishedStatuses = new Set(['completed', 'walkover', 'bye']);
 export const matchStates = {
   scheduled: 'Матч назначен', live: 'Идёт матч', completed: 'Матч завершён',
@@ -81,10 +82,12 @@ export function buildCommunityModel(tournaments, registry, rosters = { records: 
     const team = teams.get(binding.teamId), tournament = tournaments.find((t) => t.id === binding.tournamentId);
     if (!team || !tournament || team.entries.some((entry) => entry.tournament.id === tournament.id)) continue;
     const names = [...new Set(participationBindings.filter((b) => b.teamId === team.id && b.tournamentId === tournament.id).map((b) => b.sourceName))];
-    const placement = tournament.results?.placements?.find((p) => names.includes(p.team))?.position || null;
+    const resultGroup = resultGroups(tournament.results).find((group) => group.placements?.some((p) => names.includes(p.team)));
+    const placement = resultGroup?.placements.find((p) => names.includes(p.team))?.position || null;
+    const division = resultGroup?.title || null;
     const participant = tournament.participants?.find((p) => p.teamId === team.id);
     const roster = rosterByEntry.get(matchKey(tournament.id, team.id)) || null;
-    team.entries.push({ tournament, names, placement, status: participant?.status || null, displayName: participant?.displayName || names[0], roster, rosterStatus: roster ? 'published' : 'unknown' });
+    team.entries.push({ tournament, names, placement, division, status: participant?.status || null, displayName: participant?.displayName || names[0], roster, rosterStatus: roster ? 'published' : 'unknown' });
   }
   const maps = new Map();
   for (const match of matches.values()) {
@@ -241,11 +244,13 @@ export function validateCommunity(tournaments, registry) {
     }
   }
   for (const tournament of tournaments) {
-    const final = flattenMatches([tournament]).find((m) => m.id === tournament.results?.finalMatchId);
-    const champion = tournament.results?.placements?.find((p) => p.position === 1)?.team;
-    if (final && champion) {
-      const result = normalizeResult(final, tournament.discipline);
-      if (!result.confirmed || !result.winnerSide || final[`team${result.winnerSide}`] !== champion) errors.push(`Final/placement conflict: ${tournament.id}`);
+    for (const group of resultGroups(tournament.results)) {
+      const final = flattenMatches([tournament]).find((m) => m.id === group.finalMatchId);
+      const champion = group.placements?.find((p) => p.position === 1)?.team;
+      if (final && champion) {
+        const result = normalizeResult(final, tournament.discipline);
+        if (!result.confirmed || !result.winnerSide || final[`team${result.winnerSide}`] !== champion) errors.push(`Final/placement conflict: ${tournament.id}`);
+      }
     }
   }
   return errors;

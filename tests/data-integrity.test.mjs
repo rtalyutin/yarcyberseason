@@ -34,6 +34,11 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
       before.participants[12].displayName = 'Parallax Team';
       before.participants[15] = { teamId: 'dota2-autumn-2026-team-leto', displayName: 'Team Leto', status: 'registered' };
     }
+    if (f === 'dota2-main-2026.json') {
+      // Organizer-confirmed division results change the archive presentation only.
+      const current = read(`src/data/tournaments/${f}`);
+      for (const field of ['summary', 'archiveLabel', 'facts', 'primaryAction', 'sourceNote']) before[field] = current[field];
+    }
     preserve(before, read(`src/data/tournaments/${f}`), f);
   }
   assert.deepEqual(validate(tournaments), []);

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { filterTournamentMatches, getTournamentModel, getTournamentOutcome, hasScore, isFinished, matchDateParts, resolveTournamentView } from "../src/lib/tournament.js";
+import { filterTournamentMatches, getChampionLabels, getTournamentModel, getTournamentOutcome, hasScore, isFinished, matchDateParts, resolveTournamentView } from "../src/lib/tournament.js";
 
 const read = (file) => JSON.parse(fs.readFileSync(new URL(`../src/data/tournaments/${file}.json`, import.meta.url)));
 const archive = read("cs2-february-2026");
@@ -71,6 +71,20 @@ test("Legacy archives keep partial stages, stable unique match keys and yearless
   assert.ok(!qual.sections.some((section) => section.id === "playoffs"));
   assert.equal(matchDateParts(qual.matches[0]).year, null);
   assert.equal(matchDateParts({ dateDisplay: "5 фев · 19:00" }).month, 2);
+});
+
+test("Spring Dota archive keeps two confirmed divisions without inventing an open podium", () => {
+  const tournament = read("dota2-main-2026");
+  const outcome = getTournamentOutcome(tournament);
+  assert.deepEqual(outcome.divisions.map(({ title, placements }) => [title, placements.map(({ position, team }) => [position, team])]), [
+    ["Открытый дивизион", [[1, "Самозванцы"]]],
+    ["Корпоративный дивизион", [[1, "Way Prod."], [2, "Tech Titans"], [3, "Team Borisogleb"]]],
+  ]);
+  assert.equal(outcome.champion, null, "A two-division event has no single overall champion");
+  assert.equal(outcome.final, null, "Neither archived playoff path is labelled a final without confirmation");
+  assert.deepEqual(getChampionLabels(tournament), ["Открытый дивизион · Самозванцы", "Корпоративный дивизион · Way Prod."]);
+  assert.equal(getTournamentModel(tournament).defaultSection, "results");
+  assert.equal(tournament.stages.find((stage) => stage.id === "playoffs").matches.length, 6);
 });
 
 test("Deep links and browser history resolve sections and filters without inventing a section", () => {

@@ -120,7 +120,7 @@ export function createWebMcpTools({ tournaments, community, dataVersion, buildGe
       { teamId }, ['teamId'], (input) => {
         const item = team(input.teamId);
         return { team: { ...teamView(item), entries: item.entries.map((entry) => ({
-          tournament: tournamentView(entry.tournament), names: entry.names, placement: entry.placement, status: entry.status, displayName: entry.displayName,
+          tournament: tournamentView(entry.tournament), names: entry.names, placement: entry.placement, division: entry.division, status: entry.status, displayName: entry.displayName,
           rosterStatus: entry.roster ? 'published' : 'unknown',
           ...(entry.roster ? { roster: {
             sourceName: entry.roster.sourceName,

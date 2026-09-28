@@ -97,6 +97,10 @@ test("real archive tables, partial playoffs, unknown year and confirmed final pr
   assert.deepEqual(final.result.score, [2, 3]); assert.equal(final.result.maps.length, 0);
   assert.equal(main.stages.find((stage) => stage.id === "playoffs").edges.length, 0);
   assert.match(render(main, "playoffs"), /Исходная сетка не сохранена целиком/);
+  const results = render(main, "results");
+  assert.match(results, /Открытый дивизион.*Самозванцы.*Корпоративный дивизион.*Way Prod\..*Tech Titans.*Team Borisogleb/s);
+  assert.equal((results.match(/data-position="1"/g) || []).length, 2);
+  assert.doesNotMatch(results, /Гранд-финал/);
   assert.deepEqual(main.stages.find((stage) => stage.id === "groups").tables.map((table) => table.rows.length), [4, 4, 4, 4]);
   assert.equal(february.results, null);
   assert.equal(qual.tournament.dates.start, null); assert.equal(qual.tournament.dates.end, null);

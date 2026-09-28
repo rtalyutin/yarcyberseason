@@ -23,13 +23,15 @@
 .tn-status--registration_open { color: #68bc95; }
 .tn-status--completed { color: #8fbbff; }
 .tn-podium { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; list-style: none; padding: 0; margin: 24px 0 32px; }
+.tn-division + .tn-division { border-top: 1px solid var(--inside-rule, var(--tn-rule)); padding-top: 26px; }
+.tn-division > h3 { margin: 0 0 18px; font-size: clamp(21px, 2.2vw, 30px); line-height: 1.2; }
 .tn-podium li { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; min-width: 0; padding: 24px; border: 1px solid var(--tn-rule); background: #0b1420; }
 .tn-podium li.tn-podium-champion { border-color: var(--tn-blue); background: #0b2040; }
 .tn-place { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--tn-muted); }
 .tn-podium-champion .tn-place { color: #8fbbff; }
 .tn-podium img { width: 76px; height: 76px; object-fit: contain; border-radius: 50%; }
 .tn-podium strong { font-size: clamp(18px, 2vw, 26px); line-height: 1.35; overflow-wrap: anywhere; }
-.tn-final-result h3 { font-size: 22px; margin: 0 0 18px; }
+.tn-final-result :is(h3, h4) { font-size: 22px; margin: 0 0 18px; }
 @media (max-width: 700px) {
   .tn-podium { grid-template-columns: 1fr; gap: 10px; }
   .tn-podium li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 6px 16px; padding: 18px; }

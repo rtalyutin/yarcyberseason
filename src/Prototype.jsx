@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, CaretRight, Plus } from "@phosphor-icons/react";
-import { getTournamentOutcome, isArchive, hasScore, isFinished, participantCount } from "./lib/tournament.js";
+import { getChampionLabels, getTournamentOutcome, isArchive, hasScore, isFinished, participantCount } from "./lib/tournament.js";
 import { community } from './data/community.js';
 import { projectContent } from './data/project-content.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
@@ -269,7 +269,7 @@ function HomePage({ navigate, theme }) {
               {archivePreview.map((tournament) => (
                 <a className="home-archive-row" key={tournament.slug} href={`/tournaments/${tournament.slug}`} onClick={(event) => followPublicLink(event, `/tournaments/${tournament.slug}`, navigate)}>
                   <HomeGameMark src={tournament.discipline === "Dota 2" ? "/assets/games/dota2.svg" : "/assets/games/counterstrike.svg"} label={tournament.discipline} />
-                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small>{getTournamentOutcome(tournament)?.champion && <small>Чемпион · {getTournamentOutcome(tournament).champion}</small>}</span>
+                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small>{getChampionLabels(tournament).map((label) => <small key={label}>{label}</small>)}</span>
                   <ArrowUpRight weight="bold" aria-hidden="true" />
                 </a>
               ))}
@@ -687,7 +687,7 @@ function ResultsPage({ navigate }) {
             <div><span>АРХИВ / {String(index + 1).padStart(2, "0")}</span><StatusPill state="closed">{tournament.statusLabel}</StatusPill></div>
             <h2>{tournament.title}</h2>
             <p>{tournament.dates.display}</p>
-            {getTournamentOutcome(tournament)?.champion && <p className="result-champion">Чемпион · {getTournamentOutcome(tournament).champion}</p>}
+            {getChampionLabels(tournament).map((label) => <p className="result-champion" key={label}>{label}</p>)}
             <strong>{getArchiveLabel(tournament)}</strong>
           </a>
         ))}

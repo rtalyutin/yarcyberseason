@@ -1,4 +1,5 @@
 import { isPlaceholder, safeHttps, matchKey, matchStates, exactStart } from './community.js';
+import { resultGroups } from './tournament.js';
 
 // Includes unpublished slots: hiding a record must not bypass integrity checks.
 export const declaredMatches = (tournament) => (tournament.stages || []).flatMap((stage) => [
@@ -65,8 +66,23 @@ export function validateDataIntegrity(tournaments, registry, rosters, provenance
         if (!targetTournament || !declaredMatches(targetTournament).some((item) => item.id === target.matchId)) errors.push(`Missing bracket reference: ${key}/${field}`);
       }
     }
-    if (t.results?.finalMatchId && !matches.has(t.results.finalMatchId)) errors.push(`Missing final: ${t.id}`);
-    for (const placement of t.results?.placements || []) if (!resolve(placement.team)) errors.push(`Unknown placement team: ${t.id}/${placement.team}`);
+    if (t.results?.divisions && (!Array.isArray(t.results.divisions) || !t.results.divisions.length)) errors.push(`Invalid result divisions: ${t.id}`);
+    const divisionIds = new Set(), placedTeams = new Set();
+    for (const group of resultGroups(t.results)) {
+      if (t.results?.divisions) {
+        if (!group.id || !group.title || divisionIds.has(group.id)) errors.push(`Invalid result division: ${t.id}/${group.id}`);
+        divisionIds.add(group.id);
+      }
+      if (group.finalMatchId && !matches.has(group.finalMatchId)) errors.push(`Missing final: ${t.id}/${group.id || 'overall'}`);
+      const positions = new Set();
+      for (const placement of group.placements || []) {
+        const id = resolve(placement.team);
+        if (!id) errors.push(`Unknown placement team: ${t.id}/${placement.team}`);
+        if (positions.has(placement.position) || (id && placedTeams.has(id))) errors.push(`Duplicate placement: ${t.id}/${placement.team}`);
+        positions.add(placement.position);
+        if (id) placedTeams.add(id);
+      }
+    }
     for (const s of t.stages || []) for (const group of s.groups || []) for (const row of group.rows || []) {
       if (row.team && !isPlaceholder(row.team) && !resolve(row.team)) errors.push(`Unknown standings team: ${t.id}/${row.team}`);
     }

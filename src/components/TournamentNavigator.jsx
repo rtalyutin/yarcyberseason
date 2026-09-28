@@ -41,16 +41,24 @@ function MatchRow({ match, tournament, teamLogos }) {
   );
 }
 
-function TournamentResults({ tournament, changeView, navigate }) {
-  const outcome = getTournamentOutcome(tournament);
-  return <section className="tn-results" aria-labelledby="tn-results-title">
-    <div className="tn-panel-heading"><h2 id="tn-results-title">Итоги турнира</h2></div>
-    <ol className="tn-podium" aria-label="Призовые места">{outcome.placements.map((entry) => <li key={`${entry.position}-${entry.team}`} data-place={entry.position} className={entry.position === 1 ? "tn-podium-champion" : ""}>
+function ResultsPodium({ placements, tournament, label = "Призовые места" }) {
+  return <ol className="tn-podium" aria-label={label}>{placements.map((entry) => <li key={`${entry.position}-${entry.team}`} data-place={entry.position} className={entry.position === 1 ? "tn-podium-champion" : ""}>
       <span className="tn-ordinal" aria-hidden="true">{entry.position}</span>
       <span className="tn-place">{entry.position === 1 && <Trophy aria-hidden="true" />}{entry.position === 1 ? "Чемпион" : `${entry.position} место`}</span>
       {tournament.teamLogos?.[entry.team] && <img src={tournament.teamLogos[entry.team]} alt="" />}
       <strong><TeamLink tournamentId={tournament.id} name={entry.team} /></strong>
-    </li>)}</ol>
+    </li>)}</ol>;
+}
+
+function TournamentResults({ tournament, changeView, navigate }) {
+  const outcome = getTournamentOutcome(tournament);
+  return <section className="tn-results" aria-labelledby="tn-results-title">
+    <div className="tn-panel-heading"><h2 id="tn-results-title">Итоги турнира</h2></div>
+    {outcome.divisions.length ? outcome.divisions.map((division) => <section className="tn-division" key={division.id} aria-labelledby={`tn-division-${division.id}`}>
+      <h3 id={`tn-division-${division.id}`}>{division.title}</h3>
+      <ResultsPodium placements={division.placements} tournament={tournament} label={`Призовые места · ${division.title}`} />
+      {division.final && <div className="tn-final-result"><h4>Гранд-финал</h4><MatchRow tournament={tournament} match={{ ...division.final, roundTitle: "Гранд-финал" }} teamLogos={tournament.teamLogos} /></div>}
+    </section>) : <ResultsPodium placements={outcome.placements} tournament={tournament} />}
     {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow tournament={tournament} match={{ ...outcome.final, roundTitle: "Гранд-финал" }} teamLogos={tournament.teamLogos} /></div>}
     <div className="tn-header-actions tn-result-actions">
       <button className="tn-outline" type="button" onClick={() => changeView({ section: "matches", phase: "all" })}>Все матчи</button>

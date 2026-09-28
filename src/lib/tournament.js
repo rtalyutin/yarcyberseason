@@ -8,13 +8,25 @@ export const isArchive = (tournament) => ["archive", "completed"].includes(tourn
 export const hasScore = (match) => Number.isFinite(match.score1) && Number.isFinite(match.score2);
 export const isFinished = (match) => match.resultConfirmed === false ? false : finishedStatuses.has(match.status) || (!match.status && hasScore(match));
 export const isPlayoffStage = (stage) => bracketTypes.has(stage.type) || stage.phase === "playoffs" || (!/before|group|до\s+плей/i.test(`${stage.id} ${stage.title}`) && /playoff|плей.?офф/i.test(`${stage.id} ${stage.title}`));
+export const resultGroups = (results) => Array.isArray(results?.divisions) ? results.divisions : results ? [results] : [];
 export function getTournamentOutcome(tournament) {
   if (!isArchive(tournament) || !tournament.results) return null;
   const matches = (tournament.stages || []).flatMap((stage) => stage.rounds ? stage.rounds.flatMap((round) => round.matches || []) : stage.matches || []);
-  const final = matches.find((match) => match.id === tournament.results.finalMatchId && isFinished(match) && hasScore(match));
-  const placements = [...(tournament.results.placements || [])].sort((a, b) => a.position - b.position);
-  const champion = placements.find((entry) => entry.position === 1)?.team;
-  return final || placements.length ? { final, placements, champion } : null;
+  const groups = resultGroups(tournament.results).map((group) => ({
+    ...group,
+    final: matches.find((match) => match.id === group.finalMatchId && isFinished(match) && hasScore(match)) || null,
+    placements: [...(group.placements || [])].sort((a, b) => a.position - b.position),
+  }));
+  if (!groups.some((group) => group.final || group.placements.length)) return null;
+  const divisions = tournament.results.divisions ? groups : [];
+  const overall = divisions.length ? null : groups[0];
+  return { divisions, final: overall?.final || null, placements: overall?.placements || [], champion: overall?.placements.find((entry) => entry.position === 1)?.team || null };
+}
+export function getChampionLabels(tournament) {
+  const outcome = getTournamentOutcome(tournament);
+  return outcome?.divisions.length
+    ? outcome.divisions.flatMap((division) => division.placements.filter((entry) => entry.position === 1).map((entry) => `${division.title} · ${entry.team}`))
+    : outcome?.champion ? [`Чемпион · ${outcome.champion}`] : [];
 }
 export const plural = (count, forms) => forms[count % 100 >= 11 && count % 100 <= 14 ? 2 : count % 10 === 1 ? 0 : count % 10 >= 2 && count % 10 <= 4 ? 1 : 2];
 export const resultLabel = (count) => `${count} ${plural(count, ["результат", "результата", "результатов"])}`;

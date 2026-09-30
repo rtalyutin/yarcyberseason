@@ -14,19 +14,27 @@ the separately agreed S3 results specification dated 2026-09-30, version 0.2.
    versioning, CORS rules or write credentials. Do not change access to unrelated
    objects. Check an anonymous browser GET to the exact object URL after the
    first write.
-2. Run the **same application** as a persistent Node.js process on Timeweb:
-   `npm ci`, `npm run build`, then `npm start` (Node.js 22.12+). The root
-   `Dockerfile` packages the site and importer together, listens on `8080`, and
-   serves the existing site/Mini App routes using the unchanged site worker.
-   Select Dockerfile in App Platform if the current service only serves static
-   frontend files; a static hosting build cannot run this importer. Keep the
-   existing domain attached to the serving application. `/healthz` checks HTTP
-   process health only, not successful results import.
-3. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the **Timeweb
+2. Keep the current **frontend** application as React with `npm run build` and
+   build directory `/dist/client`. Its domain and both Mini App routes stay on
+   that application. It reads the public result object directly from S3;
+   no backend URL or writer credentials are needed in the frontend.
+3. Deploy a separate small **results backend** from the same repository and
+   `main` branch in Timeweb App Platform, selecting **Dockerfile**. Leave
+   "Path to project directory" empty: the root Dockerfile needs the shared
+   `src/lib` and tournament JSON as its build context. It installs only the
+   dependencies from `backend/package-lock.json`, copies importer code and
+   shared data, listens on `8080`, and does not build or serve the React site.
+   Set health check path `/healthz`; it checks HTTP process health only, not
+   successful results import. The backend needs no custom domain. Server
+   configuration has its own charge; choose it before starting a deployment.
+   For a local backend run use `npm ci --prefix backend`, then
+   `npm run start --prefix backend` (Node.js 22.12+). In a root development
+   checkout `npm ci` and `npm start` also launch only the results backend.
+4. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the **Timeweb backend
    application's server environment**, using the S3 writer's keys. They are not
    GitHub secrets and must not be prefixed `VITE_`, stored in source, the client
    bundle, Dockerfile or issue/chat text. Inspect the keys' bucket scope.
-4. The server starts its own serialized background loop; it does not depend on
+5. The backend starts its own serialized background loop; it does not depend on
    an open browser, website visits or GitHub Actions. It polls every five minutes
    only October 9 from 20:30–01:00 Moscow and October 10 from 20:00–01:00 Moscow.
    Both the loop and importer check these windows before API or S3 requests.
@@ -35,15 +43,20 @@ the separately agreed S3 results specification dated 2026-09-30, version 0.2.
    `node scripts/dota-results-import.mjs --probe-old-league` reads one old-league
    map (`19021`) without S3 access or publication; no live probe is required
    before kickoff. Shutdown signals stop the loop and abort its network calls.
-5. Enable the importer on exactly **one** application instance. If another
-   deployment serves the same site, set `YCS_DOTA_RESULTS_IMPORT_ENABLED=false`
-   there. Do not run concurrent writer instances or overlap writer deployments:
+6. Enable the importer on exactly **one backend** application instance. If a
+   second backend instance is needed, set `YCS_DOTA_RESULTS_IMPORT_ENABLED=false`
+   there. The frontend does not start an importer. Do not run concurrent writer
+   instances or overlap writer deployments:
    serialized runs protect one process, not distributed S3 writes. Stop the old
    writer before starting a replacement. The existing object survives restart;
    the next check rereads it before deciding whether to write. The importer has
    no public HTTP trigger. Runtime keys must be set before kickoff.
-6. Later rounds need their published fixture dates and a new polling window
+7. Later rounds need their published fixture dates and a new polling window
    before enabling their automatic checks; no unpublished start time is inferred.
+
+`npm run start:frontend` is an optional local Node preview of the existing
+site build. It only serves static site/Mini App routes and does not start an
+importer. Timeweb's existing React deployment continues to serve `/dist/client`.
 
 ## Data contract
 

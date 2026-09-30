@@ -1,7 +1,7 @@
 import { run } from "./dota-results-import.mjs";
 import { isPollWindow } from "../src/lib/dota-import.js";
 
-// One writer process per deployment. Schedule the next check only after the
+// One backend writer process. Schedule the next check only after the
 // current one finishes, so a slow API/S3 call cannot create overlapping runs.
 export function startResultsWorker({ runOnce = run, now = () => new Date(),
   env = process.env, intervalMs = 5 * 60_000, setTimer = setTimeout,

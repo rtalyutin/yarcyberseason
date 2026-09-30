@@ -3,9 +3,10 @@ import assert from "node:assert/strict";
 import { mkdtemp, mkdir, writeFile, symlink, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { startResultsWorker } from "../scripts/dota-results-worker.mjs";
+import { startResultsWorker } from "../backend/dota-results-worker.mjs";
+import { startResultsBackend } from "../backend/server.mjs";
 import { run } from "../scripts/dota-results-import.mjs";
-import { createAppServer, createAssetBinding } from "../scripts/server.mjs";
+import { startApp, createAssetBinding } from "../scripts/server.mjs";
 
 const kickoff = new Date("2026-10-09T20:30:00+03:00");
 const quiet = { error() {}, log() {} };
@@ -101,7 +102,40 @@ test("importer makes no external calls before kickoff and persists completed res
   await assert.rejects(run({ now: kickoff, env: {} }), /credentials/);
 });
 
-test("Node HTTP server preserves site/Mini App routes, real 404s, calendars, HEAD and file boundaries", async () => {
+test("small results backend starts without a site build and exposes health without HTTP import triggers", async () => {
+  let imports = 0;
+  let cleared = false;
+  const backend = await startResultsBackend({ port: 0, host: "127.0.0.1", logger: quiet,
+    env: { AWS_ACCESS_KEY_ID: "private-writer", AWS_SECRET_ACCESS_KEY: "private-secret" },
+    workerOptions: { now: () => kickoff, setTimer() { return 1; },
+      clearTimer() { cleared = true; }, async runOnce() { imports++; } } });
+  const base = `http://127.0.0.1:${backend.server.address().port}`;
+  try {
+    await settled();
+    assert.equal(imports, 1);
+    assert.equal(backend.worker.state.status, "waiting");
+    const health = await fetch(base + "/healthz");
+    assert.equal(health.status, 200);
+    assert.equal(health.headers.get("cache-control"), "no-store");
+    assert.deepEqual(await health.json(), { status: "ok" });
+    const head = await fetch(base + "/healthz", { method: "HEAD" });
+    assert.equal(head.status, 200);
+    assert.equal(await head.text(), "");
+    const post = await fetch(base + "/healthz", { method: "POST" });
+    assert.equal(post.status, 405);
+    assert.equal(post.headers.get("allow"), "GET, HEAD");
+    for (const route of ["/", "/tg", "/assets/app.js", "/api/import", "/.env"]) {
+      const response = await fetch(base + route, { method: "POST", body: "start import" });
+      assert.equal(response.status, 404, route);
+      assert.ok(!(await response.text()).includes("private"));
+    }
+    assert.equal(imports, 1, "HTTP requests never initiate an import");
+  } finally { await backend.stop(); }
+  assert.equal(cleared, true);
+  assert.equal(backend.server.listening, false);
+});
+
+test("standalone frontend preserves site/Mini App routes and never starts an importer", async () => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), "ycs-runtime-"));
   const directory = path.join(temporary, "public");
   await mkdir(directory);
@@ -113,8 +147,9 @@ test("Node HTTP server preserves site/Mini App routes, real 404s, calendars, HEA
   await writeFile(path.join(directory, "calendars/all.ics"), 'BEGIN:VCALENDAR\r\nEND:VCALENDAR');
   await writeFile(path.join(temporary, "private.txt"), "secret");
   await symlink(path.join(temporary, "private.txt"), path.join(directory, "leak.txt"));
-  const server = createAppServer({ directory, logger: quiet });
-  await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
+  const app = await startApp({ directory, logger: quiet, port: 0, host: "127.0.0.1" });
+  assert.equal("worker" in app, false);
+  const server = app.server;
   const base = `http://127.0.0.1:${server.address().port}`;
   try {
     for (const route of ["/", "/about", "/tg", "/tg/tournament", "/healthz"]) {
@@ -137,7 +172,7 @@ test("Node HTTP server preserves site/Mini App routes, real 404s, calendars, HEA
     const assets = createAssetBinding(directory);
     assert.equal((await assets.fetch(new Request(base + "/%2e%2e%2fprivate.txt"))).status, 404);
   } finally {
-    await new Promise((resolve) => server.close(resolve));
+    await app.stop();
     await rm(temporary, { recursive: true, force: true });
   }
 });

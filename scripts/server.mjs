@@ -5,7 +5,6 @@ import { pipeline } from "node:stream/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import site from "../worker/index.js";
-import { startResultsWorker } from "./dota-results-worker.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -70,7 +69,7 @@ export function createAppServer({ directory = path.join(root, "dist/client"), lo
 }
 
 export async function startApp({ port = Number(process.env.PORT || 8080), host = "0.0.0.0",
-  directory = path.join(root, "dist/client"), env = process.env, logger = console } = {}) {
+  directory = path.join(root, "dist/client"), logger = console } = {}) {
   // Fail before accepting traffic if the site build is missing.
   await stat(path.join(directory, "index.html"));
   const server = createAppServer({ directory, logger });
@@ -78,10 +77,9 @@ export async function startApp({ port = Number(process.env.PORT || 8080), host =
     server.once("error", reject);
     server.listen(port, host, resolve);
   });
-  const worker = startResultsWorker({ env, logger });
-  logger.log(`YCS application listening on ${host}:${server.address().port}; Dota results importer ${worker.state.status}`);
-  return { server, worker, async stop() {
-    await Promise.all([worker.stop(), new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))]);
+  logger.log(`YCS frontend listening on ${host}:${server.address().port}`);
+  return { server, async stop() {
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
   } };
 }
 

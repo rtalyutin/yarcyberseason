@@ -9,6 +9,7 @@
     "test:data": "node --test tests/data-integrity.test.mjs",
     "test:data-version": "node --test tests/data-version.test.mjs",
     "dev": "vite",
+    "start": "node scripts/server.mjs",
     "build": "node scripts/build.mjs",
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs",
@@ -25,9 +26,7 @@
     "@vitejs/plugin-react": "5.0.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "vite": "6.4.2"
-  },
-  "devDependencies": {
+    "vite": "6.4.2",
     "@aws-sdk/client-s3": "^3.1143.0"
   }
 }

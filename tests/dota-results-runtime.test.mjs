@@ -1,0 +1,143 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { mkdtemp, mkdir, writeFile, symlink, rm } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { startResultsWorker } from "../scripts/dota-results-worker.mjs";
+import { run } from "../scripts/dota-results-import.mjs";
+import { createAppServer, createAssetBinding } from "../scripts/server.mjs";
+
+const kickoff = new Date("2026-10-09T20:30:00+03:00");
+const quiet = { error() {}, log() {} };
+const settled = () => new Promise((resolve) => setImmediate(resolve));
+
+test("server worker waits until kickoff, serializes slow imports and aborts on stop", async () => {
+  let at = new Date("2026-09-30T12:00:00+03:00");
+  let callback;
+  let calls = 0;
+  let finish;
+  let signal;
+  const worker = startResultsWorker({ now: () => at,
+    setTimer(fn, delay) { assert.equal(delay, 300_000); callback = fn; return 1; },
+    clearTimer() { callback = undefined; }, logger: quiet,
+    runOnce(options) { calls++; signal = options.signal; return new Promise((resolve) => { finish = resolve; }); } });
+  assert.equal(calls, 0);
+  at = kickoff;
+  const check = callback;
+  callback = undefined;
+  check();
+  await settled();
+  assert.equal(calls, 1);
+  assert.equal(callback, undefined, "no second timer while import is still running");
+  finish();
+  await settled();
+  assert.equal(worker.state.lastSuccessAt, kickoff.toISOString());
+  callback();
+  await settled();
+  assert.equal(calls, 2);
+  const stopping = worker.stop();
+  assert.equal(signal.aborted, true);
+  finish();
+  await stopping;
+  assert.equal(callback, undefined);
+});
+
+test("worker survives an API failure and does not import outside either evening window", async () => {
+  let callback;
+  let at = kickoff;
+  let calls = 0;
+  const errors = [];
+  const worker = startResultsWorker({ now: () => at,
+    setTimer(fn) { callback = fn; return 1; }, clearTimer() {},
+    logger: { error(message) { errors.push(message); } },
+    async runOnce() { calls++; if (calls === 1) throw new Error("API unavailable"); } });
+  await settled();
+  assert.equal(worker.state.status, "error");
+  assert.match(errors[0], /API unavailable/);
+  callback();
+  await settled();
+  assert.equal(calls, 2);
+  assert.equal(worker.state.status, "waiting");
+  at = new Date("2026-10-11T01:00:00+03:00");
+  callback();
+  await settled();
+  assert.equal(calls, 2);
+  await worker.stop();
+  let timers = 0;
+  const disabled = startResultsWorker({ env: { YCS_DOTA_RESULTS_IMPORT_ENABLED: "false" },
+    now: () => kickoff, runOnce() { assert.fail("disabled import"); }, setTimer() { timers++; }, clearTimer() {} });
+  assert.equal(timers, 0);
+  await disabled.stop();
+});
+
+test("importer makes no external calls before kickoff and persists completed results only once", async () => {
+  let object = null;
+  let writes = 0;
+  let destroyed = 0;
+  const map = { match_id: 900000001, leagueid: 20164, start_time: kickoff.getTime() / 1000,
+    radiant_name: "ARB Esports", dire_name: "Team Borisogleb", radiant_win: true,
+    radiant_score: 18, dire_score: 32, duration: 2400, series_id: 0 };
+  const options = { env: { AWS_ACCESS_KEY_ID: "test", AWS_SECRET_ACCESS_KEY: "test" },
+    async fetchJson(url) { return url.endsWith("/matchIds") ? [map.match_id] : map; },
+    createS3(config) {
+      assert.equal(config.credentials.secretAccessKey, "test");
+      return { async send(command) {
+        assert.equal(command.input.Key, "results/dota2-autumn-2026.json");
+        if (command.constructor.name === "PutObjectCommand") {
+          object = JSON.parse(command.input.Body); writes++; return {};
+        }
+        if (!object) throw Object.assign(new Error("missing"), { name: "NoSuchKey" });
+        return { Body: { transformToString: async () => JSON.stringify(object) } };
+      }, destroy() { destroyed++; } };
+    } };
+  await run({ now: new Date("2026-10-09T20:29:59+03:00"),
+    createS3() { assert.fail("early S3 access"); }, fetchJson() { assert.fail("early API access"); } });
+  await run({ ...options, now: new Date("2026-10-09T22:00:00+03:00") });
+  assert.equal(writes, 1);
+  assert.equal(object.matches["dota-autumn-swiss-r1-04"].winnerTeamId, "dota2-qual-2026-arb-esports");
+  await run({ ...options, now: new Date("2026-10-09T22:05:00+03:00") });
+  assert.equal(writes, 1);
+  assert.equal(destroyed, 2);
+  await assert.rejects(run({ now: kickoff, env: {} }), /credentials/);
+});
+
+test("Node HTTP server preserves site/Mini App routes, real 404s, calendars, HEAD and file boundaries", async () => {
+  const temporary = await mkdtemp(path.join(os.tmpdir(), "ycs-runtime-"));
+  const directory = path.join(temporary, "public");
+  await mkdir(directory);
+  await mkdir(path.join(directory, "about"));
+  await mkdir(path.join(directory, "calendars"));
+  await writeFile(path.join(directory, "index.html"), '<html data-prerender-path="/">Home</html>');
+  await writeFile(path.join(directory, "about/index.html"), '<html data-prerender-path="/about">About</html>');
+  await writeFile(path.join(directory, "spa-shell.html"), '<html>Mini App</html>');
+  await writeFile(path.join(directory, "calendars/all.ics"), 'BEGIN:VCALENDAR\r\nEND:VCALENDAR');
+  await writeFile(path.join(temporary, "private.txt"), "secret");
+  await symlink(path.join(temporary, "private.txt"), path.join(directory, "leak.txt"));
+  const server = createAppServer({ directory, logger: quiet });
+  await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
+  const base = `http://127.0.0.1:${server.address().port}`;
+  try {
+    for (const route of ["/", "/about", "/tg", "/tg/tournament", "/healthz"]) {
+      const response = await fetch(base + route);
+      assert.equal(response.status, 200, route);
+      assert.ok(await response.text());
+    }
+    for (const route of ["/unknown", "/api/unknown", "/assets/missing.js", "/leak.txt", "/%2eprivate"]) {
+      const response = await fetch(base + route);
+      assert.equal(response.status, 404, route);
+      assert.ok(!(await response.text()).includes("secret"));
+    }
+    const calendar = await fetch(base + "/calendars/all.ics");
+    assert.match(calendar.headers.get("content-type"), /text\/calendar/);
+    assert.match(await calendar.text(), /BEGIN:VCALENDAR/);
+    const head = await fetch(base + "/about", { method: "HEAD" });
+    assert.equal(head.status, 200);
+    assert.equal(await head.text(), "");
+    assert.equal((await fetch(base + "/", { method: "POST", body: "untrusted" })).status, 405);
+    const assets = createAssetBinding(directory);
+    assert.equal((await assets.fetch(new Request(base + "/%2e%2e%2fprivate.txt"))).status, 404);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+    await rm(temporary, { recursive: true, force: true });
+  }
+});

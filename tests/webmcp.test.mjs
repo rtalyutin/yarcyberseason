@@ -59,7 +59,9 @@ test('confirmed final, unknown scores, yearless dates and first-round matches ke
   assert.ok(qual.items.every((match) => !match.scheduledAt && !match.date));
   const upcoming = await call('ycs_list_matches', { tournamentId: 'dota2-autumn-2026' });
   assert.equal(upcoming.total, 8);
-  assert.ok(upcoming.items.every((match) => match.date === '2026-10-10' && !match.scheduledAt && match.result.score === null));
+  assert.ok(upcoming.items.every((match) => match.result.score === null &&
+    (match.id === 'dota-autumn-swiss-r1-04' ? match.date === '2026-10-09' && match.scheduledAt === '2026-10-09T20:30:00+03:00'
+      : match.date === '2026-10-10' && !match.scheduledAt)));
   const autumn = (await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' })).tournament;
   assert.equal(autumn.registration.status, 'closed'); assert.equal(autumn.participants.length, 16);
 });

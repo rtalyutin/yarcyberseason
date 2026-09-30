@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useDotaResults } from "./lib/dota-results-client.js";
 import { ArrowUpRight, CaretRight, Plus } from "@phosphor-icons/react";
 import { getChampionLabels, getTournamentOutcome, isArchive, hasScore, isFinished, participantCount } from "./lib/tournament.js";
 import { community } from './data/community.js';
@@ -752,6 +753,7 @@ function NotFound({ navigate }) {
 export function Prototype({ initialPath = "/" }) {
   const [path, setPath] = useLocationPath(initialPath);
   const [theme, setTheme] = useState("cs2");
+  const dotaResults = useDotaResults();
 
   const changeTheme = (value) => {
     const next = normalizeTheme(value);
@@ -824,7 +826,12 @@ export function Prototype({ initialPath = "/" }) {
       if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} />;
     }
     return <NotFound navigate={navigate} />;
-  }, [path, theme]);
+  }, [path, theme, dotaResults.revision]);
 
-  return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>{page}</PageFrame></NavigationContext.Provider>;
+  return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>
+    {dotaResults.availability === "unavailable" && (path === "/" || path.includes("dota2-autumn-2026") ||
+      nextTournament.participants.some((participant) => path === `/teams/${participant.teamId}`)) &&
+      <p className="dota-results-notice" role="status">{dotaResults.revision ? "Результаты могут обновляться с задержкой." : "Обновление результатов временно недоступно."}</p>}
+    {page}
+  </PageFrame></NavigationContext.Provider>;
 }

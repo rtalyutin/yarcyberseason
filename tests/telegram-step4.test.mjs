@@ -105,7 +105,7 @@ const model = loadMiniAppModel();
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, { model, navigate() {}, ...props }));
 test("step4 real home renders chosen Dota data and truthful registration", () => {
   const html = render(HomeScreen);
-  assert.match(html, /10 — 25 октября 2026/);
+  assert.match(html, /9 — 25 октября 2026/);
   assert.match(html, /Регистрация закрыта/);
   assert.match(html, /16 \/ 16/);
   assert.match(html, /Открыть турнир/);

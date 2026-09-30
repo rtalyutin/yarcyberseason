@@ -1,4 +1,5 @@
-import React, { Component, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import React, { Component, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useDotaResults } from "../lib/dota-results-client.js";
 import { loadMiniAppModel, loadArchivedModels } from "./data/load.js";
 import { createMiniAppRouter } from "./router.js";
 import { homeRoute, tournamentRoute, teamRoute } from "./contracts.js";
@@ -23,6 +24,13 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
   const [activeRuntime, setActiveRuntime] = useState(null);
   const [error, setError] = useState(false);
   const [preferences, setPreferences] = useState(() => readPreferences(deviceStorage()));
+  const dotaResults = useDotaResults();
+  const currentSession = useMemo(() => {
+    if (!session || !dotaResults.revision) return session;
+    const model = modelLoader();
+    session.models.set(model.tournament.slug, model);
+    return { ...session, model };
+  }, [session, dotaResults.revision, modelLoader]);
   const copy = getMessages(preferences.language);
   useEffect(() => {
     savePreferences(deviceStorage(), preferences);
@@ -56,8 +64,9 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
   const retry = () => setAttempt((value) => value + 1);
   const failure = <><MiniAppHeader runtime={activeRuntime} copy={copy} /><div className="tg-message"><p role="alert">{copy.error}</p><button onClick={retry}>{copy.retry}</button></div></>;
   return <div className="tg-app" data-theme={preferences.theme} lang={preferences.language}>
-    {error ? failure : session ? <RenderBoundary key={attempt} fallback={failure}>
-      <MiniAppView {...session} copy={copy} preferences={preferences} onPreferences={(next) => setPreferences(savePreferences(deviceStorage(), next))} />
+    {dotaResults.availability === "unavailable" && <p className="tg-notice" role="status">{dotaResults.revision ? "Результаты могут обновляться с задержкой." : "Обновление результатов временно недоступно."}</p>}
+    {error ? failure : currentSession ? <RenderBoundary key={attempt} fallback={failure}>
+      <MiniAppView {...currentSession} copy={copy} preferences={preferences} onPreferences={(next) => setPreferences(savePreferences(deviceStorage(), next))} />
     </RenderBoundary> : <><MiniAppHeader runtime={activeRuntime} copy={copy} /><p className="tg-message" role="status">{copy.loading}</p></>}
   </div>;
 }

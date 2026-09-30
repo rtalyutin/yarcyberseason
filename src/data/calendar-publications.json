@@ -1,1 +1,24 @@
-{"schemaVersion":1,"records":[]}
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-04",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-04@ycs.bar",
+      "start": "2026-10-09T20:30:00+03:00",
+      "currentTeamIds": [
+        "dota2-main-2026-team-borisogleb",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "publishedTeamIds": [
+        "dota2-main-2026-team-borisogleb",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "summary": "Team Borisogleb — ARB Esports · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-04",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-09-30T08:05:18.318Z"
+    }
+  ]
+}

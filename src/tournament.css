@@ -208,3 +208,4 @@
 .tn-participant-list a { font-size: 1rem; overflow-wrap: anywhere; }
 .tn-participant-list p { margin: .25rem 0 0; font-size: .875rem; opacity: .7; }
 @media (max-width: 640px) { .tn-participant-list { grid-template-columns: minmax(0, 1fr); } }
+.dota-results-notice { margin: 0; padding: .75rem max(1rem, calc((100vw - 1656px) / 2)); color: #f4d48a; background: #182332; border-bottom: 1px solid #756339; }

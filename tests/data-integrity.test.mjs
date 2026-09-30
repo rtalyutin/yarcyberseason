@@ -29,6 +29,12 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
     // Organizer-supplied replacement approved on 2026-09-16; all sporting values remain pinned.
     if (f === 'current-cs2-2026.json') before.teamLogos['PIVNAYA KEGA'] = '/assets/teams/pivnaya-kega/logo-2026-09.png';
     if (f === 'dota2-autumn-2026.json') {
+      // Organizer confirmed Borisogleb–ARB on October 9 at 20:30 Moscow.
+      const current = read(`src/data/tournaments/${f}`);
+      before.homeDate = current.homeDate;
+      before.dates = current.dates;
+      before.timeline[2] = current.timeline[2];
+      if (before.stages?.[0]?.rounds?.[0]?.matches?.[3]) before.stages[0].rounds[0].matches[3] = current.stages[0].rounds[0].matches[3];
       before.teamLogos = { PSB_Bank: '/assets/teams/dota2-autumn-2026/psb-bank/logo.png' };
       before.participants[1] = { teamId: 'dota2-autumn-2026-aegis-guardians', displayName: 'Aegis Guardians', status: 'registered' };
       before.participants[12].displayName = 'Parallax Team';

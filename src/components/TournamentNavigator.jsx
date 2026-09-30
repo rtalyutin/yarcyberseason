@@ -4,7 +4,7 @@ import { regulationsByDiscipline, regulationsByTournament } from '../data/regula
 import { TeamLogo } from './TeamLogo.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
 import { registrationCountLabel } from '../lib/tournament.js';
-import { normalizeResult, matchStates } from '../lib/community.js';
+import { normalizeResult, matchStates, safeHttps } from '../lib/community.js';
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowUpRight, MagnifyingGlass, Trophy, Users, X } from "@phosphor-icons/react";
 import { displayMatchDate, filterTournamentMatches, getTournamentModel, getTournamentOutcome, hasScore, isArchive, isFinished, matchLabel, isPlayoffStage, resolveTournamentView, resultLabel } from "../lib/tournament.js";
@@ -32,7 +32,7 @@ function MatchRow({ match, tournament, teamLogos }) {
       <MatchMapLinks match={match} />
       {details && <details className="tn-match-details">
         <summary>Подробности матча</summary>
-        {result.maps.length > 0 && <ul>{result.maps.map((map, index) => <li key={`${map.name}-${index}`}><span>{map.name} · {map.unit}</span><b>{map.score ? map.score.join(":") : "Результат не опубликован"}</b></li>)}</ul>}
+        {result.maps.length > 0 && <ul>{result.maps.map((map, index) => <li key={`${map.name}-${index}`}><span>{map.name} · {map.winnerTeamId ? `Победа: ${map.winnerTeamId === match.team1Id ? match.team1 : match.team2}` : map.unit}</span><b>{map.kills ? `Убийства ${map.kills.join(":")}` : map.score ? map.score.join(":") : "Результат не опубликован"}{map.durationSeconds ? ` · ${Math.floor(map.durationSeconds / 60)}:${String(map.durationSeconds % 60).padStart(2, "0")}` : ""}</b>{safeHttps(map.url) && <a href={map.url} target="_blank" rel="noopener noreferrer">OpenDota ↗</a>}</li>)}</ul>}
         {match.note && <p>{match.note}</p>}
         {match.roundRecord && !match.note && <p>Раунды: {match.roundRecord}</p>}
         {match.faceitUrl && <a href={match.faceitUrl} target="_blank" rel="noreferrer">Результат FACEIT <ArrowUpRight aria-hidden="true" /></a>}

@@ -24,7 +24,7 @@ test('replacement keeps sixteen current participants and the first Swiss round',
   assert.equal(resolveTournamentView(view, '', '#participants').section, 'participants');
 });
 
-test('first round pairs every registered team once on October 10, with only the chosen broadcast', () => {
+test('first round pairs every registered team once, with Borisogleb–ARB on October 9', () => {
   const matches = dota.stages.find((stage) => stage.id === 'swiss').rounds[0].matches;
   assert.deepEqual(matches.map((match) => [match.team1, match.team2]), [
     ['psb_bank', 'Parallax Team'], ['Easy Gaming', 'Team Leto'],
@@ -34,7 +34,10 @@ test('first round pairs every registered team once on October 10, with only the 
   ]);
   assert.deepEqual(matches.map((match) => [match.seed1, match.seed2]), Array.from({ length: 8 }, (_, i) => [i + 1, i + 9]));
   assert.deepEqual(new Set(matches.flatMap((match) => [match.team1Id, match.team2Id])), new Set(dota.participants.map((participant) => participant.teamId)));
-  assert.ok(matches.every((match) => match.date === '2026-10-10' && match.bestOf === 'BO1' && match.status === 'scheduled' && !match.time && !match.scheduledAt && !match.score1 && !match.score2));
+  assert.ok(matches.filter((match) => match.id !== 'dota-autumn-swiss-r1-04').every((match) => match.date === '2026-10-10' && !match.time && !match.scheduledAt));
+  assert.equal(matches[3].date, '2026-10-09');
+  assert.equal(matches[3].scheduledAt, '2026-10-09T20:30:00+03:00');
+  assert.ok(matches.every((match) => match.bestOf === 'BO1' && match.status === 'scheduled' && !match.score1 && !match.score2));
   assert.deepEqual(matches.filter((match) => match.note).map((match) => match.id), ['dota-autumn-swiss-r1-04']);
   assert.match(matches[3].note, /трансляция/);
 });

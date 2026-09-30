@@ -25,7 +25,10 @@ export function MatchDetails({ match, runtime, copy = getMessages("ru") }) {
           <p className="tg-source-state">{copy.publishedMapsOnly}</p>
           <ol className="tg-map-results">{result.maps.map((map, index) => <li key={map.id || index}>
             <strong>{map.name}</strong>
-            {map.score ? <span>{map.unit}: <b>{map.score.join(":")}</b></span> : <span>{copy.noMapScore}</span>}
+            {map.winnerTeamId && <span>Победа: {map.winnerTeamId === match.team1Id ? match.team1 : match.team2}</span>}
+            {map.kills ? <span>Убийства: <b>{map.kills.join(":")}</b></span> : map.score ? <span>{map.unit}: <b>{map.score.join(":")}</b></span> : !map.winnerTeamId && <span>{copy.noMapScore}</span>}
+            {map.durationSeconds && <span>Длительность: {Math.floor(map.durationSeconds / 60)}:{String(map.durationSeconds % 60).padStart(2, "0")}</span>}
+            {map.url && <button type="button" disabled={!runtime} onClick={() => runtime.openExternal({ kind: "external", label: "OpenDota", url: map.url })}>OpenDota ↗</button>}
             {map.outcome && <p>{map.outcome}</p>}
           </li>)}</ol>
         </> : <p className="tg-empty">{copy.noMaps}</p>}

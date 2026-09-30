@@ -34,6 +34,10 @@ export function normalizeResult(match, discipline = '') {
     name: map.name || `Карта ${i + 1}`, score: pair(map.score1, map.score2),
     unit: discipline === 'Counter-Strike 2' ? 'Раунды' : 'Счёт карты',
     outcome: map.outcome || null,
+    winnerTeamId: map.winnerTeamId || null,
+    kills: pair(map.kills1, map.kills2),
+    durationSeconds: Number.isSafeInteger(map.durationSeconds) ? map.durationSeconds : null,
+    url: safeHttps(map.url),
   }));
   if (kind === 'rounds' && raw && !maps.length) maps = [{ id: match.mapId || null, name: match.map || 'Карта 1', score: raw, unit: 'Раунды', outcome: null }];
   const known = kind !== 'unknown' && Boolean(raw);

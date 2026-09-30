@@ -38,7 +38,7 @@ test("step6 rules render all published stage rules and participation conditions"
   assert.ok(!html.includes("Этот раздел ещё готовится"));
   assert.ok(!html.includes("forms.yandex"));
 });
-test("step6 schedule renders the published timeline and eight October 10 pairs without invented time", () => {
+test("step6 schedule renders October 9 first match and seven October 10 pairs", () => {
   const html = render(real, "schedule");
   for (const item of real.timeline) {
     assert.ok(html.includes(item.label)); assert.ok(html.includes(item.date));
@@ -46,6 +46,7 @@ test("step6 schedule renders the published timeline and eight October 10 pairs w
   assert.equal((html.match(/data-match-key=/g) || []).length, 8);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.match(html, /Запланирована трансляция матча/);
+  assert.match(html, /20:30 МСК/);
   assert.ok(!html.includes("0:0"));
   assert.ok(!html.includes("00:00"));
 });

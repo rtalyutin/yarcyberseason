@@ -23,6 +23,8 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## YCS design decisions
 
+- October 2 results notice correction: Roman instructed removing the availability banner before the first results because it disrupts the design. Keep the website and Mini App quiet until their first valid S3 snapshot; preserve published fixtures. After results have loaded, retain the existing delay notice on a later read failure and keep the last confirmed results.
+
 - September 28 participant-route correction: Roman instructed removing the public links to the community chat and solo form. The tournament pages no longer render the community search block, and the homepage remains without it. Do not present the solo form as a reserve route or add a chat placeholder. This does not close or alter any external form.
 
 - September 26 homepage season board: Roman selected option 3 after team registration closed. The shared home now addresses spectators: «Заявки закрыты. Арена открыта.», an explicitly selected published match, its truthful scheduled/live/confirmed-result state, and a route to the tournament match list. The homepage no longer displays the solo registration/community chat block; this does not change those separate tournament-page links or close external forms. Match status, result, time and broadcast URL come only from published tournament JSON, never from the wall clock. Preserve the approved art and all three themes. If the featured broadcast changes, update the ordered `homeBroadcastMatchIds` in that tournament's JSON; a next broadcast is not inferred from every scheduled fixture.

@@ -64,7 +64,7 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
   const retry = () => setAttempt((value) => value + 1);
   const failure = <><MiniAppHeader runtime={activeRuntime} copy={copy} /><div className="tg-message"><p role="alert">{copy.error}</p><button onClick={retry}>{copy.retry}</button></div></>;
   return <div className="tg-app" data-theme={preferences.theme} lang={preferences.language}>
-    {dotaResults.availability === "unavailable" && <p className="tg-notice" role="status">{dotaResults.revision ? "Результаты могут обновляться с задержкой." : "Обновление результатов временно недоступно."}</p>}
+    {dotaResults.revision > 0 && dotaResults.availability === "unavailable" && <p className="tg-notice" role="status">Результаты могут обновляться с задержкой.</p>}
     {error ? failure : currentSession ? <RenderBoundary key={attempt} fallback={failure}>
       <MiniAppView {...currentSession} copy={copy} preferences={preferences} onPreferences={(next) => setPreferences(savePreferences(deviceStorage(), next))} />
     </RenderBoundary> : <><MiniAppHeader runtime={activeRuntime} copy={copy} /><p className="tg-message" role="status">{copy.loading}</p></>}

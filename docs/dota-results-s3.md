@@ -67,7 +67,10 @@ match entry includes `team1Id`, `team2Id`, completed series score and winner,
 kills in published team order, duration in seconds and exact OpenDota URL.
 Only complete series are stored. `matches: {}` is valid but the importer avoids
 an empty write. Both clients validate the object before applying it, keep the
-last valid revision on read failure, and show a delay notice when necessary.
+last valid revision on read failure. Before the first valid snapshot, a missing
+or unreadable object does not display an availability banner on the website or
+Mini App: the published schedule remains visible. After a valid snapshot has
+loaded, a later read failure shows the delay notice and retains confirmed results.
 
 OpenDota team names must match the published fixture names exactly after case
 and whitespace normalization. A fixture can instead declare verified

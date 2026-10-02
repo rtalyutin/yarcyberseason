@@ -829,9 +829,9 @@ export function Prototype({ initialPath = "/" }) {
   }, [path, theme, dotaResults.revision]);
 
   return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>
-    {dotaResults.availability === "unavailable" && (path === "/" || path.includes("dota2-autumn-2026") ||
+    {dotaResults.revision > 0 && dotaResults.availability === "unavailable" && (path === "/" || path.includes("dota2-autumn-2026") ||
       nextTournament.participants.some((participant) => path === `/teams/${participant.teamId}`)) &&
-      <p className="dota-results-notice" role="status">{dotaResults.revision ? "Результаты могут обновляться с задержкой." : "Обновление результатов временно недоступно."}</p>}
+      <p className="dota-results-notice" role="status">Результаты могут обновляться с задержкой.</p>}
     {page}
   </PageFrame></NavigationContext.Provider>;
 }

@@ -43,7 +43,7 @@ test("server worker waits until kickoff, serializes slow imports and aborts on s
   assert.equal(callback, undefined);
 });
 
-test("worker survives an API failure and does not import outside either evening window", async () => {
+test("worker survives an API failure and stops discovery after the tournament period", async () => {
   let callback;
   let at = kickoff;
   let calls = 0;
@@ -59,7 +59,7 @@ test("worker survives an API failure and does not import outside either evening 
   await settled();
   assert.equal(calls, 2);
   assert.equal(worker.state.status, "waiting");
-  at = new Date("2026-10-11T01:00:00+03:00");
+  at = new Date("2026-10-26T00:00:00+03:00");
   callback();
   await settled();
   assert.equal(calls, 2);
@@ -73,22 +73,29 @@ test("worker survives an API failure and does not import outside either evening 
 
 test("importer makes no external calls before kickoff and persists completed results only once", async () => {
   let object = null;
+  const objects = new Map();
   let writes = 0;
   let destroyed = 0;
   const map = { match_id: 900000001, leagueid: 20164, start_time: kickoff.getTime() / 1000,
     radiant_name: "ARB Esports", dire_name: "Team Borisogleb", radiant_win: true,
     radiant_score: 18, dire_score: 32, duration: 2400, series_id: 0 };
   const options = { env: { AWS_ACCESS_KEY_ID: "test", AWS_SECRET_ACCESS_KEY: "test" },
-    async fetchJson(url) { return url.endsWith("/matchIds") ? [map.match_id] : map; },
+    async fetchJson(url) {
+      if (url.endsWith("/matchIds")) return [map.match_id];
+      if (url.endsWith("/heroes")) return [{ id: 1, name: "npc_dota_hero_test" }];
+      return map;
+    },
     createS3(config) {
       assert.equal(config.credentials.secretAccessKey, "test");
       return { async send(command) {
-        assert.equal(command.input.Key, "results/dota2-autumn-2026.json");
+        assert.ok(["results/dota2-autumn-2026.json", "results/dota2-autumn-2026-mvp.json", "results/dota2-autumn-2026-mvp-cache.json"].includes(command.input.Key));
         if (command.constructor.name === "PutObjectCommand") {
-          object = JSON.parse(command.input.Body); writes++; return {};
+          const value = JSON.parse(command.input.Body); objects.set(command.input.Key, value);
+          if (command.input.Key === "results/dota2-autumn-2026.json") { object = value; writes++; }
+          return {};
         }
-        if (!object) throw Object.assign(new Error("missing"), { name: "NoSuchKey" });
-        return { Body: { transformToString: async () => JSON.stringify(object) } };
+        if (!objects.has(command.input.Key)) throw Object.assign(new Error("missing"), { name: "NoSuchKey" });
+        return { Body: { transformToString: async () => JSON.stringify(objects.get(command.input.Key)) } };
       }, destroy() { destroyed++; } };
     } };
   await run({ now: new Date("2026-10-09T20:29:59+03:00"),

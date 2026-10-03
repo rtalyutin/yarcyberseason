@@ -1,10 +1,11 @@
 # Dota 2 autumn 2026: published results
 
-The agreed source is OpenDota league `20164`. The single public result object is
+The agreed source is OpenDota league `20164`. The public series-result object is
 `results/dota2-autumn-2026.json` in Timeweb bucket
 `e9dc5ea4-6dc9267d-85ca-4ae9-a41f-2895e9542a04`. The website and Mini App
 read it independently of site releases. This is the implementation contract for
 the separately agreed S3 results specification dated 2026-09-30, version 0.2.
+The MVP extension is specified in [dota-mvp.md](dota-mvp.md).
 
 ## Activation
 
@@ -36,8 +37,11 @@ the separately agreed S3 results specification dated 2026-09-30, version 0.2.
    bundle, Dockerfile or issue/chat text. Inspect the keys' bucket scope.
 5. The backend starts its own serialized background loop; it does not depend on
    an open browser, website visits or GitHub Actions. It polls every five minutes
-   only October 9 from 20:30–01:00 Moscow and October 10 from 20:00–01:00 Moscow.
-   Both the loop and importer check these windows before API or S3 requests.
+   throughout the published tournament period, from the earliest explicitly
+   scheduled first-day fixture through the end of October 25 Moscow time.
+   Both the loop and importer check the published dates before discovering maps.
+   After the period ends, the worker restores the existing cache once and retries
+   only its unresolved maps until their data is ready or explicitly excluded.
    A slow run finishes before the next run is scheduled. An error is logged and
    retried on the next scheduled check without stopping the HTTP server.
    `node scripts/dota-results-import.mjs --probe-old-league` reads one old-league
@@ -51,8 +55,9 @@ the separately agreed S3 results specification dated 2026-09-30, version 0.2.
    writer before starting a replacement. The existing object survives restart;
    the next check rereads it before deciding whether to write. The importer has
    no public HTTP trigger. Runtime keys must be set before kickoff.
-7. Later rounds need their published fixture dates and a new polling window
-   before enabling their automatic checks; no unpublished start time is inferred.
+7. Later rounds need published fixtures with dates and verified team names or
+   OpenDota team IDs. The polling period follows the tournament JSON; no
+   unpublished pairings are inferred.
 
 `npm run start:frontend` is an optional local Node preview of the existing
 site build. It only serves static site/Mini App routes and does not start an
@@ -81,14 +86,16 @@ are logged without automatic publication. A map's winner comes from
 completed series. Tournament pairings and playoff seeds remain organizer data.
 
 The server-side importer has no GitHub or push operation. It reads the previous
-S3 object, writes only when a new confirmed
-series is found, and reads it back to verify the revision. A failed write
+S3 objects, updates MVP independently of completed series, writes series only
+when a new complete result is confirmed, and reads each write back to verify it.
+A missing API response must not turn a three-map series into a two-map series.
+A failed write
 retains the last readable object; investigate an unknown write outcome by
 reading S3 before rerunning. Object versioning provides manual recovery.
 
 ## Verification
 
-Run `node --test tests/dota-results.test.mjs tests/dota-results-runtime.test.mjs`, `npm run test:telegram`,
+Run `node --test tests/dota-results.test.mjs tests/dota-results-runtime.test.mjs tests/dota-mvp*.test.mjs`, `npm run test:telegram`,
 `npm run test:sites`, and `npm run build`. The schedule change also requires
 `npm run calendar:sync` and committing `src/data/calendar-publications.json`.
 After credentials and CORS are set, verify a test object or the first actual

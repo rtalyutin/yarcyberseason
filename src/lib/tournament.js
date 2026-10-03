@@ -90,6 +90,7 @@ export function getTournamentModel(tournament) {
     ...(matches.length ? [{ id: "matches", title: "Матчи", count: matches.length }] : []),
     ...playoffStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
     ...otherStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
+    ...(tournament.discipline === "Dota 2" ? [{ id: "mvp", title: "MVP турнира" }] : []),
     ...((tournament.summary || tournament.sourceNote || tournament.timeline?.length || tournament.prizeDistribution || tournament.additionalAwards?.length || tournament.referralContest) ? [{ id: "info", title: "О турнире" }] : []),
   ];
   const filters = [{ id: "all", title: "Все", count: matches.length }];

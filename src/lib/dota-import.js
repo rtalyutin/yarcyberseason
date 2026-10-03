@@ -7,15 +7,17 @@ const norm = (name) => typeof name === "string" ? name.normalize("NFKC").trim().
 const nameFor = (map, side) => map[`${side}_name`] || map[`${side}_team`]?.name;
 const positive = (value) => Number.isSafeInteger(Number(value)) && Number(value) > 0;
 
-export function isPollWindow(now = new Date()) {
-  const ms = now.getTime();
-  return [
-    ["2026-10-09T20:30:00+03:00", "2026-10-10T01:00:00+03:00"],
-    ["2026-10-10T20:00:00+03:00", "2026-10-11T01:00:00+03:00"],
-  ].some(([start, end]) => ms >= Date.parse(start) && ms < Date.parse(end));
+export function isPollWindow(now = new Date(), tournament = null) {
+  const publishedStart = tournament?.dates?.start || "2026-10-09";
+  const publishedEnd = tournament?.dates?.end || "2026-10-25";
+  const firstTimes = fixtures(tournament || {}).filter((match) => match.date === publishedStart && match.scheduledAt)
+    .map((match) => Date.parse(match.scheduledAt)).filter(Number.isFinite);
+  const start = firstTimes.length ? Math.min(...firstTimes) : Date.parse(`${publishedStart}T${tournament ? "00:00" : "20:30"}:00+03:00`);
+  const end = Date.parse(`${publishedEnd}T00:00:00+03:00`) + 24 * 60 * 60_000;
+  return Number.isFinite(start) && Number.isFinite(end) && now.getTime() >= start && now.getTime() < end;
 }
 
-function inFixtureWindow(map, fixture) {
+export function inFixtureWindow(map, fixture) {
   if (!positive(map.start_time)) return false;
   const start = Number(map.start_time) * 1000;
   const beginning = fixture.scheduledAt ? Date.parse(fixture.scheduledAt) - 60 * 60_000 : Date.parse(`${fixture.date}T18:00:00+03:00`);
@@ -23,14 +25,14 @@ function inFixtureWindow(map, fixture) {
   return start >= beginning && start < end;
 }
 
-function sideMatches(map, sourceSide, fixture, targetSide) {
+export function sideMatches(map, sourceSide, fixture, targetSide) {
   const expectedId = fixture.opendotaTeamIds?.[`team${targetSide}`];
   const actualId = map[`${sourceSide}_team_id`];
   if (expectedId != null) return Number(actualId) === Number(expectedId);
   return Boolean(norm(nameFor(map, sourceSide))) && norm(nameFor(map, sourceSide)) === norm(fixture[`team${targetSide}`]);
 }
 
-function fixtureFor(map, tournament) {
+export function fixtureFor(map, tournament) {
   const candidates = fixtures(tournament).filter((fixture) => inFixtureWindow(map, fixture) && (
     (sideMatches(map, "radiant", fixture, 1) && sideMatches(map, "dire", fixture, 2)) ||
     (sideMatches(map, "radiant", fixture, 2) && sideMatches(map, "dire", fixture, 1))));

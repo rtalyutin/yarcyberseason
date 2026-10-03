@@ -60,7 +60,7 @@ test("Upcoming event exposes eight first-round matches, never counts empty playo
   const model = getTournamentModel(read("dota2-autumn-2026"));
   assert.equal(model.matches.length, 8);
   assert.equal(model.defaultSection, "matches");
-  assert.deepEqual(model.sections.map((section) => section.id), ["participants", "swiss", "matches", "playoffs", "info"]);
+  assert.deepEqual(model.sections.map((section) => section.id), ["participants", "swiss", "matches", "playoffs", "mvp", "info"]);
 });
 
 test("Legacy archives keep partial stages, stable unique match keys and yearless dates", () => {

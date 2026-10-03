@@ -15,13 +15,14 @@ const first = { match_id: 900000001, leagueid: 20164, start_time: Date.parse("20
   radiant_name: "ARB Esports", dire_name: "Team Borisogleb", radiant_win: true, radiant_score: 18, dire_score: 32,
   duration: 2400, series_id: 0 };
 
-test("polling opens at kickoff and closes after the selected evening windows", () => {
+test("polling follows the complete published tournament period", () => {
   assert.equal(isPollWindow(new Date("2026-10-09T20:29:59+03:00")), false);
   assert.equal(isPollWindow(new Date("2026-10-09T20:30:00+03:00")), true);
   assert.equal(isPollWindow(new Date("2026-10-10T00:59:59+03:00")), true);
-  assert.equal(isPollWindow(new Date("2026-10-10T19:59:59+03:00")), false);
+  assert.equal(isPollWindow(new Date("2026-10-10T19:59:59+03:00")), true);
   assert.equal(isPollWindow(new Date("2026-10-10T20:00:00+03:00")), true);
-  assert.equal(isPollWindow(new Date("2026-10-11T01:00:00+03:00")), false);
+  assert.equal(isPollWindow(new Date("2026-10-25T23:59:59+03:00")), true);
+  assert.equal(isPollWindow(new Date("2026-10-26T00:00:00+03:00")), false);
 });
 
 test("radiant winner is published even when kills are lower; both clients receive details", () => {

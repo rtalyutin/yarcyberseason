@@ -8,6 +8,38 @@ everyone exactly tied at the cutoff), all players, and each player's map details
 It does not assign an official award automatically. Existing published podiums
 and team results remain organizer records.
 
+## Current UI contract and task state
+
+Roman selected the third displayed MVP mock on 3 October 2026:
+`exec-6f608da6-70f5-4eb7-9186-3569107c087b.png` («Открытый протокол»).
+The implementation keeps the shared website navigation and the existing API,
+collector, exact arithmetic and identity mapping. All three site themes use
+the same tournament data and the same editorial structure: a leader identity
+margin, ranking, and calculation directly beneath the selected player row.
+The first actual ranked player and its first actual map are initially expanded;
+the user can collapse them and open other rows/maps. On a narrow viewport the
+identity comes before the ranking. No counted-map quantity or pending/excluded
+counter appears in the public section, table, provenance or disclosure headings.
+Qualitative incompleteness, source provenance and correction warnings remain.
+
+ACTIVE_CONTRACT: implement the selected visual in the existing project, verify
+all three themes and main interactions, and deliver the checked revision to the
+existing main branch. Roman subsequently asked «Выложил в репу?», confirming the
+expected repository delivery after the original main-branch instruction.
+TASK_STATE (3 October 2026): UI implementation and local verification complete.
+The selected first player/map disclosure, formulas, other maps, sources, all-player
+view and qualitative empty/provisional states were checked in the browser.
+All three themes keep the same score and fit 320/390/1920/2560 CSS viewports.
+The final fresh build and 62 existing checks passed. `design-qa.md` records the
+independent visual/behavior verdict and `docs/design/mvp/` contains its evidence.
+The selected source and full-view comparison retain their original bytes in the
+separately delivered native QA archive documented in `docs/design/mvp/README.md`;
+this packaging change leaves every runtime source and asset unchanged.
+The delivery target is `rtalyutin/yarcyberseason` main and its existing publication
+path; no separate host or deployment configuration is introduced.
+
+## Formula and original data source
+
 The source is §9.4–9.4.11 of `public/docs/reglament-dota2-autumn-2026.pdf`,
 revision dated 14 September 2026. For a played map:
 

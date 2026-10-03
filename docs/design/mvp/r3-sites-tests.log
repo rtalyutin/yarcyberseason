@@ -1,0 +1,19 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ycs-site@0.0.0 test:sites
+> node --test tests/sites-worker.test.mjs
+
+✔ serves existing static assets without routing them through the app (4.08406ms)
+✔ serves the requested prerendered route and returns a useful 404 for unknown routes (2.745852ms)
+✔ preserves client-only Mini App and Swiss simulator routes with the SPA shell (2.534133ms)
+✔ missing API, asset, and write requests do not become app HTML (1.035022ms)
+✔ built pages, metadata, robots, sitemap, and aliases match the public route inventory (125.013766ms)
+✔ built routes and HEAD requests return page-specific status and canonical metadata (7.554886ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 218.065882

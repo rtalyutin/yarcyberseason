@@ -1,0 +1,408 @@
+[
+  {
+    "state": "default-dota",
+    "leader": "506,19",
+    "firstExpanded": "true",
+    "mapExpanded": "true"
+  },
+  {
+    "state": "rival-expanded",
+    "leaderClosed": "false",
+    "rivalOpen": "true",
+    "fullVisibleText": "MVP турнира\n\nПроверочный пересчёт · данные турнира ещё уточняются\n\nЛидер расчёта\n\nКАМЕНЬ\n\nMi ne pushim! / Синергия\n\n506,19\nбаллов за турнир\n\nТоп-20\nВсе игроки\nРейтинг игроков турнира. Нажмите ник, чтобы проверить расчёт.\nМесто\tИгрок\tКоманда\tБаллы\n1\t\nКАМЕНЬ\n\tMi ne pushim! / Синергия\t506,19\n2\t\nApbu3ep\n\tMi ne pushim!\t363,96\n\nКарта 8747660400\n12,66 балла за эту карту\nOpenDota\nБой\n4,00\nУрон\n6,75\nЛечение\n0,00\nКонтроль\n0,91\nВарды\n1,00\nСтаки\n0,00\n\nИсходные показатели\n\nK\nK · Убийства\n3\nA\nA · Ассисты\n11\nL\nL · Смерти\n2\nD\nD · Урон героям\n8 325\nT\nT · Урон строениям\n1 804\nH\nH · Лечение союзников\n0\nC\nC · Контроль, с\n13,600013\nV\nV · Observer wards\n2\nS\nS · Стаки лагерей\n0\nФормула регламента\n\nM = (K + A − L) / 3 + (D + T) / 1500 + H / 500 + C / 15 + V / 2 + S / 6\n\nБой · (K + A − L) / 3\n4,00\nУрон · (D + T) / 1500\n6,75\nЛечение · H / 500\n0,00\nКонтроль · C / 15\n0,91\nВарды · V / 2\n1,00\nСтаки · S / 6\n0,00\nK\nУбийства\nA\nАссисты\nL\nСмерти\nD\nУрон героям\nT\nУрон строениям\nH\nЛечение союзников\nC\nКонтроль, с\nV\nObserver wards\nS\nСтаки лагерей\n\nD — урон пяти реальным вражеским героям. T — урон вражеским строениям. H — лечение четырёх союзных героев, без себя. V — подтверждённые уничтожения вражеских observer wards.\n\nОтрицательные баллы сохраняются. Округление — только при отображении; места и равенство определяются по точным значениям. Если показатели карты невозможно восстановить, карта исключается из MVP для всех десяти игроков.\n\nКоманда на этой карте: Mi ne pushim!\n\nДругие карты игрока\nКарта 8747739813\n45,16 балла за эту карту\nOpenDota\nКарта 8752052164\n31,90 балла за эту карту\nOpenDota\nКарта 8752137422\n36,67 балла за эту карту\nOpenDota\nКарта 8759130900\n52,52 балла за эту карту\nOpenDota\nКарта 8759228561\n20,94 балла за эту карту\nOpenDota\nКарта 8762000849\n30,57 балла за эту карту\nOpenDota\nКарта 8762066845\n17,86 балла за эту карту\nOpenDota\nКарта 8765877980\n12,35 балла за эту карту\nOpenDota\nКарта 8765943404\n26,40 балла за эту карту\nOpenDota\nКарта 8781866584\n32,36 балла за эту карту\nOpenDota\nКарта 8781948003\n-0,23 балла за эту карту\nOpenDota\nКарта 8781971922\n27,09 балла за эту карту\nOpenDota\nКарта 8782040676\n17,72 балла за эту карту\nOpenDota\n\nSteam ID: 76561198062077740 · Рейтинг = сумма M.\n\n\n3\t\ntv/gorjiik\n\tTeam Borisogleb\t348,03\n4\t\nRyūketsu | 竜血\n\tTech Titans\t339,90\n5\t\nНАСТЮХА\n\tMi ne pushim!\t338,88\n6\t\n.\n\tWayprod.\t336,24\n7\t\nSTRUTFITGO\n\tTech Titans\t333,94\n8\t\nุ\n\tTech Titans\t317,00\n9\t\nMute All Chat.✓\n\tBuyback_Academy\t315,62\n10\t\nSoulnier\n\tСамозванцы\t309,79\n11\t\nлюблю вас 6 тысяч\n\tWayprod.\t287,27\n12\t\nЛадно\n\tBuyback_Academy\t284,45\n13\t\nkt0_0n\n\tWayprod.\t279,95\n14\t\nопустился на дно\n\tJapan日本\t279,20\n15\t\nзабыл про ленту\n\tBuyback_Academy\t255,84\n16\t\n服部 半蔵\n\tMi ne pushim!\t245,99\n17\t\nона меня тролит\n\tСамозванцы\t244,57\n18\t\nпаршивец\n\tTech Titans\t236,43\n19\t\nДыван-самалёт\n\tMi ne pushim!\t234,90\n20\t\nziq-\n\tJapan日本\t233,50\n\nПри равенстве на границе топ-20 включены все игроки. Рейтинг — сумма баллов.\n\nОбновлено 3 окт., 08:28 МСК\n\nПоказан сохранённый проверочный расчёт на дату обновления.\n\nО расчёте и источниках\n\nПроверочный пересчёт по формуле осеннего регламента 14.09.2026. Предварительная привязка к весеннему архиву по опубликованным датам 25.03–26.04.2026 МСК; не официальное награждение прошлого турнира.\n\nВерсия формулы: ycs-dota-mvp-9.4-v1.\n\nПолнота данных турнира ещё не подтверждена.\n\nКарта 8750950136\nОжидает данных · Реплей ожидает разбора.\nКарта 8773015016\nОжидает данных · Недостаточно подтверждённых данных для расчёта.\nФормула регламента"
+  },
+  {
+    "state": "all-players",
+    "rows": 100,
+    "leader": "506,19"
+  },
+  {
+    "state": "mobile-390-Dota 2",
+    "layout": {
+      "client": 375,
+      "composition": "335px",
+      "score": "506,19",
+      "scroll": 375,
+      "theme": "dota2",
+      "viewport": 390
+    }
+  },
+  {
+    "state": "mobile-390-CS2",
+    "layout": {
+      "client": 375,
+      "composition": "335px",
+      "score": "506,19",
+      "scroll": 375,
+      "theme": "cs2",
+      "viewport": 390
+    }
+  },
+  {
+    "state": "mobile-390-Корпоративная",
+    "layout": {
+      "client": 375,
+      "composition": "335px",
+      "score": "506,19",
+      "scroll": 375,
+      "theme": "corporate",
+      "viewport": 390
+    }
+  },
+  {
+    "state": "mobile-320-Dota 2",
+    "layout": {
+      "client": 305,
+      "score": "506,19",
+      "scroll": 305,
+      "theme": "dota2",
+      "viewport": 320
+    }
+  },
+  {
+    "state": "mobile-320-CS2",
+    "layout": {
+      "client": 305,
+      "score": "506,19",
+      "scroll": 305,
+      "theme": "cs2",
+      "viewport": 320
+    }
+  },
+  {
+    "state": "mobile-320-Корпоративная",
+    "layout": {
+      "client": 305,
+      "score": "506,19",
+      "scroll": 305,
+      "theme": "corporate",
+      "viewport": 320
+    }
+  },
+  {
+    "state": "empty-autumn",
+    "text": "MVP турнира\n\nРейтинг по статистике сыгранных карт\n\nЛидер расчёта\n\nЕщё не определён\nТоп-20\nВсе игроки\nРейтинг ещё не рассчитан\n\nЗдесь появятся игроки и баллы после публикации расчёта по сыгранным картам.",
+    "leaderCount": 1
+  },
+  {
+    "state": "wide-1920-Dota 2",
+    "layout": {
+      "client": 1905,
+      "columns": "245.75px 910.25px",
+      "score": "506,19",
+      "scroll": 1905,
+      "theme": "dota2",
+      "viewport": 1920
+    }
+  },
+  {
+    "state": "wide-1920-CS2",
+    "layout": {
+      "client": 1905,
+      "columns": "314.641px 1165.36px",
+      "score": "506,19",
+      "scroll": 1905,
+      "theme": "cs2",
+      "viewport": 1920
+    }
+  },
+  {
+    "state": "wide-1920-Корпоративная",
+    "layout": {
+      "client": 1905,
+      "columns": "197.078px 729.922px",
+      "score": "506,19",
+      "scroll": 1905,
+      "theme": "corporate",
+      "viewport": 1920
+    }
+  },
+  {
+    "state": "wide-2560-Dota 2",
+    "layout": {
+      "client": 2545,
+      "columns": "273.547px 882.453px",
+      "score": "506,19",
+      "scroll": 2545,
+      "theme": "dota2",
+      "viewport": 2560
+    }
+  },
+  {
+    "state": "wide-2560-CS2",
+    "layout": {
+      "client": 2545,
+      "columns": "350.219px 1129.78px",
+      "score": "506,19",
+      "scroll": 2545,
+      "theme": "cs2",
+      "viewport": 2560
+    }
+  },
+  {
+    "state": "wide-2560-Корпоративная",
+    "layout": {
+      "client": 2545,
+      "columns": "219.359px 707.641px",
+      "score": "506,19",
+      "scroll": 2545,
+      "theme": "corporate",
+      "viewport": 2560
+    }
+  },
+  {
+    "state": "final-map-collapsed",
+    "open": "false",
+    "otherSourcesVisible": true
+  },
+  {
+    "state": "final-disclosures-expanded",
+    "text": "MVP турнира\n\nПроверочный пересчёт · данные турнира ещё уточняются\n\nЛидер расчёта\n\nКАМЕНЬ\n\nMi ne pushim! / Синергия\n\n506,19\nбаллов за турнир\n\nТоп-20\nВсе игроки\nРейтинг игроков турнира. Нажмите ник, чтобы проверить расчёт.\nМесто\tИгрок\tКоманда\tБаллы\n1\t\nКАМЕНЬ\n\tMi ne pushim! / Синергия\t506,19\n\nКарта 8747660400\n7,40 балла за эту карту\nOpenDota\nБой\n2,00\nУрон\n4,95\nЛечение\n0,00\nКонтроль\n0,11\nВарды\n0,00\nСтаки\n0,33\n\nИсходные показатели\n\nK\nK · Убийства\n3\nA\nA · Ассисты\n3\nL\nL · Смерти\n0\nD\nD · Урон героям\n5 304\nT\nT · Урон строениям\n2 120\nH\nH · Лечение союзников\n0\nC\nC · Контроль, с\n1,7\nV\nV · Observer wards\n0\nS\nS · Стаки лагерей\n2\nФормула регламента\n\nM = (K + A − L) / 3 + (D + T) / 1500 + H / 500 + C / 15 + V / 2 + S / 6\n\nБой · (K + A − L) / 3\n2,00\nУрон · (D + T) / 1500\n4,95\nЛечение · H / 500\n0,00\nКонтроль · C / 15\n0,11\nВарды · V / 2\n0,00\nСтаки · S / 6\n0,33\nK\nУбийства\nA\nАссисты\nL\nСмерти\nD\nУрон героям\nT\nУрон строениям\nH\nЛечение союзников\nC\nКонтроль, с\nV\nObserver wards\nS\nСтаки лагерей\n\nD — урон пяти реальным вражеским героям. T — урон вражеским строениям. H — лечение четырёх союзных героев, без себя. V — подтверждённые уничтожения вражеских observer wards.\n\nОтрицательные баллы сохраняются. Округление — только при отображении; места и равенство определяются по точным значениям. Если показатели карты невозможно восстановить, карта исключается из MVP для всех десяти игроков.\n\nКоманда на этой карте: Mi ne pushim!\n\nДругие карты и источники\n\nSteam ID: 76561198126586249 · Рейтинг = сумма M.\n\nКарта 8747739813\n31,47 балла за эту карту\nOpenDota\nКарта 8752052164\n37,82 балла за эту карту\nOpenDota\nКарта 8752137422\n28,19 балла за эту карту\nOpenDota\nКарта 8759130900\n51,93 балла за эту карту\nOpenDota\nКарта 8759228561\n44,43 балла за эту карту\nOpenDota\nКарта 8762000849\n15,03 балла за эту карту\nOpenDota\nКарта 8762066845\n75,70 балла за эту карту\nOpenDota\nКарта 8765877980\n8,66 балла за эту карту\nOpenDota\nКарта 8765943404\n11,67 балла за эту карту\nOpenDota\nКарта 8779606412\n46,64 балла за эту карту\nOpenDota\nКарта 8781866584\n61,77 балла за эту карту\nOpenDota\nКарта 8781948003\n-0,25 балла за эту карту\nOpenDota\nКарта 8781971922\n52,41 балла за эту карту\nOpenDota\nКарта 8782040676\n33,32 балла за эту карту\nOpenDota\n\n2\t\nApbu3ep\n\tMi ne pushim!\t363,96\n3\t\ntv/gorjiik\n\tTeam Borisogleb\t348,03\n4\t\nRyūketsu | 竜血\n\tTech Titans\t339,90\n5\t\nНАСТЮХА\n\tMi ne pushim!\t338,88\n6\t\n.\n\tWayprod.\t336,24\n7\t\nSTRUTFITGO\n\tTech Titans\t333,94\n8\t\nุ\n\tTech Titans\t317,00\n9\t\nMute All Chat.✓\n\tBuyback_Academy\t315,62\n10\t\nSoulnier\n\tСамозванцы\t309,79\n11\t\nлюблю вас 6 тысяч\n\tWayprod.\t287,27\n12\t\nЛадно\n\tBuyback_Academy\t284,45\n13\t\nkt0_0n\n\tWayprod.\t279,95\n14\t\nопустился на дно\n\tJapan日本\t279,20\n15\t\nзабыл про ленту\n\tBuyback_Academy\t255,84\n16\t\n服部 半蔵\n\tMi ne pushim!\t245,99\n17\t\nона меня тролит\n\tСамозванцы\t244,57\n18\t\nпаршивец\n\tTech Titans\t236,43\n19\t\nДыван-самалёт\n\tMi ne pushim!\t234,90\n20\t\nziq-\n\tJapan日本\t233,50\n\nПри равенстве на границе топ-20 включены все игроки. Рейтинг — сумма баллов.\n\nОбновлено 3 окт., 08:28 МСК\n\nПоказан сохранённый проверочный расчёт на дату обновления.\n\nО расчёте и источниках\n\nПроверочный пересчёт по формуле осеннего регламента 14.09.2026. Предварительная привязка к весеннему архиву по опубликованным датам 25.03–26.04.2026 МСК; не официальное награждение прошлого турнира.\n\nВерсия формулы: ycs-dota-mvp-9.4-v1.\n\nПолнота данных турнира ещё не подтверждена.\n\nКарта 8750950136\nОжидает данных · Реплей ожидает разбора.\nКарта 8773015016\nОжидает данных · Недостаточно подтверждённых данных для расчёта.\nФормула регламента",
+    "sourceText": "Steam ID: 76561198126586249 · Рейтинг = сумма M.",
+    "maps": 15
+  },
+  {
+    "state": "browser-errors",
+    "logs": [
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:38:27.977Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:38:28.882Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:38:28.889Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:38:49.135Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:39:34.985Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:39:35.917Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:39:35.921Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:39:36.983Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:39:36.984Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:39:37.268Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:40:09.932Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:20.102Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:20.102Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:21.179Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:21.180Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:22.195Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:22.199Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:23.212Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:23.212Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      },
+      {
+        "level": "error",
+        "message": "Error sending browser metadata to extension: Object",
+        "timestamp": "2026-10-03T08:45:47.890Z",
+        "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+      }
+    ]
+  },
+  {
+    "state": "final-wide-corporate",
+    "layout": {
+      "client": 1521,
+      "defaultLeader": "true",
+      "defaultMap": "true",
+      "rowCount": 20,
+      "score": "506,19",
+      "scroll": 1521,
+      "theme": "corporate"
+    }
+  },
+  {
+    "state": "final-320-Dota 2",
+    "layout": {
+      "client": 305,
+      "score": "506,19",
+      "scroll": 305,
+      "theme": "dota2"
+    }
+  },
+  {
+    "state": "final-320-CS2",
+    "layout": {
+      "client": 305,
+      "score": "506,19",
+      "scroll": 305,
+      "theme": "cs2"
+    }
+  },
+  {
+    "state": "final-320-Корпоративная",
+    "layout": {
+      "client": 305,
+      "score": "506,19",
+      "scroll": 305,
+      "theme": "corporate"
+    }
+  },
+  {
+    "state": "final-wide-cs2",
+    "layout": {
+      "client": 1521,
+      "score": "506,19",
+      "scroll": 1521,
+      "theme": "cs2"
+    }
+  },
+  {
+    "state": "final-390-Dota 2",
+    "layout": {
+      "client": 375,
+      "score": "506,19",
+      "scroll": 375,
+      "theme": "dota2"
+    }
+  },
+  {
+    "state": "final-390-CS2",
+    "layout": {
+      "client": 375,
+      "score": "506,19",
+      "scroll": 375,
+      "theme": "cs2"
+    }
+  },
+  {
+    "state": "final-390-Корпоративная",
+    "layout": {
+      "client": 375,
+      "score": "506,19",
+      "scroll": 375,
+      "theme": "corporate"
+    }
+  },
+  {
+    "state": "final-empty",
+    "text": "MVP турнира\n\nРейтинг по статистике сыгранных карт\n\nЛидер расчёта\n\nПока нет лидера\nТоп-20\nВсе игроки\nРейтинг ещё не рассчитан\n\nЗдесь появятся игроки и баллы после публикации расчёта по сыгранным картам.",
+    "scoreCount": 0
+  },
+  {
+    "state": "final-shared-header-dota2",
+    "cssViewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "iframeScale": 0.83,
+    "theme": "dota2",
+    "headerMinHeight": "88px",
+    "clientWidth": 1521,
+    "scrollWidth": 1521,
+    "verification": "Browser UI theme switching, DOM computed style and final screenshot after removing route header override."
+  },
+  {
+    "state": "final-shared-header-corporate",
+    "cssViewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "iframeScale": 0.83,
+    "theme": "corporate",
+    "headerMinHeight": "88px",
+    "clientWidth": 1521,
+    "scrollWidth": 1521,
+    "verification": "Browser UI theme switching, DOM computed style and final screenshot after removing route header override."
+  },
+  {
+    "state": "final-shared-header-cs2",
+    "cssViewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "iframeScale": 0.83,
+    "theme": "cs2",
+    "headerMinHeight": "88px",
+    "clientWidth": 1521,
+    "scrollWidth": 1521,
+    "verification": "Browser UI theme switching, DOM computed style and final screenshot after removing route header override."
+  }
+]

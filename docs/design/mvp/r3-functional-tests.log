@@ -1,0 +1,68 @@
+✔ MVP URL derives the shared S3 results path without accepting an external path (1.179265ms)
+✔ An unpublished snapshot remains pending; no fabricated zero rating is introduced (2.089655ms)
+✔ Fetch failures and missing/invalid snapshots retain the last validated tournament data (1.087977ms)
+✔ An older revision cannot overwrite a newer one, and a newer valid revision restores current status (4.648657ms)
+✔ A changed body at the same revision is rejected; unchanged reads recover from a delay (0.581174ms)
+✔ Concurrent readers share one request and subscribers can detach (0.406512ms)
+✔ A bundled retrospective calculation survives absent S3 publication and failed reads (0.4788ms)
+✔ First valid S3 at the bundled revision becomes authoritative, then guards conflicting remote revisions (0.456056ms)
+✔ Dota archives and current events share the MVP section and deep links; CS2 never acquires it (0.659011ms)
+✔ ready cache deduplicates league IDs, stores required raw collections and avoids redownloading ready maps (6.910401ms)
+✔ MVP maps publish before the best-of series has finished and a late parse updates them independently (12.552343ms)
+✔ unregistered player nickname is fetched by account ID; a nickname in another team cannot substitute it (1.200917ms)
+✔ API failure and incomplete correction retain confirmed scores and the exact confirmed source (2.12598ms)
+✔ only a unique published fixture can contribute and an explicit exclusion remains excluded on retry (0.898252ms)
+✔ a map within the tournament period waits for an unpublished later-round fixture instead of claiming completeness (1.028958ms)
+✔ failed rescan publishes correction status while preserving confirmed scores; recovery clears it (8.122545ms)
+✔ S3 revision guard rejects an intervening writer and uncertain writes require exact readback (0.818662ms)
+✔ worker restores pending state after restart, retries until ready and stops after resolution (8.166992ms)
+✔ after the tournament a failed known publication is retried even when all player statistics are ready (0.997972ms)
+✔ the last active cycle retains discovered IDs across a first-cache-write failure and retries only those IDs after end (4.957662ms)
+✔ source projection preserves empty collections without replacing absent metrics with zeros (0.189395ms)
+✔ real importer publishes late player statistics even when no new completed series exists (5.596833ms)
+✔ a failed middle map fetch cannot publish a false BO3 sweep; recovery publishes the actual 2:1 (9.029831ms)
+✔ the Docker COPY manifest contains a runnable backend dependency closure (47.794355ms)
+✔ hand worked §9.4 example: 4+1.5+2+0.1+0.5+1/3 = 253/30 (2.110907ms)
+✔ exact arithmetic distinguishes decimal values below floating epsilon and rounds only display (0.520193ms)
+✔ damage includes null attacks to exact enemies; buildings exclude own side; healing excludes self and enemies (1.709102ms)
+✔ observer counts use owner, enemy attacker, time and entity identity; expiration/denies/duplicates excluded (0.560434ms)
+✔ confirmed prehorn ward kills inside the actual pregame window count; unknown bounds remain pending (1.575301ms)
+✔ missing data, duplicate slots/accounts and unknown heroes leave the whole map pending (7.696684ms)
+✔ conflicting observer owner or entity destruction is pending rather than silently dropped (1.649643ms)
+✔ team roster Steam identity wins, unmatched account uses fetched nickname, substitutes aggregate across teams (2.780685ms)
+✔ negative map scores remain in tournament totals; explicit exclusion affects all ten (1.078123ms)
+✔ confirmed unrecoverable maps are excluded even when identities cannot be recovered; invalid IDs cannot be excluded (0.392511ms)
+✔ top20 includes every exact cutoff tie, ignores uncounted players, competition ranks preserve ties (0.23934ms)
+✔ snapshot validation independently recomputes metrics, aggregate, membership and rank (2.409146ms)
+✔ ingestion metadata preserves undiscovered source completeness independently of MVP pending maps (8.370488ms)
+✔ pending correction metadata retains confirmed scores and must refer to unique ready map IDs (2.546523ms)
+✔ server worker waits until kickoff, serializes slow imports and aborts on stop (3.455571ms)
+Outside published tournament dates; no API or S3 request
+Published MVP revision 1: 0 players
+Published revision 1: 1 completed series
+No new confirmed series
+✔ worker survives an API failure and stops discovery after the tournament period (1.10271ms)
+✔ importer makes no external calls before kickoff and persists completed results only once (7.078213ms)
+✔ small results backend starts without a site build and exposes health without HTTP import triggers (46.537182ms)
+✔ standalone frontend preserves site/Mini App routes and never starts an importer (62.404674ms)
+✔ polling follows the complete published tournament period (0.887395ms)
+✔ radiant winner is published even when kills are lower; both clients receive details (28.143773ms)
+✔ unmatched, foreign, duplicate and incomplete data never invent a score (0.994116ms)
+✔ previous revision is retained, conflicting map is rejected, malformed snapshot fails (0.900426ms)
+✔ actual tournament UI renders score, map winner, kills, duration and source (337.050329ms)
+✔ client keeps the last confirmed S3 revision through an outage (14.203778ms)
+✔ February archive shows all 33 published matches and the correct five latest playoff results (3.398215ms)
+✔ Search covers both opponents, respects the phase and handles missing results (0.660614ms)
+✔ Completed CS2 preserves final standings, results and technical 1:0 (5.641571ms)
+✔ Upcoming event exposes eight first-round matches, never counts empty playoff slots (0.594785ms)
+✔ Legacy archives keep partial stages, stable unique match keys and yearless dates (1.148088ms)
+✔ Spring Dota archive keeps two confirmed divisions without inventing an open podium (0.797049ms)
+✔ Deep links and browser history resolve sections and filters without inventing a section (2.453283ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 501.272448

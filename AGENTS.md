@@ -23,6 +23,12 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## YCS design decisions
 
+- October 3 MVP design feedback: Roman rejected the wide MVP mock as 3/5 and instructed using the existing YCS Figma screen, Product Design and game-studio-owner input. Match the current shared website menu exactly; the inspected Figma YCS Mini App source provides brand/logo/art, not desktop navigation. Hide counted-map quantities everywhere and hide pending/excluded counters (including «2 ожидают» and «0 исключены»). Show revised drawn concepts before implementation; the selected structure must support all three existing site themes with the same tournament data. Preserve truthful provisional recalculation status and do not fabricate portraits, awards or rankings.
+
+- October 3 MVP visual selection: Roman selected the third displayed R3 image, `exec-6f608da6-70f5-4eb7-9186-3569107c087b.png` («Открытый протокол»). Implement one editorial leader margin and a ranking workspace with the calculation opened directly beneath its player's row. The first real ranked player and first real map are open initially; users can collapse or choose others. Apply the structure to all three website themes; the Dota target uses mint/ivory/deep teal and city riverside art. On narrow screens the identity precedes the ranking. This selection authorizes implementation, not a new public release.
+
+- October 3 MVP repository delivery: Roman followed the selected implementation with «Выложил в репу?» and then explicitly «выкладывай», authorizing delivery to the previously specified main branch. Finish local visual/behavior checks and build, then send this revision to `rtalyutin/yarcyberseason` main and observe the existing publication path. Do not introduce a separate host, change deployment settings, or alter other participants' work.
+
 - October 2 results notice correction: Roman instructed removing the availability banner before the first results because it disrupts the design. Keep the website and Mini App quiet until their first valid S3 snapshot; preserve published fixtures. After results have loaded, retain the existing delay notice on a later read failure and keep the last confirmed results.
 
 - September 28 participant-route correction: Roman instructed removing the public links to the community chat and solo form. The tournament pages no longer render the community search block, and the homepage remains without it. Do not present the solo form as a reserve route or add a chat placeholder. This does not close or alter any external form.

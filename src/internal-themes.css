@@ -415,3 +415,24 @@
  .site-shell--matchday[data-theme="corporate"] .md-days [aria-selected="true"] { padding: 12px 8px; }
  .site-shell--matchday[data-theme] .md-days { scrollbar-width: thin; }
 }
+
+/* MVP keeps the event context compact so the open calculation fits the first screen. */
+body:has(.tn-page[data-section="mvp"]) { min-width: 0; }
+.site-shell--tournament[data-theme] .tn-page[data-section="mvp"] :is(.tn-facts, .tn-archive-count) { display: none; }
+.site-shell--tournament[data-theme] .tn-page[data-section="mvp"] .tn-back { margin-top: 24px; }
+@media (min-width: 801px) {
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-heading { min-height: 0; padding: 12px 40px 16px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-breadcrumb { font-size: 12px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-title-row { gap: 8px; margin: 12px 0 8px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-title-row h1 { font-size: clamp(48px, 4.7vw, 72px); }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-date { font-size: 22px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-header-actions { margin-top: 10px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .dota-mvp-heading { margin-bottom: 20px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-section-nav { gap: 2px; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-sidebar { position: relative; z-index: 1; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-layout { position: relative; isolation: isolate; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .tn-layout::before { content: ''; position: absolute; z-index: -1; left: 0; top: 200px; width: 40%; height: 520px; background: url('/assets/mvp-yaroslavl-river-dota.webp') left top / 100% auto no-repeat; pointer-events: none; }
+ .site-shell--tournament[data-theme="dota2"] .tn-page[data-section="mvp"] .dota-mvp-identity-art { background: none; }
+ .site-shell--tournament[data-theme="corporate"] .tn-page[data-section="mvp"] .tn-title-row h1 { font-size: clamp(40px, 4.5vw, 64px); }
+ .site-shell--tournament[data-theme="corporate"] .tn-page[data-section="mvp"] .dota-mvp-identity-art { display: none; }
+}

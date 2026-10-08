@@ -1,17 +1,20 @@
 import { createServer } from "node:http";
 import { pathToFileURL } from "node:url";
 import { startResultsWorker } from "./dota-results-worker.mjs";
+import { createOrganizerHandler } from "./organizer-api.mjs";
 
 // The frontend reads the public S3 object directly. This service has no public
-// import trigger, site assets, write API, or credentials in HTTP responses.
-export function createResultsServer() {
-  return createServer((request, response) => {
+// import trigger or sporting-data write API. Organizer data is authenticated.
+export function createResultsServer({ env = process.env, organizerOptions = {} } = {}) {
+  const organizer = createOrganizerHandler({ ...organizerOptions, env });
+  return createServer(async (request, response) => {
     response.setHeader("cache-control", "no-store");
     response.setHeader("content-type", "application/json; charset=utf-8");
     response.setHeader("x-content-type-options", "nosniff");
     let url;
     try { url = new URL(request.url, "http://localhost"); }
     catch { response.writeHead(400); response.end('{"error":"bad_request"}'); return; }
+    if (await organizer(request, response, url)) return;
     if (url.pathname !== "/healthz") {
       response.writeHead(404);
       response.end(request.method === "HEAD" ? undefined : '{"error":"not_found"}');
@@ -28,7 +31,7 @@ export function createResultsServer() {
 export async function startResultsBackend({ env = process.env,
   port = Number(env.PORT || 8080), host = "0.0.0.0", logger = console,
   workerOptions = {} } = {}) {
-  const server = createResultsServer();
+  const server = createResultsServer({ env });
   await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(port, host, resolve);

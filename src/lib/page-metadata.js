@@ -11,6 +11,7 @@ export function getPageMetadata(pathname) {
   const base = { title: 'ЯрКиберСезон — киберспортивные турниры Ярославля', description: homeDescription, canonicalPath: path, image: defaultImage };
 
   if (path === '/') return { ...base, canonicalPath: '/' };
+  if (path === '/orgs') return { ...base, title: 'Матчи и эфиры · Организаторы — ЯрКиберСезон', description: 'Закрытая рабочая таблица организаторов ЯрКиберСезона.', noindex: true };
   if (path === '/results') return { ...base, title: 'Архив и результаты турниров — ЯрКиберСезон', description: 'Архив турниров ЯрКиберСезона в Ярославле: подтверждённые результаты и история соревнований.' };
   if (path === '/broadcasts') return { ...base, title: 'Трансляции турниров — ЯрКиберСезон', description: 'Страницы трансляций, расписание эфиров и записи матчей турниров ЯрКиберСезона.' };
   if (path === '/partners') return { ...base, title: 'Партнёры — ЯрКиберСезон', description: 'Организации и компании, поддерживающие турниры ЯрКиберСезона в Ярославле.' };

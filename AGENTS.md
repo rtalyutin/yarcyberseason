@@ -1,10 +1,17 @@
 # Current Telegram scope
 
+- October 7 organizer table: Roman selected all tournaments with filters, read-only viewing and login/password from deployment environment variables. `/orgs` is a private operational surface, with the table data protected by the existing backend; preserve other routes and the current static frontend deployment. Do not add editing or expose backend credentials in Vite variables. Keep tournament-wide support separate from match assignments, and show missing caster/channel/partner assignments honestly. Contract: `docs/organizer-table.md`.
+
 - September 25, 2026: the accepted Figma team profile (mobile and wide Vnext examples) applies to every participant in the Mini App. Use one Rift template with the team's current published logo, tournament-specific roster and published matches. Keep the honest empty states and both existing Mini App paths; the team ID is a validated query parameter on the participants section. The top Back action and bottom button return to that tournament's participants. Preserve Telegram Close and browser exit behavior.
 
 - September 19, 2026: Roman requested past tournaments in Mini App and explicitly authorized publication of the changes on the existing domain. Preserve the current Dota home, Rift/Russian, and the two paths; add the four published completed/archive tournaments with selection in the tournament query string. This supersedes the earlier single-tournament/archive exclusion only in this scope. Preserve historical names, incomplete playoffs and unknown dates; do not infer results. Existing Swiss/Playoffs/Results are included in this release. The reordered 16-step plan resumes afterward with the match Rich Card prototype.
 
 # Prototype Instructions
+
+- October 8 organizer table: Roman requested column hiding and drag reordering
+  for `/orgs`. Preserve read-only match data and the current flat YCS layout.
+  Keep header/cell alignment, an accessible touch/keyboard ordering alternative,
+  at least one visible column and reset to the original seven-column view.
 
 - Telegram desktop correction (September 16, 2026): the user reported a tiny 768px column inside a very wide Telegram window and inconvenient closing. Preserve Rift/Russian and both screens; use a wider desktop composition from 960px with readable text and a two-column participants list from 1200px. Keep a sticky safe-area-aware header and a distinct Close action calling WebApp.close; Back only returns home. Escape may close Telegram except when consumed by controls/editing. In a normal browser, label the exit "На сайт" and navigate to the site root. Do not use window.close for normal tabs. This patch is separate from adding the remaining step-6 sections.
 

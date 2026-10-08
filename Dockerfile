@@ -8,6 +8,9 @@ COPY --chown=node:node backend/server.mjs backend/dota-results-worker.mjs backen
 COPY --chown=node:node src/lib/dota-import.js src/lib/dota-results.js src/lib/dota-mvp.js ./src/lib/
 COPY --chown=node:node src/data/player-identities.json ./src/data/player-identities.json
 COPY --chown=node:node src/data/tournaments/dota2-autumn-2026.json ./src/data/tournaments/dota2-autumn-2026.json
+COPY --chown=node:node backend/organizer-api.mjs backend/organizer-assignments.json ./backend/
+COPY --chown=node:node src/lib/organizer-table.js src/lib/community.js src/lib/tournament.js ./src/lib/
+COPY --chown=node:node src/data/tournaments/*.json ./src/data/tournaments/
 USER node
 EXPOSE 8080
 CMD ["node", "backend/server.mjs"]

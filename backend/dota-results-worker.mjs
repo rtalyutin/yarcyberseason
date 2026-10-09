@@ -8,7 +8,9 @@ export function startResultsWorker({ runOnce = run, now = () => new Date(),
   env = process.env, intervalMs = 5 * 60_000, setTimer = setTimeout,
   clearTimer = clearTimeout, logger = console } = {}) {
   let timer;
-  let stopped = env.YCS_DOTA_RESULTS_IMPORT_ENABLED === "false";
+  // The active writer lives in Tg-mcp. Keep this legacy worker opt-in so a
+  // future site/backend deployment cannot silently start a second S3 writer.
+  let stopped = env.YCS_DOTA_RESULTS_IMPORT_ENABLED !== "true";
   let active;
   let pendingRestored = false;
   let pendingMaps = 0;

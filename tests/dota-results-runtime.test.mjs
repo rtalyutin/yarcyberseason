@@ -18,7 +18,7 @@ test("server worker waits until kickoff, serializes slow imports and aborts on s
   let calls = 0;
   let finish;
   let signal;
-  const worker = startResultsWorker({ now: () => at,
+  const worker = startResultsWorker({ env: { YCS_DOTA_RESULTS_IMPORT_ENABLED: "true" }, now: () => at,
     setTimer(fn, delay) { assert.equal(delay, 300_000); callback = fn; return 1; },
     clearTimer() { callback = undefined; }, logger: quiet,
     runOnce(options) { calls++; signal = options.signal; return new Promise((resolve) => { finish = resolve; }); } });
@@ -48,7 +48,7 @@ test("worker survives an API failure and stops discovery after the tournament pe
   let at = kickoff;
   let calls = 0;
   const errors = [];
-  const worker = startResultsWorker({ now: () => at,
+  const worker = startResultsWorker({ env: { YCS_DOTA_RESULTS_IMPORT_ENABLED: "true" }, now: () => at,
     setTimer(fn) { callback = fn; return 1; }, clearTimer() {},
     logger: { error(message) { errors.push(message); } },
     async runOnce() { calls++; if (calls === 1) throw new Error("API unavailable"); } });
@@ -69,6 +69,18 @@ test("worker survives an API failure and stops discovery after the tournament pe
     now: () => kickoff, runOnce() { assert.fail("disabled import"); }, setTimer() { timers++; }, clearTimer() {} });
   assert.equal(timers, 0);
   await disabled.stop();
+});
+
+test("relocated legacy worker stays disabled by default even with S3 credentials", async () => {
+  const worker = startResultsWorker({
+    env: { AWS_ACCESS_KEY_ID: "test", AWS_SECRET_ACCESS_KEY: "test" },
+    now: () => kickoff,
+    runOnce() { assert.fail("legacy worker must not publish by default"); },
+    setTimer() { assert.fail("legacy worker must not schedule by default"); },
+    clearTimer() {},
+  });
+  assert.equal(worker.state.status, "disabled");
+  await worker.stop();
 });
 
 test("importer makes no external calls before kickoff and persists completed results only once", async () => {
@@ -113,7 +125,7 @@ test("small results backend starts without a site build and exposes health witho
   let imports = 0;
   let cleared = false;
   const backend = await startResultsBackend({ port: 0, host: "127.0.0.1", logger: quiet,
-    env: { AWS_ACCESS_KEY_ID: "private-writer", AWS_SECRET_ACCESS_KEY: "private-secret" },
+    env: { YCS_DOTA_RESULTS_IMPORT_ENABLED: "true", AWS_ACCESS_KEY_ID: "private-writer", AWS_SECRET_ACCESS_KEY: "private-secret" },
     workerOptions: { now: () => kickoff, setTimer() { return 1; },
       clearTimer() { cleared = true; }, async runOnce() { imports++; } } });
   const base = `http://127.0.0.1:${backend.server.address().port}`;

@@ -19,42 +19,31 @@ The MVP extension is specified in [dota-mvp.md](dota-mvp.md).
    build directory `/dist/client`. Its domain and both Mini App routes stay on
    that application. It reads the public result object directly from S3;
    no backend URL or writer credentials are needed in the frontend.
-3. Deploy a separate small **results backend** from the same repository and
-   `main` branch in Timeweb App Platform, selecting **Dockerfile**. Leave
-   "Path to project directory" empty: the root Dockerfile needs the shared
-   `src/lib` and tournament JSON as its build context. It installs only the
-   dependencies from `backend/package-lock.json`, copies importer code and
-   shared data, listens on `8080`, and does not build or serve the React site.
-   Set health check path `/healthz`; it checks HTTP process health only, not
-   successful results import. The backend needs no custom domain. Server
-   configuration has its own charge; choose it before starting a deployment.
-   For a local backend run use `npm ci --prefix backend`, then
-   `npm run start --prefix backend` (Node.js 22.12+). In a root development
-   checkout `npm ci` and `npm start` also launch only the results backend.
-4. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the **Timeweb backend
-   application's server environment**, using the S3 writer's keys. They are not
-   GitHub secrets and must not be prefixed `VITE_`, stored in source, the client
-   bundle, Dockerfile or issue/chat text. Inspect the keys' bucket scope.
-5. The backend starts its own serialized background loop; it does not depend on
-   an open browser, website visits or GitHub Actions. It polls every five minutes
-   throughout the published tournament period, from the earliest explicitly
-   scheduled first-day fixture through the end of October 25 Moscow time.
-   Both the loop and importer check the published dates before discovering maps.
-   After the period ends, the worker restores the existing cache once and retries
-   only its unresolved maps until their data is ready or explicitly excluded.
-   A slow run finishes before the next run is scheduled. An error is logged and
-   retried on the next scheduled check without stopping the HTTP server.
-   `node scripts/dota-results-import.mjs --probe-old-league` reads one old-league
-   map (`19021`) without S3 access or publication; no live probe is required
-   before kickoff. Shutdown signals stop the loop and abort its network calls.
-6. Enable the importer on exactly **one backend** application instance. If a
-   second backend instance is needed, set `YCS_DOTA_RESULTS_IMPORT_ENABLED=false`
-   there. The frontend does not start an importer. Do not run concurrent writer
-   instances or overlap writer deployments:
-   serialized runs protect one process, not distributed S3 writes. Stop the old
-   writer before starting a replacement. The existing object survives restart;
-   the next check rereads it before deciding whether to write. The importer has
-   no public HTTP trigger. Runtime keys must be set before kickoff.
+3. The collector was relocated to the **existing Tg-mcp backend** by Roman's
+   instruction on 2026-10-09. Do not create a separate results application or
+   replace the React frontend. The active runtime and activation instructions
+   are in [Tg-mcp/YCS-DOTA-COLLECTOR.md](https://github.com/rtalyutin/Tg-mcp/blob/main/YCS-DOTA-COLLECTOR.md).
+   It preserves the OpenDota results/MVP modules and the existing S3 objects;
+   native Node.js 24 runs it alongside the other backend functions.
+4. Set `YCS_DOTA_RESULTS_IMPORT_ENABLED=true`, `AWS_ACCESS_KEY_ID` and
+   `AWS_SECRET_ACCESS_KEY` only in the **existing Tg-mcp application's server
+   environment**. Reuse the existing S3 writer keys with access to the listed
+   objects. Keep them out of Git, frontend variables, startup commands and chat.
+   Preserve unrelated backend variables. The Tg-mcp collector stays disabled
+   if the flag or keys are absent.
+5. The serialized loop polls every five minutes throughout the published
+   tournament period, from the earliest explicitly scheduled fixture through
+   the end of October 25 Moscow time. It runs independently of browsers,
+   website visits and the outreach database. After the period it restores the
+   cache and retries only unresolved maps. Slow calls never overlap in one
+   process. Shutdown stops the timer and aborts collector network calls.
+6. Keep exactly **one enabled writer process**, without cluster or overlapping
+   enabled deployments. Stop any previous runtime before enabling Tg-mcp.
+   The legacy worker in this repository is now disabled unless explicitly
+   enabled; this code guard does not stop an already running instance. Do not
+   enable it alongside Tg-mcp. Existing objects survive restarts. Health means
+   process liveness, not a successful match import; read the separate collector
+   status and verify OpenDota → S3 readback → site/Mini App after activation.
 7. Later rounds need published fixtures with dates and verified team names or
    OpenDota team IDs. The polling period follows the tournament JSON; no
    unpublished pairings are inferred.

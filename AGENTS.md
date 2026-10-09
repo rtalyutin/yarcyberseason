@@ -1,5 +1,13 @@
 # Current Telegram scope
 
+- October 9, 13:57 MSK: Roman explicitly instructed moving the match collector
+  to the existing Tg-mcp backend. The active OpenDota results/MVP writer is
+  transferred there, using the existing S3 bucket and published data contracts.
+  This repository keeps the frontend and legacy collector source; its worker
+  is disabled unless explicitly enabled, preventing accidental second writers.
+  Keep one active writer, preserve current frontend hosting and all content.
+  This relocation does not publish the new captain cabinet or switch its URL.
+
 - October 7 organizer table: Roman selected all tournaments with filters, read-only viewing and login/password from deployment environment variables. `/orgs` is a private operational surface, with the table data protected by the existing backend; preserve other routes and the current static frontend deployment. Do not add editing or expose backend credentials in Vite variables. Keep tournament-wide support separate from match assignments, and show missing caster/channel/partner assignments honestly. Contract: `docs/organizer-table.md`.
 
 - September 25, 2026: the accepted Figma team profile (mobile and wide Vnext examples) applies to every participant in the Mini App. Use one Rift template with the team's current published logo, tournament-specific roster and published matches. Keep the honest empty states and both existing Mini App paths; the team ID is a validated query parameter on the participants section. The top Back action and bottom button return to that tournament's participants. Preserve Telegram Close and browser exit behavior.

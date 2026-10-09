@@ -1,5 +1,285 @@
 # Telegram Mini App — состояние проекта
 
+## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
+
+- Выпуск кабинета, 15:10 МСК: «Теперь давай кабинет капитана выложим также».
+  Разрешена публикация ранее согласованного captain-cabinet-5/API v3 на
+  существующей инфраструктуре: backend Tg-mcp рядом с уже включённым
+  сборщиком; frontend и Serverless endpoint по принятому контракту. Условие
+  прежнего размещения выполнено: collector activation VERIFIED. Нового app,
+  bucket, второго writer, уведомлений или изменения правил доступа нет.
+  Telegram Serverless сохраняется; переход на direct browser transport не
+  выбран. Переключение Main Mini App допускается по разрешению 09:33 только
+  после CAP-HOST-CONTENT-1. Согласованный дизайн и вся переписка до официального
+  завершения с последующим удалением сохраняются.
+  Inputs: source cabinet `d604497fe5cbdc9be19b18eef7e5c41a92a4b5f1`;
+  свежие remote main Tg-mcp `825e2f3f3fc122864d5c2f6159205843475a04a0`
+  (tree `177a07f50a1166b595688c62110f170b972290db`) и yarcyberseason
+  `726e6b73d517319679bff3d7947033546b3952c6`
+  (tree `fdcefd3caefd2eff355c5f6eea4ef9a7dcf08fa0`), изменений после них нет.
+  Stage implementation IN_PROGRESS: отдельный awaitable API hook на текущем
+  listener, один captain service для API/organizer/cleanup, fail closed
+  `YCS_CAPTAIN_ENABLED` default false, без запуска source backend/server.
+  Source wiring — известный публичный Tg-mcp URL для /org и Serverless relay.
+  Затем exact-candidate QA → existing CI/publication → runtime readback.
+  Activation gates OPEN: numeric bot id, AES key, organizer credentials,
+  Serverless CLI/project access, реальные S3 CAS/write и политика
+  versions/backups/Object Lock. Окна игр не выдумывать: без подтверждённого
+  окна согласование недоступно, чтение/чат/cleanup от него не зависят.
+  Timeweb env channel assistant по-прежнему недоступен; настройки collector
+  применил Роман. Deployment disabled допускает размещение кода, но не
+  завершает activation/Telegram gate. Root владеет этим состоянием; backend,
+  wiring, QA и DevOps имеют раздельные области.
+
+- Перенос сборщика, 13:57 МСК: «давай сборщик перенесем на tg-mcp».
+  Явно разрешён перенос опубликованного OpenDota results/MVP collector в
+  существующий Timeweb backend Tg-mcp; прежний запрет переноса заменён
+  только в этой области. Текущий S3 и остальные функции backend сохраняются,
+  writer один. Кабинет капитана и переключение URL Mini App не входят в эту
+  новую операцию. Source main Tg-mcp свежо проверен DevOps:
+  `a1631103c2a169bdf87ee4eb84e76df7c5beef15`; изолированная реализация
+  `../tg-mcp-collector`, branch `codex/ycs-dota-collector`.
+  Target подготовлен: local `4583d7410e0e1e68ad563a50d9f60130e1fefe89`,
+  tree `177a07f50a1166b595688c62110f170b972290db`, 23 файла. Исходные 8
+  modules/data побайтово равны опубликованному `32e4f2e`; payload fingerprint
+  `309cbe517263e6dae843cc90bd7796b2efcf8dadbd98cda0e0971aa01c070454`.
+  Developer check/build и 54 tests PASS. Независимый gate 25/25 PASS:
+  source guard 3, target importer/timer 8, lifecycle 13 и actual compiled
+  child/pg failure/HTTP 1. Root дополнительно запустил compiled main:
+  `/healthz` и `/healthz/ycs-dota` PASS, ожидаемый fingerprint, SIGTERM exit0.
+  Source guard local `77aef78dbbf4ec8760e41385e3fbb0eda9e3d206`, tree
+  `fdcefd3caefd2eff355c5f6eea4ef9a7dcf08fa0`: прежний worker только opt-in,
+  4 файла, author 6/6 и независимые 3/3 PASS; frontend/data не менялись.
+  Передано DevOps/Release: target branch/draft PR → существующий CI →
+  guarded main той же версии → source guard main; без force/new app/workflow.
+  До публикации release stage был IN_PROGRESS; runtime activation BLOCKED:
+  канал настройки env Timeweb не найден, локально Timeweb token и AWS keys
+  absent. Target был выключен до explicit flag=true и server keys. Перед публикацией
+  live `/healthz` 200 JSON, `/healthz/ycs-dota` 503 HTML: новую версию не
+  подтверждает. Следующий readback — remote main/tree/CI и exact live status.
+  DevOps опубликовал target candidate remote
+  `825e2f3f3fc122864d5c2f6159205843475a04a0`, тот же tree `177a07f…`;
+  draft PR https://github.com/rtalyutin/Tg-mcp/pull/44, existing CI run
+  https://github.com/rtalyutin/Tg-mcp/actions/runs/37922787134.
+  CI исполняет PR merge tree, побайтово равный принятому target tree;
+  Все stages CI run `37922787134`/job `113794481752` завершены SUCCESS,
+  включая check/check:workspace/build/root tests/workspace/UI tests.
+  Tg-mcp main штатно fast-forward обновлён на `825e2f3f…`; DevOps readback
+  exact main SHA, tree `177a07f…` и документации PASS. Source guard также
+  опубликован: yarcyberseason main
+  `726e6b73d517319679bff3d7947033546b3952c6`, точный tree
+  `fdcefd3caefd2eff355c5f6eea4ef9a7dcf08fa0`. DevOps прочитал worker exact
+  bytes, scope ровно 4 согласованных файла. Оба main update без force с
+  expected SHA; PR44 автоматически marked merged. Source publication
+  SUCCEEDED/VERIFIED; Timeweb/env не менялись. Runtime activation не следует
+  из CI/main publication.
+  Старый source guard также объединён в локальную ветку кабинета, merge
+  `a0e6cbd`; сохранены её актуальные договорённости, устранён только конфликт
+  AGENTS. Совмещённые captain/Telegram/organizer/runtime тесты **144/144 PASS**.
+  Код кабинета не публиковался; source guard не включает его в source main.
+  Root первый live readback после main publication: `/healthz` 200 JSON,
+  `/healthz/ycs-dota` 503 HTML. Последующий readback уже подтвердил
+  `/healthz/ycs-dota` **200 JSON**, version `1.0.0`, exact source `32e4f2e…`
+  и payload fingerprint `309cbe517263e6dae843cc90bd7796b2efcf8dadbd98cda0e0971aa01c070454`.
+  Live module deployment VERIFIED; `enabled=false`, `configured=false`,
+  `code=YCS_DISABLED`, `status=disabled`, timestamps null/pendingMaps0.
+  Прежний вывод о неподтверждённом деплое заменён этим свежим readback.
+  Frontend `/tg` остаётся 200 HTML, 15338 bytes, SHA-256
+  `83f1559d8634d51a6104e1dde7e848f4fe399d7b723bccfaa933619742767366`.
+  Активация VERIFIED после «готово» Романа в 14:42 МСК: root и независимый
+  QA заново получили `/healthz/ycs-dota` **200 JSON** с ожидаемыми version,
+  sourceRevision и payload fingerprint; `enabled=true`, `configured=true`,
+  `code=YCS_STARTED`, `status=waiting`, обе timestamps null, pendingMaps0.
+  Независимые live GET 09.10.2026 11:43:46–11:43:57 UTC; `/healthz` также
+  **200**, `{"status":"ok"}`, оба ответа no-store. Сборщик включён на
+  существующем Timeweb Tg-mcp. До первого опубликованного матча сегодня
+  в 20:30 МСК ожидание штатно: попыток импорта пока нет. Настройки применены
+  Романом; assistant не менял live env и не получал секреты.
+  Прежний activation BLOCKED заменён свежим подтверждением запуска.
+  `configured=true` подтверждает наличие требуемых настроек, но не права
+  ключей на S3. Полная цепочка OpenDota → запись S3 → readback → клиенты
+  остаётся UNVERIFIED до первого реального результата. Проверка активации
+  завершена; повторной авторизации переноса не требуется. Кабинет капитана
+  и переключение URL Mini App в этой операции не публиковались.
+
+- Исторический поиск, 12:26 МСК: Роман просит найти в чатах место записи
+  API-сборщика матчей; дополнительная интеграция Tg-mcp не подтверждена.
+  Поиск Personal Context дважды вернул ошибку поиска разговоров. Прочитано
+  целиком сохранённое ТЗ 0.2 от 30.09,
+  `libfile_7e956158125c8191aca50f3d7e193501`: код в yarcyberseason, данные S3.
+  Git provenance VERIFIED: 30.09 11:25 МСК `e49d558` добавил
+  `scripts/dota-results-import.mjs` и `.github/workflows/dota-results.yml`;
+  13:20 `5b931a5` удалил workflow и добавил application worker;
+  16:42 `088afb3` выделил backend/. 03.10 09:04 `4f06f08` расширил MVP.
+  DevOps дочитал shallow history; root независимо прочитал commits/workflow
+  и проверил ancestry всех четырёх commits к базе `32e4f2e`.
+  Код в базе: `backend/dota-results-import.mjs`,
+  `backend/dota-results-worker.mjs`, `backend/server.mjs`,
+  `backend/dota-mvp-import.mjs`; GitHub workflow уже отсутствует.
+  Именно исторический workflow содержит scheduled запуск API-сборщика;
+  это yarcyberseason, не текущий Telegram publisher в Tg-mcp.
+  В commit `5b931a5` фактическая активация Timeweb/S3 оставлена unverified.
+  Историческое место кода установлено; фактическое размещение и запуск
+  остаются UNKNOWN. Полные старые чаты недоступны через использованный поиск.
+  Код, конфигурация и runtime не менялись; разрешение на предложенную
+  дополнительную интеграцию не получено. Других приложений/логов не запрашивать.
+- Поправка проверки, 12:18 МСК: «Других нет. Сборщик же не работает.
+  Он по расписанию. Посмотри репу tg mcp». По сообщению Романа список
+  Timeweb-приложений ограничен YCS2 и YCS-back для tg; повторный запрос
+  другого приложения/тех же логов снят. CAP-BACKEND-COLLECTOR-2 заменяет
+  проверку только по stdout: отсутствие строки запуска не исключает
+  scheduled collector. Проверять актуальные расписания, команды и ветки.
+- Readback CAP-BACKEND-COLLECTOR-2 — VERIFIED для исследованного кода:
+  DevOps заново получил Tg-mcp main
+  `a1631103c2a169bdf87ee4eb84e76df7c5beef15` и 45 remote branch tips.
+  Root и QA независимо сверили исходники и все tips. Единственный cron
+  workflow — `.github/workflows/telegram-worker.yml`,
+  `2-59/5 * * * *` → `node scripts/telegram-worker.ts` → очередь
+  `/internal/telegram/*` → `send`/`sendPhoto`, публикация в Telegram.
+  В старых tips cron `*/5`; назначение то же. OpenDota/dota-results/STRATZ
+  и матчевого S3 writer в проверенных tips нет; Dota упомянута в портфолио.
+  Standalone workspace имеет общие DB-defined schedules, но встроенный
+  host-gateway задаёт `worker_ready:false`; это не подтверждает YCS collector.
+  Отдельный внешний cron и runtime-БД не проверены. Матчевый timer находится
+  в `yarcyberseason/backend/dota-results-worker.mjs`: сериализованный poll
+  каждые 5 минут в опубликованном периоде. Его установка в Tg-mcp не найдена.
+  Gate условного размещения остаётся BLOCKED; готовность кабинета и его
+  локальные проверки не изменились. Next: согласовать дополнительную
+  интеграцию готового YCS collector/API в существующий backend либо получить
+  свидетельство иного действующего scheduled запуска. Ничего не запускалось,
+  внешние настройки и удалённые репозитории не менялись.
+- Условие размещения, 10:01 МСК: «Да, если там же стоит сборщик данных
+  матча якс». Интеграция в показанный Tg-mcp разрешена только после проверки,
+  что там уже установлен сборщик матчей ЯКС. Telegram-message collector и
+  `/healthz` не доказывают это условие. CAP-BACKEND-COLLECTOR-1:
+  установить место и фактический runtime Dota/OpenDota/MVP collector до
+  зависимых изменений; второй writer или перенос сборщика не разрешены.
+  Проверка read-only IN_PROGRESS; интеграция и выпуск NOT_STARTED.
+- Readback CAP-BACKEND-COLLECTOR-1: DevOps получил чистый snapshot Tg-mcp
+  `a1631103c2a169bdf87ee4eb84e76df7c5beef15`; root независимо прочитал
+  production entry, runtime и документацию collector. Подтверждён сбор
+  Telegram Business сообщений для итогов дня, не Dota/OpenDota матчей.
+  В проверенных исходниках Tg-mcp матчевый worker/прокси не найден; состав
+  фактических процессов Timeweb этим не доказан, `/healthz` сообщает только
+  `{"status":"ok"}`. Код матчевого сборщика находится в yarcyberseason:
+  `backend/server.mjs` → `startResultsWorker`; подготовленный кабинет уже
+  подключён к этому же серверу. Размещение collector runtime остаётся UNKNOWN,
+  gate условной интеграции Tg-mcp BLOCKED. Прежний Next (STALE после
+  поправки 12:18): название/URL
+  действующего приложения ЯКС с репозиторием yarcyberseason и Dockerfile,
+  либо принадлежащая приложению 4776 строка лога YCS results backend.
+  Секреты не нужны. Установка/перенос writer и интеграция Tg-mcp не выполнялись.
+- Подключение, 09:33 МСК: Роман разрешил перенос URL Mini App на Telegram
+  Serverless при условии «контент будет также доступен, как сейчас».
+  Критерий CAP-HOST-CONTENT-1: сохранить текущие турниры, архивы, составы,
+  результаты, ресурсы и динамические обновления; до переключения URL проверить
+  их на новом host. Это условие действует до явной поправки Романа.
+  Скрин выбранного YCSbot показывает включённый Serverless (VERIFIED по
+  пользовательскому наблюдению); endpoint, числовой bot id и новый host ещё не
+  проверены. Скрин Timeweb показывает Tg-mcp, домен
+  `rtalyutin-tg-mcp-4776.twc1.net`; связь с backend `/org` не установлена.
+  Секреты и доступ к Serverless-проекту не передавались. Переключение URL и
+  внешняя публикация NOT_STARTED. Next: read-only сверка backend и доступности
+  контента, затем подключение штатного CLI без передачи секретов в чат.
+- Read-only проверка подключения после скринов, 09.10.2026: публичный сайт
+  `/api/orgs/matches` возвращает HTTP 200 `text/html` (главная), не API. В live
+  frontend API base пустой. У показанного Tg-mcp `/healthz` даёт 200 JSON,
+  `/api/orgs/matches` — 503 JSON. Эти ответы независимо воспроизведены root;
+  DevOps проверил production entry point репозитория Tg-mcp: подготовленный
+  YCS API в него не подключён. Настройка одного URL этого не исправит.
+  Прежний Next (STALE после поправки 12:18): подтвердить дополнительную интеграцию сервиса ЯКС в
+  показанный Tg-mcp либо дать URL иного уже действующего results backend.
+  Новое приложение/ресурсы не выбраны, интеграция другого репозитория и
+  внешние конфигурационные изменения NOT_STARTED.
+- Локальная подготовка CAP-HOST-CONTENT-1: связанная сборка содержит 5 турниров,
+  128 матчей, 41 состав/217 записей игроков; аудит разрешил 29 logo-ссылок и
+  8 ресурсов Mini App CSS в реальные файлы. Убрано широкое immutable-правило
+  `/assets/*` из `serverless/tgcloud.json`, чтобы unhashed картинки/шрифты не
+  сохранялись устаревшими после обновлений. Авторские client/relay checks
+  17/17 PASS, build PASS; root независимо проверил точный однострочный diff,
+  JSON, прежние static source/SPA. Код сервиса contract-5 не менялся.
+  Реальный новый host и равенство локального кандидата текущей публикации
+  ещё не проверены. Для переключения нужны `/tg`, рабочий endpoint, CORS S3
+  на exact новый origin и публикация будущих статических изменений также в
+  Telegram; «На сайт» сейчас ведёт на root нового origin. Эти gates открыты.
+- ТЗ: редакция 1.7, Library version 7, stable ID
+  `libfile_aa4c990dcf4481918642cf77470dc625`; актуальные уточнения Романа:
+  реестр капитанов на `/org`, чат внутри Mini App, таймпикер МСК и кнопка
+  «Время согласовано», S3 и просмотр на `/org`, без сообщений ботом.
+- Коррекция `CAP-STORAGE-2`, 09.10.2026: «2. Нет, используемый текущий» и
+  «Саму переписку хранить не надо». Текущий S3 используется для реестра,
+  согласований и заявок. Исходное «не хранить переписку» уточнено ниже:
+  хранить её до официального завершения матча, затем удалять.
+  Предложенный ассистентом RAM-буфер на 30 минут отменён следующей поправкой;
+  старую отправку нельзя повторить в новой комнате автоматически. Критерий
+  действует до явного изменения Романом; меняет storage/service/API/клиент,
+  ТЗ и их тесты, сохраняет дизайн, время, `/org` и запрет сообщений ботом.
+- Коррекция `CAP-DELIVERY-3`, 09.10.2026, 03:13 МСК: «люди заходят раз в
+  неделю бывает». Сообщения должны дождаться офлайн-получателя. Модель
+  30-минутного RAM-буфера и зависящие части ТЗ редакции 1.6/API/code/QA —
+  **STALE** для этого сценария. Постоянный архив по-прежнему не нужен.
+- Коррекция `CAP-RETENTION-5`, 09.10.2026, 08:19 МСК: после согласия «Давай»
+  Роман сразу уточнил: «Вернее. После окончания матча удаляем». Вся переписка
+  сохраняется зашифрованной в текущем S3 до официального завершения. Прочтение,
+  неделя отсутствия, перезапуск или смена капитана не удаляют сообщения.
+  Новый назначенный капитан получает разговор своей команды, прежний теряет
+  доступ. После завершения сервис очищает переписку и её служебные следы без
+  открытых клиентов; подтверждённое время, назначения и заявки сохраняются.
+  Удаление после прочтения и RAM-лимит отменены. Регрессионные критерии:
+  недельная доставка/restart; чтение без удаления; claim не закрывает чат;
+  фоновое удаление после official result; late retry не восстанавливает чат.
+  Действуют до следующей явной поправки Романа. Отказ от архива сохранён.
+- Прикладной/API контракт: [captain-cabinet.md](captain-cabinet.md).
+- Авторский ход: договориться и зафиксировать время под перепиской в одной
+  карточке матча; прежний Rift/Russian и обе Mini App страницы сохраняются.
+- TASK_STATE: локальная реализация подготовлена в ветке
+  `codex/captain-cabinet-service`, база `32e4f2e10b37f518dde99f3dd54d83abbafd8194`.
+  Публикация, изменение BotFather и production S3 не выполнялись.
+- Предыдущее evidence для captain-cabinet-1 (commit `d790ab1`); затронутые
+  storage/chat/API проверки и сборка **STALE** до новой проверки:
+  `node --test
+  tests/captain*.test.mjs tests/telegram*.test.mjs tests/organizer*.test.mjs
+  tests/dota-results-runtime.test.mjs` — **126/126 PASS**; production build PASS
+  (4668 modules, 52 команды, 128 матчей). Два прежних предупреждения Nimbus OTF.
+  `npm run test:sites` после сборки — **6/6 PASS**; `git diff --check` PASS.
+- Независимые локальные проверки прежнего сервиса — **8/8 PASS**, включая подмену
+  Telegram identity, чужой матч, отзыв доступа, CAS-конкуренцию и потерянный
+  ответ. Отчёт и точный fingerprint: [captain-verification.md](captain-verification.md).
+- Браузерный gate BLOCKED: Chromium отсутствует, download не дал архив;
+  Cloud Browser не видит локальный сервер (`ERR_CONNECTION_REFUSED`). Сценарий
+  двух капитанов/организатора сохранён в `scripts/manual/captain-browser-probes.mjs`,
+  но его клики и скриншоты не выдаются за выполненную проверку. Реальные
+  Telegram WebView/Serverless и S3/CAS/ACL остаются непроверенными.
+- Локальный кандидат correction-2: 137/137 объединённых тестов и production
+  build PASS, но это evidence прежнего 30-минутного контракта; недельную доставку
+  он не подтверждает. Этот кандидат не публиковался.
+- Текущий кандидат contract-5 реализован: schema3 с шифрованной перепиской
+  до официального завершения, sticky chatClosed, фоновая очистка на старте
+  и каждые 60 секунд, UI закрывает отправку и снимает поздние повторы.
+  Прочтение не удаляет сообщения. Удаление не зависит от настройки окон игр.
+  Совмещённый suite **143/143 PASS** (`captain*`, `telegram*`, `organizer*`,
+  `dota-results-runtime`); production build PASS (4668 modules, 52 команды,
+  128 матчей, 192 канонических URL и 3 aliases). Браузерный gate остаётся BLOCKED.
+  Независимые сценарии **17/17 PASS**: неделя/restart, 101 сообщение без потери,
+  чтение/заявка без удаления, CAS очистки, поздний retry, фоновая работа и stop.
+  Fingerprint `82e1bf5d98eb401f9e7cbade64b2172dff861317bee43dc1c8735216efa229ac`;
+  подробности: [captain-verification.md](captain-verification.md). Diff-check PASS.
+- Локальная реализация contract-5 проверена; выпуск требует описанных ниже
+  реальных входов/проверок и отдельного разрешения. В этой среде не настроены
+  AWS credentials, bot id и encryption key, поэтому реальный S3 не проверялся.
+  Next: подготовка выпуска после подключения этих входов и выбора Serverless host.
+  Внешние операции `NOT_STARTED`; текущий S3 и прочие принятые функции сохраняются.
+- Полнота будущего выпуска зависит от Serverless у выбранного бота, решения
+  по его host, encryption key для текущего S3, серверных write-прав/CAS,
+  политики versions/backups/Object Lock, работающей фоновой очистки и
+  подтверждённых окон матчей. Ни один
+  прежний выпуск ниже не разрешает автоматически публикацию этого изменения.
+  Разрешение 09:33 выше отдельно снимает запрет на перенос URL Mini App при
+  выполнении CAP-HOST-CONTENT-1; прежние локальные проверки не подтверждают
+  доступность контента на новом host.
+
+Предыдущие состояния ниже сохранены как история независимых функций.
+
 ## ACTIVE_CONTRACT — archive-release-1, 19.09.2026
 
 - Поручение Романа: «Сначала добавь отображение прошедших турниров и выложи изменения». Разрешены реализация и выпуск на существующем домене /tg, включая готовые Swiss/Playoffs/Results. BotFather, формы, сторонние сообщения и отдельный Sites не входят в scope.

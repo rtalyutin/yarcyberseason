@@ -9,6 +9,8 @@ import { MatchesSection } from "./MatchesSection.jsx";
 import { SwissSection, PlayoffSection, StandingsSection } from "./StageSections.jsx";
 import { ResultsSection } from "./ResultsSection.jsx";
 import { TeamProfile } from "./TeamProfile.jsx";
+import { CaptainCabinet } from "./CaptainCabinet.jsx";
+import { CAPTAIN_TOURNAMENT } from "./captain-client.js";
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
 
@@ -53,7 +55,7 @@ export default function MiniApp({ runtimeFactory, modelLoader = loadMiniAppModel
         const archives = await archiveLoader();
         if (cancelled) return;
         const models = new Map([model, ...archives].map((item) => [item.tournament.slug, item]));
-        router = createMiniAppRouter(window, runtime, (slug) => models.get(slug).sections.map((section) => section.id), [...models.keys()],
+        router = createMiniAppRouter(window, runtime, (slug) => [...models.get(slug).sections.map((section) => section.id), ...(slug === CAPTAIN_TOURNAMENT ? ["captain"] : [])], [...models.keys()],
           (slug) => models.get(slug).participants.map((participant) => participant.teamId));
         setSession({ model, archives, models, runtime, router });
       // Keep the host exit available when data loading fails. Retry/unmount owns cleanup.
@@ -92,6 +94,23 @@ export function MiniAppView({ model, archives = [], models, runtime, router, cop
   const { route } = state;
   const selectedModel = route.screen === "tournament" && route.tournamentSlug ? models?.get(route.tournamentSlug) || model : model;
   const heading = useRef(null);
+  const [captainAccess, setCaptainAccess] = useState(null);
+  useEffect(() => {
+    let disposed = false;
+    let loading = false;
+    const checkAccess = async () => {
+      if (!runtime.captain?.available || loading) return;
+      loading = true;
+      try { const access = await runtime.captain.call("access"); if (!disposed) setCaptainAccess(access); }
+      catch (error) { if (!disposed && ["forbidden", "unauthorized"].includes(error.code)) setCaptainAccess(null); }
+      finally { loading = false; }
+    };
+    setCaptainAccess(null);
+    checkAccess();
+    const timer = setInterval(() => { if (document.visibilityState === "visible") checkAccess(); }, 60000);
+    const stopResume = runtime.onResume(checkAccess);
+    return () => { disposed = true; clearInterval(timer); stopResume(); };
+  }, [runtime]);
   useEffect(() => {
     runtime.setBackHandler(route.screen === "tournament" ? () => router.navigate(route.teamId ? tournamentRoute("participants", route.tournamentSlug) : homeRoute()) : null);
     return () => runtime.setBackHandler(null);
@@ -106,9 +125,9 @@ export function MiniAppView({ model, archives = [], models, runtime, router, cop
       {LANGUAGES.length > 1 && <label>{copy.language}<select value={preferences.language} onChange={(event) => onPreferences({ ...preferences, language: event.target.value })}>{LANGUAGES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
     </div>}
     {state.notice && <p className="tg-notice" role="status">{state.notice}</p>}
-    <main>{route.screen === "home" ? <HomeScreen model={model} archives={archives} copy={copy} navigate={navigate} headingRef={heading} />
+    <main>{route.screen === "home" ? <HomeScreen model={model} archives={archives} copy={copy} navigate={navigate} headingRef={heading} captainAvailable={captainAccess?.authorized} />
       : route.teamId ? <TeamProfile model={selectedModel} teamId={route.teamId} runtime={runtime} copy={copy} navigate={navigate} headingRef={heading} />
-        : <TournamentScreen key={selectedModel.tournament.slug} model={selectedModel} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} />}</main>
+        : <TournamentScreen key={selectedModel.tournament.slug} model={selectedModel} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} captainAccess={captainAccess} onCaptainAccessLost={() => setCaptainAccess(null)} />}</main>
   </>;
 }
 
@@ -117,7 +136,7 @@ export function RegistrationStatus({ model, copy }) {
   return <div className="tg-status"><span>{label}</span><strong>{model.registration.count}{model.registration.capacity !== null ? ` / ${model.registration.capacity}` : ""}</strong></div>;
 }
 
-export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef }) {
+export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef, captainAvailable = false }) {
   return <div className="tg-home-layout">
     <section className="tg-hero">
       <div className="tg-art" aria-hidden="true"><div className="tg-map" /></div>
@@ -129,6 +148,7 @@ export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PR
       <RegistrationStatus model={model} copy={copy} />
       <button className="tg-primary" onClick={() => navigate(tournamentRoute())}>{copy.open}<span aria-hidden="true">↗</span></button>
       <button className="tg-secondary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants} · {model.participants.length}</button>
+      {captainAvailable && model.tournament.slug === CAPTAIN_TOURNAMENT && <button className="tg-captain-entry" onClick={() => navigate(tournamentRoute("captain"))}>Кабинет капитана <span aria-hidden="true">→</span></button>}
     </section>
     <ArchiveList archives={archives} copy={copy} navigate={navigate} />
     <footer className="tg-partners" aria-label={copy.partners}>{model.project.partners.map((partner) => <div key={partner.name}><img src={partner.logoUrl} alt={partner.name} /></div>)}</footer>
@@ -156,21 +176,21 @@ function TeamLogo({ participant }) {
     : <span className="tg-team-mark" aria-hidden="true">{participant.displayName.slice(0, 1).toUpperCase()}</span>;
 }
 
-export function TournamentScreen({ model, runtime, copy = getMessages("ru"), route, navigate, headingRef }) {
+export function TournamentScreen({ model, runtime, copy = getMessages("ru"), route, navigate, headingRef, captainAccess, onCaptainAccessLost }) {
   const isParticipants = route.section === "participants";
   const archived = ["archive", "completed"].includes(model.tournament.status);
   const target = (section) => tournamentRoute(section, model.tournament.slug);
-  return <div className="tg-tournament-layout">
+  return <div className="tg-tournament-layout" data-section={route.section}>
     <section className="tg-tournament-title">
       <p className="tg-kicker">{archived ? `${copy.archived} · ${model.tournament.statusLabel}` : copy.current}</p>
       <h1 ref={headingRef} tabIndex={-1}>{archived ? model.tournament.title : model.tournament.season.replace("YAR CYBER SEASON", "YCS")}</h1>
       <div className="tg-tournament-meta"><span>{model.tournament.dates.display || copy.noDates}</span><strong>{archived ? copy.archiveCount : copy.count}: {model.participants.length}</strong></div>
     </section>
     <nav className="tg-section-strip" aria-label={model.tournament.title}>
-      {model.sections.map((section) =>
+      {[...model.sections, ...(captainAccess?.authorized && model.tournament.slug === CAPTAIN_TOURNAMENT ? [{ id: "captain", label: "Кабинет капитана" }] : [])].map((section) =>
         <button key={section.id} aria-current={route.section === section.id ? "page" : undefined} onClick={() => navigate(target(section.id))}>{section.label}</button>)}
     </nav>
-    {isParticipants ? <section className="tg-participants" aria-labelledby="participant-title">
+    {route.section === "captain" && model.tournament.slug === CAPTAIN_TOURNAMENT ? <CaptainCabinet client={runtime.captain} access={captainAccess} runtime={runtime} onAccessLost={onCaptainAccessLost} onRules={() => navigate(target("rules"))} /> : isParticipants ? <section className="tg-participants" aria-labelledby="participant-title">
       <p className="tg-kicker">{copy.participantSection}</p>
       <h2 id="participant-title">{archived ? copy.archiveCount : copy.count}: {model.participants.length}</h2>
       {archived ? <p className="tg-source-state">{copy.archiveTeamsNotice}</p> : <RegistrationStatus model={model} copy={copy} />}

@@ -53,7 +53,7 @@ function outputPath(pathname) {
 try {
   const { App } = await server.ssrLoadModule('/src/App.jsx');
   // Only the login shell is static; organizer rows come from the protected API.
-  const routes = [...listPublicRoutes(), { pathname: '/orgs', includeInSitemap: false }];
+  const routes = [...listPublicRoutes(), { pathname: '/org', includeInSitemap: false }, { pathname: '/orgs', includeInSitemap: false }];
   for (const item of routes) {
     const pathname = normalizePublicPath(item.pathname);
     const markup = renderToString(React.createElement(React.StrictMode, null,

@@ -9,7 +9,7 @@ import { normalizePublicPath } from "./lib/public-routes.js";
 export function App({ initialPath }) {
   const path = normalizePublicPath(initialPath ?? (typeof window === "undefined" ? "/" : window.location.pathname));
   useEffect(() => { applyPageMetadata(path); }, [path]);
-  if (path === "/orgs") return <OrganizerPage />;
+  if (path === "/org" || path === "/orgs") return <OrganizerPage />;
   if (path === "/webmcp") return <WebMcpPage />;
   if (path === "/forMari") {
     return <Suspense fallback={<p role="status">Загружаем схему…</p>}><ForMari /></Suspense>;

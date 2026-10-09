@@ -1,12 +1,106 @@
 # Current Telegram scope
 
-- October 9, 13:57 MSK: Roman explicitly instructed moving the match collector
-  to the existing Tg-mcp backend. The active OpenDota results/MVP writer is
-  transferred there, using the existing S3 bucket and published data contracts.
-  This repository keeps the frontend and legacy collector source; its worker
-  is disabled unless explicitly enabled, preventing accidental second writers.
-  Keep one active writer, preserve current frontend hosting and all content.
-  This relocation does not publish the new captain cabinet or switch its URL.
+- October 9 captain publication (15:10 MSK): Roman instructs publishing the
+  captain cabinet also. Publish the accepted API v3/contract-5 on the existing
+  Tg-mcp backend, preserving the now-enabled match collector, and the prepared
+  frontend/Telegram Serverless integration. No new app/bucket/second results
+  writer or bot messages. Serverless remains the chosen transport; do not
+  silently replace it with a browser API. Activation needs the server secrets,
+  real S3 CAS/retention policy and actual Serverless deployment. The earlier
+  conditional Mini App URL permission still requires content verification
+  before switching. Distinguish published disabled code from active cabinet.
+
+- October 9 collector relocation (13:57 MSK): Roman explicitly instructs
+  moving the match collector to Tg-mcp. This supersedes the earlier prohibition
+  on moving/installing the collector, in this scope. Reuse the existing Timeweb
+  Tg-mcp backend and S3 bucket, preserve its other functions, and keep one
+  results/MVP writer. Transfer the published OpenDota results/MVP modules and
+  schedule; verify the combined build, runtime isolation and deployment.
+  This instruction does not include publishing the captain API, moving the
+  Mini App URL or adding another application. Prepared code and live activation
+  must still be distinguished; secrets remain server-side. The legacy worker
+  in this repository is disabled unless explicitly enabled; do not enable
+  it alongside Tg-mcp.
+
+- October 9 historical collector lookup (12:26 MSK): Roman asks to search past
+  chats for where the match API collector code was written. This is a location
+  lookup; the proposed additional Tg-mcp integration has not been accepted.
+  Git history verifies yarcyberseason: e49d558 (September 30, 11:25 MSK) added
+  the OpenDota-to-S3 importer and scheduled GitHub workflow; 5b931a5 (13:20)
+  removed that workflow and added an application worker; 088afb3 (16:42)
+  separated backend/ from the static frontend. All are ancestors of 32e4f2e.
+  Locate current code in backend/dota-results-import.mjs, worker and server.
+  Historical code publication does not establish Timeweb activation or writes.
+
+- October 9 collector verification correction (12:18 MSK): Roman reports no
+  Timeweb applications besides YCS2 and YCS-back for tg, and asks to inspect
+  Tg-mcp because the collector runs on a schedule. Do not use missing startup
+  log lines as proof that a scheduled collector is absent, and do not ask for
+  the same application inventory again. CAP-BACKEND-COLLECTOR-2 requires fresh
+  repository schedules, executed commands and relevant branch tips to be
+  checked. Fresh main a1631103c2a169bdf87ee4eb84e76df7c5beef15 and all 45
+  remote branch tips contain a Telegram publication cron, not a Dota importer.
+  External cron/runtime database configuration remains unverified. The existing
+  conditional placement permission is unchanged; do not install a new writer
+  or integrate another repository without resolving that condition/scope.
+
+- October 9 backend placement condition (10:01 MSK): Roman permits adding the
+  cabinet service to the shown Tg-mcp application ONLY IF the YCS match-data
+  collector is already installed there. Verify the actual Dota/OpenDota/MVP
+  collector and its runtime, not a Telegram-message collector or a health-only
+  response, before dependent integration. Do not move/install another writer
+  or infer unconditional permission from this reply.
+
+- October 9 connection decision (09:33 MSK): Roman explicitly permits moving
+  the Mini App URL to Telegram Serverless only if all currently available
+  content remains accessible. Preserve current tournaments, archives, rosters,
+  results, assets and dynamic updates; verify them on the new host before
+  switching the bot URL. The user screenshot shows Serverless enabled for the
+  selected YCSbot; it does not prove a deployed endpoint or numeric bot identity.
+  A second screenshot shows Timeweb repository Tg-mcp at
+  rtalyutin-tg-mcp-4776.twc1.net; do not assume it is the YCS organizer backend.
+  No secret, deployed Serverless project or backend configuration was supplied.
+
+- October 9 final retention correction (08:19 MSK): Roman instructed deleting
+  the conversation AFTER THE MATCH ENDS. Keep all match messages encrypted in
+  the existing S3 bucket until official completion, surviving week-long absences
+  and service restarts. Reading messages never deletes them; no 30-minute TTL.
+  Purge the conversation automatically after trusted official completion, even
+  with no open clients. Keep agreed time, assignments and separate result claims.
+  A captain's result claim alone does not close the chat. Assignment changes
+  revoke the former captain and rotate the chat epoch while keeping the match
+  conversation for the current team representatives. This supersedes the RAM-
+  only, delete-on-read and delete-on-reassignment candidates below. No archive
+  after completion; S3 version/backup policy must be verified before release.
+
+- October 9 asynchronous chat correction: Roman says captains may return only
+  once a week. The assistant-chosen 30-minute RAM window does not meet delivery
+  needs and is superseded. Keep no permanent conversation archive. Whether
+  unread messages may be held durably until the recipient reads them is an
+  open requirement; do not infer permission to persist them from this correction.
+  The existing local RAM implementation is not accepted for weekly delivery.
+
+- October 9 captain storage correction: reuse the existing Timeweb S3 bucket;
+  do not require a new bucket. Roman explicitly does not want chat history
+  stored. Keep the in-app chat with a bounded RAM-only delivery buffer; never
+  persist its text, fingerprints, request receipts or message events to S3 or
+  logs. Keep captain assignments, time proposals/agreements and separate result
+  claims durable. Clear the chat when either captain assignment changes; reject
+  retries from an expired/reset chat. This supersedes durable-chat and separate
+  private-bucket assumptions only. Deployment remains separate release work.
+
+- October 8 captain cabinet clarification: Roman requested implementation, with
+  captain Telegram usernames entered in a table on `/org` (keep `/orgs` working).
+  This narrowly authorizes captain assignment/revocation alongside the existing
+  read-only match table. Verified captains receive a Mini App cabinet button and
+  a private match chat with the opposing captain. Under the chat, show a Moscow
+  date/time picker and the exact action «Время согласовано». Both captains confirm
+  the same time revision; a changed time resets consent. The service saves the
+  agreement in S3 and shows it, plus separate result claims, on `/org`. No bot
+  messages, public chat posting, or automatic official-result/MVP changes.
+  Preserve Rift/Russian, archives, both Mini App paths and current domain hosting.
+  Serverless deployment/host transition and production S3 activation remain
+  separate release work. Contract: `docs/telegram-miniapp/captain-cabinet.md`.
 
 - October 7 organizer table: Roman selected all tournaments with filters, read-only viewing and login/password from deployment environment variables. `/orgs` is a private operational surface, with the table data protected by the existing backend; preserve other routes and the current static frontend deployment. Do not add editing or expose backend credentials in Vite variables. Keep tournament-wide support separate from match assignments, and show missing caster/channel/partner assignments honestly. Contract: `docs/organizer-table.md`.
 

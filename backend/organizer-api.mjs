@@ -2,6 +2,7 @@ import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { buildOrganizerTable } from '../src/lib/organizer-table.js';
 import { applyDotaSnapshot, DOTA_RESULTS_URL, validateDotaSnapshot } from '../src/lib/dota-results.js';
+import { captainErrorResponse } from './captain-service.mjs';
 
 const SESSION_MS = 8 * 60 * 60 * 1000;
 const ATTEMPT_MS = 60 * 1000;
@@ -61,7 +62,7 @@ async function jsonBody(request) {
   catch { throw Object.assign(new Error(), { status: 400 }); }
 }
 
-export function createOrganizerHandler({ env = process.env, getData = createOrganizerDataSource(), now = Date.now } = {}) {
+export function createOrganizerHandler({ env = process.env, getData = createOrganizerDataSource(), now = Date.now, captainService } = {}) {
   const sessions = new Map();
   const attempts = new Map();
   const allowedOrigin = env.YCS_ORGS_ALLOWED_ORIGIN || officialOrigin;
@@ -80,7 +81,7 @@ export function createOrganizerHandler({ env = process.env, getData = createOrga
       response.setHeader('access-control-allow-origin', origin);
       response.setHeader('vary', 'Origin');
     }
-    if (!['/api/orgs/login', '/api/orgs/matches', '/api/orgs/logout'].includes(url.pathname)) return send(404, { error: 'not_found' });
+    if (!['/api/orgs/login', '/api/orgs/matches', '/api/orgs/logout', '/api/orgs/captains'].includes(url.pathname)) return send(404, { error: 'not_found' });
     if (request.method === 'OPTIONS') return send(204, null, {
       'access-control-allow-methods': 'GET, POST, OPTIONS',
       'access-control-allow-headers': 'Content-Type, Authorization',
@@ -121,6 +122,18 @@ export function createOrganizerHandler({ env = process.env, getData = createOrga
       if (request.method !== 'POST') return send(405, { error: 'method_not_allowed' }, { allow: 'POST, OPTIONS' });
       sessions.delete(sessionKey);
       return send(204, null);
+    }
+    if (url.pathname === '/api/orgs/captains') {
+      if (!['GET', 'POST'].includes(request.method)) return send(405, { error: 'method_not_allowed' }, { allow: 'GET, POST, OPTIONS' });
+      if (!captainService) return send(503, { error: 'captain_not_configured' });
+      try {
+        const body = request.method === 'POST' ? await jsonBody(request) : null;
+        if (request.method === 'POST' && (body === null || Array.isArray(body) || typeof body !== 'object')) return send(400, { error: 'invalid_request' });
+        return send(200, await captainService.organizer(body));
+      } catch (error) {
+        if (error.status && !error.code) return send(error.status, { error: 'invalid_request' });
+        const failure = captainErrorResponse(error); return send(failure.status, failure.body);
+      }
     }
     if (request.method !== 'GET') return send(405, { error: 'method_not_allowed' }, { allow: 'GET, OPTIONS' });
     try { return send(200, await getData()); }

@@ -2,14 +2,23 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { filterOrganizerRows, organizerDate, organizerTimeNote } from '../lib/organizer-table.js';
 import { matchStates } from '../lib/community.js';
 import { defaultColumnOrder, moveOrganizerColumn, organizerColumns, toggleOrganizerColumn } from '../lib/organizer-columns.js';
+import OrganizerCaptains from './OrganizerCaptains.jsx';
 import '../organizer.css';
 
-const apiBase = (import.meta.env.VITE_YCS_ORGS_API_URL || '').replace(/\/+$/, '');
+const apiBase = (import.meta.env.VITE_YCS_ORGS_API_URL || 'https://rtalyutin-tg-mcp-4776.twc1.net').replace(/\/+$/, '');
 const errors = {
   invalid_credentials: 'Неверный логин или пароль.', unauthorized: 'Сессия закончилась. Войдите снова.',
   too_many_attempts: 'Слишком много попыток. Повторите вход через минуту.',
   orgs_not_configured: 'Доступ для организаторов ещё не настроен.',
   data_unavailable: 'Не удалось получить данные матчей. Попробуйте обновить таблицу.',
+  captain_not_configured: 'Кабинет капитана ещё не подключён. Таблица матчей доступна во вкладке «Матчи и эфиры».',
+  storage_unavailable: 'Не удалось обратиться к хранилищу кабинета.',
+  conflict: 'Данные изменились. Проверьте обновлённую запись и сохраните снова.',
+  idempotency_conflict: 'Запрос уже использован для другого изменения. Перечитайте данные.',
+  invalid_request: 'Проверьте Telegram-ник: латинские буквы, цифры и подчёркивание, до 32 символов.',
+  forbidden: 'Недостаточно прав для этого действия.',
+  capacity_reached: 'Хранилище кабинета заполнено. Обратитесь к администратору сервиса.',
+  too_many_requests: 'Слишком много запросов. Повторите через минуту.',
 };
 async function api(path, { token, signal, body } = {}) {
   const response = await fetch(`${apiBase}/api/orgs/${path}`, {
@@ -21,8 +30,8 @@ async function api(path, { token, signal, body } = {}) {
   if (response.status === 204) return null;
   let result;
   try { result = await response.json(); }
-  catch { throw new Error('Сервис организаторов недоступен.'); }
-  if (!response.ok) throw Object.assign(new Error(errors[result.error] || 'Сервис организаторов недоступен.'), { status: response.status });
+  catch { throw Object.assign(new Error('Сервис организаторов недоступен.'), { status: response.status, code: 'invalid_response' }); }
+  if (!response.ok) throw Object.assign(new Error(errors[result.error] || 'Сервис организаторов недоступен.'), { status: response.status, code: result.error });
   return result;
 }
 
@@ -53,6 +62,7 @@ export default function OrganizerPage() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [section, setSection] = useState('matches');
   const [filters, setFilters] = useState({ tournament: '', round: '', broadcast: '', query: '' });
   const [columnOrder, setColumnOrder] = useState(defaultColumnOrder);
   const [hiddenColumns, setHiddenColumns] = useState([]);
@@ -80,7 +90,7 @@ export default function OrganizerPage() {
       } catch (failure) {
         if (active && failure.name !== 'AbortError') {
           setError(failure.message);
-          if (failure.status === 401) { setToken(null); setData(null); }
+          if (failure.status === 401) { setToken(null); setData(null); setSection('matches'); }
         }
       } finally { running = false; if (active) setBusy(false); }
     };
@@ -108,7 +118,7 @@ export default function OrganizerPage() {
   }
   function logout() {
     const previous = token;
-    setToken(null); setData(null); setError(''); setBusy(false);
+    setToken(null); setData(null); setError(''); setBusy(false); setSection('matches');
     // Clear the screen immediately; the token lives only in this mounted page.
     api('logout', { token: previous, body: {} }).catch(() => {});
   }
@@ -155,6 +165,12 @@ export default function OrganizerPage() {
       </form>
       {error && <p className="orgs-error" role="alert">{error}</p>}
     </section> : <>
+      <nav className="orgs-sections" aria-label="Разделы организатора">
+        <button type="button" aria-current={section === 'matches' ? 'page' : undefined} onClick={() => setSection('matches')}>Матчи и эфиры</button>
+        <button type="button" aria-current={section === 'captains' ? 'page' : undefined} onClick={() => setSection('captains')}>Капитаны</button>
+      </nav>
+      <div hidden={section !== 'captains'}><OrganizerCaptains key={token} token={token} api={api} onSessionExpired={() => { setToken(null); setData(null); setError(errors.unauthorized); setSection('matches'); }} /></div>
+      <div hidden={section !== 'matches'}>
       <section className="orgs-title"><div><p className="orgs-eyebrow">Рабочая таблица</p><h1>Матчи и эфиры</h1><p>Только просмотр · время в МСК · обновление каждую минуту</p></div>
         <div className="orgs-sync"><button type="button" disabled={busy} onClick={() => setRefresh((n) => n + 1)}>{busy ? 'Обновляем…' : 'Обновить'}</button>
           {data && <small>Получено {new Intl.DateTimeFormat('ru-RU', { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit' }).format(new Date(data.generatedAt))} МСК</small>}
@@ -191,6 +207,7 @@ export default function OrganizerPage() {
             {visibleColumns.map((column) => <td key={column.id} className={column.className}><OrganizerCell column={column.id} row={row} /></td>)}
           </tr>)}{!rows.length && <tr><td colSpan={visibleColumns.length} className="orgs-empty" role="status">{busy && !data ? 'Загружаем матчи…' : data ? 'По выбранным фильтрам матчей нет.' : 'Данные матчей пока недоступны.'}</td></tr>}</tbody>
         </table>
+      </div>
       </div>
     </>}
   </main>;

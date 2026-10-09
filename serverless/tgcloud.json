@@ -1,0 +1,7 @@
+{
+  "static": {
+    "source": "../dist/client",
+    "spa": true,
+    "headers": [{ "path": "/*", "set": { "Referrer-Policy": "no-referrer" } }]
+  }
+}

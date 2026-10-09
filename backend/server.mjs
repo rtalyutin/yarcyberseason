@@ -2,11 +2,16 @@ import { createServer } from "node:http";
 import { pathToFileURL } from "node:url";
 import { startResultsWorker } from "./dota-results-worker.mjs";
 import { createOrganizerHandler } from "./organizer-api.mjs";
+import { createCaptainService } from "./captain-service.mjs";
+import { createCaptainHandler } from "./captain-api.mjs";
+import { startCaptainCleanupWorker } from "./captain-cleanup-worker.mjs";
 
 // The frontend reads the public S3 object directly. This service has no public
 // import trigger or sporting-data write API. Organizer data is authenticated.
-export function createResultsServer({ env = process.env, organizerOptions = {} } = {}) {
-  const organizer = createOrganizerHandler({ ...organizerOptions, env });
+export function createResultsServer({ env = process.env, organizerOptions = {}, captainOptions = {},
+  captainService = createCaptainService({ ...captainOptions, env }) } = {}) {
+  const organizer = createOrganizerHandler({ ...organizerOptions, env, captainService });
+  const captain = createCaptainHandler({ service: captainService });
   return createServer(async (request, response) => {
     response.setHeader("cache-control", "no-store");
     response.setHeader("content-type", "application/json; charset=utf-8");
@@ -15,6 +20,7 @@ export function createResultsServer({ env = process.env, organizerOptions = {} }
     try { url = new URL(request.url, "http://localhost"); }
     catch { response.writeHead(400); response.end('{"error":"bad_request"}'); return; }
     if (await organizer(request, response, url)) return;
+    if (await captain(request, response, url)) return;
     if (url.pathname !== "/healthz") {
       response.writeHead(404);
       response.end(request.method === "HEAD" ? undefined : '{"error":"not_found"}');
@@ -30,16 +36,18 @@ export function createResultsServer({ env = process.env, organizerOptions = {} }
 
 export async function startResultsBackend({ env = process.env,
   port = Number(env.PORT || 8080), host = "0.0.0.0", logger = console,
-  workerOptions = {} } = {}) {
-  const server = createResultsServer({ env });
+  workerOptions = {}, captainOptions = {}, captainWorkerOptions = {},
+  captainService = createCaptainService({ ...captainOptions, env }) } = {}) {
+  const server = createResultsServer({ env, captainService });
   await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(port, host, resolve);
   });
   const worker = startResultsWorker({ ...workerOptions, env, logger });
+  const captainWorker = startCaptainCleanupWorker({ ...captainWorkerOptions, service: captainService, env });
   logger.log(`YCS results backend listening on ${host}:${server.address().port}; importer ${worker.state.status}`);
-  return { server, worker, async stop() {
-    await Promise.all([worker.stop(), new Promise((resolve, reject) =>
+  return { server, worker, captainWorker, async stop() {
+    await Promise.all([worker.stop(), captainWorker.stop(), new Promise((resolve, reject) =>
       server.close((error) => error ? reject(error) : resolve()))]);
   } };
 }

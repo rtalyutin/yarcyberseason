@@ -1,6 +1,6 @@
 import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
 
-/** @typedef {'overview'|'participants'|'rules'|'schedule'|'matches'|'swiss'|'standings'|'playoffs'|'results'} SectionId */
+/** @typedef {'overview'|'participants'|'rules'|'schedule'|'matches'|'swiss'|'standings'|'playoffs'|'results'|'captain'} SectionId */
 /** @typedef {{screen: 'home'}|{screen: 'tournament', section: SectionId, tournamentSlug?: string, teamId?: string}} MiniAppRoute */
 /** @typedef {{kind: 'internal', label: string, route: MiniAppRoute}|{kind: 'external', label: string, url: string}} UiAction */
 /** @typedef {{schemaVersion: 1, buildId: string, sourceCommit: string, tournamentSlug: 'dota2-autumn-2026'}} VersionManifest */
@@ -29,7 +29,8 @@ import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
 /** @typedef {{id: string, type: 'swiss'|'double_elimination'|'round_robin'|'historical_matches'|'match_schedule', title: string, notice: string|null, rules: {label: string|null, value: string}[], availability: 'ready'|'empty'|'partial', tables: TableView[], rounds: {id: string, label: string, slots: SlotView[]}[], edges: {fromSlotKey: string, toSlotKey: string, outcome: 'winner'|'loser', targetSide: 1|2|null}[]}} StageViewModel */
 /** @typedef {{schemaVersion: 1, tournament: TournamentView, registration: RegistrationView, participants: ParticipantView[], actions: UiAction[], timeline: {label: string, state: string, date: string}[], stages: StageViewModel[], matches: MatchViewModel[], rewards: {prizeDistribution: object|null, additionalAwards: object[], referralContest: object|null}, results: object|null, sections: SectionView[], project: ProjectView}} MiniAppModel */
 
-const sectionSet = new Set(SECTION_IDS);
+// The private section is never part of a public tournament model or start target.
+const sectionSet = new Set([...SECTION_IDS, "captain"]);
 const startTargetSet = new Set(STARTAPP_TARGETS);
 const nonEmpty = (value) => typeof value === "string" && value.trim().length > 0;
 const record = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);

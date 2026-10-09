@@ -1,4 +1,5 @@
 import { assertRuntimePort, isUiAction, routeFromStartTarget } from "../contracts.js";
+import { createCaptainClient } from "../captain-client.js";
 
 const px = (value) => Number.isFinite(value) ? `${value}px` : "0px";
 
@@ -37,6 +38,7 @@ export function createTelegramRuntime(webApp, windowObject = globalThis.window) 
 
   const port = {
     kind: "telegram",
+    captain: createCaptainClient(webApp),
     async init() {
       if (disposed) return;
       webApp.expand?.();

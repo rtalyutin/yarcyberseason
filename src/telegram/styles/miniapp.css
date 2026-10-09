@@ -266,3 +266,47 @@ body { margin: 0; }
   .tg-home-layout .tg-archive { grid-row: 3; }
   .tg-home-layout .tg-partners { grid-column: 2; grid-row: 2; }
 }
+
+/* Shared website content in the existing Rift composition. */
+.tg-hero .tg-home-title { font-size: clamp(2.6rem, 11vw, 5.5rem); }
+.tg-home-tournament { margin: 26px 0 0; font: 700 1.4rem/1.25 var(--tg-font-display); text-shadow: 0 2px 3px #000; }
+.tg-home-tournament small { display: block; margin-top: 6px; font-size: .9rem; }
+.tg-home-layout .tg-facts { margin-bottom: 0; }
+.tg-home-board { padding-block: 16px; border-top: 1px solid var(--tg-line); }
+.tg-home-board > .tg-kicker { color: var(--tg-cyan); }
+.tg-home-board--live > .tg-kicker { color: var(--tg-success); }
+.tg-home-match-meta, .tg-home-note { color: var(--tg-muted); font-size: .875rem; }
+.tg-home-match-teams { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; margin-block: 20px; font: 700 1.45rem/1.2 var(--tg-font-display); }
+.tg-home-match-teams strong { overflow-wrap: anywhere; }
+.tg-home-match-teams strong:last-child { text-align: right; }
+.tg-home-match-teams > span { color: var(--tg-cyan); white-space: nowrap; }
+.tg-home-board a, .tg-partner-join { text-decoration: none; }
+.tg-home-season { min-width: 0; margin: 0 16px 20px; padding: 24px 20px; border: 1px solid var(--tg-line); background: var(--tg-panel); }
+.tg-home-season h2, .tg-home-partners h2 { margin: 10px 0 16px; font: 700 2rem/1.2 var(--tg-font-display); }
+.tg-home-champion { color: var(--tg-cyan); }
+.tg-home-archives { min-width: 0; }
+.tg-archive-champion { color: var(--tg-cyan); font-size: .875rem; }
+.tg-all-results { margin: 0 20px 24px; }
+.tg-all-results > summary { cursor: pointer; padding: 14px 0; color: var(--tg-cyan); }
+.tg-all-results .tg-archive { padding-inline: 0; }
+.tg-home-partners { min-width: 0; padding: 24px 20px; border-top: 1px solid var(--tg-line); }
+.tg-home-partners .tg-partners { margin: 0; }
+.tg-home-partners .tg-partners p { margin-bottom: 0; color: var(--tg-ink); font-size: .75rem; overflow-wrap: anywhere; }
+.tg-partner-join { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 12px 0; }
+.tg-home-footer { min-width: 0; padding: 24px 20px; border-top: 1px solid var(--tg-line); color: var(--tg-muted); font-size: .8rem; }
+.tg-home-footer address { font-style: normal; }
+.tg-home-footer nav { display: flex; flex-direction: column; gap: 12px; }
+.tg-home-footer a, .tg-home-footer button { color: inherit; text-align: left; overflow-wrap: anywhere; }
+.tg-home-footer button { padding: 0; background: transparent; }
+.tg-home-copyright { margin-top: 24px; }
+.tg-home-layout a:focus-visible, .tg-home-layout summary:focus-visible { outline: 3px solid var(--tg-cyan); outline-offset: 3px; }
+@media (min-width: 960px) {
+  .tg-home-layout .tg-hero { grid-column: 1; grid-row: 1; }
+  .tg-home-layout .tg-dock { grid-column: 2; grid-row: 1; }
+  .tg-home-season { grid-column: 1; grid-row: 2; margin: 0; }
+  .tg-home-archives { grid-column: 2; grid-row: 2; }
+  .tg-home-partners, .tg-home-footer { grid-column: 1 / -1; }
+  .tg-home-partners .tg-partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tg-home-footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .tg-home-copyright { grid-column: 1 / -1; margin: 0; }
+}

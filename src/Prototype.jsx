@@ -3,7 +3,7 @@ import { useDotaResults } from "./lib/dota-results-client.js";
 import { ArrowUpRight, CaretRight, Plus } from "@phosphor-icons/react";
 import { getChampionLabels, getTournamentOutcome, isArchive, hasScore, isFinished, participantCount } from "./lib/tournament.js";
 import { community } from './data/community.js';
-import { projectContent } from './data/project-content.js';
+import { projectContent, projectLegal } from './data/project-content.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
@@ -13,7 +13,8 @@ import "./themes.css";
 import "./internal-themes.css";
 import "./dota-home.css";
 import { matchDateLabel, normalizeResult, safeHttps } from './lib/community.js';
-import { getHomeBroadcastBoard } from './lib/home-board.js';
+import { getHomeBroadcastContent } from './lib/home-content.js';
+import { loadHomeContent } from './data/home-content.js';
 import { TeamPage, MatchPage } from './components/CommunityPages.jsx';
 import { NavigationContext, TeamLink, MatchLink } from './components/CommunityLinks.jsx';
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
@@ -103,24 +104,23 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   );
 }
 
-const PRIVACY_URL = "https://ycs.bar/docs/" + encodeURIComponent("Политика_в_отношении_обработки_персональных_данных.pdf");
 
 function Footer({ navigate }) {
   return <footer className="legal-footer container">
     <div className="legal-footer-grid">
-      <div><p className="legal-company">ООО «ЯрКиберСезон»</p>
-        <address>150040, Ярославская область, г. Ярославль,<br />ул. Володарского, д. 64, кв. 37</address>
-        <p>ИНН 7606143578 · ОГРН 1257600007500</p>
+      <div><p className="legal-company">{projectLegal.companyName}</p>
+        <address>{projectLegal.address[0]}<br />{projectLegal.address[1]}</address>
+        <p>{projectLegal.identifiers}</p>
       </div>
       <nav aria-label="Документы и контакты">
         <a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail}</a>
         <a href="/about#requisites">Контакты и реквизиты</a>
         <a href="/webmcp">Данные для ИИ</a>
-        <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
+        <a href={projectLegal.privacyUrl} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
         <a href={`/tournaments/${nextTournament.slug}#format`}>Правила участия</a>
       </nav>
     </div>
-    <p className="legal-copyright">© 2026 ЯрКиберСезон</p>
+    <p className="legal-copyright">{projectLegal.copyright}</p>
     <details className="image-credits">
       <summary>Фотография Ярославля</summary>
       <p>Стрелка и Успенский собор. Фото: © Алексей Фёдоров (Florstein), 2015 · <a href="https://commons.wikimedia.org/wiki/File:Strelka_of_Yaroslavl_03.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Снимок уменьшен для сайта; цветовое оформление и логотип наложены отдельно.</p>
@@ -153,61 +153,38 @@ function PageIntro({ eyebrow, title, body, action, navigate }) {
   );
 }
 
-function getHomePlayoffMatch(tournament) {
-  const outcome = getTournamentOutcome(tournament);
-  if (outcome?.final) return { ...outcome.final, roundLabel: "Гранд-финал" };
-  const playoff = tournament.stages?.find((stage) => stage.id === "playoffs");
-  if (!playoff?.rounds) return null;
-  const rounds = playoff.rounds.flatMap((round) => round.matches.map((match) => ({ ...match, roundLabel: round.label })));
-  return rounds.find((match) => match.status !== "completed" && match.id.includes("grand-final"))
-    || rounds.find((match) => match.status !== "completed")
-    || rounds.at(-1)
-    || null;
-}
-
 function HomeGameMark({ src, label }) {
   return <img className="home-game-mark" src={src} alt={label} />;
 }
 
 function HomeBroadcastBoard({ tournament, navigate }) {
-  const { match, state, score, previous } = getHomeBroadcastBoard(tournament);
+  const { match, state, score, previous, label, date, format, note, streamUrl: stream, actionLabel } = getHomeBroadcastContent(tournament);
   const schedule = `/tournaments/${tournament.slug}?section=matches`;
-  const label = {
-    scheduled: 'Следующий эфир', live: 'В эфире', result: 'Итог эфира', technical: 'Технический результат',
-    pending: 'Итог уточняется', postponed: 'Матч перенесён', unannounced: 'Следующий эфир',
-  }[state];
-  const stream = state === 'live' ? safeHttps(match?.broadcastUrl) || safeHttps(match?.streamUrl) : null;
 
   return <aside className={`home-broadcast-board home-broadcast-board--${state}`} aria-label="Табло сезона">
     <div className="home-board-topline"><span className="home-board-signal" aria-hidden="true" /><p>{label}</p><span>YCS / 2026</span></div>
     {match ? <>
-      <p className="home-board-date">{state === 'postponed' ? 'Дата уточняется' : matchDateLabel(match)} · {match.bestOf || 'Формат уточняется'}</p>
+      <p className="home-board-date">{date} · {format}</p>
       <div className="home-board-teams">
         <TeamIdentity tournament={tournament} team={match.team1} />
         <strong aria-label={score ? `${state === 'technical' ? 'Технический счёт' : 'Счёт серии'} ${score.join(':')}` : 'Против'}>{score ? score.join(' : ') : 'VS'}</strong>
         <TeamIdentity tournament={tournament} team={match.team2} align="end" />
       </div>
-      {state === 'scheduled' && !match.scheduledAt && !match.time && <p className="home-board-note">Время начала уточняется. Трансляция запланирована.</p>}
-      {state === 'live' && !stream && <p className="home-board-note">Ссылка на эфир пока не опубликована.</p>}
-      {state === 'pending' && <p className="home-board-note">Подтверждённый счёт пока не опубликован.</p>}
-      {state === 'postponed' && <p className="home-board-note">Новая дата будет опубликована после согласования.</p>}
-      {state === 'technical' && <p className="home-board-note">{match.status === 'bye' ? 'Проход без игры.' : 'Техническая победа.'} Следующий эфир пока не объявлен.</p>}
-      {state === 'result' && <p className="home-board-note">Следующий эфир пока не объявлен.</p>}
-    </> : <p className="home-board-note">Пара следующей трансляции пока не опубликована.</p>}
+      {note && <p className="home-board-note">{note}</p>}
+    </> : <p className="home-board-note">{note}</p>}
     {previous && <p className="home-board-previous">{previous.technical ? 'Предыдущий технический результат' : 'Предыдущий эфир'}: {previous.match.team1} {previous.score.join(':')} {previous.match.team2}</p>}
     <div className="home-board-actions">
       {stream && <a className="button button--primary" href={stream} target="_blank" rel="noopener noreferrer">Смотреть эфир <ArrowUpRight aria-hidden="true" /></a>}
-      <ActionButton action={{ label: ['result', 'technical'].includes(state) ? 'Все матчи' : 'Расписание матчей', target: schedule }} navigate={navigate} variant={stream ? 'secondary' : 'primary'} />
+      <ActionButton action={{ label: actionLabel, target: schedule }} navigate={navigate} variant={stream ? 'secondary' : 'primary'} />
     </div>
   </aside>;
 }
 
 function HomePage({ navigate, theme }) {
   const heroImageRef = useRef(null);
-  const archivePreview = archivedTournaments.slice(0, 3);
-  const featuredMatch = getHomePlayoffMatch(currentTournament);
-  const outcome = getTournamentOutcome(currentTournament);
-  const finished = isArchive(currentTournament);
+  const home = loadHomeContent();
+  const archivePreview = home.archivePreview;
+  const { match: featuredMatch, outcome, finished } = home.season;
 
   return (
     <>
@@ -218,8 +195,8 @@ function HomePage({ navigate, theme }) {
           {theme === "dota2" && <TechiesEgg />}
           <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
-              <p className="home-kicker">YAR CYBER SEASON / 2026</p>
-              <h1 id="home-title">Заявки закрыты.<br /><span>Арена открыта.</span></h1>
+              <p className="home-kicker">{home.kicker}</p>
+              <h1 id="home-title">{home.headline[0]}<br /><span>{home.headline[1]}</span></h1>
               <div className="home-next-lockup">
                 <HomeGameMark src="/assets/games/dota2.svg" label="Dota 2" />
                 <div>
@@ -229,8 +206,7 @@ function HomePage({ navigate, theme }) {
               </div>
               <p className="home-next-date">{nextTournament.dates.display}</p>
               <ul className="home-facts" aria-label="Турнир в цифрах">
-                <li>{participantCount(nextTournament)} команд</li>
-                <li>Призовой фонд {nextTournament.prizeDistribution.total}</li>
+                {home.facts.map((fact) => <li key={fact}>{fact}</li>)}
               </ul>
               <HomeBroadcastBoard tournament={nextTournament} navigate={navigate} />
             </div>
@@ -267,10 +243,10 @@ function HomePage({ navigate, theme }) {
               <h2 id="home-archive-title">Архив</h2>
             </div>
             <div className="home-archive-list">
-              {archivePreview.map((tournament) => (
+              {archivePreview.map(({ tournament, champions }) => (
                 <a className="home-archive-row" key={tournament.slug} href={`/tournaments/${tournament.slug}`} onClick={(event) => followPublicLink(event, `/tournaments/${tournament.slug}`, navigate)}>
                   <HomeGameMark src={tournament.discipline === "Dota 2" ? "/assets/games/dota2.svg" : "/assets/games/counterstrike.svg"} label={tournament.discipline} />
-                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small>{getChampionLabels(tournament).map((label) => <small key={label}>{label}</small>)}</span>
+                  <span className="home-archive-copy"><strong>{tournament.title}</strong><small>{tournament.dates.display}</small>{champions.map((label) => <small key={label}>{label}</small>)}</span>
                   <ArrowUpRight weight="bold" aria-hidden="true" />
                 </a>
               ))}
@@ -281,7 +257,7 @@ function HomePage({ navigate, theme }) {
         <section className="home-partners container" aria-labelledby="home-partners-title">
           <h2 id="home-partners-title">Спонсоры и партнёры</h2>
           <div className="home-partners-grid">
-            {projectContent.partners.map((partner) => (
+            {home.partners.map((partner) => (
               <div className={`home-partner${partner.shortName === "Додо Пицца" ? " home-partner--dodo" : ""}`} key={partner.name}>
                 <img src={partner.logoUrl} alt={partner.shortName} width={partner.shortName === "Додо Пицца" ? 180 : 160} height={partner.shortName === "Додо Пицца" ? 100 : 80} loading="lazy" />
                 {partner.shortName !== "Додо Пицца" && <p>{partner.name}</p>}

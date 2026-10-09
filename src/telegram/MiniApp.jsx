@@ -11,6 +11,8 @@ import { ResultsSection } from "./ResultsSection.jsx";
 import { TeamProfile } from "./TeamProfile.jsx";
 import { CaptainCabinet } from "./CaptainCabinet.jsx";
 import { CAPTAIN_TOURNAMENT } from "./captain-client.js";
+import { loadHomeContent } from "../data/home-content.js";
+import { HomeBroadcastCard, HomeSeasonCard, HomeLegalFooter } from "./HomeContent.jsx";
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
 
@@ -125,7 +127,7 @@ export function MiniAppView({ model, archives = [], models, runtime, router, cop
       {LANGUAGES.length > 1 && <label>{copy.language}<select value={preferences.language} onChange={(event) => onPreferences({ ...preferences, language: event.target.value })}>{LANGUAGES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>}
     </div>}
     {state.notice && <p className="tg-notice" role="status">{state.notice}</p>}
-    <main>{route.screen === "home" ? <HomeScreen model={model} archives={archives} copy={copy} navigate={navigate} headingRef={heading} captainAvailable={captainAccess?.authorized} />
+    <main>{route.screen === "home" ? <HomeScreen model={model} archives={archives} runtime={runtime} copy={copy} navigate={navigate} headingRef={heading} captainAvailable={captainAccess?.authorized} />
       : route.teamId ? <TeamProfile model={selectedModel} teamId={route.teamId} runtime={runtime} copy={copy} navigate={navigate} headingRef={heading} />
         : <TournamentScreen key={selectedModel.tournament.slug} model={selectedModel} runtime={runtime} copy={copy} route={route} navigate={navigate} headingRef={heading} captainAccess={captainAccess} onCaptainAccessLost={() => setCaptainAccess(null)} />}</main>
   </>;
@@ -136,34 +138,51 @@ export function RegistrationStatus({ model, copy }) {
   return <div className="tg-status"><span>{label}</span><strong>{model.registration.count}{model.registration.capacity !== null ? ` / ${model.registration.capacity}` : ""}</strong></div>;
 }
 
-export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef, captainAvailable = false }) {
+export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef, captainAvailable = false, runtime, content = loadHomeContent() }) {
+  const previewSlugs = content.archivePreview.map(({ tournament }) => tournament.slug);
+  const archivePreview = previewSlugs.map((slug) => archives.find((archive) => archive.tournament.slug === slug)).filter(Boolean);
+  const remainingArchives = archives.filter((archive) => !previewSlugs.includes(archive.tournament.slug));
+  const champions = Object.fromEntries(content.archivePreview.map(({ tournament, champions }) => [tournament.slug, champions]));
   return <div className="tg-home-layout">
     <section className="tg-hero">
       <div className="tg-art" aria-hidden="true"><div className="tg-map" /></div>
-      <p className="tg-kicker">{model.tournament.discipline} · {model.tournament.season}</p>
-      <h1 ref={headingRef} tabIndex={-1}>{copy.homeTitle.map((line, index) => index === 2 ? <em key={line}>{line}</em> : <span key={line}>{line}</span>)}</h1>
-      <p className="tg-date">{model.tournament.dates.display || copy.noDates}</p>
+      <p className="tg-kicker">{content.kicker}</p>
+      <h1 className="tg-home-title" ref={headingRef} tabIndex={-1}><span>{content.headline[0]}</span><em>{content.headline[1]}</em></h1>
+      <p className="tg-home-tournament">{content.featuredTournament.title}<small>{content.featuredTournament.season}</small></p>
+      <p className="tg-date">{content.featuredTournament.dates.display || copy.noDates}</p>
+      <ul className="tg-facts" aria-label="Турнир в цифрах">{content.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
     </section>
     <section className="tg-dock">
       <RegistrationStatus model={model} copy={copy} />
+      <HomeBroadcastCard content={content.broadcast} tournamentSlug={content.featuredTournament.slug} navigate={navigate} runtime={runtime} />
       <button className="tg-primary" onClick={() => navigate(tournamentRoute())}>{copy.open}<span aria-hidden="true">↗</span></button>
       <button className="tg-secondary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants} · {model.participants.length}</button>
       {captainAvailable && model.tournament.slug === CAPTAIN_TOURNAMENT && <button className="tg-captain-entry" onClick={() => navigate(tournamentRoute("captain"))}>Кабинет капитана <span aria-hidden="true">→</span></button>}
     </section>
-    <ArchiveList archives={archives} copy={copy} navigate={navigate} />
-    <footer className="tg-partners" aria-label={copy.partners}>{model.project.partners.map((partner) => <div key={partner.name}><img src={partner.logoUrl} alt={partner.name} /></div>)}</footer>
+    <HomeSeasonCard season={content.season} navigate={navigate} />
+    <div className="tg-home-archives">
+      <ArchiveList archives={archivePreview} champions={champions} copy={copy} navigate={navigate} />
+      {remainingArchives.length > 0 && <details className="tg-all-results"><summary>Все результаты</summary><ArchiveList archives={remainingArchives} copy={copy} navigate={navigate} titleId="other-archive-title" /></details>}
+    </div>
+    <section className="tg-home-partners" aria-labelledby="tg-partners-title">
+      <h2 id="tg-partners-title">Спонсоры и партнёры</h2>
+      <div className="tg-partners">{content.partners.map((partner) => <div key={partner.name}><img src={partner.logoUrl} alt={partner.shortName} />{partner.shortName !== 'Додо Пицца' && <p>{partner.name}</p>}</div>)}</div>
+      <a className="tg-secondary tg-partner-join" href={`mailto:${content.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>Стать партнёром <span aria-hidden="true">→</span></a>
+    </section>
+    <HomeLegalFooter content={content} navigate={navigate} runtime={runtime} />
   </div>;
 }
 
-export function ArchiveList({ archives, copy = getMessages("ru"), navigate }) {
+export function ArchiveList({ archives, copy = getMessages("ru"), navigate, champions = {}, titleId = "archive-title" }) {
   if (!archives.length) return null;
-  return <section className="tg-archive" aria-labelledby="archive-title">
-    <h2 id="archive-title">{copy.archive}</h2>
+  return <section className="tg-archive" aria-labelledby={titleId}>
+    <h2 id={titleId}>{copy.archive}</h2>
     <ul>{archives.map((archive) => <li key={archive.tournament.slug}>
       <button type="button" onClick={() => navigate(tournamentRoute(archive.results ? "results" : archive.sections.some((section) => section.id === "standings") ? "standings" : "overview", archive.tournament.slug))}>
         <span className="tg-archive-meta">{archive.tournament.discipline} · {archive.tournament.statusLabel}</span>
         <strong>{archive.tournament.title}</strong>
         <span>{archive.tournament.dates.display || copy.noDates}</span>
+        {(champions[archive.tournament.slug] || []).map((label) => <span className="tg-archive-champion" key={label}>{label}</span>)}
         <span className="tg-archive-link">{copy.open} <span aria-hidden="true">↗</span></span>
       </button>
     </li>)}</ul>

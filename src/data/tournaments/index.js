@@ -1,8 +1,8 @@
-import currentCs2 from "./current-cs2-2026.json";
+import currentCs2 from "./current-cs2-2026.json" with { type: "json" };
 import { currentDotaTournament, setCurrentDotaTournament } from "../dota-tournament.js";
-import dota2Main from "./dota2-main-2026.json";
-import cs2February from "./cs2-february-2026.json";
-import dota2Qual from "./dota2-qual-2026.json";
+import dota2Main from "./dota2-main-2026.json" with { type: "json" };
+import cs2February from "./cs2-february-2026.json" with { type: "json" };
+import dota2Qual from "./dota2-qual-2026.json" with { type: "json" };
 
 export const tournaments = [currentCs2, currentDotaTournament, dota2Main, cs2February, dota2Qual];
 

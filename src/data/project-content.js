@@ -1,3 +1,11 @@
+export const projectLegal = Object.freeze({
+  companyName: 'ООО «ЯрКиберСезон»',
+  address: ['150040, Ярославская область, г. Ярославль,', 'ул. Володарского, д. 64, кв. 37'],
+  identifiers: 'ИНН 7606143578 · ОГРН 1257600007500',
+  copyright: '© 2026 ЯрКиберСезон',
+  privacyUrl: 'https://ycs.bar/docs/' + encodeURIComponent('Политика_в_отношении_обработки_персональных_данных.pdf'),
+});
+
 export const projectContent = Object.freeze({
   brandName: "ЯрКиберСезон",
   logoUrl: "/assets/ycs-logo.jpg",

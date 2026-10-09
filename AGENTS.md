@@ -1,5 +1,14 @@
 # Current Telegram scope
 
+- October 9 homepage content parity: Roman specifies the Telegram Mini App,
+  whose home must carry the same content as the website with its own Rift
+  presentation. Both homes consume src/data/home-content.js and the shared
+  home-content projection: headline, featured broadcast/status, dates, facts,
+  season result, archive/champions and partners. Read the current tournament
+  binding on render so accepted result overlays reach both homes. Keep captain
+  access, exit/Back, all archives and the existing two routes. Do not change
+  sports data, main-site layout, bot menu URL or hosting for this content task.
+
 - October 9 manual CORS save (17:49 MSK): Roman chose the panel action,
   superseding the proposed Timeweb-token/env/bootstrap path. No such code or
   secret is needed for this completed manual step. Independent14:50UTC

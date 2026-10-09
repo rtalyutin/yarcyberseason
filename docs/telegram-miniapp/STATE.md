@@ -42,9 +42,25 @@
   переносит config и три byte-identical JS в root tgcloud/, static.source
   теперь dist/client. Offline CLI status exit0 без validation error; bot
   unlinked. Author build/tests PASS, 419 web files byte-identical при одном
-  buildGeneratedAt. Correction gate IN_PROGRESS: прежние независимые 26
-  backend/service cases остаются применимы, три wiring cases повторяются на
-  exact corrected freeze плюс реальный CLI; затем source-only publication.
+  buildGeneratedAt. Correction gate PASS на final local
+  `536ac8e73376477fd1409e2714cc05810b8ee737`: независимые три wiring cases
+  повторно 3/3 PASS/0skip; actualCLI0.2 rootstatus exit0, три модуля и
+  419 staticfiles обнаружены, network/write/credential-read/subprocess
+  attempts0. Прежние 26 backend/service cases остаются применимы по
+  независимому bytehash readback, не перезапускались и заново не засчитывались.
+  Correction source main `f077e3542872441ed73ba4d579d5a38f0e9d2e59`, exact tree
+  `72c04fc68010865f4812ab980b1ef1bbb64dfe4c` = accepted QA candidate;
+  guarded nonforce от706856e и readback VERIFIED, target19f936bd… прежний.
+  Root public browser smoke: /org/ новая страница «Матчи и капитаны» с
+  login shell; /tg/tournament?section=captain показывает кабинет и требование
+  Telegram-входа без приватных данных; действующий сайт/архив доступен. Это
+  public anonymous UI, не real Telegram/капитан/чат/timepicker gate. HTTP
+  readback /org,/orgs,/tg 200; публичные logo/assets побайтово сохранены.
+  Timeweb /my/apps в cloudbrowser показывает Site Unavailable после одного
+  reload; настройки server env недоступны. CLI token/project link отсутствует.
+  Operation: code publication SUCCEEDED/VERIFIED, backend deployment
+  VERIFIED disabled, public frontend smoke PASS. Activation BLOCKED на
+  конкретных входах ниже; endpoint не публиковался, Main Mini App не менялся.
   Activation gates OPEN: numeric bot id, AES key, organizer credentials,
   Serverless CLI/project access, реальные S3 CAS/write и политика
   versions/backups/Object Lock. Окна игр не выдумывать: без подтверждённого

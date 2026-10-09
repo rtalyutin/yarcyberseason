@@ -17,6 +17,13 @@
   3021138 moves tgcloud.json and all three modules to the repository root,
   using dist/client. Push only the selected modules after project revision
   readback; preserve other bot modules. CLI status is not endpoint deployment.
+  Correction is independently qualified (affected FW3/3 plus actual CLI
+  status) and published as source main f077e3542872441ed73ba4d579d5a38f0e9d2e59,
+  tree72c04fc68010865f4812ab980b1ef1bbb64dfe4c. Public /org/ and anonymous
+  captain screen smoke pass. Timeweb panel cannot load in this cloud browser;
+  CLI token/project link absent. Endpoint, env/S3 activation and genuine
+  Telegram acceptance remain blocked; next step is those concrete access/config
+  inputs, not another request to publish the already published code.
 
 - October 9 collector relocation (13:57 MSK): Roman explicitly instructs
   moving the match collector to Tg-mcp. This supersedes the earlier prohibition

@@ -1,21 +1,25 @@
 # Current Telegram scope
 
-- October 9 captain current release correction (19:25 MSK): Roman says nobody
-  created the results files. Their403 responses do not prove loss of existing
-  content or require placeholders. The original current-content condition
-  passed; default Miniapp menu was switched once and independently read back
-  at https://app8672463486.tgcloud.ai/tg. Main profile/per-chat overrides were
-  not changed. Preserve the newer home-parity release: cloud revision4,
-  all433 files/30,067,451 bytes match the qualified artifact;3modules/config
-  and new menu retained. Fresh Tg-mcp5c870748/source985cb358/fingerprintca1d5b80
-  reports idle/errornull and approved16-captain import applied, revision2.
-  After published quoted/bare ETag compatibility, the fresh runtime reports
-  the import applied with no error; provider root cause remains unverified.
-  Our separate diagnostic candidate was never published and is STALE; do not
-  overlay it onto the newer code. Agreement still needs server-side known-
-  absence results handling and verified windows; genuine Telegram and S3
-  concurrency/retention remain unverified. Preserve all newer /org, homepage,
-  calendar, collector and storage changes. See current captain TASK_STATE.
+- October 9 captain authenticated-results release (19:54 MSK): source
+  8e3d079bc90ac51cae250ab0a02f1d38fcdec118/tree02b0c4ea and Tg-mcp main
+  8c5d2495da9695862d82e6e8348a513b3b3fd4af/tree36709e46 are published.
+  Required CI37961897943 passed root338/workspace128/UI30, zero skips.
+  Fresh16:54:49Z captain health serves source8e3/fingerprint275bf526,
+  idle/errornull, applied16-captain import, observed state revision3;
+  readiness resultsAvailable:true, matchCount:8, windowCount:0. No manual
+  result JSON, placeholder, ACL, second writer or settings change was made.
+  The readonly signed results reader distinguishes NoSuchKey from actual
+  denial/corruption; published ETag/store compatibility is preserved.
+  Roman must supply the allowed first-round start/end period in Moscow time
+  before YCS_CAPTAIN_WINDOWS_JSON can be set. Existing appointments are not
+  evidence of the published round period. Do not invent windows or treat
+  configured:true as agreement-ready. Genuine Telegram entry/chat/consent,
+  concurrent CAS and all-version/backup retention remain unverified.
+  Preserve collector source546/fingerprintf41b and existing Serverless
+  revision4:433files/30,067,451bytes,3modules/config/default Miniapp URL
+  https://app8672463486.tgcloud.ai/tg; main profile/per-chat overrides were
+  not changed. Our earlier diagnostic overlays were never published and
+  are STALE. See current captain TASK_STATE before further operations.
 
 - October 9 homepage release: Roman explicitly says «Отправляй. Не забывай
   что миниапп - серверлесс», then repeats «отправляй». Publish the shared

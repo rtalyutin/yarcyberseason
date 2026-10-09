@@ -2,7 +2,7 @@
 
 ## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
 
-### TASK_STATE — current content, menu and roster verified, 09.10.2026 19:25 МСК
+### TASK_STATE — authenticated reader live; approved round period required, 09.10.2026 19:54 МСК
 
 - Owner correction18:22: «да никто файл не создавал. вот и все». Results JSON
   were not created; screenshot18:19 shows results/_checks rather than the
@@ -23,14 +23,32 @@
   all80calendarbytes and17sourceJSON preserved. Independent20HTTP response
   receipt16:09:28–16:09:55Z remains correlated with the exact artifact. Current
   QA gate PASS_CURRENT_STATIC_AND_RUNTIME_OBSERVATION, not full READY.
-- Fresh16:21:41Z runtime: target5c87074836a184d2507d1f1fe7bb0bcf29ac43d4,
-  source985cb358348a199e7a3c24c93c5adcd5a0c87677,
-  captainFPca1d5b80be458df60eabe85614ac90fd5b20bc3bae3e03cbda1ba7e152326d83;
-  enabled/configured,CAPTAIN_STARTED,idle,errornull; rosterImport applied16,
-  revision2. Published ETag compatibility preserves conditional writes;
-  the later fresh readback reports the import applied with no error. Provider
-  root cause remains unverified. This is positive import/runtime
-  evidence, not full concurrent CAS, message or deletion acceptance.
+- Authenticated-results correction published: source main
+  8e3d079bc90ac51cae250ab0a02f1d38fcdec118/tree02b0c4eae7fb5880a6962a10c2e4cea093d29e1a,
+  exactly7source paths,396other leaf paths preserved. Tg-mcp main
+  8c5d2495da9695862d82e6e8348a513b3b3fd4af/tree36709e46e3f59f2e47d6bf0a1d0856229b821294,
+  exactly7target paths,443others preserved; PR46 merged16:52:37Z.
+  Captain18asset FP275bf52630dcf98dd887882d3c6212eeb349b82c67c42395bfbd1bb1a6b3718f
+  pins the published source8e3 only; collector pin/files/manifest and published
+  ETag store8a5a8357 are unchanged. No env/ACL/bot/Serverless/S3-setting operation.
+- Qualification: source30+heldout5 PASS; target9+heldout2 PASS and build PASS.
+  A synthetic changing getter was reproduced and fixed with single-capture
+  safe fields before publication; no production disclosure is asserted.
+  First requiredCI37961062997 passed337/338 and failed the unpropagated
+  vendored test input. Three fixture lines were updated to the accepted
+  readSnapshot API; all assertions retained, independently reproduced/retested.
+  Final requiredCI37961897943 on actualmain8c5 passed338/338 root,
+  128/128workspace and30/30UI, zero skips; both asset checks PASS.
+- First post-main16:53:13Z health still served source985/FPca1d; this was
+  recorded as pending activation, with no repeated deploy mutation.
+  Fresh16:54:49Z captain health now serves source8e3/FP275bf526, enabled/configured,
+  CAPTAIN_STARTED,idle,errornull; rosterImport applied16, observed revision3;
+  cleanupErrorCode:null, storage phase:read/errorCode:null. This observes
+  the current global revision, not a proof that private state stayed at2.
+  Passive readiness: resultsAvailable:true, matchCount:8, windowCount:0.
+  The authenticated read is available; approved selection windows are absent.
+  configured:true is not evidence of agreement readiness. Provider root cause
+  of the former conflict remains unverified; ETag compatibility is preserved.
 - Collector remains source54628232/FPf41b3eb013f39adcab03165f1bd905dd8a2592d762f0673b1b160e0cf8b5b5d1,
   enabled/configured,YCS_STARTED,waiting. Its files/manifest were not changed
   by root. Preserve home parity, /org correction, approved roster and calendar.
@@ -39,13 +57,26 @@
   mutation. They overlap the newer ETag/store/home/docs changes and are STALE.
   Do not overwrite newer store/runtime/test/manifest or equate the separately
   pinned captain and collector sourceRevision values.
-- Next authorized correction: server authenticated GetObject for the existing
-  results key distinguishes NoSuchKey before the first snapshot from actual
-  read errors; keep denial/corruption fail-closed, cached snapshots, windows
-  and time cutoff. This is separate PREPARED work, not yet production evidence.
-  Missing or invalid windows cannot be inferred from configured:true. Actual
-  signed captain entry/chat/two-party consent, future public updates and
-  version/backup/Object Lock retention remain NOT_VERIFIED.
+- Corrected results reader is live: fixed-key signed GetObject only; confirmed
+  NoSuchKey before the first valid snapshot is known absence. Denial, unknown
+  404, malformed/oversized content and timeout fail closed; latest snapshot,
+  cache, existing consent and two-hour cutoff remain. No manual public JSON.
+- Remaining owner input: the allowed first-round start/end dates and hours
+  in Moscow time, common to all8pairs or individually specified. CAP-05 in
+  the accepted TZ and regulation3.3.5–3.3.7 require a published round period.
+  Known appointments and tournament9–25October/stage9–23October do not define
+  that period. Prepare exact YCS_CAPTAIN_WINDOWS_JSON only after this answer;
+  settings access/activation still needs the existing owner route. Chat and
+  viewing are not blocked by missing windows; new agreement is correctly
+  blocked. Do not invent periods or request placeholder results.
+- Final operation gate: SOURCE/TARGET_PUBLICATION_VERIFIED and
+  PASS_LIVE_AUTHENTICATED_READ_OBSERVATION, not fullcabinetREADY. Genuine
+  signed captain entry/chat/two-party consent, future public updates,
+  concurrent CAS and version/backup/Object Lock retention remain NOT_VERIFIED.
+  Evidence: captain-authenticated-results-publication-receipt.json,
+  captain-runtime-after-authresults-main-2.json and the independent
+  captain-integration-qa/authresults-* qualification/correlation ledgers.
+
 
 
 ## Completed release — home-content-parity-1, 09.10.2026

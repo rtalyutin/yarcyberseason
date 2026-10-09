@@ -62,11 +62,28 @@ epoch, не удаляя переписку. Старый `expectedChatEpoch` д
 заявка о результате остаётся доступной. Чтение переписки не меняет её состояние.
 
 `GET /api/orgs/captains` после существующего bearer login →
-`{revision,teams:[{id,name}],bindings:[{teamId,username,linked:boolean}],
+`{revision,assignmentVersion:1,bindingVersions:{[teamId]:string|null},teams:[{id,name}],bindings:[{teamId,username,linked:boolean,version:string}],
 matches:MatchDetail[]}`. `POST` туда же:
-`{requestId,expectedRevision,teamId,username}`; `username:null` отзывает доступ.
+`{requestId,expectedRevision,expectedBindingVersion,teamId,username}`; `username:null` отзывает доступ.
+При `assignmentVersion:1` форма передаёт `bindingVersions[teamId]`, включая
+версию отозванного назначения. Сервер сравнивает только назначение этой команды:
+сообщение в чате, подтверждение аккаунта или изменение другой команды не мешают
+сохранению. Конкурирующая правка той же команды, в том числе назначение и
+последующий отзыв, даёт `conflict`. Старые клиенты без `expectedBindingVersion`
+сохраняют проверку общего `expectedRevision`. Повтор после timeout использует
+исходное тело и requestId; проверка receipt предшествует проверке версии.
 Ответ — тот же DTO, но `messages:[]`, `chatEpoch:null`: переписка доступна только
 двум капитанам, не организатору и не на публичных страницах.
+
+09.10.2026 организатор поручил внести список всех 16 капитанов. Серверный
+`backend/captain-roster-import.mjs` закрепляет точные stable teamIds и
+нормализованные Telegram-ники. Tg-mcp передаёт его в существующий сервис.
+Весь список записывается одной зашифрованной CAS-транзакцией с долговечным
+receipt импорта. Повторный запуск не отменяет последующие назначения/отзывы;
+совпавший ник сохраняет подтверждённый userId. Чаты, согласованное время и
+заявки на результат сохраняются. Правила сброса неподтверждённого согласия при
+смене капитана действуют и при импорте. Публичные данные турнира не содержат
+список капитанов. Схема хранилища остаётся v3; новые env не нужны.
 
 Коды: `unauthorized`, `forbidden`, `not_found`, `invalid_request`,
 `conflict`, `idempotency_conflict`, `chat_reset`, `captain_not_configured`,

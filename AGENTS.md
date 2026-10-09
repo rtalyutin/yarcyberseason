@@ -12,6 +12,15 @@
   bucket change; existing menu/modules/static remain unchanged. Details in
   current TASK_STATE supersede the prior missing-CORS observation below.
 
+- October 9 organizer saving correction: Roman reports failed captain saves
+  and explicitly supplies all16 Telegram assignments. Repair per-team
+  optimistic concurrency, retaining conflicts for simultaneous edits of the
+  same team including revoked/absent ABA. Import this approved roster once
+  into existing encrypted S3 state; later organizer edits/revocations survive
+  restarts. Preserve private chat, agreements, result claims, other data and
+  both /org aliases. No public tournament contact fields or bot messages.
+  Publish through the existing source/backend main and verify target runtime.
+
 - October 9 authenticated Serverless publication (16:53–17:10 MSK): Roman
   delegated CLI execution and supplied the CLI credential. Bot identity is
   verified by sdk.getMe: 8672463486 / @YarCyberSeason_bot. Targeted three-module

@@ -40,10 +40,11 @@ export default function OrganizerCaptains({ token, api, onSessionExpired }) {
   const readRequest = useRef(null);
   const writeRequest = useRef(null);
   const writing = useRef(false);
+  const draftVersions = useRef({});
   const expired = useRef(onSessionExpired);
   expired.current = onSessionExpired;
 
-  const load = useCallback(async ({ preserveError = false } = {}) => {
+  const load = useCallback(async ({ preserveError = false, rebaseTeam = null } = {}) => {
     if (!active.current || writing.current) return;
     readRequest.current?.abort();
     const controller = new AbortController();
@@ -54,6 +55,7 @@ export default function OrganizerCaptains({ token, api, onSessionExpired }) {
       const result = await api('captains', { token, signal: controller.signal });
       if (active.current && readRequest.current === controller && !controller.signal.aborted) {
         setData(result);
+        if (rebaseTeam) delete draftVersions.current[rebaseTeam];
         if (!preserveError) setError('');
       }
     } catch (failure) {
@@ -89,10 +91,12 @@ export default function OrganizerCaptains({ token, api, onSessionExpired }) {
     const timeout = window.setTimeout(() => controller.abort(), 20_000);
     setSaving(true); setLoading(false); setError(''); setNotice(''); setRetry(body);
     let reread = false;
+    let rebaseTeam = null;
     try {
       const result = await api('captains', { token, body, signal: controller.signal });
       if (!active.current || controller.signal.aborted) return;
       setData(result); setRetry(null);
+      delete draftVersions.current[body.teamId];
       setDrafts((previous) => { const next = { ...previous }; delete next[body.teamId]; return next; });
       setNotice(body.username === null ? 'Доступ капитана отозван.' : 'Капитан сохранён. После входа ему будет доступен кабинет.');
     } catch (failure) {
@@ -100,21 +104,29 @@ export default function OrganizerCaptains({ token, api, onSessionExpired }) {
       if (failure.status === 401) { expired.current(); return; }
       const definite = failure.status >= 400 && failure.status < 500;
       if (definite) setRetry(null);
+      if (failure.code === 'conflict') rebaseTeam = body.teamId;
       setError(definite ? failure.message : `${failure.name === 'AbortError' ? 'Сервис не ответил вовремя.' : failure.message} Результат сохранения неизвестен. Повторите запрос: дубль не появится.`);
       reread = true;
     } finally {
       window.clearTimeout(timeout);
       writing.current = false; writeRequest.current = null;
-      if (active.current) { setSaving(false); if (reread) load({ preserveError: true }); }
+      if (active.current) { setSaving(false); if (reread) load({ preserveError: true, rebaseTeam }); }
     }
   }
 
   function submit(event, teamId) {
     event.preventDefault();
-    if (!data || retry || writing.current) return;
+    if (!data || loading || retry || writing.current) return;
     const username = usernameValue(drafts[teamId] ?? data.bindings.find((binding) => binding.teamId === teamId)?.username ?? '');
     if (!/^[a-z0-9_]{1,32}$/.test(username)) { setError('Введите Telegram-ник: до 32 латинских букв, цифр и подчёркиваний.'); return; }
-    save({ requestId: crypto.randomUUID(), expectedRevision: data.revision, teamId, username });
+    save(assignmentBody(teamId, username));
+  }
+  function assignmentBody(teamId, username) {
+    return { requestId: crypto.randomUUID(), teamId, username, ...assignmentVersion(teamId) };
+  }
+  function assignmentVersion(teamId) {
+    return draftVersions.current[teamId] ?? { expectedRevision: data.revision,
+      ...(data.assignmentVersion === 1 ? { expectedBindingVersion: data.bindingVersions[teamId] } : {}) };
   }
   const matches = (data?.matches || []).filter((detail) => filter === 'all' || (filter === 'pending' ? detail.proposal && detail.proposal.confirmedTeamIds.length < 2 : detail.resultClaims.length > 0));
 
@@ -131,8 +143,8 @@ export default function OrganizerCaptains({ token, api, onSessionExpired }) {
           const dirty = usernameValue(value) !== (binding?.username || '');
           return <form key={team.id} className="orgs-captain-row" onSubmit={(event) => submit(event, team.id)}>
             <div className="orgs-captain-team"><strong>{team.name}</strong><small>{binding?.username ? binding.linked ? 'Аккаунт подтверждён входом' : 'Ожидает первого входа' : 'Капитан не назначен'}</small></div>
-            <label><span>Telegram-ник · {team.name}</span><input name="username" aria-label={`Telegram-ник капитана ${team.name}`} placeholder="@username" autoComplete="off" autoCapitalize="none" spellCheck={false} maxLength={33} value={value} disabled={saving || Boolean(retry)} onChange={(event) => { setDrafts((previous) => ({ ...previous, [team.id]: event.target.value })); setNotice(''); }} /></label>
-            <div className="orgs-captain-actions"><button type="submit" disabled={!dirty || !usernameValue(value) || saving || Boolean(retry)}>Сохранить</button><button type="button" disabled={!binding?.username || saving || Boolean(retry)} aria-label={`Отозвать доступ капитана ${team.name}`} onClick={() => save({ requestId: crypto.randomUUID(), expectedRevision: data.revision, teamId: team.id, username: null })}>Отозвать</button></div>
+            <label><span>Telegram-ник · {team.name}</span><input name="username" aria-label={`Telegram-ник капитана ${team.name}`} placeholder="@username" autoComplete="off" autoCapitalize="none" spellCheck={false} maxLength={33} value={value} disabled={saving || Boolean(retry)} onChange={(event) => { draftVersions.current[team.id] ??= assignmentVersion(team.id); setDrafts((previous) => ({ ...previous, [team.id]: event.target.value })); setNotice(''); }} /></label>
+            <div className="orgs-captain-actions"><button type="submit" disabled={!dirty || !usernameValue(value) || loading || saving || Boolean(retry)}>Сохранить</button><button type="button" disabled={!binding?.username || loading || saving || Boolean(retry)} aria-label={`Отозвать доступ капитана ${team.name}`} onClick={() => save(assignmentBody(team.id, null))}>Отозвать</button></div>
           </form>;
         })}</div>
       </section>

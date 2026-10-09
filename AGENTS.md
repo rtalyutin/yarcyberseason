@@ -1,5 +1,14 @@
 # Current Telegram scope
 
+- October 9 homepage release: Roman explicitly says «Отправляй. Не забывай
+  что миниапп - серверлесс», then repeats «отправляй». Publish the shared
+  homepage content to the existing source main AND the existing Telegram
+  Serverless static host. Preserve server modules, serving config, backend,
+  bot menu and S3. Source c25867c/tree6ebf17 is published; static revision3→4
+  has433files with exact manifest. Independent API/HTTP checks and the actual
+  browser home/matches/archive navigation are verified. Genuine Telegram and
+  mobile acceptance are still unverified. See current home-content TASK_STATE.
+
 - October 9 homepage content parity: Roman specifies the Telegram Mini App,
   whose home must carry the same content as the website with its own Rift
   presentation. Both homes consume src/data/home-content.js and the shared

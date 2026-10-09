@@ -96,7 +96,7 @@ test('table preserves slots, unknown years, technical results, scoped assignment
   assert.equal(filterOrganizerRows(archive.rows, { round: 'archive/groups/Тур 1' }).length, 1);
 });
 
-test('production JSON supplies every tournament and truthful opening assignments without inferred casters/links', async () => {
+test('production JSON supplies every tournament and the organizer-confirmed opening broadcast and caster', async () => {
   const model = await createOrganizerDataSource({ fetcher: async () => ({ status: 404 }) })();
   assert.equal(model.tournaments.length, 5);
   const sourceIds = new Set();
@@ -108,7 +108,7 @@ test('production JSON supplies every tournament and truthful opening assignments
   assert.deepEqual(new Set(model.rows.map((r) => r.key)), sourceIds);
   const opening = model.rows.find((r) => r.id === 'dota-autumn-swiss-r1-04');
   assert.equal(opening.broadcast.planned, true);
-  assert.equal(opening.broadcast.url, null);
-  assert.deepEqual(opening.casters, []);
+  assert.equal(opening.broadcast.url, 'https://www.twitch.tv/yarcyberseason');
+  assert.deepEqual(opening.casters, [{ name: '@queleez', role: null, url: 'https://t.me/queleez' }]);
   assert.deepEqual(opening.partners.map((p) => p.name), ['Small Choice', 'Искусство Ритма']);
 });

@@ -88,9 +88,11 @@ and Пряничный домик belong to the final fixture `final-1`.
 
 Eight other agreed partners have no exact match assignment in the register;
 they are not attached to arbitrary matches or presented as tournament-wide
-support. Caster names and channel selection remain unconfirmed; the UI retains
-«Не назначены»/«Ссылка не назначена». No credentials or contact details from
-the register are copied to the table.
+support. Roman confirmed @queleez and Twitch/VK YarCyberSeason for the opening
+fixture on 9 October 2026 at 20:30 Moscow time. The tournament JSON supplies
+these assignments; other matches keep «Не назначены»/«Ссылка не назначена»
+unless separately confirmed. No credentials or contact details from the
+partner register are copied to the table.
 
 Published empty bracket slots remain visible with unknown participants/status.
 Undated matches and archive dates without a year remain unknown. Exact

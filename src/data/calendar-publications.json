@@ -2,6 +2,63 @@
   "schemaVersion": 1,
   "records": [
     {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-01",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-01@ycs.bar",
+      "start": "2026-10-10T20:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-august-2026-psb-bank",
+        "dota2-autumn-2026-parallax-team"
+      ],
+      "publishedTeamIds": [
+        "cs2-august-2026-psb-bank",
+        "dota2-autumn-2026-parallax-team"
+      ],
+      "summary": "psb_bank — Parallax Team · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-01",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-09T15:30:40.096Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-02",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-02@ycs.bar",
+      "start": "2026-10-10T22:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-easy-gaming",
+        "dota2-autumn-2026-team-leto"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-easy-gaming",
+        "dota2-autumn-2026-team-leto"
+      ],
+      "summary": "Easy Gaming — Team Leto · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-02",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-09T15:30:40.096Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-03",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-03@ycs.bar",
+      "start": "2026-10-10T10:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-aegis-guardians",
+        "dota2-main-2026-tech-titans"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-aegis-guardians",
+        "dota2-main-2026-tech-titans"
+      ],
+      "summary": "Aegis Guardians — Tech Titans · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-03",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-09T15:30:40.096Z"
+    },
+    {
       "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-04",
       "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-04@ycs.bar",
       "start": "2026-10-09T20:30:00+03:00",
@@ -19,6 +76,63 @@
       "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
       "revision": 0,
       "updatedAt": "2026-09-30T08:05:18.318Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-06",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-06@ycs.bar",
+      "start": "2026-10-10T19:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-august-2026-pivnaya-kega",
+        "dota2-autumn-2026-4fans"
+      ],
+      "publishedTeamIds": [
+        "cs2-august-2026-pivnaya-kega",
+        "dota2-autumn-2026-4fans"
+      ],
+      "summary": "TEAM SPERMINT — PIVNAYA KEGA · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-06",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-09T15:30:40.096Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-07",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-07@ycs.bar",
+      "start": "2026-10-10T19:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-vnext",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-vnext",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "summary": "Mi Ne Pushim! — Vnext · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-07",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-09T15:30:40.096Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-08",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-08@ycs.bar",
+      "start": "2026-10-10T21:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-fummo",
+        "dota2-main-2026-way-prod"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-fummo",
+        "dota2-main-2026-way-prod"
+      ],
+      "summary": "WAYPROD. — Fummo · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-08",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-09T15:30:40.096Z"
     }
   ]
 }

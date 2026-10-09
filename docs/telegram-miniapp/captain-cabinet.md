@@ -118,8 +118,9 @@ GET в существующем bucket; права записи должны о�
 `ACL:private` и `Cache-Control:no-store` — дополнительные меры.
 Неподтверждённое окно блокирует запись времени, но не чтение и чат.
 
-Serverless endpoints доступны на собственном host Telegram. Их наличие у
-`@YarCyberSeason_bot` пока не проверено. Роман разрешил публикацию кабинета
+Serverless endpoints доступны на собственном host Telegram. Endpoint `captain`
+для `@YarCyberSeason_bot` опубликован 09.10; id8672463486 проверен sdk.getMe.
+Роман разрешил публикацию кабинета
 09.10 в 15:10 МСК; перенос URL Mini App разрешён ранее только при сохранении
 всего текущего контента и его проверке до переключения. Новых ресурсов нет.
 Код и локальные проверки не подтверждают работу Telegram/S3 в production.
@@ -186,8 +187,27 @@ CLI `@tgcloud/cli` 0.2.0 поддерживает адресный push: из к
 Проверка настоящим CLI выявила, что прежний `serverless/tgcloud.json` с
 `static.source=../dist/client` недопустим: static source должен лежать внутри
 проекта. Конфигурация и три модуля перенесены в корень; их JS-код сохранён
-побайтово. CLI status теперь читает модули и static без ошибки, но сообщает
-об отсутствии связи с ботом. Это локальная проверка, не публикация endpoint.
+побайтово. После предоставления CLI доступа выполнены authenticated fetch,
+адресный push трёх модулей revision0→1 и static-only push revision1→2.
+Токен в git не включён. Remote readback и независимая проверка подтверждают
+точные байты3модулей и всей сборки419файлов/28,400,846байт.
+
+Фактический новый host — `https://app8672463486.tgcloud.ai/`. Проверены23
+публичные страницы/ресурса с HTTP200 и точными байтами; браузер открывает
+Mini App и анонимное сообщение входа в кабинет. Backend Tg-mcp теперь
+сообщает enabled=true/configured=true/CAPTAIN_STARTED; collector остаётся
+включённым. Эти наблюдения не подтверждают настоящий Telegram-вход,
+переписку, согласование, production CAS или политику удаления всех копий.
+
+Прежний default-menu URL `/tg` на основном домене сохранён. Условное
+переключение заблокировано: для нового Origin публичные results/MVP S3
+ответы не содержат Access-Control-Allow-Origin. Для обоих Origins получен403;
+причина ответа и существование объектов этим не устанавливаются. Требуется
+добавить `https://app8672463486.tgcloud.ai` в Allowed Origins текущего bucket
+(Timeweb→S3→Настройки→CORS→Изменить), сохранив остальные origins/methods/headers,
+и проверить реальные ответы динамических данных до изменения URL. CLI токен
+Telegram не даёт доступа к настройкам Timeweb S3. Подробный свежий журнал —
+[STATE.md](STATE.md); прежние missing-access/disabled observations исторические.
 
 Основания интеграции: [Telegram Serverless](https://core.telegram.org/bots/serverless),
 [проверка initData третьей стороной](https://core.telegram.org/bots/webapps#validating-data-for-third-party-use),

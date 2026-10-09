@@ -2,6 +2,67 @@
 
 ## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
 
+### TASK_STATE — Telegram publication, 09.10.2026 17:10 МСК
+
+- Explicit authority: 16:53 МСК «Нет, я токен тебе дам, а ты уже действуешь»;
+  CLI credential supplied16:56. Ранее разрешён выпуск кабинета и условный
+  перенос URL с сохранением всего контента. Контракт API v3/contract-5,
+  Tg-mcp, текущий bucket, один collector и отсутствие bot messages сохранены.
+- Deployed input: source main `7180a1fe8b001bfc0f35dd0e4376be517c135cf7`,
+  tree `f1bd9ffcf9647295aa7aeb74f83b03046cbbabcf`; target main
+  `19f936bd39c95f7ee3ee30db7f5ff56814cc2cfb` unchanged. Root config correction
+  остаётся действующей. Credentials находятся только в ignored CLI storage;
+  токен не включён в git, сборку, документы или QA snapshots.
+- Fresh live baseline13:58:01–13:58:11 UTC: captain1.0.0/source d604497…/
+  fingerprint5a6af64f… enabled=true/configured=true/CAPTAIN_STARTED/idle,
+  attempts22/error=null; lastSuccess13:58:00.049Z. Collector enabled=true/
+  configured=true/YCS_STARTED/waiting, fingerprint309cbe… unchanged,
+  pendingMaps0. Это runtime readback, не самостоятельный S3 CAS/retention test.
+- Actual @tgcloud/cli0.2.0 authenticated fetch established app8672463486,
+  revision0/modules empty/static null. Transient sdk.getMe verified numeric
+  bot8672463486 and @YarCyberSeason_bot. Helper endpoint не публиковался.
+- Targeted push only `endpoints/captain`, `lib/captain-relay`, `lib/config`:
+  operation_status=SUCCEEDED, evidence_status=VERIFIED, revision0→1.
+  Remote readback14:03:54.250Z and independent comparison14:04:49.199Z:
+  exact3modules/sourcebytes; no unexpected handler/module; static unchanged.
+- Static-only push `dist/client`: SUCCEEDED/VERIFIED, revision1→2, remote
+  readback14:07:21.815Z. Actual URL https://app8672463486.tgcloud.ai/.
+  All419 paths/hash/size match:28,400,846 bytes, canonical manifest SHA256
+  `10b4aa151110593a4e6416a67bfd6d0f323b349fcaa73bd8bd5384a77c7444ba`;
+  platform hash `98344ebbebef9a178a2eab01959b95a4af517f262023fac5a5167338e0f629e8`.
+  SPA=true, Referrer-Policy=no-referrer; all3modules unchanged. Static gate PASS.
+- Independent new-host23GETs14:09:50–14:10:32 UTC: current tournament and
+  four archives, representative linked team/roster pages, home/next, /org,
+  /orgs, /tg routes and criticalJS/CSS/images all200/exactbytes/MIME correct.
+  Root browser `/tg/tournament?section=captain` loads autumn16-team Mini App
+  and captain anonymous entry requirement; no private content shown. This
+  proves public loading, not a genuine signed Telegram/captain workflow.
+- Runtime negative check on exact canonical module bytes through actual cloud
+  sdk.fetch rejects forged initData with unauthorized. Public backend empty
+  identity returns401/no-store. No accepted application/S3 mutation performed.
+- CAP-HOST-CONTENT-1 dynamic gate FAIL/BLOCKED: independent six public S3GETs
+  14:09:08–14:09:32 UTC cover spring MVP, autumn results and autumn MVP with
+  old and new Origins. All403AccessDenied; old responses allow existing
+  origin, all new-origin responses lack Access-Control-Allow-Origin. Cause
+  of403/unavailable readable404 is unverified; do not infer data loss or
+  that the old browser behaves identically. Bundled fallback is not proof
+  that dynamic updates work. Static/module PASS does not close this gate.
+- Default getChatMenuButton still reads text Miniapp and original website
+  `https://xn--90aiaibl0ahlel5n.xn--p1ai/tg`. No menu/Main Mini App URL,
+  webhook, schema, Timeweb env or S3 configuration was changed by this turn.
+  Telegram CLI credential grants no Timeweb/S3 settings access; no callable
+  bucket-settings tool is available and Timeweb browser is unavailable.
+- Next dependency: existing bucket→Настройки→CORS→Изменить, add Allowed Origin
+  `https://app8672463486.tgcloud.ai` without path/trailing slash, preserving
+  current origins/methods/headers. Recheck the same public objects and browser
+  data behavior before authorized default-menu URL switch to new-host /tg.
+  Do not invent match windows or change public object policy/ACL to bypass403.
+- Still unverified: genuine signed Telegram entry, assignment/chat/two-captain
+  consent on production, real S3 CAS/write, versions/backups/Object Lock
+  retention. Root owns state; separate QA independently verified the exact
+  deployment and dynamic-origin blocker. Earlier disabled/no-CLI/undeployed
+  observations below are historical and superseded by this fresh readback.
+
 - Выпуск кабинета, 15:10 МСК: «Теперь давай кабинет капитана выложим также».
   Разрешена публикация ранее согласованного captain-cabinet-5/API v3 на
   существующей инфраструктуре: backend Tg-mcp рядом с уже включённым

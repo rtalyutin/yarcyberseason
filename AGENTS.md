@@ -1,5 +1,27 @@
 # Current Telegram scope
 
+- October 9 authenticated Serverless publication (16:53–17:10 MSK): Roman
+  delegated CLI execution and supplied the CLI credential. Bot identity is
+  verified by sdk.getMe: 8672463486 / @YarCyberSeason_bot. Targeted three-module
+  deployment revision0→1 and static-only deployment revision1→2 succeeded;
+  exact remote bytes match source main7180a1fe / treef1bd9ffc. Actual host is
+  https://app8672463486.tgcloud.ai/. Independent QA verifies all419 static
+  files (28,400,846 bytes), unchanged modules, and23 public page/asset GETs.
+  Fresh backend readback shows captain enabled/configured, CAPTAIN_STARTED;
+  collector remains enabled/configured, same309cbe… fingerprint. This
+  supersedes the earlier missing-credential/disabled/undeployed observations.
+  Default menu still points to the existing website /tg: conditional switch
+  is BLOCKED because S3 does not return CORS permission for the new origin.
+  The three public results/MVP objects return403 for both compared origins;
+  underlying object/policy cause is unverified. Do not claim data loss or
+  dynamic-data readiness. Need add the exact new origin to existing bucket
+  CORS, preserve prior origins, and independently recheck public responses
+  before switching. Telegram CLI access does not grant Timeweb/S3 settings
+  access. Genuine signed captain entry/chat/consent, production S3 CAS and
+  version/backup/Object Lock retention remain unverified. No bot messages,
+  webhook/schema changes or helpers published; credential stays ignored and
+  server/local only. See current TASK_STATE in docs/telegram-miniapp/STATE.md.
+
 - October 9 captain publication (15:10 MSK): Roman instructs publishing the
   captain cabinet also. Publish the accepted API v3/contract-5 on the existing
   Tg-mcp backend, preserving the now-enabled match collector, and the prepared

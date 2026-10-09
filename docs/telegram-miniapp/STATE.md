@@ -17,11 +17,34 @@
   (tree `177a07f50a1166b595688c62110f170b972290db`) и yarcyberseason
   `726e6b73d517319679bff3d7947033546b3952c6`
   (tree `fdcefd3caefd2eff355c5f6eea4ef9a7dcf08fa0`), изменений после них нет.
-  Stage implementation IN_PROGRESS: отдельный awaitable API hook на текущем
+  Stage implementation SUCCEEDED: отдельный awaitable API hook на текущем
   listener, один captain service для API/organizer/cleanup, fail closed
   `YCS_CAPTAIN_ENABLED` default false, без запуска source backend/server.
   Source wiring — известный публичный Tg-mcp URL для /org и Serverless relay.
-  Затем exact-candidate QA → existing CI/publication → runtime readback.
+  Независимая проверка 29/29 PASS без skips: service/assets 16, реальный
+  compiled runtime/HTTP/lifecycle 10, frontend/relay wiring 3. Author check,
+  build и regression PASS. Target main опубликован:
+  `19f936bd39c95f7ee3ee30db7f5ff56814cc2cfb`, tree
+  `df78e1e9d4ffe9b1183272c69869019f715cd6a8`; PR45 и existing CI run
+  `37929977671`/job `113818027720` SUCCESS во всех stages. Source main:
+  `706856e1c903f1274a1d93c017a7b848383393ec`, tree
+  `d3136f46a623fcddd5ee3033ea42cc1be1f31ecf`. Guarded nonforce publication
+  VERIFIED; env, S3, BotFather и cloud Serverless не менялись.
+  Независимый live readback 12:32:46–12:33:08 UTC: /healthz и оба status
+  endpoint HTTP200/no-store. Captain version1.0.0/source d604497…/fingerprint
+  `5a6af64ff8fab7e1c92452b1e2fac28cc2da883ff6957b770bdbdfdbeaf407e1`,
+  CAPTAIN_DISABLED, enabled=false/configured=false/attempts0. Disabled status
+  не доказывает отсутствие секретов. Collector enabled=true/configured=true,
+  YCS_STARTED/waiting, прежний fingerprint309cbe…, pendingMaps0. Backend
+  deployment VERIFIED; frontend deployment readback ещё OPEN.
+  Actual CLI @tgcloud/cli0.2.0 выявил ошибку static.source=../dist/client в
+  serverless/tgcloud.json. Correction local3021138a401dbce619c3d091bbb9d726d3c2a800
+  переносит config и три byte-identical JS в root tgcloud/, static.source
+  теперь dist/client. Offline CLI status exit0 без validation error; bot
+  unlinked. Author build/tests PASS, 419 web files byte-identical при одном
+  buildGeneratedAt. Correction gate IN_PROGRESS: прежние независимые 26
+  backend/service cases остаются применимы, три wiring cases повторяются на
+  exact corrected freeze плюс реальный CLI; затем source-only publication.
   Activation gates OPEN: numeric bot id, AES key, organizer credentials,
   Serverless CLI/project access, реальные S3 CAS/write и политика
   versions/backups/Object Lock. Окна игр не выдумывать: без подтверждённого

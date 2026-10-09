@@ -6,6 +6,6 @@ if (target.protocol !== 'https:' || target.username || target.password || target
     target.hash || target.pathname !== '/api/captain') {
   throw new Error('YCS_CAPTAIN_SERVICE_URL must be an HTTPS /api/captain URL without credentials or query.');
 }
-await writeFile(new URL('../serverless/tgcloud/lib/config.js', import.meta.url),
+await writeFile(new URL('../tgcloud/lib/config.js', import.meta.url),
   `// Public service address, generated for the selected release.\nexport const captainServiceUrl = ${JSON.stringify(target.href)};\n`);
 console.log('Captain Serverless service address prepared; nothing deployed.');

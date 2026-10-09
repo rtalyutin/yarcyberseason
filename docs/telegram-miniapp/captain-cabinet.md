@@ -1,7 +1,7 @@
 # Кабинет капитана: рабочий контракт
 
-Статус: подготовка разрешённого выпуска на существующий Tg-mcp (09.10, 15:10
-МСК), доступ капитанов ещё не включён. Основание: §15
+Статус: код опубликован на существующий Tg-mcp, версия backend подтверждена
+live readback 09.10.2026, 15:33 МСК; доступ капитанов ещё не включён. Основание: §15
 `YarCyberSeason-Telegram-MiniApp-TZ.md` и уточнения Романа в текущем разговоре.
 
 **Актуальная поправка, 09.10.2026, 08:19 МСК:** «После окончания матча удаляем».
@@ -164,13 +164,13 @@ envelope ограничен отдельно с учётом Base64. Превы�
 
 Подготовка локального Serverless-кандидата после выбора target:
 `node scripts/prepare-captain-serverless.mjs` затем `npm run build`.
-Скрипт записывает только публичный URL в `serverless/tgcloud/lib/config.js`.
-`serverless/tgcloud.json` ссылается на `dist/client`; путь открытия Mini App —
+Скрипт записывает только публичный URL в `tgcloud/lib/config.js`.
+Корневой `tgcloud.json` ссылается на `dist/client` внутри проекта; путь открытия Mini App —
 `/tg`, приватный кабинет — `/tg/tournament?section=captain`.
 Пустой URL по умолчанию означает отказ, не скрытый альтернативный backend.
 Endpoint не импортирует Node/npm и не вызывает Bot API.
 
-CLI `@tgcloud/cli` 0.2.0 поддерживает адресный push: из `serverless/`
+CLI `@tgcloud/cli` 0.2.0 поддерживает адресный push: из корня репозитория
 `tgcloud push tgcloud/endpoints/captain.js tgcloud/lib/captain-relay.js tgcloud/lib/config.js`.
 Он сохраняет другие облачные модули. До операции получить выбранный проект
 бота через штатный login/fetch и сверить revision; force не использовать.
@@ -182,6 +182,12 @@ CLI `@tgcloud/cli` 0.2.0 поддерживает адресный push: из `s
 в разрешённой среде. Политику публичных результатов не менять ради кабинета.
 Токен CLI Serverless хранится только штатно вне git; он не нужен браузеру.
 Текущая публикация на основном домене этим кодом не изменена.
+
+Проверка настоящим CLI выявила, что прежний `serverless/tgcloud.json` с
+`static.source=../dist/client` недопустим: static source должен лежать внутри
+проекта. Конфигурация и три модуля перенесены в корень; их JS-код сохранён
+побайтово. CLI status теперь читает модули и static без ошибки, но сообщает
+об отсутствии связи с ботом. Это локальная проверка, не публикация endpoint.
 
 Основания интеграции: [Telegram Serverless](https://core.telegram.org/bots/serverless),
 [проверка initData третьей стороной](https://core.telegram.org/bots/webapps#validating-data-for-third-party-use),

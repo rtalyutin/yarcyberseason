@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createCaptainRelay } from '../serverless/tgcloud/lib/captain-relay.js';
+import { createCaptainRelay } from '../tgcloud/lib/captain-relay.js';
 
 class EndpointError extends Error {
   constructor(message, parameters) { super(message); this.parameters = parameters; }

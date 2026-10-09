@@ -9,6 +9,14 @@
   real S3 CAS/retention policy and actual Serverless deployment. The earlier
   conditional Mini App URL permission still requires content verification
   before switching. Distinguish published disabled code from active cabinet.
+  Tg-mcp main 19f936bd39c95f7ee3ee30db7f5ff56814cc2cfb is published;
+  existing CI passed and independent live readback confirms captain payload
+  5a6af64f… disabled while the collector remains enabled/configured. Source
+  main 706856e1c903f1274a1d93c017a7b848383393ec is published. The real CLI
+  rejected serverless/tgcloud.json static.source=../dist/client; correction
+  3021138 moves tgcloud.json and all three modules to the repository root,
+  using dist/client. Push only the selected modules after project revision
+  readback; preserve other bot modules. CLI status is not endpoint deployment.
 
 - October 9 collector relocation (13:57 MSK): Roman explicitly instructs
   moving the match collector to Tg-mcp. This supersedes the earlier prohibition

@@ -78,14 +78,19 @@ network failures retain the last displayed snapshot with an explicit notice.
 
 `backend/organizer-assignments.json` stores source-backed operational assignments
 keyed by `tournamentId/matchId`; it is server-side only. A tournament-wide partner
-is displayed separately from a partner of the particular match. Current opening
-assignments restore Small Choice and «Искусство Ритма» from
-`YCS-Partners-2026-10-03.xlsx`, version last modified 6 October 2026, whose rows
-record Roman's confirmation for the opening match on 30 September. The opening
-fixture is the explicitly selected broadcast `dota-autumn-swiss-r1-04`.
-The YCS-MCP registry was unavailable during reconstruction. Other match partner
-assignments, caster names and channel selection have not been reconstructed;
-the UI shows «Не назначены»/«Ссылка не назначена», without guessing.
+is displayed separately from a partner of the particular match. Assignments were
+synchronized with `YCS-Partners-2026-10-03-1.xlsx`, version 3 updated 9 October
+2026: tournament-wide support is ФКС ЯО, Минспорта ЯО, Додо Пицца, Торрефакто
+and Redragon (top-three awards; devices and quantities remain unconfirmed).
+Small Choice and «Искусство Ритма» belong to the opening broadcast fixture
+`dota-autumn-swiss-r1-04`. Картинг-клуб Форсаж, Музей Гарри Поттера в Ярославле
+and Пряничный домик belong to the final fixture `final-1`.
+
+Eight other agreed partners have no exact match assignment in the register;
+they are not attached to arbitrary matches or presented as tournament-wide
+support. Caster names and channel selection remain unconfirmed; the UI retains
+«Не назначены»/«Ссылка не назначена». No credentials or contact details from
+the register are copied to the table.
 
 Published empty bracket slots remain visible with unknown participants/status.
 Undated matches and archive dates without a year remain unknown. Exact

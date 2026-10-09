@@ -1,6 +1,54 @@
 # Telegram Mini App — состояние проекта
 
-## ACTIVE_CONTRACT — home-content-parity-1, 09.10.2026
+## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
+
+### TASK_STATE — current content, menu and roster verified, 09.10.2026 19:25 МСК
+
+- Owner correction18:22: «да никто файл не создавал. вот и все». Results JSON
+  were not created; screenshot18:19 shows results/_checks rather than the
+  requested snapshots.403 is not proof of lost existing content or wrong ACL.
+  Withdraw the assistant-added prerequisite requiring future results files.
+  No placeholders, manual private writes, second writer or broad public ACL.
+- Original current-content condition PASS. One default-menu setChatMenuButton
+  on bot8672463486/@YarCyberSeason_bot, app8672463486, points Miniapp to
+  https://app8672463486.tgcloud.ai/tg. Immediate15:28:44Z readback was old,
+  recorded UNKNOWN; no repeated mutation. Separate15:29:23Z GET and independent
+  QA confirm new URL. Main profile URL/per-chat overrides not changed/verified.
+- Root static-only source546 deployment revision2→3 was independently verified
+  with419files. The later approved home-parity release supersedes it: fresh
+  cloud GET16:21:43Z revision4 matches all433files/30,067,451 bytes to frozen
+  c25867/a116 artifact, bundle27dd20776d263b22335b9ba54add257e791737f97f95ecfd3ffb0f64b2ea435b,
+  canonicalmanifest552c9bf9aee4ae10385bb758c02d45fc7cbbed97828c37da4ab2bc88730b19f1.
+  All3canonicalmodulebytes, servingconfig and new default-menu retained;
+  all80calendarbytes and17sourceJSON preserved. Independent20HTTP response
+  receipt16:09:28–16:09:55Z remains correlated with the exact artifact. Current
+  QA gate PASS_CURRENT_STATIC_AND_RUNTIME_OBSERVATION, not full READY.
+- Fresh16:21:41Z runtime: target5c87074836a184d2507d1f1fe7bb0bcf29ac43d4,
+  source985cb358348a199e7a3c24c93c5adcd5a0c87677,
+  captainFPca1d5b80be458df60eabe85614ac90fd5b20bc3bae3e03cbda1ba7e152326d83;
+  enabled/configured,CAPTAIN_STARTED,idle,errornull; rosterImport applied16,
+  revision2. Published ETag compatibility preserves conditional writes;
+  the later fresh readback reports the import applied with no error. Provider
+  root cause remains unverified. This is positive import/runtime
+  evidence, not full concurrent CAS, message or deletion acceptance.
+- Collector remains source54628232/FPf41b3eb013f39adcab03165f1bd905dd8a2592d762f0673b1b160e0cf8b5b5d1,
+  enabled/configured,YCS_STARTED,waiting. Its files/manifest were not changed
+  by root. Preserve home parity, /org correction, approved roster and calendar.
+- Proposed old diagnostic source6/target4 candidates passed narrow local QA
+  but were NOT_PUBLISHED: freshheadguard found sourcea116/target5c before any
+  mutation. They overlap the newer ETag/store/home/docs changes and are STALE.
+  Do not overwrite newer store/runtime/test/manifest or equate the separately
+  pinned captain and collector sourceRevision values.
+- Next authorized correction: server authenticated GetObject for the existing
+  results key distinguishes NoSuchKey before the first snapshot from actual
+  read errors; keep denial/corruption fail-closed, cached snapshots, windows
+  and time cutoff. This is separate PREPARED work, not yet production evidence.
+  Missing or invalid windows cannot be inferred from configured:true. Actual
+  signed captain entry/chat/two-party consent, future public updates and
+  version/backup/Object Lock retention remain NOT_VERIFIED.
+
+
+## Completed release — home-content-parity-1, 09.10.2026
 
 Роман поручил совпадение содержания главной Telegram-миниаппа с главной сайта при другом отображении. Уточнение «о тг миниапе)» заменяет первоначальное предположение VK. Сохраняются «Разлом», русский язык, две существующие страницы, кабинет капитана с прежней проверкой доступа, выход/Back и все архивы. Спортивные JSON, расписание, результаты и предыдущие условия выпуска не меняются.
 
@@ -13,11 +61,11 @@
 - Release build PASS; 43/43 targeted tests PASS на объединённом source, включая fresh ETag, home/archive/routes/tournament и static routes. Actual CLI `tgcloud push dist/client` выполнил только static deployment revision3→4 за31.1s. Bundle `27dd20776d263b22335b9ba54add257e791737f97f95ecfd3ffb0f64b2ea435b`, 433 файла/30,067,451 байт. Авторский fresh GET /get подтверждает exact manifest и byte-identical3modules; serving config unchanged. Действующий URL `https://app8672463486.tgcloud.ai/tg`.
 - Независимый `/root/verify_home_parity` fresh readback16:09:28–16:09:55UTC: revision4, весь433-file manifest exact,3modules и serving config сохранены;20/20public GET status/MIME/SHA-256/size PASS (9route URLs,11actual JS/CSS/logos). Это весь manifest плюс20downloaded responses, не загрузка всех433blobs. Отчёт/сырые свидетельства в `/workspace/scratch/5cff6a932f9d/qa-home-parity/release-independent-report.md`, `release-independent-readback.json`, `release-independent-readback.log`.
 - Browser gate: прежний localhost CUA BLOCKED сохранён как история. Опубликованный Serverless /tg теперь фактически открыт в CUA/Chrome: React Mini App загружен, headline/факты/эфир/итоги/архив/партнёры/реквизиты отображаются. Wide1363×936, document width1348=clientWidth1348 (нет page overflow). Выполнены переход «Расписание матчей»→current matches, возврат домой, раскрытие «Все результаты»→четвёртый Dota Qual archive standings, возврат домой. Genuine Telegram initData/captain/Close, мобильная геометрия и динамический S3 этой проверкой не подтверждены.
-- Выпуск содержания на существующий Serverless завершён; operation_status=SUCCEEDED, deployment/exposure=VERIFIED в статическом/browser scope. Меню бота,3cloud-модуля,backend/collector,Timeweb/S3 не изменены. Условие переключения bot menu из прежнего captain contract остаётся BLOCKED; настоящая Telegram/мобильная приёмка и прежние captain/collector gates остаются отдельными. Откат статики: собрать прежний source и выполнить только conditional static push после fresh readback, в пределах разрешённого восстановления; полный push/force не использовать.
+- Выпуск содержания на существующий Serverless завершён; operation_status=SUCCEEDED, deployment/exposure=VERIFIED в статическом/browser scope. Меню бота,3cloud-модуля,backend/collector,Timeweb/S3 не изменены. Переключение default bot menu независимо выполнено в captain release выше; настоящая Telegram/мобильная приёмка и прежние captain/collector gates остаются отдельными. Откат статики: собрать прежний source и выполнить только conditional static push после fresh readback, в пределах разрешённого восстановления; полный push/force не использовать.
 
-## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
+## Historical contract — captain-deploy-6, 09.10.2026
 
-### TASK_STATE — CORS readback, 09.10.2026 17:53 МСК
+### Historical TASK_STATE — CORS readback, 09.10.2026 17:53 МСК
 
 - Роман выбрал ручное изменение CORS вместо передачи Timeweb token или
   добавления server env; обработка TIMEWEB_CLOUD_TOKEN не создавалась.
@@ -40,7 +88,7 @@
 - Screenshot владельца17:55 показывает endpoint https://s3.twcstorage.ru,
   тот же bucket и регионru-1, совпадающие с кодом; Access/Secret Keys скрыты.
   Это connection card, не список объектов: наличие results JSON ещё UNKNOWN.
-- Next dependency: владелец открывает папку results текущего bucket и
+- Superseded requested dependency: владелец открывает папку results текущего bucket и
   показывает наличие `dota2-main-2026-mvp.json`, `dota2-autumn-2026.json`,
   `dota2-autumn-2026-mvp.json`. До установления причины не менять ACL/policy,
   не создавать placeholder results/second writer и не переключать URL.

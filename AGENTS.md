@@ -1,5 +1,22 @@
 # Current Telegram scope
 
+- October 9 captain current release correction (19:25 MSK): Roman says nobody
+  created the results files. Their403 responses do not prove loss of existing
+  content or require placeholders. The original current-content condition
+  passed; default Miniapp menu was switched once and independently read back
+  at https://app8672463486.tgcloud.ai/tg. Main profile/per-chat overrides were
+  not changed. Preserve the newer home-parity release: cloud revision4,
+  all433 files/30,067,451 bytes match the qualified artifact;3modules/config
+  and new menu retained. Fresh Tg-mcp5c870748/source985cb358/fingerprintca1d5b80
+  reports idle/errornull and approved16-captain import applied, revision2.
+  After published quoted/bare ETag compatibility, the fresh runtime reports
+  the import applied with no error; provider root cause remains unverified.
+  Our separate diagnostic candidate was never published and is STALE; do not
+  overlay it onto the newer code. Agreement still needs server-side known-
+  absence results handling and verified windows; genuine Telegram and S3
+  concurrency/retention remain unverified. Preserve all newer /org, homepage,
+  calendar, collector and storage changes. See current captain TASK_STATE.
+
 - October 9 homepage release: Roman explicitly says «Отправляй. Не забывай
   что миниапп - серверлесс», then repeats «отправляй». Publish the shared
   homepage content to the existing source main AND the existing Telegram
@@ -24,11 +41,10 @@
   six-GET readback confirms exact new+old Origin CORS permission. All three
   public JSON objects still return403 for both origins; three additional
   old-Origin+Referer checks also403. New-origin CORS gate PASS; dynamic
-  readability remains unestablished and conditional URL switch BLOCKED.
-  Need actual results-folder object existence from bucket owner before any
-  policy/ACL correction. No placeholder results/new writer or blanket public
-  bucket change; existing menu/modules/static remain unchanged. Details in
-  current TASK_STATE supersede the prior missing-CORS observation below.
+  readability remained unestablished at that observation. The later owner
+  correction and verified default-menu transfer above supersede the BLOCKED
+  conclusion. Do not ask for manually created result files or broaden public
+  bucket policy. CORS requires no additional credential or bootstrap.
 
 - October 9 organizer saving correction: Roman reports failed captain saves
   and explicitly supplies all16 Telegram assignments. Repair per-team
@@ -49,8 +65,8 @@
   Fresh backend readback shows captain enabled/configured, CAPTAIN_STARTED;
   collector remains enabled/configured, same309cbe… fingerprint. This
   supersedes the earlier missing-credential/disabled/undeployed observations.
-  Default menu still points to the existing website /tg: conditional switch
-  is BLOCKED because S3 does not return CORS permission for the new origin.
+  At that historical baseline the menu still pointed to the website /tg
+  and new-origin CORS was missing; both observations are superseded above.
   The three public results/MVP objects return403 for both compared origins;
   underlying object/policy cause is unverified. Do not claim data loss or
   dynamic-data readiness. Need add the exact new origin to existing bucket

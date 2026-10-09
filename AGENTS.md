@@ -1,5 +1,17 @@
 # Current Telegram scope
 
+- October 9 manual CORS save (17:49 MSK): Roman chose the panel action,
+  superseding the proposed Timeweb-token/env/bootstrap path. No such code or
+  secret is needed for this completed manual step. Independent14:50UTC
+  six-GET readback confirms exact new+old Origin CORS permission. All three
+  public JSON objects still return403 for both origins; three additional
+  old-Origin+Referer checks also403. New-origin CORS gate PASS; dynamic
+  readability remains unestablished and conditional URL switch BLOCKED.
+  Need actual results-folder object existence from bucket owner before any
+  policy/ACL correction. No placeholder results/new writer or blanket public
+  bucket change; existing menu/modules/static remain unchanged. Details in
+  current TASK_STATE supersede the prior missing-CORS observation below.
+
 - October 9 authenticated Serverless publication (16:53–17:10 MSK): Roman
   delegated CLI execution and supplied the CLI credential. Bot identity is
   verified by sdk.getMe: 8672463486 / @YarCyberSeason_bot. Targeted three-module

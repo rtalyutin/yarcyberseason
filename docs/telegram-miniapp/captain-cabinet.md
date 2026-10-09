@@ -199,14 +199,17 @@ Mini App и анонимное сообщение входа в кабинет. 
 включённым. Эти наблюдения не подтверждают настоящий Telegram-вход,
 переписку, согласование, production CAS или политику удаления всех копий.
 
-Прежний default-menu URL `/tg` на основном домене сохранён. Условное
-переключение заблокировано: для нового Origin публичные results/MVP S3
-ответы не содержат Access-Control-Allow-Origin. Для обоих Origins получен403;
-причина ответа и существование объектов этим не устанавливаются. Требуется
-добавить `https://app8672463486.tgcloud.ai` в Allowed Origins текущего bucket
-(Timeweb→S3→Настройки→CORS→Изменить), сохранив остальные origins/methods/headers,
-и проверить реальные ответы динамических данных до изменения URL. CLI токен
-Telegram не даёт доступа к настройкам Timeweb S3. Подробный свежий журнал —
+Прежний default-menu URL `/tg` на основном домене сохранён. Роман вручную
+сохранил новый Allowed Origin `https://app8672463486.tgcloud.ai` в текущем
+bucket17:49. Независимый six-GET readback14:50UTC подтверждает CORS для обоих
+Origins; прежний домен сохранён. Все3public results/MVP JSON ещё возвращают403
+для обоих Origins, включая отдельный old-Origin+Referer контроль14:53UTC.
+Причина ответа и существование объектов этим не устанавливаются. Условное
+переключение остаётся заблокировано dynamic object-read gate. Требуется
+проверить наличие точных ключей в results и их реальный доступ; до выяснения
+не менять policy/ACL и не публиковать выдуманные результаты. Предложенный
+TIMEWEB_CLOUD_TOKEN/bootstrap путь не реализован и для ручной CORS настройки
+не нужен. CLI Telegram даёт доступ только Telegram Cloud. Свежий журнал —
 [STATE.md](STATE.md); прежние missing-access/disabled observations исторические.
 
 Основания интеграции: [Telegram Serverless](https://core.telegram.org/bots/serverless),

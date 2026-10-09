@@ -2,7 +2,36 @@
 
 ## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
 
-### TASK_STATE — Telegram publication, 09.10.2026 17:10 МСК
+### TASK_STATE — CORS readback, 09.10.2026 17:53 МСК
+
+- Роман выбрал ручное изменение CORS вместо передачи Timeweb token или
+  добавления server env; обработка TIMEWEB_CLOUD_TOKEN не создавалась.
+  Screenshot17:47 показывает текущий bucket, точные new+old Origins,
+  GET/HEAD, Allowed Headers*, Expose empty и MaxAge0. В17:49 «нажал»
+  подтверждает выполнение Сохранить пользователем; ниже инструментальный readback.
+- Независимый fresh six-GET readback14:50:04.599–14:50:18.228 UTC:
+  CORS gate PASS — все3source-defined JSON URLs для new+old Origins
+  возвращают exact соответствующий Access-Control-Allow-Origin и Vary:Origin.
+  Все6ответов остаются403/XML. New-origin CORS blocker снят; обязательный
+  dynamic object-read gate остаётся FAIL/unestablished, menu switch BLOCKED.
+- Дополнительный узкий контроль14:53:39.635–14:53:48.002 UTC:3GET тех же
+  объектов с oldOrigin и Referer=oldwebsite/ также403AccessDenied. Добавление
+  этого Referer не меняет наблюдаемый отказ; причина403 не установлена.
+- Read-only source review: autumn writer/client ключи совпадают; uploader
+  не задаёт public-read ACL (CacheControl:public не предоставляет доступ).
+  Первые объекты могут отсутствовать до подтверждённых серий; текущий worker
+  не пишет spring MVP. Client treats404 separately,403 сохраняет fallback
+  с unavailable status. Это не доказывает actual bucket policy/ACL/existence.
+- Screenshot владельца17:55 показывает endpoint https://s3.twcstorage.ru,
+  тот же bucket и регионru-1, совпадающие с кодом; Access/Secret Keys скрыты.
+  Это connection card, не список объектов: наличие results JSON ещё UNKNOWN.
+- Next dependency: владелец открывает папку results текущего bucket и
+  показывает наличие `dota2-main-2026-mvp.json`, `dota2-autumn-2026.json`,
+  `dota2-autumn-2026-mvp.json`. До установления причины не менять ACL/policy,
+  не создавать placeholder results/second writer и не переключать URL.
+  Новый CLI/Timeweb token для выполненной ручной CORS настройки не нужен.
+  Remote modules/static revision2 и предыдущий default menu не изменялись
+  этим read-only этапом; genuine captain/S3 CAS/retention gates прежние.
 
 - Explicit authority: 16:53 МСК «Нет, я токен тебе дам, а ты уже действуешь»;
   CLI credential supplied16:56. Ранее разрешён выпуск кабинета и условный
@@ -40,7 +69,7 @@
 - Runtime negative check on exact canonical module bytes through actual cloud
   sdk.fetch rejects forged initData with unauthorized. Public backend empty
   identity returns401/no-store. No accepted application/S3 mutation performed.
-- CAP-HOST-CONTENT-1 dynamic gate FAIL/BLOCKED: independent six public S3GETs
+- Historical pre-save CAP-HOST-CONTENT-1 dynamic gate FAIL/BLOCKED: six S3GETs
   14:09:08–14:09:32 UTC cover spring MVP, autumn results and autumn MVP with
   old and new Origins. All403AccessDenied; old responses allow existing
   origin, all new-origin responses lack Access-Control-Allow-Origin. Cause
@@ -52,10 +81,10 @@
   webhook, schema, Timeweb env or S3 configuration was changed by this turn.
   Telegram CLI credential grants no Timeweb/S3 settings access; no callable
   bucket-settings tool is available and Timeweb browser is unavailable.
-- Next dependency: existing bucket→Настройки→CORS→Изменить, add Allowed Origin
+- Completed user action: existing bucket→Настройки→CORS→Изменить, add Origin
   `https://app8672463486.tgcloud.ai` without path/trailing slash, preserving
-  current origins/methods/headers. Recheck the same public objects and browser
-  data behavior before authorized default-menu URL switch to new-host /tg.
+  current origins/methods/headers. CORS readback PASS above; object-read
+  verification still required before default-menu URL switch to new-host /tg.
   Do not invent match windows or change public object policy/ACL to bypass403.
 - Still unverified: genuine signed Telegram entry, assignment/chat/two-captain
   consent on production, real S3 CAS/write, versions/backups/Object Lock

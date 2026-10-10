@@ -120,14 +120,17 @@ test("map contract rejects malformed UI payloads before render", () => {
     assert.ok(validateMiniAppModel(model).some((e) => e.includes("NormalizedMap")));
   }
 });
-test("match actions accept published HTTPS aliases, deduplicate and reject unsafe URLs", () => {
+test("match actions use canonical platform links and reject unsafe URLs without legacy fallback", () => {
   const model = fixture("scheduledMatch", editMatch((m) => {
-    m.streamUrl = "https://example.com/live"; m.broadcastUrl = m.streamUrl;
+    m.broadcastLinks = { twitch: "https://example.com/twitch", vk: "https://example.com/vk" };
     m.replayUrl = "javascript:alert(1)"; m.documentUrl = "https://user:pass@example.com/private";
   }));
-  assert.deepEqual(model.matches[0].links, [{ kind: "external", label: "Трансляция", url: "https://example.com/live" }]);
+  assert.deepEqual(model.matches[0].links, [
+    { kind: "external", label: "Twitch", url: "https://example.com/twitch" },
+    { kind: "external", label: "VK", url: "https://example.com/vk" },
+  ]);
   const alias = fixture("scheduledMatch", editMatch((m) => { m.broadcastUrl = "https://example.com/live"; }));
-  assert.equal(alias.matches[0].links.length, 1);
+  assert.equal(alias.matches[0].links.length, 0);
 });
 test("external action is dispatched through RuntimePort only after user callback", () => {
   const match = fixture("scheduledMatch", editMatch((m) => { m.replayUrl = "https://example.com/replay"; })).matches[0];

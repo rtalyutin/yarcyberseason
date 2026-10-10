@@ -5,7 +5,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { createWebMcpDataVersion, WEBMCP_DATA_FILES } from '../scripts/data-version.mjs';
 
-test('WebMCP data version is stable and changes when only a public roster changes', () => {
+test('WebMCP data version tracks public rosters and the canonical broadcast projection', () => {
   const root = mkdtempSync(path.join(os.tmpdir(), 'ycs-data-version-'));
   try {
     for (const file of WEBMCP_DATA_FILES) {
@@ -19,6 +19,9 @@ test('WebMCP data version is stable and changes when only a public roster change
     const changed = createWebMcpDataVersion(root);
     assert.notEqual(changed, first);
     assert.equal(createWebMcpDataVersion(root), changed);
+    const broadcastPath = path.join(root, 'src/lib/broadcast-links.js');
+    writeFileSync(broadcastPath, `${readFileSync(broadcastPath, 'utf8')}\n`);
+    assert.notEqual(createWebMcpDataVersion(root), changed);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

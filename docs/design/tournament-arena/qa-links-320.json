@@ -1,0 +1,38 @@
+[
+  {
+    "case": "both-320",
+    "client": 305,
+    "links": [
+      {
+        "height": 44,
+        "href": "https://www.twitch.tv/qa_card_one",
+        "text": "Twitch",
+        "width": 159.390625
+      },
+      {
+        "height": 44,
+        "href": "https://vkvideo.ru/@qa_card_two",
+        "text": "VK\nVK",
+        "width": 159.390625
+      }
+    ],
+    "live": false,
+    "scroll": 305,
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nТрансляции\nTwitch\nVK\nVK\nПодробности"
+  },
+  {
+    "case": "twitch-320",
+    "client": 305,
+    "links": [
+      {
+        "height": 44,
+        "href": "https://www.twitch.tv/qa_card_one",
+        "text": "Twitch",
+        "width": 159.390625
+      }
+    ],
+    "live": false,
+    "scroll": 305,
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nТрансляции\nTwitch\nПодробности"
+  }
+]

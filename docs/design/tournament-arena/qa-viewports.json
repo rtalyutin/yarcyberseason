@@ -1,0 +1,477 @@
+[
+  {
+    "cards": [
+      {
+        "id": "dota-autumn-swiss-r1-01",
+        "rect": {
+          "bottom": 705,
+          "height": 128,
+          "right": 1352.5,
+          "width": 1280,
+          "x": 72.5,
+          "y": 577
+        },
+        "text": "17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-06",
+        "rect": {
+          "bottom": 845,
+          "height": 128,
+          "right": 1352.5,
+          "width": 1280,
+          "x": 72.5,
+          "y": 717
+        },
+        "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-07",
+        "rect": {
+          "bottom": 985,
+          "height": 128,
+          "right": 1352.5,
+          "width": 1280,
+          "x": 72.5,
+          "y": 857
+        },
+        "text": "19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-08",
+        "rect": {
+          "bottom": 1125,
+          "height": 128,
+          "right": 1352.5,
+          "width": 1280,
+          "x": 72.5,
+          "y": 997
+        },
+        "text": "21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-02",
+        "rect": {
+          "bottom": 1265,
+          "height": 128,
+          "right": 1352.5,
+          "width": 1280,
+          "x": 72.5,
+          "y": 1137
+        },
+        "text": "22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      }
+    ],
+    "client": 1425,
+    "first": {
+      "bottom": 705,
+      "height": 128,
+      "right": 1352.5,
+      "width": 1280,
+      "x": 72.5,
+      "y": 577
+    },
+    "hero": {
+      "bottom": 321,
+      "height": 232,
+      "right": 1425,
+      "width": 1425,
+      "x": 0,
+      "y": 89
+    },
+    "nav": {
+      "bottom": 375,
+      "height": 54,
+      "right": 1352.5,
+      "width": 1280,
+      "x": 72.5,
+      "y": 321
+    },
+    "scroll": 1425,
+    "smallControls": [],
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  {
+    "cards": [
+      {
+        "id": "dota-autumn-swiss-r1-01",
+        "rect": {
+          "bottom": 756.984375,
+          "height": 191.984375,
+          "right": 985,
+          "width": 961,
+          "x": 24,
+          "y": 565
+        },
+        "text": "17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-06",
+        "rect": {
+          "bottom": 960.96875,
+          "height": 191.984375,
+          "right": 985,
+          "width": 961,
+          "x": 24,
+          "y": 768.984375
+        },
+        "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-07",
+        "rect": {
+          "bottom": 1164.953125,
+          "height": 191.984375,
+          "right": 985,
+          "width": 961,
+          "x": 24,
+          "y": 972.96875
+        },
+        "text": "19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-08",
+        "rect": {
+          "bottom": 1368.9375,
+          "height": 191.984375,
+          "right": 985,
+          "width": 961,
+          "x": 24,
+          "y": 1176.953125
+        },
+        "text": "21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-02",
+        "rect": {
+          "bottom": 1572.921875,
+          "height": 191.984375,
+          "right": 985,
+          "width": 961,
+          "x": 24,
+          "y": 1380.9375
+        },
+        "text": "22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      }
+    ],
+    "client": 1009,
+    "first": {
+      "bottom": 756.984375,
+      "height": 191.984375,
+      "right": 985,
+      "width": 961,
+      "x": 24,
+      "y": 565
+    },
+    "hero": {
+      "bottom": 309,
+      "height": 232,
+      "right": 1009,
+      "width": 1009,
+      "x": 0,
+      "y": 77
+    },
+    "nav": {
+      "bottom": 363,
+      "height": 54,
+      "right": 985,
+      "width": 961,
+      "x": 24,
+      "y": 309
+    },
+    "scroll": 1009,
+    "smallControls": [],
+    "viewport": [
+      1024,
+      768
+    ]
+  },
+  {
+    "cards": [
+      {
+        "id": "dota-autumn-swiss-r1-01",
+        "rect": {
+          "bottom": 756.984375,
+          "height": 191.984375,
+          "right": 729,
+          "width": 705,
+          "x": 24,
+          "y": 565
+        },
+        "text": "17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-06",
+        "rect": {
+          "bottom": 960.96875,
+          "height": 191.984375,
+          "right": 729,
+          "width": 705,
+          "x": 24,
+          "y": 768.984375
+        },
+        "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-07",
+        "rect": {
+          "bottom": 1164.953125,
+          "height": 191.984375,
+          "right": 729,
+          "width": 705,
+          "x": 24,
+          "y": 972.96875
+        },
+        "text": "19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-08",
+        "rect": {
+          "bottom": 1368.9375,
+          "height": 191.984375,
+          "right": 729,
+          "width": 705,
+          "x": 24,
+          "y": 1176.953125
+        },
+        "text": "21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-02",
+        "rect": {
+          "bottom": 1572.921875,
+          "height": 191.984375,
+          "right": 729,
+          "width": 705,
+          "x": 24,
+          "y": 1380.9375
+        },
+        "text": "22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      }
+    ],
+    "client": 753,
+    "first": {
+      "bottom": 756.984375,
+      "height": 191.984375,
+      "right": 729,
+      "width": 705,
+      "x": 24,
+      "y": 565
+    },
+    "hero": {
+      "bottom": 309,
+      "height": 232,
+      "right": 753,
+      "width": 753,
+      "x": 0,
+      "y": 77
+    },
+    "nav": {
+      "bottom": 363,
+      "height": 54,
+      "right": 729,
+      "width": 705,
+      "x": 24,
+      "y": 309
+    },
+    "scroll": 753,
+    "smallControls": [],
+    "viewport": [
+      768,
+      1024
+    ]
+  },
+  {
+    "cards": [
+      {
+        "id": "dota-autumn-swiss-r1-01",
+        "rect": {
+          "bottom": 800.859375,
+          "height": 206.78125,
+          "right": 359,
+          "width": 343,
+          "x": 16,
+          "y": 594.078125
+        },
+        "text": "17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-06",
+        "rect": {
+          "bottom": 1019.640625,
+          "height": 206.78125,
+          "right": 359,
+          "width": 343,
+          "x": 16,
+          "y": 812.859375
+        },
+        "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-07",
+        "rect": {
+          "bottom": 1238.421875,
+          "height": 206.78125,
+          "right": 359,
+          "width": 343,
+          "x": 16,
+          "y": 1031.640625
+        },
+        "text": "19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-08",
+        "rect": {
+          "bottom": 1457.203125,
+          "height": 206.78125,
+          "right": 359,
+          "width": 343,
+          "x": 16,
+          "y": 1250.421875
+        },
+        "text": "21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-02",
+        "rect": {
+          "bottom": 1675.984375,
+          "height": 206.78125,
+          "right": 359,
+          "width": 343,
+          "x": 16,
+          "y": 1469.203125
+        },
+        "text": "22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      }
+    ],
+    "client": 375,
+    "first": {
+      "bottom": 800.859375,
+      "height": 206.78125,
+      "right": 359,
+      "width": 343,
+      "x": 16,
+      "y": 594.078125
+    },
+    "hero": {
+      "bottom": 318.390625,
+      "height": 241.390625,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 77
+    },
+    "nav": {
+      "bottom": 366.390625,
+      "height": 48,
+      "right": 359,
+      "width": 343,
+      "x": 16,
+      "y": 318.390625
+    },
+    "scroll": 375,
+    "smallControls": [],
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "cards": [
+      {
+        "id": "dota-autumn-swiss-r1-01",
+        "rect": {
+          "bottom": 824.859375,
+          "height": 206.78125,
+          "right": 289,
+          "width": 273,
+          "x": 16,
+          "y": 618.078125
+        },
+        "text": "17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-06",
+        "rect": {
+          "bottom": 1043.640625,
+          "height": 206.78125,
+          "right": 289,
+          "width": 273,
+          "x": 16,
+          "y": 836.859375
+        },
+        "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-07",
+        "rect": {
+          "bottom": 1262.421875,
+          "height": 206.78125,
+          "right": 289,
+          "width": 273,
+          "x": 16,
+          "y": 1055.640625
+        },
+        "text": "19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-08",
+        "rect": {
+          "bottom": 1481.203125,
+          "height": 206.78125,
+          "right": 289,
+          "width": 273,
+          "x": 16,
+          "y": 1274.421875
+        },
+        "text": "21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      },
+      {
+        "id": "dota-autumn-swiss-r1-02",
+        "rect": {
+          "bottom": 1699.984375,
+          "height": 206.78125,
+          "right": 289,
+          "width": 273,
+          "x": 16,
+          "y": 1493.203125
+        },
+        "text": "22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности"
+      }
+    ],
+    "client": 305,
+    "first": {
+      "bottom": 824.859375,
+      "height": 206.78125,
+      "right": 289,
+      "width": 273,
+      "x": 16,
+      "y": 618.078125
+    },
+    "hero": {
+      "bottom": 318.390625,
+      "height": 241.390625,
+      "right": 305,
+      "width": 305,
+      "x": 0,
+      "y": 77
+    },
+    "nav": {
+      "bottom": 366.390625,
+      "height": 48,
+      "right": 289,
+      "width": 273,
+      "x": 16,
+      "y": 318.390625
+    },
+    "scroll": 305,
+    "smallControls": [],
+    "viewport": [
+      320,
+      740
+    ]
+  }
+]

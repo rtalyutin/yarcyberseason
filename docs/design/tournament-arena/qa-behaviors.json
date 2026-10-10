@@ -1,0 +1,68 @@
+[
+  {
+    "case": "opponent-search",
+    "ids": [
+      "dota-autumn-swiss-r1-06"
+    ],
+    "phase": "До плей-офф 8",
+    "query": "PIVNAYA",
+    "section": "matches",
+    "text": "Турниры\n/\nDota 2\nDota 2 / YCS\n\n9 — 25 октября 2026\n\n16 команд\n30 000 ₽\nРегистрация закрыта\nРегламент PDF\nМатчи\nКоманды\nШвейцарская система\nПлей-офф\nMVP\nО турнире\nМатчи\n1 матч\nНайти команду\nВсе\n8\nДо плей-офф\n8\n\nВремя — МСК\n\nНайдено: 1 матч. Показано: 1.\n\n10 октября 2026\nсуббота\n19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности",
+    "url": "http://terminal.local:4173/tournaments/dota2-autumn-2026?section=matches&phase=before-playoffs&q=PIVNAYA"
+  },
+  {
+    "case": "no-result",
+    "empty": "Команда не найдена\n\nПроверьте название команды или выберите другой этап.\n\nОчистить поиск",
+    "ids": [],
+    "phase": "До плей-офф 8",
+    "query": "qa_no_such_team_729",
+    "section": "matches",
+    "text": "Турниры\n/\nDota 2\nDota 2 / YCS\n\n9 — 25 октября 2026\n\n16 команд\n30 000 ₽\nРегистрация закрыта\nРегламент PDF\nМатчи\nКоманды\nШвейцарская система\nПлей-офф\nMVP\nО турнире\nМатчи\n0 матчей\nНайти команду\nВсе\n8\nДо плей-офф\n8\n\nВремя — МСК\n\nНайдено: 0 матчей. Показано: 0.\n\nКоманда не найдена\n\nПроверьте название команды или выберите другой этап.\n\nОчистить поиск",
+    "url": "http://terminal.local:4173/tournaments/dota2-autumn-2026?section=matches&phase=before-playoffs&q=qa_no_such_team_729"
+  },
+  {
+    "case": "clear-preserves-filter",
+    "ids": [
+      "dota-autumn-swiss-r1-01",
+      "dota-autumn-swiss-r1-06",
+      "dota-autumn-swiss-r1-07",
+      "dota-autumn-swiss-r1-08",
+      "dota-autumn-swiss-r1-02"
+    ],
+    "phase": "До плей-офф 8",
+    "query": "",
+    "section": "matches",
+    "text": "Турниры\n/\nDota 2\nDota 2 / YCS\n\n9 — 25 октября 2026\n\n16 команд\n30 000 ₽\nРегистрация закрыта\nРегламент PDF\nМатчи\nКоманды\nШвейцарская система\nПлей-офф\nMVP\nО турнире\nМатчи\n8 матчей\nНайти команду\nВсе\n8\nДо плей-офф\n8\n\nВремя — МСК\n\nПоказаны 5 из 8 матчей до плей-офф.\n\n10 октября 2026\nсуббота\n17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности\n19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности\n19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности\n21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности\n22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности\nПоказать ещё 3 матча",
+    "url": "http://terminal.local:4173/tournaments/dota2-autumn-2026?section=matches&phase=before-playoffs"
+  },
+  {
+    "case": "show-more",
+    "ids": [
+      "dota-autumn-swiss-r1-01",
+      "dota-autumn-swiss-r1-06",
+      "dota-autumn-swiss-r1-07",
+      "dota-autumn-swiss-r1-08",
+      "dota-autumn-swiss-r1-02",
+      "dota-autumn-swiss-r1-03",
+      "dota-autumn-swiss-r1-05",
+      "dota-autumn-swiss-r1-04"
+    ],
+    "phase": "До плей-офф 8",
+    "query": "",
+    "section": "matches",
+    "text": "Турниры\n/\nDota 2\nDota 2 / YCS\n\n9 — 25 октября 2026\n\n16 команд\n30 000 ₽\nРегистрация закрыта\nРегламент PDF\nМатчи\nКоманды\nШвейцарская система\nПлей-офф\nMVP\nО турнире\nМатчи\n8 матчей\nНайти команду\nВсе\n8\nДо плей-офф\n8\n\nВремя — МСК\n\nПоказаны 8 из 8 матчей до плей-офф.\n\n10 октября 2026\nсуббота\n17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности\n19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности\n19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности\n21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности\n22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности\n10:00\nЗавершён\nМСК\nAegis Guardians\n1\n1 : 0\nСчёт серии\nTech Titans\n0\n\n1-й тур · BO1\n\nМатч\nПодробности\nВремя уточняется\nТехническая победа\nМСК\nliqa sto\n0\n0 : 1\nТехнический счёт\nstrela team\n1\n\n1-й тур · BO1\n\nМатч\nПодробности\n9 октября 2026\nпятница\n20:30\nЗавершён\nМСК\nTeam Borisogleb\n1\n1 : 0\nСчёт серии\nARB Esports\n0\n\n1-й тур · BO1\n\nМатч\nТрансляции\nTwitch\nVK\nVK\nПодробности",
+    "url": "http://terminal.local:4173/tournaments/dota2-autumn-2026?section=matches&phase=before-playoffs"
+  },
+  {
+    "case": "details",
+    "detailsHidden": false,
+    "detailsText": "10 октября · 17:00 МСК · Швейцарская система · BO1",
+    "expanded": "true",
+    "url": "http://terminal.local:4173/tournaments/dota2-autumn-2026?section=matches&phase=before-playoffs"
+  },
+  {
+    "case": "match-navigation",
+    "main": "Dota 2 / YCS\n/ Матч\n\n1-Й ТУР · BO1\n\npsb_bank — Parallax Team\n\n10 октября 2026 г. в 17:00 МСК\n\nМатч назначен\npsb_bank\n— : —\nИтог не подтверждён\nParallax Team\nКарты\n\nРезультаты карт пока не опубликованы.\n\nВ турнирной сетке\nОткрыть этап турнира ↗\nВидео\n\nЗапись не опубликована.\n\nПоделиться матчем\nСкопировать ссылку\nhttps://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-01\nСкачать карточку результата\n\nКарточка появится после публикации однозначного подтверждённого результата.",
+    "url": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-01"
+  }
+]

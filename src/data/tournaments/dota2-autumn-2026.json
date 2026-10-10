@@ -331,8 +331,10 @@
               "team2": "ARB Esports",
               "team2Id": "dota2-qual-2026-arb-esports",
               "note": "Трансляция: Twitch YarCyberSeason и ВК YarCyberSeason. Комментатор: @queleez.",
-              "broadcastUrl": "https://www.twitch.tv/yarcyberseason",
-              "streamUrl": "https://vk.com/yarcyberseason",
+              "broadcastLinks": {
+                "twitch": "https://www.twitch.tv/yarcyberseason",
+                "vk": "https://vk.com/yarcyberseason"
+              },
               "casters": [
                 {
                   "name": "@queleez",

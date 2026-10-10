@@ -63,6 +63,19 @@ test("Upcoming event exposes eight first-round matches, never counts empty playo
   assert.deepEqual(model.sections.map((section) => section.id), ["participants", "swiss", "matches", "playoffs", "mvp", "info"]);
 });
 
+test("Arena keeps an unpublished schedule reachable without changing legacy empty tournaments", () => {
+  const tournament = { discipline: "Dota 2", stages: [], summary: "Schedule pending" };
+  const legacy = getTournamentModel(tournament);
+  assert.equal(legacy.defaultSection, "info");
+  assert.ok(!legacy.sections.some((section) => section.id === "matches"));
+  const arena = getTournamentModel(tournament, { includeEmptyMatches: true });
+  assert.equal(arena.matches.length, 0);
+  assert.equal(arena.defaultSection, "matches");
+  assert.equal(arena.sections.find((section) => section.id === "matches").count, 0);
+  assert.equal(resolveTournamentView(arena, "?section=matches").section, "matches");
+  assert.equal(resolveTournamentView(arena).section, "matches");
+});
+
 test("Legacy archives keep partial stages, stable unique match keys and yearless dates", () => {
   const main = getTournamentModel(read("dota2-main-2026"));
   assert.equal(main.sections.find((section) => section.id === "playoffs").stage.type, "historical_matches");

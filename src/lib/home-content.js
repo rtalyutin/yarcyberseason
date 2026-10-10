@@ -1,5 +1,6 @@
 import { getHomeBroadcastBoard } from './home-board.js';
-import { matchDateLabel, safeHttps } from './community.js';
+import { matchDateLabel } from './community.js';
+import { getMatchBroadcastLinks } from './broadcast-links.js';
 import { getChampionLabels, getTournamentOutcome, isArchive, participantCount } from './tournament.js';
 
 export function getHomePlayoffMatch(tournament) {
@@ -16,7 +17,7 @@ export function getHomePlayoffMatch(tournament) {
 export function getHomeBroadcastContent(tournament) {
   const board = getHomeBroadcastBoard(tournament);
   const { match, state } = board;
-  const streamUrl = state === 'live' ? safeHttps(match?.broadcastUrl) || safeHttps(match?.streamUrl) : null;
+  const streamUrl = state === 'live' ? getMatchBroadcastLinks(match)[0]?.href || null : null;
   const notes = {
     pending: 'Подтверждённый счёт пока не опубликован.',
     postponed: 'Новая дата будет опубликована после согласования.',

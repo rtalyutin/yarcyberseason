@@ -1,0 +1,503 @@
+[
+  {
+    "case": "absent",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 277.78125,
+      "height": 206.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "null",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 277.78125,
+      "height": 206.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "empty",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 277.78125,
+      "height": 206.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "blank",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 277.78125,
+      "height": 206.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "twitch",
+    "broadcastBlocks": 1,
+    "card": {
+      "bottom": 343.78125,
+      "height": 272.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [
+      {
+        "href": "https://www.twitch.tv/qa_card_one",
+        "rect": {
+          "bottom": 336.78125,
+          "height": 44,
+          "right": 244.390625,
+          "width": 229.390625,
+          "x": 15,
+          "y": 292.78125
+        },
+        "text": "Twitch"
+      }
+    ],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nТрансляции\nTwitch\nПодробности"
+  },
+  {
+    "case": "vk",
+    "broadcastBlocks": 1,
+    "card": {
+      "bottom": 343.78125,
+      "height": 272.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [
+      {
+        "href": "https://vkvideo.ru/@qa_card_two",
+        "rect": {
+          "bottom": 336.78125,
+          "height": 44,
+          "right": 244.390625,
+          "width": 229.390625,
+          "x": 15,
+          "y": 292.78125
+        },
+        "text": "VKVK"
+      }
+    ],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nТрансляции\nVK\nVK\nПодробности"
+  },
+  {
+    "case": "both",
+    "broadcastBlocks": 1,
+    "card": {
+      "bottom": 343.78125,
+      "height": 272.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [
+      {
+        "href": "https://www.twitch.tv/qa_card_one",
+        "rect": {
+          "bottom": 336.78125,
+          "height": 44,
+          "right": 125.6875,
+          "width": 110.6875,
+          "x": 15,
+          "y": 292.78125
+        },
+        "text": "Twitch"
+      },
+      {
+        "href": "https://vkvideo.ru/@qa_card_two",
+        "rect": {
+          "bottom": 336.78125,
+          "height": 44,
+          "right": 244.390625,
+          "width": 110.703125,
+          "x": 133.6875,
+          "y": 292.78125
+        },
+        "text": "VKVK"
+      }
+    ],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nТрансляции\nTwitch\nVK\nVK\nПодробности"
+  },
+  {
+    "case": "invalid",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 277.78125,
+      "height": 206.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 152.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 198.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 154.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "unknown",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 273.78125,
+      "height": 202.78125,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 148.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 104.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 194.390625,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 150.390625
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "Время уточняется\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "long",
+    "broadcastBlocks": 0,
+    "card": {
+      "bottom": 298.5625,
+      "height": 227.5625,
+      "right": 375,
+      "width": 375,
+      "x": 0,
+      "y": 71
+    },
+    "client": 375,
+    "links": [],
+    "liveClass": false,
+    "scroll": 375,
+    "teamRects": [
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 173.171875,
+          "height": 64.78125,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 108.390625
+        },
+        "scroll": 345,
+        "text": "TEAM SPERMINT ОЧЕНЬ ДЛИННОЕ НАЗВАНИЕ КОМАНДЫ БЕЗ СОКРАЩЕНИЯTSО"
+      },
+      {
+        "client": 345,
+        "rect": {
+          "bottom": 219.171875,
+          "height": 44,
+          "right": 360,
+          "width": 345,
+          "x": 15,
+          "y": 175.171875
+        },
+        "scroll": 345,
+        "text": "PIVNAYA KEGA"
+      }
+    ],
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT ОЧЕНЬ ДЛИННОЕ НАЗВАНИЕ КОМАНДЫ БЕЗ СОКРАЩЕНИЯ\nTSО\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  }
+]

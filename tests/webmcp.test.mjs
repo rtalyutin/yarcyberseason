@@ -57,11 +57,20 @@ test('confirmed final, unknown scores, yearless dates and first-round matches ke
   const qual = await call('ycs_list_matches', { tournamentId: 'dota2-qual-2026' });
   assert.ok(qual.items.length);
   assert.ok(qual.items.every((match) => !match.scheduledAt && !match.date));
-  const upcoming = await call('ycs_list_matches', { tournamentId: 'dota2-autumn-2026' });
-  assert.equal(upcoming.total, 8);
-  assert.ok(upcoming.items.every((match) => match.result.score === null &&
-    (match.id === 'dota-autumn-swiss-r1-04' ? match.date === '2026-10-09' && match.scheduledAt === '2026-10-09T20:30:00+03:00'
-      : match.date === '2026-10-10' && !match.scheduledAt)));
+  const current = await call('ycs_list_matches', { tournamentId: 'dota2-autumn-2026' });
+  assert.equal(current.total, 8);
+  assert.equal(current.items.filter((match) => match.status === 'scheduled').length, 5);
+  assert.ok(current.items.filter((match) => match.status === 'scheduled').every((match) => match.result.score === null));
+  for (const id of ['dota-autumn-swiss-r1-03', 'dota-autumn-swiss-r1-04']) {
+    assert.deepEqual(current.items.find((match) => match.id === id).result.score, [1, 0]);
+  }
+  assert.deepEqual(current.items.find((match) => match.id === 'dota-autumn-swiss-r1-05').result.score, [0, 1]);
+  assert.equal(current.items.find((match) => match.id === 'dota-autumn-swiss-r1-01').time, '17:00');
+  const opening = current.items.find((match) => match.id === 'dota-autumn-swiss-r1-04');
+  assert.equal(opening.scheduledAt, '2026-10-09T20:30:00+03:00');
+  assert.deepEqual(opening.broadcastLinks, { twitch: 'https://www.twitch.tv/yarcyberseason', vk: 'https://vk.com/yarcyberseason' });
+  assert.equal(Object.hasOwn(opening, 'broadcastUrl'), false);
+  assert.ok(current.items.filter((match) => match.id !== opening.id).every((match) => !Object.hasOwn(match, 'broadcastLinks')));
   const autumn = (await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' })).tournament;
   assert.equal(autumn.registration.status, 'closed'); assert.equal(autumn.participants.length, 16);
 });

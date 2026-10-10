@@ -1,4 +1,5 @@
 import { exactStart, normalizeResult, safeHttps } from './community.js';
+import { getMatchBroadcastLinks } from './broadcast-links.js';
 
 export const ORGANIZER_TIME_ZONE = 'Europe/Moscow';
 
@@ -25,7 +26,10 @@ export function buildOrganizerTable(tournaments, assignments = { matches: {}, to
         const assigned = assignments.matches?.[key] || {};
         const start = exactStart(match.scheduledAt);
         const result = normalizeResult(match, tournament.discipline);
-        const broadcastUrl = safeHttps(assigned.broadcast?.url || match.broadcastUrl || match.streamUrl);
+        // Private organizer assignments can override the published match links in this table.
+        const assignedUrl = safeHttps(assigned.broadcast?.url);
+        const broadcastLinks = assignedUrl ? [{ label: 'Открыть эфир', href: assignedUrl }] : getMatchBroadcastLinks(match);
+        const broadcastUrl = broadcastLinks[0]?.href || null;
         rows.push({
           key, id: match.id, tournamentId: tournament.id, tournamentSlug: tournament.slug,
           tournamentTitle: tournament.title, season: tournament.season || '', discipline: tournament.discipline,
@@ -38,7 +42,7 @@ export function buildOrganizerTable(tournaments, assignments = { matches: {}, to
           scheduledAt: start, date: match.date || null,
           dateDisplay: match.dateDisplay || match.dateLabel || null, time: match.time || null,
           timeZone: start ? ORGANIZER_TIME_ZONE : match.timeZone || tournament.timeZone || null,
-          broadcast: { url: broadcastUrl,
+          broadcast: { url: broadcastUrl, links: broadcastLinks,
             planned: Boolean(broadcastUrl || assigned.broadcast?.planned || match.broadcastPlanned ||
               tournament.homeBroadcastMatchIds?.includes(match.id)) },
           replayUrl: safeHttps(match.replayUrl),

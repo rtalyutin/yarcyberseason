@@ -82,10 +82,17 @@
   Verified URL https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/?section=mvp&phase=all.
   OpenDota GET/matches/9037645797 still returns404 {error:Not Found} at this
   observation; do not claim it permanently lost. Existing five-minute reader
-  retries continue. POST/request/9037645797 parse attempt was BLOCKED_AUTO_REVIEW:
-  external parse job consumes API quota; approval reviewer considers prior
-  authorization read/search only. No parse job/ID was returned; do not bypass.
-  Approval for this exact parse action is the remaining optional next step.
+  retries continue. The prior POST/request/9037645797 parse attempt was
+  BLOCKED_AUTO_REVIEW with no job returned. Roman subsequently authorized this
+  exact action with «разрешаю» on October10. One new POST was accepted HTTP200
+  with response {job:{jobId:575387718}}. Repeated GET/request/575387718 returns
+  HTTP200 null; GET/matches/9037645797 remains HTTP404 {error:Not Found}, last
+  root read12:27:50Z. Official OpenDota source returns null when no queue row is
+  found; that response supplies neither success nor failure details. Parse
+  request acceptance PASS, real-data recovery UNCONFIRMED. No further POST,
+  guessed account/hero/team bindings or calculated Tech individual awards.
+  Independent read-only verification12:27:54Z(job)/12:28:00Z(match) confirms
+  the same HTTP200/null and HTTP404/NotFound; no additional POST or writes.
 - Current workspace has no linked tgcloud project/CLI token (status read-only).
   Static Serverless update is BLOCKED_ACCESS until existing access is restored.
   Prior deployments remain historical evidence, not evidence for this update.

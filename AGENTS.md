@@ -44,10 +44,13 @@
   map9036860954; exact real mean3873070961/93750000. MissingTech903 pending only
   for unconfirmed ten actual account/hero/team bindings; no estimated award.
   Actual MVP UI verifies10real rows and explicit903 account-confirmation pending.
-  OpenDotaGET903 returns404; optional POST/request/9037645797 was auto-review
-  rejected because it starts a quota-consuming external parse job beyond what
-  reviewer considered read/search authorization. No job returned; never bypass.
-  Ask Roman for this exact parse approval only after completed code/results work.
+  OpenDotaGET903 returns404. The prior parse request was auto-review rejected;
+  Roman subsequently explicitly authorized this exact action with «разрешаю»
+  on October10. One POST/request/9037645797 was accepted HTTP200 with
+  jobId575387718. Repeated job reads return HTTP200 null and match reads still
+  return HTTP404 {error:Not Found}, last observed12:27:50Z. Request acceptance
+  is verified; successful parsing is not. No further POST, guessed bindings or
+  estimated Tech awards. Existing five-minute known-ID reader retries remain.
 
 - October 9 captain authenticated-results release (19:54 MSK): source
   8e3d079bc90ac51cae250ab0a02f1d38fcdec118/tree02b0c4ea and Tg-mcp main

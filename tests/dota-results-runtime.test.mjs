@@ -13,6 +13,30 @@ const kickoff = new Date("2026-10-09T20:30:00+03:00");
 const quiet = { error() {}, log() {} };
 const settled = () => new Promise((resolve) => setImmediate(resolve));
 
+test("worker reports only fixed failure diagnostics and clears them after recovery", async () => {
+  let callback, calls = 0;
+  const error = Object.assign(new Error('synthetic-private-credential'), { name: 'AccessDenied',
+    importPhase: 'publish_mvp_cache', $metadata: { httpStatusCode: 403 } });
+  const worker = startResultsWorker({ env: { YCS_DOTA_RESULTS_IMPORT_ENABLED: 'true' }, now: () => kickoff,
+    setTimer(fn) { callback = fn; return 1; }, clearTimer() {}, logger: quiet,
+    async runOnce() { if (++calls === 1) throw error; } });
+  await settled();
+  assert.deepEqual(worker.state.lastFailure, { code: 'AccessDenied', phase: 'publish_mvp_cache', httpStatus: 403 });
+  assert.ok(!JSON.stringify(worker.state).includes('synthetic-private-credential'));
+  callback(); await settled();
+  assert.equal(worker.state.lastFailure, null);
+  assert.equal(worker.state.status, 'waiting');
+  await worker.stop();
+  const unknown = startResultsWorker({ env: { YCS_DOTA_RESULTS_IMPORT_ENABLED: 'true' }, now: () => kickoff,
+    setTimer() {}, clearTimer() {}, logger: quiet, async runOnce() {
+      throw Object.assign(new Error('synthetic-private-credential'), { name: 'synthetic-private-credential',
+        importPhase: 'synthetic-private-credential', $metadata: { httpStatusCode: 999 } });
+    } });
+  await settled();
+  assert.deepEqual(unknown.state.lastFailure, { code: 'ImportFailed', phase: null, httpStatus: null });
+  await unknown.stop();
+});
+
 test("server worker waits until kickoff, serializes slow imports and aborts on stop", async () => {
   let at = new Date("2026-09-30T12:00:00+03:00");
   let callback;

@@ -603,7 +603,8 @@ function BracketStage({ stage, number, tournament }) {
   );
 }
 
-function SwissStage({ stage, number }) {
+function SwissStage({ stage, number, tournament }) {
+  const groups = (stage.groups || []).filter((group) => group.rows?.length > 0);
   return (
     <section className="container tournament-stage" id={stage.id}>
       <StageTitle number={number} title={stage.title} description={stage.notice} />
@@ -617,10 +618,26 @@ function SwissStage({ stage, number }) {
           ))}
         </div>
       )}
-      <div className="format-card">
+      {groups.length > 0 ? <>
+        {groups.map((group) => <div key={group.id}>
+          <h3>{group.title}</h3>
+          <div className="table-wrap">
+            <table className="standings-table" aria-label={group.title}>
+              <thead><tr><th>Команда</th><th>И</th><th>В</th><th>П</th></tr></thead>
+              <tbody>{[...group.rows].sort((a, b) => b.won - a.won || a.lost - b.lost).map((row) => (
+                <tr key={row.teamId || row.team}>
+                  <td><TeamIdentity tournament={tournament} team={row.team} size="compact" /></td>
+                  <td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </div>)}
+        <p className="data-caption">Учтены только подтверждённые результаты. Пары следующих туров появятся после публикации.</p>
+      </> : <div className="format-card">
         <StatusDot state="upcoming" />
         <div><p className="eyebrow">Данные этапа</p><strong>Таблица и пары появятся после первого тура</strong></div>
-      </div>
+      </div>}
     </section>
   );
 }
@@ -647,7 +664,7 @@ function HistoricalMatchesStage({ stage, number }) {
 function TournamentPage({ tournament, navigate }) {
   const renderStage = (stage, number) => {
     if (stage.type === "round_robin") return <RoundRobinStage stage={stage} number={number} tournament={tournament} />;
-    if (stage.type === "swiss") return <SwissStage stage={stage} number={number} />;
+    if (stage.type === "swiss") return <SwissStage stage={stage} number={number} tournament={tournament} />;
     if (stage.rounds) return <BracketStage stage={stage} number={number} tournament={tournament} />;
     return <section className="tn-info"><h2>{stage.title}</h2>{stage.notice && <p>{stage.notice}</p>}</section>;
   };

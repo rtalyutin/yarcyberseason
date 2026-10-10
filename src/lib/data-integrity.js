@@ -1,5 +1,6 @@
 import { isPlaceholder, safeHttps, matchKey, matchStates, exactStart } from './community.js';
 import { resultGroups } from './tournament.js';
+import { validateMvpEstimates } from './dota-mvp.js';
 
 // Includes unpublished slots: hiding a record must not bypass integrity checks.
 export const declaredMatches = (tournament) => (tournament.stages || []).flatMap((stage) => [
@@ -29,6 +30,7 @@ export function validateDataIntegrity(tournaments, registry, rosters, provenance
       if (c.status === 'received' && (t.participants || []).some((p) => !rosters.records.some((r) => r.tournamentId === t.id && r.teamId === p.teamId))) errors.push(`Incomplete roster collection: ${t.id}`);
     }
     const all = declaredMatches(t), matches = new Map(all.map((m) => [m.id, m]));
+    try { validateMvpEstimates(t.mvpEstimates || [], t); } catch (error) { errors.push(`Invalid MVP confirmation: ${t.id}: ${error.message}`); }
     unique(all.map((m) => m.id), `match ID in ${t.id}`);
     const resolve = (name) => binding.get(matchKey(t.id, name));
     const checkTeam = (name, id, path) => {
@@ -52,7 +54,11 @@ export function validateDataIntegrity(tournaments, registry, rosters, provenance
         mapIds.add(`${t.id}/${map.id}`);
       }
       for (const map of m.maps || []) {
-        if (![map.score1, map.score2].every((v) => Number.isInteger(v) && v >= 0)) errors.push(`Invalid map score: ${key}/${map.id}`);
+        if (t.discipline === 'Dota 2' && map.matchId) {
+          if (!/^[1-9]\d*$/.test(map.matchId) || ![map.kills1, map.kills2].every((v) => Number.isSafeInteger(v) && v >= 0) ||
+              !Number.isSafeInteger(map.durationSeconds) || map.durationSeconds <= 0 ||
+              ![m.team1Id, m.team2Id].includes(map.winnerTeamId) || map.url !== `https://www.opendota.com/matches/${map.matchId}`) errors.push(`Invalid Dota map: ${key}/${map.id}`);
+        } else if (![map.score1, map.score2].every((v) => Number.isInteger(v) && v >= 0)) errors.push(`Invalid map score: ${key}/${map.id}`);
       }
       for (const link of m.mapLinks || []) {
         const external = `${t.discipline}/${link.matchId}`;

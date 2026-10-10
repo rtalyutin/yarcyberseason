@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import tournament from "../src/data/tournaments/dota2-autumn-2026.json" with { type: "json" };
+import publishedTournament from "../src/data/tournaments/dota2-autumn-2026.json" with { type: "json" };
 import { collectDotaResults, isPollWindow } from "../src/lib/dota-import.js";
 import { applyDotaSnapshot, validateDotaSnapshot } from "../src/lib/dota-results.js";
 import { buildMiniAppModel } from "../src/telegram/data/model.js";
@@ -10,6 +10,16 @@ import { build } from "esbuild";
 import { createRequire } from "node:module";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+
+// League-import scenarios use undecided fixtures, independently of actual
+// sports outcomes later confirmed by the organizer in production data.
+const tournament = structuredClone(publishedTournament);
+for (const match of tournament.stages[0].rounds[0].matches) {
+  for (const key of ['resultSource', 'confirmationSource', 'confirmedAt', 'score1', 'score2', 'winner', 'winnerTeamId', 'maps', 'mapLinks', 'resultConfirmed', 'scoreKind']) delete match[key];
+  match.status = 'scheduled';
+}
+tournament.stages[0].groups = [];
+tournament.mvpEstimates = [];
 
 const first = { match_id: 900000001, leagueid: 20164, start_time: Date.parse("2026-10-09T20:35:00+03:00") / 1000,
   radiant_name: "ARB Esports", dire_name: "Team Borisogleb", radiant_win: true, radiant_score: 18, dire_score: 32,
@@ -86,4 +96,32 @@ test("client keeps the last confirmed S3 revision through an outage", async () =
   assert.deepEqual(current, { revision: 1, availability: "current" });
   const outage = await output.exports.refreshDotaResults(async () => ({ ok: false, status: 503 }));
   assert.deepEqual(outage, { revision: 1, availability: "unavailable" });
+});
+
+test('organizer results publish all three outcomes with no fabricated map or technical MVP', () => {
+  const { snapshot, changed } = collectDotaResults(publishedTournament, []);
+  assert.equal(changed, true);
+  assert.equal(Object.keys(snapshot.matches).length, 3);
+  assert.deepEqual([snapshot.matches['dota-autumn-swiss-r1-04'].score1, snapshot.matches['dota-autumn-swiss-r1-04'].score2], [1,0]);
+  assert.deepEqual(snapshot.matches['dota-autumn-swiss-r1-04'].maps, []);
+  const technical = snapshot.matches['dota-autumn-swiss-r1-05'];
+  assert.equal(technical.status, 'walkover');
+  assert.deepEqual([technical.score1, technical.score2, technical.maps.length], [0,1,0]);
+  assert.deepEqual(snapshot.matches['dota-autumn-swiss-r1-03'].maps.map(m=>[m.matchId,m.kills1,m.kills2,m.durationSeconds]), [['9037645797',34,32,3331]]);
+  const updated = applyDotaSnapshot(publishedTournament, snapshot);
+  for (const team of ['Team Borisogleb','Aegis Guardians','strela team']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).won,1);
+  for (const team of ['ARB Esports','Tech Titans','liqa sto']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).lost,1);
+  assert.equal(updated.stages[0].rounds[0].matches.filter(m=>m.status==='scheduled').length,5);
+  assert.equal(collectDotaResults(publishedTournament, [], snapshot).changed, false);
+});
+
+test('older API outcomes cannot undo an organizer result or remove screenshot map evidence', () => {
+  const stale = collectDotaResults(tournament,[first]).snapshot;
+  const updated = applyDotaSnapshot(publishedTournament, stale);
+  assert.equal(updated.stages[0].rounds[0].matches[3].winner,'Team Borisogleb');
+  const manual = collectDotaResults(publishedTournament,[]).snapshot;
+  manual.matches['dota-autumn-swiss-r1-03'].maps=[];
+  assert.equal(applyDotaSnapshot(publishedTournament,manual).stages[0].rounds[0].matches[2].maps[0].matchId,'9037645797');
+  manual.matches['dota-autumn-swiss-r1-04'].confirmedAt='invalid';
+  assert.throws(()=>validateDotaSnapshot(manual,publishedTournament),/source/);
 });

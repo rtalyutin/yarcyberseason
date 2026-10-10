@@ -34,7 +34,12 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
       before.homeDate = current.homeDate;
       before.dates = current.dates;
       before.timeline[2] = current.timeline[2];
-      if (before.stages?.[0]?.rounds?.[0]?.matches?.[3]) before.stages[0].rounds[0].matches[3] = current.stages[0].rounds[0].matches[3];
+      // Three outcomes explicitly approved by the organizer on October 10.
+      if (before.stages?.[0]?.rounds?.[0]?.matches) {
+        for (const index of [2, 3, 4]) before.stages[0].rounds[0].matches[index] = current.stages[0].rounds[0].matches[index];
+      }
+      before.stages[0].groups = current.stages[0].groups;
+      before.additionalAwards = current.additionalAwards;
       before.teamLogos = { PSB_Bank: '/assets/teams/dota2-autumn-2026/psb-bank/logo.png' };
       before.participants[1] = { teamId: 'dota2-autumn-2026-aegis-guardians', displayName: 'Aegis Guardians', status: 'registered' };
       before.participants[12].displayName = 'Parallax Team';

@@ -93,12 +93,83 @@ does not prove that a replay is irrecoverable. Only an explicit organizer reason
 excludes a map, then all ten players receive no MVP score for it. Team results
 remain separate. A technical win without a played map adds no score.
 
+### Missing-map rule agreed on 10 October 2026
+
+For an organizer-confirmed **played** map without complete real statistics,
+every actual player on the winning team receives `μ × 115/100`; every actual
+player on the losing team receives `μ × 85/100`. `μ` is the exact average MVP
+score of all player-map records from this tournament's complete real maps.
+All ten players must have complete data before a real map contributes to that
+average. Pending maps, exclusions and estimates never enter the baseline.
+Confirmed complete real scores awaiting a correction remain the last accepted
+baseline until that correction supplies complete replacement data.
+
+Every publication derives the baseline and all estimates again from the real
+records. New/corrected real data therefore changes all estimates and totals.
+Recovery of a missing map replaces its estimate with the real record, counted
+once by Match ID. Exact zero and negative means follow the same multiplication;
+an absent real baseline leaves the estimate **pending**, not an invented zero.
+
+The explicit `tournament.mvpEstimates` registry binds each played map to its
+published fixture and confirmed winner. It does not authorize estimation for a
+technical result or for an unknown Match ID. A team roster alone does not prove
+who actually played a particular map. The input is:
+
+```json
+{
+  "matchId": "9037645797",
+  "fixtureId": "published-fixture-id",
+  "played": true,
+  "confirmed": true,
+  "winnerTeamId": "published-team-id",
+  "reason": "Organizer confirmed played map; real statistics unavailable",
+  "players": []
+}
+```
+
+An empty/absent `players` array explicitly keeps identities pending. A usable
+entry supplies exactly ten verified actual-map identities with `accountId`
+(string), `nickname`, `teamId`, `teamName` and integer `heroId`: ten distinct
+accounts/heroes and two teams of five. The winner belongs to the same fixture.
+Duplicates, partial lineups, supplied metrics/scores and unconfirmed/no-play
+entries are rejected. Technical fixtures, winners conflicting with confirmed
+results, IDs conflicting with a complete confirmed map list and estimates
+exceeding the fixture's played-map count/best-of limit are also rejected.
+Never fabricate a Match ID or inherit identities from the
+current roster. In particular, a confirmed result without a recoverable actual
+Match ID cannot yet produce per-player MVP estimates through this registry.
+
+Public estimated map status is `estimated`; pending estimate maps carry
+`estimatePending: true`. Each estimated player record carries `scoreExact` and
+`estimation.factorExact`, with **no fabricated metric fields**. Snapshot metadata
+`estimation` contains `ruleVersion: ycs-dota-mvp-missing-map-v1`, `meanExact` and
+`realPlayerMapCount`. The validator independently rebuilds the baseline from real
+records, checks the ±15% factors, actual-map identities, team/winner association,
+totals and ranks. Historical `schemaVersion: 1`/formula `v1` snapshots without
+these additive fields retain their existing validation contract.
+
 ## Collector and publication
 
 `backend/dota-results-import.mjs` uses the existing worker and S3 writer. It
 discovers Match IDs through Tournament/League ID `20164`. Matching requires a
 unique published fixture, the fixture's date window and either exact normalized
 team names or confirmed OpenDota team IDs. It does not infer unpublished pairs.
+Explicit confirmed-map IDs are also retried, including after the discovery
+period ends. A declared map whose actual API response has `leagueid: 0` can
+recover real scores without changing its raw league field. Recovery must match
+the confirmed fixture window and winner; supplied actual account/hero/team
+bindings must also match every API player and side. Other foreign leagues and
+conflicting source identities are rejected. A confirmed played map is separate
+from an unresolved ingestion gap; its missing MVP source still remains pending
+for retries.
+When broad league discovery fails, processing may continue **only** for already
+cached, explicitly known or organizer-confirmed Match IDs. The failure warning
+does not pretend the league was fully discovered: cache/collection/public
+snapshot carry `discoveryPending: true`, public `ingestionComplete: false` and
+`coverageComplete: false`. Known-only retries retain that state; successful broad
+discovery clears it. Without any known IDs, the error still propagates. Discovery
+uncertainty defers automatic series inference while preserving already confirmed
+organizer outcomes and known-map MVP progress.
 
 | Object | Purpose |
 | --- | --- |
@@ -161,6 +232,16 @@ The probe and historical CLI perform no S3 writes and send no parse requests:
 node scripts/dota-mvp-api-probe.mjs <capture-directory>
 node backend/dota-mvp-history.mjs --input <capture-directory> --scope <scope.json> --output <report-directory>
 node --test tests/dota-mvp*.test.mjs tests/dota-results*.test.mjs
+```
+
+The missing-map acceptance checks in `tests/dota-mvp.test.mjs` and
+`tests/dota-mvp-import.test.mjs` cover hand-worked exact scores, all-estimate
+recalculation, real recovery, baseline exclusions, pending correction retention,
+zero/negative baselines, absent identities, duplicate inputs, no-play rejection,
+untagged source validation and repeated publication/retries. A targeted run is:
+
+```sh
+node --test --test-name-pattern='missing-map|every estimate|real recovery|zero and negative|technical/no-play|confirmed missing|confirmed untagged|pending real correction|confirmed map with absent|explicit exclusion wins' tests/dota-mvp.test.mjs tests/dota-mvp-import.test.mjs
 ```
 
 `scope.json` contains `tournamentId`, `leagueId`, explicit `matchIds`,

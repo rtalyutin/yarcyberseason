@@ -86,9 +86,38 @@ export function collectDotaResults(tournament, maps, previous = null, now = new 
   }
   const matches = { ...(previous?.matches || {}) };
   let changed = false;
+  // Sports outcomes confirmed by the organizer do not depend on API/replay
+  // availability. A played series may have no recovered map details yet.
+  for (const fixture of fixtures(tournament)) {
+    if (fixture.resultSource !== "organizer" || fixture.resultConfirmed !== true) continue;
+    const result = { status: fixture.status, scoreKind: fixture.scoreKind, resultConfirmed: true,
+      team1Id: fixture.team1Id, team2Id: fixture.team2Id, score1: fixture.score1, score2: fixture.score2,
+      winnerTeamId: fixture.score1 > fixture.score2 ? fixture.team1Id : fixture.team2Id,
+      source: "organizer", confirmationSource: fixture.confirmationSource, confirmedAt: fixture.confirmedAt,
+      seriesId: null, maps: (fixture.maps || []).map((map, index) => ({ number: index + 1,
+        matchId: String(map.matchId || map.id), winnerTeamId: map.winnerTeamId, kills1: map.kills1,
+        kills2: map.kills2, durationSeconds: map.durationSeconds, url: map.url })) };
+    const old = matches[fixture.id];
+    const sameOutcome = old && old.status === result.status && old.score1 === result.score1 && old.score2 === result.score2;
+    if (sameOutcome && old.maps.length >= result.maps.length) result.maps = old.maps;
+    if (JSON.stringify(old) !== JSON.stringify(result)) {
+      if (old && !sameOutcome) warnings.push(`Organizer correction for ${fixture.id}`);
+      matches[fixture.id] = result;
+      changed = true;
+    }
+  }
   for (const [id, result] of candidates) {
     if (!result) continue;
     if (matches[id]) {
+      const old = matches[id];
+      if (old.source === "organizer" && old.status === result.status && old.score1 === result.score1 && old.score2 === result.score2 &&
+          old.maps.length < result.maps.length) {
+        matches[id] = { ...old, seriesId: result.seriesId, maps: result.maps };
+        changed = true;
+        continue;
+      }
+      if (old.source === "organizer" && old.status === result.status && old.score1 === result.score1 && old.score2 === result.score2 &&
+          JSON.stringify(old.maps) === JSON.stringify(result.maps)) continue;
       if (JSON.stringify(matches[id]) !== JSON.stringify(result)) warnings.push(`Conflict with published result ${id}`);
       continue;
     }

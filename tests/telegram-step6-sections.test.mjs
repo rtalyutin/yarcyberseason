@@ -45,10 +45,12 @@ test("step6 schedule renders October 9 first match and seven October 10 pairs", 
   }
   assert.equal((html.match(/data-match-key=/g) || []).length, 8);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
-  assert.match(html, /Запланирована трансляция матча/);
+  assert.match(html, /Завершён/);
+  assert.match(html, /Техническая победа/);
+  assert.doesNotMatch(html, /Запланирована трансляция матча/);
   assert.match(html, /20:30 МСК/);
-  assert.ok(!html.includes("0:0"));
-  assert.ok(!html.includes("00:00"));
+  assert.ok(!/>0\s*:\s*0</.test(html));
+  assert.ok(!html.includes("в 00:00"));
 });
 test("step6 implemented sections use their distinct empty states", () => {
   const model = fixture("empty");
@@ -70,7 +72,7 @@ test("step6 date-only and unknown-zone text never acquire fabricated time or Mos
   });
   const html = render(dateOnly, "schedule");
   assert.match(html, /11 октября 2026 г./);
-  assert.ok(!html.includes("МСК") && !html.includes("00:00"));
+  assert.ok(!html.includes("МСК") && !html.includes("в 00:00"));
   const uncertain = fixture("scheduledMatch", (t) => {
     delete t.stages[0].matches[0].scheduledAt;
     t.stages[0].matches[0].dateDisplay = "11 октября 18:00";

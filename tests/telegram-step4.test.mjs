@@ -136,9 +136,9 @@ test("step4 real participant UI contains all source names, no links and no inven
   assert.ok(!html.includes("0:0"));
   assert.ok(html.includes("psb_bank") && html.includes("Team Leto"));
 });
-test("step4 participants and implemented Swiss show their specific empty states", () => {
+test("step4 preserves empty participants and shows the current confirmed Swiss table", () => {
   assert.match(render(TournamentScreen, { model: { ...model, participants: [] }, route: tournamentRoute("participants") }), /Участники пока не опубликованы/);
-  assert.match(render(TournamentScreen, { route: tournamentRoute("swiss") }), /Таблица Swiss ещё не опубликована/);
+  assert.match(render(TournamentScreen, { route: tournamentRoute("swiss") }), /Подтверждённые результаты Swiss/);
 });
 test("step4 initial entry does not statically import the main site or CSS", async () => {
   const main = await readFile("src/main.jsx", "utf8");

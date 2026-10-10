@@ -9,6 +9,8 @@ COPY --chown=node:node src/lib/dota-import.js src/lib/dota-results.js src/lib/do
 COPY --chown=node:node src/data/player-identities.json ./src/data/player-identities.json
 COPY --chown=node:node src/data/tournaments/dota2-autumn-2026.json ./src/data/tournaments/dota2-autumn-2026.json
 COPY --chown=node:node backend/organizer-api.mjs backend/organizer-assignments.json ./backend/
+COPY --chown=node:node backend/captain-service.mjs backend/captain-auth.mjs backend/captain-store.mjs backend/captain-results-reader.mjs ./backend/
+COPY --chown=node:node backend/captain-api.mjs backend/captain-cleanup-worker.mjs ./backend/
 COPY --chown=node:node src/lib/organizer-table.js src/lib/community.js src/lib/tournament.js ./src/lib/
 COPY --chown=node:node src/data/tournaments/*.json ./src/data/tournaments/
 USER node

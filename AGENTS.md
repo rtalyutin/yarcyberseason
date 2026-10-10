@@ -1,5 +1,24 @@
 # Current Telegram scope
 
+- October 10 organizer results and MVP rule: Roman explicitly says
+  «меняй в коде и обновляй результаты». Confirm Borisogleb–ARB1:0,
+  Aegis–Tech Titans1:0 (game9037645797, kills34:32,55:31, lobby without league),
+  liqa sto–strela0:1 technical without played map. Update Swiss once per
+  confirmed fixture; no future pairs or raw player metrics may be invented.
+  Missing played-map final player MVP = current tournament's mean of ALL
+  complete REAL player-map scores ×1.15(winners)/0.85(losers). Estimates never
+  enter the mean; recompute all estimates on new/corrected real data, replace
+  recovered map estimates with real scores. No complete real baseline or
+  verified actual ten-player bindings means pending, never zero. The Tech
+  explicit confirmation currently has players:[]; no estimated awards claimed.
+  Publish organizer results before OpenDota discovery; preserve single Tg-mcp
+  writer/CAS/readback, captain state, Serverless modules/menu and existing hosts.
+  API403 may continue known confirmed-map retries with discoveryPending:true.
+  Current authorized delivery includes source/backend and existing frontend;
+  CLI Serverless credential is absent in this workspace, so static Mini App
+  publication needs restored access. No bot messages/settings/ACL changes.
+  See current MVP/results TASK_STATE in docs/telegram-miniapp/STATE.md.
+
 - October 9 captain authenticated-results release (19:54 MSK): source
   8e3d079bc90ac51cae250ab0a02f1d38fcdec118/tree02b0c4ea and Tg-mcp main
   8c5d2495da9695862d82e6e8348a513b3b3fd4af/tree36709e46 are published.

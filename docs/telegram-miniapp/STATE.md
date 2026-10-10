@@ -1,5 +1,32 @@
 # Telegram Mini App — состояние проекта
 
+## TASK_STATE — MVP/results update, 10.10.2026
+
+- Authorization: «меняй в коде и обновляй результаты» after agreement on per-player,
+  per-map ±15% from every complete REAL player-map score of this tournament,
+  excluding calculated replacements, with automatic recalculation on new data.
+- Approved outcomes: Borisogleb–ARB1:0, Aegis–Tech Titans1:0
+  (9037645797,34:32,3331seconds, no league selected), liqa sto–strela0:1 technical.
+  Swiss standings/calendar/results projection updated, five other R1 matches
+  remain scheduled. Technical no-play gives no MVP.
+- Prepared implementation: exact rational mean/factors, provenance/identity
+  validation, pending no-baseline/no-identities, recovery replacing estimates,
+  discovery failure known-ID retry, sports confirmations before API with CAS
+  readback, stale/conflict protections, UI label without fake metrics.
+- Tech903 has no verified ten-account map binding in the data; players:[] stays
+  pending. No production calculated individual award has been asserted.
+- Existing active backend observed at rtalyutin-tg-mcp-4776.twc1.net, collector
+  enabled/configured, source54628232/f41b3eb0; latest attempted import error.
+ 8179 endpoint502 and league20164API403 at this observation.
+- PREPARED, publication not yet claimed. Narrow source/independent QA and build
+  evidence will be bound to frozen tree and runtime fingerprint before publish.
+- Current workspace has no linked tgcloud project/CLI token (status read-only).
+  Static Serverless update is BLOCKED_ACCESS until existing access is restored.
+  Prior deployments remain historical evidence, not evidence for this update.
+- Preserve private captain agreements/roster/S3 state, current bot menu, three
+  cloud modules/config, one writer and all unrelated sources. No ACL/env change.
+
+
 ## ACTIVE_CONTRACT — captain-deploy-6, 09.10.2026
 
 ### TASK_STATE — authenticated reader live; approved round period required, 09.10.2026 19:54 МСК

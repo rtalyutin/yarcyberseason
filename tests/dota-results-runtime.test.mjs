@@ -7,6 +7,7 @@ import { startResultsWorker } from "../backend/dota-results-worker.mjs";
 import { startResultsBackend } from "../backend/server.mjs";
 import { run } from "../scripts/dota-results-import.mjs";
 import { startApp, createAssetBinding } from "../scripts/server.mjs";
+import sourceTournament from '../src/data/tournaments/dota2-autumn-2026.json' with { type: 'json' };
 
 const kickoff = new Date("2026-10-09T20:30:00+03:00");
 const quiet = { error() {}, log() {} };
@@ -84,6 +85,9 @@ test("relocated legacy worker stays disabled by default even with S3 credentials
 });
 
 test("importer makes no external calls before kickoff and persists completed results only once", async () => {
+  const tournament = structuredClone(sourceTournament);
+  tournament.mvpEstimates = [];
+  for (const fixture of tournament.stages[0].rounds[0].matches) delete fixture.resultSource;
   let object = null;
   const objects = new Map();
   let writes = 0;
@@ -91,7 +95,7 @@ test("importer makes no external calls before kickoff and persists completed res
   const map = { match_id: 900000001, leagueid: 20164, start_time: kickoff.getTime() / 1000,
     radiant_name: "ARB Esports", dire_name: "Team Borisogleb", radiant_win: true,
     radiant_score: 18, dire_score: 32, duration: 2400, series_id: 0 };
-  const options = { env: { AWS_ACCESS_KEY_ID: "test", AWS_SECRET_ACCESS_KEY: "test" },
+  const options = { tournament, env: { AWS_ACCESS_KEY_ID: "test", AWS_SECRET_ACCESS_KEY: "test" },
     async fetchJson(url) {
       if (url.endsWith("/matchIds")) return [map.match_id];
       if (url.endsWith("/heroes")) return [{ id: 1, name: "npc_dota_hero_test" }];

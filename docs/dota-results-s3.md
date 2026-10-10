@@ -90,3 +90,25 @@ Run `node --test tests/dota-results.test.mjs tests/dota-results-runtime.test.mjs
 After credentials and CORS are set, verify a test object or the first actual
 match through OpenDota → S3 readback → site and Mini App. The old league probe
 tests connectivity and response shape, not publication of the autumn result.
+
+## Organizer confirmations (10 October 2026)
+
+Confirmed sports outcomes are published before OpenDota work, using the existing
+single writer and conditional S3 write/readback. API availability is not a
+prerequisite for standings. Snapshot schema 1 additionally accepts records with
+`source: "organizer"`, nonempty `confirmationSource`, and valid `confirmedAt`.
+Played series may have fewer recovered map details than the series score;
+unknown map IDs and player metrics are never invented. A technical win uses
+`status: "walkover"`, `scoreKind: "technical"`, and an empty `maps` array.
+Existing API records without `source` retain full-series/map validation.
+
+The approved results are Borisogleb–ARB 1:0, Aegis–Tech Titans 1:0 (map
+9037645797, kills34:32,3331 seconds, lobby without league selection), and
+liqa sto–strela0:1 technical. Swiss standings count each confirmed fixture
+once, including static confirmations and later API snapshots. Stale API data
+cannot override an organizer outcome or discard richer known map details.
+API data may enrich the same outcome; a contradictory outcome is flagged.
+
+If league discovery fails, known/explicitly confirmed map IDs continue to be
+retried, with discovery incompleteness preserved in MVP metadata. Automatic
+API series publication waits for complete discovery; organizer outcomes do not.

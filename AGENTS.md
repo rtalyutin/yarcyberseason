@@ -8,6 +8,12 @@
   raw metrics. Source tournament data SHA256c78c5e5ee6bcf8106f1765195758cc9ffcccb7272b6623665230edf1f575f9bb.
   Rule and recalculation/recovery behavior remain unchanged. Read current
   estimate activation status in docs/telegram-miniapp/STATE.md.
+  Activation is LIVE PASS: source142adf6, runtime PR50/main4b8735f
+  /treeddebf699, full PostgreSQL CI38057437152 passed359+128+30 tests, zero skips.
+  Active collector d8bcc4f2 and captain2fc73c42 pin source142adf6; public MVP
+  revision2 and actual main-site UI now show20 players:10 unchanged real and10
+  calculated. Each Aegis47.51, each Tech35.12; blank205589626 is counted once.
+  Formula mean/recalculation/recovery unchanged; technical no-play gives no MVP.
 
 - October 10 organizer results and MVP rule: Roman explicitly says
   «меняй в коде и обновляй результаты». Confirm Borisogleb–ARB1:0,

@@ -8,19 +8,62 @@
   followed by «Там пустой ник, верно» confirming fifth Tech player after the
   explicit Arseni Pavlov/Steam76561198165855354 question. Account205589626
   is now confirmed for this played card, without assuming an unchanged roster.
-- PREPARED: only9037645797 estimate reason/players changed. Ten actual
+- PUBLISHED: only9037645797 estimate reason/players changed. Ten actual
   account/team/hero bindings in screenshot order; blank nickname has truthful
   account label «Игрок 205589626». No real name or fabricated metrics added.
   Tournament SHA256c78c5e5ee6bcf8106f1765195758cc9ffcccb7272b6623665230edf1f575f9bb.
 - Author checks:57/57 affected tests, zero skips, diff check; full generated
   snapshot validated with10 existing real +10 estimated player-map entries.
-  Previous real entries and technical exclusion preserved. Independent QA
-  is the next gate before source/runtime publication and live readback.
+  Previous real entries and technical exclusion preserved. Independent
+  activation QA7/7 and affected source regressions57/57 passed, zero skips.
 - Current real baseline10 player-maps:3873070961/93750000; each Aegis
- 89080632103/1875000000 (47.51), each Tech65842206337/1875000000 (35.12).
+  89080632103/1875000000 (47.51), each Tech65842206337/1875000000 (35.12).
   Existing automatic recomputation on new/corrected real data and replacement
   of this estimate by recovered real data remain unchanged. Preserve PSB17:00,
   sports confirmations, CAS/single writer, captain state, modules/menu/ACL/env.
+- Source main142adf6003345d9a24f970c0109126d555e92a30/tree1f2a2cf53c029a7140e6efe78856659a8fc2c792
+  published; frozen local570c2f8 has the same tree. Full frontend build passed.
+  Runtime PR50 finalhead4f03e46ef35689144b25a0fdff8f030f98118dbb merged as
+  main4b8735f2e0c3c6abd0661d2653d2e55d5e832d43/treeddebf6991ad8c4c312bd874de3b5fac5d20722f5.
+  Frozen locald464077 has the same tree. Runtime diff is three vendor/data
+  paths plus the existing integration test's obsolete empty-player assertion:
+  known identities remain visible without a real baseline but have no awards,
+  records or ranks. No executable production code changed in this activation.
+  Initial CI38057117540 failed only that assertion; corrected full PostgreSQL
+  CI38057437152 passed root359/workspace128/UI30, zero skips, all required steps.
+  Independent final runtime QA passed;26 hashes/source parity and pins checked.
+- Both active manifests pin source142adf6003345d9a24f970c0109126d555e92a30;
+  collector d8bcc4f2bd34e9a69d92aa9832f553923c22c731115d8fa42fe0590e63bf9fe5,
+  captain2fc73c42a849b5ee35a1306ce601d0cece64c8c196870fd8f5e0a633a1adf641,
+  scheduleed00ca569dfc2d95d4266ab0ea66c71c5596c77c retained. Live collector
+  success2026-10-10T13:58:16.162Z with lastFailurenull,pendingMaps1; this pending
+  raw-data retry does not block the now-active estimate. Captain idle/errornull,
+  16roster applied/revision28,resultsAvailabletrue,matchCount8,storage errorsnull.
+- LIVE_IMPORT PASS: direct public GET200 at13:58:55Z, MVP revision2,
+  updated2026-10-10T13:58:08.330Z, imported-snapshot validation passed. Exactly20
+  players:10 original real records retained exactly plus10 estimates for903.
+  Map903 statusestimated, each Aegis47.51(rank4), each Tech35.12(rank14),
+  baseline10 real player-maps as above. Account205589626 has Steam76561198165855354
+  and truthful fallback label. No fabricated metrics; technical fixture has no
+  MVP record. All three published sporting outcomes remain structurally equal.
+- LIVE_UI PASS: actual existing main-site MVP shows20 ranked entries and the
+  16:58MSK update. Expanded winner and blank-nickname loser show explicit
+  calculated47.51/35.12 and1.15/0.85 factors; source panel shows real mean41.31
+  and automatic recalculation. Blank player's source shows the exact SteamID.
+  Verified URL https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/?section=mvp&phase=all.
+  Static Telegram Mini App publication remains outside this verified release;
+  no bot, credential, ACL, menu, module or private captain-state changes.
+- Independent LIVE_QA PASS: four fresh GET200 receipts13:59:38–41Z from both
+  health routes and both public result objects. Each of the ten complete real
+  scores was manually recomputed from all nine raw metrics; the exact mean and
+  five winner/five loser fractions above match the public awards. All ten
+  account/team/hero bindings, exact retention of prior real records and the
+  entire sports snapshot passed independent checks. IngestionComplete true,
+  ingestionPendingMatchIds[]; raw source903 still unavailable, not claimed recovered.
+  TASK_STATE: estimate activation DONE on runtime4b8735f/tree ddebf699 and
+  source data c78c5e5e; automatic recalculation/recovery remains verified by
+  pre-release scenarios. This completion record is documentation only and
+  does not change the manifests' source142adf6 pin or production data bytes.
 
 - Authorization: «меняй в коде и обновляй результаты» after agreement on per-player,
   per-map ±15% from every complete REAL player-map score of this tournament,
@@ -35,7 +78,7 @@
   readback, stale/conflict protections, UI label without fake metrics.
 - Before16:38 Tech903 had no verified ten-account map binding; players:[]
   remained pending. This is superseded by the organizer confirmation and
-  activation above. Production estimated awards require verified live readback.
+  activation above. Production estimated awards now have verified live readback.
 - Source main dbe9f75def5249bd49e061859d886ad488bfe8b2/tree449bb483 published.
   Source frozen local22e26f5 has identical tree. Main Swiss renderer now shows
   16 confirmed standings rows in all three themes, with no invented ranks or

@@ -18,6 +18,36 @@
   CLI Serverless credential is absent in this workspace, so static Mini App
   publication needs restored access. No bot messages/settings/ACL changes.
   See current MVP/results TASK_STATE in docs/telegram-miniapp/STATE.md.
+  Source dbe9f75/tree449bb published, including actual Swiss standings renderer
+  verified in all3themes. Runtime PR47 merged as main38bc9f9/tree51b213 after
+  independent checks and PostgreSQL CI38048353247 pass. Preserve concurrent
+  PSB–Parallax17:00 MSK. Collector pin sourceed00ca5/fingerprinta7eb0f25,
+  captain fingerprintbaff5950; UI-only Swiss change does not affect package.
+  Main-site Swiss live readback passed16rows; sourceed00ca5/a7eb0f25 is active
+  on backend, but initial importstatuserror,pendingMaps1,lastSuccessnull needs
+  diagnosis. No completed S3/MVP run or Serverless release is claimed yet.
+  Safe diagnostic follow-up source15686207/tree5761f5eb and runtime PR48
+  mainb25f626/tree2a922124 published after final independent gate and full
+  PostgreSQL CI38049680362 pass. Both manifests pin15686207, collector
+  fingerprintd0f478e4, captainbaff5950; only fixed code/phase/HTTP status escape.
+  Live diagnostic activation verified11:53:35Z: PreconditionFailed/HTTP412 at
+  publish_mvp_cache. Apply only the same-token quoted32hex→bare IfMatch retry
+  already used by captain-store; preserve exact readback and all CAS guards.
+  ETag correction source0fec3565/treeadc180c published; runtime PR49 final
+  headdf53cef/tree7e459f56 merged as mainc731a2c after CI38050464161 passed.
+  Collector5a8516fb and captain
+  baff5950 pin0fec, scheduleed00 retained. Existing CI path filter includes
+  ycs-dota/** now; no jobs/permissions/env altered. Functional independent
+  60scenarios and focusedsource34/runtime32 pass. LIVE_IMPORT PASS12:06:57Z:
+  active0fec/5a8516fb,waiting,lastSuccessnonnull,lastFailurenull,pending1.
+  Public results/MVP GET200 validated,3outcomes and10real players from
+  map9036860954; exact real mean3873070961/93750000. MissingTech903 pending only
+  for unconfirmed ten actual account/hero/team bindings; no estimated award.
+  Actual MVP UI verifies10real rows and explicit903 account-confirmation pending.
+  OpenDotaGET903 returns404; optional POST/request/9037645797 was auto-review
+  rejected because it starts a quota-consuming external parse job beyond what
+  reviewer considered read/search authorization. No job returned; never bypass.
+  Ask Roman for this exact parse approval only after completed code/results work.
 
 - October 9 captain authenticated-results release (19:54 MSK): source
   8e3d079bc90ac51cae250ab0a02f1d38fcdec118/tree02b0c4ea and Tg-mcp main

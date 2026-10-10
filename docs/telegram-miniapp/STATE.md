@@ -9,17 +9,83 @@
   (9037645797,34:32,3331seconds, no league selected), liqa sto–strela0:1 technical.
   Swiss standings/calendar/results projection updated, five other R1 matches
   remain scheduled. Technical no-play gives no MVP.
-- Prepared implementation: exact rational mean/factors, provenance/identity
+- Implemented rule: exact rational mean/factors, provenance/identity
   validation, pending no-baseline/no-identities, recovery replacing estimates,
   discovery failure known-ID retry, sports confirmations before API with CAS
   readback, stale/conflict protections, UI label without fake metrics.
 - Tech903 has no verified ten-account map binding in the data; players:[] stays
   pending. No production calculated individual award has been asserted.
-- Existing active backend observed at rtalyutin-tg-mcp-4776.twc1.net, collector
-  enabled/configured, source54628232/f41b3eb0; latest attempted import error.
- 8179 endpoint502 and league20164API403 at this observation.
-- PREPARED, publication not yet claimed. Narrow source/independent QA and build
-  evidence will be bound to frozen tree and runtime fingerprint before publish.
+- Source main dbe9f75def5249bd49e061859d886ad488bfe8b2/tree449bb483 published.
+  Source frozen local22e26f5 has identical tree. Main Swiss renderer now shows
+  16 confirmed standings rows in all three themes, with no invented ranks or
+  future pairs. Preserved concurrent PSB–Parallax17:00 MSK/calendar update.
+- Runtime PR47 merged to main38bc9f9415f0b44c24aa2f0161cca580dde64e5d,
+  tree51b21365, matching locald36e5ff integration. Manifests pin sourceed00ca5
+  with exact shared package bytes; later Swiss display change is frontend only.
+  Collector fingerprinta7eb0f25277b1d687b90a7e8a65cd56b40833e25d15c31ae4bae1e210629711b;
+  captain fingerprintbaff5950b470103492ca9cfe18258bd76fdbb0f62293671c104ee23bb9679585.
+- Verification: source197/197 plus captain42/42, independent11 held-out and2
+  MVP SSR states; runtime78/78 plus11 held-out and11 schedule-integration
+  probes; exact manifest closure. Swiss actual component SSR passed3themes
+  and2empty states;14/14 affected tests/build passed, zero skips. Required
+  PostgreSQL CI38048353247 passed all build/typecheck/root/workspace/UI steps.
+- Three individual results pages are verified live200, including game903 kills
+  34:32/55:31 and liqa technical no-play. Main-site Swiss live CUA readback
+  passed16rows with exact3winner/3loser records, no placeholder or ranks; URL
+  https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/?section=swiss&phase=all.
+  Live17:00 schedule confirmed11:32:16Z, new frontend Last-Modified11:30:39Z.
+- Backend new code activation is VERIFIED11:31:45Z: expected sourceed00ca5/
+  fingerprinta7eb0f25 enabled/configured. Import returnedstatuserror,pendingMaps1,
+  lastSuccessnull. Thus S3/MVP publish completion remains IN_PROGRESS, not PASS.
+  Independent actual-tournament empty fakeS3/GET403 reproducer succeeds, writes
+  3sports outcomes andpending MVP; it does not establish actual storage health.
+  Public S3 reads403 are pre-existing, not authorization to change access.
+- Safe diagnostic follow-up published: source15686207c4a4d4f26b5142673d65121f2de0160b
+  /tree5761f5eb, runtime PR48 mainb25f6266b517a585326cc6c1cf74f4a5aebbde29
+  /tree2a922124. Source30/30 and runtime28/28 focused tests, independent8/8
+  diagnostics and11/11 prior held-out scenarios in each repo passed; exact26
+  manifest hashes/source parity passed. Full PostgreSQL CI38049680362 passed.
+  Both manifests pin15686207; collector d0f478e4c72342bbe446ec0fd29b3208094a76820c2dc54e6ba1c881066f0cc6,
+  captainbaff5950 unchanged, scheduleed00 preserved. Health exposes only fixed
+  failure code/phase/400–599 HTTP status, with no raw errors, keys or hooks;
+  success clears the old failure. Live activation verified11:53:35Z with exact
+  source/fingerprint. Actual failure is PreconditionFailed/412 at
+  publish_mvp_cache; same-token ETag compatibility correction described below
+  subsequently resolved this failure.
+- ETag correction source0fec3565e1437def54777d3e0dcc2e666f647cf7/treeadc180c
+  published. Runtime PR49 finalheaddf53cef7fbe44c9d6d6f556442bb7e8daf01e526/tree7e459f56
+  merged as mainc731a2ced5917bdac63efb483c9cfade67af1c6a. Repeat quoted32hex→bare only on first412, same
+  expected digest/body/target, no fresh token/wildcard/unconditional write;
+  existing CAS pre-read and exact success/error readback preserved. Source34/34
+  and runtime32/32 focused tests passed0skips; independent11 ETag/end-to-end,
+  8 diagnostic and11 prior MVP/results scenarios passed on each repo. Both
+  manifest pins0fec3565,26hash/source parity,typecheck/build/closure passed.
+  Collector5a8516fbd8b85ef291749635c989647550d205b8765c947061d592bea0d3fda7;
+  captainbaff5950 unchanged, scheduleed00 preserved.
+  Existing full CI filter now includesycs-dota/** (only1line added; jobs,
+  permissions/env unchanged), since vendor-only edits previously triggered no
+  run. Required PostgreSQL CI38050464161 passed every build/typecheck/root/
+  workspace/UI step on final candidate.
+- LIVE_IMPORT PASS: active backend source0fec3565/fingerprint5a8516fb,
+  statuswaiting,lastAttempt2026-10-10T12:06:55.573Z,
+  lastSuccess2026-10-10T12:06:57.776Z,pendingMaps1,lastFailurenull.
+  Direct public results GET200/revision1 validated exactly3 organizer outcomes;
+  MVP GET200/revision1 passed imported-snapshot validator,10 real players from
+  map9036860954. Exact baseline mean3873070961/93750000 (10 real player-maps).
+  Tech9037645797 remains estimatePending because ten actual account/hero/team
+  bindings are absent, NOT because the cache publication failed or mean is absent.
+  No calculated Tech awards have been applied. Latest captain healthsource0fec/
+  baff5950 idle,errornull,16roster applied,revision28,resultsAvailabletrue,
+  matchCount8,cleanup/storage errorsnull; private state/ACL/env unchanged.
+- LIVE_UI PASS: actual main-site MVP shows10 real leaderboard entries and the
+  missing card9037645797 under sources with explicit account-confirmation pending.
+  Verified URL https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/?section=mvp&phase=all.
+  OpenDota GET/matches/9037645797 still returns404 {error:Not Found} at this
+  observation; do not claim it permanently lost. Existing five-minute reader
+  retries continue. POST/request/9037645797 parse attempt was BLOCKED_AUTO_REVIEW:
+  external parse job consumes API quota; approval reviewer considers prior
+  authorization read/search only. No parse job/ID was returned; do not bypass.
+  Approval for this exact parse action is the remaining optional next step.
 - Current workspace has no linked tgcloud project/CLI token (status read-only).
   Static Serverless update is BLOCKED_ACCESS until existing access is restored.
   Prior deployments remain historical evidence, not evidence for this update.

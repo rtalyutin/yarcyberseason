@@ -1,5 +1,14 @@
 # Current Telegram scope
 
+- October10 16:38 MSK organizer confirms the fifth Tech player has an empty
+  nickname, in reply to Arseni Pavlov / submitted Steam76561198165855354.
+  Actual account205589626 is now bound to9037645797 with the nine screenshot
+  identities. Activate the existing missing-map rule for these ten players;
+  truthful display fallback is «Игрок 205589626», no invented gaming alias or
+  raw metrics. Source tournament data SHA256c78c5e5ee6bcf8106f1765195758cc9ffcccb7272b6623665230edf1f575f9bb.
+  Rule and recalculation/recovery behavior remain unchanged. Read current
+  estimate activation status in docs/telegram-miniapp/STATE.md.
+
 - October 10 organizer results and MVP rule: Roman explicitly says
   «меняй в коде и обновляй результаты». Confirm Borisogleb–ARB1:0,
   Aegis–Tech Titans1:0 (game9037645797, kills34:32,55:31, lobby without league),
@@ -10,7 +19,8 @@
   enter the mean; recompute all estimates on new/corrected real data, replace
   recovered map estimates with real scores. No complete real baseline or
   verified actual ten-player bindings means pending, never zero. The Tech
-  explicit confirmation currently has players:[]; no estimated awards claimed.
+  explicit confirmation had players:[] before the16:38 organizer confirmation.
+  The current activation described above supplies all ten actual bindings.
   Publish organizer results before OpenDota discovery; preserve single Tg-mcp
   writer/CAS/readback, captain state, Serverless modules/menu and existing hosts.
   API403 may continue known confirmed-map retries with discoveryPending:true.

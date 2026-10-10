@@ -2,6 +2,26 @@
 
 ## TASK_STATE — MVP/results update, 10.10.2026
 
+### Estimate activation — contract revision2, 16:38 MSK
+
+- Authorization: «его и не будет. считаем матч по средним значениям»;
+  followed by «Там пустой ник, верно» confirming fifth Tech player after the
+  explicit Arseni Pavlov/Steam76561198165855354 question. Account205589626
+  is now confirmed for this played card, without assuming an unchanged roster.
+- PREPARED: only9037645797 estimate reason/players changed. Ten actual
+  account/team/hero bindings in screenshot order; blank nickname has truthful
+  account label «Игрок 205589626». No real name or fabricated metrics added.
+  Tournament SHA256c78c5e5ee6bcf8106f1765195758cc9ffcccb7272b6623665230edf1f575f9bb.
+- Author checks:57/57 affected tests, zero skips, diff check; full generated
+  snapshot validated with10 existing real +10 estimated player-map entries.
+  Previous real entries and technical exclusion preserved. Independent QA
+  is the next gate before source/runtime publication and live readback.
+- Current real baseline10 player-maps:3873070961/93750000; each Aegis
+ 89080632103/1875000000 (47.51), each Tech65842206337/1875000000 (35.12).
+  Existing automatic recomputation on new/corrected real data and replacement
+  of this estimate by recovered real data remain unchanged. Preserve PSB17:00,
+  sports confirmations, CAS/single writer, captain state, modules/menu/ACL/env.
+
 - Authorization: «меняй в коде и обновляй результаты» after agreement on per-player,
   per-map ±15% from every complete REAL player-map score of this tournament,
   excluding calculated replacements, with automatic recalculation on new data.
@@ -13,8 +33,9 @@
   validation, pending no-baseline/no-identities, recovery replacing estimates,
   discovery failure known-ID retry, sports confirmations before API with CAS
   readback, stale/conflict protections, UI label without fake metrics.
-- Tech903 has no verified ten-account map binding in the data; players:[] stays
-  pending. No production calculated individual award has been asserted.
+- Before16:38 Tech903 had no verified ten-account map binding; players:[]
+  remained pending. This is superseded by the organizer confirmation and
+  activation above. Production estimated awards require verified live readback.
 - Source main dbe9f75def5249bd49e061859d886ad488bfe8b2/tree449bb483 published.
   Source frozen local22e26f5 has identical tree. Main Swiss renderer now shows
   16 confirmed standings rows in all three themes, with no invented ranks or

@@ -1,0 +1,169 @@
+/* YCS tournament spec v1.2, D-01–D-18; shared data, Dota presentation only. */
+body:has(.site-shell--tournament[data-theme="dota2"] .tn-page--arena) { min-width: 0; }
+.tn-broadcasts { margin-top: 8px; }
+.tn-broadcasts-label { display: block; margin-bottom: 4px; font-size: 12px; color: var(--inside-muted, var(--tn-muted)); }
+.tn-broadcasts-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.tn-broadcast-link { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 6px 10px; border: 1px solid var(--inside-accent, var(--tn-blue)); border-radius: 6px; color: var(--inside-text, inherit); font-size: 13px; text-decoration: none; }
+.tn-broadcast-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+.tn-broadcast-link svg:last-child { width: 14px; height: 14px; }
+.tn-vk-icon { font-size: 11px; font-weight: 800; letter-spacing: -.08em; }
+.tn-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena {
+  --arena-gutter: 40px;
+  --arena-control-rule: #608880;
+  font-family: "YCS Sans", Arial, sans-serif;
+  background: #061f22;
+}
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(button, a, input):focus-visible { outline: 2px solid #8ff3e5; outline-offset: 4px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(button, input) { font: inherit; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-heading {
+  width: min(100%, 1440px); min-height: 232px; padding: 16px var(--arena-gutter) 18px; text-align: left; overflow: hidden;
+}
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-heading::before {
+  opacity: 1; background: linear-gradient(90deg, #061f22 0%, rgb(6 31 34 / .94) 24%, rgb(6 31 34 / .34) 64%, rgb(6 31 34 / .12)), linear-gradient(0deg, #061f22 0%, transparent 48%), url('/assets/themes/yaroslavl-dota-map.webp') right 38% / cover;
+}
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-heading > * { max-width: 1280px; margin-inline: auto; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-breadcrumb { justify-content: flex-start; gap: 16px; font-size: 13px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-title-row { display: block; margin-top: 4px; margin-bottom: 8px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-title-row h1 { max-width: 800px; font: 750 clamp(40px, 3.4vw, 48px)/1.12 "YCS Sans", Arial, sans-serif; letter-spacing: -.045em; text-wrap: balance; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-date { font: 400 22px/1.4 "YCS Sans", Arial, sans-serif; color: #f3efdc; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-passport { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-top: 12px; font-size: 14px; }
+.tn-passport > :is(span, a) { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; }
+.tn-passport svg { width: 20px; height: 20px; color: #8ff3e5; flex-shrink: 0; }
+.tn-passport a { color: #8ff3e5; text-underline-offset: 4px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-header-actions { justify-content: flex-start; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-header-actions:empty { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-layout { width: min(1280px, calc(100% - var(--arena-gutter) * 2)); display: block; border: 0; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-sidebar { position: sticky; top: 0; z-index: 20; display: block; padding: 0; border: 0; background: #061f22; box-shadow: 0 1px #365753; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-sidebar :is(.tn-eyebrow, .tn-facts, .tn-archive-count, .tn-back) { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 32px; padding-block: 0; border: 0; overflow-x: auto; scrollbar-width: none; scroll-padding-inline: 4px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav::-webkit-scrollbar { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav button { position: relative; min-width: 44px; min-height: 54px; flex-shrink: 0; padding: 12px 0; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; font: 400 14px/1.4 "YCS Sans", Arial, sans-serif; color: #b7d0ca; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav [aria-current="page"] { border-color: #8ff3e5; color: #f3efdc; font-weight: 700; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav button:hover { color: #8ff3e5; background: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-content { min-width: 0; padding: 26px 0 48px; border: 0; scroll-margin-top: 72px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(h2, h3, h4) { font-family: "YCS Sans", Arial, sans-serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 10px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 20px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading h2 { margin: 0; font: 700 36px/1.2 "YCS Sans", Arial, sans-serif; letter-spacing: -.04em; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading > div > span { color: #b7d0ca; font-size: 13px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search { position: relative; display: flex; align-items: center; gap: 10px; width: 310px; min-height: 44px; margin: 16px 0 0; padding: 0 12px; border: 1px solid var(--arena-control-rule); border-radius: 6px; background: transparent; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search-label { position: absolute; top: -19px; left: 0; font-size: 12px; color: #b7d0ca; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search > svg { width: 20px; height: 20px; flex-shrink: 0; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search input { width: 100%; min-width: 0; height: 44px; padding: 0; background: transparent; border: 0; color: #f3efdc; font-size: 14px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search input::placeholder { color: #b7d0ca; opacity: 1; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search input::-webkit-search-cancel-button { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search button { display: grid; place-items: center; align-self: stretch; width: 44px; min-height: 44px; padding: 0; margin-right: -12px; background: transparent; color: #f3efdc; flex-shrink: 0; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-match-tools { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 22px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-filters button { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 8px 20px; border: 1px solid var(--arena-control-rule); border-radius: 24px; color: #f3efdc; background: transparent; font-size: 13px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-filters [aria-pressed="true"] { border-color: #8ff3e5; background: #8ff3e5; color: #062623; font-weight: 700; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-timezone { margin: 0; color: #b7d0ca; font-size: 13px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-match-list { display: block; }
+.tn-date-group + .tn-date-group { margin-top: 28px; }
+.tn-date-group h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 12px; color: #b7d0ca; font-size: 20px; line-height: 1.3; }
+.tn-date-group h3 span { font-size: 13px; font-weight: 400; }
+.tn-date-matches { display: grid; gap: 12px; }
+.tn-arena-match { display: grid; grid-template-columns: 104px minmax(0, 1fr) 208px; gap: 20px; align-items: center; min-height: 128px; padding: 12px 20px; border: 1px solid #365753; border-radius: 12px; background: #102c2d; }
+.tn-arena-time { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-block: 8px; }
+.tn-arena-time > strong { font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tn-arena-time > .tn-time-unknown { font-size: 16px; line-height: 1.4; }
+.tn-arena-time > span { color: #b7d0ca; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.tn-arena-time > .tn-card-timezone { font-size: 11px; }
+.tn-arena-match--live { box-shadow: inset 2px 0 #8ff3e5; }
+.tn-arena-match--live .tn-arena-time > span:first-of-type { color: #8ff3e5; }
+.tn-arena-pair { display: grid; grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); gap: 8px 12px; align-items: center; width: 100%; max-width: 680px; margin: auto; padding: 8px 20px; border-left: 1px solid #365753; }
+.tn-arena-team { display: flex; align-items: center; gap: 12px; min-width: 0; font-size: 17px; line-height: 1.35; font-weight: 700; }
+.tn-arena-team > .community-team-link { display: inline-flex; align-items: center; min-width: 0; min-height: 44px; overflow-wrap: anywhere; }
+.tn-arena-team--first { justify-content: flex-end; text-align: right; }
+.tn-arena-logo { width: 44px; height: 44px; flex-shrink: 0; display: grid; place-items: center; border: 1px solid #608880; border-radius: 8px; color: #f3efdc; font-size: 13px; }
+.tn-arena-logo img { display: block; width: 100%; height: 100%; padding: 3px; object-fit: contain; border-radius: 7px; }
+.tn-arena-score { text-align: center; }
+.tn-arena-score strong { display: block; font-size: 24px; line-height: 1.25; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tn-arena-score strong[aria-label="Счёт пока не опубликован"] { font-size: 15px; font-weight: 400; color: #b7d0ca; }
+.tn-arena-score > span { display: block; font-size: 10px; color: #b7d0ca; margin-top: 5px; }
+.tn-mobile-score { display: none; }
+.tn-arena-meta { grid-column: 1 / -1; margin: 0; text-align: center; font-size: 12px; line-height: 1.4; color: #b7d0ca; }
+.tn-arena-actions { display: flex; flex-direction: column; align-items: stretch; padding-left: 20px; border-left: 1px solid #365753; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-match-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border-radius: 6px; padding: 8px 14px; background: #8ff3e5; color: #062623; text-decoration: none; font-size: 14px; font-weight: 700; }
+.tn-match-primary svg { width: 16px; height: 16px; }
+.tn-arena-actions .tn-broadcasts { margin-top: 6px; }
+.tn-arena-actions .tn-broadcasts-label { text-align: center; }
+.tn-arena-actions .tn-broadcasts-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
+.tn-arena-actions .tn-broadcast-link { min-width: 0; padding-inline: 6px; border-color: #608880; color: #f3efdc; }
+.tn-broadcast-link:hover { border-color: #8ff3e5; background: #153c3c; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-details-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 6px 0; color: #b7d0ca; background: transparent; font-size: 12px; }
+.tn-details-toggle svg { width: 14px; height: 14px; }
+.tn-details-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.tn-details-toggle:hover { color: #8ff3e5; }
+.tn-arena-details { grid-column: 1 / -1; border-top: 1px solid #365753; padding: 12px 0 4px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.tn-arena-details[hidden] { display: none; }
+.tn-arena-details p { margin: 0 0 8px; }
+.tn-arena-details ul { list-style: none; padding: 0; margin: 0 0 10px; }
+.tn-arena-details li { display: flex; flex-wrap: wrap; gap: 6px 20px; padding-block: 8px; }
+.tn-arena-details a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; color: #8ff3e5; text-underline-offset: 3px; }
+.tn-arena-details a svg { width: 15px; height: 15px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-list-footer { margin-top: 20px; text-align: center; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-outline { min-height: 44px; border: 1px solid #608880; border-radius: 6px; padding: 10px 20px; font-size: 14px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-list-footer > button { min-width: min(280px, 100%); }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-empty { padding: 32px 20px; border: 1px solid #365753; border-radius: 12px; }
+
+@media (max-width: 1099px) {
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena { --arena-gutter: 24px; }
+  .tn-arena-match { grid-template-columns: 104px minmax(0, 1fr); padding: 16px 20px; gap: 12px 20px; }
+  .tn-arena-actions { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: flex-end; gap: 10px 16px; padding: 10px 0 0; border-left: 0; border-top: 1px solid #365753; }
+  .tn-arena-actions > .tn-match-primary { min-width: 160px; }
+  .tn-arena-actions .tn-broadcasts { margin: 0; }
+  .tn-arena-actions .tn-broadcasts-label { text-align: left; }
+  .tn-arena-actions .tn-broadcasts-links { display: flex; }
+  .tn-arena-actions .tn-broadcast-link { padding-inline: 10px; }
+  .tn-arena-actions .tn-details-toggle { margin-left: auto; }
+}
+@media (max-width: 767px) {
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena { --arena-gutter: 16px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-heading { min-height: 0; padding-block: 10px 16px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-heading::before { background: linear-gradient(90deg, rgb(6 31 34 / .96), rgb(6 31 34 / .76)), url('/assets/themes/yaroslavl-dota-map.webp') right 38% / cover; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-title-row h1 { font-size: 30px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-date { font-size: 17px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-passport { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0 20px; margin-top: 10px; font-size: 12px; }
+  .tn-passport > span { gap: 6px; min-height: 24px; }
+  .tn-passport > a { gap: 6px; min-height: 44px; }
+  .tn-passport svg { width: 17px; height: 17px; }
+  .tn-passport > span:nth-last-child(2) { grid-column: 1 / -1; }
+  .tn-passport a { grid-column: 1 / -1; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-sidebar { margin-inline: -16px; padding-inline: 16px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-sidebar::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 20px; background: linear-gradient(90deg, transparent, #061f22); pointer-events: none; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav { gap: 24px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav button { min-height: 48px; font-size: 13px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-content { padding-top: 20px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading { flex-direction: column; align-items: stretch; gap: 20px; margin-bottom: 12px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading h2 { font-size: 28px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-search { width: 100%; margin-top: 0; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-match-tools { margin-bottom: 20px; gap: 10px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-filters { gap: 8px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-filters button { padding-inline: 14px; font-size: 12px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-timezone { margin-left: auto; font-size: 12px; }
+  .tn-date-group h3 { font-size: 17px; margin-bottom: 10px; }
+  .tn-date-group h3 span { font-size: 12px; }
+  .tn-arena-match { grid-template-columns: minmax(0, 1fr); min-height: 184px; padding: 6px 14px; gap: 4px; }
+  .tn-arena-time { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 0; }
+  .tn-arena-time > strong { font-size: 24px; }
+  .tn-arena-time > span:last-child { margin-left: auto; }
+  .tn-arena-pair { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 0; border: 0; }
+  .tn-arena-team { justify-content: flex-start; text-align: left; gap: 10px; font-size: 16px; }
+  .tn-arena-team--first .tn-arena-logo { order: -1; }
+  .tn-arena-logo { width: 34px; height: 34px; border-radius: 6px; font-size: 11px; }
+  .tn-arena-score { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tn-mobile-score { display: block; margin-left: auto; padding-left: 8px; font-size: 20px; }
+  .tn-arena-meta { text-align: left; font-size: 11px; }
+  .tn-arena-actions { gap: 4px 12px; padding-top: 6px; }
+  .tn-arena-actions > .tn-match-primary { flex: 1; min-width: 110px; }
+  .tn-arena-actions .tn-details-toggle { margin-left: 0; font-size: 12px; }
+  .tn-arena-actions:has(.tn-broadcasts) > .tn-match-primary { flex-basis: 100%; }
+  .tn-arena-actions .tn-broadcasts { flex: 1; }
+  .tn-arena-actions .tn-broadcasts-links { flex-wrap: wrap; }
+  .tn-arena-actions .tn-broadcast-link { flex: 1; min-width: 78px; }
+  .tn-arena-details { font-size: 12px; }
+}

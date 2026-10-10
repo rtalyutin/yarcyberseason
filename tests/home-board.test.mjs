@@ -3,7 +3,15 @@ import assert from 'node:assert/strict';
 import tournament from '../src/data/tournaments/dota2-autumn-2026.json' with { type: 'json' };
 import { getHomeBroadcastBoard } from '../src/lib/home-board.js';
 
-const fixture = () => structuredClone(tournament);
+const fixture = () => {
+  const data = structuredClone(tournament);
+  // Tests control the featured match state independently of current published results.
+  const match = featured(data);
+  Object.assign(match, { status: 'scheduled', resultConfirmed: false });
+  delete match.score1;
+  delete match.score2;
+  return data;
+};
 const featured = (data) => data.stages[0].rounds[0].matches.find((match) => match.id === data.homeBroadcastMatchIds[0]);
 
 test('the published broadcast pair is scheduled even after its calendar date passes', () => {
@@ -18,10 +26,10 @@ test('the published broadcast pair is scheduled even after its calendar date pas
 test('only an explicit live state can offer the published stream', () => {
   const data = fixture();
   featured(data).status = 'live';
-  featured(data).broadcastUrl = 'https://example.com/live';
+  featured(data).broadcastLinks = { twitch: 'https://example.com/live' };
   const board = getHomeBroadcastBoard(data);
   assert.equal(board.state, 'live');
-  assert.equal(board.match.broadcastUrl, 'https://example.com/live');
+  assert.deepEqual(board.match.broadcastLinks, { twitch: 'https://example.com/live' });
   assert.equal(board.score, null);
 });
 
@@ -36,6 +44,8 @@ test('an unconfirmed completed match cannot publish a score', () => {
 test('a newly featured fixture appears beside the confirmed previous result', () => {
   const data = fixture();
   Object.assign(featured(data), { status: 'completed', score1: 1, score2: 0, scoreKind: 'series', resultConfirmed: true });
+  Object.assign(data.stages[0].rounds[0].matches.find((match) => match.id === 'dota-autumn-swiss-r1-05'),
+    { status: 'scheduled', resultConfirmed: false });
   data.homeBroadcastMatchIds.push('dota-autumn-swiss-r1-05');
   const board = getHomeBroadcastBoard(data);
   assert.equal(board.state, 'scheduled');

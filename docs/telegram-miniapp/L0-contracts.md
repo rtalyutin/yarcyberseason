@@ -68,7 +68,7 @@ src/data/tournaments/dota2-autumn-2026.json
 
 `NormalizedResult.maps` теперь имеет явный тип `NormalizedMap[]`: `id: string|null`, `name: string`, `score: [number,number]|null`, `unit: string`, `outcome: string|null`. Guard проверяет каждое поле; счёт состоит из двух неотрицательных целых чисел. Это форма выхода существующего общего normalizer, без второй модели результата. Отображение не использует `sourceScore` вместо подтверждённого счёта серии. Для неподтверждённых и технических исходов сыгранные карты не выводятся.
 
-`MatchViewModel.links` остаётся набором `UiAction`; источник может назвать трансляцию `streamUrl` или `broadcastUrl`. Одинаковые HTTPS-адреса объединяются. Действие вызывает `RuntimePort.openExternal` только после нажатия, раскрытие подробностей маршрута не меняет.
+`MatchViewModel.links` остаётся набором `UiAction`; с миграции по ТЗ `YCS-Tournament-Design-Spec-2026-10-09.md` v1.2 источник трансляций — только `match.broadcastLinks: {twitch?:string, vk?:string}`. Общий `getMatchBroadcastLinks` возвращает валидные HTTPS без credentials с названиями Twitch/VK; незаполненный атрибут не создаёт действий. `replayUrl` и `documentUrl` сохраняют свои действия. Действие вызывает `RuntimePort.openExternal` только после нажатия, раскрытие подробностей маршрута не меняет.
 
 ## RuntimePort
 

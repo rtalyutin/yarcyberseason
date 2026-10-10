@@ -1,3 +1,28 @@
+# Current tournament presentation
+
+- October 10 implementation follows `YCS-Tournament-Design-Spec-2026-10-09.md`
+  v1.2 (D-01–D-18 / MATCH-BROADCAST-01 revision 1) and the approved image
+  «Первый матч с Twitch и VK». In the Dota presentation of the shared tournament
+  template, use the compact left-aligned map cover, one passport, horizontal
+  sticky section navigation, MSK date groups and cohesive match cards. Preserve
+  model order, section IDs/URLs, search/filter/history and the actual newer data;
+  the image's older schedule/results are not a data source. CS2/corporate and
+  shared SiteHeader geometry/1200px menu breakpoint remain intact.
+- Public match broadcasts belong only to optional
+  `broadcastLinks: { twitch?: string, vk?: string }` on that match. Read them via
+  `getMatchBroadcastLinks`: no public fallback from legacy URL fields, notes,
+  casters, status or global channels. Empty/absent/invalid values render no
+  broadcast area; each valid link renders its own labelled action inside the
+  card. Presence of links or a past start time never changes match status.
+  Captain service keeps its existing single-URL DTO as a compatibility adapter
+  sourced from the same canonical attribute. Private organizer assignments
+  remain a distinct private operational override.
+- UI implementation lives in `TournamentMatchCard.jsx`,
+  `MatchBroadcastLinks.jsx` and `tournament-arena.css`, with opt-in presentation
+  in `TournamentNavigator.jsx`. Document the implementation and browser evidence
+  under `docs/design/tournament-arena/`; do not recreate the approved map or
+  infer missing dates, logos, scores, streams or player statistics.
+
 # Current Telegram scope
 
 - October10 16:38 MSK organizer confirms the fifth Tech player has an empty

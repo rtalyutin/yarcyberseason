@@ -46,6 +46,24 @@ function setup(options = {}) {
 }
 const rejectCode = (promise, code) => assert.rejects(promise, (error) => error.code === code);
 
+test('captain broadcastUrl DTO adapts only canonical match links without changing its contract', async () => {
+  for (const [broadcastLinks, expected] of [
+    [{ twitch: 'https://www.twitch.tv/yarcyberseason', vk: 'https://vk.com/yarcyberseason' }, 'https://www.twitch.tv/yarcyberseason'],
+    [{ vk: 'https://vk.com/yarcyberseason' }, 'https://vk.com/yarcyberseason'],
+    [{ twitch: 'https://user:pass@example.com', vk: '' }, null],
+    [null, null],
+  ]) {
+    const source = structuredClone(tournament);
+    Object.assign(source.stages[0].rounds[0].matches[0], { broadcastLinks,
+      broadcastUrl: 'https://example.com/old', streamUrl: 'https://example.com/legacy' });
+    const s = setup({ tournament: source });
+    await s.assign('a', 'alpha');
+    const dto = await s.captain(11, 'alpha', { action: 'match', matchId: 'ab' });
+    assert.equal(dto.match.broadcastUrl, expected);
+    assert.equal(Object.hasOwn(dto.match, 'broadcastLinks'), false);
+  }
+});
+
 test('first trusted login binds stable id; username transfer cannot inherit, revoke rechecks every request', async () => {
   const s = setup();
   assert.deepEqual(await s.captain(11, 'alpha', { action: 'access' }), { authorized: false, team: null, matches: [] });

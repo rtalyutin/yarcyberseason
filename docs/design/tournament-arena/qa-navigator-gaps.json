@@ -1,0 +1,79 @@
+[
+  {
+    "cardCount": 1,
+    "cardText": "Время уточняется\nЗапланирован\nМСК\nTEAM SPERMINT\nTS\nVS\nPK\nPIVNAYA KEGA\n\nШвейцарская система · BO1\n\nМатч\nПодробности",
+    "case": "unknown-date-and-missing-assets",
+    "client": 1363,
+    "groups": [
+      "Дата уточняется"
+    ],
+    "hero": {
+      "background": "rgb(6, 31, 34)",
+      "color": "rgb(243, 239, 220)",
+      "pseudoBackground": "linear-gradient(90deg, rgb(6, 31, 34) 0%, rgba(6, 31, 34, 0.94) 24%, rgba(6, 31, 34, 0.34) 64%, rgba(6, 31, 34, 0.12)), linear-gradient(0deg, rgb(6, 31, 34) 0%, rgba(0, 0, 0, 0) 48%), url(\"http://terminal.local:4173/assets/qa-intentionally-missing-map.webp\")",
+      "rect": {
+        "bottom": 251,
+        "height": 232,
+        "top": 19,
+        "width": 1363
+      },
+      "text": "Турниры\n/\nDota 2\nDota 2 / YCS\n\n9 — 25 октября 2026\n\n16 команд\n30 000 ₽\nРегистрация закрыта\nРегламент PDF"
+    },
+    "logos": [
+      {
+        "images": 0,
+        "rect": {
+          "bottom": 582.078125,
+          "height": 44,
+          "top": 538.078125,
+          "width": 44
+        },
+        "text": "TS"
+      },
+      {
+        "images": 0,
+        "rect": {
+          "bottom": 582.078125,
+          "height": 44,
+          "top": 538.078125,
+          "width": 44
+        },
+        "text": "PK"
+      }
+    ],
+    "scroll": 1363,
+    "viewport": [
+      1363,
+      936
+    ]
+  },
+  {
+    "cardCount": 0,
+    "case": "empty-schedule",
+    "dateGroups": 0,
+    "emptyText": null,
+    "heroHeight": 232,
+    "pseudoBackground": "linear-gradient(90deg, rgb(6, 31, 34) 0%, rgba(6, 31, 34, 0.94) 24%, rgba(6, 31, 34, 0.34) 64%, rgba(6, 31, 34, 0.12)), linear-gradient(0deg, rgb(6, 31, 34) 0%, rgba(0, 0, 0, 0) 48%), url(\"http://terminal.local:4173/assets/qa-intentionally-missing-map.webp\")",
+    "sectionHeading": "О турнире",
+    "selectedSection": "info"
+  },
+  {
+    "cardCount": 0,
+    "case": "empty-search",
+    "count": "0 матчей",
+    "emptyText": "Команда не найдена\n\nПроверьте название команды или выберите другой этап.\n\nОчистить поиск",
+    "query": "UNKNOWN_QA_TEAM",
+    "selectedSection": "matches"
+  },
+  {
+    "cardCount": 0,
+    "case": "empty-schedule-retest",
+    "client": 1363,
+    "count": "0 матчей",
+    "dateGroups": 0,
+    "emptyText": "Расписание ещё не опубликовано\n\nПары и результаты появятся после публикации организатором.",
+    "heroHeight": 232,
+    "scroll": 1363,
+    "selectedSection": "matches"
+  }
+]

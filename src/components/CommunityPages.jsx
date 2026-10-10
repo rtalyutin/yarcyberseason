@@ -7,6 +7,7 @@ import { tournaments } from '../data/tournaments/index.js';
 import { calendarPath, matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps, teamPath, teamSummary, teamForDiscipline, upcomingMatches } from '../lib/community.js';
 import { downloadResultCard } from '../lib/result-card.js';
 import { publicUrl } from '../lib/public-url.js';
+import { getMatchBroadcastLinks } from '../lib/broadcast-links.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
 import '../team-profile.css';
@@ -136,7 +137,7 @@ export function MatchPage({ tournamentSlug, matchId }) {
   const url = publicUrl(matchPath(match));
   const consequence = matchConsequence(match, community, tournaments);
   const result = match.result;
-  const media = [['Трансляция', safeHttps(match.broadcastUrl)], ['Запись матча', safeHttps(match.vodUrl || match.replayUrl)], ...(match.highlights || []).map((h) => [h.title, safeHttps(h.url)])].filter(([, href]) => href);
+  const media = [...getMatchBroadcastLinks(match).map(({ label, href }) => [label, href]), ['Запись матча', safeHttps(match.vodUrl || match.replayUrl)], ...(match.highlights || []).map((h) => [h.title, safeHttps(h.url)])].filter(([, href]) => href);
   return <main className="community-page">
     <nav className="community-breadcrumb" aria-label="Путь к матчу"><InternalLink href={`/tournaments/${tournament.slug}`}>{tournament.title}</InternalLink><span>/ Матч</span></nav>
     <header className="community-match-header"><p className="community-eyebrow">{match.roundTitle}{match.bestOf && ` · ${match.bestOf}`}</p><h1>{match.team1 || 'Участник уточняется'} <span>—</span> {match.team2 || 'Участник уточняется'}</h1><p>{matchDateLabel(match)}</p>{match.status === 'scheduled' && match.note && <p>{match.note}</p>}</header>

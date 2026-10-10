@@ -1,0 +1,127 @@
+{
+  "sticky": {
+    "header": {
+      "bottom": -1249,
+      "height": 89,
+      "left": 0,
+      "right": 1348,
+      "top": -1338,
+      "width": 1348,
+      "x": 0,
+      "y": -1338
+    },
+    "nav": {
+      "bottom": 54,
+      "height": 54,
+      "left": 40,
+      "right": 1308,
+      "top": 0,
+      "width": 1268,
+      "x": 40,
+      "y": 0
+    },
+    "position": "sticky",
+    "scrollY": 1338,
+    "side": {
+      "bottom": 54,
+      "height": 54,
+      "left": 40,
+      "right": 1308,
+      "top": 0,
+      "width": 1268,
+      "x": 40,
+      "y": 0
+    }
+  },
+  "contrast": [
+    {
+      "background": "rgb(16, 44, 45)",
+      "border": "rgb(243, 239, 220)",
+      "color": "rgb(243, 239, 220)",
+      "sel": ".tn-arena-time strong",
+      "textContrast": 12.809,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(16, 44, 45)",
+      "border": "rgb(183, 208, 202)",
+      "color": "rgb(183, 208, 202)",
+      "sel": ".tn-arena-time > span",
+      "textContrast": 9.075,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(16, 44, 45)",
+      "border": "rgb(243, 239, 220)",
+      "color": "rgb(243, 239, 220)",
+      "sel": ".tn-arena-team .community-team-link",
+      "textContrast": 12.809,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(16, 44, 45)",
+      "border": "rgb(183, 208, 202)",
+      "color": "rgb(183, 208, 202)",
+      "sel": ".tn-arena-meta",
+      "textContrast": 9.075,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(143, 243, 229)",
+      "border": "rgb(6, 38, 35)",
+      "color": "rgb(6, 38, 35)",
+      "sel": ".tn-match-primary",
+      "textContrast": 12.312,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(16, 44, 45)",
+      "border": "rgb(183, 208, 202)",
+      "color": "rgb(183, 208, 202)",
+      "sel": ".tn-details-toggle",
+      "textContrast": 9.075,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(6, 31, 34)",
+      "border": "rgb(96, 136, 128)",
+      "color": "rgb(243, 239, 220)",
+      "sel": ".tn-search",
+      "textContrast": 14.828,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(6, 31, 34)",
+      "border": "rgb(183, 208, 202)",
+      "color": "rgb(183, 208, 202)",
+      "sel": ".tn-search-label",
+      "textContrast": 10.506,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(6, 31, 34)",
+      "border": "rgb(183, 208, 202)",
+      "color": "rgb(183, 208, 202)",
+      "sel": ".tn-timezone",
+      "textContrast": 10.506,
+      "textMinimum45Pass": true
+    },
+    {
+      "background": "rgb(143, 243, 229)",
+      "border": "rgb(143, 243, 229)",
+      "color": "rgb(6, 38, 35)",
+      "sel": ".tn-filters button",
+      "textContrast": 12.312,
+      "textMinimum45Pass": true
+    }
+  ],
+  "keyboard": {
+    "active": "Очистить поиск",
+    "focusVisible": true,
+    "outline": "2px solid rgb(143,243,229)"
+  },
+  "zoom": "NOT_VERIFIED: root supported ctrl+plus probe left actual DPR1 and viewport1363×936 unchanged;200% was not reached",
+  "searchBoundaryContrast": 4.345,
+  "focusCardContrast": 11.35,
+  "reducedMotionRuntime": "NOT_VERIFIED: no advertised supported browser control/emulation"
+}

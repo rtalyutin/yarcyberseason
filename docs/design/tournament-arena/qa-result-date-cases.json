@@ -1,0 +1,20 @@
+[
+  {
+    "case": "unconfirmedFalse",
+    "live": false,
+    "score": "VS",
+    "text": "19:00\nИтог не подтверждён\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "unconfirmedMissing",
+    "live": false,
+    "score": "VS",
+    "text": "19:00\nИтог не подтверждён\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+  },
+  {
+    "case": "scheduledAtOnlyExpanded",
+    "date": "10 октября 2020 · 19:00 МСК · BO1synthetic fixture",
+    "expanded": "true",
+    "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nСкрыть подробности\n\n10 октября 2020 · 19:00 МСК · BO1\n\nsynthetic fixture"
+  }
+]

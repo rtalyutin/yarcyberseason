@@ -1,5 +1,6 @@
 import { matchKey, matchPath, teamPath, teamSummary } from './community.js';
 import { publicUrl } from './public-url.js';
+import { getMatchBroadcastLinks } from './broadcast-links.js';
 
 const normalize = (value) => String(value ?? '').normalize('NFKC').toLocaleLowerCase('ru-RU');
 const includes = (values, query) => !query || values.some((value) => normalize(value).includes(normalize(query)));
@@ -52,7 +53,8 @@ export function createWebMcpTools({ tournaments, community, dataVersion, buildGe
     linkedTeamCount: [...community.teams.values()].filter((entry) => entry.entries.some((e) => e.tournament.id === item.id)).length,
   });
   const matchView = (item) => ({
-    ...pick(item, ['key', 'id', 'tournamentId', 'tournamentSlug', 'tournamentTitle', 'discipline', 'stageId', 'stageTitle', 'roundTitle', 'team1', 'team2', 'team1Id', 'team2Id', 'seed1', 'seed2', 'status', 'bestOf', 'date', 'dateDisplay', 'time', 'scheduledAt', 'scoreKind', 'resultConfirmed', 'resultIssue', 'result', 'note', 'roundRecord', 'sourceLabel', 'sourceNote', 'replayUrl', 'broadcastUrl', 'faceitUrl', 'winnerTo', 'loserTo', 'consequenceText']),
+    ...pick(item, ['key', 'id', 'tournamentId', 'tournamentSlug', 'tournamentTitle', 'discipline', 'stageId', 'stageTitle', 'roundTitle', 'team1', 'team2', 'team1Id', 'team2Id', 'seed1', 'seed2', 'status', 'bestOf', 'date', 'dateDisplay', 'time', 'scheduledAt', 'scoreKind', 'resultConfirmed', 'resultIssue', 'result', 'note', 'roundRecord', 'sourceLabel', 'sourceNote', 'replayUrl', 'faceitUrl', 'winnerTo', 'loserTo', 'consequenceText']),
+    ...(getMatchBroadcastLinks(item).length ? { broadcastLinks: Object.fromEntries(getMatchBroadcastLinks(item).map(({ platform, href }) => [platform, href])) } : {}),
     url: matchPath(item),
     absoluteUrl: publicUrl(matchPath(item)),
   });

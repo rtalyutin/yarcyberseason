@@ -47,6 +47,7 @@ Serverless endpoint `captain` передаёт запрос через `sdk.fetc
 
 `Match`: `{id, team1:{id,name}, team2:{id,name}, round, bestOf, status,
 scheduledAt, window:{start,end}|null, broadcastUrl:null|string, note:string}`.
+`broadcastUrl` здесь — совместимая проекция первого валидного URL из публичного `match.broadcastLinks` (Twitch, затем VK), а не поле источника турнира. Контракт кабинета и авторизация сохранены; старые `broadcastUrl`/`streamUrl` в JSON турнира не читаются.
 `MatchDetail`: `{match:Match, viewerTeamId, chatEpoch, chatClosed:boolean,
 messages:[{id,teamId,text,createdAt}],
 scheduleVersion:number, proposal:null|{startsAt,confirmedTeamIds:string[]},

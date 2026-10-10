@@ -70,6 +70,7 @@ export async function run({ now = new Date(), env = process.env, signal,
     // Publish organizer-confirmed sports outcomes before API work, which can
     // fail independently. CAS + readback keep the existing single writer safe.
     const confirmed = collectDotaResults(tournament, [], previous.value, now);
+    for (const warning of confirmed.warnings) logger.warn(warning);
     if (confirmed.changed) {
       await writeJsonObject(s3, key, confirmed.snapshot, previous, signal, (value) => validateDotaSnapshot(value, tournament));
       const readback = await readJsonObject(s3, key, signal, (value) => validateDotaSnapshot(value, tournament));

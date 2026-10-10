@@ -125,3 +125,20 @@ test('older API outcomes cannot undo an organizer result or remove screenshot ma
   manual.matches['dota-autumn-swiss-r1-04'].confirmedAt='invalid';
   assert.throws(()=>validateDotaSnapshot(manual,publishedTournament),/source/);
 });
+
+test('a conflicting older API map ID or detail never replaces explicit organizer map evidence', () => {
+  const previous = collectDotaResults(publishedTournament, []).snapshot;
+  const fixtureId='dota-autumn-swiss-r1-03';
+  for (const edit of [map=>{map.matchId='12345';map.url='https://www.opendota.com/matches/12345';}, map=>{map.kills1=0;}]) {
+    const stale=structuredClone(previous);
+    delete stale.matches[fixtureId].source;
+    edit(stale.matches[fixtureId].maps[0]);
+    const corrected=collectDotaResults(publishedTournament,[],stale);
+    assert.equal(corrected.snapshot.matches[fixtureId].maps[0].matchId,'9037645797');
+    assert.equal(corrected.snapshot.matches[fixtureId].maps[0].kills1,34);
+    assert.match(corrected.warnings.join(' '),/Organizer map evidence/);
+    const view=applyDotaSnapshot(publishedTournament,stale);
+    assert.equal(view.stages[0].rounds[0].matches[2].maps[0].matchId,'9037645797');
+    assert.equal(view.stages[0].rounds[0].matches[2].maps[0].kills1,34);
+  }
+});

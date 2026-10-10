@@ -6,6 +6,11 @@ const fixtures = (tournament) => (tournament.stages || []).flatMap((stage) =>
 const norm = (name) => typeof name === "string" ? name.normalize("NFKC").trim().replace(/\s+/g, " ").toLowerCase() : "";
 const nameFor = (map, side) => map[`${side}_name`] || map[`${side}_team`]?.name;
 const positive = (value) => Number.isSafeInteger(Number(value)) && Number(value) > 0;
+const matchesKnownMaps = (known, incoming) => known.every((map, index) => {
+  const candidate = incoming[index];
+  return candidate && ['matchId', 'winnerTeamId', 'kills1', 'kills2', 'durationSeconds', 'url'].every((key) =>
+    String(candidate[key]) === String(map[key]));
+});
 
 export function isPollWindow(now = new Date(), tournament = null) {
   const publishedStart = tournament?.dates?.start || "2026-10-09";
@@ -99,7 +104,8 @@ export function collectDotaResults(tournament, maps, previous = null, now = new 
         kills2: map.kills2, durationSeconds: map.durationSeconds, url: map.url })) };
     const old = matches[fixture.id];
     const sameOutcome = old && old.status === result.status && old.score1 === result.score1 && old.score2 === result.score2;
-    if (sameOutcome && old.maps.length >= result.maps.length) result.maps = old.maps;
+    if (sameOutcome && old.maps.length >= result.maps.length && matchesKnownMaps(result.maps, old.maps)) result.maps = old.maps;
+    else if (sameOutcome && result.maps.length && !matchesKnownMaps(result.maps, old.maps)) warnings.push(`Organizer map evidence replaces conflicting published details for ${fixture.id}`);
     if (JSON.stringify(old) !== JSON.stringify(result)) {
       if (old && !sameOutcome) warnings.push(`Organizer correction for ${fixture.id}`);
       matches[fixture.id] = result;

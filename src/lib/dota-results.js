@@ -49,7 +49,11 @@ export function applyDotaSnapshot(tournament, snapshot) {
     // An older API snapshot cannot undo a newer organizer confirmation.
     if (fixture.resultSource === "organizer" && fixture.resultConfirmed === true &&
         (fixture.status !== result.status || fixture.score1 !== result.score1 || fixture.score2 !== result.score2)) continue;
-    const maps = fixture.resultSource === "organizer" && (fixture.maps?.length || 0) > result.maps.length
+    const knownConflict = (fixture.maps || []).some((map, index) => {
+      const incoming = result.maps[index];
+      return !incoming || ['matchId', 'winnerTeamId', 'kills1', 'kills2', 'durationSeconds', 'url'].some((key) => String(map[key]) !== String(incoming[key]));
+    });
+    const maps = fixture.resultSource === "organizer" && ((fixture.maps?.length || 0) > result.maps.length || knownConflict)
       ? fixture.maps : result.maps.map((map) => ({ id: String(map.matchId), matchId: String(map.matchId),
         name: `Карта ${map.number}`, winnerTeamId: map.winnerTeamId,
         kills1: map.kills1, kills2: map.kills2, durationSeconds: map.durationSeconds, url: map.url }));

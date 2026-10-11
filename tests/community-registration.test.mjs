@@ -16,7 +16,7 @@ test('replacement keeps sixteen current participants and the first Swiss round',
   assert.equal(participantCount(dota), 16);
   assert.equal(dota.registration.status, 'closed');
   assert.equal(dota.status, 'upcoming');
-  assert.equal(getTournamentModel(dota).matches.length, 8);
+  assert.equal(getTournamentModel(dota).matches.length, 16);
   assert.ok(dota.participants.every((p) => !('seed' in p)));
   assert.deepEqual(validateCommunity(tournaments, registry), []);
   const view = getTournamentModel(dota);
@@ -34,12 +34,11 @@ test('first round pairs every registered team once, with Borisogleb–ARB on Oct
   ]);
   assert.deepEqual(matches.map((match) => [match.seed1, match.seed2]), Array.from({ length: 8 }, (_, i) => [i + 1, i + 9]));
   assert.deepEqual(new Set(matches.flatMap((match) => [match.team1Id, match.team2Id])), new Set(dota.participants.map((participant) => participant.teamId)));
-  assert.ok(matches.filter((match) => match.id !== 'dota-autumn-swiss-r1-04').every((match) => match.date === '2026-10-10' && !match.time && !match.scheduledAt));
+  assert.ok(matches.filter((match) => match.id !== 'dota-autumn-swiss-r1-04').every((match) => match.date === '2026-10-10'));
   assert.equal(matches[3].date, '2026-10-09');
   assert.equal(matches[3].scheduledAt, '2026-10-09T20:30:00+03:00');
-  assert.ok(matches.every((match) => match.bestOf === 'BO1' && match.status === 'scheduled' && !match.score1 && !match.score2));
-  assert.deepEqual(matches.filter((match) => match.note).map((match) => match.id), ['dota-autumn-swiss-r1-04']);
-  assert.match(matches[3].note, /трансляция/);
+  assert.ok(matches.every((match) => match.bestOf === 'BO1' && match.resultConfirmed && ['completed', 'walkover'].includes(match.status)));
+  assert.match(matches[3].note, /Трансляция/i);
 });
 
 test('Dota entries reuse CS identities without inheriting CS results', () => {
@@ -49,7 +48,7 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
     const section = teamForDiscipline(team, 'Dota 2');
     assert.equal(section.entries.length, 1);
     assert.equal(section.entries[0].status, 'registered');
-    assert.equal(section.matches.length, 1);
+    assert.equal(section.matches.length, 2);
     assert.equal(teamSummary(section).wins, 0);
     assert.equal(upcomingMatches(section).length, 1);
   }

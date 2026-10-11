@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import publishedTournament from "../src/data/tournaments/dota2-autumn-2026.json" with { type: "json" };
-import { collectDotaResults, isPollWindow } from "../src/lib/dota-import.js";
+import { collectDotaResults, isPollWindow, inFixtureWindow, fixtureFor } from "../src/lib/dota-import.js";
 import { applyDotaSnapshot, validateDotaSnapshot } from "../src/lib/dota-results.js";
 import { buildMiniAppModel } from "../src/telegram/data/model.js";
 import registry from "../src/data/teams.json" with { type: "json" };
@@ -14,6 +14,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 // League-import scenarios use undecided fixtures, independently of actual
 // sports outcomes later confirmed by the organizer in production data.
 const tournament = structuredClone(publishedTournament);
+tournament.stages[0].rounds = [tournament.stages[0].rounds[0]];
 for (const match of tournament.stages[0].rounds[0].matches) {
   for (const key of ['resultSource', 'confirmationSource', 'confirmedAt', 'score1', 'score2', 'winner', 'winnerTeamId', 'maps', 'mapLinks', 'resultConfirmed', 'scoreKind']) delete match[key];
   match.status = 'scheduled';
@@ -24,6 +25,35 @@ tournament.mvpEstimates = [];
 const first = { match_id: 900000001, leagueid: 20164, start_time: Date.parse("2026-10-09T20:35:00+03:00") / 1000,
   radiant_name: "ARB Esports", dire_name: "Team Borisogleb", radiant_win: true, radiant_score: 18, dire_score: 32,
   duration: 2400, series_id: 0 };
+
+test("published round period matches either day without inventing an appointment", () => {
+  const fixture = publishedTournament.stages[0].rounds[1].matches[1];
+  assert.equal(fixture.scheduledAt, undefined);
+  const map = { ...first, radiant_name: fixture.team1, dire_name: fixture.team2 };
+  for (const date of ["2026-10-11T00:00:00+03:00", "2026-10-12T23:59:59+03:00"]) {
+    const source = { ...map, start_time: Date.parse(date) / 1000 };
+    assert.equal(fixtureFor(source, publishedTournament)?.id, fixture.id);
+  }
+  for (const date of ["2026-10-10T23:59:59+03:00", "2026-10-13T00:00:00+03:00"]) {
+    assert.equal(inFixtureWindow({ ...map, start_time: Date.parse(date) / 1000 }, fixture), false);
+  }
+  assert.equal(inFixtureWindow(map, { windowStart: fixture.windowEnd, windowEnd: fixture.windowStart }), false);
+  assert.equal(inFixtureWindow(map, { windowStart: fixture.windowStart }), false);
+});
+
+test("approved R2 result and complete R1 publish once and update Swiss once", () => {
+  const collected = collectDotaResults(publishedTournament, []);
+  const view = applyDotaSnapshot(publishedTournament, collected.snapshot);
+  const rows = view.stages[0].groups[0].rows;
+  assert.deepEqual(rows.find((row) => row.team === "Aegis Guardians"), {
+    team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 2, won: 2, lost: 0,
+  });
+  assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 18);
+  assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
+    [['9039436432', 37, 21, 2395]]);
+  assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);
+});
 
 test("polling follows the complete published tournament period", () => {
   assert.equal(isPollWindow(new Date("2026-10-09T20:29:59+03:00")), false);
@@ -98,20 +128,20 @@ test("client keeps the last confirmed S3 revision through an outage", async () =
   assert.deepEqual(outage, { revision: 1, availability: "unavailable" });
 });
 
-test('organizer results publish all three outcomes with no fabricated map or technical MVP', () => {
+test('organizer results publish confirmed outcomes with no fabricated map or technical MVP', () => {
   const { snapshot, changed } = collectDotaResults(publishedTournament, []);
   assert.equal(changed, true);
-  assert.equal(Object.keys(snapshot.matches).length, 3);
+  assert.equal(Object.keys(snapshot.matches).length, 7);
   assert.deepEqual([snapshot.matches['dota-autumn-swiss-r1-04'].score1, snapshot.matches['dota-autumn-swiss-r1-04'].score2], [1,0]);
-  assert.deepEqual(snapshot.matches['dota-autumn-swiss-r1-04'].maps, []);
+  assert.equal(snapshot.matches['dota-autumn-swiss-r1-04'].maps[0].matchId, '9036860954');
   const technical = snapshot.matches['dota-autumn-swiss-r1-05'];
   assert.equal(technical.status, 'walkover');
   assert.deepEqual([technical.score1, technical.score2, technical.maps.length], [0,1,0]);
   assert.deepEqual(snapshot.matches['dota-autumn-swiss-r1-03'].maps.map(m=>[m.matchId,m.kills1,m.kills2,m.durationSeconds]), [['9037645797',34,32,3331]]);
   const updated = applyDotaSnapshot(publishedTournament, snapshot);
-  for (const team of ['Team Borisogleb','Aegis Guardians','strela team']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).won,1);
+  for (const team of ['Team Borisogleb','strela team']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).won,1);
   for (const team of ['ARB Esports','Tech Titans','liqa sto']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).lost,1);
-  assert.equal(updated.stages[0].rounds[0].matches.filter(m=>m.status==='scheduled').length,5);
+  assert.equal(updated.stages[0].rounds[0].matches.filter(m=>m.status==='scheduled').length,0);
   assert.equal(collectDotaResults(publishedTournament, [], snapshot).changed, false);
 });
 

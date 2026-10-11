@@ -1,3 +1,19 @@
+# Current match-detail presentation
+
+- October 11: selected option 1 from the revised Dota match mockups. Keep the
+  Dota/Volga panorama, central score and real team crests, stone MVP/map band,
+  and broadcast/action dock. This applies to Dota matches in the Dota theme;
+  preserve shared SiteHeader geometry and other presentations. Cap at 1800px,
+  stack MVP/maps on phones. The rejected generic sports designs are not targets.
+- Match MVP consumes the existing validated snapshot, projected onto the actual
+  fixture's map. Never substitute a tournament leader, infer a winner on a tie,
+  or turn missing data into zero. Retain estimate, pending/correction and stale
+  notices. Technical no-play has no MVP. BO3/BO5 await a defined series rule.
+- Keep canonical match `broadcastLinks` behavior below. Implementation and
+  asset provenance: `docs/design/match-detail/IMPLEMENTATION.md`; rendered QA:
+  project-root `design-qa.md`. Selection authorizes this implementation; it is
+  not evidence that a production release has happened.
+
 # Current tournament presentation
 
 - October 10 implementation follows `YCS-Tournament-Design-Spec-2026-10-09.md`

@@ -816,7 +816,7 @@ export function Prototype({ initialPath = "/" }) {
     const teamRoute = path.match(/^\/teams\/([a-z0-9-]+)\/?$/);
     if (teamRoute) return <TeamPage key={teamRoute[1]} teamId={teamRoute[1]} theme={theme} />;
     const matchRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matches\/([a-z0-9-]+)\/?$/);
-    if (matchRoute) return <MatchPage key={path} tournamentSlug={matchRoute[1]} matchId={matchRoute[2]} />;
+    if (matchRoute) return <MatchPage key={path} tournamentSlug={matchRoute[1]} matchId={matchRoute[2]} theme={theme} />;
     if (path.startsWith("/tournaments/")) {
       const tournament = getTournament(path.replace("/tournaments/", ""));
       if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} theme={theme} />;

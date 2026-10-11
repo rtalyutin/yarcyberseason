@@ -1,7 +1,7 @@
 import { TeamLogo } from './TeamLogo.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
 import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { ArrowUpRight, CalendarBlank, CaretDown, Trophy } from '@phosphor-icons/react';
 import { community } from '../data/community.js';
 import { tournaments } from '../data/tournaments/index.js';
@@ -11,6 +11,8 @@ import { publicUrl } from '../lib/public-url.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
 import '../team-profile.css';
+
+const DotaMatchPage = lazy(() => import('./DotaMatchPage.jsx').then((module) => ({ default: module.DotaMatchPage })));
 
 function CopyLink({ value, label }) {
   const [message, setMessage] = useState('');
@@ -129,11 +131,12 @@ export function TeamPage({ teamId, theme = 'cs2' }) {
   </main>;
 }
 
-export function MatchPage({ tournamentSlug, matchId }) {
+export function MatchPage({ tournamentSlug, matchId, theme = 'cs2' }) {
   const tournament = tournaments.find((t) => t.slug === tournamentSlug);
   const match = tournament && community.matches.get(matchKey(tournament.id, matchId));
   const [downloadState, setDownloadState] = useState('');
   if (!match) return <UnknownPage kind="Матч" />;
+  if (theme === 'dota2' && tournament.discipline === 'Dota 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><DotaMatchPage tournament={tournament} match={match} /></Suspense>;
   const url = publicUrl(matchPath(match));
   const consequence = matchConsequence(match, community, tournaments);
   const result = match.result;

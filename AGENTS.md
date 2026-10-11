@@ -410,10 +410,12 @@ claim a local build as a deployed update or create a replacement host.
 ## Organizer round-two correction — 11 October 2026, 12:12–12:14 MSK
 
 Roman supplied six actual pairs: WAYPROD.–Team Leto11Oct22:00,
-TEAM SPERMINT–Team Borisogleb11Oct18:00, Mi Ne Pushim!–Parallax Team12Oct19:00,
+TEAM SPERMINT–Team Borisogleb11Oct18:00, Mi Ne Pushim!–Parallax Team11Oct19:00,
 psb_bank–ARB, Vnext–Easy Gaming, liqa sto–Fummo. Exact times are Moscow.
 WAY/Leto has Twitch YarCyberSeason and caster @s0natu (no caster URL supplied);
-MNP/Parallax has Twitch yourapriltears. Other appointments retain the known
+MNP/Parallax has Twitch yourapriltears. At12:42:46MSK Roman's final correction
+sets MNP/Parallax to today11Oct19:00, superseding12Oct19:00 and the unpublished
+11Oct18:00 intermediate candidate. Other appointments retain the known
 round window without an invented time. Preserve completed Aegis–strela and all
 R1 results/MVP. Withdraw obsolete Tech–ARB. At12:17–12:22MSK Roman explicitly
 confirmed Tech Titans–PIVNAYA KEGA and KEGA's technical defeat. Record Tech1:0KEGA

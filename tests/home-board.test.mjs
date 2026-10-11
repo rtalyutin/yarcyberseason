@@ -64,7 +64,7 @@ test('confirmed technical decisions close a stream; the current selection uses t
   Object.assign(featured(data), { status: 'walkover', score1: 1, score2: 0, scoreKind: 'technical', resultConfirmed: true });
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
   assert.equal(getHomeBroadcastBoard(data).score, null);
-  assert.equal(getHomeBroadcastBoard(tournament).match.id, 'dota-autumn-swiss-r2-02');
+  assert.equal(getHomeBroadcastBoard(tournament).match.id, 'dota-autumn-swiss-r2-04');
   assert.equal(getHomeBroadcastBoard(tournament).state, 'scheduled');
   assert.equal(featured(tournament).resultConfirmed, true);
   assert.equal(featured(tournament).status, 'completed');

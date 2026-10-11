@@ -130,8 +130,9 @@ npm run test:community
 
 Уточнение второго тура, 11 октября, 12:12–12:14 МСК: WAYPROD. — Team Leto
 11 октября 22:00, Twitch YarCyberSeason, комментатор @s0natu; TEAM SPERMINT —
-Team Borisogleb 11 октября 18:00; Mi Ne Pushim! — Parallax Team 12 октября
-19:00, Twitch yourapriltears. psb_bank — ARB Esports, Vnext — Easy Gaming,
+Team Borisogleb 11 октября 18:00; Mi Ne Pushim! — Parallax Team 11 октября
+19:00, Twitch yourapriltears (последнее уточнение в 12:42:46 МСК заменяет
+первоначальные 12 октября 19:00). psb_bank — ARB Esports, Vnext — Easy Gaming,
 liqa sto — Fummo сохраняют известный период 11–12 октября без точного времени.
 Прежняя пара Tech Titans — ARB снята, поскольку ARB назначен против psb_bank.
 В 12:17–12:22 МСК организатор подтвердил Tech Titans — PIVNAYA KEGA и уточнил:

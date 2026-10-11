@@ -95,7 +95,7 @@ test("confirmed technical outcomes show technical score and explicitly no played
     })));
     assert.ok(html.includes(label));
     assert.match(html, /<strong>1:0/);
-    assert.match(html, /Технический результат — без сыгранных карт/);
+    assert.match(html, /Технический результат\. Статистика карт не опубликована/);
     assert.doesNotMatch(html, /Счёт серии|DO_NOT_RENDER|31:22/);
   }
 });

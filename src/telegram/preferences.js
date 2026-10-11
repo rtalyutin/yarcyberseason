@@ -49,7 +49,7 @@ export const messages = Object.freeze({ ru: Object.freeze({
   noConfirmedScore: "Подтверждённого счёта пока нет", unknownScore: "Счёт не опубликован",
   draw: "Ничья", noMaps: "Сведения о картах ещё не опубликованы",
   noMapScore: "Счёт карты не опубликован", publishedMapsOnly: "Показаны только опубликованные сведения о картах. Счёт карт указан в порядке команд выше.",
-  technicalNoMaps: "Технический результат — без сыгранных карт.", matchLinks: "Материалы матча",
+  technicalNoMaps: "Технический результат. Статистика карт не опубликована.", matchLinks: "Материалы матча",
   timelineStates: Object.freeze({ completed: "Завершено", upcoming: "Запланировано", active: "Идёт" }),
   matchStates: Object.freeze({ scheduled: "Запланирован", live: "Идёт", completed: "Завершён", walkover: "Техническая победа", bye: "Проход без игры", cancelled: "Отменён", postponed: "Перенесён" }),
   pendingSection: "Этот раздел ещё готовится. Участники уже доступны.", theme: "Тема", language: "Язык",

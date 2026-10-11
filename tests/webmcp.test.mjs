@@ -88,7 +88,7 @@ test('confirmed final, unknown scores, yearless dates and published Swiss rounds
   assert.equal(roundTwo[1].scheduledAt, '2026-10-11T22:00:00+03:00');
   assert.deepEqual(roundTwo[1].broadcastLinks, { twitch: 'https://www.twitch.tv/YarCyberSeason' });
   assert.equal(roundTwo[2].scheduledAt, '2026-10-11T18:00:00+03:00');
-  assert.equal(roundTwo[3].scheduledAt, '2026-10-12T19:00:00+03:00');
+  assert.equal(roundTwo[3].scheduledAt, '2026-10-11T19:00:00+03:00');
   assert.deepEqual(roundTwo[3].broadcastLinks, { twitch: 'https://www.twitch.tv/yourapriltears' });
   assert.ok(roundTwo.slice(4, 7).every((match) => !match.scheduledAt));
   const technical = roundTwo.find((match) => match.id === 'dota-autumn-swiss-r2-08');

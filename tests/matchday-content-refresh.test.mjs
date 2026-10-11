@@ -9,8 +9,11 @@ const fixture = (matches) => ({ id: 'dota-fixture', discipline: 'Dota 2', stages
 test('current Dota Matchday retains all actual results, partial R2 dates and no empty playoff slots', () => {
   const model = getMatchdayModel(currentDota);
   assert.equal(model.matches.length, 16);
-  assert.deepEqual(model.days.map((day) => day.date), ['2026-10-09', '2026-10-10', '2026-10-11', '2026-10-12', 'undated']);
+  assert.deepEqual(model.days.map((day) => day.date), ['2026-10-09', '2026-10-10', '2026-10-11', 'undated']);
   assert.equal(model.defaultDate, '2026-10-11');
+  assert.equal(model.days[2].scheduled.length, 3);
+  const mnp = model.days[2].scheduled.find((match) => match.id === 'dota-autumn-swiss-r2-04');
+  assert.equal(mnp.scheduledAt, '2026-10-11T19:00:00+03:00');
   const pending = model.days.at(-1);
   assert.equal(pending.dateLabel, '11–12 октября');
   assert.equal(pending.scheduled.length, 3);

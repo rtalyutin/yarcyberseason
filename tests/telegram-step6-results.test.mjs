@@ -108,7 +108,7 @@ test("technical final retains its meaning without fabricated played maps", () =>
   const model = modelFor(source((t, registry, final) => { final.status = "walkover"; final.scoreKind = "technical"; }));
   const html = render(model);
   assert.match(html, /Техническая победа/);
-  assert.match(html, /Технический результат — без сыгранных карт/);
+  assert.match(html, /Технический результат\. Статистика карт не опубликована/);
   assert.doesNotMatch(html, /Счёт серии|tg-map-results/);
 });
 

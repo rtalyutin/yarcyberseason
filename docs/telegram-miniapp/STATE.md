@@ -5,7 +5,9 @@
 Roman at12:12–12:14MSK supplied the corrected six pending R2 pairs and streams.
 WAYPROD.–Team Leto11Oct22:00MSK: Twitch YarCyberSeason, caster @s0natu without
 an inferred contact URL. TEAM SPERMINT–Team Borisogleb11Oct18:00MSK.
-Mi Ne Pushim!–Parallax Team12Oct19:00MSK: Twitch yourapriltears. psb_bank–ARB,
+Mi Ne Pushim!–Parallax Team11Oct19:00MSK: Twitch yourapriltears. At12:42:46MSK
+Roman corrected its time from12Oct19:00 to today11Oct19:00. The intermediate
+11Oct18:00 candidate was never published. psb_bank–ARB,
 Vnext–Easy Gaming and liqa sto–Fummo retain the known11–12October round period
 without an individual appointment. Old Tech–ARB is removed because ARB is now
 assigned to PSB. At12:17–12:22MSK Roman confirmed Tech Titans–PIVNAYA KEGA
@@ -16,8 +18,9 @@ All nine prior confirmed fixtures, R1, participants and MVP metadata are unchang
 Swiss is recomputed from ten confirmed results, including the new technical
 result with empty maps and no invented MVP award. The catalog now has16matches,
 with eight R2fixtures (two confirmed and six pending). Three exact appointments are recorded in
-the public calendar ledger. Current assigned stream is WAY/Leto; after its
-confirmed closure MNP/Parallax becomes next. Source publication, existing-host
+the public calendar ledger, preserving MNP's existing UID and increasing its
+revision after the correction. Current assigned stream is MNP/Parallax;
+after its confirmed closure WAY/Leto becomes next. Source publication, existing-host
 readback and data-only collector/captain package activation are separate gates.
 The prior main-site content refresh24c87de was independently verified live;
 its five content areas, partner scopes, About, themes and archives remain intact.

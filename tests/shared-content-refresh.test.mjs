@@ -63,16 +63,35 @@ test('shared home projects current Dota, completed CS2, scoped partners and no i
   assert.equal(content.season.tournament.id, 'cs2-august-2026');
   assert.equal(content.season.finished, true);
   assert.equal(content.broadcast.state, 'scheduled');
-  assert.equal(content.broadcast.match.id, 'dota-autumn-swiss-r2-02');
-  assert.deepEqual([content.broadcast.match.team1, content.broadcast.match.team2], ['WAYPROD.', 'Team Leto']);
-  assert.equal(content.broadcast.match.scheduledAt, '2026-10-11T22:00:00+03:00');
-  assert.deepEqual(content.broadcast.links.map((link) => link.href), ['https://www.twitch.tv/YarCyberSeason']);
-  assert.deepEqual(content.broadcast.casters, [{ name: '@s0natu', url: null }]);
+  assert.equal(content.broadcast.match.id, 'dota-autumn-swiss-r2-04');
+  assert.deepEqual([content.broadcast.match.team1, content.broadcast.match.team2], ['Mi Ne Pushim!', 'Parallax Team']);
+  assert.equal(content.broadcast.match.scheduledAt, '2026-10-11T19:00:00+03:00');
+  assert.deepEqual(content.broadcast.links.map((link) => link.href), ['https://www.twitch.tv/yourapriltears']);
+  assert.deepEqual(content.broadcast.casters, []);
   assert.deepEqual(content.partners.map((partner) => partner.id), ['dodo-pizza', 'torrefacto', 'redragon']);
   assert.deepEqual(content.officialSupport.map((partner) => partner.id).sort(), ['fks-yao', 'minsport-yao']);
   const minimal = buildHomeContent({ featuredTournament: { ...currentTournament, prizeDistribution: undefined }, seasonTournament: archivedTournaments[0], archives: [], project: projectContent });
   assert.equal(minimal.facts.length, 1);
   assert.doesNotMatch(minimal.facts.join(' '), /undefined|null/);
+});
+
+test('actual assigned stream remains MNP after its date and advances to WAY only on confirmed completion', () => {
+  const initial = loadHomeContent(new Date('2026-10-11T08:00:00Z'));
+  const elapsed = loadHomeContent(new Date('2026-10-13T08:00:00Z'));
+  assert.equal(initial.broadcast.match.id, 'dota-autumn-swiss-r2-04');
+  assert.equal(elapsed.broadcast.match.id, initial.broadcast.match.id);
+  assert.equal(elapsed.broadcast.state, 'scheduled');
+  const synthetic = structuredClone(currentTournament);
+  const matches = synthetic.stages.flatMap((stage) => stage.rounds || [{ matches: stage.matches || [] }]).flatMap((round) => round.matches || []);
+  const mnp = matches.find((match) => match.id === 'dota-autumn-swiss-r2-04');
+  Object.assign(mnp, { status: 'completed', resultConfirmed: true });
+  const next = getHomeBroadcastBoard(synthetic);
+  assert.equal(next.match.id, 'dota-autumn-swiss-r2-02');
+  assert.equal(next.match.scheduledAt, '2026-10-11T22:00:00+03:00');
+  assert.equal(getMatchBroadcastLinks(next.match)[0].href, 'https://www.twitch.tv/YarCyberSeason');
+  const way = matches.find((match) => match.id === 'dota-autumn-swiss-r2-02');
+  Object.assign(way, { status: 'completed', resultConfirmed: true });
+  assert.equal(getHomeBroadcastBoard(synthetic).state, 'unannounced');
 });
 
 test('accepted tournament binding overlays are reflected on the next shared home projection', () => {

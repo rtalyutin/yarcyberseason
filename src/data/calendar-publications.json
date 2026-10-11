@@ -191,7 +191,7 @@
     {
       "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-04",
       "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r2-04@ycs.bar",
-      "start": "2026-10-12T19:00:00+03:00",
+      "start": "2026-10-11T19:00:00+03:00",
       "currentTeamIds": [
         "dota2-autumn-2026-parallax-team",
         "dota2-main-2026-mi-ne-pushim"
@@ -204,8 +204,8 @@
       "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-04",
       "cancelled": false,
       "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-11T09:16:56.955Z"
+      "revision": 1,
+      "updatedAt": "2026-10-11T09:43:52.618Z"
     }
   ]
 }

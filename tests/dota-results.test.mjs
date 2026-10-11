@@ -90,6 +90,49 @@ test("unmatched, foreign, duplicate and incomplete data never invent a score", (
   assert.equal(collectDotaResults(tournament, [first, { ...first, match_id: 900000002 }]).changed, false);
 });
 
+const easyFixture = publishedTournament.stages[0].rounds[0].matches[1];
+const easyMap = { ...first, match_id: Number(easyFixture.maps[0].matchId),
+  start_time: Date.parse(easyFixture.scheduledAt) / 1000,
+  radiant_name: easyFixture.team1, dire_name: easyFixture.team2,
+  radiant_team_id: easyFixture.opendotaTeamIds.team1, dire_team_id: easyFixture.opendotaTeamIds.team2,
+  radiant_win: false, radiant_score: 18, dire_score: 41, duration: 1544 };
+const additionalEasyMap = { ...easyMap, match_id: 9038788632, radiant_score: 0, dire_score: 0, duration: 3061 };
+
+test("complete organizer map set keeps an additional API record from making a confirmed BO1 ambiguous", () => {
+  const previous = collectDotaResults(publishedTournament, []).snapshot;
+  for (const maps of [[easyMap, additionalEasyMap], [additionalEasyMap]]) {
+    const result = collectDotaResults(publishedTournament, maps, previous);
+    assert.equal(result.changed, false);
+    assert.equal(result.snapshot, previous);
+    assert.deepEqual(result.snapshot.matches[easyFixture.id].maps.map((map) => map.matchId), ['9038793515']);
+    assert.deepEqual(result.warnings, [`Additional map 9038788632 outside organizer-confirmed map set for ${easyFixture.id}`]);
+  }
+});
+
+test("additional records remain ambiguous without a complete organizer map set", () => {
+  for (const edit of [fixture => { fixture.maps = []; }, fixture => { delete fixture.resultSource; }]) {
+    const source = structuredClone(publishedTournament);
+    edit(source.stages[0].rounds[0].matches[1]);
+    assert.ok(collectDotaResults(source, [easyMap, additionalEasyMap]).warnings.includes(`Ambiguous series ${easyFixture.id}`));
+  }
+  const partial = structuredClone(publishedTournament);
+  const fixture = partial.stages[0].rounds[0].matches[1];
+  fixture.bestOf = 'BO3'; fixture.score1 = 1; fixture.score2 = 2;
+  const maps = [easyMap, { ...easyMap, match_id: 9038793516, radiant_win: true },
+    { ...easyMap, match_id: 9038793517 }, additionalEasyMap].map((map) => ({ ...map, series_id: 777 }));
+  assert.ok(collectDotaResults(partial, maps).warnings.includes(`Ambiguous series ${fixture.id}`));
+});
+
+test("contradictory official API map still conflicts with the organizer confirmation", () => {
+  const previous = collectDotaResults(publishedTournament, []).snapshot;
+  for (const edit of [{ radiant_win: true }, { radiant_score: 19 }, { duration: 1545 }]) {
+    const result = collectDotaResults(publishedTournament, [{ ...easyMap, ...edit }, additionalEasyMap], previous);
+    assert.equal(result.changed, false);
+    assert.equal(result.snapshot, previous);
+    assert.ok(result.warnings.includes(`Conflict with published result ${easyFixture.id}`));
+  }
+});
+
 test("previous revision is retained, conflicting map is rejected, malformed snapshot fails", () => {
   const previous = collectDotaResults(tournament, [first]).snapshot;
   const result = collectDotaResults(tournament, [{ ...first, radiant_win: false }], previous);

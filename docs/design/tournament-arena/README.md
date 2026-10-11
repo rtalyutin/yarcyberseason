@@ -28,9 +28,10 @@ Other presentations retain their existing empty-tournament routing.
 attribute through `getMatchBroadcastLinks`. Twitch and VK are independent
 labelled actions; empty or invalid values create no broadcast area. The autumn
 opening match's existing URLs were moved without changing its confirmed 1:0,
-casters, maps or start. Public projections share this reader. The captain
-service only adapts its first URL into the existing single-URL DTO, preserving
-the MiniApp contract; private organizer overrides stay private.
+casters, maps or start. Canonical validation now uses main's shared
+`broadcasts.js` reader; the arena adapter keeps compact Twitch/VK labels.
+The captain service exposes canonical `broadcastLinks` alongside the compatible
+first-link `broadcastUrl` field; private organizer overrides stay private.
 See [the data contract](../../community/README.md).
 
 Responsive CSS uses 1100px/768px card breakpoints, 40px/24px/16px outer gutters,
@@ -70,3 +71,18 @@ migration. The same integration command passed 119 tests, Sites passed six,
 the build produced 200 canonical URLs and three aliases, and data validation
 passed with 52 teams and 136 matches. The earlier browser matrix was not rerun;
 its executed revisions and remaining limitations remain in QA.md.
+
+The next maintenance merge, `5ab6a1041c5e2d296d66140cdd518e21f3147f4d`
+(tree `c31a65f6e6a9a7bbccf86ba1c5286342ee9b6a2a`), incorporates main
+`24c87de867ea5040da0bc987eb6230c8e561633b` without losing the approved arena
+or theme routing. Tournament JSON is byte-identical to that main, including
+all results, dates, MVP and canonical links. Current main's home/Matchday,
+partner, archive and captain DTO contracts are preserved. Mechanical overlap
+was resolved with one broadcast block per match and one shared URL validator.
+An expanded aggregate covering the prior integration suite, content-refresh
+and all Telegram tests passed 225/225 with zero skips. Build produced 201
+canonical URLs and three aliases, Sites passed 6/6, and data validation passed
+with 52 teams and 136 matches. A focused SSR check confirmed one opening-match
+broadcast block, one action per platform, and no block when the attribute is
+absent. Diff checks passed. The earlier viewport matrix remains historical;
+200% zoom and reduced-motion runtime remain unverified.

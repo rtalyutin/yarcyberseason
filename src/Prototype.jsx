@@ -11,6 +11,7 @@ import { ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
 import "./themes.css";
 import "./internal-themes.css";
+import "./tournament-arena.css";
 import "./dota-home.css";
 import { matchDateLabel, normalizeResult, safeHttps } from './lib/community.js';
 import { getHomeBroadcastContent } from './lib/home-content.js';
@@ -680,14 +681,14 @@ function HistoricalMatchesStage({ stage, number }) {
   );
 }
 
-function TournamentPage({ tournament, navigate }) {
+function TournamentPage({ tournament, navigate, theme }) {
   const renderStage = (stage, number) => {
     if (stage.type === "round_robin") return <RoundRobinStage stage={stage} number={number} tournament={tournament} />;
     if (stage.type === "swiss") return <SwissStage stage={stage} number={number} tournament={tournament} />;
     if (stage.rounds) return <BracketStage stage={stage} number={number} tournament={tournament} />;
     return <section className="tn-info"><h2>{stage.title}</h2>{stage.notice && <p>{stage.notice}</p>}</section>;
   };
-  return <TournamentNavigator key={tournament.id} tournament={tournament} navigate={navigate} renderStage={renderStage} renderRewards={() => <TournamentPerks tournament={tournament} />} />;
+  return <TournamentNavigator key={tournament.id} tournament={tournament} navigate={navigate} theme={theme} renderStage={renderStage} renderRewards={() => <TournamentPerks tournament={tournament} />} />;
 }
 
 function ResultsPage({ navigate }) {
@@ -808,7 +809,7 @@ export function Prototype({ initialPath = "/" }) {
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;
     if (path === "/partners") return <PartnersPage navigate={navigate} />;
     if (path.replace(/\/$/, "") === "/about") return <AboutPage />;
-    if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} />;
+    if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} theme={theme} />;
     const matchdayRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday\/?$/);
     const matchdayTournament = matchdayRoute && getTournament(matchdayRoute[1]);
     if (matchdayTournament?.matchday) return <MatchdayPage tournament={matchdayTournament} navigate={navigate} />;
@@ -818,7 +819,7 @@ export function Prototype({ initialPath = "/" }) {
     if (matchRoute) return <MatchPage key={path} tournamentSlug={matchRoute[1]} matchId={matchRoute[2]} />;
     if (path.startsWith("/tournaments/")) {
       const tournament = getTournament(path.replace("/tournaments/", ""));
-      if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} />;
+      if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} theme={theme} />;
     }
     return <NotFound navigate={navigate} />;
   }, [path, theme, dotaResults.revision]);

@@ -1,0 +1,134 @@
+{
+  "performedAtUTC": "2026-10-10T16:11:36.358790+00:00",
+  "performer": "Independent QA agent /root/verify_match_links; production author /root",
+  "spec": "YCS-Tournament-Design-Spec-2026-10-09.md v1.2 / MATCH-BROADCAST-01 revision 1",
+  "baselineCommit": "acb25fccef7aedba16190ae20fe7d2a02e03a80b",
+  "testedRevision": {
+    "kind": "frozen local working-tree source served by Sites Vite supervisor",
+    "frontendSourceDigest": "08fe033fd823ae51a1092cd5b173fd56547be5bc58a7c857d199936dfd209c42",
+    "manifest": "qa-source-manifest.json",
+    "immutableCommit": "Containing PR head; executed source identity is the manifest digest and evidenceByRevision, independent of evidence-file commit metadata"
+  },
+  "environment": {
+    "browser": "supported cloud Chromium via CUA",
+    "preview": "http://terminal.local:4173",
+    "topLevelCSSViewport": [
+      1363,
+      936
+    ],
+    "responsiveMethod": "Actual same-origin page in authored iframe with exact inner CSS width/height; outer uniform scale only fits screenshot",
+    "mobileDevice": "not a physical Android/iOS device",
+    "testedBuild": "current development source; final production rebuild belongs to root"
+  },
+  "targetedVerdict": "PASS",
+  "targetedScope": [
+    "Dota shared tournament current source composition and exact viewport geometry",
+    "canonical broadcast absent/null/empty/blank/one/two/invalid values and URL identity",
+    "scheduled past time and links do not imply LIVE",
+    "preserved search/filter/clear/show-more/details/match navigation/model order",
+    "CS2 and corporate old template at desktop and 390 CSS width",
+    "unconfirmed false/missing result and scheduledAt-only expanded date",
+    "visible 44px controls, one keyboard focus path, sampled computed text and search boundary contrast, actual sticky navigation",
+    "Full Navigator unknown-date group and truthful empty search",
+    "Missing-map fixture URL with readable reserved232px hero; missing-logo onError initials in reserved44px boxes",
+    "Full empty Dota schedule retained matches section, zero cards, «Расписание ещё не опубликовано» after scoped model correction"
+  ],
+  "fullSpecVerdict": "BLOCKED: complete A01–A10 acceptance is not claimed because actual200% browser zoom and reduced-motion runtime remain NOT_VERIFIED",
+  "notVerified": [
+    "A08 actual browser zoom200%: root tried the supported ctrl+plus input on actual page; DPR1 and inner1363×936 were unchanged, so200% was not reached",
+    "A10 reduced-motion runtime: no advertised browser emulation/control capability"
+  ],
+  "evidence": [
+    "qa-viewports.json",
+    "qa-broadcast-cases.json",
+    "qa-links-320.json",
+    "qa-result-date-cases.json",
+    "qa-behaviors.json",
+    "qa-regression.json",
+    "qa-accessibility.json",
+    "qa-source-manifest.json",
+    "qa-final-1440.jpg",
+    "qa-final-1024.jpg",
+    "qa-final-768.jpg",
+    "qa-final-390.jpg",
+    "qa-final-320.jpg",
+    "qa-cs2-desktop.jpg",
+    "qa-corporate-desktop.jpg",
+    "qa-navigator-gaps.json",
+    "qa-unknown-date-missing-assets.jpg",
+    "qa-empty-schedule.jpg"
+  ],
+  "fixedFindings": [
+    {
+      "finding": "MVP navigation hit target initially narrower than 44px",
+      "resolution": "section buttons min-width 44px",
+      "finalSourceDigest": "2cb35bd659bcc8b4bf1139b9413f335e21335cd740471e0caa015605a0b76efe",
+      "retest": "All five viewport smallControls arrays empty; MVP actual section navigation remains sticky"
+    },
+    {
+      "finding": "390 first card initially ended below fold at y905.86",
+      "resolution": "Compact mobile passport/menu/card spacing",
+      "historicalEvidence": "qa-cloud-390.json",
+      "finalSourceDigest": "2cb35bd659bcc8b4bf1139b9413f335e21335cd740471e0caa015605a0b76efe",
+      "retest": "390 first card ends y800.859375 within 844px; height206.78125"
+    },
+    {
+      "finding": "320 body min-width plus classic scrollbar caused page horizontal overflow",
+      "resolution": "Dota tournament scoped body minimum relaxed",
+      "historicalEvidence": "qa-cloud-320.json",
+      "finalSourceDigest": "2cb35bd659bcc8b4bf1139b9413f335e21335cd740471e0caa015605a0b76efe",
+      "retest": "320 document scrollWidth=clientWidth=305; one/two link targets44px and no overflow"
+    },
+    {
+      "finding": "Full empty schedule model removed matches section, causing deep link to land in info without an empty explanation",
+      "resolution": "Opt-in includeEmptyMatches on Dota presentation; old model default unchanged",
+      "historicalEvidence": "qa-navigator-gaps.json empty-schedule",
+      "finalSourceDigest": "08fe033fd823ae51a1092cd5b173fd56547be5bc58a7c857d199936dfd209c42",
+      "retest": "selectedSection matches; zero cards/date groups;0 матчей; Расписание ещё не опубликовано"
+    }
+  ],
+  "limits": [
+    "Screenshots in QA wrapper include grey outer surface and may be uniformly scaled; measured inner viewport is authoritative",
+    "Public destinations were inspected as exact href values, not external Twitch/VK service availability",
+    "119 author/integration tests were reported by root, not independently rerun by this browser verifier",
+    "Standalone local Playwright could not launch because its browser executable was missing; a failed official browser download preceded discovery of managed Sites restriction. No assertions from that harness ran or count as evidence. Harness was removed.",
+    "A native crop screenshot timed out; existing inspected viewport screenshots remain valid. No crop artifact is claimed.",
+    "Missing-map path was applied by fixture-only CSS retaining production gradients; both missing-logo paths were injected only into fixture data. Receipt proves fallback/rendering, not an external service outage or production asset change."
+  ],
+  "cleanup": {
+    "temporaryFixtureEntriesRemoved": true,
+    "unexecutedHarnessRemoved": true,
+    "staleLoadingAndHistoricalFailureScreenshotsRemoved": true,
+    "historicalFailureJSONRetained": true,
+    "navigatorFixtureEntriesRemoved": true
+  },
+  "evidenceByRevision": [
+    {
+      "frontendSourceDigest": "2cb35bd659bcc8b4bf1139b9413f335e21335cd740471e0caa015605a0b76efe",
+      "scope": "Main five-viewport/broadcast/behavior/theme matrix, result-date edges, unknown-date group, missing-map and missing-logo fallback, empty search",
+      "receipts": "All pre-empty-retest receipts; qa-navigator-gaps.json entries except empty-schedule-retest"
+    },
+    {
+      "frontendSourceDigest": "08fe033fd823ae51a1092cd5b173fd56547be5bc58a7c857d199936dfd209c42",
+      "scope": "Only final full-empty-schedule retest after Dota includeEmptyMatches model option",
+      "receipt": "qa-navigator-gaps.json empty-schedule-retest",
+      "sourceDelta": [
+        "src/components/TournamentNavigator.jsx",
+        "src/lib/tournament.js"
+      ]
+    }
+  ],
+  "sourceAudit": {
+    "newArenaCSSAnimations": "No animation/transition/reduced-motion rule is introduced in tournament-arena.css",
+    "logoGeometry": "Fixed44×44 desktop and34×34 mobile wrapper; img fills wrapper; runtime error replaces img with initials without collapsing wrapper",
+    "scope": "Static audit supports reserved geometry and does not claim dynamic reduced-motion emulation or a measured layout-shift metric"
+  },
+  "reportedAuthorValidation": {
+    "tests": "119/119 PASS, zero skips reported by root",
+    "sites": "6/6 PASS reported by root",
+    "dataCheck": "52 teams/128 matches reported by root",
+    "finalBuild": "PASS reported by root after empty-model correction",
+    "diffCheck": "PASS reported by root",
+    "independentBrowserVerifierReranTheseCommands": false
+  }
+}

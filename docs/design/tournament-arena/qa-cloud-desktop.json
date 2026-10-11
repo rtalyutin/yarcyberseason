@@ -1,0 +1,172 @@
+{
+  "bodyWidth": 1348,
+  "cards": [
+    {
+      "id": "dota-autumn-swiss-r1-01",
+      "links": [
+        {
+          "href": "http://terminal.local:4173/teams/cs2-august-2026-psb-bank",
+          "text": "psb_bank"
+        },
+        {
+          "href": "http://terminal.local:4173/teams/dota2-autumn-2026-parallax-team",
+          "text": "Parallax Team"
+        },
+        {
+          "href": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-01",
+          "text": "Матч"
+        }
+      ],
+      "rect": {
+        "bottom": 705,
+        "height": 128,
+        "right": 1308,
+        "width": 1268,
+        "x": 40,
+        "y": 577
+      },
+      "text": "17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности"
+    },
+    {
+      "id": "dota-autumn-swiss-r1-06",
+      "links": [
+        {
+          "href": "http://terminal.local:4173/teams/dota2-autumn-2026-4fans",
+          "text": "TEAM SPERMINT"
+        },
+        {
+          "href": "http://terminal.local:4173/teams/cs2-august-2026-pivnaya-kega",
+          "text": "PIVNAYA KEGA"
+        },
+        {
+          "href": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-06",
+          "text": "Матч"
+        }
+      ],
+      "rect": {
+        "bottom": 845,
+        "height": 128,
+        "right": 1308,
+        "width": 1268,
+        "x": 40,
+        "y": 717
+      },
+      "text": "19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности"
+    },
+    {
+      "id": "dota-autumn-swiss-r1-07",
+      "links": [
+        {
+          "href": "http://terminal.local:4173/teams/dota2-main-2026-mi-ne-pushim",
+          "text": "Mi Ne Pushim!"
+        },
+        {
+          "href": "http://terminal.local:4173/teams/dota2-autumn-2026-vnext",
+          "text": "Vnext"
+        },
+        {
+          "href": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-07",
+          "text": "Матч"
+        }
+      ],
+      "rect": {
+        "bottom": 985,
+        "height": 128,
+        "right": 1308,
+        "width": 1268,
+        "x": 40,
+        "y": 857
+      },
+      "text": "19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности"
+    },
+    {
+      "id": "dota-autumn-swiss-r1-08",
+      "links": [
+        {
+          "href": "http://terminal.local:4173/teams/dota2-main-2026-way-prod",
+          "text": "WAYPROD."
+        },
+        {
+          "href": "http://terminal.local:4173/teams/dota2-autumn-2026-fummo",
+          "text": "Fummo"
+        },
+        {
+          "href": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-08",
+          "text": "Матч"
+        }
+      ],
+      "rect": {
+        "bottom": 1125,
+        "height": 128,
+        "right": 1308,
+        "width": 1268,
+        "x": 40,
+        "y": 997
+      },
+      "text": "21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности"
+    },
+    {
+      "id": "dota-autumn-swiss-r1-02",
+      "links": [
+        {
+          "href": "http://terminal.local:4173/teams/dota2-autumn-2026-easy-gaming",
+          "text": "Easy Gaming"
+        },
+        {
+          "href": "http://terminal.local:4173/teams/dota2-autumn-2026-team-leto",
+          "text": "Team Leto"
+        },
+        {
+          "href": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-02",
+          "text": "Матч"
+        }
+      ],
+      "rect": {
+        "bottom": 1265,
+        "height": 128,
+        "right": 1308,
+        "width": 1268,
+        "x": 40,
+        "y": 1137
+      },
+      "text": "22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности"
+    }
+  ],
+  "controls": [
+    {
+      "background": "rgba(0, 0, 0, 0)",
+      "border": "rgb(183, 208, 202) rgb(183, 208, 202) rgba(0, 0, 0, 0)",
+      "color": "rgb(183, 208, 202)",
+      "rect": {
+        "bottom": 375,
+        "height": 54,
+        "right": 557.265625,
+        "width": 30.109375,
+        "x": 527.15625,
+        "y": 321
+      },
+      "text": "MVP"
+    }
+  ],
+  "hero": {
+    "bottom": 321,
+    "height": 232,
+    "right": 1348,
+    "width": 1348,
+    "x": 0,
+    "y": 89
+  },
+  "nav": {
+    "bottom": 375,
+    "height": 54,
+    "right": 1308,
+    "width": 1268,
+    "x": 40,
+    "y": 321
+  },
+  "theme": "dota2",
+  "viewport": [
+    1363,
+    936
+  ]
+}

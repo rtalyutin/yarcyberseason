@@ -1,0 +1,61 @@
+[
+  {
+    "arena": false,
+    "arenaCards": 0,
+    "body": 1348,
+    "client": 1348,
+    "headingFont": "Arial, sans-serif",
+    "ids": [
+      "cs2-aug-grand-final",
+      "cs2-aug-lower-final",
+      "cs2-aug-upper-final",
+      "cs2-aug-lower-r3",
+      "cs2-aug-lower-r2-1"
+    ],
+    "layout": "1268px",
+    "oldCards": 5,
+    "theme": "cs2"
+  },
+  {
+    "arena": false,
+    "arenaCards": 0,
+    "body": 1348,
+    "client": 1348,
+    "heading": "none",
+    "ids": [
+      "cs2-aug-grand-final",
+      "cs2-aug-lower-final",
+      "cs2-aug-upper-final",
+      "cs2-aug-lower-r3",
+      "cs2-aug-lower-r2-1"
+    ],
+    "oldCards": 5,
+    "theme": "corporate"
+  },
+  {
+    "arena": false,
+    "client": 375,
+    "ids": [
+      "cs2-aug-grand-final",
+      "cs2-aug-lower-final",
+      "cs2-aug-upper-final",
+      "cs2-aug-lower-r3",
+      "cs2-aug-lower-r2-1"
+    ],
+    "scroll": 375,
+    "theme": "corporate"
+  },
+  {
+    "arena": false,
+    "client": 375,
+    "ids": [
+      "cs2-aug-grand-final",
+      "cs2-aug-lower-final",
+      "cs2-aug-upper-final",
+      "cs2-aug-lower-r3",
+      "cs2-aug-lower-r2-1"
+    ],
+    "scroll": 375,
+    "theme": "cs2"
+  }
+]

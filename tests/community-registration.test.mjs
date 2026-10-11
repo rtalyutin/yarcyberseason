@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { buildCommunityModel, validateCommunity, teamForDiscipline, teamSummary, upcomingMatches } from '../src/lib/community.js';
+import { buildCommunityModel, exactStart, validateCommunity, teamForDiscipline, teamSummary, upcomingMatches } from '../src/lib/community.js';
 import { getTournamentModel, resolveTournamentView, participantCount } from '../src/lib/tournament.js';
 const read = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url), 'utf8'));
 const registry = read('../src/data/teams.json');
@@ -35,6 +35,15 @@ test('first round pairs every registered team once, with Borisogleb–ARB on Oct
   assert.deepEqual(matches.map((match) => [match.seed1, match.seed2]), Array.from({ length: 8 }, (_, i) => [i + 1, i + 9]));
   assert.deepEqual(new Set(matches.flatMap((match) => [match.team1Id, match.team2Id])), new Set(dota.participants.map((participant) => participant.teamId)));
   assert.ok(matches.filter((match) => match.id !== 'dota-autumn-swiss-r1-04').every((match) => match.date === '2026-10-10'));
+  for (const match of matches) {
+    if (match.time || match.scheduledAt) {
+      assert.ok(exactStart(match.scheduledAt), `${match.id}: published start must include a valid timezone`);
+      const start = new Date(match.scheduledAt);
+      assert.equal(new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Moscow' }).format(start), match.date);
+      assert.equal(new Intl.DateTimeFormat('ru-RU', { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit' }).format(start), match.time);
+    }
+  }
+  assert.equal(matches.find((match) => match.id === 'dota-autumn-swiss-r1-01').time, '17:00');
   assert.equal(matches[3].date, '2026-10-09');
   assert.equal(matches[3].scheduledAt, '2026-10-09T20:30:00+03:00');
   assert.ok(matches.every((match) => match.bestOf === 'BO1' && match.resultConfirmed && ['completed', 'walkover'].includes(match.status)));

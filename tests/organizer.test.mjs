@@ -109,6 +109,9 @@ test('production JSON supplies every tournament and the organizer-confirmed open
   const opening = model.rows.find((r) => r.id === 'dota-autumn-swiss-r1-04');
   assert.equal(opening.broadcast.planned, true);
   assert.equal(opening.broadcast.url, 'https://www.twitch.tv/yarcyberseason');
+  assert.deepEqual(opening.broadcast.links.map(({ label, href }) => [label, href]), [
+    ['Twitch', 'https://www.twitch.tv/yarcyberseason'], ['VK', 'https://vk.com/yarcyberseason'],
+  ]);
   assert.deepEqual(opening.casters, [{ name: '@queleez', role: null, url: 'https://t.me/queleez' }]);
   assert.deepEqual(opening.partners.map((p) => p.name), ['Small Choice', 'Искусство Ритма']);
 });

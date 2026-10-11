@@ -1,0 +1,100 @@
+{
+  "allText": "Турниры\n/\nDota 2\nDota 2 / YCS\n\n9 — 25 октября 2026\n\n16 команд\n30 000 ₽\nРегистрация закрыта\nРегламент Dota 2 (PDF)\nМатчи\nКоманды\nШвейцарская система\nПлей-офф\nMVP\nО турнире\nМатчи\n8 матчей\nНайти команду\nВсе\n8\nДо плей-офф\n8\n\nВремя — МСК\n\nПоказаны 5 из 8 матчей.\n\n10 октября 2026\nсуббота\n17:00\nЗапланирован\nМСК\npsb_bank\nVS\nParallax Team\n\n1-й тур · BO1\n\nМатч\nПодробности\n19:00\nЗапланирован\nМСК\nTEAM SPERMINT\nVS\nPIVNAYA KEGA\n\n1-й тур · BO1\n\nМатч\nПодробности\n19:00\nЗапланирован\nМСК\nMi Ne Pushim!\nVS\nVnext\n\n1-й тур · BO1\n\nМатч\nПодробности\n21:00\nЗапланирован\nМСК\nWAYPROD.\nVS\nFummo\n\n1-й тур · BO1\n\nМатч\nПодробности\n22:00\nЗапланирован\nМСК\nEasy Gaming\nVS\nTeam Leto\n\n1-й тур · BO1\n\nМатч\nПодробности\nПоказать ещё 3 матча",
+  "bodyWidth": 320,
+  "docClient": 305,
+  "docScroll": 320,
+  "first": {
+    "bottom": 929.859375,
+    "height": 244.78125,
+    "right": 304,
+    "width": 288,
+    "x": 16,
+    "y": 685.078125
+  },
+  "heading": {
+    "bottom": 358.390625,
+    "height": 281.390625,
+    "right": 320,
+    "width": 320,
+    "x": 0,
+    "y": 77
+  },
+  "overflow": [
+    {
+      "class": "tn-heading",
+      "rect": {
+        "bottom": 358.390625,
+        "height": 281.390625,
+        "right": 320,
+        "width": 320,
+        "x": 0,
+        "y": 77
+      },
+      "tag": "HEADER"
+    },
+    {
+      "class": "tn-sidebar",
+      "rect": {
+        "bottom": 433.390625,
+        "height": 75,
+        "right": 320,
+        "width": 320,
+        "x": 0,
+        "y": 358.390625
+      },
+      "tag": "ASIDE"
+    },
+    {
+      "class": "",
+      "rect": {
+        "bottom": 414.390625,
+        "height": 48,
+        "right": 328.09375,
+        "width": 154.09375,
+        "x": 174,
+        "y": 366.390625
+      },
+      "tag": "BUTTON"
+    },
+    {
+      "class": "",
+      "rect": {
+        "bottom": 414.390625,
+        "height": 48,
+        "right": 421.5,
+        "width": 69.40625,
+        "x": 352.09375,
+        "y": 366.390625
+      },
+      "tag": "BUTTON"
+    },
+    {
+      "class": "",
+      "rect": {
+        "bottom": 414.390625,
+        "height": 48,
+        "right": 489.5,
+        "width": 44,
+        "x": 445.5,
+        "y": 366.390625
+      },
+      "tag": "BUTTON"
+    },
+    {
+      "class": "",
+      "rect": {
+        "bottom": 414.390625,
+        "height": 48,
+        "right": 584.59375,
+        "width": 71.09375,
+        "x": 513.5,
+        "y": 366.390625
+      },
+      "tag": "BUTTON"
+    }
+  ],
+  "viewport": [
+    320,
+    740
+  ]
+}

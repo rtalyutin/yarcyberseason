@@ -61,7 +61,7 @@ export function displayMatchDate(match) {
   return match.dateDisplay || match.date || "Дата уточняется";
 }
 
-export function getTournamentModel(tournament) {
+export function getTournamentModel(tournament, { includeEmptyMatches = false } = {}) {
   const stages = tournament.stages || [];
   const matches = stages.flatMap((stage) => {
     const rounds = stage.rounds || [{ matches: stage.matches || [] }];
@@ -87,7 +87,7 @@ export function getTournamentModel(tournament) {
     ...(getTournamentOutcome(tournament) ? [{ id: "results", title: "Итоги" }] : []),
     ...(tournament.participants ? [{ id: "participants", title: "Заявленные команды", count: participantCount(tournament) }] : []),
     ...tableStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
-    ...(matches.length ? [{ id: "matches", title: "Матчи", count: matches.length }] : []),
+    ...(matches.length || includeEmptyMatches ? [{ id: "matches", title: "Матчи", count: matches.length }] : []),
     ...playoffStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
     ...otherStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
     ...(tournament.discipline === "Dota 2" ? [{ id: "mvp", title: "MVP турнира" }] : []),
@@ -99,7 +99,7 @@ export function getTournamentModel(tournament) {
     if (count) filters.push({ id, title, count });
   }
   return { stages, sections, matches, filters, finishedCount: matches.filter(isFinished).length,
-    defaultSection: getTournamentOutcome(tournament) ? "results" : matches.length ? "matches" : sections.find((section) => section.id === "info")?.id || sections[0]?.id,
+    defaultSection: getTournamentOutcome(tournament) ? "results" : matches.length || includeEmptyMatches ? "matches" : sections.find((section) => section.id === "info")?.id || sections[0]?.id,
     defaultPhase: filters.some((filter) => filter.id === "playoffs") ? "playoffs" : "all" };
 }
 

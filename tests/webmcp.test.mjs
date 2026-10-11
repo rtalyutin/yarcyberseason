@@ -49,7 +49,7 @@ test('every public match is reachable once through pagination and detailed read'
   assert.deepEqual(beyond.items, []); assert.equal(beyond.nextOffset, null);
 });
 
-test('confirmed final, unknown scores, yearless dates and first-round matches keep their meaning', async () => {
+test('confirmed final, unknown scores, yearless dates and published Swiss rounds keep their meaning', async () => {
   const final = (await call('ycs_get_match', { tournamentId: 'cs2-august-2026', matchId: 'cs2-aug-grand-final' })).match;
   assert.deepEqual(final.result.series, [2, 3]); assert.deepEqual(final.result.maps, []);
   const unknown = (await call('ycs_get_match', { tournamentId: 'dota2-main-2026', matchId: 'dota-main-group-16' })).match;
@@ -65,8 +65,15 @@ test('confirmed final, unknown scores, yearless dates and first-round matches ke
   assert.equal(opening.date, '2026-10-09');
   assert.equal(opening.scheduledAt, '2026-10-09T20:30:00+03:00');
   assert.deepEqual(opening.broadcastLinks, { twitch: 'https://www.twitch.tv/yarcyberseason', vk: 'https://vk.com/yarcyberseason' });
+  assert.equal(Object.hasOwn(opening, 'broadcastUrl'), false);
+  assert.ok(upcoming.items.filter((match) => match.id !== opening.id).every((match) => Object.keys(match.broadcastLinks).length === 0));
+  assert.equal(upcoming.items.filter((match) => match.status === 'scheduled').length, 7);
+  assert.ok(upcoming.items.filter((match) => match.status === 'scheduled').every((match) => match.result.score === null));
+  assert.deepEqual(upcoming.items.find((match) => match.id === 'dota-autumn-swiss-r1-03').result.score, [1, 0]);
+  assert.deepEqual(upcoming.items.find((match) => match.id === 'dota-autumn-swiss-r1-05').result.score, [0, 1]);
   const psb = upcoming.items.find((match) => match.id === 'dota-autumn-swiss-r1-01');
   assert.equal(psb.scheduledAt, '2026-10-10T17:00:00+03:00');
+  assert.equal(psb.time, '17:00');
   assert.deepEqual(psb.result.score, [0, 1]);
   const roundTwo = upcoming.items.filter((match) => match.id.startsWith('dota-autumn-swiss-r2-'));
   assert.equal(roundTwo.length, 8);

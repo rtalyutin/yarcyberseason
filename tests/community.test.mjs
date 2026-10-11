@@ -15,10 +15,11 @@ const get = (id) => model.matches.get('cs2-august-2026/' + id);
 test('migrated data preserves every original field and stable ID', () => {
   const ledger = read('docs/community/migration.json');
   const newMatches = [...model.matches.values()].filter((match) => match.tournamentId === 'dota2-autumn-2026');
-  assert.equal(newMatches.length, 16);
-  assert.equal(newMatches.filter((match) => match.result.confirmed).length, 10);
+  assert.equal(newMatches.length, 24);
+  assert.equal(newMatches.filter((match) => match.result.confirmed).length, 13);
   assert.equal(newMatches.filter((match) => match.id.startsWith('dota-autumn-swiss-r1-')).length, 8);
   assert.equal(newMatches.filter((match) => match.id.startsWith('dota-autumn-swiss-r2-')).length, 8);
+  assert.equal(newMatches.filter((match) => match.id.startsWith('dota-autumn-swiss-r3-')).length, 8);
   assert.equal(model.matches.size, ledger.matches.length + newMatches.length);
   const technical = newMatches.find((match) => match.id === 'dota-autumn-swiss-r2-08');
   assert.deepEqual([technical.team1, technical.team2], ['Tech Titans', 'PIVNAYA KEGA']);

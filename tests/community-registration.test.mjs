@@ -16,7 +16,7 @@ test('replacement keeps sixteen current participants and the first Swiss round',
   assert.equal(participantCount(dota), 16);
   assert.equal(dota.registration.status, 'closed');
   assert.equal(dota.status, 'upcoming');
-  assert.equal(getTournamentModel(dota).matches.length, 16);
+  assert.equal(getTournamentModel(dota).matches.length, 24);
   assert.ok(dota.participants.every((p) => !('seed' in p)));
   assert.deepEqual(validateCommunity(tournaments, registry), []);
   const view = getTournamentModel(dota);
@@ -59,9 +59,11 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
     const section = teamForDiscipline(team, 'Dota 2');
     assert.equal(section.entries.length, 1);
     assert.equal(section.entries[0].status, 'registered');
-    assert.equal(section.matches.length, 2);
+    assert.equal(section.matches.length, 3);
     assert.equal(teamSummary(section).wins, 0);
-    assert.equal(upcomingMatches(section).length, name === 'PIVNAYA KEGA' ? 0 : 1);
+    assert.deepEqual(upcomingMatches(section).map((match) => match.id), [
+      name === 'PIVNAYA KEGA' ? 'dota-autumn-swiss-r3-02' : 'dota-autumn-swiss-r3-08',
+    ]);
   }
   assert.equal(model.resolveTeam(dota.id, 'РГАТУ'), null);
   assert.equal(model.getTeam('cs2-august-2026-bobr1ki').entries.some((e) => e.tournament.id === dota.id), false);

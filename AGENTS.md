@@ -460,3 +460,19 @@ Vnext–Easy Gaming game9040049635: Easy wins0:1,17:45,22:54. Public results
 revision8 independently agrees and also confirms PSB–ARB0:1,9039884453,
 10:31,31:19. Sync only those newly completed fixtures; preserve remaining
 results/MVP. No invented player statistics or future outcomes.
+
+
+## Organizer round-three schedule — 11 October 2026, 21:01 MSK
+
+Roman's final list authorizes eight Swiss R3 fixtures on12Oct2026, without
+individual start times, in this exact order: Aegis–Mi Ne Pushim! BO1;
+Vnext–PIVNAYA KEGA BO3; Borisogleb–winner of R2 WAYPROD./Team Leto BO1;
+loser of that R2 match–Fummo BO1; TEAM SPERMINT–Easy Gaming BO1;
+Parallax–strela BO1; Tech Titans–ARB BO1; psb_bank–liqa sto BO3.
+This organizer-confirmed list supersedes the prior conditional pairing proposals.
+Keep both undecided slots as honest winner/loser placeholders with no team IDs.
+The existing winnerTo/loserTo references connect R2-02 to R3-03 slot2/R3-04 slot1;
+these references do not establish a result or imply automatic participant filling.
+No time, result, stream, caster or technical outcome was supplied for R3.
+Publish on the existing main website; preserve all prior fixtures/results/MVP,
+current match-detail design, hosts and backend/Serverless private state.

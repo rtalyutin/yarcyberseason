@@ -593,7 +593,15 @@
                 {
                   "name": "@s0natu"
                 }
-              ]
+              ],
+              "winnerTo": {
+                "matchId": "dota-autumn-swiss-r3-03",
+                "slot": 2
+              },
+              "loserTo": {
+                "matchId": "dota-autumn-swiss-r3-04",
+                "slot": 1
+              }
             },
             {
               "id": "dota-autumn-swiss-r2-03",
@@ -754,6 +762,94 @@
               "winner": "Tech Titans",
               "maps": [],
               "note": "Техническое поражение PIVNAYA KEGA; победа Tech Titans подтверждена организатором."
+            }
+          ]
+        },
+        {
+          "id": "round-3",
+          "label": "3-й тур",
+          "matches": [
+            {
+              "id": "dota-autumn-swiss-r3-01",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO1",
+              "team1": "Aegis Guardians",
+              "team1Id": "dota2-autumn-2026-aegis-guardians",
+              "team2": "Mi Ne Pushim!",
+              "team2Id": "dota2-main-2026-mi-ne-pushim"
+            },
+            {
+              "id": "dota-autumn-swiss-r3-02",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO3",
+              "team1": "Vnext",
+              "team1Id": "dota2-autumn-2026-vnext",
+              "team2": "PIVNAYA KEGA",
+              "team2Id": "cs2-august-2026-pivnaya-kega"
+            },
+            {
+              "id": "dota-autumn-swiss-r3-03",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO1",
+              "team1": "Team Borisogleb",
+              "team1Id": "dota2-main-2026-team-borisogleb",
+              "team2": "Победитель WAYPROD. — Team Leto",
+              "team2Id": null,
+              "note": "Участник определится по результату матча WAYPROD. — Team Leto во 2-м туре."
+            },
+            {
+              "id": "dota-autumn-swiss-r3-04",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO1",
+              "team1": "Проигравший WAYPROD. — Team Leto",
+              "team1Id": null,
+              "team2": "Fummo",
+              "team2Id": "dota2-autumn-2026-fummo",
+              "note": "Участник определится по результату матча WAYPROD. — Team Leto во 2-м туре."
+            },
+            {
+              "id": "dota-autumn-swiss-r3-05",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO1",
+              "team1": "TEAM SPERMINT",
+              "team1Id": "dota2-autumn-2026-4fans",
+              "team2": "Easy Gaming",
+              "team2Id": "dota2-autumn-2026-easy-gaming"
+            },
+            {
+              "id": "dota-autumn-swiss-r3-06",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO1",
+              "team1": "Parallax Team",
+              "team1Id": "dota2-autumn-2026-parallax-team",
+              "team2": "strela team",
+              "team2Id": "dota2-autumn-2026-strela-team"
+            },
+            {
+              "id": "dota-autumn-swiss-r3-07",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO1",
+              "team1": "Tech Titans",
+              "team1Id": "dota2-main-2026-tech-titans",
+              "team2": "ARB Esports",
+              "team2Id": "dota2-qual-2026-arb-esports"
+            },
+            {
+              "id": "dota-autumn-swiss-r3-08",
+              "status": "scheduled",
+              "date": "2026-10-12",
+              "bestOf": "BO3",
+              "team1": "psb_bank",
+              "team1Id": "cs2-august-2026-psb-bank",
+              "team2": "liqa sto",
+              "team2Id": "dota2-autumn-2026-liqa-sto"
             }
           ]
         }

@@ -57,3 +57,16 @@ npm run test:sites
 npm run data:check
 git diff --check
 ```
+
+On 2026-10-11, local merge commit `42aa5ef2ac269dfce8d86ecc318277889df9dc7d`
+integrated current main `687a4ecd74b9c49e940b9972f17f51ae9eff992b` into the
+PR branch. The first round now has eight confirmed matches, and the second
+has eight published pairs, one confirmed and seven scheduled. A conflicting
+registration test and three stale match-count expectations were updated.
+The arena components, CSS and canonical link reader are unchanged. Independent
+data comparison and the result overlay check confirmed that the merged
+tournament JSON preserves all main data except the agreed opening-match URL
+migration. The same integration command passed 119 tests, Sites passed six,
+the build produced 200 canonical URLs and three aliases, and data validation
+passed with 52 teams and 136 matches. The earlier browser matrix was not rerun;
+its executed revisions and remaining limitations remain in QA.md.

@@ -61,7 +61,7 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
     assert.equal(section.entries[0].status, 'registered');
     assert.equal(section.matches.length, 2);
     assert.equal(teamSummary(section).wins, 0);
-    assert.equal(upcomingMatches(section).length, 1);
+    assert.equal(upcomingMatches(section).length, name === 'PIVNAYA KEGA' ? 0 : 1);
   }
   assert.equal(model.resolveTeam(dota.id, 'РГАТУ'), null);
   assert.equal(model.getTeam('cs2-august-2026-bobr1ki').entries.some((e) => e.tournament.id === dota.id), false);

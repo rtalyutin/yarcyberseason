@@ -405,3 +405,22 @@ User instruction on 11 October authorizes publishing this content update to the
 existing main and existing frontend host. Use a checked immutable source tree,
 expected-head update, and verify the actual public site after propagation. Do not
 claim a local build as a deployed update or create a replacement host.
+
+
+## Organizer round-two correction — 11 October 2026, 12:12–12:14 MSK
+
+Roman supplied six actual pairs: WAYPROD.–Team Leto11Oct22:00,
+TEAM SPERMINT–Team Borisogleb11Oct18:00, Mi Ne Pushim!–Parallax Team12Oct19:00,
+psb_bank–ARB, Vnext–Easy Gaming, liqa sto–Fummo. Exact times are Moscow.
+WAY/Leto has Twitch YarCyberSeason and caster @s0natu (no caster URL supplied);
+MNP/Parallax has Twitch yourapriltears. Other appointments retain the known
+round window without an invented time. Preserve completed Aegis–strela and all
+R1 results/MVP. Withdraw obsolete Tech–ARB. At12:17–12:22MSK Roman explicitly
+confirmed Tech Titans–PIVNAYA KEGA and KEGA's technical defeat. Record Tech1:0KEGA
+as organizer-confirmed technical result and recalculate Swiss exactly once.
+No exact appointment or map/statistics were provided; retain the round window,
+empty maps, and no invented sporting metrics or MVP awards.
+Publish the corrected existing website and align only the shared packaged
+fixture data in the existing single collector/captain runtime. Preserve private
+state, schedules, modules, credentials and hosts. New data requires its own
+immutable QA/CI gate and public readback, not reuse of the prior content gate.

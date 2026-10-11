@@ -59,15 +59,16 @@ test('confirmed final, unknown scores, yearless dates and published Swiss rounds
   assert.ok(qual.items.every((match) => !match.scheduledAt && !match.date));
   const upcoming = await call('ycs_list_matches', { tournamentId: 'dota2-autumn-2026' });
   assert.equal(upcoming.total, 16);
-  assert.equal(upcoming.items.filter((match) => match.result.confirmed).length, 9);
+  assert.equal(upcoming.items.filter((match) => match.result.confirmed).length, 10);
   const opening = upcoming.items.find((match) => match.id === 'dota-autumn-swiss-r1-04');
   assert.deepEqual(opening.result.score, [1, 0]);
   assert.equal(opening.date, '2026-10-09');
   assert.equal(opening.scheduledAt, '2026-10-09T20:30:00+03:00');
   assert.deepEqual(opening.broadcastLinks, { twitch: 'https://www.twitch.tv/yarcyberseason', vk: 'https://vk.com/yarcyberseason' });
   assert.equal(Object.hasOwn(opening, 'broadcastUrl'), false);
-  assert.ok(upcoming.items.filter((match) => match.id !== opening.id).every((match) => Object.keys(match.broadcastLinks).length === 0));
-  assert.equal(upcoming.items.filter((match) => match.status === 'scheduled').length, 7);
+  const streamIds = [opening.id, 'dota-autumn-swiss-r2-02', 'dota-autumn-swiss-r2-04'];
+  assert.ok(upcoming.items.filter((match) => !streamIds.includes(match.id)).every((match) => Object.keys(match.broadcastLinks).length === 0));
+  assert.equal(upcoming.items.filter((match) => match.status === 'scheduled').length, 6);
   assert.ok(upcoming.items.filter((match) => match.status === 'scheduled').every((match) => match.result.score === null));
   assert.deepEqual(upcoming.items.find((match) => match.id === 'dota-autumn-swiss-r1-03').result.score, [1, 0]);
   assert.deepEqual(upcoming.items.find((match) => match.id === 'dota-autumn-swiss-r1-05').result.score, [0, 1]);
@@ -79,7 +80,23 @@ test('confirmed final, unknown scores, yearless dates and published Swiss rounds
   assert.equal(roundTwo.length, 8);
   assert.deepEqual(roundTwo[0].result.score, [1, 0]);
   assert.deepEqual([roundTwo[0].team1, roundTwo[0].team2], ['Aegis Guardians', 'strela team']);
-  assert.ok(roundTwo.slice(1).every((match) => match.result.score === null && match.status === 'scheduled'));
+  assert.ok(roundTwo.slice(1, 7).every((match) => match.result.score === null && match.status === 'scheduled'));
+  assert.deepEqual(roundTwo.slice(1, 7).map((match) => [match.team1, match.team2]), [
+    ['WAYPROD.', 'Team Leto'], ['TEAM SPERMINT', 'Team Borisogleb'], ['Mi Ne Pushim!', 'Parallax Team'],
+    ['psb_bank', 'ARB Esports'], ['Vnext', 'Easy Gaming'], ['liqa sto', 'Fummo'],
+  ]);
+  assert.equal(roundTwo[1].scheduledAt, '2026-10-11T22:00:00+03:00');
+  assert.deepEqual(roundTwo[1].broadcastLinks, { twitch: 'https://www.twitch.tv/YarCyberSeason' });
+  assert.equal(roundTwo[2].scheduledAt, '2026-10-11T18:00:00+03:00');
+  assert.equal(roundTwo[3].scheduledAt, '2026-10-12T19:00:00+03:00');
+  assert.deepEqual(roundTwo[3].broadcastLinks, { twitch: 'https://www.twitch.tv/yourapriltears' });
+  assert.ok(roundTwo.slice(4, 7).every((match) => !match.scheduledAt));
+  const technical = roundTwo.find((match) => match.id === 'dota-autumn-swiss-r2-08');
+  assert.deepEqual([technical.team1, technical.team2], ['Tech Titans', 'PIVNAYA KEGA']);
+  assert.deepEqual(technical.result.score, [1, 0]);
+  assert.equal(technical.result.technical, true);
+  assert.deepEqual(technical.result.maps, []);
+  assert.ok(!technical.scheduledAt);
   const autumn = (await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' })).tournament;
   assert.equal(autumn.registration.status, 'closed'); assert.equal(autumn.participants.length, 16);
 });

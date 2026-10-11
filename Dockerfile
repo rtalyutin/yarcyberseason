@@ -11,7 +11,7 @@ COPY --chown=node:node src/data/tournaments/dota2-autumn-2026.json ./src/data/to
 COPY --chown=node:node backend/organizer-api.mjs backend/organizer-assignments.json ./backend/
 COPY --chown=node:node backend/captain-service.mjs backend/captain-auth.mjs backend/captain-store.mjs backend/captain-results-reader.mjs ./backend/
 COPY --chown=node:node backend/captain-api.mjs backend/captain-cleanup-worker.mjs ./backend/
-COPY --chown=node:node src/lib/organizer-table.js src/lib/community.js src/lib/tournament.js src/lib/broadcasts.js ./src/lib/
+COPY --chown=node:node src/lib/organizer-table.js src/lib/community.js src/lib/tournament.js src/lib/broadcasts.js src/lib/broadcast-links.js ./src/lib/
 COPY --chown=node:node src/data/tournaments/*.json ./src/data/tournaments/
 USER node
 EXPOSE 8080

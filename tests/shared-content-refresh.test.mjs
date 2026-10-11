@@ -62,8 +62,12 @@ test('shared home projects current Dota, completed CS2, scoped partners and no i
   assert.equal(content.featuredTournament.id, 'dota2-autumn-2026');
   assert.equal(content.season.tournament.id, 'cs2-august-2026');
   assert.equal(content.season.finished, true);
-  assert.equal(content.broadcast.state, 'unannounced');
-  assert.equal(content.broadcast.match, null);
+  assert.equal(content.broadcast.state, 'scheduled');
+  assert.equal(content.broadcast.match.id, 'dota-autumn-swiss-r2-02');
+  assert.deepEqual([content.broadcast.match.team1, content.broadcast.match.team2], ['WAYPROD.', 'Team Leto']);
+  assert.equal(content.broadcast.match.scheduledAt, '2026-10-11T22:00:00+03:00');
+  assert.deepEqual(content.broadcast.links.map((link) => link.href), ['https://www.twitch.tv/YarCyberSeason']);
+  assert.deepEqual(content.broadcast.casters, [{ name: '@s0natu', url: null }]);
   assert.deepEqual(content.partners.map((partner) => partner.id), ['dodo-pizza', 'torrefacto', 'redragon']);
   assert.deepEqual(content.officialSupport.map((partner) => partner.id).sort(), ['fks-yao', 'minsport-yao']);
   const minimal = buildHomeContent({ featuredTournament: { ...currentTournament, prizeDistribution: undefined }, seasonTournament: archivedTournaments[0], archives: [], project: projectContent });

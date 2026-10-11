@@ -1,5 +1,27 @@
 # Telegram Mini App — состояние проекта
 
+## October11 organizer schedule correction — prepared for publication
+
+Roman at12:12–12:14MSK supplied the corrected six pending R2 pairs and streams.
+WAYPROD.–Team Leto11Oct22:00MSK: Twitch YarCyberSeason, caster @s0natu without
+an inferred contact URL. TEAM SPERMINT–Team Borisogleb11Oct18:00MSK.
+Mi Ne Pushim!–Parallax Team12Oct19:00MSK: Twitch yourapriltears. psb_bank–ARB,
+Vnext–Easy Gaming and liqa sto–Fummo retain the known11–12October round period
+without an individual appointment. Old Tech–ARB is removed because ARB is now
+assigned to PSB. At12:17–12:22MSK Roman confirmed Tech Titans–PIVNAYA KEGA
+and clarified KEGA's technical defeat: Tech1:0KEGA, organizer-confirmed walkover,
+no exact appointment or confirmed map/statistics supplied.
+
+All nine prior confirmed fixtures, R1, participants and MVP metadata are unchanged.
+Swiss is recomputed from ten confirmed results, including the new technical
+result with empty maps and no invented MVP award. The catalog now has16matches,
+with eight R2fixtures (two confirmed and six pending). Three exact appointments are recorded in
+the public calendar ledger. Current assigned stream is WAY/Leto; after its
+confirmed closure MNP/Parallax becomes next. Source publication, existing-host
+readback and data-only collector/captain package activation are separate gates.
+The prior main-site content refresh24c87de was independently verified live;
+its five content areas, partner scopes, About, themes and archives remain intact.
+
 ## October11 approved round-two and results update — main website live
 
 - Authorization: Roman asks «1ый матч 2го тура. Остальные матчи тоже есть.

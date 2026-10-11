@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import publishedTournament from "../src/data/tournaments/dota2-autumn-2026.json" with { type: "json" };
 import { collectDotaResults, isPollWindow, inFixtureWindow, fixtureFor } from "../src/lib/dota-import.js";
+import { validateMvpEstimates } from "../src/lib/dota-mvp.js";
 import { applyDotaSnapshot, validateDotaSnapshot } from "../src/lib/dota-results.js";
 import { buildMiniAppModel } from "../src/telegram/data/model.js";
 import registry from "../src/data/teams.json" with { type: "json" };
@@ -27,7 +28,9 @@ const first = { match_id: 900000001, leagueid: 20164, start_time: Date.parse("20
   duration: 2400, series_id: 0 };
 
 test("published round period matches either day without inventing an appointment", () => {
-  const fixture = publishedTournament.stages[0].rounds[1].matches[1];
+  const fixture = publishedTournament.stages[0].rounds[1].matches.find((match) => match.id === 'dota-autumn-swiss-r2-05');
+  const before = structuredClone(fixture);
+  assert.deepEqual([fixture.team1, fixture.team2], ['psb_bank', 'ARB Esports']);
   assert.equal(fixture.scheduledAt, undefined);
   const map = { ...first, radiant_name: fixture.team1, dire_name: fixture.team2 };
   for (const date of ["2026-10-11T00:00:00+03:00", "2026-10-12T23:59:59+03:00"]) {
@@ -39,6 +42,7 @@ test("published round period matches either day without inventing an appointment
   }
   assert.equal(inFixtureWindow(map, { windowStart: fixture.windowEnd, windowEnd: fixture.windowStart }), false);
   assert.equal(inFixtureWindow(map, { windowStart: fixture.windowStart }), false);
+  assert.deepEqual(fixture, before);
 });
 
 test("approved R2 result and complete R1 publish once and update Swiss once", () => {
@@ -49,10 +53,28 @@ test("approved R2 result and complete R1 publish once and update Swiss once", ()
     team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 2, won: 2, lost: 0,
   });
   assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
-  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 18);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 20);
   assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
     [['9039436432', 37, 21, 2395]]);
   assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);
+});
+
+test("confirmed second-round KEGA technical loss changes Swiss without played statistics or MVP", () => {
+  const technical = publishedTournament.stages[0].rounds[1].matches.find((match) => match.id === 'dota-autumn-swiss-r2-08');
+  assert.deepEqual([technical.team1, technical.team2], ['Tech Titans', 'PIVNAYA KEGA']);
+  assert.equal(technical.status, 'walkover');
+  assert.equal(technical.resultConfirmed, true);
+  assert.deepEqual(technical.maps, []);
+  const { snapshot } = collectDotaResults(publishedTournament, []);
+  assert.deepEqual(snapshot.matches[technical.id].maps, []);
+  const view = applyDotaSnapshot(publishedTournament, snapshot);
+  const rows = view.stages[0].groups[0].rows;
+  assert.equal(rows.find((row) => row.team === 'Tech Titans').won, 1);
+  assert.equal(rows.find((row) => row.team === 'PIVNAYA KEGA').lost, 2);
+  // Synthetic attempted injection is test-only, never source tournament data.
+  assert.throws(() => validateMvpEstimates([{ matchId: '1', fixtureId: technical.id,
+    winnerTeamId: technical.team1Id, confirmed: true, played: true, reason: 'SYNTHETIC attempted technical MVP' }], publishedTournament),
+    /Technical victory without a played map cannot receive MVP estimates/);
 });
 
 test("polling follows the complete published tournament period", () => {
@@ -174,7 +196,7 @@ test("client keeps the last confirmed S3 revision through an outage", async () =
 test('organizer results publish confirmed outcomes with no fabricated map or technical MVP', () => {
   const { snapshot, changed } = collectDotaResults(publishedTournament, []);
   assert.equal(changed, true);
-  assert.equal(Object.keys(snapshot.matches).length, 7);
+  assert.equal(Object.keys(snapshot.matches).length, 8);
   assert.deepEqual([snapshot.matches['dota-autumn-swiss-r1-04'].score1, snapshot.matches['dota-autumn-swiss-r1-04'].score2], [1,0]);
   assert.equal(snapshot.matches['dota-autumn-swiss-r1-04'].maps[0].matchId, '9036860954');
   const technical = snapshot.matches['dota-autumn-swiss-r1-05'];

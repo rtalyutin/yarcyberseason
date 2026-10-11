@@ -149,6 +149,63 @@
       "description": "Матч завершён. Результат — на странице матча.",
       "revision": 0,
       "updatedAt": "2026-10-11T07:52:22.088Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-02",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r2-02@ycs.bar",
+      "start": "2026-10-11T22:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-team-leto",
+        "dota2-main-2026-way-prod"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-team-leto",
+        "dota2-main-2026-way-prod"
+      ],
+      "summary": "WAYPROD. — Team Leto · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-02",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-11T09:16:56.955Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-03",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r2-03@ycs.bar",
+      "start": "2026-10-11T18:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-4fans",
+        "dota2-main-2026-team-borisogleb"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-4fans",
+        "dota2-main-2026-team-borisogleb"
+      ],
+      "summary": "TEAM SPERMINT — Team Borisogleb · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-03",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-11T09:16:56.955Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-04",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r2-04@ycs.bar",
+      "start": "2026-10-12T19:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-parallax-team",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-parallax-team",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "summary": "Mi Ne Pushim! — Parallax Team · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-04",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-11T09:16:56.955Z"
     }
   ]
 }

@@ -48,9 +48,14 @@ test("step6 schedule renders completed first round and current second round with
   assert.equal((html.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r2-/g) || []).length, 8);
   assert.match(html, /11–12 октября/);
   const pendingSecondRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r2-") && match.status === "scheduled");
-  assert.equal(pendingSecondRound.length, 7);
-  assert.ok(pendingSecondRound.every((match) => match.scheduledAt === null && match.dateDisplay === "11–12 октября" && match.result.score === null));
-  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 9);
+  assert.equal(pendingSecondRound.length, 6);
+  const partialDates = pendingSecondRound.filter((match) => match.scheduledAt === null);
+  assert.equal(partialDates.length, 3);
+  assert.ok(partialDates.every((match) => match.dateDisplay === "11–12 октября" && match.result.score === null));
+  assert.match(html, /22:00 МСК/);
+  assert.match(html, /18:00 МСК/);
+  assert.match(html, /19:00 МСК/);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 10);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.match(html, /Завершён/);
   assert.match(html, /Техническая победа/);

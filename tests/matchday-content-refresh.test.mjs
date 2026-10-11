@@ -9,11 +9,17 @@ const fixture = (matches) => ({ id: 'dota-fixture', discipline: 'Dota 2', stages
 test('current Dota Matchday retains all actual results, partial R2 dates and no empty playoff slots', () => {
   const model = getMatchdayModel(currentDota);
   assert.equal(model.matches.length, 16);
-  assert.deepEqual(model.days.map((day) => day.date), ['2026-10-09', '2026-10-10', '2026-10-11', 'undated']);
-  assert.equal(model.defaultDate, 'undated');
+  assert.deepEqual(model.days.map((day) => day.date), ['2026-10-09', '2026-10-10', '2026-10-11', '2026-10-12', 'undated']);
+  assert.equal(model.defaultDate, '2026-10-11');
   const pending = model.days.at(-1);
   assert.equal(pending.dateLabel, '11–12 октября');
-  assert.equal(pending.scheduled.length, 7);
+  assert.equal(pending.scheduled.length, 3);
+  assert.equal(pending.completed.length, 1);
+  const technical = pending.completed.find((match) => match.id === 'dota-autumn-swiss-r2-08');
+  assert.equal(technical.scoreKind, 'technical');
+  assert.deepEqual([getDisplayedResult(technical).score1, getDisplayedResult(technical).score2], [1, 0]);
+  assert.equal(technical.winner, 'Tech Titans');
+  assert.deepEqual(technical.maps, []);
   assert.ok(pending.matches.every((match) => match.date === '11–12 октября' && !match.scheduledAt && !match.time));
   const opening = model.days[0].completed.find((match) => match.id === 'dota-autumn-swiss-r1-04');
   assert.ok(opening);

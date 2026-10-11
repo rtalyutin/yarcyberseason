@@ -8,6 +8,9 @@ const featured = (data) => data.stages[0].rounds[0].matches.find((match) => matc
 // Explicitly reset the synthetic state; the real opening is already confirmed.
 const fixture = () => {
   const data = structuredClone(tournament);
+  for (const stage of data.stages) for (const round of stage.rounds || [{ matches: stage.matches || [] }]) for (const match of round.matches || []) {
+    if (match.id !== featured(data).id) delete match.broadcastLinks;
+  }
   Object.assign(featured(data), { status: 'scheduled', resultConfirmed: false, score1: null, score2: null });
   return data;
 };
@@ -56,12 +59,13 @@ test('a next stream must have canonical links and advances only after confirmed 
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
 });
 
-test('confirmed technical decisions and the actual completed opening do not promise a future broadcast', () => {
+test('confirmed technical decisions close a stream; the current selection uses the newly assigned second round', () => {
   const data = fixture();
   Object.assign(featured(data), { status: 'walkover', score1: 1, score2: 0, scoreKind: 'technical', resultConfirmed: true });
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
   assert.equal(getHomeBroadcastBoard(data).score, null);
-  assert.equal(getHomeBroadcastBoard(tournament).match, null);
+  assert.equal(getHomeBroadcastBoard(tournament).match.id, 'dota-autumn-swiss-r2-02');
+  assert.equal(getHomeBroadcastBoard(tournament).state, 'scheduled');
   assert.equal(featured(tournament).resultConfirmed, true);
   assert.equal(featured(tournament).status, 'completed');
 });

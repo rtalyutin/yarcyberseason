@@ -74,6 +74,17 @@ are logged without automatic publication. A map's winner comes from
 `radiant_win`; kills never decide the winner. Swiss wins/losses derive only from
 completed series. Tournament pairings and playoff seeds remain organizer data.
 
+A fixture with an agreed multi-day round period may supply `windowStart` and
+`windowEnd` as timezone-qualified timestamps (inclusive start, exclusive end).
+These are matching bounds, not an individual appointment; `dateDisplay` may
+show the period while `scheduledAt` stays absent until an exact start is known.
+Both bounds must be valid and ordered. October11's approved R2 draw uses
+11–12 October Moscow time. Organizer-confirmed screenshot map9039436432 is
+retried by its exact ID with no player awards until actual identities/statistics
+are available. The incomplete Easy–Leto record9038788632 remains pending;
+the confirmed BO1 result uses full map9038793515, without declaring the other
+record a played official map or inventing its disposition.
+
 The server-side importer has no GitHub or push operation. It reads the previous
 S3 objects, updates MVP independently of completed series, writes series only
 when a new complete result is confirmed, and reads each write back to verify it.

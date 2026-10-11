@@ -165,9 +165,9 @@
       "summary": "WAYPROD. — Team Leto · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-02",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-11T09:16:56.955Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 1,
+      "updatedAt": "2026-10-11T20:14:54.318Z"
     },
     {
       "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-03",

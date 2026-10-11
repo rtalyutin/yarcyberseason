@@ -476,3 +476,13 @@ these references do not establish a result or imply automatic participant fillin
 No time, result, stream, caster or technical outcome was supplied for R3.
 Publish on the existing main website; preserve all prior fixtures/results/MVP,
 current match-detail design, hosts and backend/Serverless private state.
+
+## Final R2 result and resolved R3 slots — 11 October 2026, 23:08 MSK
+
+Roman reports that the final match ended. Public sports revision12 and OpenDota
+game9040669924 independently confirm WAYPROD.–Team Leto0:1, kills13:36,
+duration30:31, league20164. Record this confirmed result and recalculate the
+dependent Swiss rows. Resolve R3-03 slot2 as Team Leto and R3-04 slot1 as
+WAYPROD., retaining the accepted12October pairs, order, formats and unknown times.
+Publish this continuation on the authorized existing main website; preserve
+all other fixtures, results, MVP, streams, runtime hosts and private state.

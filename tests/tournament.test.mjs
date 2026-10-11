@@ -62,7 +62,7 @@ test("Current event exposes all three published Swiss rounds, never counts empty
   assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r1-')).length, 8);
   assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r2-')).length, 8);
   assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r3-')).length, 8);
-  assert.equal(model.finishedCount, 13);
+  assert.equal(model.finishedCount, 14);
   assert.ok(model.matches.every((match) => match.stageId !== 'playoffs'));
   assert.equal(model.defaultSection, "matches");
   assert.deepEqual(model.sections.map((section) => section.id), ["participants", "swiss", "matches", "playoffs", "mvp", "info"]);

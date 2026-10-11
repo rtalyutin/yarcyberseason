@@ -53,7 +53,7 @@ test("approved R2 result and complete R1 publish once and update Swiss once", ()
     team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 2, won: 2, lost: 0,
   });
   assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
-  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 22);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 26);
   assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
     [['9039436432', 37, 21, 2395]]);
   assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);

@@ -222,9 +222,9 @@
       "summary": "psb_bank — ARB Esports · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-05",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-11T10:10:54.818Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 1,
+      "updatedAt": "2026-10-11T14:14:29.396Z"
     }
   ]
 }

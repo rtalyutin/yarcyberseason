@@ -118,8 +118,8 @@ test('production JSON supplies every tournament and the organizer-confirmed open
   assert.deepEqual([psb.team1, psb.team2], ['psb_bank', 'ARB Esports']);
   assert.equal(psb.scheduledAt, '2026-10-11T15:00:00+03:00');
   assert.match(organizerDate(psb), /11\.10\.2026.*15:00/);
-  assert.equal(psb.status, 'scheduled');
-  assert.equal(psb.score, null);
+  assert.equal(psb.status, 'completed');
+  assert.deepEqual(psb.score, [0, 1]);
   assert.equal(psb.broadcast.planned, false);
   assert.deepEqual(psb.broadcast.links, []);
   assert.deepEqual(psb.casters, []);

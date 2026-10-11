@@ -1,5 +1,23 @@
 # Telegram Mini App — состояние проекта
 
+## October11 other-match audit — added before publication
+
+At17:08:04MSK Roman supplied the Vnext–Easy Gaming game9040049635 screenshot:
+Easy wins0:1, kills17:45,22:54(1374seconds). The existing public results
+revision8 independently contains the same ID/winner/kills/duration, and
+PSB–ARB0:1(9039884453,10:31,1879seconds). Sync those two published completed
+fixtures, preserving every other fixture and the Liqa technical outcome.
+Source Swiss has13confirmed matches/26participations. Expected published
+snapshot retains all12revision8 outcomes and adds only Liqa. Three pending
+R2pairs remain TEAM SPERMINT–Borisogleb, MNP–Parallax and WAY–Leto; do not
+infer their result from dates/times. This workspace's direct OpenDota map and
+league GETs returned403, so undiscovered fresh API matches are not attested.
+Public snapshots/runtime and supplied screenshot are the actual audit inputs.
+No raw player statistics/identities or new MVP estimates were fabricated.
+Serverless access restored using the previously supplied authorized CLI
+credential; GET confirms existing revision4, three canonical modules and
+static config. Static-only publication must preserve them with revision CAS.
+
 ## October11 Liqa–Fummo organizer result — prepared
 
 ACTIVE_CONTRACT: Roman reports Liqa sto's technical defeat and explicitly

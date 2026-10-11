@@ -438,3 +438,9 @@ no played statistics or MVP. Swiss becomes Liqa0–2 and Fummo1–1. Keep the
 existing round window, all other fixtures/results/appointments and private
 state. Publish the authorized shared result through the existing single
 collector and verify the public snapshot; preserve Serverless host/modules/menu.
+
+At17:08MSK Roman also requests other-match verification and supplies
+Vnext–Easy Gaming game9040049635: Easy wins0:1,17:45,22:54. Public results
+revision8 independently agrees and also confirms PSB–ARB0:1,9039884453,
+10:31,31:19. Sync only those newly completed fixtures; preserve remaining
+results/MVP. No invented player statistics or future outcomes.

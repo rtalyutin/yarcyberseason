@@ -1,5 +1,60 @@
 # Telegram Mini App — состояние проекта
 
+## TASK_STATE — October 11 approved publication and live results
+
+Authorization: Roman explicitly replied «Разрешаю» at 2026-10-11T17:54:58+03:00
+to publication of the prepared website, Serverless Mini App and /orgs update.
+This resolves the earlier automatic approval-review rejection for this scope.
+Existing hosts, serving config, cloud modules/menu, private captain state and
+the single Tg-mcp S3 writer are preserved.
+
+Source PR9 merged as ad43590b7bfd3fa90079a0b1b3e21dd02da1cc69,
+tree 1591c326539596098df71e27798901ee64fecf64; functional candidate b5fcd80.
+Runtime PR55 merged as 6de3688a32779503e12bcf33d367c7883278607b,
+tree add458bc7258414bb52604476650b215f4947c31. Expected-head merges and both
+main tree readbacks verified. PostgreSQL CI 38146885384 passed 359 + 128 + 30
+tests with zero skips. Prior author and independent 16-case checks passed.
+
+Existing Serverless static deployment executed once with expected_revision 4
+and verified revision 5 at 2026-10-11T15:05:18.984598Z. Bundle:
+ee376784b7724f635856267744b130eba73a3a98f69eb0dd6a4dc34e48ed6fc5.
+All 435 files / 29,537,034 bytes match; config and all 3 canonical modules are
+unchanged. Independent public /tg, bootstrap and both shared-data payloads
+match accepted build bytes. The actual browser Mini App shows PSB 0:1 ARB,
+Vnext 0:1 Easy and Liqa 0:1 Fummo, including the explicit technical-loss note
+and absence of map statistics. Genuine Telegram/mobile UI was not checked.
+
+Independent public sports revision 9 contains 13 outcomes and preserves all
+12 revision 8 outcomes verbatim. Liqa has organizer-confirmed technical 0:1,
+maps[] and no MVP. MVP revision 18 validates without a Liqa R2 award/map.
+Reconstructed Swiss: 13 series, 26 participations; Liqa 0–2, Fummo 1–1,
+Vnext 0–2, Easy 1–1, PSB 0–2, ARB 1–1. Three R2 pairs remain without a
+published result. No result was inferred.
+Collector fingerprint:
+2c8645b585f68ba09a40fb0e46cd04717000b0326999609e411ebccd35484f42.
+Captain fingerprint:
+766e77e7a293871cb74e7ea885f6cc5a84e8d2af09a67d8509ce1551ec51590b.
+Both are active and healthy; root readback at 15:09:05Z corroborates the
+independent verification.
+
+The actual main-site browser shows updated PSB and Liqa results and the
+complete 16-row Swiss table with the required six records. Dynamic published
+data is current. The main-site static seed still serves older index-BCeQE6WG,
+last-modified 10:15:27Z; selected new asset URLs return old HTML fallback.
+The new main-site static artifact is PENDING, not proved by merge or HTTP 200.
+Timeweb /my/apps displays Site Unavailable after one reload in this browser.
+/orgs public login is reachable and its backend package is updated;
+authenticated table UI was not opened.
+
+Operation status: Git publication, runtime activation, shared results and
+Serverless deployment SUCCEEDED / VERIFIED. Main-site live result behavior
+PASS. Main-site static artifact gate BLOCKED on hosting access/readback.
+Next limited step: finish/rebuild the existing YCS2 Timeweb app from the
+approved main revision, then verify new HTML/assets and the PSB calendar.
+No additional code/data changes, host or approval are required. This record
+supersedes the earlier permission blocker and preserves the separate static,
+authenticated-orgs and genuine-Telegram verification limitations.
+
 ## TASK_STATE — October11 cumulative results, publication blocked
 
 Check complete for all16 assigned Swiss fixtures. Public sports revision8

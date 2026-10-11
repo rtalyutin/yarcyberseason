@@ -49,7 +49,7 @@ test('every public match is reachable once through pagination and detailed read'
   assert.deepEqual(beyond.items, []); assert.equal(beyond.nextOffset, null);
 });
 
-test('confirmed final, unknown scores, yearless dates and first-round matches keep their meaning', async () => {
+test('confirmed final, unknown scores, yearless dates and published Swiss rounds keep their meaning', async () => {
   const final = (await call('ycs_get_match', { tournamentId: 'cs2-august-2026', matchId: 'cs2-aug-grand-final' })).match;
   assert.deepEqual(final.result.series, [2, 3]); assert.deepEqual(final.result.maps, []);
   const unknown = (await call('ycs_get_match', { tournamentId: 'dota2-main-2026', matchId: 'dota-main-group-16' })).match;
@@ -58,13 +58,14 @@ test('confirmed final, unknown scores, yearless dates and first-round matches ke
   assert.ok(qual.items.length);
   assert.ok(qual.items.every((match) => !match.scheduledAt && !match.date));
   const current = await call('ycs_list_matches', { tournamentId: 'dota2-autumn-2026' });
-  assert.equal(current.total, 8);
-  assert.equal(current.items.filter((match) => match.status === 'scheduled').length, 5);
+  assert.equal(current.total, 16);
+  assert.equal(current.items.filter((match) => match.status === 'scheduled').length, 7);
   assert.ok(current.items.filter((match) => match.status === 'scheduled').every((match) => match.result.score === null));
   for (const id of ['dota-autumn-swiss-r1-03', 'dota-autumn-swiss-r1-04']) {
     assert.deepEqual(current.items.find((match) => match.id === id).result.score, [1, 0]);
   }
   assert.deepEqual(current.items.find((match) => match.id === 'dota-autumn-swiss-r1-05').result.score, [0, 1]);
+  assert.deepEqual(current.items.find((match) => match.id === 'dota-autumn-swiss-r2-01').result.score, [1, 0]);
   assert.equal(current.items.find((match) => match.id === 'dota-autumn-swiss-r1-01').time, '17:00');
   const opening = current.items.find((match) => match.id === 'dota-autumn-swiss-r1-04');
   assert.equal(opening.scheduledAt, '2026-10-09T20:30:00+03:00');

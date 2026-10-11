@@ -30,9 +30,9 @@ function fixture(name, change = () => {}) {
 const editMatch = (edit) => (t) => edit(t.stages[0].matches[0]);
 
 test("matches real tournament shows current results and published times", () => {
-  assert.equal(real.matches.length, 8);
+  assert.equal(real.matches.length, 16);
   const html = render(real);
-  assert.equal((html.match(/<details class="tg-match-row"/g) || []).length, 8);
+  assert.equal((html.match(/<details class="tg-match-row"/g) || []).length, 16);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.match(html, /Завершён/);
   assert.match(html, /Техническая победа/);

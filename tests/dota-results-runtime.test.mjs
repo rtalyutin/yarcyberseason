@@ -110,6 +110,7 @@ test("relocated legacy worker stays disabled by default even with S3 credentials
 
 test("importer makes no external calls before kickoff and persists completed results only once", async () => {
   const tournament = structuredClone(sourceTournament);
+  tournament.stages[0].rounds = [tournament.stages[0].rounds[0]];
   tournament.mvpEstimates = [];
   for (const fixture of tournament.stages[0].rounds[0].matches) delete fixture.resultSource;
   let object = null;

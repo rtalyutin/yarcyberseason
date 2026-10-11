@@ -1,5 +1,70 @@
 # Telegram Mini App — состояние проекта
 
+## October11 approved round-two and results update — main website live
+
+- Authorization: Roman asks «1ый матч 2го тура. Остальные матчи тоже есть.
+  Нужно сайт обновить». Prior approved R2 draw is restored unchanged: eight
+  BO1 pairs during11–12October Moscow time. All8R1results and Aegis–strela
+  R2 win1:0 are in source data; map9039436432 has37:21 kills and2395seconds.
+  The exact-ID retry has players:[] pending, without fabricated account bindings.
+- Full real API cards9038793515(Leto win) and9038683998(WAY win) are bound by
+  verified numeric team IDs. Incomplete9038788632(0:0,seven players) remains
+  pending without an invented exclusion. Kega's technical loss is the owner's
+  October10confirmation; technical no-play gives no MVP.
+- Source PR7 merged as605b57117a667c7f913a1148c39990777dba37ba; functional
+  source202f26e3260f13f0c125bfdc0c65124187956bd6/treec1711e3452f06ce83865e90d895c09e8ea0fd3ae.
+  JSON SHA256c413d39efddc77e7d0f96b97c694afe04c0a3d6fe628d88ebf95db6946953da5.
+  Author98tests+build+Sites6tests pass. Independent9held-out scenarios and62
+  profile tests pass;180raw metrics/20new exact scores manually reconstructed.
+- Runtime PR51 merged as14fa797b2206fe7c31a2fcb44bad90791fea43b4; reviewed
+  head754a3ee123127b0559e227f254dcbebb086807a7/tree55cfcb3f0d0cd0dc97fdc7c84ee52af692b7d202.
+  Both manifests pin202f26e. Existing worker activation default, captain private
+  state, S3single-writer/CAS, bots/env/ACL and hosts stay unchanged.
+  Author93focused runtime tests/check/build pass; independent52tests and26
+  manifest entries pass. Full PostgreSQL CI38123238819(job114422138503) passes
+ 359root+128workspace+30UItests,zero skips,all required steps.
+- Expected successful import: sports9confirmed fixtures; SwissAegis2–0 and
+  strela1–1,18participations. MVP50realplayer-map records plus10recalculated
+  Tech-match estimates; μ618435891569/25000000000. New R2source pending.
+  These are tested expectations, not live claims. Source publication/runtime
+  deployment/publicS3readback/actualUI remain distinct gates; at initialreadback
+  frontend and backend still served the previous deployment.
+
+- Independent08:10UTC public readback confirms sports revision5 with9results,
+  MVP revision12 with50real/10estimated player-map records and the exact mean
+  above. Previous40real records and5results are preserved. Captain is idle,
+  errorsnull, roster16/revision33,matchCount16. R2map9039436432 and incomplete
+  record9038788632 remain pending; no invented identities, metrics or exclusion.
+- Actual main-site browser acceptance confirms16fixtures/9results, firstR2
+  Aegis–strela1:0,37:21,39:55; SwissAegis2–0/strela1–1. MVP shows the new
+  provisional calculations: Aegis28.45 each, Tech21.03 each, including the
+  truthful «Игрок 205589626» fallback. Exact-ID OpenDota GET still404 at08:29UTC.
+  Source/backend activation and genuine Telegram/Serverless release remain
+  separate; this update publishes the existing main website.
+- Initial collector error is reproduced as ambiguous Easy–Leto API records.
+  Source PR8/mainb071b8d2ce5d56bab633cc16c507be176ec613fc and runtime
+  PR52/main2f7ca205e3ba2f89b210737c65232d8b5ffc3a7c repair sports selection
+  using only a complete organizer-confirmed map set. Extra raw7-player record
+  stays MVPpending, partial sets still ambiguous, contradictory official
+  winner/kills/duration still conflict. Source local5ac8e2d/tree13bdd53dc06f441cafa2f44d0b3f8e35e69ec713,
+  remoteff3b2a5949bd7d553508c86be4d2063a07756489; runtime localc6d3480/treeef34a3ea26a18abb454e1d55978cba70cdbd55c4,
+  remote1cf0b953e229d4bf4cc95e0665e6008d369b2ff9. Author48source/93runtime
+  tests/check/build pass. Independent source6held-out+48profile and runtime
+  6held-out+32profile scenarios pass; all26manifest hashes verified. Full
+  PostgreSQL CI38124689410/job114426505178 passes359+128+30tests,zero skips.
+- Collector repair LIVE PASS: independent GETs at08:31:13–23UTC verify
+  active sourceff3b2a59/fingerprint
+  486dbecc31f1771f51ffeae59cf5c16e1b4641160f7656cb20d99952722519a1.
+  Captain manifest202f26e/ac4300ac and workerb82f2628 remain unchanged.
+  Collector statuswaiting, lastSuccessAt2026-10-11T08:30:31.654Z,
+  lastFailurenull, pendingMaps3. Captain idle/noerrors and16matches. Public
+  sports revision5 and MVP revision12 are byte-identical to independently
+  checked postmerge data, preserving arithmetic and existing records. Own
+  public match-page GET200 also confirms Aegis1:0strela,37:21,39:55/completed.
+  Single-writer/CAS, private captain state, modules, bot menu/env/ACL and
+  hosts are unchanged. No additional parse request or S3/manual result write.
+
+
 ## TASK_STATE — MVP/results update, 10.10.2026
 
 ### Estimate activation — contract revision2, 16:38 MSK

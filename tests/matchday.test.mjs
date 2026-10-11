@@ -86,7 +86,10 @@ test('direct stage matches work and absent dates remain absent', () => {
     {id:'c',status:'scheduled',team1:'E',team2:'F'},
   ]}] };
   const model = getMatchdayModel(group);
-  assert.equal(model.matches.length,2);
+  assert.equal(model.matches.length,3);
   assert.equal(model.defaultDate,'2026-08-25');
+  assert.equal(model.days.at(-1).date, 'undated');
+  assert.equal(model.days.at(-1).dateLabel, 'Дата уточняется');
+  assert.equal(model.days.at(-1).scheduled[0].id, 'c');
   assert.deepEqual(getMatchdayModel({stages:[]}).days,[]);
 });

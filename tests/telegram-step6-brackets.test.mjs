@@ -32,7 +32,7 @@ const playoff = (rounds) => ({ id: "playoffs", type: "double_elimination", title
 const round = (id, matches) => ({ id, label: id, matches });
 const pair = (overrides = {}) => ({ id: "first", team1: "Alpha", team2: "Beta", status: "scheduled", ...overrides });
 
-test("real Swiss shows eight pairs and confirmed standings without inventing playoff pairs", () => {
+test("real Swiss shows both eight-pair rounds and confirmed standings without inventing playoff pairs", () => {
   const swiss = render(SwissSection, real), bracket = render(PlayoffSection, real);
   assert.match(swiss, /Подтверждённые результаты Swiss/);
   assert.match(swiss, /Правила этапа/);
@@ -45,7 +45,11 @@ test("real Swiss shows eight pairs and confirmed standings without inventing pla
   assert.match(bracket, /Гранд-финал/);
   assert.match(bracket, /Переходы между парами ещё не опубликованы/);
   assert.doesNotMatch(bracket, /data-match-key=|tg-bracket-transition|0:0/);
-  assert.equal(real.matches.length, 8);
+  assert.equal(real.matches.length, 16);
+  assert.equal((swiss.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r2-/g) || []).length, 8);
+  assert.match(swiss, /1-й тур/);
+  assert.match(swiss, /2-й тур/);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 9);
 });
 
 test("Swiss renders published columns, order, null, zero, seed and locked place", () => {

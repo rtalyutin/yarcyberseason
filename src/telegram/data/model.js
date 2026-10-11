@@ -1,4 +1,5 @@
 import { buildCommunityModel, matchDateLabel } from "../../lib/community.js";
+import { getMatchBroadcastLinks } from "../../lib/broadcasts.js";
 import { transformActions } from "./actions.js";
 import { assertMiniAppModel, createRegistryProjection, validateSelectedSource } from "./validate.js";
 
@@ -23,8 +24,8 @@ const visibleRaw = (match) => match?.published !== false;
 const isPublishedMatch = (match) => visibleRaw(match) && Boolean(match.team1 || match.team2);
 
 function mapMatch(record) {
-  const external = [];
-  for (const [field, label] of [["streamUrl", "Трансляция"], ["broadcastUrl", "Трансляция"], ["replayUrl", "Запись"], ["documentUrl", "Документ"]]) {
+  const external = getMatchBroadcastLinks(record).map(({ label, href }) => ({ kind: 'external', label, url: href }));
+  for (const [field, label] of [["replayUrl", "Запись"], ["documentUrl", "Документ"]]) {
     const url = record[field];
     if (!nonEmpty(url)) continue;
     try {
@@ -211,7 +212,8 @@ export function buildMiniAppModel(tournament, registry, projectContent) {
     project: {
       brandName: projectContent.brandName,
       logoUrl: projectContent.logoUrl,
-      partners: projectContent.partners.map((partner) => ({ name: partner.name, logoUrl: partner.logoUrl })),
+      partners: projectContent.partners.map((partner) => ({ name: partner.name, logoUrl: partner.logoUrl || null })),
+      officialSupport: (projectContent.officialSupport || []).map((partner) => ({ name: partner.name, logoUrl: partner.logoUrl || null })),
       contactEmail: projectContent.contactEmail,
     },
   };

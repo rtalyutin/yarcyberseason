@@ -1,5 +1,6 @@
 import { isArchive } from "./tournament.js";
 import { normalizeResult } from './community.js';
+import { getHomeBroadcastBoard } from './home-board.js';
 
 const finishedStatuses = new Set(["completed", "walkover", "bye"]);
 
@@ -14,9 +15,13 @@ const roundTitles = {
   "grand-final": "Гранд-финал",
 };
 
-export const isFinishedMatch = (match) => match.resultConfirmed !== false && finishedStatuses.has(match.status);
+const isDota = (discipline) => /dota/i.test(discipline || '');
+const isIsoDate = (date) => /^\d{4}-\d{2}-\d{2}$/.test(date || '') && Number.isFinite(Date.parse(`${date}T12:00:00Z`)) && new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) === date;
+export const isFinishedMatch = (match, discipline = match?.discipline) => finishedStatuses.has(match.status) &&
+  (isDota(discipline) ? match.resultConfirmed === true : match.resultConfirmed !== false);
 
 export function formatMatchday(date, includeYear = false) {
+  if (!isIsoDate(date)) return date && date !== 'undated' ? date : 'Дата уточняется';
   return new Intl.DateTimeFormat("ru-RU", {
     day: "numeric", month: "long", ...(includeYear ? { year: "numeric" } : {}), timeZone: "UTC",
   }).format(new Date(`${date}T12:00:00Z`)).replace(/\s*г\.$/, "");
@@ -28,44 +33,54 @@ export function completedDayLabel(count) {
   return `${count} ${noun}`;
 }
 
-function stageMatches(stage) {
+function stageMatches(stage, discipline) {
   if (!stage) return [];
-  const rounds = stage.rounds || [{ id: stage.id, label: stage.title, matches: stage.matches || [] }];
+  const rounds = [...(stage.rounds || []), ...(stage.matches ? [{ id: stage.id, label: stage.title, matches: stage.matches }] : []),
+    ...(stage.groups || []).filter((group) => group.matches)];
   return rounds.flatMap((round) => (round.matches || []).map((match) => ({
-    ...match, roundId: round.id, roundTitle: roundTitles[round.id] || round.label || stage.title,
+    ...match, discipline, stageId: stage.id, roundId: round.id, roundTitle: roundTitles[round.id] || round.label || stage.title,
   })));
 }
 
 export function getMatchdayModel(tournament) {
   const config = tournament.matchday || {};
-  const active = tournament.stages.find((stage) => stage.id === config.nextStageId);
-  const previous = tournament.stages.find((stage) => stage.id === config.previousStageId);
-  const records = [...stageMatches(active), ...(active === previous ? [] : stageMatches(previous))];
-  const matches = [...new Map(records.filter((match) => /^\d{4}-\d{2}-\d{2}$/.test(match.date || "")).map((match) => [match.id, match])).values()]
-    .sort((a, b) => a.date.localeCompare(b.date));
-  const latestCompletedDate = matches.filter(isFinishedMatch).at(-1)?.date;
+  const stages = tournament.stages || [];
+  const broadcast = getHomeBroadcastBoard(tournament).match;
+  const selectedStages = config.nextStageId || config.previousStageId ? stages.filter((stage) =>
+    [config.nextStageId, config.previousStageId].includes(stage.id) || stageMatches(stage).some((match) => match.id === broadcast?.id)) : stages;
+  const records = selectedStages.flatMap((stage) => stageMatches(stage, tournament.discipline));
+  const matches = [...new Map(records.filter((match) => match.published !== false && match.status).map((match) => [match.id, match])).values()]
+    .sort((a, b) => (isIsoDate(a.date) ? a.date : '9999').localeCompare(isIsoDate(b.date) ? b.date : '9999') || (a.time || '').localeCompare(b.time || ''));
+  const latestCompletedDate = matches.filter((match) => isIsoDate(match.date) && isFinishedMatch(match)).at(-1)?.date;
   // Completed tournaments retain dated playoff history; live events focus on the latest results and upcoming days.
-  const dates = [...new Set(matches.map((match) => match.date))].filter((date) => isArchive(tournament) || !latestCompletedDate || date >= latestCompletedDate);
+  const dates = [...new Set(matches.map((match) => isIsoDate(match.date) ? match.date : 'undated'))].filter((date) =>
+    date === 'undated' || isArchive(tournament) || isDota(tournament.discipline) || !latestCompletedDate || date >= latestCompletedDate || date === broadcast?.date);
   const days = dates.map((date) => {
-    const dayMatches = matches.filter((match) => match.date === date);
-    const completed = dayMatches.filter(isFinishedMatch);
+    const dayMatches = matches.filter((match) => (isIsoDate(match.date) ? match.date : 'undated') === date);
+    const completed = dayMatches.filter((match) => isFinishedMatch(match));
     const scheduled = dayMatches.filter((match) => !isFinishedMatch(match));
-    return { date, matches: dayMatches, completed, scheduled,
+    const partialDates = [...new Set(dayMatches.map((match) => match.dateDisplay || match.date || null))];
+    const dateLabel = date === 'undated' ? (partialDates.length === 1 && partialDates[0] ? partialDates[0] : 'Дата уточняется') : formatMatchday(date);
+    return { date, dateLabel, matches: dayMatches, completed, scheduled,
       label: scheduled.length ? [...new Set(scheduled.map((match) => match.roundTitle))].join(" · ") : completedDayLabel(completed.length) };
   });
-  return { matches, days, defaultDate: days.find((day) => day.scheduled.length)?.date || days.at(-1)?.date || null };
+  const broadcastDay = broadcast && days.find((day) => day.matches.some((match) => match.id === broadcast.id));
+  return { matches, days, defaultDate: broadcastDay?.date || days.find((day) => day.scheduled.length)?.date || days.at(-1)?.date || null };
 }
 
 export function getPreviousMatchday(model, selectedDate) {
-  if (!selectedDate) return null;
-  const completed = model.matches.filter((match) => match.date < selectedDate && isFinishedMatch(match));
+  if (!isIsoDate(selectedDate)) return null;
+  const completed = model.matches.filter((match) => isIsoDate(match.date) && match.date < selectedDate && isFinishedMatch(match));
   const date = completed.at(-1)?.date;
   return date ? { date, completed: completed.filter((match) => match.date === date) } : null;
 }
 
-export function getDisplayedResult(match, { winnerFirst = true } = {}) {
+export function getDisplayedResult(match, { winnerFirst = true, discipline = match.discipline || 'Counter-Strike 2' } = {}) {
+  if (isDota(discipline) && !isFinishedMatch(match, discipline)) {
+    return { first: match.team1, second: match.team2, score1: null, score2: null, winner: null, maps: [] };
+  }
   if (match.scoreKind) {
-    const result = normalizeResult(match, 'Counter-Strike 2');
+    const result = normalizeResult(match, discipline);
     const swap = winnerFirst && result.winnerSide === 2;
     return {
       first: swap ? match.team2 : match.team1, second: swap ? match.team1 : match.team2,

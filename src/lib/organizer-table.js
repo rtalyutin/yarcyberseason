@@ -1,4 +1,5 @@
 import { exactStart, normalizeResult, safeHttps } from './community.js';
+import { getMatchBroadcastLinks } from './broadcasts.js';
 
 export const ORGANIZER_TIME_ZONE = 'Europe/Moscow';
 
@@ -25,7 +26,7 @@ export function buildOrganizerTable(tournaments, assignments = { matches: {}, to
         const assigned = assignments.matches?.[key] || {};
         const start = exactStart(match.scheduledAt);
         const result = normalizeResult(match, tournament.discipline);
-        const broadcastUrl = safeHttps(assigned.broadcast?.url || match.broadcastUrl || match.streamUrl);
+        const broadcastUrl = safeHttps(assigned.broadcast?.url) || getMatchBroadcastLinks(match)[0]?.href || null;
         rows.push({
           key, id: match.id, tournamentId: tournament.id, tournamentSlug: tournament.slug,
           tournamentTitle: tournament.title, season: tournament.season || '', discipline: tournament.discipline,
@@ -39,8 +40,7 @@ export function buildOrganizerTable(tournaments, assignments = { matches: {}, to
           dateDisplay: match.dateDisplay || match.dateLabel || null, time: match.time || null,
           timeZone: start ? ORGANIZER_TIME_ZONE : match.timeZone || tournament.timeZone || null,
           broadcast: { url: broadcastUrl,
-            planned: Boolean(broadcastUrl || assigned.broadcast?.planned || match.broadcastPlanned ||
-              tournament.homeBroadcastMatchIds?.includes(match.id)) },
+            planned: Boolean(broadcastUrl || assigned.broadcast?.planned) },
           replayUrl: safeHttps(match.replayUrl),
           casters: people(assigned.casters || match.casters),
           partners: people(assigned.partners || match.partners),

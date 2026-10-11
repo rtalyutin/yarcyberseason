@@ -3,6 +3,7 @@ import { community } from '../data/community.js';
 import { regulationsByDiscipline, regulationsByTournament } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
+import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
 import { registrationCountLabel } from '../lib/tournament.js';
 import { normalizeResult, matchStates, safeHttps } from '../lib/community.js';
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
@@ -30,6 +31,7 @@ function MatchRow({ match, tournament, teamLogos }) {
         <strong className={`tn-team tn-team--second${!winner || winner === match.team2 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team2} />{teamLogos?.[match.team2] && <img src={teamLogos[match.team2]} alt="" />}</strong>
       </div>
       {match.resultIssue && <p>{match.resultIssue}</p>}
+      {getMatchBroadcastLinks(match).length > 0 && <div className="tn-header-actions" aria-label="Трансляция матча">{getMatchBroadcastLinks(match).map(({ platform, label, href }) => <a key={platform} className="tn-outline" href={href} target="_blank" rel="noopener noreferrer">{label}<ArrowUpRight aria-hidden="true" /></a>)}</div>}
       <MatchLink tournamentId={tournament.id} matchId={match.id} />
       <MatchMapLinks match={match} />
       {details && <details className="tn-match-details">

@@ -358,3 +358,25 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - September 14 team-page redesign: user selected CS-3 «Клубный паспорт», D-2 «Штаб», K-2 «Спортивное издание». These choices apply to ALL team profiles via one shared data-driven template. CS2 has a cobalt identity block, right-hand statistics/tournament information and full-width fixtures below. Dota has a compact stone/city identity rail with statistics and a clear match workspace. Corporate uses a large navy editorial title on white, cobalt marginal statistics and the actual Strelka photo. Retain factual rosters with tournament provenance, separate disciplines, historical names, calendar subscription and opponent history. Adapt from 320px phones to 4K, cap the working composition at 1800px, keep text readable and avoid page-wide horizontal scroll. Other routes retain their agreed design.
 
 - September 15 navigation fix: use the shared `SiteHeader` and isolated `ycs-header-*`/`ycs-theme-*` styles on all public prototype routes. Header geometry, navigation order and the 1200px menu breakpoint are shared; theme colors remain distinct. Keep theme selection in the desktop header and inside the mobile menu. Do not restore route-specific toolbar placement or override header dimensions from page styles. `/about` keeps its fixed YCS identity without theme controls or preference writes.
+
+
+## Website content refresh — 11 October 2026
+
+The agreed content1.2 update uses autumn Dota as the mutable `currentTournament`.
+Keep the prior CS2 tournament and Matchday route as archive. The single collector
+and accepted results snapshot remain unchanged; frontend content is not a new
+results writer. Match broadcasts are canonical optional `broadcastLinks` fields
+(twitch/vk), with no channel/time/caster/legacy-list fallback. Only explicit
+published statuses and confirmed results close an assigned broadcast; clocks only
+refresh date-sensitive copy. Partial round-two dates remain visible.
+
+Public partner agreements have tournament, official, match, final, or unassigned
+scope. Home shows commercial tournament partners and separate official support.
+Only a specific Matchday match shows its assigned partners. Final partners require
+published real participants. Preserve existing legal details, three themes, About
+fixed YCS theme with preference restoration, art, archives and Easter eggs.
+
+User instruction on 11 October authorizes publishing this content update to the
+existing main and existing frontend host. Use a checked immutable source tree,
+expected-head update, and verify the actual public site after propagation. Do not
+claim a local build as a deployed update or create a replacement host.

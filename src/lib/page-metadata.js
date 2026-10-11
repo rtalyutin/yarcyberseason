@@ -18,7 +18,9 @@ export function getPageMetadata(pathname) {
   if (path === '/about') return { ...base, title: 'Организаторы — ЯрКиберСезон', description: 'Люди, которые организуют турниры, готовят матчи и поддерживают связь с участниками ЯрКиберСезона.' };
   if (path === '/webmcp') return { ...base, title: 'Турниры, матчи и команды · WebMCP — ЯрКиберСезон', description: 'Открытые опубликованные данные ЯрКиберСезона для совместимых ИИ-браузеров: турниры, матчи, команды и результаты.' };
   if (path === '/forMari') return { ...base, title: 'Симулятор Swiss — ЯрКиберСезон', description: 'Внутренний симулятор турниров по швейцарской системе.', noindex: true };
-  if (path === currentTournament.matchday.route) return { ...base, title: `Matchday · ${currentTournament.title} — ЯрКиберСезон`, description: `Расписание и опубликованные результаты матчей турнира ${currentTournament.title}.` };
+  const matchdayPath = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday$/);
+  const matchdayTournament = matchdayPath && getTournament(matchdayPath[1]);
+  if (matchdayTournament?.matchday?.route === path) return { ...base, title: `Matchday · ${matchdayTournament.title} — ЯрКиберСезон`, description: `Расписание и опубликованные результаты матчей турнира ${matchdayTournament.title}.` };
 
   if (path === '/tournaments/next') return tournamentMetadata(nextTournament, `/tournaments/${encodeURIComponent(nextTournament.slug)}`);
   const tournamentPath = path.match(/^\/tournaments\/([a-z0-9-]+)$/);

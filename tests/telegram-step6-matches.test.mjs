@@ -120,14 +120,20 @@ test("map contract rejects malformed UI payloads before render", () => {
     assert.ok(validateMiniAppModel(model).some((e) => e.includes("NormalizedMap")));
   }
 });
-test("match actions accept published HTTPS aliases, deduplicate and reject unsafe URLs", () => {
+test("match actions use safe canonical platform links and reject legacy aliases and unsafe URLs", () => {
   const model = fixture("scheduledMatch", editMatch((m) => {
-    m.streamUrl = "https://example.com/live"; m.broadcastUrl = m.streamUrl;
+    m.broadcastLinks = { twitch: "https://example.com/live", vk: "https://vk.com/yarcyberseason" };
+    m.streamUrl = "https://example.com/legacy"; m.broadcastUrl = m.streamUrl;
     m.replayUrl = "javascript:alert(1)"; m.documentUrl = "https://user:pass@example.com/private";
   }));
-  assert.deepEqual(model.matches[0].links, [{ kind: "external", label: "Трансляция", url: "https://example.com/live" }]);
-  const alias = fixture("scheduledMatch", editMatch((m) => { m.broadcastUrl = "https://example.com/live"; }));
-  assert.equal(alias.matches[0].links.length, 1);
+  assert.deepEqual(model.matches[0].links, [
+    { kind: "external", label: "Смотреть на Twitch", url: "https://example.com/live" },
+    { kind: "external", label: "Смотреть в VK Видео", url: "https://vk.com/yarcyberseason" },
+  ]);
+  const alias = fixture("scheduledMatch", editMatch((m) => { m.broadcastUrl = "https://example.com/legacy"; }));
+  assert.deepEqual(alias.matches[0].links, []);
+  const unsafe = fixture("scheduledMatch", editMatch((m) => { m.broadcastLinks = { twitch: "http://example.com/live", vk: "https://user:pass@example.com/private" }; }));
+  assert.deepEqual(unsafe.matches[0].links, []);
 });
 test("external action is dispatched through RuntimePort only after user callback", () => {
   const match = fixture("scheduledMatch", editMatch((m) => { m.replayUrl = "https://example.com/replay"; })).matches[0];

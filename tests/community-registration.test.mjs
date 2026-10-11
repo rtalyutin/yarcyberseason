@@ -38,7 +38,9 @@ test('first round pairs every registered team once, with Borisogleb–ARB on Oct
   assert.equal(matches[3].date, '2026-10-09');
   assert.equal(matches[3].scheduledAt, '2026-10-09T20:30:00+03:00');
   assert.ok(matches.every((match) => match.bestOf === 'BO1' && match.resultConfirmed && ['completed', 'walkover'].includes(match.status)));
-  assert.match(matches[3].note, /Трансляция/i);
+  assert.deepEqual(matches[3].broadcastLinks, { twitch: 'https://www.twitch.tv/yarcyberseason', vk: 'https://vk.com/yarcyberseason' });
+  assert.deepEqual(matches[3].casters.map((caster) => caster.name), ['@queleez']);
+  assert.ok(matches.filter((match) => match.id !== 'dota-autumn-swiss-r1-04').every((match) => !match.broadcastLinks));
 });
 
 test('Dota entries reuse CS identities without inheriting CS results', () => {

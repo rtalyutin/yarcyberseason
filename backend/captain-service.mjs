@@ -4,6 +4,7 @@ import { CaptainError, createRateLimit, createTelegramVerifier, fail } from './c
 import { CAPTAIN_MAX_BYTES, CAPTAIN_TOURNAMENT_ID, createCaptainS3Store, validateCaptainState } from './captain-store.mjs';
 import { createCaptainResultsReader } from './captain-results-reader.mjs';
 import { applyDotaSnapshot, validateDotaSnapshot } from '../src/lib/dota-results.js';
+import { getMatchBroadcastLinks } from '../src/lib/broadcasts.js';
 
 const digest = (value) => createHash('sha256').update(value).digest('hex');
 function bindingVersion(state, teamId) {
@@ -26,7 +27,6 @@ const emptyMatch = () => ({ scheduleVersion: 0, proposal: null, agreed: null, re
 const chatEvents = new Set(['chat_opened', 'chat_reset', 'message']);
 const generations = (participants, state) => participants.map((id) => state.bindings[id]?.generation ?? null);
 const loadTournament = () => readFile(new URL(`../src/data/tournaments/${CAPTAIN_TOURNAMENT_ID}.json`, import.meta.url), 'utf8').then(JSON.parse);
-const safeUrl = (value) => { try { const u = new URL(value); return u.protocol === 'https:' ? u.href : null; } catch { return null; } };
 
 export function createCaptainTournamentSource({ env = process.env, readSnapshot = createCaptainResultsReader({ env }), now = Date.now, load = loadTournament } = {}) {
   let baselinePromise, latest, pending, refreshedAt = -Infinity, available = false;
@@ -73,10 +73,13 @@ function catalog(tournament, windows) {
     for (const m of round.matches || []) {
       if (m.published === false || !teamMap.has(m.team1Id) || !teamMap.has(m.team2Id) || m.team1Id === m.team2Id) continue;
       if (!/^[a-z0-9][a-z0-9-]{0,127}$/.test(m.id) || matches.some((match) => match.id === m.id)) fail('storage_unavailable', 503);
+      const links = getMatchBroadcastLinks(m);
       matches.push({ id: m.id, team1: teamMap.get(m.team1Id), team2: teamMap.get(m.team2Id), round: round.label || stage.title || '',
         bestOf: m.bestOf || null, status: m.resultConfirmed === true ? 'completed' : m.status || 'unknown',
         scheduledAt: timestamp(m.scheduledAt) ? new Date(m.scheduledAt).toISOString() : null,
-        window: own(windows, m.id) ? windows[m.id] : null, broadcastUrl: safeUrl(m.broadcastUrl || m.streamUrl), note: m.note || '' });
+        window: own(windows, m.id) ? windows[m.id] : null,
+        broadcastLinks: Object.fromEntries(links.map(({ platform, href }) => [platform, href])),
+        broadcastUrl: links[0]?.href || null, note: m.note || '' });
     }
   }
   return { teams, teamMap, matches, matchMap: new Map(matches.map((match) => [match.id, match])),

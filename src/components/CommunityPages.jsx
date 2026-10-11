@@ -1,5 +1,6 @@
 import { TeamLogo } from './TeamLogo.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
+import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, CalendarBlank, CaretDown, Trophy } from '@phosphor-icons/react';
 import { community } from '../data/community.js';
@@ -136,7 +137,7 @@ export function MatchPage({ tournamentSlug, matchId }) {
   const url = publicUrl(matchPath(match));
   const consequence = matchConsequence(match, community, tournaments);
   const result = match.result;
-  const media = [['Трансляция', safeHttps(match.broadcastUrl)], ['Запись матча', safeHttps(match.vodUrl || match.replayUrl)], ...(match.highlights || []).map((h) => [h.title, safeHttps(h.url)])].filter(([, href]) => href);
+  const media = [...getMatchBroadcastLinks(match).map(({ label, href }) => [label, href]), ['Запись матча', safeHttps(match.vodUrl || match.replayUrl)], ...(match.highlights || []).map((h) => [h.title, safeHttps(h.url)])].filter(([, href]) => href);
   return <main className="community-page">
     <nav className="community-breadcrumb" aria-label="Путь к матчу"><InternalLink href={`/tournaments/${tournament.slug}`}>{tournament.title}</InternalLink><span>/ Матч</span></nav>
     <header className="community-match-header"><p className="community-eyebrow">{match.roundTitle}{match.bestOf && ` · ${match.bestOf}`}</p><h1>{match.team1 || 'Участник уточняется'} <span>—</span> {match.team2 || 'Участник уточняется'}</h1><p>{matchDateLabel(match)}</p>{match.status === 'scheduled' && match.note && <p>{match.note}</p>}</header>

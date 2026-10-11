@@ -1,4 +1,5 @@
-import { getHomeBroadcastBoard } from './home-board.js';
+import { getHomeBroadcastBoard, getHomeBroadcastTitle } from './home-board.js';
+import { getMatchBroadcastLinks } from './broadcasts.js';
 import { matchDateLabel, safeHttps } from './community.js';
 import { getChampionLabels, getTournamentOutcome, isArchive, participantCount } from './tournament.js';
 
@@ -16,38 +17,49 @@ export function getHomePlayoffMatch(tournament) {
 export function getHomeBroadcastContent(tournament) {
   const board = getHomeBroadcastBoard(tournament);
   const { match, state } = board;
-  const streamUrl = state === 'live' ? safeHttps(match?.broadcastUrl) || safeHttps(match?.streamUrl) : null;
   const notes = {
     pending: 'Подтверждённый счёт пока не опубликован.',
     postponed: 'Новая дата будет опубликована после согласования.',
-    result: 'Следующий эфир пока не объявлен.',
-    technical: `${match?.status === 'bye' ? 'Проход без игры.' : 'Техническая победа.'} Следующий эфир пока не объявлен.`,
-    unannounced: 'Пара следующей трансляции пока не опубликована.',
+    unannounced: 'Следующий эфир пока не объявлен.',
+    unknown: 'Статус матча уточняется.',
   };
+  const casters = (match?.casters || []).flatMap((caster) => {
+    const name = typeof caster === 'string' ? caster : caster?.name;
+    return typeof name === 'string' && name.trim()
+      ? [{ name: name.trim(), url: typeof caster === 'object' ? safeHttps(caster.url) : null }] : [];
+  });
   return {
     ...board,
-    label: { scheduled: 'Следующий эфир', live: 'В эфире', result: 'Итог эфира', technical: 'Технический результат',
-      pending: 'Итог уточняется', postponed: 'Матч перенесён', unannounced: 'Следующий эфир' }[state],
+    label: { scheduled: 'Следующий эфир', live: 'В эфире', pending: 'Итог уточняется',
+      postponed: 'Матч перенесён', unannounced: 'Следующий эфир', unknown: 'Статус уточняется' }[state],
     date: match ? state === 'postponed' ? 'Дата уточняется' : matchDateLabel(match) : null,
     format: match?.bestOf || 'Формат уточняется',
-    note: notes[state] || (state === 'live' && !streamUrl ? 'Ссылка на эфир пока не опубликована.'
-      : state === 'scheduled' && !match.scheduledAt && !match.time ? 'Время начала уточняется. Трансляция запланирована.' : null),
-    streamUrl,
-    actionLabel: ['result', 'technical'].includes(state) ? 'Все матчи' : 'Расписание матчей',
+    note: notes[state] || (state === 'scheduled' && !match.scheduledAt && !match.time ? 'Время начала уточняется. Трансляция запланирована.' : null),
+    links: getMatchBroadcastLinks(match),
+    casters,
+    actionLabel: 'Расписание матчей',
   };
 }
 
-export function buildHomeContent({ featuredTournament, seasonTournament, archives, project }) {
+export function buildHomeContent({ featuredTournament, seasonTournament, archives, project, now = new Date() }) {
+  const title = getHomeBroadcastTitle(featuredTournament, now);
+  const total = featuredTournament.prizeDistribution?.total;
+  const registry = project.partnerRegistry;
+  const scoped = (items, scope) => (items || []).filter((partner) =>
+    (registry ? partner.confirmed === true : partner.confirmed !== false) &&
+    (!partner.tournamentId || partner.tournamentId === featuredTournament.id) &&
+    (partner.scope === scope || (!registry && !partner.scope)));
   return {
     kicker: 'YAR CYBER SEASON / 2026',
-    headline: ['Заявки закрыты.', 'Арена открыта.'],
+    headline: title === 'Сегодня открываем сезон.' ? ['Сегодня открываем', 'сезон.'] : [title, ''],
     featuredTournament,
-    facts: [`${participantCount(featuredTournament)} команд`, `Призовой фонд ${featuredTournament.prizeDistribution.total}`],
+    facts: [`${participantCount(featuredTournament)} команд`, ...(total ? [`Призовой фонд ${total}`] : [])],
     broadcast: getHomeBroadcastContent(featuredTournament),
     season: { tournament: seasonTournament, finished: isArchive(seasonTournament),
       match: getHomePlayoffMatch(seasonTournament), outcome: getTournamentOutcome(seasonTournament) },
     archivePreview: archives.slice(0, 3).map((tournament) => ({ tournament, champions: getChampionLabels(tournament) })),
-    partners: project.partners,
+    partners: scoped(registry || project.partners, 'tournament'),
+    officialSupport: scoped(registry || project.officialSupport, 'official'),
     contactEmail: project.contactEmail,
   };
 }

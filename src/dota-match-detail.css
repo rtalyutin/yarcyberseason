@@ -1,0 +1,137 @@
+@font-face { font-family: 'YCS Match'; src: url('/assets/fonts/RobotoCondensed.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
+.dota-match-detail { --dm-ivory: #f3efdc; --dm-mint: #8ff3e5; --dm-muted: #b7d0ca; width: min(100%, 1800px); margin: 0 auto; color: var(--dm-ivory); background: #04161b; font-family: 'YCS Sans', sans-serif; line-height: 1.5; }
+.dota-match-detail * { min-width: 0; }
+.dota-match-detail :is(a, button):focus-visible { outline: 2px solid var(--dm-mint); outline-offset: 5px; }
+.dota-match-detail button { color: inherit; cursor: pointer; }
+.dota-match-detail button:disabled { cursor: not-allowed; opacity: .55; }
+.dota-match-detail p { margin: 0; }
+.dota-match-detail h2, .dota-match-detail h3 { margin: 0; font-family: 'YCS Match', sans-serif; line-height: 1.1; }
+.dm-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.dm-hero { position: relative; isolation: isolate; min-height: 465px; display: flex; flex-direction: column; padding: 22px 5% 25px; background: #082329 url('/assets/match-detail/dota-volga-panorama.webp') center center / cover no-repeat; }
+.dm-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #03171d35 0, transparent 33%, #01121725 58%, #011217d9 100%); }
+.dm-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; color: #e1ede8; font-size: 13px; text-shadow: 0 2px 6px #000; }
+.dm-breadcrumb a { display: inline-flex; gap: 8px; align-items: center; text-decoration: none; min-height: 32px; }
+.dm-breadcrumb a:hover { color: var(--dm-mint); text-decoration: underline; }
+.dm-scoreboard { width: min(100%, 940px); margin: auto auto 0; padding-top: 115px; display: grid; grid-template-columns: minmax(0, 1fr) 280px minmax(0, 1fr); align-items: center; gap: 20px; text-align: center; }
+.dm-team { padding-top: 48px; }
+.dm-team > :is(a, span) { display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; color: var(--dm-ivory); }
+.dm-team img { display: block; width: 132px; height: 132px; object-fit: contain; background: #081718; border: 5px solid #d7d9cf; box-shadow: 0 3px 20px #00101580; }
+.dm-team span { font-family: 'YCS Match', sans-serif; font-size: 32px; font-weight: 700; line-height: 1.08; overflow-wrap: anywhere; text-shadow: 0 2px 10px #001015; }
+.dm-team a:hover span { color: var(--dm-mint); }
+.dm-result { text-shadow: 0 2px 12px #001217; }
+.dm-round { font-size: 17px; font-weight: 700; }
+.dm-round span { color: var(--dm-mint); }
+.dm-date { margin-top: 4px !important; color: #d3dedc; font-size: 14px; }
+.dm-score { display: block; font-family: 'YCS Match', sans-serif; font-size: 110px; line-height: 1.1; letter-spacing: .025em; white-space: nowrap; }
+.dm-status { display: flex; align-items: center; justify-content: center; gap: 12px; color: #b7fff2; font-size: 14px; }
+.dm-status::before, .dm-status::after { content: ''; width: 24px; height: 1px; background: #93b7b6; }
+.dm-score-label { display: block; margin-top: 2px; font-size: 11px; color: var(--dm-muted); }
+.dm-dota-mark { display: block; width: 20px; height: 20px; margin: 9px auto 0; }
+.dm-dota-mark, .dm-eyebrow img { filter: invert(40%) sepia(95%) saturate(2232%) hue-rotate(337deg) brightness(99%) contrast(91%); }
+.dm-schedule-note { margin: 16px auto 0 !important; max-width: 720px; text-align: center; font-size: 14px; }
+.dm-stone-band { display: grid; grid-template-columns: minmax(0, 64%) minmax(0, 36%); min-height: 302px; padding: 28px 0; background: #05191e url('/assets/match-detail/dota-mvp-stone.webp') center / cover no-repeat; }
+.dm-mvp { padding: 16px 30px 12px clamp(160px, 26vw, 440px); }
+.dm-eyebrow { display: flex; gap: 16px; align-items: center; color: var(--dm-mint); font-size: 25px; letter-spacing: .055em; text-transform: uppercase; }
+.dm-eyebrow img { width: 28px; height: 28px; margin-left: -44px; }
+.dm-mvp-leaders { margin-top: 12px; }
+.dm-mvp-player h3 { font-size: 58px; overflow-wrap: anywhere; }
+.dm-mvp-player p { margin-top: 6px; font-size: 14px; color: var(--dm-muted); }
+.dm-mvp-score { margin-top: 10px !important; font-size: 20px; color: var(--dm-mint); }
+.dm-mvp-score strong { color: var(--dm-ivory); }
+.dm-mvp-score > span { font-size: 13px; }
+.dm-mvp-note { margin-top: 15px !important; padding-top: 12px; border-top: 1px solid #38545680; color: var(--dm-muted); font-size: 12px; }
+.dm-mvp--tied .dm-mvp-leaders { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.dm-mvp--tied .dm-mvp-player h3 { font-size: 28px; }
+.dm-mvp-empty { margin-top: 18px; }
+.dm-mvp-empty h3 { font-size: 36px; }
+.dm-mvp-empty p { margin-top: 12px; font-size: 14px; color: var(--dm-muted); }
+.dm-maps { padding: 16px 24% 12px 28px; border-left: 1px solid #6a9791; }
+.dm-map + .dm-map { border-top: 1px solid #365753; margin-top: 18px; padding-top: 18px; }
+.dm-map { max-width: 285px; text-shadow: 0 2px 5px #001015; }
+.dm-maps h2 { font-size: 36px; }
+.dm-maps > p { margin-top: 15px; color: var(--dm-muted); }
+.dm-map-winner { margin-top: 9px !important; font-family: 'YCS Match', sans-serif; font-size: 25px; color: var(--dm-mint); }
+.dm-maps dl { display: grid; gap: 6px; margin: 20px 0 10px; font-size: 16px; }
+.dm-maps dl > div { display: flex; justify-content: space-between; gap: 14px; }
+.dm-maps dt { color: var(--dm-muted); }
+.dm-maps dd { margin: 0; font-weight: 700; white-space: nowrap; }
+.dm-maps .match-map-links { margin-top: 12px; font-size: 11px; }
+.dm-maps .match-map-links a { min-height: 32px; }
+.dm-dock { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; min-height: 118px; padding: 24px 5%; background: linear-gradient(#041318, #03171d); }
+.dm-broadcasts { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.dm-broadcasts h2 { font-family: 'YCS Sans', sans-serif; font-size: 17px; margin-right: 8px; }
+.dm-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 10px 18px; border: 1px solid #75b1b6; background: #051b22b3; color: var(--dm-ivory); text-decoration: none; font-size: 14px; font-weight: 700; }
+.dm-button:hover { background: #183f45; }
+.dm-button svg { width: 21px; height: 21px; flex-shrink: 0; }
+.dm-stream > svg:last-child { width: 14px; height: 14px; }
+.dm-stream--twitch { border-color: #9b78de; }
+.dm-stream--twitch > svg:first-child { color: #b29aff; width: 25px; height: 25px; }
+.dm-stream--vk > svg:first-child { color: #ff526c; }
+.dm-recording { flex: 1; font-size: 12px; color: var(--dm-muted); }
+.dm-recording a { display: inline-flex; align-items: center; gap: 8px; color: var(--dm-mint); min-height: 44px; }
+.dm-button--primary { background: #8ff3e5; border-color: #b1fff2; color: #062623; min-width: 230px; box-shadow: inset 0 0 15px #15afbc70; }
+.dm-button--primary:hover { background: #bafff5; }
+.dm-share { display: inline-flex; align-items: center; gap: 12px; background: transparent; min-height: 48px; padding: 10px 0; font-size: 13px; }
+.dm-share svg { width: 22px; height: 22px; }
+.dm-details { padding: 20px 5% 28px; border-top: 1px solid #254547; color: var(--dm-muted); font-size: 12px; }
+.dm-details-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 30px; }
+.dm-details-actions > a, .dm-download { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; background: transparent; padding: 0; font-size: 12px; }
+.dm-download { margin-left: auto; }
+.dm-copy-feedback { padding: 0 5% 18px; font-size: 14px; overflow-wrap: anywhere; }
+.dm-copy-feedback a { display: block; margin-top: 8px; }
+.dm-notice { margin-top: 10px !important; font-size: 12px; color: #ecd4a8; }
+.dm-source-issue { padding: 14px 5%; margin: 0 !important; }
+@media (min-width: 1800px) { .dm-hero { min-height: 500px; } .dm-stone-band { min-height: 324px; } }
+@media (max-width: 1199px) {
+  .dm-hero { min-height: 435px; }
+  .dm-scoreboard { grid-template-columns: minmax(0, 1fr) 260px minmax(0, 1fr); padding-top: 100px; }
+  .dm-team span { font-size: 28px; }
+  .dm-team img { width: 108px; height: 108px; }
+  .dm-mvp { padding-left: 22vw; padding-right: 24px; }
+  .dm-mvp-player h3 { font-size: 46px; }
+  .dm-maps { padding-right: 15%; padding-left: 22px; }
+  .dm-dock { gap: 16px 24px; }
+  .dm-recording { flex-basis: 180px; }
+  .dm-broadcasts h2 { font-size: 15px; }
+}
+@media (max-width: 760px) {
+  .dm-hero { min-height: 375px; padding: 16px 16px 24px; background-color: #04161b; background-position: center top; background-size: 100% auto; }
+  .dm-hero::before { background: linear-gradient(180deg, #03171d10, transparent 80px, #03171d66 130px, #03171df0 210px, #03171d); }
+  .dm-breadcrumb { font-size: 11px; gap: 8px; }
+  .dm-breadcrumb > a:last-child { max-width: 68%; }
+  .dm-scoreboard { grid-template-columns: minmax(0, 1fr) 106px minmax(0, 1fr); gap: 6px; position: relative; padding-top: 96px; margin-top: 58px; }
+  .dm-team { padding-top: 0; align-self: start; }
+  .dm-team img { width: 76px; height: 76px; border-width: 3px; }
+  .dm-team > :is(a, span) { gap: 10px; }
+  .dm-team span { font-size: 22px; }
+  .dm-round { position: absolute; top: 12px; left: 0; right: 0; font-size: 16px; }
+  .dm-date { position: absolute; top: 39px; left: 0; right: 0; font-size: 12px; }
+  .dm-score { font-size: 58px; line-height: 1.3; letter-spacing: 0; }
+  .dm-status { font-size: 10px; line-height: 1.4; gap: 0; }
+  .dm-status::before, .dm-status::after { display: none; }
+  .dm-score-label { font-size: 9px; }
+  .dm-dota-mark { width: 16px; height: 16px; margin-top: 10px; }
+  .dm-stone-band { display: block; padding: 28px 20px 24px; background-size: auto 480px; background-position: center -110px; }
+  .dm-mvp { padding: 4px 2px 24px 34px; background: #05191ef5; }
+  .dm-eyebrow { font-size: 23px; gap: 10px; }
+  .dm-eyebrow img { width: 24px; height: 24px; margin-left: -34px; }
+  .dm-mvp-player h3 { font-size: 48px; }
+  .dm-mvp-empty h3 { font-size: 32px; }
+  .dm-mvp-score { font-size: 18px; }
+  .dm-maps { padding: 22px 0 0; border-left: 0; border-top: 1px solid #476b67; }
+  .dm-map { max-width: none; }
+  .dm-maps h2 { font-size: 30px; }
+  .dm-map-winner { font-size: 24px; }
+  .dm-maps dl { margin-top: 14px; }
+  .dm-dock { padding: 24px 20px; gap: 18px; }
+  .dm-broadcasts { width: 100%; gap: 10px; }
+  .dm-broadcasts h2 { width: 100%; margin: 0 0 3px; }
+  .dm-stream { flex: 1; padding-inline: 12px; }
+  .dm-recording { flex-basis: 100%; }
+  .dm-button--primary { width: 100%; }
+  .dm-share { width: 100%; justify-content: center; }
+  .dm-details { padding: 18px 20px 24px; }
+  .dm-details-actions { display: grid; gap: 4px; }
+  .dm-download { margin-left: 0; text-align: left; }
+}
+@media (max-width: 359px) { .dm-team img { width: 64px; height: 64px; } .dm-team span { font-size: 19px; } .dm-scoreboard { grid-template-columns: minmax(0, 1fr) 94px minmax(0, 1fr); } .dm-score { font-size: 52px; } }

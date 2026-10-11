@@ -1,0 +1,310 @@
+{
+  "scope": "Dota MatchPage option 1 independent browser and visual QA",
+  "reference": "/workspace/scratch/2f1b5443e4d0/generated_images/exec-caff50b9-0b57-46a7-a9f7-0bfecfcf2d9b.png",
+  "snapshot": {
+    "revision": 19,
+    "sha256": "fb8c199a0f3677c5e399769b228c3fd84a38dd47d76826a7f3c72996f2fef8d8",
+    "source": "real validated S3 snapshot copied into temporary QA-only fetch fixture"
+  },
+  "startedAtUTC": "2026-10-11T16:09:51.775Z",
+  "desktop": {
+    "band": {
+      "bottom": 856,
+      "height": 302,
+      "width": 1657,
+      "x": 0,
+      "y": 554
+    },
+    "dock": {
+      "bottom": 974,
+      "height": 118,
+      "width": 1657,
+      "x": 0,
+      "y": 856
+    },
+    "documentWidth": 1657,
+    "hero": {
+      "bottom": 554,
+      "height": 465,
+      "width": 1657,
+      "x": 0,
+      "y": 89
+    },
+    "maps": {
+      "bottom": 828,
+      "height": 246,
+      "width": 596.515625,
+      "x": 1060.46875,
+      "y": 582
+    },
+    "mvp": {
+      "bottom": 828,
+      "height": 246,
+      "width": 1060.46875,
+      "x": 0,
+      "y": 582
+    },
+    "mvpText": "MVP МАТЧА\njxdzxq\n\nARB Esports\n\nБаллы MVP 59,66\n\nПо статистике этого матча.",
+    "primary": {
+      "bottom": 939,
+      "height": 48,
+      "width": 230,
+      "x": 1204.46875,
+      "y": 891
+    },
+    "scrollWidth": 1657,
+    "streams": [
+      {
+        "href": "https://www.twitch.tv/yarcyberseason",
+        "rel": "noopener noreferrer",
+        "target": "_blank"
+      },
+      {
+        "href": "https://vk.com/yarcyberseason",
+        "rel": "noopener noreferrer",
+        "target": "_blank"
+      }
+    ],
+    "theme": "dota2",
+    "viewport": {
+      "dpr": 1,
+      "height": 941,
+      "width": 1672
+    },
+    "displayScale": 0.75,
+    "rawScreenshot": "/workspace/scratch/2f1b5443e4d0/match-detail-qa/target-1672-native.jpg"
+  },
+  "mobile": {
+    "client": 375,
+    "headerToggle": "flex",
+    "heroBackground": "url(\"http://terminal.local:4173/assets/match-detail/dota-volga-panorama.webp\")",
+    "mvpText": "MVP МАТЧА\njxdzxq\n\nARB Esports\n\nБаллы MVP 59,66\n\nПо статистике этого матча.",
+    "scroll": 375,
+    "streams": [
+      {
+        "href": "https://www.twitch.tv/yarcyberseason",
+        "rect": {
+          "height": 48,
+          "width": 162.5
+        }
+      },
+      {
+        "href": "https://vk.com/yarcyberseason",
+        "rect": {
+          "height": 48,
+          "width": 162.5
+        }
+      }
+    ],
+    "theme": "dota2",
+    "viewport": {
+      "dpr": 1,
+      "height": 844,
+      "width": 390
+    },
+    "finalBackground": {
+      "height": 375,
+      "size": "100% auto"
+    },
+    "menuOpened": {
+      "expanded": "true",
+      "mobileLinks": [
+        "/",
+        "/tournaments/dota2-autumn-2026/matchday",
+        "/results",
+        "/broadcasts",
+        "/partners",
+        "/about"
+      ],
+      "panelHidden": false
+    },
+    "textBackground": "rgba(5, 25, 30, 0.96)"
+  },
+  "share": {
+    "href": "https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-04",
+    "text": "Выделите и скопируйте ссылку:\n\nhttps://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-04"
+  },
+  "fourK": {
+    "client": 3840,
+    "composition": {
+      "width": 1800,
+      "x": 1020
+    },
+    "headerDesktopVisible": "flex",
+    "menuVisible": "none",
+    "scoreFont": "110px",
+    "scroll": 3840,
+    "viewport": {
+      "dpr": 1,
+      "height": 2160,
+      "width": 3840
+    }
+  },
+  "teamLinks": [
+    {
+      "href": "http://terminal.local:4173/teams/dota2-main-2026-team-borisogleb",
+      "label": "Team Borisogleb"
+    },
+    {
+      "href": "http://terminal.local:4173/teams/dota2-qual-2026-arb-esports",
+      "label": "ARB Esports"
+    }
+  ],
+  "teamNavigation": {
+    "heading": "Team Borisogleb",
+    "title": "Team Borisogleb — команда ЯрКиберСезона",
+    "url": "http://terminal.local:4173/teams/dota2-main-2026-team-borisogleb"
+  },
+  "pending": {
+    "broadcastBlockCount": 0,
+    "leaderCount": 0,
+    "liveText": false,
+    "mvp": "MVP МАТЧА\nОжидаем статистику\n\nЛучший игрок появится после подтверждения данных карты.",
+    "status": "Матч завершён"
+  },
+  "primaryNavigation": {
+    "observedUrl": "http://terminal.local:4173/tournaments/dota2-autumn-2026#matches"
+  },
+  "cs2": {
+    "dotaDetails": 0,
+    "legacyMapHeading": true,
+    "theme": "cs2",
+    "title": "Team Borisogleb — ARB Esports · Dota 2 / YCS — ЯрКиберСезон"
+  },
+  "corporate": {
+    "dotaDetails": 0,
+    "theme": "corporate",
+    "title": "Team Borisogleb — ARB Esports · Dota 2 / YCS — ЯрКиберСезон"
+  },
+  "finalActualURL": "http://terminal.local:4173/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r1-04",
+  "consoleErrors": [
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:04:47.994Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:05:24.136Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:12:19.120Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:15:32.860Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:16:08.469Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:16:08.570Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:16:08.572Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:51.915Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:52.043Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:53.306Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:54.320Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:54.320Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:55.346Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    },
+    {
+      "level": "error",
+      "message": "Error sending browser metadata to extension: Object",
+      "timestamp": "2026-10-11T16:18:55.348Z",
+      "url": "chrome-extension://kcdongibgcplmaagnmgpjhpjgmmaaaaa/content-script.bundle.js"
+    }
+  ],
+  "completedAtUTC": "2026-10-11T16:18:55.432Z",
+  "sourceManifest": {
+    "src/Prototype.jsx": "85312b67101588f055a2bd5d0f91fbf886971329b35e3c55d80ebfb2a54afab7",
+    "src/components/CommunityPages.jsx": "c3642efa94a1b564784db91787a63ddc8b83e563d9808629908c7306dff486a2",
+    "src/components/DotaMatchPage.jsx": "f0ee86055b60e586f5547c50ba44168dc4be7c710547178e301e16ee093b83fc",
+    "src/dota-match-detail.css": "975361027025d0e7ff1b01f13f178791dfec8c108e28f0904d176e740b0f8298",
+    "src/lib/dota-match-mvp.js": "ea341382f1e02b002a3f4d94fea8192d72bdf3f4d0c52510cc08fa55171b54c8",
+    "src/lib/dota-mvp-client.js": "9161665373a4238bc8575cfbec47b1a7ca510dbc614c1195b08c87dee8e2443d",
+    "src/components/SiteHeader.jsx": "99a38772c97528c852af02b32ac76babed6e515ae8ac40e0a2b4c93ec7f909dc",
+    "src/site-header.css": "0fbcad6cb985c345de042d3870d5d564acb4f06290eaf750d4fb49b06862fe0c",
+    "public/assets/match-detail/dota-mvp-stone.webp": "415424c537e065de010219a0c1bb8498d3f52c4e91c6c7d827e7f18340b4dd87",
+    "public/assets/match-detail/dota-volga-panorama.webp": "ab287bfbaee2eb941539d527cc864340dc78ce0e33d73977c5a614ce5b05b037"
+  },
+  "sourceManifestDigest": "bab8b11f009af270fe28a0f20748ad693a16fef35ac658902f10a9fd499c351a",
+  "sharedHeaderMatchesBase": {
+    "src/components/SiteHeader.jsx": true,
+    "src/site-header.css": true
+  },
+  "gateVerdict": "PASS",
+  "designQaResult": "passed",
+  "limitations": [
+    "Actual desktop layout is1672x941CSSpx/DPR1, displayed at0.75; screenshot1254x706px.",
+    "Ready/pending MVP browser cases use a real validated revision19 snapshot through temporary QA fetch substitution. Live external MVP delivery in cloud was unavailable.",
+    "Clipboard write unavailable; exact canonical-link fallback verified.",
+    "Zoom/reduced-motion and production deployment are outside this scoped local QA."
+  ],
+  "screenshotDimensions": {
+    "source": [
+      1672,
+      941
+    ],
+    "desktop": [
+      1254,
+      706
+    ],
+    "mobileRaw": [
+      1363,
+      936
+    ],
+    "mobileContent": [
+      390,
+      844
+    ]
+  }
+}

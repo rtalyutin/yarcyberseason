@@ -85,6 +85,12 @@ are available. The incomplete Easy–Leto record9038788632 remains pending;
 the confirmed BO1 result uses full map9038793515, without declaring the other
 record a played official map or inventing its disposition.
 
+A complete organizer-confirmed map set selects the sports series by map ID.
+Additional API records are logged separately and keep their original MVP
+readiness; they do not make that confirmed series ambiguous. Without a complete
+set, ambiguity still blocks API results. Contradictory official map data still
+raises a conflict and cannot overwrite the confirmation.
+
 The server-side importer has no GitHub or push operation. It reads the previous
 S3 objects, updates MVP independently of completed series, writes series only
 when a new complete result is confirmed, and reads each write back to verify it.

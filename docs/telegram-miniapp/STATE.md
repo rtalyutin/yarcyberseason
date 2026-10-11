@@ -1,5 +1,75 @@
 # Telegram Mini App — состояние проекта
 
+## TASK_STATE — October11 cumulative results, publication blocked
+
+Check complete for all16 assigned Swiss fixtures. Public sports revision8
+contains12 unchanged outcomes. Prepared shared data adds only the organizer-
+confirmed Liqa0:1Fummo walkover; source also syncs PSB0:1ARB and Vnext0:1Easy.
+Three R2 pairs still lack published results: WAY–Leto, SPERMINT–Borisogleb,
+MNP–Parallax. Screenshot9040049635 agrees with the public collector record
+on winner,17:45 kills and1374seconds. Direct OpenDota GETs returned403.
+
+Author source27tests/data-check/build/prerender/Sites6checks PASS.
+Independent cumulative gate16/16PASS; data SHA256
+ef96d99792821949ce4f9f10c9e8ec60700f2124305b0afbbaca523e6b5cf5d4.
+Functional source commitb5fcd80d733dcedcf207785ee8a8af534a152bf5,
+treeea7be094aaf595c897c3857acf416e428ed6c7da, sourcePR9.
+RuntimePR55 finalhead8c742fd6033a2f54eed0c91314b89fc442c7f15c,
+treeadd458bc7258414bb52604476650b215f4947c31. Independent amendment gate
+confirms only a stale count8→9 changed, with all production bytes preserved.
+Full PostgreSQL CI38146885384/job114492016616 PASS:359root+128workspace+
+30UItests,zero skips,all required steps. Runtime focused35+MVP26tests PASS.
+
+Automatic approval review rejected static uploads and main-branch publication:
+the current user request authorizes checking tournament matches, but trusted
+explicit approval for publishing these changes was not present to the reviewer.
+Do not retry deployment or use another route without resolving this rejection.
+Source main remainsacca65ac5b9bfa9f4a9ad774a1730f3ae07dc6e2; runtime main
+remains568f95fd549e228f1da119b6e4f190ea7a1c87e9. Fresh Serverless GET confirms
+revision4 and unchanged static manifest/config/all three canonical modules.
+Static prepare returned435files,29537034bytes and bundle
+ee376784b7724f635856267744b130eba73a3a98f69eb0dd6a4dc34e48ed6fc5;
+upload completion is not attested, and no deploy call was issued.
+Operation publication=BLOCKED, local acceptance=PASS; prepared PR9 and PR55
+are reviewable. Next: obtain explicit publication approval, recheck exact heads,
+then publish existing source/runtime/static targets with CAS and live readback.
+No bots/messages, serving settings, new hosts, private captain data or alternate
+S3 writer were changed. This latest state supersedes older publication claims.
+
+## October11 other-match audit — added before publication
+
+At17:08:04MSK Roman supplied the Vnext–Easy Gaming game9040049635 screenshot:
+Easy wins0:1, kills17:45,22:54(1374seconds). The existing public results
+revision8 independently contains the same ID/winner/kills/duration, and
+PSB–ARB0:1(9039884453,10:31,1879seconds). Sync those two published completed
+fixtures, preserving every other fixture and the Liqa technical outcome.
+Source Swiss has13confirmed matches/26participations. Expected published
+snapshot retains all12revision8 outcomes and adds only Liqa. Three pending
+R2pairs remain TEAM SPERMINT–Borisogleb, MNP–Parallax and WAY–Leto; do not
+infer their result from dates/times. This workspace's direct OpenDota map and
+league GETs returned403, so undiscovered fresh API matches are not attested.
+Public snapshots/runtime and supplied screenshot are the actual audit inputs.
+No raw player statistics/identities or new MVP estimates were fabricated.
+Serverless access restored using the previously supplied authorized CLI
+credential; GET confirms existing revision4, three canonical modules and
+static config. Static-only publication must preserve them with revision CAS.
+
+## October11 Liqa–Fummo organizer result — prepared
+
+ACTIVE_CONTRACT: Roman reports Liqa sto's technical defeat and explicitly
+confirms the round-two pairing against Fummo at16:57:13MSK. Update only
+fixture dota-autumn-swiss-r2-07 as organizer-confirmed0:1 walkover, no played
+map, no sporting metrics and no MVP. Keep the published round window and
+all other fixtures/appointments/results and private captain state.
+TASK_STATE: source data and Swiss prepared; Liqa0–2, Fummo1–1. Data-only
+collector/captain distribution changes the one shared tournament JSON and
+its two manifest hashes/fingerprints. Executable modules, worker schedule,
+hosts, bot menu and credentials are unchanged. Gates: focused source/runtime
+checks, independent fixture/standing/preservation verification, existing main
+publication and live results readback. Actual Serverless static access was
+missing in the preceding release; dynamic result propagation is checked
+separately from static release. Do not claim a publication before readback.
+
 ## October11 organizer schedule correction — prepared for publication
 
 Roman at12:12–12:14MSK supplied the corrected six pending R2 pairs and streams.

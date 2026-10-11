@@ -1,15 +1,14 @@
 import { ArrowDownRight, ArrowUpRight } from "@phosphor-icons/react";
 import organizers from "../data/organizers.json";
-import { projectContent } from "../data/project-content.js";
+import { projectContent, projectLegal } from "../data/project-content.js";
 import "../about.css";
+import "../about-content.css";
 
 function OrganizerCard({ person }) {
-  return <article className="about-person">
-    <div className={`about-person-photo${person.photo ? "" : " about-person-photo--empty"}`}>
-      {person.photo
-        ? <img src={person.photo} alt={person.name} loading="lazy" decoding="async" />
-        : <span aria-hidden="true">{person.name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("")}</span>}
-    </div>
+  return <article className={`about-person${person.photo ? '' : ' about-person--text'}`}>
+    {person.photo && <div className="about-person-photo">
+      <img src={person.photo} alt={person.name} loading="lazy" decoding="async" />
+    </div>}
     <div className="about-person-copy">
       {person.role && <p className="about-kicker">{person.role}</p>}
       <h3>{person.name}</h3>
@@ -23,9 +22,9 @@ export function AboutPage({ people = organizers }) {
   return <main className="about-page">
     <section className="about-hero container" aria-labelledby="about-title">
       <div className="about-hero-copy">
-        <p className="about-kicker">ЯрКиберСезон / Команда проекта</p>
-        <h1 id="about-title">Люди,<br />которые<br /><span>делают ЯКС.</span></h1>
-        <p className="about-intro">За каждым турниром — люди, которые собирают команды, готовят матчи и держат связь с игроками. Здесь знакомимся с организаторами ЯрКиберСезона.</p>
+        <p className="about-kicker">ЯрКиберСезон / О проекте</p>
+        <h1 id="about-title">Ярославль<br /><span>играет.</span></h1>
+        <p className="about-intro">ЯрКиберСезон — проект киберспортивных турниров по Dota 2 и CS2 в Ярославле. Здесь собраны расписание, команды, турнирные сетки, результаты и трансляции.</p>
         <a className="about-jump" href="#organizers">Организаторы <ArrowDownRight aria-hidden="true" /></a>
       </div>
       <div className="about-manifesto" aria-hidden="true">
@@ -38,24 +37,24 @@ export function AboutPage({ people = organizers }) {
     <section className="about-organizers container" id="organizers" aria-labelledby="organizers-title">
       <div className="about-section-heading">
         <h2 id="organizers-title">Организаторы</h2>
-        <span className="about-section-caption">Лица. Имена. Истории.</span>
+        <span className="about-section-caption">Основатель проекта</span>
       </div>
       {people.length ? <div className="about-people-grid">
         {people.map((person) => <OrganizerCard key={person.id} person={person} />)}
-      </div> : <div className="about-team-soon">
-        <span className="about-soon-mark" aria-hidden="true">ЯКС</span>
-        <div><h3>Скоро познакомимся.</h3><p>Здесь появятся фотографии и истории организаторов проекта.</p></div>
-      </div>}
+      </div> : <p className="about-intro">Связь с организатором — по контактам проекта ниже.</p>}
     </section>
 
     <section className="about-contact container" aria-labelledby="about-contact-title">
-      <div><p className="about-kicker">Прямая связь</p><h2 id="about-contact-title">Написать организаторам</h2></div>
-      <a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail} <ArrowUpRight aria-hidden="true" /></a>
+      <div><p className="about-kicker">Прямая связь</p><h2 id="about-contact-title">Связь с проектом</h2></div>
+      <div className="about-contact-links">
+        <a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail} <ArrowUpRight aria-hidden="true" /></a>
+        <a href={projectContent.telegramUrl} target="_blank" rel="noreferrer">{projectContent.telegramLabel} <ArrowUpRight aria-hidden="true" /></a>
+      </div>
     </section>
 
     <section className="container legal-requisites about-requisites" id="requisites" aria-labelledby="about-requisites-title">
       <h2 id="about-requisites-title">Контакты и реквизиты</h2>
-      <p>Общество с ограниченной ответственностью «ЯрКиберСезон»</p>
+      <p>{projectLegal.companyName}</p>
       <dl><dt>Юридический адрес</dt><dd>150040, Ярославская область, г. Ярославль, ул. Володарского, д. 64, кв. 37</dd>
       <dt>ИНН / КПП</dt><dd>7606143578 / 760601001</dd><dt>ОГРН</dt><dd>1257600007500</dd>
       <dt>Электронная почта</dt><dd><a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail}</a></dd></dl>

@@ -1,5 +1,6 @@
 import { TeamLogo } from './TeamLogo.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
+import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, CalendarBlank, CaretDown, Trophy } from '@phosphor-icons/react';
 import { community } from '../data/community.js';
@@ -7,7 +8,6 @@ import { tournaments } from '../data/tournaments/index.js';
 import { calendarPath, matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps, teamPath, teamSummary, teamForDiscipline, upcomingMatches } from '../lib/community.js';
 import { downloadResultCard } from '../lib/result-card.js';
 import { publicUrl } from '../lib/public-url.js';
-import { getMatchBroadcastLinks } from '../lib/broadcast-links.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
 import '../team-profile.css';

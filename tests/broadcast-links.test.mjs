@@ -46,17 +46,17 @@ const tournament = (match) => ({ id: 'fixture', slug: 'fixture', title: 'Fixture
   homeBroadcastMatchIds: ['one'], stages: [{ id: 'swiss', title: 'Swiss', rounds: [{ id: 'r1', label: 'Тур 1',
     matches: [{ id: 'one', team1: 'A', team2: 'B', ...match }] }] }] });
 
-test('home action uses canonical URLs only after an explicitly live status', () => {
+test('home actions use assigned canonical URLs without deriving live status from the clock', () => {
   const data = tournament({ ...legacy, broadcastLinks: { twitch, vk }, status: 'scheduled', scheduledAt: '2000-01-01T20:00:00+03:00' });
   const match = data.stages[0].rounds[0].matches[0];
   assert.equal(getHomeBroadcastContent(data).state, 'scheduled');
-  assert.equal(getHomeBroadcastContent(data).streamUrl, null);
+  assert.deepEqual(getHomeBroadcastContent(data).links.map(({ href }) => href), [twitch, vk]);
   match.status = 'live';
-  assert.equal(getHomeBroadcastContent(data).streamUrl, twitch);
+  assert.equal(getHomeBroadcastContent(data).links[0].href, twitch);
   match.broadcastLinks = { vk };
-  assert.equal(getHomeBroadcastContent(data).streamUrl, vk);
+  assert.equal(getHomeBroadcastContent(data).links[0].href, vk);
   delete match.broadcastLinks;
-  assert.equal(getHomeBroadcastContent(data).streamUrl, null);
+  assert.deepEqual(getHomeBroadcastContent(data).links, []);
 });
 
 test('organizer projection carries both canonical links and isolates private overrides', () => {

@@ -46,7 +46,7 @@ function setup(options = {}) {
 }
 const rejectCode = (promise, code) => assert.rejects(promise, (error) => error.code === code);
 
-test('captain broadcastUrl DTO adapts only canonical match links without changing its contract', async () => {
+test('captain DTO exposes canonical platforms and keeps the compatible first-link adapter', async () => {
   for (const [broadcastLinks, expected] of [
     [{ twitch: 'https://www.twitch.tv/yarcyberseason', vk: 'https://vk.com/yarcyberseason' }, 'https://www.twitch.tv/yarcyberseason'],
     [{ vk: 'https://vk.com/yarcyberseason' }, 'https://vk.com/yarcyberseason'],
@@ -60,7 +60,7 @@ test('captain broadcastUrl DTO adapts only canonical match links without changin
     await s.assign('a', 'alpha');
     const dto = await s.captain(11, 'alpha', { action: 'match', matchId: 'ab' });
     assert.equal(dto.match.broadcastUrl, expected);
-    assert.equal(Object.hasOwn(dto.match, 'broadcastLinks'), false);
+    assert.deepEqual(dto.match.broadcastLinks, expected ? broadcastLinks : {});
   }
 });
 

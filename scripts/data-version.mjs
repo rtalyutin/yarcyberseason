@@ -20,6 +20,7 @@ export const WEBMCP_DATA_FILES = Object.freeze([
   'src/data/team-rosters-autumn-2026.json',
   'src/lib/community.js',
   'src/lib/broadcast-links.js',
+  'src/lib/broadcasts.js',
   'src/lib/webmcp.js',
   'src/lib/public-url.js',
   'src/lib/public-origin.js',

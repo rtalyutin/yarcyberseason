@@ -138,7 +138,15 @@ export function RegistrationStatus({ model, copy }) {
   return <div className="tg-status"><span>{label}</span><strong>{model.registration.count}{model.registration.capacity !== null ? ` / ${model.registration.capacity}` : ""}</strong></div>;
 }
 
-export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef, captainAvailable = false, runtime, content = loadHomeContent() }) {
+export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PREFERENCES.language), navigate, headingRef, captainAvailable = false, runtime, content: suppliedContent }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const refresh = () => setNow(new Date());
+    const timer = setInterval(refresh, 60000);
+    window.addEventListener('focus', refresh);
+    return () => { clearInterval(timer); window.removeEventListener('focus', refresh); };
+  }, []);
+  const content = suppliedContent || loadHomeContent(now);
   const previewSlugs = content.archivePreview.map(({ tournament }) => tournament.slug);
   const archivePreview = previewSlugs.map((slug) => archives.find((archive) => archive.tournament.slug === slug)).filter(Boolean);
   const remainingArchives = archives.filter((archive) => !previewSlugs.includes(archive.tournament.slug));
@@ -147,7 +155,7 @@ export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PR
     <section className="tg-hero">
       <div className="tg-art" aria-hidden="true"><div className="tg-map" /></div>
       <p className="tg-kicker">{content.kicker}</p>
-      <h1 className="tg-home-title" ref={headingRef} tabIndex={-1}><span>{content.headline[0]}</span><em>{content.headline[1]}</em></h1>
+      <h1 className="tg-home-title" ref={headingRef} tabIndex={-1}><span>{content.headline[0]}</span>{content.headline[1] && <em>{content.headline[1]}</em>}</h1>
       <p className="tg-home-tournament">{content.featuredTournament.title}<small>{content.featuredTournament.season}</small></p>
       <p className="tg-date">{content.featuredTournament.dates.display || copy.noDates}</p>
       <ul className="tg-facts" aria-label="Турнир в цифрах">{content.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
@@ -165,10 +173,11 @@ export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PR
       {remainingArchives.length > 0 && <details className="tg-all-results"><summary>Все результаты</summary><ArchiveList archives={remainingArchives} copy={copy} navigate={navigate} titleId="other-archive-title" /></details>}
     </div>
     <section className="tg-home-partners" aria-labelledby="tg-partners-title">
-      <h2 id="tg-partners-title">Спонсоры и партнёры</h2>
-      <div className="tg-partners">{content.partners.map((partner) => <div key={partner.name}><img src={partner.logoUrl} alt={partner.shortName} />{partner.shortName !== 'Додо Пицца' && <p>{partner.name}</p>}</div>)}</div>
+      <h2 id="tg-partners-title">Партнёры турнира</h2>
+      <div className="tg-partners">{content.partners.map((partner) => <div key={partner.id || partner.name}>{partner.logoUrl ? <img src={partner.logoUrl} alt={partner.shortName || partner.name} /> : <strong>{partner.name}</strong>}{partner.logoUrl && partner.shortName !== 'Додо Пицца' && <p>{partner.name}</p>}</div>)}</div>
       <a className="tg-secondary tg-partner-join" href={`mailto:${content.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>Стать партнёром <span aria-hidden="true">→</span></a>
     </section>
+    {content.officialSupport?.length > 0 && <section className="tg-home-partners" aria-labelledby="tg-support-title"><h2 id="tg-support-title">При поддержке</h2><div className="tg-partners">{content.officialSupport.map((partner) => <div key={partner.id || partner.name}>{partner.logoUrl ? <img src={partner.logoUrl} alt={partner.shortName || partner.name} /> : <strong>{partner.name}</strong>}{partner.logoUrl && <p>{partner.name}</p>}</div>)}</div></section>}
     <HomeLegalFooter content={content} navigate={navigate} runtime={runtime} />
   </div>;
 }

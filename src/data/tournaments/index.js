@@ -10,7 +10,7 @@ export const tournamentBySlug = Object.fromEntries(
   tournaments.map((tournament) => [tournament.slug, tournament]),
 );
 
-export const currentTournament = currentCs2;
+export let currentTournament = currentDotaTournament;
 export let nextTournament = currentDotaTournament;
 export const archivedTournaments = tournaments.filter((tournament) => ["archive", "completed"].includes(tournament.status));
 
@@ -22,6 +22,7 @@ export function updateDotaTournament(tournament) {
   if (tournament.id !== currentDotaTournament.id) throw new Error("Wrong tournament overlay");
   setCurrentDotaTournament(tournament);
   nextTournament = tournament;
+  currentTournament = tournament;
   tournaments[tournaments.indexOf(tournamentBySlug[tournament.slug])] = tournament;
   tournamentBySlug[tournament.slug] = tournament;
 }

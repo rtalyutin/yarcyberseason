@@ -43,8 +43,7 @@ export function buildOrganizerTable(tournaments, assignments = { matches: {}, to
           dateDisplay: match.dateDisplay || match.dateLabel || null, time: match.time || null,
           timeZone: start ? ORGANIZER_TIME_ZONE : match.timeZone || tournament.timeZone || null,
           broadcast: { url: broadcastUrl, links: broadcastLinks,
-            planned: Boolean(broadcastUrl || assigned.broadcast?.planned || match.broadcastPlanned ||
-              tournament.homeBroadcastMatchIds?.includes(match.id)) },
+            planned: Boolean(broadcastUrl || assigned.broadcast?.planned) },
           replayUrl: safeHttps(match.replayUrl),
           casters: people(assigned.casters || match.casters),
           partners: people(assigned.partners || match.partners),

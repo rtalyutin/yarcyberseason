@@ -21,6 +21,10 @@ import { NavigationContext, TeamLink, MatchLink } from './components/CommunityLi
 import { ClickHighlight } from "./components/ClickHighlight.jsx";
 import { TechiesEgg } from "./components/TechiesEgg.jsx";
 import { AboutPage } from "./components/AboutPage.jsx";
+import { PartnersPage } from "./components/PartnersPage.jsx";
+import { BroadcastLinks, MatchCasters } from "./components/BroadcastLinks.jsx";
+import { getTournamentBroadcasts, isClosedBroadcast } from "./lib/home-board.js";
+import "./content-refresh.css";
 import { SiteHeader } from "./components/SiteHeader.jsx";
 import { applyPageMetadata } from "./lib/page-metadata.js";
 import {
@@ -91,7 +95,8 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const isHome = path === "/";
   const isAbout = path.replace(/\/$/, "") === "/about";
   const isTeam = path.startsWith("/teams/");
-  const isMatchday = path === currentTournament.matchday?.route;
+  const matchdayPath = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday\/?$/);
+  const isMatchday = Boolean(matchdayPath && getTournament(matchdayPath[1])?.matchday);
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
 
   return (
@@ -159,33 +164,41 @@ function HomeGameMark({ src, label }) {
 }
 
 function HomeBroadcastBoard({ tournament, navigate }) {
-  const { match, state, score, previous, label, date, format, note, streamUrl: stream, actionLabel } = getHomeBroadcastContent(tournament);
-  const schedule = `/tournaments/${tournament.slug}?section=matches`;
-
+  const { match, state, label, date, format, note, links } = getHomeBroadcastContent(tournament);
+  const schedule = tournament.matchday?.route || `/tournaments/${tournament.slug}?section=matches`;
   return <aside className={`home-broadcast-board home-broadcast-board--${state}`} aria-label="Табло сезона">
     <div className="home-board-topline"><span className="home-board-signal" aria-hidden="true" /><p>{label}</p><span>YCS / 2026</span></div>
-    {match ? <>
+    {match && <>
       <p className="home-board-date">{date} · {format}</p>
       <div className="home-board-teams">
         <TeamIdentity tournament={tournament} team={match.team1} />
-        <strong aria-label={score ? `${state === 'technical' ? 'Технический счёт' : 'Счёт серии'} ${score.join(':')}` : 'Против'}>{score ? score.join(' : ') : 'VS'}</strong>
+        <strong aria-label="Против">VS</strong>
         <TeamIdentity tournament={tournament} team={match.team2} align="end" />
       </div>
-      {note && <p className="home-board-note">{note}</p>}
-    </> : <p className="home-board-note">{note}</p>}
-    {previous && <p className="home-board-previous">{previous.technical ? 'Предыдущий технический результат' : 'Предыдущий эфир'}: {previous.match.team1} {previous.score.join(':')} {previous.match.team2}</p>}
+      <MatchCasters match={match} />
+    </>}
+    {note && <p className="home-board-note">{note}</p>}
     <div className="home-board-actions">
-      {stream && <a className="button button--primary" href={stream} target="_blank" rel="noopener noreferrer">Смотреть эфир <ArrowUpRight aria-hidden="true" /></a>}
-      <ActionButton action={{ label: actionLabel, target: schedule }} navigate={navigate} variant={stream ? 'secondary' : 'primary'} />
+      <BroadcastLinks match={match} className="button button--primary" />
+      <ActionButton action={{ label: 'Открыть Matchday', target: schedule }} navigate={navigate} variant={links.length ? 'secondary' : 'primary'} />
     </div>
   </aside>;
 }
 
 function HomePage({ navigate, theme }) {
   const heroImageRef = useRef(null);
-  const home = loadHomeContent();
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const refresh = () => setNow(new Date());
+    const timer = window.setInterval(refresh, 30_000);
+    window.addEventListener('focus', refresh);
+    document.addEventListener('visibilitychange', refresh);
+    return () => { window.clearInterval(timer); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', refresh); };
+  }, []);
+  const home = loadHomeContent(now);
   const archivePreview = home.archivePreview;
-  const { match: featuredMatch, outcome, finished } = home.season;
+  const { match: featuredMatch, outcome, finished, tournament: seasonTournament } = home.season;
+  const featuredTournament = home.featuredTournament;
 
   return (
     <>
@@ -197,29 +210,30 @@ function HomePage({ navigate, theme }) {
           <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
               <p className="home-kicker">{home.kicker}</p>
-              <h1 id="home-title">{home.headline[0]}<br /><span>{home.headline[1]}</span></h1>
+              <h1 id="home-title">{home.headline[0]}{home.headline[1] && <><br /><span>{home.headline[1]}</span></>}</h1>
               <div className="home-next-lockup">
                 <HomeGameMark src="/assets/games/dota2.svg" label="Dota 2" />
                 <div>
-                  <p>{nextTournament.title}</p>
-                  <span>{nextTournament.season}</span>
+                  <p>{featuredTournament.title}</p>
+                  <span>{featuredTournament.season}</span>
                 </div>
               </div>
-              <p className="home-next-date">{nextTournament.dates.display}</p>
+              <p className="home-next-date">{featuredTournament.dates.display}</p>
+              {featuredTournament.registration?.message && <p className="home-registration-status">{featuredTournament.registration.message}</p>}
               <ul className="home-facts" aria-label="Турнир в цифрах">
                 {home.facts.map((fact) => <li key={fact}>{fact}</li>)}
               </ul>
-              <HomeBroadcastBoard tournament={nextTournament} navigate={navigate} />
+              <HomeBroadcastBoard tournament={featuredTournament} navigate={navigate} />
             </div>
           </div>
         </section>
 
-        <section className="home-season container" aria-label="Текущий сезон">
+        <section className="home-season container" aria-label="Завершённый турнир">
           <div className="home-season-main">
             <div className="home-section-intro">
               <p className="home-kicker">{finished ? "ТУРНИР ЗАВЕРШЁН" : "СЕЙЧАС В СЕЗОНЕ"}</p>
-              <h2>{currentTournament.title}</h2>
-              <p>{currentTournament.dates.display}</p>
+              <h2>{seasonTournament.title}</h2>
+              <p>{seasonTournament.dates.display}</p>
             </div>
             {featuredMatch && <article className="home-featured-match">
               {outcome?.champion && <p className="home-champion">Чемпион <strong>{outcome.champion}</strong></p>}
@@ -228,11 +242,11 @@ function HomePage({ navigate, theme }) {
                 <span>{featuredMatch.roundLabel} · {featuredMatch.bestOf}</span>
               </div>
               <div className="home-match-teams">
-                <TeamIdentity tournament={currentTournament} team={featuredMatch.team1} size="feature" />
+                <TeamIdentity tournament={seasonTournament} team={featuredMatch.team1} size="feature" />
                 <span className={`home-versus${isFinished(featuredMatch) && hasScore(featuredMatch) ? " home-final-score" : ""}`}>{isFinished(featuredMatch) && hasScore(featuredMatch) ? `${featuredMatch.score1}:${featuredMatch.score2}` : "VS"}</span>
-                <TeamIdentity tournament={currentTournament} team={featuredMatch.team2} align="end" size="feature" />
+                <TeamIdentity tournament={seasonTournament} team={featuredMatch.team2} align="end" size="feature" />
               </div>
-              <a className="home-match-link" href={finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route} onClick={(event) => followPublicLink(event, finished ? `/tournaments/${currentTournament.slug}#results` : currentTournament.matchday.route, navigate)}>
+              <a className="home-match-link" href={finished ? `/tournaments/${seasonTournament.slug}#results` : seasonTournament.matchday.route} onClick={(event) => followPublicLink(event, finished ? `/tournaments/${seasonTournament.slug}#results` : seasonTournament.matchday.route, navigate)}>
                 {finished ? "Итоги турнира" : "Открыть Matchday"} <CaretRight weight="bold" aria-hidden="true" />
               </a>
             </article>}
@@ -256,12 +270,12 @@ function HomePage({ navigate, theme }) {
           </aside>
         </section>
         <section className="home-partners container" aria-labelledby="home-partners-title">
-          <h2 id="home-partners-title">Спонсоры и партнёры</h2>
+          <h2 id="home-partners-title">Партнёры турнира</h2>
           <div className="home-partners-grid">
             {home.partners.map((partner) => (
               <div className={`home-partner${partner.shortName === "Додо Пицца" ? " home-partner--dodo" : ""}`} key={partner.name}>
-                <img src={partner.logoUrl} alt={partner.shortName} width={partner.shortName === "Додо Пицца" ? 180 : 160} height={partner.shortName === "Додо Пицца" ? 100 : 80} loading="lazy" />
-                {partner.shortName !== "Додо Пицца" && <p>{partner.name}</p>}
+                {partner.logoUrl ? <img src={partner.logoUrl} alt={partner.shortName || partner.name} width={partner.shortName === "Додо Пицца" ? 180 : 160} height={partner.shortName === "Додо Пицца" ? 100 : 80} loading="lazy" /> : <strong className="home-partner-wordmark">{partner.shortName || partner.name}</strong>}
+                {partner.logoUrl && partner.shortName !== "Додо Пицца" && <p>{partner.name}</p>}
               </div>
             ))}
             <a className="home-partner home-partner--join" href={`mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>
@@ -270,6 +284,11 @@ function HomePage({ navigate, theme }) {
             </a>
           </div>
         </section>
+        {home.officialSupport.length > 0 && <section className="home-official-support container" aria-label="При поддержке">
+          <h2>При поддержке</h2><div>{home.officialSupport.map((partner) => <div key={partner.id || partner.name}>
+            {partner.logoUrl && <img src={partner.logoUrl} alt="" loading="lazy" />}<span>{partner.name}</span>
+          </div>)}</div>
+        </section>}
       </main>
       <Footer navigate={navigate} />
     </>
@@ -693,51 +712,32 @@ function ResultsPage({ navigate }) {
 }
 
 function BroadcastsPage({ navigate }) {
-  const outcome = getTournamentOutcome(currentTournament);
-  if (isArchive(currentTournament)) return <main>
-    <PageIntro eyebrow="Трансляции" title={<>Турнир<br /><span>завершён</span></>} body={outcome?.champion ? `${outcome.champion} — чемпион ${currentTournament.title}.` : currentTournament.summary} />
-    <section className="container broadcast-layout"><div className="broadcast-main-card"><StatusPill state="closed">{currentTournament.statusLabel}</StatusPill><h2>{currentTournament.title}</h2>{outcome?.final?.replayUrl ? <a className="button button--primary" href={outcome.final.replayUrl} target="_blank" rel="noreferrer">Запись гранд-финала</a> : <p>Запись гранд-финала пока не опубликована.</p>}<ActionButton action={{ label: "Итоги турнира", target: `/tournaments/${currentTournament.slug}` }} navigate={navigate} /></div></section>
+  const broadcasts = getTournamentBroadcasts(currentTournament);
+  const current = getHomeBroadcastContent(currentTournament);
+  const history = broadcasts.filter(isClosedBroadcast);
+  const upcoming = broadcasts.filter((match) => !isClosedBroadcast(match) && match.id !== current.match?.id);
+  const card = (match, completed) => <article className="broadcast-match-card" key={match.id} data-match-id={match.id}>
+    <p className="eyebrow">{match.status === 'cancelled' ? 'Эфир отменён' : completed ? 'Завершённый эфир' : match.status === 'live' ? 'В эфире' : 'Назначенный эфир'}</p>
+    <h3>{match.team1} — {match.team2}</h3><p>{matchDateLabel(match)}{match.bestOf && ` · ${match.bestOf}`}</p>
+    <MatchCasters match={match} />
+    {completed && <p>{match.status === 'cancelled' ? 'Эфир отменён.' : 'Трансляция завершена. Ссылки ведут на площадки эфира.'}</p>}
+    <div className="home-board-actions"><BroadcastLinks match={match} className="button button--secondary" />
+      {match.replayUrl && safeHttps(match.replayUrl) && <a className="button button--secondary" href={safeHttps(match.replayUrl)} target="_blank" rel="noreferrer">Запись матча</a>}
+      <MatchLink tournamentId={currentTournament.id} matchId={match.id} />
+    </div>
+  </article>;
+  return <main className="broadcasts-page">
+    <PageIntro eyebrow="Эфир / трансляции" title={<>Трансляции<br /><span>{currentTournament.discipline}</span></>} body={`${currentTournament.title}. Назначенные эфиры, площадки и опубликованные сведения о матчах.`} />
+    <section className="container broadcast-current" aria-label="Текущий или следующий эфир">
+      <HomeBroadcastBoard tournament={currentTournament} navigate={navigate} />
+    </section>
+    {upcoming.length > 0 && <section className="container broadcast-history"><h2>Следующие эфиры</h2>{upcoming.map((match) => card(match, false))}</section>}
+    {history.length > 0 && <section className="container broadcast-history"><h2>История эфиров</h2>{history.map((match) => card(match, true))}</section>}
+    <section className="container broadcast-history"><h2>Архив турниров</h2><div className="broadcast-archives">{archivedTournaments.map((tournament) => <article key={tournament.id}>
+      <p>{tournament.discipline} · {tournament.dates.display}</p><h3>{tournament.title}</h3>
+      <ActionButton action={{label:'Итоги турнира',target:`/tournaments/${tournament.slug}`}} navigate={navigate} variant="secondary" />
+    </article>)}</div></section>
   </main>;
-  return (
-    <main>
-      <PageIntro eyebrow="Эфир / трансляции" title={<>Матчи —<br /><span>в прямом эфире</span></>} body="Расписание эфиров собирается вокруг активного турнира. Ссылки на эфиры появляются на карточках матчей после утверждения сетки." />
-      <section className="container broadcast-layout">
-        <div className="broadcast-main-card"><StatusPill state="active">Ближайший эфир</StatusPill><h2>CS2 / YCS</h2><p>Эфир будет добавлен на страницу текущего турнира после публикации пар.</p><ActionButton action={{ label: "К турниру", target: "/tournaments/cs2-august-2026" }} navigate={navigate} /></div>
-        <div className="broadcast-rules"><p className="eyebrow">Как следить</p><div><span>01</span><p>Откройте страницу турнира</p></div><div><span>02</span><p>Проверьте опубликованные пары</p></div><div><span>03</span><p>Перейдите в эфир в день игры</p></div></div>
-      </section>
-    </main>
-  );
-}
-
-function PartnersPage() {
-  return (
-    <main>
-      <PageIntro eyebrow="Партнёры / сезон 2026" title={<>Партнёры<br /><span>YCS</span></>} body="Поддержка партнёров помогает YAR CYBER SEASON проводить турниры, эфиры и встречи игроков в Ярославле." action={{ label: "Стать партнёром", target: `mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20YCS` }} />
-      <section className="container partner-showcase" aria-labelledby="dodo-partner-title">
-        <div className="partner-showcase__brand">
-          <p className="eyebrow">01 / Партнёр сезона</p>
-          <div className="partner-showcase__logo-wrap">
-            <img src="/assets/partners/dodo-pizza.jpg" alt="Додо Пицца" />
-          </div>
-        </div>
-        <div className="partner-showcase__copy">
-          <p className="partner-showcase__label">YAR CYBER SEASON × DODO PIZZA</p>
-          <h2 id="dodo-partner-title">Додо<br /><span>Пицца</span></h2>
-          <p className="partner-showcase__role">Партнёр YAR CYBER SEASON</p>
-          <div className="partner-showcase__rule" aria-hidden="true" />
-          <p className="partner-showcase__description">Спасибо Додо Пицце за поддержку киберспортивного сезона в Ярославле.</p>
-        </div>
-      </section>
-      <section className="container partner-contact">
-        <div>
-          <p className="eyebrow">Новая коллаборация</p>
-          <h2>Ваш бренд<br /><span>в следующем матче</span></h2>
-        </div>
-        <p>Если хотите поддержать турнир, команду или трансляцию — напишите YCS. Обсудим формат, который будет заметен игрокам и зрителям.</p>
-        <ActionButton action={{ label: "Связаться с YCS", target: `mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20YCS` }} variant="secondary" />
-      </section>
-    </main>
-  );
 }
 
 function NotFound({ navigate }) {
@@ -810,7 +810,9 @@ export function Prototype({ initialPath = "/" }) {
     if (path === "/partners") return <PartnersPage navigate={navigate} />;
     if (path.replace(/\/$/, "") === "/about") return <AboutPage />;
     if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} theme={theme} />;
-    if (path === currentTournament.matchday?.route) return <MatchdayPage tournament={currentTournament} navigate={navigate} />;
+    const matchdayRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday\/?$/);
+    const matchdayTournament = matchdayRoute && getTournament(matchdayRoute[1]);
+    if (matchdayTournament?.matchday) return <MatchdayPage tournament={matchdayTournament} navigate={navigate} />;
     const teamRoute = path.match(/^\/teams\/([a-z0-9-]+)\/?$/);
     if (teamRoute) return <TeamPage key={teamRoute[1]} teamId={teamRoute[1]} theme={theme} />;
     const matchRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matches\/([a-z0-9-]+)\/?$/);

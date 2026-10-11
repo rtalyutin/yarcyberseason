@@ -1,10 +1,11 @@
-import { nextTournament, currentTournament, archivedTournaments } from './tournaments/index.js';
+import { currentTournament, archivedTournaments } from './tournaments/index.js';
 import { projectContent } from './project-content.js';
 import { buildHomeContent } from '../lib/home-content.js';
 
 // Read on each render so an accepted results overlay reaches both homes.
-export function loadHomeContent() {
-  return buildHomeContent({ featuredTournament: nextTournament, seasonTournament: currentTournament,
-    archives: archivedTournaments,
-    project: projectContent });
+export function loadHomeContent(now = new Date()) {
+  const seasonTournament = archivedTournaments.find((tournament) => tournament.discipline === 'Counter-Strike 2')
+    || archivedTournaments[0] || currentTournament;
+  return buildHomeContent({ featuredTournament: currentTournament, seasonTournament,
+    archives: archivedTournaments, project: projectContent, now });
 }

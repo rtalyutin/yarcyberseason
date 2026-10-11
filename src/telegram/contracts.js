@@ -11,7 +11,7 @@ import { MINI_APP_CONFIG, SECTION_IDS, STARTAPP_TARGETS } from "./config.js";
 /** @typedef {{confirmed: boolean, technical: boolean, known: boolean, sourceScore: [number, number]|null, series: [number, number]|null, score: [number, number]|null, maps: NormalizedMap[], winnerSide: 1|2|null, draw: boolean, label: string, canDownload: boolean}} NormalizedResult */
 /** @typedef {{key: string, id: string, tournamentId: string, stageId: string, roundId: string|null, roundTitle: string, team1: string|null, team2: string|null, team1Id: string|null, team2Id: string|null, status: string, scheduledAt: string|null, date: string|null, dateDisplay: string|null, bestOf: string|null, note: string|null, result: NormalizedResult, links: UiAction[]}} MatchViewModel */
 /** @typedef {{id: SectionId, label: string, availability: 'ready'|'empty', emptyText: string|null}} SectionView */
-/** @typedef {{brandName: string, logoUrl: string, partners: {name: string, logoUrl: string}[], contactEmail: string}} ProjectView */
+/** @typedef {{brandName: string, logoUrl: string, partners: {name: string, logoUrl: string|null}[], officialSupport?: {name: string, logoUrl: string|null}[], contactEmail: string}} ProjectView */
 /**
  * @typedef {object} RuntimePort
  * @property {'telegram'|'browser'} kind
@@ -303,6 +303,7 @@ export function validateMiniAppModel(value) {
   });
   if (record(value.rewards) && (!ownKeys(value.rewards, ["prizeDistribution", "additionalAwards", "referralContest"]) || !(value.rewards.prizeDistribution === null || record(value.rewards.prizeDistribution)) || !Array.isArray(value.rewards.additionalAwards) || value.rewards.additionalAwards.some((award) => !record(award)) || !(value.rewards.referralContest === null || record(value.rewards.referralContest)))) errors.push("rewards is invalid");
   if (!(value.results === null || record(value.results))) errors.push("results must be an object or null");
-  if (record(value.project) && (!ownKeys(value.project, ["brandName", "logoUrl", "partners", "contactEmail"]) || !nonEmpty(value.project.brandName) || !nonEmpty(value.project.logoUrl) || !nonEmpty(value.project.contactEmail) || !Array.isArray(value.project.partners) || value.project.partners.some((partner) => !record(partner) || !nonEmpty(partner.name) || !nonEmpty(partner.logoUrl)))) errors.push("project is not a ProjectView");
+  const validPartner = (partner) => record(partner) && nonEmpty(partner.name) && (partner.logoUrl === null || nonEmpty(partner.logoUrl));
+  if (record(value.project) && (!ownKeys(value.project, ["brandName", "logoUrl", "partners", "contactEmail"]) || !nonEmpty(value.project.brandName) || !nonEmpty(value.project.logoUrl) || !nonEmpty(value.project.contactEmail) || !Array.isArray(value.project.partners) || value.project.partners.some((partner) => !validPartner(partner)) || (value.project.officialSupport !== undefined && (!Array.isArray(value.project.officialSupport) || value.project.officialSupport.some((partner) => !validPartner(partner)))))) errors.push("project is not a ProjectView");
   return errors;
 }

@@ -22,9 +22,6 @@
     "Tech Titans": "/assets/teams/dota2/tech-titans/logo.jpg"
   },
   "statusLabel": "Регистрация закрыта",
-  "homeBroadcastMatchIds": [
-    "dota-autumn-swiss-r1-04"
-  ],
   "summary": "Следующий турнир сезона: 16 команд, швейцарская система и плей-офф double elimination.",
   "homeDate": {
     "days": "9—25",
@@ -376,11 +373,6 @@
               "seed2": 12,
               "team2": "ARB Esports",
               "team2Id": "dota2-qual-2026-arb-esports",
-              "note": "Трансляция: Twitch YarCyberSeason и ВК YarCyberSeason. Комментатор: @queleez.",
-              "broadcastLinks": {
-                "twitch": "https://www.twitch.tv/yarcyberseason",
-                "vk": "https://vk.com/yarcyberseason"
-              },
               "casters": [
                 {
                   "name": "@queleez",
@@ -408,7 +400,11 @@
                   "id": "9036860954",
                   "name": "Карта 1"
                 }
-              ]
+              ],
+              "broadcastLinks": {
+                "twitch": "https://www.twitch.tv/yarcyberseason",
+                "vk": "https://vk.com/yarcyberseason"
+              }
             },
             {
               "id": "dota-autumn-swiss-r1-05",
@@ -916,5 +912,8 @@
       "reason": "Результат и номер карты подтверждены скриншотом организатора. API пока не отдаёт карту; повторяем чтение по ID. Полная статистика и привязки десяти аккаунтов пока не подтверждены, начисления MVP ожидают данных.",
       "players": []
     }
-  ]
+  ],
+  "matchday": {
+    "route": "/tournaments/dota2-autumn-2026/matchday"
+  }
 }

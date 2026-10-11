@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
 import { agreementOutcomeMessage, captainErrorMessage, captainMessageInput, formatMoscow, hasCaptainChatEpoch, moscowInput, moscowToIso, newCaptainRequestId, reconcileCaptainChat, recoverCaptainCommand } from "./captain-client.js";
 
 const chatClosedMessage = "Матч завершён. Переписка удалена, отправка сообщений закрыта.";
@@ -142,6 +143,7 @@ function CaptainMatch({ client, matchId, runtime, onAccessLost, onRules }) {
 
   if (!detail) return <div className="tg-captain-state"><p role="status">{loadError || "Загружаем матч…"}</p>{loadError && <button className="tg-secondary" onClick={reload}>Повторить загрузку</button>}</div>;
   const { match, proposal, agreed } = detail;
+  const broadcastLinks = getMatchBroadcastLinks(match);
   const teamName = (id) => id === match.team1.id ? match.team1.name : match.team2.name;
   const disabled = busy || Boolean(pending);
   const closed = detail.chatClosed || ["completed", "cancelled", "finished"].includes(match.status);
@@ -180,7 +182,7 @@ function CaptainMatch({ client, matchId, runtime, onAccessLost, onRules }) {
         </form>
       </section>
       <aside className="tg-captain-side">
-        <section className="tg-captain-preparation"><h3>Перед матчем</h3><p>Режим игры: Captain’s Mode.</p><p>При трансляции лобби создаёт кастер. Без трансляции организатор приглашает команды и выходит из лобби. Название и пароль сообщает организатор.</p>{match.note && <p>{match.note}</p>}<button className="tg-captain-action" onClick={onRules}>Формат турнира</button>{match.broadcastUrl ? <button className="tg-captain-action" onClick={() => runtime.openExternal({ kind: "external", label: "Трансляция", url: match.broadcastUrl })}>Открыть трансляцию ↗</button> : <p className="tg-source-state">Ссылка на трансляцию пока не опубликована.</p>}</section>
+        <section className="tg-captain-preparation"><h3>Перед матчем</h3><p>Режим игры: Captain’s Mode.</p><p>При трансляции лобби создаёт кастер. Без трансляции организатор приглашает команды и выходит из лобби. Название и пароль сообщает организатор.</p>{match.note && <p>{match.note}</p>}<button className="tg-captain-action" onClick={onRules}>Формат турнира</button>{broadcastLinks.map(({ platform, label, href }) => <button key={platform} className="tg-captain-action" onClick={() => runtime.openExternal({ kind: "external", label, url: href })}>{label} ↗</button>)}</section>
         <section className="tg-captain-result"><h3>Заявить результат</h3><p className="tg-source-state">Заявка появится у организатора. Отправка не меняет официальный счёт, сетку и MVP.</p><form onSubmit={(event) => { event.preventDefault(); submit("result", { score: score.map(Number), comment: comment.trim() }); }}><div className="tg-captain-score">{[match.team1, match.team2].map((team, index) => <label key={team.id} htmlFor={`captain-score-${index}`}>{team.name}<input id={`captain-score-${index}`} type="number" inputMode="numeric" min="0" max={wins} step="1" required value={score[index]} disabled={disabled} onChange={(event) => setScore((current) => current.map((value, i) => i === index ? event.target.value : value))} /></label>)}</div><label htmlFor="captain-result-comment">Комментарий<textarea id="captain-result-comment" rows={3} maxLength={1000} value={comment} disabled={disabled} onChange={(event) => setComment(event.target.value)} /></label>{score.every((value) => value !== "") && <p className="tg-captain-result-preview">Проверьте заявку: {match.team1.name} — {match.team2.name}, счёт {score.join(":")}, {match.bestOf}.</p>}<button className="tg-captain-action" disabled={disabled || score.some((value) => value === "")}>Передать результат</button></form>{detail.resultClaims.length > 0 && <ul className="tg-captain-claims">{detail.resultClaims.map((claim) => <li key={claim.id}><strong>{teamName(claim.teamId)}: {claim.score.join(":")}</strong><time dateTime={claim.createdAt}>{formatMoscow(claim.createdAt)}</time>{claim.comment && <p>{claim.comment}</p>}</li>)}</ul>}</section>
       </aside>
     </div>

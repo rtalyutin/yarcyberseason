@@ -38,12 +38,19 @@ test("step6 rules render all published stage rules and participation conditions"
   assert.ok(!html.includes("Этот раздел ещё готовится"));
   assert.ok(!html.includes("forms.yandex"));
 });
-test("step6 schedule renders October 9 first match and seven October 10 pairs", () => {
+test("step6 schedule renders completed first round and current second round with honest partial dates", () => {
   const html = render(real, "schedule");
   for (const item of real.timeline) {
     assert.ok(html.includes(item.label)); assert.ok(html.includes(item.date));
   }
-  assert.equal((html.match(/data-match-key=/g) || []).length, 8);
+  assert.equal((html.match(/data-match-key=/g) || []).length, 16);
+  assert.equal((html.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r1-/g) || []).length, 8);
+  assert.equal((html.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r2-/g) || []).length, 8);
+  assert.match(html, /11–12 октября/);
+  const pendingSecondRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r2-") && match.status === "scheduled");
+  assert.equal(pendingSecondRound.length, 7);
+  assert.ok(pendingSecondRound.every((match) => match.scheduledAt === null && match.dateDisplay === "11–12 октября" && match.result.score === null));
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 9);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.match(html, /Завершён/);
   assert.match(html, /Техническая победа/);

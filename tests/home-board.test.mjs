@@ -2,63 +2,66 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import tournament from '../src/data/tournaments/dota2-autumn-2026.json' with { type: 'json' };
 import { getHomeBroadcastBoard } from '../src/lib/home-board.js';
+import { getMatchBroadcastLinks } from '../src/lib/broadcasts.js';
 
+const featured = (data) => data.stages[0].rounds[0].matches.find((match) => match.id === 'dota-autumn-swiss-r1-04');
+// Explicitly reset the synthetic state; the real opening is already confirmed.
 const fixture = () => {
   const data = structuredClone(tournament);
-  // Tests control the featured match state independently of current published results.
-  const match = featured(data);
-  Object.assign(match, { status: 'scheduled', resultConfirmed: false });
-  delete match.score1;
-  delete match.score2;
+  Object.assign(featured(data), { status: 'scheduled', resultConfirmed: false, score1: null, score2: null });
   return data;
 };
-const featured = (data) => data.stages[0].rounds[0].matches.find((match) => match.id === data.homeBroadcastMatchIds[0]);
 
-test('the published broadcast pair is scheduled even after its calendar date passes', () => {
+test('the assigned scheduled stream is retained when re-reading an elapsed calendar date', () => {
   const data = fixture();
   const board = getHomeBroadcastBoard(data);
   assert.equal(board.state, 'scheduled');
   assert.equal(board.match.team1, 'Team Borisogleb');
   assert.equal(board.match.team2, 'ARB Esports');
   assert.equal(board.score, null);
+  assert.deepEqual(getHomeBroadcastBoard(structuredClone(data)), board);
 });
 
-test('only an explicit live state can offer the published stream', () => {
+test('only an explicit live state produces live; planned canonical links remain available', () => {
   const data = fixture();
+  const planned = getHomeBroadcastBoard(data);
+  assert.equal(planned.state, 'scheduled');
+  assert.equal(getMatchBroadcastLinks(planned.match).length, 2);
   featured(data).status = 'live';
-  featured(data).broadcastLinks = { twitch: 'https://example.com/live' };
   const board = getHomeBroadcastBoard(data);
   assert.equal(board.state, 'live');
-  assert.deepEqual(board.match.broadcastLinks, { twitch: 'https://example.com/live' });
+  assert.equal(getMatchBroadcastLinks(board.match)[0].href, 'https://www.twitch.tv/yarcyberseason');
   assert.equal(board.score, null);
 });
 
-test('an unconfirmed completed match cannot publish a score', () => {
+test('an unconfirmed completion retains the stream without publishing a score; confirmation closes it', () => {
   const data = fixture();
-  Object.assign(featured(data), { status: 'completed', score1: 1, score2: 0, scoreKind: 'series' });
+  Object.assign(featured(data), { status: 'completed', resultConfirmed: false, score1: 1, score2: 0, scoreKind: 'series' });
   assert.equal(getHomeBroadcastBoard(data).state, 'pending');
+  assert.equal(getHomeBroadcastBoard(data).score, null);
   featured(data).resultConfirmed = true;
-  assert.deepEqual(getHomeBroadcastBoard(data).score, [1, 0]);
+  assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
+  assert.equal(getHomeBroadcastBoard(data).match, null);
 });
 
-test('a newly featured fixture appears beside the confirmed previous result', () => {
+test('a next stream must have canonical links and advances only after confirmed closure', () => {
   const data = fixture();
-  Object.assign(featured(data), { status: 'completed', score1: 1, score2: 0, scoreKind: 'series', resultConfirmed: true });
-  Object.assign(data.stages[0].rounds[0].matches.find((match) => match.id === 'dota-autumn-swiss-r1-05'),
-    { status: 'scheduled', resultConfirmed: false });
-  data.homeBroadcastMatchIds.push('dota-autumn-swiss-r1-05');
-  const board = getHomeBroadcastBoard(data);
-  assert.equal(board.state, 'scheduled');
-  assert.equal(board.match.id, 'dota-autumn-swiss-r1-05');
-  assert.deepEqual(board.previous.score, [1, 0]);
-  data.homeBroadcastMatchIds = ['missing-id'];
+  const next = data.stages[0].rounds[0].matches.find((match) => match.id === 'dota-autumn-swiss-r1-05');
+  Object.assign(next, { status: 'scheduled', resultConfirmed: false, scheduledAt: '2026-10-10T21:00:00+03:00', broadcastLinks: { twitch: 'https://example.com/live' } });
+  assert.equal(getHomeBroadcastBoard(data).match.id, featured(data).id);
+  Object.assign(featured(data), { status: 'completed', resultConfirmed: true });
+  assert.equal(getHomeBroadcastBoard(data).match.id, next.id);
+  delete next.broadcastLinks;
+  next.broadcastUrl = 'https://example.com/legacy';
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
 });
 
-test('a technical decision is distinguished from a played broadcast', () => {
+test('confirmed technical decisions and the actual completed opening do not promise a future broadcast', () => {
   const data = fixture();
-  Object.assign(featured(data), { status: 'walkover', score1: 1, score2: 0, scoreKind: 'series', resultConfirmed: true });
-  const board = getHomeBroadcastBoard(data);
-  assert.equal(board.state, 'technical');
-  assert.deepEqual(board.score, [1, 0]);
+  Object.assign(featured(data), { status: 'walkover', score1: 1, score2: 0, scoreKind: 'technical', resultConfirmed: true });
+  assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
+  assert.equal(getHomeBroadcastBoard(data).score, null);
+  assert.equal(getHomeBroadcastBoard(tournament).match, null);
+  assert.equal(featured(tournament).resultConfirmed, true);
+  assert.equal(featured(tournament).status, 'completed');
 });

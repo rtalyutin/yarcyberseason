@@ -14,7 +14,7 @@ export function HomeExternalLink({ href, runtime, children, ...props }) {
 }
 
 export function HomeBroadcastCard({ content, tournamentSlug, navigate, runtime }) {
-  const { match, state, score, previous } = content;
+  const { match, state, score } = content;
   return <section className={`tg-home-board tg-home-board--${state}`} aria-label="Табло сезона">
     <p className="tg-kicker">{content.label}</p>
     {match && <>
@@ -24,9 +24,9 @@ export function HomeBroadcastCard({ content, tournamentSlug, navigate, runtime }
         <strong>{match.team2}</strong></div>
     </>}
     {content.note && <p className="tg-home-note">{content.note}</p>}
-    {previous && <p className="tg-home-note">{previous.technical ? 'Предыдущий технический результат' : 'Предыдущий эфир'}: {previous.match.team1} {previous.score.join(':')} {previous.match.team2}</p>}
-    {content.streamUrl && <HomeExternalLink className="tg-primary" href={content.streamUrl} runtime={runtime}>Смотреть эфир <span aria-hidden="true">↗</span></HomeExternalLink>}
-    <button className={content.streamUrl ? 'tg-secondary' : 'tg-primary'} onClick={() => navigate(tournamentRoute('matches', tournamentSlug))}>{content.actionLabel}<span aria-hidden="true">→</span></button>
+    {content.casters?.length > 0 && <p className="tg-home-note">Комментатор: {content.casters.map((caster, index) => <React.Fragment key={caster.name}>{index > 0 && ' · '}{caster.url ? <HomeExternalLink href={caster.url} runtime={runtime}>{caster.name}</HomeExternalLink> : caster.name}</React.Fragment>)}</p>}
+    {content.links?.map((link) => <HomeExternalLink className="tg-primary" key={link.platform} href={link.href} runtime={runtime}>{link.label} <span aria-hidden="true">↗</span></HomeExternalLink>)}
+    <button className={content.links?.length ? 'tg-secondary' : 'tg-primary'} onClick={() => navigate(tournamentRoute('matches', tournamentSlug))}>{content.actionLabel}<span aria-hidden="true">→</span></button>
   </section>;
 }
 

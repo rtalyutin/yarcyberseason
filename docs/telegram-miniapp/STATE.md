@@ -1,5 +1,36 @@
 # Telegram Mini App — состояние проекта
 
+## October11 approved round-two and results update — published code, live verification pending
+
+- Authorization: Roman asks «1ый матч 2го тура. Остальные матчи тоже есть.
+  Нужно сайт обновить». Prior approved R2 draw is restored unchanged: eight
+  BO1 pairs during11–12October Moscow time. All8R1results and Aegis–strela
+  R2 win1:0 are in source data; map9039436432 has37:21 kills and2395seconds.
+  The exact-ID retry has players:[] pending, without fabricated account bindings.
+- Full real API cards9038793515(Leto win) and9038683998(WAY win) are bound by
+  verified numeric team IDs. Incomplete9038788632(0:0,seven players) remains
+  pending without an invented exclusion. Kega's technical loss is the owner's
+  October10confirmation; technical no-play gives no MVP.
+- Source PR7 merged as605b57117a667c7f913a1148c39990777dba37ba; functional
+  source202f26e3260f13f0c125bfdc0c65124187956bd6/treec1711e3452f06ce83865e90d895c09e8ea0fd3ae.
+  JSON SHA256c413d39efddc77e7d0f96b97c694afe04c0a3d6fe628d88ebf95db6946953da5.
+  Author98tests+build+Sites6tests pass. Independent9held-out scenarios and62
+  profile tests pass;180raw metrics/20new exact scores manually reconstructed.
+- Runtime PR51 merged as14fa797b2206fe7c31a2fcb44bad90791fea43b4; reviewed
+  head754a3ee123127b0559e227f254dcbebb086807a7/tree55cfcb3f0d0cd0dc97fdc7c84ee52af692b7d202.
+  Both manifests pin202f26e. Existing worker activation default, captain private
+  state, S3single-writer/CAS, bots/env/ACL and hosts stay unchanged.
+  Author93focused runtime tests/check/build pass; independent52tests and26
+  manifest entries pass. Full PostgreSQL CI38123238819(job114422138503) passes
+ 359root+128workspace+30UItests,zero skips,all required steps.
+- Expected successful import: sports9confirmed fixtures; SwissAegis2–0 and
+  strela1–1,18participations. MVP50realplayer-map records plus10recalculated
+  Tech-match estimates; μ618435891569/25000000000. New R2source pending.
+  These are tested expectations, not live claims. Source publication/runtime
+  deployment/publicS3readback/actualUI remain distinct gates; at initialreadback
+  frontend and backend still served the previous deployment.
+
+
 ## TASK_STATE — MVP/results update, 10.10.2026
 
 ### Estimate activation — contract revision2, 16:38 MSK

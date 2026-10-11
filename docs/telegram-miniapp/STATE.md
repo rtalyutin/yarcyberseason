@@ -7,7 +7,22 @@ WAYPROD.–Team Leto11Oct22:00MSK: Twitch YarCyberSeason, caster @s0natu without
 an inferred contact URL. TEAM SPERMINT–Team Borisogleb11Oct18:00MSK.
 Mi Ne Pushim!–Parallax Team11Oct19:00MSK: Twitch yourapriltears. At12:42:46MSK
 Roman corrected its time from12Oct19:00 to today11Oct19:00. The intermediate
-11Oct18:00 candidate was never published. psb_bank–ARB,
+11Oct18:00 candidate was never published. Roman's subsequent clarification
+sets psb_bank–ARB Esports to11Oct15:00MSK, without an assigned stream or caster.
+Current authorized scope includes the existing website, actual Serverless Mini App
+and /orgs. This shared source change is BUILD READY:83 targeted author checks,
+data:check, the complete build/prerender and6 Sites artifact checks passed.
+The JSON change is limited to PSB's date/time fields; results, MVP and other
+fixtures are unchanged.
+Actual Mini App static publication is BLOCKED: no configured CLI profile or
+TGCLOUD_TOKEN was found in the current roots or the previously known2f location.
+Root retains the release/access step; no bot menu, modules or serving settings change.
+PSB source JSON SHA256 is
+`b2242015bc6db04329dcda85b2fd642aac348be7be3744acdd1d7f10104dedd6`.
+Existing Mini App target remains https://app8672463486.tgcloud.ai/.
+After restoring authenticated access, root must GET the existing project state,
+push only static files from the accepted source build, then verify the remote
+manifest and public PSB15 readback. Preserve modules, serving config and bot menu.
 Vnext–Easy Gaming and liqa sto–Fummo retain the known11–12October round period
 without an individual appointment. Old Tech–ARB is removed because ARB is now
 assigned to PSB. At12:17–12:22MSK Roman confirmed Tech Titans–PIVNAYA KEGA
@@ -17,7 +32,7 @@ no exact appointment or confirmed map/statistics supplied.
 All nine prior confirmed fixtures, R1, participants and MVP metadata are unchanged.
 Swiss is recomputed from ten confirmed results, including the new technical
 result with empty maps and no invented MVP award. The catalog now has16matches,
-with eight R2fixtures (two confirmed and six pending). Three exact appointments are recorded in
+with eight R2fixtures (two confirmed and six pending). Four exact appointments are recorded in
 the public calendar ledger, preserving MNP's existing UID and increasing its
 revision after the correction. Current assigned stream is MNP/Parallax;
 after its confirmed closure WAY/Leto becomes next. Source publication, existing-host

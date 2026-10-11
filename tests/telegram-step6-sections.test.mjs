@@ -50,8 +50,12 @@ test("step6 schedule renders completed first round and current second round with
   const pendingSecondRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r2-") && match.status === "scheduled");
   assert.equal(pendingSecondRound.length, 6);
   const partialDates = pendingSecondRound.filter((match) => match.scheduledAt === null);
-  assert.equal(partialDates.length, 3);
+  assert.equal(partialDates.length, 2);
   assert.ok(partialDates.every((match) => match.dateDisplay === "11–12 октября" && match.result.score === null));
+  const psb = pendingSecondRound.find((match) => match.id === "dota-autumn-swiss-r2-05");
+  assert.equal(psb.scheduledAt, "2026-10-11T15:00:00+03:00");
+  assert.equal(psb.result.score, null);
+  assert.match(html, /15:00 МСК/);
   assert.match(html, /22:00 МСК/);
   assert.match(html, /18:00 МСК/);
   assert.match(html, /19:00 МСК/);

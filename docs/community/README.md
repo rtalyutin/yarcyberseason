@@ -132,8 +132,10 @@ npm run test:community
 11 октября 22:00, Twitch YarCyberSeason, комментатор @s0natu; TEAM SPERMINT —
 Team Borisogleb 11 октября 18:00; Mi Ne Pushim! — Parallax Team 11 октября
 19:00, Twitch yourapriltears (последнее уточнение в 12:42:46 МСК заменяет
-первоначальные 12 октября 19:00). psb_bank — ARB Esports, Vnext — Easy Gaming,
-liqa sto — Fummo сохраняют известный период 11–12 октября без точного времени.
+первоначальные 12 октября 19:00). psb_bank — ARB Esports назначен на
+11 октября 15:00 МСК по следующему уточнению организатора; трансляция и
+комментатор не назначены. Vnext — Easy Gaming и liqa sto — Fummo сохраняют
+известный период 11–12 октября без точного времени.
 Прежняя пара Tech Titans — ARB снята, поскольку ARB назначен против psb_bank.
 В 12:17–12:22 МСК организатор подтвердил Tech Titans — PIVNAYA KEGA и уточнил:
 техническое поражение у KEGA. Результат 1:0 в пользу Tech Titans, без

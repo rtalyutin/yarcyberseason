@@ -206,6 +206,25 @@
       "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
       "revision": 1,
       "updatedAt": "2026-10-11T09:43:52.618Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-05",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r2-05@ycs.bar",
+      "start": "2026-10-11T15:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-august-2026-psb-bank",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "publishedTeamIds": [
+        "cs2-august-2026-psb-bank",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "summary": "psb_bank — ARB Esports · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-05",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-11T10:10:54.818Z"
     }
   ]
 }

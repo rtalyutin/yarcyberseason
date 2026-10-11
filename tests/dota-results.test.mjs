@@ -28,9 +28,9 @@ const first = { match_id: 900000001, leagueid: 20164, start_time: Date.parse("20
   duration: 2400, series_id: 0 };
 
 test("published round period matches either day without inventing an appointment", () => {
-  const fixture = publishedTournament.stages[0].rounds[1].matches.find((match) => match.id === 'dota-autumn-swiss-r2-05');
+  const fixture = publishedTournament.stages[0].rounds[1].matches.find((match) => match.id === 'dota-autumn-swiss-r2-06');
   const before = structuredClone(fixture);
-  assert.deepEqual([fixture.team1, fixture.team2], ['psb_bank', 'ARB Esports']);
+  assert.deepEqual([fixture.team1, fixture.team2], ['Vnext', 'Easy Gaming']);
   assert.equal(fixture.scheduledAt, undefined);
   const map = { ...first, radiant_name: fixture.team1, dire_name: fixture.team2 };
   for (const date of ["2026-10-11T00:00:00+03:00", "2026-10-12T23:59:59+03:00"]) {

@@ -1,6 +1,6 @@
 # Telegram Mini App — состояние проекта
 
-## October11 approved round-two and results update — published code, live verification pending
+## October11 approved round-two and results update — main website live
 
 - Authorization: Roman asks «1ый матч 2го тура. Остальные матчи тоже есть.
   Нужно сайт обновить». Prior approved R2 draw is restored unchanged: eight
@@ -29,6 +29,40 @@
   These are tested expectations, not live claims. Source publication/runtime
   deployment/publicS3readback/actualUI remain distinct gates; at initialreadback
   frontend and backend still served the previous deployment.
+
+- Independent08:10UTC public readback confirms sports revision5 with9results,
+  MVP revision12 with50real/10estimated player-map records and the exact mean
+  above. Previous40real records and5results are preserved. Captain is idle,
+  errorsnull, roster16/revision33,matchCount16. R2map9039436432 and incomplete
+  record9038788632 remain pending; no invented identities, metrics or exclusion.
+- Actual main-site browser acceptance confirms16fixtures/9results, firstR2
+  Aegis–strela1:0,37:21,39:55; SwissAegis2–0/strela1–1. MVP shows the new
+  provisional calculations: Aegis28.45 each, Tech21.03 each, including the
+  truthful «Игрок 205589626» fallback. Exact-ID OpenDota GET still404 at08:29UTC.
+  Source/backend activation and genuine Telegram/Serverless release remain
+  separate; this update publishes the existing main website.
+- Initial collector error is reproduced as ambiguous Easy–Leto API records.
+  Source PR8/mainb071b8d2ce5d56bab633cc16c507be176ec613fc and runtime
+  PR52/main2f7ca205e3ba2f89b210737c65232d8b5ffc3a7c repair sports selection
+  using only a complete organizer-confirmed map set. Extra raw7-player record
+  stays MVPpending, partial sets still ambiguous, contradictory official
+  winner/kills/duration still conflict. Source local5ac8e2d/tree13bdd53dc06f441cafa2f44d0b3f8e35e69ec713,
+  remoteff3b2a5949bd7d553508c86be4d2063a07756489; runtime localc6d3480/treeef34a3ea26a18abb454e1d55978cba70cdbd55c4,
+  remote1cf0b953e229d4bf4cc95e0665e6008d369b2ff9. Author48source/93runtime
+  tests/check/build pass. Independent source6held-out+48profile and runtime
+  6held-out+32profile scenarios pass; all26manifest hashes verified. Full
+  PostgreSQL CI38124689410/job114426505178 passes359+128+30tests,zero skips.
+- Collector repair LIVE PASS: independent GETs at08:31:13–23UTC verify
+  active sourceff3b2a59/fingerprint
+  486dbecc31f1771f51ffeae59cf5c16e1b4641160f7656cb20d99952722519a1.
+  Captain manifest202f26e/ac4300ac and workerb82f2628 remain unchanged.
+  Collector statuswaiting, lastSuccessAt2026-10-11T08:30:31.654Z,
+  lastFailurenull, pendingMaps3. Captain idle/noerrors and16matches. Public
+  sports revision5 and MVP revision12 are byte-identical to independently
+  checked postmerge data, preserving arithmetic and existing records. Own
+  public match-page GET200 also confirms Aegis1:0strela,37:21,39:55/completed.
+  Single-writer/CAS, private captain state, modules, bot menu/env/ACL and
+  hosts are unchanged. No additional parse request or S3/manual result write.
 
 
 ## TASK_STATE — MVP/results update, 10.10.2026

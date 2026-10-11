@@ -168,8 +168,8 @@
             {
               "team": "Fummo",
               "teamId": "dota2-autumn-2026-fummo",
-              "played": 1,
-              "won": 0,
+              "played": 2,
+              "won": 1,
               "lost": 1
             },
             {
@@ -224,9 +224,9 @@
             {
               "team": "liqa sto",
               "teamId": "dota2-autumn-2026-liqa-sto",
-              "played": 1,
+              "played": 2,
               "won": 0,
-              "lost": 1
+              "lost": 2
             },
             {
               "team": "psb_bank",
@@ -663,7 +663,7 @@
             },
             {
               "id": "dota-autumn-swiss-r2-07",
-              "status": "scheduled",
+              "status": "walkover",
               "date": "11–12 октября",
               "dateDisplay": "11–12 октября",
               "bestOf": "BO1",
@@ -674,7 +674,18 @@
               "team2Id": "dota2-autumn-2026-fummo",
               "seed2": 16,
               "windowStart": "2026-10-11T00:00:00+03:00",
-              "windowEnd": "2026-10-13T00:00:00+03:00"
+              "windowEnd": "2026-10-13T00:00:00+03:00",
+              "scoreKind": "technical",
+              "score1": 0,
+              "score2": 1,
+              "resultConfirmed": true,
+              "resultSource": "organizer",
+              "confirmationSource": "organizer-message-2026-10-11-165713-msk-liqa-technical",
+              "confirmedAt": "2026-10-11T13:57:13Z",
+              "winnerTeamId": "dota2-autumn-2026-fummo",
+              "winner": "Fummo",
+              "maps": [],
+              "note": "Техническое поражение liqa sto; победа Fummo подтверждена организатором."
             },
             {
               "id": "dota-autumn-swiss-r2-08",

@@ -1,5 +1,21 @@
 # Telegram Mini App — состояние проекта
 
+## October11 Liqa–Fummo organizer result — prepared
+
+ACTIVE_CONTRACT: Roman reports Liqa sto's technical defeat and explicitly
+confirms the round-two pairing against Fummo at16:57:13MSK. Update only
+fixture dota-autumn-swiss-r2-07 as organizer-confirmed0:1 walkover, no played
+map, no sporting metrics and no MVP. Keep the published round window and
+all other fixtures/appointments/results and private captain state.
+TASK_STATE: source data and Swiss prepared; Liqa0–2, Fummo1–1. Data-only
+collector/captain distribution changes the one shared tournament JSON and
+its two manifest hashes/fingerprints. Executable modules, worker schedule,
+hosts, bot menu and credentials are unchanged. Gates: focused source/runtime
+checks, independent fixture/standing/preservation verification, existing main
+publication and live results readback. Actual Serverless static access was
+missing in the preceding release; dynamic result propagation is checked
+separately from static release. Do not claim a publication before readback.
+
 ## October11 organizer schedule correction — prepared for publication
 
 Roman at12:12–12:14MSK supplied the corrected six pending R2 pairs and streams.

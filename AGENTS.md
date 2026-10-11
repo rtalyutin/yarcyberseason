@@ -428,3 +428,13 @@ Publish the corrected existing website and align only the shared packaged
 fixture data in the existing single collector/captain runtime. Preserve private
 state, schedules, modules, credentials and hosts. New data requires its own
 immutable QA/CI gate and public readback, not reuse of the prior content gate.
+
+
+## Liqa–Fummo result — 11 October 2026, 16:57 MSK
+
+Roman confirms Liqa sto's technical defeat against Fummo in round two.
+Record dota-autumn-swiss-r2-07 as organizer-confirmed0:1 walkover, empty maps,
+no played statistics or MVP. Swiss becomes Liqa0–2 and Fummo1–1. Keep the
+existing round window, all other fixtures/results/appointments and private
+state. Publish the authorized shared result through the existing single
+collector and verify the public snapshot; preserve Serverless host/modules/menu.

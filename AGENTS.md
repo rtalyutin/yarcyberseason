@@ -1,3 +1,18 @@
+# Expanded match center — October 12
+
+- User selected the complete Dota/CS2 match-center implementation, including
+  BO1/BO3/BO5 map navigation, per-map rosters/statistics/MVP and manually entered
+  clips. This supersedes the earlier BO1-only presentation limit below; no series
+  MVP aggregation is introduced. See docs/design/match-detail/TASK_STATE.md.
+- Never use demonstration results or player statistics from the selected images.
+  Dota consumes validated existing per-map metrics, including estimates/ties and
+  stale/correction notices. CS2 requires explicit published map.playerStats and
+  mvpAccountIds. Missing values remain unknown. Unplayed maps have no statistics.
+- Clips use the existing organizer session and separate media document with CAS;
+  actual map identity only, no placeholders or global-channel fallback.
+- Preserve shared header, sporting data and Swiss design. Match compositions cap
+  at 1800px; Dota/CS2 styling follows their respective selected themes.
+
 # Current Swiss presentation
 
 - October 12: user accepted combined Swiss mock 1+4, table from 1 and Dota

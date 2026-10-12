@@ -2,7 +2,9 @@
 
 Contract (Roman, 7 October 2026): `/orgs` contains one read-only table of matches,
 broadcasts, casters and partners across all tournaments, with tournament filtering.
-The login/password are server deployment environment variables. No editing API.
+The login/password are server deployment environment variables. Sports results
+and schedules remain read-only. Later captain controls use their existing
+contract; the authorized 12 October match-center scope adds manual map media below.
 
 ## Column controls
 
@@ -53,12 +55,15 @@ navigation; these discovery settings are separate from server authorization.
 | `/api/orgs/login` | POST JSON `{login,password}` | Public, origin-scoped | Random session token, `expiresAt` |
 | `/api/orgs/matches` | GET | `Authorization: Bearer <token>` | Table snapshot, source availability |
 | `/api/orgs/logout` | POST | Same token | 204, session revoked |
+| `/api/orgs/media` | GET / POST JSON | Same organizer token | Map catalog / manual media save or delete |
+| `/api/match-media?tournamentId=…&matchId=…` | GET / HEAD | Public, origin-scoped | Safe links for this one match only |
 
 All responses use `Cache-Control: no-store`. Missing credentials give 503;
 invalid login or session gives 401; disallowed origin gives 403; failed login
 attempts are limited to 5 per minute per backend-observed address and process.
 JSON login body is limited to 4 KiB. Wrong methods give 405. There is no write
-endpoint for matches, results or assignments.
+endpoint for sports results or schedules. The separate media endpoint writes
+only the dedicated document described below.
 
 Session lifetime is eight hours. Tokens are held only in the mounted page's
 memory, never in local/session storage or URLs. The backend stores token hashes
@@ -103,3 +108,91 @@ existing result normalizer confirms them. Technical results remain distinct.
 Local checks: `node --test tests/organizer.test.mjs`, the existing backend runtime
 checks and `npm run build` / `npm run test:sites`. Browser acceptance covers login,
 filters, refresh/logout, desktop/mobile table scrolling and navigation links.
+
+## Manual clips and recording timestamps — 12 October 2026
+
+The organizer selects «Клипы и записи», a match and an actual published map.
+They can save a ready clip URL or a recording URL with a start timestamp and
+optional end timestamp/title, edit it, or delete it. All URLs must be HTTPS
+without embedded credentials. Start/end are integer seconds; the form accepts
+`MM:SS` or `H:MM:SS`. End must follow start. Empty BO3/BO5 slots, future named
+maps and technical maps are not clip targets. No clipping API, file download,
+video processing, automatic timestamps or result/schedule mutation is added.
+
+`src/lib/match-center.js` owns the map order and identity. The media catalog uses
+its actual map `id:<sourceMapId>` key, or `number:<published map number>` only
+when that published map has no ID. Each saved item also retains the number and
+source ID. Public projection excludes entries whose current map identity no
+longer matches. Clips for another match/map are never inherited. A map with no
+valid clips renders no public media block.
+
+`backend/match-media-store.mjs` stores schema 1 in the existing Timeweb S3 bucket,
+under **`media/match-highlights-v1.json`**, separately from captain/results/MVP
+objects. It reuses server `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`, region
+`ru-1`, endpoint `https://s3.twcstorage.ru`, and existing optional
+`YCS_CAPTAIN_BUCKET` (otherwise the existing bucket). No new bucket, host,
+credential, encryption requirement or database is introduced. The document is
+public-safe whitelisted media metadata and request fingerprints, but its S3
+ACL remains `private`; anonymous visitors receive only the backend projection.
+The object has `Cache-Control: no-store`, bounded reads, conditional creation
+(`If-None-Match: *`) and conditional updates with the read ETag. The established
+quoted-to-bare ETag fallback retains the same expected token. A missing object
+starts empty; denial, corruption, missing ETag and incompatible schemas fail
+closed. A cold process reads S3, not an in-memory authoritative copy.
+
+POST `/api/orgs/media` receives:
+
+```json
+{
+  "action": "upsert",
+  "requestId": "32 lowercase hexadecimal characters",
+  "expectedRevision": 0,
+  "tournamentId": "published tournament ID",
+  "matchId": "published fixture ID",
+  "mapKey": "id:actual-source-map-id",
+  "kind": "recording",
+  "url": "https://example.com/published-recording",
+  "title": "",
+  "startSeconds": 83,
+  "endSeconds": 105
+}
+```
+
+For a ready `clip`, times are null. `clipId` edits an existing item in that exact
+scope. Delete accepts only `action: "delete"`, the same revision/request/scope
+fields and required `clipId`. Server authorization uses the existing organizer
+session before any media read/write. Unknown fields, URL, timing or scope give
+400/404. Revision/CAS conflicts give 409 and require reading the current list;
+there is no silent overwrite or automatic merge. Exact request retries return
+the retained receipt without a duplicate; reusing that ID for another body gives
+409. A lost PUT response is accepted only after a read proves its fingerprint;
+otherwise the outcome remains unknown, with a safe same-request retry in UI.
+
+Public GET returns `{schemaVersion, revision, catalogVersion, updatedAt, tournamentId, matchId,
+clips}`. Each clip has `{id, mapKey, mapNumber, mapId, kind, url, title,
+startSeconds, endSeconds, href}`. Requests, session tokens, usernames, assignments,
+chat and result claims never enter this DTO.
+`catalogVersion` fingerprints the selected fixture's current map identities;
+catalog changes may safely hide/unhide links without changing the media revision.
+The client accepts that changed projection, rejects differing data with the same
+media revision/catalog fingerprint, and never carries a previous fixture's clips
+into the next route. The public handler is read-only and
+uses the same exact allowed website origin as the organizer API. The frontend
+reuses `VITE_YCS_ORGS_API_URL` and the known existing backend origin; it contains
+no credentials. YouTube watch/short-link and Twitch VOD links receive their
+start parameter; other recording URLs remain intact with visible time metadata.
+The external player owns playback; end time does not promise automatic stopping.
+
+Canonical code is prepared in this repository, including `backend/server.mjs`
+integration. The active Tg-mcp runtime must package these same modules and mount
+the public handler in its existing router during a separately authorized release.
+Its explicit source manifest must include `backend/match-media-service.mjs`,
+`backend/match-media-store.mjs`, `src/lib/match-media.js` and `src/lib/match-center.js`
+alongside the existing backend/common models and all five tournament JSONs.
+`createOrganizerHandler` receives that same `mediaService` instance for the
+authenticated route; `createMatchMediaPublicHandler({service, env})` mounts
+`/api/match-media` in the existing router. The canonical `createResultsServer`
+already supplies both routes. This is a packaging/router handoff, not a new host.
+No deployment or runtime integration in another repository is claimed here.
+Author tests: `node --test tests/match-media.test.mjs`. Real S3/provider behavior,
+hosting CORS and production UI require their own release readback.

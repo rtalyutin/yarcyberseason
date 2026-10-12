@@ -1,0 +1,32 @@
+{
+  "executedAt": "2026-10-12T13:24:40.858Z",
+  "snapshotRevision": 19,
+  "passed": 6,
+  "failed": 0,
+  "results": [
+    {
+      "name": "real Dota BO1 uses this map MVP, ten rows and no clips without URLs",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical empty broadcasts never use legacy URL fallback",
+      "status": "PASS"
+    },
+    {
+      "name": "estimated map exposes notices and dashes, no fabricated raw metrics",
+      "status": "PASS"
+    },
+    {
+      "name": "technical no-play has no individual statistics or MVP award",
+      "status": "PASS"
+    },
+    {
+      "name": "real CS2 BO5 unknown maps do not acquire demo statistics or names",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit multiple CS2 MVPs do not invent equality of points",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildMvpSnapshot, formatMvpScore, scoreDotaMap, validateMvpSnapshot } from '../src/lib/dota-mvp.js';
-import { getDotaMatchMvp } from '../src/lib/dota-match-mvp.js';
+import { getDotaMapMvp, getDotaMatchMvp } from '../src/lib/dota-match-mvp.js';
 
 const heroes = Object.fromEntries(Array.from({ length: 10 }, (_, index) => [index + 1, `npc_dota_hero_synthetic_${index + 1}`]));
 const teams = { radiant: { id: 'alpha', name: 'Synthetic Alpha' }, dire: { id: 'beta', name: 'Synthetic Beta' } };
@@ -174,5 +174,75 @@ test('series aggregation remains explicitly unsupported until its match MVP rule
     const result = getDotaMatchMvp(input);
     assert.equal(result.status, 'unsupported');
     assert.deepEqual(result.leaders, []);
+  }
+});
+
+test('BO3/BO5 map MVP uses only the selected map while match-level aggregation stays unsupported', () => {
+  for (const bestOf of ['BO3', 'BO5']) {
+    const input = createDotaMatchMvpFixture();
+    input.match.bestOf = bestOf;
+    input.match.maps.push({ matchId: '702' });
+    input.tournament.stages[0].rounds[0].matches[1].maps = [];
+    for (const player of input.snapshot.players) for (const record of player.records) if (record.matchId === '702') record.fixtureId = input.match.id;
+    validateMvpSnapshot(input.snapshot, input.tournament);
+    assert.deepEqual(getDotaMapMvp({ ...input, mapId: '701' }).leaders.map((player) => player.accountId), ['2']);
+    assert.deepEqual(getDotaMapMvp({ ...input, mapId: '702' }).leaders.map((player) => player.accountId), ['1']);
+    assert.equal(getDotaMatchMvp(input).status, 'unsupported');
+  }
+});
+
+test('a validated played map can have MVP before its parent series ends; explicitly unconfirmed map cannot', () => {
+  const input = createDotaMatchMvpFixture();
+  Object.assign(input.match, { bestOf: 'BO3', status: 'live', resultConfirmed: false });
+  input.match.maps[0].resultConfirmed = true;
+  const ready = getDotaMapMvp({ ...input, mapId: '701' });
+  assert.equal(ready.status, 'ready');
+  assert.deepEqual(ready.leaders.map((player) => player.accountId), ['2']);
+  input.match.maps[0].resultConfirmed = false;
+  assert.equal(getDotaMapMvp({ ...input, mapId: '701' }).reason, 'map-not-confirmed');
+  assert.deepEqual(getDotaMapMvp({ ...input, mapId: '701' }).leaders, []);
+});
+
+test('per-map MVP preserves real raw metrics and hero ID while estimates have no fabricated metrics', () => {
+  const real = getDotaMapMvp({ ...createDotaMatchMvpFixture(), mapId: '701' });
+  assert.equal(real.leaders[0].heroId, 2);
+  assert.deepEqual(real.leaders[0].metrics, { K: 6, A: 0, L: 0, D: 0, T: 0, H: 0, C: '0', V: 0, S: 0 });
+  assert.equal(Object.hasOwn(real.leaders[0].metrics, 'GPM'), false);
+  const estimated = getDotaMapMvp({ ...createDotaMatchMvpFixture('estimated'), mapId: '701' });
+  assert.equal(estimated.status, 'estimated');
+  assert.ok(estimated.players.every((player) => player.metrics === null));
+  assert.equal(estimated.leaders.length, 5);
+});
+
+test('per-map selection rejects an unrelated map ID instead of showing its tournament leader', () => {
+  const input = createDotaMatchMvpFixture();
+  const result = getDotaMapMvp({ ...input, mapId: '702' });
+  assert.equal(result.reason, 'map-not-linked');
+  assert.deepEqual(result.leaders, []);
+});
+
+test('an unused BO3 decider or cancelled fixture cannot award MVP from a retained snapshot', () => {
+  const input = createDotaMatchMvpFixture();
+  Object.assign(input.match, { bestOf: 'BO3', score1: 2, score2: 0,
+    maps: [{ matchId: '701' }, { name: 'Карта 2' }, { matchId: '702' }] });
+  input.tournament.stages[0].rounds[0].matches[1].maps = [];
+  for (const player of input.snapshot.players) for (const record of player.records) if (record.matchId === '702') record.fixtureId = input.match.id;
+  validateMvpSnapshot(input.snapshot, input.tournament);
+  const unused = getDotaMapMvp({ ...input, mapId: '702' });
+  assert.equal(unused.status, 'not-played');
+  assert.deepEqual(unused.leaders, []);
+  input.match.status = 'cancelled';
+  assert.equal(getDotaMapMvp({ ...input, mapId: '701' }).status, 'not-played');
+  assert.deepEqual(getDotaMapMvp({ ...input, mapId: '701' }).leaders, []);
+});
+
+test('explicit map cancellation or live state suppresses retained per-map MVP', () => {
+  for (const status of ['cancelled', 'live']) {
+    const input = createDotaMatchMvpFixture();
+    input.match.maps[0].status = status;
+    const result = getDotaMapMvp({ ...input, mapId: '701' });
+    assert.equal(result.status, status === 'cancelled' ? 'not-played' : 'pending');
+    assert.deepEqual(result.leaders, []);
+    assert.deepEqual(result.players, []);
   }
 });

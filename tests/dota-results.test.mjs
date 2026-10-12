@@ -45,15 +45,15 @@ test("published round period matches either day without inventing an appointment
   assert.deepEqual(fixture, before);
 });
 
-test("approved R2 result and complete R1 publish once and update Swiss once", () => {
+test("published R1–R3 results update Swiss once and retain organizer map evidence", () => {
   const collected = collectDotaResults(publishedTournament, []);
   const view = applyDotaSnapshot(publishedTournament, collected.snapshot);
   const rows = view.stages[0].groups[0].rows;
   assert.deepEqual(rows.find((row) => row.team === "Aegis Guardians"), {
-    team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 2, won: 2, lost: 0,
+    team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 3, won: 3, lost: 0,
   });
   assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
-  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 28);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 36);
   assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
     [['9039436432', 37, 21, 2395]]);
   assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);
@@ -204,7 +204,8 @@ test('organizer results publish confirmed outcomes with no fabricated map or tec
   assert.deepEqual([technical.score1, technical.score2, technical.maps.length], [0,1,0]);
   assert.deepEqual(snapshot.matches['dota-autumn-swiss-r1-03'].maps.map(m=>[m.matchId,m.kills1,m.kills2,m.durationSeconds]), [['9037645797',34,32,3331]]);
   const updated = applyDotaSnapshot(publishedTournament, snapshot);
-  for (const team of ['Team Borisogleb','strela team']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).won,1);
+  assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='Team Borisogleb').won,2);
+  assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='strela team').won,1);
   for (const team of ['ARB Esports','Tech Titans']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).lost,1);
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='liqa sto').lost,2);
   assert.equal(updated.stages[0].rounds[0].matches.filter(m=>m.status==='scheduled').length,0);

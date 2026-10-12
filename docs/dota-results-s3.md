@@ -129,3 +129,25 @@ API data may enrich the same outcome; a contradictory outcome is flagged.
 If league discovery fails, known/explicitly confirmed map IDs continue to be
 retried, with discovery incompleteness preserved in MVP metadata. Automatic
 API series publication waits for complete discovery; organizer outcomes do not.
+
+## Round-three data reconciliation (12 October 2026)
+
+The source tournament now includes the two completed BO1 fixtures from exact
+OpenDota maps: Aegis–Mi Ne Pushim! 1:0 (`9041914655`, kills 43:38, 4126 s)
+and TEAM SPERMINT–Easy Gaming 0:1 (`9041955914`, kills 50:37, 2586 s).
+Existing public R2 results are also retained in the static source. Swiss counts
+completed series once; Aegis reaches 3:0. OpenDota `radiant_win`, not kills or
+API `series_type`, supplies each map winner; the published fixture supplies BO.
+
+Vnext–PIVNAYA KEGA has one verified map (`9041929139`, KEGA win, kills 28:51,
+3086 s). Its map is confirmed separately while the BO3 result stays unknown,
+without a series winner or final series score. It does not change Swiss totals.
+Verified OpenDota IDs bind the recovered R3 pairs and the known Parallax–Fummo
+pair whose API team name differs from the published display name.
+
+The active Tg-mcp package previously contained only R1/R2 fixtures, so the
+three R3 maps were reported as unmatched and held back automatic results.
+Transfer the current shared tournament JSON and update both manifest hashes
+and schedule provenance before release; leave writer code, credentials,
+private captain state and unrelated runtime assets unchanged. Verify the
+deployed package, the next S3 result/MVP readback and existing client projection.

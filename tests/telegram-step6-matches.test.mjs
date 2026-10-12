@@ -30,9 +30,9 @@ function fixture(name, change = () => {}) {
 const editMatch = (edit) => (t) => edit(t.stages[0].matches[0]);
 
 test("matches real tournament shows current results and published times", () => {
-  assert.equal(real.matches.length, 16);
+  assert.equal(real.matches.length, 24);
   const html = render(real);
-  assert.equal((html.match(/<details class="tg-match-row"/g) || []).length, 16);
+  assert.equal((html.match(/<details class="tg-match-row"/g) || []).length, 24);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.match(html, /Завершён/);
   assert.match(html, /Техническая победа/);
@@ -41,7 +41,7 @@ test("matches real tournament shows current results and published times", () => 
   assert.match(html, /18:00 МСК/);
   assert.match(html, /22:00 МСК/);
   assert.match(html, /19:00 МСК/);
-  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 10);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 18);
   assert.doesNotMatch(html, /в 00:00|>0\s*:\s*0<|Alpha|bobr1ki|Этот раздел ещё готовится/);
 });
 test("matches use inline native disclosure with published pair, round, format and Moscow date", () => {

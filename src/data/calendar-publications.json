@@ -184,9 +184,9 @@
       "summary": "TEAM SPERMINT — Team Borisogleb · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-03",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-11T09:16:56.955Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 1,
+      "updatedAt": "2026-10-12T18:16:35.787Z"
     },
     {
       "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-04",
@@ -203,9 +203,9 @@
       "summary": "Mi Ne Pushim! — Parallax Team · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r2-04",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 1,
-      "updatedAt": "2026-10-11T09:43:52.618Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 2,
+      "updatedAt": "2026-10-12T18:16:35.787Z"
     },
     {
       "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r2-05",

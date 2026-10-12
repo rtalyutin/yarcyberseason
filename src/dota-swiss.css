@@ -1,0 +1,115 @@
+/* Selected Swiss 1+4. Isolated from the shared header and other sections/themes. */
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-heading {
+  min-height: 0; padding: 8px 40px; width: min(1800px, 100%); background: #071d21;
+}
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-heading::before { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-heading > * { max-width: 1656px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-layout { width: min(1800px, 100%); }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-sidebar { padding-inline: clamp(16px, 4vw, 72px); background: #071d21; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-content { padding: 0; }
+.dota-swiss {
+  --ds-ink: #eef3ed; --ds-muted: #b3c8cb; --ds-rule: #325257;
+  color: var(--ds-ink); background: #041c21 url('/assets/swiss/swiss-environment.webp') center top / 100% auto no-repeat;
+  padding: clamp(26px, 3vw, 54px) clamp(16px, 4vw, 72px) 36px;
+  font-family: 'YCS Sans', Arial, sans-serif;
+}
+.ds-intro { min-height: 150px; max-width: 1120px; padding: 0 12px 24px; }
+.ds-intro h1 { margin: 0 0 14px; font: 800 clamp(34px, 5.25vw, 76px)/1.05 'YCS Dota Display', sans-serif; text-transform: uppercase; letter-spacing: -.025em; color: #f4f1e3; }
+.ds-intro p { margin: 0; max-width: 880px; font-size: clamp(14px, 1.2vw, 18px); line-height: 1.5; text-wrap: pretty; }
+.ds-paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 28px; padding: 0; list-style: none; background: rgb(1 20 26 / .84); border: 1px solid #325257; }
+.ds-path { position: relative; display: grid; grid-template-columns: minmax(84px, 42%) minmax(0, 1fr); align-items: center; min-height: 208px; padding: 12px 24px 12px 6px; border-top: 2px solid var(--ds-accent); }
+.ds-path + .ds-path { border-left: 1px solid #325257; }
+.ds-path--3 { --ds-accent: #5de5b5; }
+.ds-path--4 { --ds-accent: #60ccff; }
+.ds-path--5 { --ds-accent: #dba2ff; }
+.ds-portal { display: block; width: 100%; height: 188px; object-fit: contain; transform: scale(1.15); transform-origin: center bottom; }
+.ds-path-copy { padding: 10px 0; text-align: center; }
+.ds-path-copy > span { color: var(--ds-accent); font-size: 22px; font-weight: 700; }
+.ds-path-copy > strong { display: block; margin: 4px 0 8px; white-space: nowrap; font-size: clamp(38px, 4vw, 60px); line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums; }
+.ds-path-copy p { margin: 0; font-size: 17px; line-height: 1.35; }
+.ds-path-arrow { position: absolute; right: -13px; top: calc(50% - 13px); z-index: 1; width: 26px; height: 26px; color: #b0eff4; background: #06232a; }
+.ds-tables { display: grid; gap: 24px; }
+.ds-table-frame { min-width: 0; padding: 10px; background: #16323b url('/assets/themes/dota-charcoal-lite.webp') center / 760px; border: 1px solid #3a535c; }
+.ds-table { width: 100%; border-collapse: collapse; table-layout: fixed; background: #041c21; color: var(--ds-ink); }
+.ds-table caption { padding: 16px 20px 14px; text-align: left; caption-side: top; font-size: 24px; font-weight: 700; background: #041c21; }
+.ds-table thead th { padding: 12px; text-align: left; color: #bad2d6; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; border-block: 1px solid var(--ds-rule); }
+.ds-table thead th:first-child { width: 5%; }
+.ds-table thead th:nth-child(2) { width: 40%; }
+.ds-table thead th:nth-child(3) { width: 13%; }
+.ds-table thead th:nth-child(4) { width: 17%; }
+.ds-table thead th:nth-child(5) { width: 25%; }
+.ds-table tbody :is(th, td) { padding: 6px 12px; border-bottom: 1px solid #244247; font-size: clamp(14px, 1.15vw, 18px); line-height: 1.35; }
+.ds-table tbody tr:last-child :is(th, td) { border-bottom: 0; }
+.ds-table .ds-index { text-align: center; color: var(--ds-muted); font-size: 14px; }
+.ds-team { text-align: left; font-weight: 700; }
+.ds-team > div { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.ds-team img { width: 32px; height: 32px; object-fit: contain; flex: 0 0 32px; }
+.ds-team a { display: inline-flex; align-items: center; min-height: 32px; color: inherit; text-decoration: none; overflow-wrap: anywhere; }
+.ds-team a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.ds-team a:focus-visible { outline: 2px solid #9bf4e5; outline-offset: 4px; }
+.ds-score { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ds-wins { display: inline-flex; align-items: center; gap: 7px; vertical-align: middle; }
+.ds-wins svg { width: 18px; height: 18px; color: #8ba8ae; }
+.ds-wins .is-filled { color: #8ae8e4; }
+.ds-status { color: #c5d5d6; }
+.ds-row--active:hover, .ds-row--unknown:hover { background: #0b3036; }
+.ds-row--qualified-3 { background: #073c32; --ds-state: #7ff7c9; }
+.ds-row--qualified-4 { background: #0a304b; --ds-state: #86d9ff; }
+.ds-row--qualified-5 { background: #322047; --ds-state: #e0b3ff; }
+.ds-row--eliminated { background: #351d27; --ds-state: #ffa5a9; }
+.ds-row[class*="qualified"], .ds-row--eliminated { box-shadow: inset 3px 0 var(--ds-state); }
+.ds-row[class*="qualified"] .ds-status, .ds-row--eliminated .ds-status { color: var(--ds-state); font-weight: 700; }
+.ds-row[class*="qualified"] .ds-wins .is-filled { color: var(--ds-state); }
+.ds-empty { padding: 28px; background: #041c21; border: 1px solid var(--ds-rule); }
+.ds-empty h2 { margin-top: 0; }
+.ds-footnote { padding: 14px 12px 0; color: #b3c8cb; font-size: 15px; line-height: 1.5; }
+.ds-footnote p { margin: 5px 0; }
+@media (max-width: 1100px) {
+  .ds-intro { min-height: 140px; }
+  .ds-path { padding-right: 12px; grid-template-columns: 40% minmax(0, 1fr); min-height: 164px; }
+  .ds-portal { height: 140px; transform: scale(1.3); }
+  .ds-path-copy > span { font-size: 18px; }
+  .ds-path-copy p { font-size: 14px; }
+  .ds-table tbody :is(th, td) { font-size: 14px; padding: 3px 10px; }
+  .ds-team img { width: 28px; height: 28px; flex-basis: 28px; }
+  .ds-team a { min-height: 28px; }
+  .ds-table thead th:nth-child(2) { width: 38%; }
+  .ds-table thead th:nth-child(4) { width: 16%; }
+  .ds-table thead th:nth-child(5) { width: 28%; }
+  .ds-team > div { gap: 10px; }
+}
+@media (max-width: 650px) {
+  .site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--swiss[data-section] .tn-heading { padding-inline: 16px; }
+  .dota-swiss { padding: 28px 12px 24px; background-size: auto 900px; }
+  .ds-intro { min-height: 0; padding: 0 4px 24px; }
+  .ds-intro h1 { font-size: clamp(29px, 7.4vw, 44px); }
+  .ds-intro p { font-size: 16px; }
+  .ds-paths { margin-bottom: 22px; }
+  .ds-path { display: flex; flex-direction: column; min-height: 0; padding: 5px 4px 12px; }
+  .ds-portal { height: 116px; transform: none; }
+  .ds-path-copy { padding: 0; }
+  .ds-path-copy > span { font-size: 16px; }
+  .ds-path-copy > strong { margin: 4px 0 8px; font-size: 34px; }
+  .ds-path-copy p { font-size: 12px; }
+  .ds-path-arrow { top: 58px; width: 20px; height: 20px; right: -10px; }
+  .ds-table-frame { padding: 5px; }
+  .ds-table, .ds-table caption, .ds-table thead, .ds-table tbody { display: block; }
+  .ds-table caption { padding: 14px 10px; font-size: 22px; }
+  .ds-table tr { display: grid; grid-template-columns: minmax(0, 1fr) 46px 62px; column-gap: 6px; }
+  .ds-table thead tr { padding: 0 8px; border-block: 1px solid var(--ds-rule); }
+  .ds-table thead th { width: auto; padding: 10px 0; font-size: 10px; letter-spacing: .06em; border: 0; }
+  .ds-table thead th:nth-child(n) { width: auto; }
+  .ds-table .ds-index, .ds-table .ds-status-heading { display: none; }
+  .ds-table tbody tr { padding: 6px 8px 10px; border-bottom: 1px solid #325257; }
+  .ds-table tbody :is(th, td) { width: auto; border: 0; padding: 0; font-size: 15px; }
+  .ds-team { grid-column: 1; grid-row: 1; }
+  .ds-team > div { gap: 8px; }
+  .ds-team img { width: 28px; height: 28px; flex-basis: 28px; }
+  .ds-team a { min-height: 44px; }
+  .ds-score { grid-column: 2; grid-row: 1; align-self: center; }
+  .ds-wins-cell { grid-column: 3; grid-row: 1; align-self: center; }
+  .ds-wins { gap: 5px; }
+  .ds-wins svg { width: 16px; height: 16px; }
+  .ds-table tbody .ds-status { grid-column: 1 / -1; grid-row: 2; padding-left: 36px; font-size: 12px; }
+  .ds-footnote { font-size: 13px; padding-inline: 6px; }
+}

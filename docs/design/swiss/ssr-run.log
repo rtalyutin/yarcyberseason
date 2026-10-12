@@ -1,0 +1,8 @@
+PASS all-15-legal-records: SSR status, three win pips, accessible meaning
+PASS invalid-or-unknown-inputs: no qualification, no fabricated zero victories
+PASS bundled-source-fallback: exact 16 existing source records retained, active statuses, no mock examples
+PASS independent fixture totals match displayed standings without counting unconfirmed R3
+PASS existing result-reader overlay changes 2:0 to 3:0 without mutating source or other fixtures
+PASS empty groups show honest unpublished state, no synthetic row
+PASS sorting is stable among equal records and leaves original references/data intact
+PASS semantic landmarks and real asset references are present

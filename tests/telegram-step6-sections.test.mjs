@@ -38,7 +38,7 @@ test("step6 rules render all published stage rules and participation conditions"
   assert.ok(!html.includes("Этот раздел ещё готовится"));
   assert.ok(!html.includes("forms.yandex"));
 });
-test("step6 schedule renders completed first three rounds and undated fourth-round pairs", () => {
+test("step6 schedule renders completed first three rounds and fourth-round pairs on October13 without a start time", () => {
   const html = render(real, "schedule");
   for (const item of real.timeline) {
     assert.ok(html.includes(item.label)); assert.ok(html.includes(item.date));
@@ -61,8 +61,8 @@ test("step6 schedule renders completed first three rounds and undated fourth-rou
   assert.deepEqual(pendingThirdRound, []);
   const pendingFourthRound = real.matches.filter((match) => match.roundId === "round-4");
   assert.deepEqual(pendingFourthRound.map((match) => match.id), Array.from({ length: 6 }, (_, index) => `dota-autumn-swiss-r4-0${index + 1}`));
-  assert.ok(pendingFourthRound.every((match) => match.status === "scheduled" && match.scheduledAt === null && match.date === null && match.dateDisplay === "Дата уточняется" && match.result.score === null));
-  assert.match(html, /Дата уточняется/);
+  assert.ok(pendingFourthRound.every((match) => match.status === "scheduled" && match.scheduledAt === null && match.date === "2026-10-13" && match.dateDisplay === "13 октября 2026 г." && match.result.score === null));
+  assert.match(html, /13 октября 2026 г\./);
   assert.match(html, /15:00 МСК/);
   assert.match(html, /22:00 МСК/);
   assert.match(html, /18:00 МСК/);

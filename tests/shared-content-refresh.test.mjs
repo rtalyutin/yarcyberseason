@@ -66,7 +66,7 @@ test('shared home projects current Dota, completed CS2, scoped partners and no i
   assert.equal(content.broadcast.match.id, 'dota-autumn-swiss-r4-04');
   assert.deepEqual([content.broadcast.match.team1, content.broadcast.match.team2], ['Vnext', 'strela team']);
   assert.equal(content.broadcast.match.scheduledAt, undefined);
-  assert.equal(content.broadcast.date, 'Дата уточняется');
+  assert.equal(content.broadcast.date, '13 октября 2026 г.');
   assert.deepEqual(content.broadcast.links.map((link) => link.href), ['https://www.twitch.tv/YarCyberSeason']);
   assert.deepEqual(content.broadcast.casters, []);
   assert.deepEqual(content.partners.map((partner) => partner.id), ['dodo-pizza', 'torrefacto', 'redragon']);
@@ -76,7 +76,7 @@ test('shared home projects current Dota, completed CS2, scoped partners and no i
   assert.doesNotMatch(minimal.facts.join(' '), /undefined|null/);
 });
 
-test('actual undated fourth-round stream survives clock changes and closes only on confirmed completion', () => {
+test('actual fourth-round stream with only a calendar date survives clock changes and closes only on confirmed completion', () => {
   const initial = loadHomeContent(new Date('2026-10-11T08:00:00Z'));
   const elapsed = loadHomeContent(new Date('2026-10-13T08:00:00Z'));
   assert.equal(initial.broadcast.match.id, 'dota-autumn-swiss-r4-04');

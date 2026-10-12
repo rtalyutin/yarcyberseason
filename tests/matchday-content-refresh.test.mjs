@@ -9,8 +9,8 @@ const fixture = (matches) => ({ id: 'dota-fixture', discipline: 'Dota 2', stages
 test('current Dota Matchday retains all actual results, partial R2 dates and no empty playoff slots', () => {
   const model = getMatchdayModel(currentDota);
   assert.equal(model.matches.length, 30);
-  assert.deepEqual(model.days.map((day) => day.date), ['2026-10-09', '2026-10-10', '2026-10-11', '2026-10-12', 'undated']);
-  assert.equal(model.defaultDate, 'undated');
+  assert.deepEqual(model.days.map((day) => day.date), ['2026-10-09', '2026-10-10', '2026-10-11', '2026-10-12', '2026-10-13', 'undated']);
+  assert.equal(model.defaultDate, '2026-10-13');
   assert.equal(model.days[2].scheduled.length, 0);
   assert.equal(model.days[2].completed.length, 5);
   const psb = model.days[2].completed.find((match) => match.id === 'dota-autumn-swiss-r2-05');
@@ -22,8 +22,8 @@ test('current Dota Matchday retains all actual results, partial R2 dates and no 
   const mnp = model.days[2].completed.find((match) => match.id === 'dota-autumn-swiss-r2-04');
   assert.equal(mnp.scheduledAt, '2026-10-11T19:00:00+03:00');
   const pending = model.days.at(-1);
-  assert.equal(pending.dateLabel, 'Дата уточняется');
-  assert.equal(pending.scheduled.length, 6);
+  assert.equal(pending.dateLabel, '11–12 октября');
+  assert.equal(pending.scheduled.length, 0);
   assert.equal(pending.completed.length, 3);
   const third = model.days[3];
   assert.equal(third.completed.length, 8);
@@ -40,7 +40,11 @@ test('current Dota Matchday retains all actual results, partial R2 dates and no 
   assert.equal(technical.winner, 'Tech Titans');
   assert.deepEqual(technical.maps, []);
   assert.ok(pending.completed.every((match) => match.date === '11–12 октября' && !match.scheduledAt && !match.time));
-  assert.ok(pending.scheduled.every((match) => match.roundId === 'round-4' && !match.date && !match.scheduledAt && !match.time));
+  const fourth = model.days.find((day) => day.date === '2026-10-13');
+  assert.equal(fourth.dateLabel, '13 октября');
+  assert.equal(fourth.completed.length, 0);
+  assert.equal(fourth.scheduled.length, 6);
+  assert.ok(fourth.scheduled.every((match) => match.roundId === 'round-4' && match.date === '2026-10-13' && !match.scheduledAt && !match.time));
   const opening = model.days[0].completed.find((match) => match.id === 'dota-autumn-swiss-r1-04');
   assert.ok(opening);
   assert.deepEqual([getDisplayedResult(opening).score1, getDisplayedResult(opening).score2], [1, 0]);

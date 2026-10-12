@@ -103,7 +103,7 @@ test('confirmed final, unknown scores, yearless dates and published Swiss rounds
   assert.ok(!technical.scheduledAt);
   const fourth = upcoming.items.filter((match) => match.id.startsWith('dota-autumn-swiss-r4-'));
   assert.equal(fourth.length, 6);
-  assert.ok(fourth.every((match) => match.status === 'scheduled' && !match.date && !match.scheduledAt && match.result.score === null && match.result.maps.length === 0));
+  assert.ok(fourth.every((match) => match.status === 'scheduled' && match.date === '2026-10-13' && !match.scheduledAt && !match.time && match.result.score === null && match.result.maps.length === 0));
   assert.deepEqual(fourth.find((match) => match.id === 'dota-autumn-swiss-r4-04').broadcastLinks, { twitch: 'https://www.twitch.tv/YarCyberSeason' });
   const autumn = (await call('ycs_get_tournament', { tournamentId: 'dota2-autumn-2026' })).tournament;
   assert.equal(autumn.registration.status, 'closed'); assert.equal(autumn.participants.length, 16);

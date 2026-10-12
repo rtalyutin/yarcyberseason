@@ -45,6 +45,33 @@ test("published round period matches either day without inventing an appointment
   assert.deepEqual(fixture, before);
 });
 
+test('fourth-round API windows include all of October13 and the overnight allowance without a public start time', () => {
+  const fourth = publishedTournament.stages[0].rounds.find((round) => round.id === 'round-4').matches;
+  assert.equal(fourth.length, 6);
+  for (const fixture of fourth) {
+    const before = structuredClone(fixture);
+    assert.equal(fixture.date, '2026-10-13');
+    assert.equal(fixture.windowStart, '2026-10-13T00:00:00+03:00');
+    assert.equal(fixture.windowEnd, '2026-10-14T03:00:00+03:00');
+    assert.equal(fixture.scheduledAt, undefined);
+    assert.equal(fixture.time, undefined);
+    assert.equal(fixture.resultConfirmed, undefined);
+    const map = { ...first, radiant_name: fixture.team1, dire_name: fixture.team2 };
+    for (const date of ['2026-10-13T00:00:00+03:00', '2026-10-13T12:00:00+03:00',
+      '2026-10-13T17:59:59+03:00', '2026-10-13T23:59:59+03:00', '2026-10-14T02:59:59+03:00']) {
+      const source = { ...map, start_time: Date.parse(date) / 1000 };
+      assert.equal(inFixtureWindow(source, fixture), true, `${fixture.id}: ${date}`);
+      assert.equal(fixtureFor(source, publishedTournament)?.id, fixture.id);
+    }
+    for (const date of ['2026-10-12T23:59:59+03:00', '2026-10-14T03:00:00+03:00']) {
+      const source = { ...map, start_time: Date.parse(date) / 1000 };
+      assert.equal(inFixtureWindow(source, fixture), false, `${fixture.id}: ${date}`);
+      assert.equal(fixtureFor(source, publishedTournament), null);
+    }
+    assert.deepEqual(fixture, before);
+  }
+});
+
 test("published R1–R3 results update Swiss once and retain organizer map evidence", () => {
   const collected = collectDotaResults(publishedTournament, []);
   const view = applyDotaSnapshot(publishedTournament, collected.snapshot);

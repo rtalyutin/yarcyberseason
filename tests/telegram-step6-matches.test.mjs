@@ -44,8 +44,8 @@ test("matches real tournament shows current results and published times", () => 
   assert.equal(real.matches.filter((match) => match.result.confirmed).length, 24);
   const fourth = real.matches.filter((match) => match.roundId === "round-4");
   assert.equal(fourth.length, 6);
-  assert.ok(fourth.every((match) => match.status === "scheduled" && match.dateDisplay === "Дата уточняется" && match.result.score === null && match.result.maps.length === 0));
-  assert.match(html, /Дата уточняется/);
+  assert.ok(fourth.every((match) => match.status === "scheduled" && match.dateDisplay === "13 октября 2026 г." && match.scheduledAt === null && match.result.score === null && match.result.maps.length === 0));
+  assert.match(html, /13 октября 2026 г\./);
   assert.doesNotMatch(html, /в 00:00|>0\s*:\s*0<|Alpha|bobr1ki|Этот раздел ещё готовится/);
 });
 test("matches use inline native disclosure with published pair, round, format and Moscow date", () => {

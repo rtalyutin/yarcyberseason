@@ -59,7 +59,7 @@ test('a next stream must have canonical links and advances only after confirmed 
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
 });
 
-test('confirmed technical decisions close a stream; the current selection uses the undated fourth round', () => {
+test('confirmed technical decisions close a stream; the current selection uses October13 without inventing a start time', () => {
   const data = fixture();
   Object.assign(featured(data), { status: 'walkover', score1: 1, score2: 0, scoreKind: 'technical', resultConfirmed: true });
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
@@ -70,7 +70,8 @@ test('confirmed technical decisions close a stream; the current selection uses t
   assert.deepEqual([board.match.team1, board.match.team2], ['Vnext', 'strela team']);
   assert.equal(board.match.bestOf, 'BO3');
   assert.equal(board.match.scheduledAt, undefined);
-  assert.equal(board.match.date, undefined);
+  assert.equal(board.match.date, '2026-10-13');
+  assert.equal(board.match.time, undefined);
   assert.deepEqual(getMatchBroadcastLinks(board.match), [{ platform: 'twitch', label: 'Смотреть на Twitch', href: 'https://www.twitch.tv/YarCyberSeason' }]);
   assert.equal(featured(tournament).resultConfirmed, true);
   assert.equal(featured(tournament).status, 'completed');

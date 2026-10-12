@@ -73,7 +73,7 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
   assert.equal(kega.entries[0].placement, 1);
 });
 
-test('fourth round pairs every remaining team once within its record, without rematches or invented dates', () => {
+test('fourth round pairs every remaining team once within its record on October13, without rematches or invented times', () => {
   const rounds = dota.stages.find((stage) => stage.id === 'swiss').rounds;
   const prior = rounds.slice(0, 3).flatMap((round) => round.matches);
   assert.equal(prior.length, 24);
@@ -103,7 +103,9 @@ test('fourth round pairs every remaining team once within its record, without re
     assert.equal(match.bestOf, first.lost === 2 ? 'BO3' : 'BO1');
     assert.equal(priorPairs.has(pairKey(match)), false);
     assert.equal(match.status, 'scheduled');
-    for (const key of ['date', 'dateDisplay', 'scheduledAt', 'time', 'resultConfirmed', 'score1', 'score2', 'maps']) {
+    assert.equal(match.date, '2026-10-13');
+    assert.equal(match.note, 'Время начала матча уточняется.');
+    for (const key of ['dateDisplay', 'scheduledAt', 'time', 'resultConfirmed', 'score1', 'score2', 'maps']) {
       assert.equal(Object.hasOwn(match, key), false, `${match.id}.${key}`);
     }
   }

@@ -1,0 +1,13 @@
+✔ release adapter: one organizer session owns existing matches/captains and new media, while public clips use no session (82.581251ms)
+✔ release adapter: origin, wrong map, HTTPS and strict public query boundaries do not mutate state (27.756931ms)
+✔ release adapter: existing eight-hour session expires for both old and new organizer routes (11.943428ms)
+✔ release adapter: disabled/stopped media is unavailable while unrelated routes remain unowned (22.957743ms)
+✔ release adapter: stop waits for a public media read already in flight and denies later reads (4.576722ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 433.345512

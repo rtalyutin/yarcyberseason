@@ -1,0 +1,118 @@
+{
+  "schema": "YCS_MEDIA_AUTHOR_BROWSER_CHECK/1",
+  "observedAt": "2026-10-12T13:21:31.881Z",
+  "sourceBase": "041c442dcf63a295e931bebbc3c63ac303fe720d",
+  "scope": "Actual OrganizerMedia component, synthetic catalogue and mock api prop in temporary .qa wrapper. Actual backend auth/CAS/cold HTTP reads tested separately; no production session.",
+  "viewport": {
+    "dpr": 1,
+    "height": 936,
+    "width": 1363
+  },
+  "checks": [
+    {
+      "id": "ready-clip-save",
+      "status": "PASS",
+      "observed": "Saved canonical clip and list confirmation; reload retained item through fixture storage."
+    },
+    {
+      "id": "recording-edit",
+      "status": "PASS",
+      "observed": {
+        "at": "2026-10-12T13:16:38.025Z",
+        "fields": [
+          "",
+          ""
+        ],
+        "items": [
+          {
+            "href": "https://www.twitch.tv/videos/123456789?t=0h1m23s",
+            "text": "QA: момент карты 1 ↗\n01:23 — 01:45\nИзменить\nУдалить"
+          }
+        ],
+        "viewport": {
+          "dpr": 1,
+          "height": 936,
+          "width": 1363
+        }
+      }
+    },
+    {
+      "id": "map-scope",
+      "status": "PASS",
+      "observed": "Map2 selection displayed no items while map1 retained its recording; no inheritance."
+    },
+    {
+      "id": "conflict-recovery",
+      "status": "PASS",
+      "observed": {
+        "at": "2026-10-12T13:18:06.151Z",
+        "clientWidth": 1348,
+        "items": [
+          {
+            "href": "https://clips.twitch.tv/QaManualMapTwo",
+            "text": "QA: момент карты 2 ↗\nИзменить\nУдалить"
+          }
+        ],
+        "notice": "Материал сохранён и доступен на странице этой карты.",
+        "scrollWidth": 1348,
+        "selectedMap": "id:702"
+      }
+    },
+    {
+      "id": "delete-empty",
+      "status": "PASS",
+      "observed": "Delete map2 clip produced Клип удалён and empty-map copy."
+    },
+    {
+      "id": "technical-empty",
+      "status": "PASS",
+      "observed": {
+        "at": "2026-10-12T13:18:43.169Z",
+        "forms": 0,
+        "items": 0,
+        "mapDisabled": true,
+        "select": "",
+        "text": "КАРТА МАТЧА\n\nКлипы и записи\n\nГотовый клип или запись с таймкодом — для конкретной сыгранной карты.\n\nОбновить\nМатч\nСИНТЕТИЧЕСКИЙ QA · BO3 · QA Alpha — QA Beta · qa-match\nСИНТЕТИЧЕСКИЙ QA · QA Gamma — QA Delta · qa-technical\nКарта\nНет опубликованных сыгранных карт\n\nДобавление станет доступно, когда будет опубликована сыгранная карта. Пустые и технические карты не получают клипы."
+      }
+    },
+    {
+      "id": "visual",
+      "status": "PASS",
+      "observed": "Native1363px actual screenshot: existing organizer blue/dark form, labelled fields and separated controls, no horizontal overflow."
+    }
+  ],
+  "correctedFinding": {
+    "id": "http-preview-request-id",
+    "cause": "crypto.randomUUID absent on HTTP terminal.local; thrown before API.",
+    "fix": "Production component now uses cryptographic getRandomValues16bytes, same32hexidentity contract.",
+    "rerun": "PASS: save/edit/conflict/delete all executed after fix."
+  },
+  "limits": [
+    "Fixture transport is mock. This browser run does not claim real S3 or a deployed media API.",
+    "Mobile form viewport not tested; backend/client suites and independent catalogue repro recorded separately."
+  ],
+  "temporaryFiles": "Removed after evidence capture",
+  "screenshot": "organizer-media-preview.jpg",
+  "sourceManifest": {
+    "backend/match-media-service.mjs": "a20578456ac6c9fe8f0e25cfcbe2733e7a0d32de1d302bb6a14a44c5891e101b",
+    "backend/match-media-store.mjs": "2648b0d31c8be2976cac02c19eb62e3daca7f8e37a16ba35c2cd5576d5c39c49",
+    "backend/organizer-api.mjs": "33ea829ad5f855e890c42b1635b29183444cd37d326185c8f698411f2a7cbed0",
+    "backend/server.mjs": "e5f8e1a4cbce75ea191420a38baa16cf7e0c360d9f0b6f769e9582ddb3be4f41",
+    "docs/organizer-table.md": "bf4a78e11ac87e5267dbaf9271f046f52be5453e06567b629bdeeff21c6d15e8",
+    "src/components/OrganizerMedia.jsx": "01cd130633eece1b26930ae9b63536097f12d653e62696239b9a9d048f90a1bb",
+    "src/components/OrganizerPage.jsx": "6ace17dc3ca7de38f972267d8ba2b3b487882b1168683a1f9f32168bced96c0c",
+    "src/lib/match-center.js": "2ac337792363d055125bdea712b927b26e9440f92aa1c626f07fca73b39721d2",
+    "src/lib/match-media-client.js": "a5ab1a82edf05de5b0487236e284a58534acfb8e680dc2dc6535ef4b60ee622e",
+    "src/lib/match-media.js": "61e0a4b390fb59fc36ebb0e7cfcd8608c3b589cdd0058a812227e3e5fe84186b",
+    "src/organizer-media.css": "4a8a585912d1000cfc6d92d291011c550f979524b50d4478118b78413787a465",
+    "tests/match-media.test.mjs": "fabbd580ac67602aa96a67605499b633eddaf78ab654b24dd41fe8329c246716"
+  },
+  "sourceManifestSha256": "6c2741fdde92e19eeb7e32a64c99d89adb77524256b5d5fae337d4508d65a6b9",
+  "authorTests": {
+    "command": "node --test tests/match-media.test.mjs tests/organizer.test.mjs tests/organizer-captains-ui.test.mjs tests/organizer-columns.test.mjs",
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "note": "Latest author rerun after catalogVersion correction and fs-based catalog loading. Real S3 not accessed."
+  }
+}

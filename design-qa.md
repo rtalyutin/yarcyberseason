@@ -1,45 +1,94 @@
-# Dota Swiss design QA — 12 October 2026
+# Match-center design QA
 
-Source: accepted combined mock `exec-c2553fcf-cc26-455d-bfb2-7da75295c119.png`, 1024×1536. Contract: `docs/design/swiss/TASK_STATE.md` (Swiss 1+4). Implementation: branch `codex/swiss-design-2026-10-12`, base `303682e012f9106c23e7e123bf84b20b5f7b9027`. Prior match-detail report is preserved at `docs/design/match-detail/design-qa-before-swiss.md`.
+Source visual truth: selected Dota BO1 `exec-e11db36b-9e9a-4aa3-870c-86589b5d3c3e.png`,
+Dota BO3 `exec-e6bb9e55-13ce-42ae-b5e7-86a498a7ff77.png`, CS2
+`exec-adc82e1d-6ef4-4120-8f40-c1b37489b78a.png` from this conversation. Source pixels:
+1092×1440 (Dota BO1), 921×1708 (CS2). The paired JPEGs include source and render.
 
-## Comparison and fixes
+Implementation: actual cloud Chrome, `terminal.local:4173`, real React components.
+Final evidence under `docs/design/match-center/evidence/`. Browser native viewport
+1363×936, DPR1; local iframe viewport widths used for responsive verification.
+The isolated fixture harness was removed after verification and never enters build.
+Dota uses captured, validated public MVP revision19 for visual QA, not a new live
+snapshot claim. CS2 uses the actual lower final with three published maps.
 
-Source and actual browser captures were inspected together by author and independent verifier `/root/mockup_check`; full composition and focused portal/table areas were compared at normalized content width. Source is a design reference, not a current sports-data snapshot.
+## Comparisons and state differences
 
-| Surface | Observation / correction |
-| --- | --- |
-| Layout | Ancient Dota forest/stone, three gates and a compact semantic table retained. Removed inherited 232px blank header area. Shared site header is intentionally preserved. |
-| Typography | Ivory condensed display heading; existing readable YCS Sans for body. Fixed narrow mobile names caused by desktop column selectors leaking into row headers. Long team names wrap normally at 320px. |
-| Imagery | Three separate transparent raster gates and a raster environment. Increased gates after independent P2 finding so they read as physical portals, not icons. No custom SVG/CSS replacement artwork. |
-| Colors | Full-row emerald 3:0, blue 3:1, violet 3:2; burgundy for three losses. Active rows remain neutral. Removed shared hover color that hid the qualifying round. Text duplicates every status. |
-| Content / icons | Real existing teams, logos and confirmed-score projection. Three Phosphor circles count wins; no invented chronology. Mock examples are excluded from production. Unknown values remain unknown. |
-| Density | All 16 real teams retain a compact table on desktop. Mobile keeps team, score and pips, with a separate status line; no horizontal document overflow. |
+- Full-view Dota: `dota-compare-v2.jpg` → `dota-compare-final.jpg`.
+  Source and rendered pixels were placed together, scaled equally to640px wide.
+  Final capture used a1092px iframe with a15px scrollbar (1077px content); this
+  small density difference and the preserved shared menu breakpoint are accepted.
+- Full-view CS2: `cs2-compare.jpg`, equal480px-wide source/render panels.
+  Render is assembled without resizing from two actual921px-wide captures:
+  top0–845 and a focused view starting at845, then normalized for comparison.
+- Focused CS2: `cs2-focus.jpg`, 1:1 selected map, MVP empty state, rosters and context.
+- Mobile: initial1:1 header and MVP/table captures plus `mobile-final.jpg` at actual
+ 390 CSS px rendered in a0.34-scale evidence canvas. Body scrollWidth390. CS2 also checked at320px, scrollWidth320, no broken images.
+- 4K: `dota-4k.jpg`, actual3840 CSS px iframe rendered in a0.3-scale evidence canvas.
+  DOM measurement confirms1800px content centered atx1020, scrollWidth3840.
 
-## Browser evidence
+Mock data intentionally differ: actual players/results/crests replace fabricated
+ones; the real CS2 grand final has five unpublished map details. There is no
+recording or clip on these actual fixtures, so the corresponding action/section
+is absent. CS2 metrics/MVP are pending. No false championship or after-match
+standing is inferred. Dota uses damage rather than absent GPM. Mock hero avatars
+are omitted because the public payload has IDs without a verified portrait asset
+mapping. These are expected data-contract differences, not unfinished controls.
+The existing1200px shared menu breakpoint remains; the generated source's full
+navigation at921/1092px was not copied over the production header.
 
-Cloud Chrome, actual route `/tournaments/dota2-autumn-2026?section=swiss&phase=all`, Dota theme. Responsive checks use the real page in an iframe with explicit CSS viewport sizes; they are not claims of a physically resized browser window. Scrollbars reduce 320/390/1024 content widths by 15px. The image filenames below are relative to `docs/design/swiss/`.
+## Findings and comparison history
 
-- `reference-width-final.jpg`: 1024×1700 viewport, shown at 0.509 scale; entire table and surrounding page. `swiss-preview.jpg` is a mechanical crop of that browser frame.
-- `mobile-320-natural-top.jpg`, `mobile-320-natural-table.jpg`: 320 CSS px at 1:1 scale, client = scroll 305px; practical 44px team link minimum height, readable wrapped labels and statuses.
-- 390 CSS px: client = scroll 375px, team cell 203×44px; visually inspected after column fix.
-- `desktop-3840.jpg`: 3840×2160 viewport, client = scroll 3840px; centered 1800px composition. This capture predates only the final gate scale increase.
-- `nine-states.jpg`: isolated development fixture with the nine requested scores, explicit test-data notice; colored qualification and elimination checked. Fixture is removed from the application tree.
-- `desktop-natural-final.jpg`: final normal browser viewport, physical gate scaling and page context.
+1. P2, BO1: redundant one-card navigation left a large blank band. Removed the
+   picker for BO1 and implemented overview/statistics anchors; series retains tiles.
+2. P2, desktop layout: hero density was too loose and stone detail collided with
+   summary text. Tightened hero dimensions/scoreboard and added an opaque text
+   area. Paired post-fix Dota capture checked the hierarchy and readable result.
+3. P2, mobile: three action buttons cramped and Puck overlapped explanation text.
+   Share now takes a second row; character width/padding reserve clear text space.
+   A stone horizontal edge crossed the title on mobile; mobile uses the clean
+   surface while retaining battlefield/character art. Final rendered capture and
+   1:1 MVP inspection verify the correction, with no page overflow.
+4. Functional P2 findings (unplayed/cancelled MVP, same-revision catalog clip
+   refresh, multiple CS2 MVP copy) were fixed and independently regression-tested.
 
-Interactions executed: Aegis team link opens its real profile; browser Back and Matches/Swiss tabs remain operational; CS2 and corporate themes render zero new Dota Swiss elements, switching back renders one. Team Leto receives visible keyboard focus via Tab. Console sample contains browser-extension metadata errors only, no application-source errors. No animation is introduced.
+No remaining actionable P0/P1/P2 in the inspected scope.
 
-## Functional and data checks
+## Required fidelity surfaces
 
-- Author: 23/23 tests across Swiss presentation, tournament navigation/data, data integrity and static hosting. `npm run data:check` validates 52 teams / 144 matches. Final production build succeeds with 209 canonical routes and 3 aliases.
-- Independent: 8/8 SSR/data checks, covering all 15 legal records, 12 invalid inputs, empty state, immutable sorting, all 16 actual source teams, exclusion of scheduled R3, and the existing reader's 2:0→3:0 projection. Evidence: `ssr-results.json`, `ssr-run.log`, `protected-files.json`.
-- 31 protected data/reader/header files remain byte-identical to base. Existing R3 opponent correction retained. No broadcasts, MVP, result writer or backend changed.
+- Typography: local YCS Sans / Roboto Condensed; bold score/display hierarchy,
+  smaller data labels, readable table numbers and wrapping long actual team names.
+  Condensed CS2 headings are a minor P3 brand/type difference from generated art.
+- Spacing/layout: panorama, outcome strip, map progression, split summary/award,
+  two team sections and context. Mobile stacks columns; 4K caps at1800.
+- Colors: Dota dark teal/mint and CS2 navy/blue, with gold only for MVP. Textual
+  statuses accompany selection and no-play states; focus outlines are explicit.
+- Imagery: actual crests, supplied/generated raster panoramas, map illustrations
+  and transparent characters. Images inspected, no broken loaded image observed.
+  Decorative label prevents implying Puck/CT is the real selected player/hero.
+- Copy/content: confirmed scope and score units; unknowns/estimates/ties remain
+  honest; no demo figures, invented duration/GPM or fake video thumbnail.
 
-## Scope limits
+## Browser interactions and checks
 
-Local fallback contains 14 confirmed fixtures; the mock depicts an earlier illustrative 16-result snapshot. The existing dynamic results reader is unchanged. This gate verifies its projection using an isolated in-memory test, not external production network availability. No invented score was copied from the image. Existing missing Nimbus font build warnings predate this change; the Swiss view uses available YCS Sans/Roboto Condensed. Full-page browser capture times out in this environment, so ordinary viewport/explicitly scaled iframe captures are retained. 200% browser zoom and physical device testing were not performed.
+Independent real-route checks: tile→selector synchronization, winner/details/MVP
+heading changes, next-match link to real BO5, no-play and pending map isolation.
+Organizer component checked with explicit synthetic transport: save/edit/reload,
+second-map empty state, conflict preserving draft and fresh retry, delete→hidden.
+Actual auth/CAS/storage behavior tested separately through local HTTP/storage doubles.
+Root checked copy-link HTTP fallback and actual downloaded PNG result card.
+Console inspection: no application exception in controlled rendered states; an
+unrelated browser-extension metadata error was excluded. Production media API is
+not yet deployed; live external integration is not certified by this local QA.
 
-Temporary QA entrypoints were removed before the final build. This report records implementation acceptance, not production publication.
+## Implementation checklist
 
-Independent final visual gate: PASS, no remaining P0/P1/P2 findings. Repeated 8/8 SSR passed on unchanged source fingerprint `2804867b6d137c0ef6bb07466bf91357b0c7fd47c85435860c734856ed5975a8`.
+- [x] Selected design hierarchy and separate game art
+- [x] Shared-header and sports-data preservation
+- [x] Honest per-map data/MVP and optional clips
+- [x] Responsive and keyboard-labelled controls
+- [x] Independent functional and focused browser verification
+- [x] Actual paired source/render comparison and post-fix evidence
+- [ ] Separately authorized production release and live readback
 
 final result: passed

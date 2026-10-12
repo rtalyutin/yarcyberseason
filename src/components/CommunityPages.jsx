@@ -12,6 +12,7 @@ import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import '../community.css';
 import '../team-profile.css';
 
+const MatchCenterPage = lazy(() => import('./MatchCenterPage.jsx').then((module) => ({ default: module.MatchCenterPage })));
 const DotaMatchPage = lazy(() => import('./DotaMatchPage.jsx').then((module) => ({ default: module.DotaMatchPage })));
 
 function CopyLink({ value, label }) {
@@ -137,6 +138,7 @@ export function MatchPage({ tournamentSlug, matchId, theme = 'cs2' }) {
   const [downloadState, setDownloadState] = useState('');
   if (!match) return <UnknownPage kind="Матч" />;
   if (theme === 'dota2' && tournament.discipline === 'Dota 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><DotaMatchPage tournament={tournament} match={match} /></Suspense>;
+  if (theme === 'cs2' && tournament.discipline === 'Counter-Strike 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><MatchCenterPage key={`${tournament.id}:${match.id}`} tournament={tournament} match={match} /></Suspense>;
   const url = publicUrl(matchPath(match));
   const consequence = matchConsequence(match, community, tournaments);
   const result = match.result;

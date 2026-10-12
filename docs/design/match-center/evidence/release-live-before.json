@@ -1,0 +1,77 @@
+[
+  {
+    "url": "https://rtalyutin-tg-mcp-4776.twc1.net/healthz/ycs-dota",
+    "status": 200,
+    "contentType": "application/json",
+    "sha256": "46f8d69f190c5769aacfd486d2e17d0f12c9e79a198eefa622516ea0c645b9b5",
+    "bytes": 361,
+    "body": {
+      "version": "1.0.0",
+      "sourceRevision": "ff3b2a5949bd7d553508c86be4d2063a07756489",
+      "packageFingerprint": "2c8645b585f68ba09a40fb0e46cd04717000b0326999609e411ebccd35484f42",
+      "enabled": true,
+      "configured": true,
+      "code": "YCS_STARTED",
+      "status": "waiting",
+      "lastAttemptAt": "2026-10-12T14:21:02.208Z",
+      "lastSuccessAt": "2026-10-12T14:21:07.237Z",
+      "pendingMaps": 3,
+      "lastFailure": null
+    }
+  },
+  {
+    "url": "https://rtalyutin-tg-mcp-4776.twc1.net/healthz/ycs-captain",
+    "status": 200,
+    "contentType": "application/json",
+    "sha256": "5ee068783ce78eb54894c53b241a26b8622aa68e07589aac750151656e067d0f",
+    "bytes": 563,
+    "body": {
+      "version": "1.0.0",
+      "sourceRevision": "202f26e3260f13f0c125bfdc0c65124187956bd6",
+      "packageFingerprint": "766e77e7a293871cb74e7ea885f6cc5a84e8d2af09a67d8509ce1551ec51590b",
+      "enabled": true,
+      "configured": true,
+      "code": "CAPTAIN_STARTED",
+      "status": "idle",
+      "attempts": 1387,
+      "lastAttemptAt": 1791814886989,
+      "lastSuccessAt": 1791814887358,
+      "error": null,
+      "rosterImport": {
+        "id": "roman-roster-2026-10-09-v1",
+        "status": "applied",
+        "count": 16,
+        "revision": 37
+      },
+      "readiness": {
+        "resultsAvailable": true,
+        "matchCount": 16,
+        "windowCount": 0
+      },
+      "cleanupErrorCode": null,
+      "storage": {
+        "phase": "read",
+        "errorCode": null
+      }
+    }
+  },
+  {
+    "url": "https://rtalyutin-tg-mcp-4776.twc1.net/api/match-media?tournamentId=dota2-autumn-2026&matchId=dota-autumn-swiss-r1-04",
+    "status": 503,
+    "body": "{\"code\":\"SERVICE_UNAVAILABLE\",\"status\":\"unavailable\"}"
+  },
+  {
+    "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/assets/index-BxAI3urx.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8",
+    "sha256": "921d785ede0942fb859664414f980e43e4888a12570f1502dbd42fdbca4cffad",
+    "bytes": 209105,
+    "markers": {
+      "match-center": false,
+      "dota-volga-panorama": false,
+      "cs2-nuke-panorama": false,
+      "/api/match-media": false,
+      "broadcastLinks": false
+    }
+  }
+]

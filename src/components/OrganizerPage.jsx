@@ -3,6 +3,7 @@ import { filterOrganizerRows, organizerDate, organizerTimeNote } from '../lib/or
 import { matchStates } from '../lib/community.js';
 import { defaultColumnOrder, moveOrganizerColumn, organizerColumns, toggleOrganizerColumn } from '../lib/organizer-columns.js';
 import OrganizerCaptains from './OrganizerCaptains.jsx';
+import OrganizerMedia from './OrganizerMedia.jsx';
 import '../organizer.css';
 
 const apiBase = (import.meta.env.VITE_YCS_ORGS_API_URL || 'https://rtalyutin-tg-mcp-4776.twc1.net').replace(/\/+$/, '');
@@ -19,6 +20,15 @@ const errors = {
   forbidden: 'Недостаточно прав для этого действия.',
   capacity_reached: 'Хранилище кабинета заполнено. Обратитесь к администратору сервиса.',
   too_many_requests: 'Слишком много запросов. Повторите через минуту.',
+  media_not_configured: 'Хранилище клипов ещё не подключено.',
+  media_storage_unavailable: 'Не удалось прочитать материалы карт. Попробуйте обновить.',
+  media_invalid_request: 'Проверьте выбранную карту, название и таймкод.',
+  media_invalid_url: 'Нужна ссылка HTTPS без логина и пароля в адресе.',
+  media_not_found: 'Матч, карта или материал больше не доступны. Обновите список.',
+  media_conflict: 'Материалы изменились. Проверьте обновлённый список и сохраните снова.',
+  media_idempotency_conflict: 'Этот запрос уже использован. Обновите материалы.',
+  media_save_unknown: 'Не удалось подтвердить сохранение.',
+  media_capacity_reached: 'Хранилище материалов заполнено. Обратитесь к администратору.',
 };
 async function api(path, { token, signal, body } = {}) {
   const response = await fetch(`${apiBase}/api/orgs/${path}`, {
@@ -168,8 +178,10 @@ export default function OrganizerPage() {
       <nav className="orgs-sections" aria-label="Разделы организатора">
         <button type="button" aria-current={section === 'matches' ? 'page' : undefined} onClick={() => setSection('matches')}>Матчи и эфиры</button>
         <button type="button" aria-current={section === 'captains' ? 'page' : undefined} onClick={() => setSection('captains')}>Капитаны</button>
+        <button type="button" aria-current={section === 'media' ? 'page' : undefined} onClick={() => setSection('media')}>Клипы и записи</button>
       </nav>
       <div hidden={section !== 'captains'}><OrganizerCaptains key={token} token={token} api={api} onSessionExpired={() => { setToken(null); setData(null); setError(errors.unauthorized); setSection('matches'); }} /></div>
+      {section === 'media' && <OrganizerMedia key={token} token={token} api={api} onSessionExpired={() => { setToken(null); setData(null); setError(errors.unauthorized); setSection('matches'); }} />}
       <div hidden={section !== 'matches'}>
       <section className="orgs-title"><div><p className="orgs-eyebrow">Рабочая таблица</p><h1>Матчи и эфиры</h1><p>Только просмотр · время в МСК · обновление каждую минуту</p></div>
         <div className="orgs-sync"><button type="button" disabled={busy} onClick={() => setRefresh((n) => n + 1)}>{busy ? 'Обновляем…' : 'Обновить'}</button>

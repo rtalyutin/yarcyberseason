@@ -57,13 +57,13 @@ test("step6 schedule renders completed first two rounds and third-round results 
   assert.equal(psb.scheduledAt, "2026-10-11T15:00:00+03:00");
   assert.deepEqual(psb.result.score, [0, 1]);
   const pendingThirdRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r3-") && match.status === "scheduled");
-  assert.deepEqual(pendingThirdRound.map((match) => match.id), ["dota-autumn-swiss-r3-03", "dota-autumn-swiss-r3-04", "dota-autumn-swiss-r3-06", "dota-autumn-swiss-r3-08"]);
+  assert.deepEqual(pendingThirdRound.map((match) => match.id), ["dota-autumn-swiss-r3-03", "dota-autumn-swiss-r3-04", "dota-autumn-swiss-r3-06"]);
   assert.ok(pendingThirdRound.every((match) => match.scheduledAt === null && match.dateDisplay === "12 октября 2026 г." && match.result.score === null));
   assert.match(html, /15:00 МСК/);
   assert.match(html, /22:00 МСК/);
   assert.match(html, /18:00 МСК/);
   assert.match(html, /19:00 МСК/);
-  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 20);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 21);
   const technicalDecider = real.matches.find((match) => match.id === "dota-autumn-swiss-r3-02");
   assert.deepEqual(technicalDecider.result.score, [2, 1]);
   assert.deepEqual(technicalDecider.result.maps.map((map) => map.id), ["9041929139", "9042061641"]);

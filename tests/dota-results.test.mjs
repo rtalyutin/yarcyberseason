@@ -53,7 +53,7 @@ test("published R1–R3 results update Swiss once and retain organizer map evide
     team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 3, won: 3, lost: 0,
   });
   assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
-  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 40);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 42);
   assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
     [['9039436432', 37, 21, 2395]]);
   assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);
@@ -213,7 +213,7 @@ test("client keeps the last confirmed S3 revision through an outage", async () =
 test('organizer results publish confirmed outcomes with no fabricated map or technical MVP', () => {
   const { snapshot, changed } = collectDotaResults(publishedTournament, []);
   assert.equal(changed, true);
-  assert.equal(Object.keys(snapshot.matches).length, 10);
+  assert.equal(Object.keys(snapshot.matches).length, 11);
   assert.deepEqual([snapshot.matches['dota-autumn-swiss-r1-04'].score1, snapshot.matches['dota-autumn-swiss-r1-04'].score2], [1,0]);
   assert.equal(snapshot.matches['dota-autumn-swiss-r1-04'].maps[0].matchId, '9036860954');
   const technical = snapshot.matches['dota-autumn-swiss-r1-05'];
@@ -225,7 +225,7 @@ test('organizer results publish confirmed outcomes with no fabricated map or tec
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='strela team').won,1);
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='ARB Esports').lost,1);
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='Tech Titans').lost,2);
-  assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='liqa sto').lost,2);
+  assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='liqa sto').lost,3);
   assert.equal(updated.stages[0].rounds[0].matches.filter(m=>m.status==='scheduled').length,0);
   assert.equal(collectDotaResults(publishedTournament, [], snapshot).changed, false);
 });

@@ -74,7 +74,7 @@ test('MVP storage failure identifies its phase while preserving published organi
     'dota-autumn-swiss-r1-02', 'dota-autumn-swiss-r1-03', 'dota-autumn-swiss-r1-04',
     'dota-autumn-swiss-r1-05', 'dota-autumn-swiss-r1-06', 'dota-autumn-swiss-r1-08',
     'dota-autumn-swiss-r2-01', 'dota-autumn-swiss-r2-07', 'dota-autumn-swiss-r2-08',
-    'dota-autumn-swiss-r3-02',
+    'dota-autumn-swiss-r3-02', 'dota-autumn-swiss-r3-08',
   ]);
   assert.equal(results['dota-autumn-swiss-r2-08'].scoreKind, 'technical');
   assert.deepEqual(results['dota-autumn-swiss-r2-08'].maps, []);

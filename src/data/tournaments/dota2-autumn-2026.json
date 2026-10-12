@@ -224,15 +224,15 @@
             {
               "team": "liqa sto",
               "teamId": "dota2-autumn-2026-liqa-sto",
-              "played": 2,
+              "played": 3,
               "won": 0,
-              "lost": 2
+              "lost": 3
             },
             {
               "team": "psb_bank",
               "teamId": "cs2-august-2026-psb-bank",
-              "played": 2,
-              "won": 0,
+              "played": 3,
+              "won": 1,
               "lost": 2
             },
             {
@@ -1046,13 +1046,24 @@
             },
             {
               "id": "dota-autumn-swiss-r3-08",
-              "status": "scheduled",
+              "status": "walkover",
               "date": "2026-10-12",
               "bestOf": "BO3",
               "team1": "psb_bank",
               "team1Id": "cs2-august-2026-psb-bank",
               "team2": "liqa sto",
-              "team2Id": "dota2-autumn-2026-liqa-sto"
+              "team2Id": "dota2-autumn-2026-liqa-sto",
+              "scoreKind": "technical",
+              "score1": 2,
+              "score2": 0,
+              "resultConfirmed": true,
+              "resultSource": "organizer",
+              "confirmationSource": "organizer-message-2026-10-12-223010-msk-psb-liqa-technical",
+              "confirmedAt": "2026-10-12T19:30:10Z",
+              "winnerTeamId": "cs2-august-2026-psb-bank",
+              "winner": "psb_bank",
+              "maps": [],
+              "note": "psb_bank — liqa sto 2:0. Техническое поражение liqa sto; карты не игрались."
             }
           ]
         }

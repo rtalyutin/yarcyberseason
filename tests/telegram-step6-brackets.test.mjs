@@ -51,7 +51,7 @@ test("real Swiss shows all three published rounds and confirmed standings withou
   assert.match(swiss, /1-й тур/);
   assert.match(swiss, /2-й тур/);
   assert.match(swiss, /3-й тур/);
-  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 20);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 21);
 });
 
 test("Swiss renders published columns, order, null, zero, seed and locked place", () => {

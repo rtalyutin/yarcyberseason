@@ -379,7 +379,12 @@ test('actual tournament identifiers load; known result absence is valid baseline
   assert.equal(failed.captainResultsAvailable, false);
   const s = setup({ tournament: loaded });
   const data = await s.service.organizer();
-  assert.equal(data.teams.length, 16); assert.equal(data.matches.length, 16);
+  assert.equal(data.teams.length, 16); assert.equal(data.matches.length, 30);
+  const fourth = data.matches.filter((item) => item.match.id.startsWith('dota-autumn-swiss-r4-'));
+  assert.equal(fourth.length, 6);
+  const vnext = fourth.find((item) => item.match.id === 'dota-autumn-swiss-r4-04');
+  assert.deepEqual(vnext.match.broadcastLinks, { twitch: 'https://www.twitch.tv/YarCyberSeason' });
+  assert.equal(vnext.match.broadcastUrl, 'https://www.twitch.tv/YarCyberSeason');
   assert.equal(data.matches.find((m) => m.match.id === 'dota-autumn-swiss-r1-04').match.team2.id, 'dota2-qual-2026-arb-esports');
 });
 

@@ -16,7 +16,7 @@ test('replacement keeps sixteen current participants and the first Swiss round',
   assert.equal(participantCount(dota), 16);
   assert.equal(dota.registration.status, 'closed');
   assert.equal(dota.status, 'upcoming');
-  assert.equal(getTournamentModel(dota).matches.length, 24);
+  assert.equal(getTournamentModel(dota).matches.length, 30);
   assert.ok(dota.participants.every((p) => !('seed' in p)));
   assert.deepEqual(validateCommunity(tournaments, registry), []);
   const view = getTournamentModel(dota);
@@ -59,10 +59,11 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
     const section = teamForDiscipline(team, 'Dota 2');
     assert.equal(section.entries.length, 1);
     assert.equal(section.entries[0].status, 'registered');
-    assert.equal(section.matches.length, 3);
+    assert.equal(section.matches.length, name === 'PIVNAYA KEGA' ? 3 : 4);
     assert.equal(teamSummary(section).wins, 0);
+    assert.equal(teamSummary(section).technical, name === 'PIVNAYA KEGA' ? 2 : 1);
     assert.deepEqual(upcomingMatches(section).map((match) => match.id),
-      name === 'PIVNAYA KEGA' ? [] : ['dota-autumn-swiss-r3-08']);
+      name === 'PIVNAYA KEGA' ? [] : ['dota-autumn-swiss-r4-05']);
   }
   assert.equal(model.resolveTeam(dota.id, 'РГАТУ'), null);
   assert.equal(model.getTeam('cs2-august-2026-bobr1ki').entries.some((e) => e.tournament.id === dota.id), false);
@@ -70,6 +71,42 @@ test('Dota entries reuse CS identities without inheriting CS results', () => {
   const { opponents, ...score } = teamSummary(kega);
   assert.deepEqual(score, { wins: 7, losses: 2, draws: 0, technical: 1 });
   assert.equal(kega.entries[0].placement, 1);
+});
+
+test('fourth round pairs every remaining team once within its record, without rematches or invented dates', () => {
+  const rounds = dota.stages.find((stage) => stage.id === 'swiss').rounds;
+  const prior = rounds.slice(0, 3).flatMap((round) => round.matches);
+  assert.equal(prior.length, 24);
+  assert.ok(prior.every((match) => match.resultConfirmed === true && ['completed', 'walkover'].includes(match.status)));
+  const records = new Map(dota.participants.map((participant) => [participant.teamId, { won: 0, lost: 0 }]));
+  const pairKey = (match) => [match.team1Id, match.team2Id].sort().join('/');
+  for (const match of prior) {
+    assert.notEqual(match.score1, match.score2);
+    records.get(match.score1 > match.score2 ? match.team1Id : match.team2Id).won++;
+    records.get(match.score1 > match.score2 ? match.team2Id : match.team1Id).lost++;
+  }
+  const active = [...records].filter(([, record]) => record.won < 3 && record.lost < 3).map(([teamId]) => teamId);
+  assert.equal(active.length, 12);
+  const fourth = rounds.find((round) => round.id === 'round-4').matches;
+  assert.deepEqual(fourth.map((match) => [match.team1, match.team2, match.bestOf]), [
+    ['Mi Ne Pushim!', 'Easy Gaming', 'BO1'], ['ARB Esports', 'Fummo', 'BO1'],
+    ['Team Borisogleb', 'WAYPROD.', 'BO1'], ['Vnext', 'strela team', 'BO3'],
+    ['TEAM SPERMINT', 'psb_bank', 'BO3'], ['Tech Titans', 'Parallax Team', 'BO3'],
+  ]);
+  const assigned = fourth.flatMap((match) => [match.team1Id, match.team2Id]);
+  assert.equal(assigned.length, 12);
+  assert.deepEqual(new Set(assigned), new Set(active));
+  const priorPairs = new Set(prior.map(pairKey));
+  for (const match of fourth) {
+    const first = records.get(match.team1Id), second = records.get(match.team2Id);
+    assert.equal(first.lost, second.lost);
+    assert.equal(match.bestOf, first.lost === 2 ? 'BO3' : 'BO1');
+    assert.equal(priorPairs.has(pairKey(match)), false);
+    assert.equal(match.status, 'scheduled');
+    for (const key of ['date', 'dateDisplay', 'scheduledAt', 'time', 'resultConfirmed', 'score1', 'score2', 'maps']) {
+      assert.equal(Object.hasOwn(match, key), false, `${match.id}.${key}`);
+    }
+  }
 });
 
 test('discipline filter separates both played and upcoming games against a shared opponent', () => {

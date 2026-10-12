@@ -52,8 +52,8 @@ test("published R1–R3 results update Swiss once and retain organizer map evide
   assert.deepEqual(rows.find((row) => row.team === "Aegis Guardians"), {
     team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 3, won: 3, lost: 0,
   });
-  assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
-  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 42);
+  assert.equal(rows.find((row) => row.team === "strela team").lost, 2);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 48);
   assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
     [['9039436432', 37, 21, 2395]]);
   assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);

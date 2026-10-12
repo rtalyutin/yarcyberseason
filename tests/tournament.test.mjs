@@ -56,13 +56,14 @@ test("Completed CS2 preserves final standings, results and technical 1:0", () =>
   assert.equal(JSON.stringify(current), snapshot, "Presentation must not mutate tournament data or frozen seeds");
 });
 
-test("Current event exposes all three published Swiss rounds, never counts empty playoff slots", () => {
+test("Current event exposes all four published Swiss rounds, never counts empty playoff slots", () => {
   const model = getTournamentModel(read("dota2-autumn-2026"));
-  assert.equal(model.matches.length, 24);
+  assert.equal(model.matches.length, 30);
   assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r1-')).length, 8);
   assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r2-')).length, 8);
   assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r3-')).length, 8);
-  assert.equal(model.finishedCount, 14);
+  assert.equal(model.matches.filter((match) => match.id.startsWith('dota-autumn-swiss-r4-')).length, 6);
+  assert.equal(model.finishedCount, 24);
   assert.ok(model.matches.every((match) => match.stageId !== 'playoffs'));
   assert.equal(model.defaultSection, "matches");
   assert.deepEqual(model.sections.map((section) => section.id), ["participants", "swiss", "matches", "playoffs", "mvp", "info"]);

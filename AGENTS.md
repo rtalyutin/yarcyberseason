@@ -486,3 +486,13 @@ dependent Swiss rows. Resolve R3-03 slot2 as Team Leto and R3-04 slot1 as
 WAYPROD., retaining the accepted12October pairs, order, formats and unknown times.
 Publish this continuation on the authorized existing main website; preserve
 all other fixtures, results, MVP, streams, runtime hosts and private state.
+
+## Organizer R3 opponent correction — 12 October 2026, 10:00 MSK
+
+Roman explicitly requests publication of the third-round schedule and corrects
+two opponents: Fummo plays Parallax Team; strela team plays WAYPROD.
+Keep stable fixture IDs/order: R3-04 is WAYPROD.–strela team, R3-06 is
+Parallax Team–Fummo. This supersedes only those two prior R3 pairs. Retain
+12October, BO1, unknown individual start times and the other six accepted pairs.
+Preserve all earlier results/MVP and R2-02 advancement references. Publish the
+corrected existing main website; do not change backend/private state or hosts.

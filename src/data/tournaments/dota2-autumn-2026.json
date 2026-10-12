@@ -825,8 +825,8 @@
               "bestOf": "BO1",
               "team1": "WAYPROD.",
               "team1Id": "dota2-main-2026-way-prod",
-              "team2": "Fummo",
-              "team2Id": "dota2-autumn-2026-fummo"
+              "team2": "strela team",
+              "team2Id": "dota2-autumn-2026-strela-team"
             },
             {
               "id": "dota-autumn-swiss-r3-05",
@@ -845,8 +845,8 @@
               "bestOf": "BO1",
               "team1": "Parallax Team",
               "team1Id": "dota2-autumn-2026-parallax-team",
-              "team2": "strela team",
-              "team2Id": "dota2-autumn-2026-strela-team"
+              "team2": "Fummo",
+              "team2Id": "dota2-autumn-2026-fummo"
             },
             {
               "id": "dota-autumn-swiss-r3-07",

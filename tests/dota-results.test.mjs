@@ -53,7 +53,7 @@ test("published R1–R3 results update Swiss once and retain organizer map evide
     team: "Aegis Guardians", teamId: "dota2-autumn-2026-aegis-guardians", played: 3, won: 3, lost: 0,
   });
   assert.equal(rows.find((row) => row.team === "strela team").lost, 1);
-  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 36);
+  assert.equal(rows.reduce((sum, row) => sum + row.played, 0), 40);
   assert.deepEqual(collected.snapshot.matches['dota-autumn-swiss-r2-01'].maps.map((map) => [map.matchId, map.kills1, map.kills2, map.durationSeconds]),
     [['9039436432', 37, 21, 2395]]);
   assert.equal(collectDotaResults(publishedTournament, [], collected.snapshot).changed, false);
@@ -70,11 +70,28 @@ test("confirmed second-round KEGA technical loss changes Swiss without played st
   const view = applyDotaSnapshot(publishedTournament, snapshot);
   const rows = view.stages[0].groups[0].rows;
   assert.equal(rows.find((row) => row.team === 'Tech Titans').won, 1);
-  assert.equal(rows.find((row) => row.team === 'PIVNAYA KEGA').lost, 2);
+  assert.equal(rows.find((row) => row.team === 'PIVNAYA KEGA').lost, 3);
   // Synthetic attempted injection is test-only, never source tournament data.
   assert.throws(() => validateMvpEstimates([{ matchId: '1', fixtureId: technical.id,
     winnerTeamId: technical.team1Id, confirmed: true, played: true, reason: 'SYNTHETIC attempted technical MVP' }], publishedTournament),
     /Technical victory without a played map cannot receive MVP estimates/);
+});
+
+test('mixed played and technical BO3 result publishes only its two actual maps', () => {
+  const { snapshot } = collectDotaResults(publishedTournament, []);
+  const id = 'dota-autumn-swiss-r3-02';
+  const result = snapshot.matches[id];
+  assert.deepEqual([result.status, result.source, result.score1, result.score2], ['completed', 'organizer', 2, 1]);
+  assert.deepEqual(result.maps.map((map) => [map.matchId, map.winnerTeamId]), [
+    ['9041929139', 'cs2-august-2026-pivnaya-kega'], ['9042061641', 'dota2-autumn-2026-vnext'],
+  ]);
+  const view = applyDotaSnapshot(publishedTournament, snapshot);
+  const match = view.stages[0].rounds[2].matches.find((match) => match.id === id);
+  assert.deepEqual(match.technicalMapNumbers, [3]);
+  assert.equal(match.maps.length, 2);
+  const rows = view.stages[0].groups[0].rows;
+  assert.deepEqual([rows.find((row) => row.team === 'Vnext').won, rows.find((row) => row.team === 'Vnext').lost], [1, 2]);
+  assert.deepEqual([rows.find((row) => row.team === 'PIVNAYA KEGA').won, rows.find((row) => row.team === 'PIVNAYA KEGA').lost], [0, 3]);
 });
 
 test("polling follows the complete published tournament period", () => {
@@ -196,7 +213,7 @@ test("client keeps the last confirmed S3 revision through an outage", async () =
 test('organizer results publish confirmed outcomes with no fabricated map or technical MVP', () => {
   const { snapshot, changed } = collectDotaResults(publishedTournament, []);
   assert.equal(changed, true);
-  assert.equal(Object.keys(snapshot.matches).length, 9);
+  assert.equal(Object.keys(snapshot.matches).length, 10);
   assert.deepEqual([snapshot.matches['dota-autumn-swiss-r1-04'].score1, snapshot.matches['dota-autumn-swiss-r1-04'].score2], [1,0]);
   assert.equal(snapshot.matches['dota-autumn-swiss-r1-04'].maps[0].matchId, '9036860954');
   const technical = snapshot.matches['dota-autumn-swiss-r1-05'];
@@ -206,7 +223,8 @@ test('organizer results publish confirmed outcomes with no fabricated map or tec
   const updated = applyDotaSnapshot(publishedTournament, snapshot);
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='Team Borisogleb').won,2);
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='strela team').won,1);
-  for (const team of ['ARB Esports','Tech Titans']) assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team===team).lost,1);
+  assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='ARB Esports').lost,1);
+  assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='Tech Titans').lost,2);
   assert.equal(updated.stages[0].groups[0].rows.find(r=>r.team==='liqa sto').lost,2);
   assert.equal(updated.stages[0].rounds[0].matches.filter(m=>m.status==='scheduled').length,0);
   assert.equal(collectDotaResults(publishedTournament, [], snapshot).changed, false);

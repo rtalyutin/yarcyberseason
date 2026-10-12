@@ -15,6 +15,22 @@ const registry = read('src/data/teams.json'), historicalRosters = read('src/data
 const rosters = { schemaVersion: 1, sources: [...historicalRosters.sources, ...currentRosters.sources], records: [...historicalRosters.records, ...currentRosters.records] };
 const validate = (ts) => validateDataIntegrity(ts, registry, rosters, sources);
 
+test('technical map decisions require an organizer confirmation and cannot cover a played map', () => {
+  for (const edit of [
+    (match) => { match.technicalMapNumbers = [2]; },
+    (match) => { match.technicalMapNumbers = [3, 3]; },
+    (match) => { match.technicalMapNumbers = [4]; },
+    (match) => { match.resultSource = 'opendota'; },
+    (match) => { match.resultConfirmed = false; },
+  ]) {
+    const changed = structuredClone(tournaments);
+    const match = declaredMatches(changed.find((tournament) => tournament.id === 'dota2-autumn-2026'))
+      .find((match) => match.id === 'dota-autumn-swiss-r3-02');
+    edit(match);
+    assert.ok(validate(changed).some((error) => error.includes('Invalid technical map decision')));
+  }
+});
+
 test('prior sporting values survive identity metadata and the approved KEGA logo update', () => {
   const preserve = (before, after, path) => {
     if (Array.isArray(before)) {

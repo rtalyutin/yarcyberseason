@@ -38,28 +38,36 @@ test("step6 rules render all published stage rules and participation conditions"
   assert.ok(!html.includes("Этот раздел ещё готовится"));
   assert.ok(!html.includes("forms.yandex"));
 });
-test("step6 schedule renders completed first round and current second round with honest partial dates", () => {
+test("step6 schedule renders completed first two rounds and third-round results with honest partial dates", () => {
   const html = render(real, "schedule");
   for (const item of real.timeline) {
     assert.ok(html.includes(item.label)); assert.ok(html.includes(item.date));
   }
-  assert.equal((html.match(/data-match-key=/g) || []).length, 16);
+  assert.equal((html.match(/data-match-key=/g) || []).length, 24);
   assert.equal((html.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r1-/g) || []).length, 8);
   assert.equal((html.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r2-/g) || []).length, 8);
+  assert.equal((html.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r3-/g) || []).length, 8);
   assert.match(html, /11–12 октября/);
-  const pendingSecondRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r2-") && match.status === "scheduled");
-  assert.equal(pendingSecondRound.length, 6);
-  const partialDates = pendingSecondRound.filter((match) => match.scheduledAt === null);
-  assert.equal(partialDates.length, 2);
-  assert.ok(partialDates.every((match) => match.dateDisplay === "11–12 октября" && match.result.score === null));
-  const psb = pendingSecondRound.find((match) => match.id === "dota-autumn-swiss-r2-05");
+  const secondRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r2-"));
+  assert.ok(secondRound.every((match) => match.result.confirmed));
+  const partialDates = secondRound.filter((match) => match.scheduledAt === null);
+  assert.deepEqual(partialDates.map((match) => match.id), ["dota-autumn-swiss-r2-06", "dota-autumn-swiss-r2-07", "dota-autumn-swiss-r2-08"]);
+  assert.ok(partialDates.every((match) => match.dateDisplay === "11–12 октября" && match.result.score !== null));
+  const psb = secondRound.find((match) => match.id === "dota-autumn-swiss-r2-05");
   assert.equal(psb.scheduledAt, "2026-10-11T15:00:00+03:00");
-  assert.equal(psb.result.score, null);
+  assert.deepEqual(psb.result.score, [0, 1]);
+  const pendingThirdRound = real.matches.filter((match) => match.id.startsWith("dota-autumn-swiss-r3-") && match.status === "scheduled");
+  assert.deepEqual(pendingThirdRound.map((match) => match.id), ["dota-autumn-swiss-r3-03", "dota-autumn-swiss-r3-04", "dota-autumn-swiss-r3-06", "dota-autumn-swiss-r3-08"]);
+  assert.ok(pendingThirdRound.every((match) => match.scheduledAt === null && match.dateDisplay === "12 октября 2026 г." && match.result.score === null));
   assert.match(html, /15:00 МСК/);
   assert.match(html, /22:00 МСК/);
   assert.match(html, /18:00 МСК/);
   assert.match(html, /19:00 МСК/);
-  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 10);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 20);
+  const technicalDecider = real.matches.find((match) => match.id === "dota-autumn-swiss-r3-02");
+  assert.deepEqual(technicalDecider.result.score, [2, 1]);
+  assert.deepEqual(technicalDecider.result.maps.map((map) => map.id), ["9041929139", "9042061641"]);
+  assert.match(html, /Третья карта не игралась/);
   assert.match(html, /Team Borisogleb.*ARB Esports/);
   assert.match(html, /Завершён/);
   assert.match(html, /Техническая победа/);

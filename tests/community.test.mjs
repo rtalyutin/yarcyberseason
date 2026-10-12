@@ -16,7 +16,7 @@ test('migrated data preserves every original field and stable ID', () => {
   const ledger = read('docs/community/migration.json');
   const newMatches = [...model.matches.values()].filter((match) => match.tournamentId === 'dota2-autumn-2026');
   assert.equal(newMatches.length, 24);
-  assert.equal(newMatches.filter((match) => match.result.confirmed).length, 14);
+  assert.equal(newMatches.filter((match) => match.result.confirmed).length, 20);
   assert.equal(newMatches.filter((match) => match.id.startsWith('dota-autumn-swiss-r1-')).length, 8);
   assert.equal(newMatches.filter((match) => match.id.startsWith('dota-autumn-swiss-r2-')).length, 8);
   assert.equal(newMatches.filter((match) => match.id.startsWith('dota-autumn-swiss-r3-')).length, 8);
@@ -27,6 +27,14 @@ test('migrated data preserves every original field and stable ID', () => {
   assert.deepEqual(technical.result.score, [1, 0]);
   assert.equal(technical.result.technical, true);
   assert.deepEqual(technical.result.maps, []);
+  assert.deepEqual(newMatches.filter((match) => match.result.technical).map((match) => match.id), [
+    'dota-autumn-swiss-r1-05', 'dota-autumn-swiss-r1-06',
+    'dota-autumn-swiss-r2-07', 'dota-autumn-swiss-r2-08',
+  ]);
+  const technicalDecider = newMatches.find((match) => match.id === 'dota-autumn-swiss-r3-02');
+  assert.deepEqual(technicalDecider.result.series, [2, 1]);
+  assert.equal(technicalDecider.result.technical, false);
+  assert.deepEqual(technicalDecider.result.maps.map((map) => map.id), ['9041929139', '9042061641']);
   for (const record of ledger.matches) {
     const match = model.matches.get(`${record.tournamentId}/${record.matchId}`);
     assert.ok(match);

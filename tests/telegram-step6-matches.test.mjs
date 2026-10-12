@@ -41,7 +41,7 @@ test("matches real tournament shows current results and published times", () => 
   assert.match(html, /18:00 МСК/);
   assert.match(html, /22:00 МСК/);
   assert.match(html, /19:00 МСК/);
-  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 18);
+  assert.equal(real.matches.filter((match) => match.result.confirmed).length, 20);
   assert.doesNotMatch(html, /в 00:00|>0\s*:\s*0<|Alpha|bobr1ki|Этот раздел ещё готовится/);
 });
 test("matches use inline native disclosure with published pair, round, format and Moscow date", () => {

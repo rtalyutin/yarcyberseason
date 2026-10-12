@@ -132,16 +132,24 @@ API series publication waits for complete discovery; organizer outcomes do not.
 
 ## Round-three data reconciliation (12 October 2026)
 
-The source tournament now includes the two completed BO1 fixtures from exact
+The source tournament now includes three completed BO1 fixtures from exact
 OpenDota maps: Aegis–Mi Ne Pushim! 1:0 (`9041914655`, kills 43:38, 4126 s)
-and TEAM SPERMINT–Easy Gaming 0:1 (`9041955914`, kills 50:37, 2586 s).
+and TEAM SPERMINT–Easy Gaming 0:1 (`9041955914`, kills 50:37, 2586 s),
+plus Tech Titans–ARB Esports 0:1 (`9042045372`, kills 26:38, 3058 s).
 Existing public R2 results are also retained in the static source. Swiss counts
 completed series once; Aegis reaches 3:0. OpenDota `radiant_win`, not kills or
 API `series_type`, supplies each map winner; the published fixture supplies BO.
 
-Vnext–PIVNAYA KEGA has one verified map (`9041929139`, KEGA win, kills 28:51,
-3086 s). Its map is confirmed separately while the BO3 result stays unknown,
-without a series winner or final series score. It does not change Swiss totals.
+Vnext–PIVNAYA KEGA has two verified maps: `9041929139` (KEGA win, kills 28:51,
+3086 s) and `9042061641` (Vnext win, kills 42:25 in fixture order, 2336 s).
+Both share API series 1153849. After the played maps ended 1:1, KEGA could not
+play map 3. The organizer confirmed Vnext's win at 21:42:45 Moscow time on
+October 12, giving the BO3 result 2:1. The source fixture records
+`technicalMapNumbers: [3]` separately from the two actual maps. The match center
+and media catalog mark that slot unplayed; no third Match ID, statistics or
+MVP are invented. The organizer series result enters the existing snapshot
+contract with only the recovered actual maps. Swiss becomes Vnext 1:2 and
+KEGA 0:3, with 20 confirmed series in total including earlier technical outcomes.
 Verified OpenDota IDs bind the recovered R3 pairs and the known Parallax–Fummo
 pair whose API team name differs from the published display name.
 

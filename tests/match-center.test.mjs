@@ -28,6 +28,19 @@ test('actual source order and supplemental links share stable IDs without duplic
   assert.deepEqual(source, before);
 });
 
+test('an organizer technical decider preserves actual maps and has no played data', () => {
+  const source = fixture({ score2: 1, resultSource: 'organizer', technicalMapNumbers: [3], maps: [
+    { matchId: '701', winnerTeamId: 'beta', kills1: 10, kills2: 20 },
+    { matchId: '702', winnerTeamId: 'alpha', kills1: 20, kills2: 10 },
+  ] });
+  const slots = getMatchMapSlots(source);
+  assert.deepEqual(slots.map((slot) => slot.state), ['available', 'available', 'not-played']);
+  assert.deepEqual(slots.map((slot) => slot.technical), [false, false, true]);
+  assert.deepEqual([slots[2].mapId, slots[2].map, slots[2].result, slots[2].winnerTeamId], [null, null, null, null]);
+  delete source.resultSource;
+  assert.equal(getMatchMapSlots(source)[2].state, 'awaiting-data');
+});
+
 test('Dota map kills never establish a winner; explicit winner can have fewer kills', () => {
   const source = fixture({ bestOf: 'BO1', score1: 1, maps: [{ matchId: '701', kills1: 5, kills2: 35 }] });
   assert.equal(getMatchMapSlots(source)[0].winnerTeamId, null);

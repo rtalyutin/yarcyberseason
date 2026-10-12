@@ -18,8 +18,8 @@ const resolve = (search) => resolveMiniAppLocation({ pathname: "/tg/tournament",
 test("archive catalog contains only the four published completed tournaments; current stays isolated", () => {
   assert.deepEqual(archives.map((model) => model.tournament.slug), ["cs2-august-2026", "dota2-main-2026", "cs2-february-2026", "dota2-qual-2026"]);
   assert.deepEqual(archives.map((model) => model.matches.length), [45, 29, 33, 13]);
-  assert.equal(current.matches.length, 16);
-  assert.equal(current.matches.filter((match) => match.result.confirmed).length, 10);
+  assert.equal(current.matches.length, 24);
+  assert.equal(current.matches.filter((match) => match.result.confirmed).length, 20);
   assert.equal(current.participants.length, 16);
   assert.equal(current.results, null);
   for (const model of models.values()) {

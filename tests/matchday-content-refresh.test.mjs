@@ -26,11 +26,14 @@ test('current Dota Matchday retains all actual results, partial R2 dates and no 
   assert.equal(pending.scheduled.length, 0);
   assert.equal(pending.completed.length, 3);
   const third = model.days[3];
-  assert.equal(third.completed.length, 2);
-  assert.equal(third.scheduled.length, 6);
-  const partial = third.scheduled.find((match) => match.id === 'dota-autumn-swiss-r3-02');
-  assert.equal(getDisplayedResult(partial).score1, null);
+  assert.equal(third.completed.length, 4);
+  assert.equal(third.scheduled.length, 4);
+  const partial = third.completed.find((match) => match.id === 'dota-autumn-swiss-r3-02');
+  assert.deepEqual([getDisplayedResult(partial).score1, getDisplayedResult(partial).score2], [2, 1]);
+  assert.deepEqual(partial.technicalMapNumbers, [3]);
+  assert.equal(partial.maps.length, 2);
   assert.equal(partial.maps[0].winnerTeamId, partial.team2Id);
+  assert.equal(partial.maps[1].winnerTeamId, partial.team1Id);
   const technical = pending.completed.find((match) => match.id === 'dota-autumn-swiss-r2-08');
   assert.equal(technical.scoreKind, 'technical');
   assert.deepEqual([getDisplayedResult(technical).score1, getDisplayedResult(technical).score2], [1, 0]);

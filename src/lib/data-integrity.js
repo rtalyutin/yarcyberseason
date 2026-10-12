@@ -49,6 +49,11 @@ export function validateDataIntegrity(tournaments, registry, rosters, provenance
       if (m.provenance && (!fields(m.provenance, ['sourceUrl', 'status', 'observedAt'], key) || !safeHttps(m.provenance.sourceUrl) || !date(m.provenance.observedAt) || !['recorded', 'confirmed', 'disputed'].includes(m.provenance.status))) errors.push(`Invalid result provenance: ${key}`);
       if (m.scoreKind === 'rounds' && !m.maps?.length && !m.mapId) errors.push(`Missing BO1 map ID: ${key}`);
       if (m.mapId && m.maps?.length) errors.push(`Duplicate map representation: ${key}`);
+      if (m.technicalMapNumbers != null && (!Array.isArray(m.technicalMapNumbers) || !m.technicalMapNumbers.length ||
+          new Set(m.technicalMapNumbers).size !== m.technicalMapNumbers.length ||
+          m.resultSource !== 'organizer' || m.status !== 'completed' || m.resultConfirmed !== true || m.scoreKind !== 'series' ||
+          !m.technicalMapNumbers.every((number) => Number.isSafeInteger(number) && number > (m.maps?.length || 0) &&
+            number <= Number(String(m.bestOf).slice(2)) && number <= m.score1 + m.score2))) errors.push(`Invalid technical map decision: ${key}`);
       for (const map of [...(m.maps || []), ...(m.mapLinks || []), ...(m.mapId ? [{ id: m.mapId }] : [])]) {
         if (typeof map.id !== 'string' || !/^[a-z0-9-]+$/.test(map.id) || mapIds.has(`${t.id}/${map.id}`)) errors.push(`Duplicate or missing map ID: ${key}`);
         mapIds.add(`${t.id}/${map.id}`);

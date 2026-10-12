@@ -56,7 +56,8 @@ test('fourth-round API windows include all of October13 and the overnight allowa
     assert.equal(fixture.scheduledAt, undefined);
     assert.equal(fixture.time, undefined);
     assert.equal(fixture.resultConfirmed, undefined);
-    const map = { ...first, radiant_name: fixture.team1, dire_name: fixture.team2 };
+    const map = { ...first, radiant_name: fixture.team1, dire_name: fixture.team2,
+      radiant_team_id: fixture.opendotaTeamIds?.team1, dire_team_id: fixture.opendotaTeamIds?.team2 };
     for (const date of ['2026-10-13T00:00:00+03:00', '2026-10-13T12:00:00+03:00',
       '2026-10-13T17:59:59+03:00', '2026-10-13T23:59:59+03:00', '2026-10-14T02:59:59+03:00']) {
       const source = { ...map, start_time: Date.parse(date) / 1000 };
@@ -70,6 +71,26 @@ test('fourth-round API windows include all of October13 and the overnight allowa
     }
     assert.deepEqual(fixture, before);
   }
+});
+
+test('fourth-round ARB–Fummo binds actual API identities in either orientation and never falls back from a wrong ID to a display name', () => {
+  const fixture = publishedTournament.stages[0].rounds.find((round) => round.id === 'round-4')
+    .matches.find((match) => match.id === 'dota-autumn-swiss-r4-02');
+  assert.deepEqual([fixture.team1, fixture.team2], ['ARB Esports', 'Fummo']);
+  assert.deepEqual(fixture.opendotaTeamIds, { team1: 9906817, team2: 10262059 });
+  const start_time = Date.parse('2026-10-13T12:00:00+03:00') / 1000;
+  const orientations = [
+    { radiant_name: 'Team Fummo', radiant_team_id: 10262059, dire_name: 'ARB Esports', dire_team_id: 9906817 },
+    { radiant_name: 'ARB Esports', radiant_team_id: 9906817, dire_name: 'Team Fummo', dire_team_id: 10262059 },
+  ];
+  for (const orientation of orientations) {
+    assert.equal(fixtureFor({ start_time, ...orientation }, publishedTournament)?.id, fixture.id);
+  }
+  // Deliberately wrong IDs are synthetic negative inputs, even when the UI names match exactly.
+  assert.equal(fixtureFor({ start_time, radiant_name: 'ARB Esports', radiant_team_id: 9906817,
+    dire_name: 'Fummo', dire_team_id: 10262058 }, publishedTournament), null);
+  assert.equal(fixtureFor({ start_time, radiant_name: 'Fummo', radiant_team_id: 10262059,
+    dire_name: 'ARB Esports', dire_team_id: 9906816 }, publishedTournament), null);
 });
 
 test("published R1–R3 results update Swiss once and retain organizer map evidence", () => {

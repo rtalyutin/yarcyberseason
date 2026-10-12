@@ -1,60 +1,45 @@
-# Dota MatchPage design QA — 11 October 2026
+# Dota Swiss design QA — 12 October 2026
 
-**Findings**
+Source: accepted combined mock `exec-c2553fcf-cc26-455d-bfb2-7da75295c119.png`, 1024×1536. Contract: `docs/design/swiss/TASK_STATE.md` (Swiss 1+4). Implementation: branch `codex/swiss-design-2026-10-12`, base `303682e012f9106c23e7e123bf84b20b5f7b9027`. Prior match-detail report is preserved at `docs/design/match-detail/design-qa-before-swiss.md`.
 
-No actionable P0/P1/P2 findings remain after the fixes below. Independent executor: `/root/verify_match_links`; implementation authored by `/root`, MVP adapter by `/root/broadcast_data`.
+## Comparison and fixes
 
-- Source visual truth: `/workspace/scratch/2f1b5443e4d0/generated_images/exec-caff50b9-0b57-46a7-a9f7-0bfecfcf2d9b.png` (selected option 1, 1672 × 941 pixels).
-- Rendered implementation: `docs/design/match-detail/desktop-1672.jpg` (1254 × 706 pixels) and `mobile-390.jpg` (390 × 844 pixels).
-- Combined source/render comparison: separately retained `source-and-implementation.png` QA raster (original local commit `839535931bc5e9ebe2617cdc3cdbe615cd2f5d08`, SHA-256 `904408da13f0beafbce9a078b6e839315236c30fbed9f48bd075822235525f8e`). Its 2.69 MB documentation-only copy is excluded from the delivery tree; the desktop/mobile browser captures remain in the repository. Source normalized to 1254 × 706; actual App layout is 1672 × 941 CSS pixels, DPR 1, displayed at scale 0.75. This is an explicitly scaled raster, not a claim of physical browser resize. Mobile is a 1:1 crop of the browser frame; raw screenshots remain in Scratch.
-- State: Dota theme, Team Borisogleb–ARB Esports, confirmed 1:0, 9 October 20:30 MSK; actual validated MVP revision 19: jxdzxq / ARB Esports / 59,66. The source's illustrative player text is replaced with those verified facts.
-- Object: working tree based on `78ad541f1d13face70b5d0b5233d4b6e2c720b54`; final source manifest digest `bab8b11f009af270fe28a0f20748ad693a16fef35ac658902f10a9fd499c351a`. Full fingerprints and timestamped observations are in `docs/design/match-detail/browser-qa.json`.
+Source and actual browser captures were inspected together by author and independent verifier `/root/mockup_check`; full composition and focused portal/table areas were compared at normalized content width. Source is a design reference, not a current sports-data snapshot.
 
-## Fidelity
-
-| Surface | Actual comparison |
+| Surface | Observation / correction |
 | --- | --- |
-| Fonts/typography | Condensed display hierarchy, ivory score/team names, mint headings and readable body copy preserve the source. Bundled Roboto Condensed provides `YCS Match`; inherited site typography remains shared. |
-| Spacing/layout | Yaroslavl/Dota panorama, centered pair, MVP on the left and maps on the right, then stream/actions dock are preserved. Primary action bottom is 939 within the 941 CSS-pixel target. Shared header placement is an approved existing-site constraint. |
-| Colors/tokens | Deep teal, ivory/mint, red Dota marks, blue Radiant and warm Dire treatment agree. Mobile dynamic MVP copy has a dark rgba(5,25,30,0.96) layer for readability. |
-| Image quality | Actual published team logos and generated panorama/stone assets remain images. Desktop crop preserves both Dota sides; mobile now shows the entire panorama instead of a city/forest-only crop. |
-| Copy/content | Actual score, map 55:40/67:30 and real match MVP are preserved. Missing recording/pending MVP are stated honestly. No illustrative player, fabricated award or clock-derived LIVE appears. |
+| Layout | Ancient Dota forest/stone, three gates and a compact semantic table retained. Removed inherited 232px blank header area. Shared site header is intentionally preserved. |
+| Typography | Ivory condensed display heading; existing readable YCS Sans for body. Fixed narrow mobile names caused by desktop column selectors leaking into row headers. Long team names wrap normally at 320px. |
+| Imagery | Three separate transparent raster gates and a raster environment. Increased gates after independent P2 finding so they read as physical portals, not icons. No custom SVG/CSS replacement artwork. |
+| Colors | Full-row emerald 3:0, blue 3:1, violet 3:2; burgundy for three losses. Active rows remain neutral. Removed shared hover color that hid the qualifying round. Text duplicates every status. |
+| Content / icons | Real existing teams, logos and confirmed-score projection. Three Phosphor circles count wins; no invented chronology. Mock examples are excluded from production. Unknown values remain unknown. |
+| Density | All 16 real teams retain a compact table on desktop. Mobile keeps team, score and pips, with a separate status line; no horizontal document overflow. |
 
-Full-view and focused scoreboard, MVP/maps and dock regions were inspected together in the combined comparison. Core details are readable at normalized 1254 px width, so an additional focused crop was unnecessary. Mobile has no separate selected mock; its adaptation was judged against the explicit responsive and art-preservation criteria.
+## Browser evidence
 
-## Executed core checks
+Cloud Chrome, actual route `/tournaments/dota2-autumn-2026?section=swiss&phase=all`, Dota theme. Responsive checks use the real page in an iframe with explicit CSS viewport sizes; they are not claims of a physically resized browser window. Scrollbars reduce 320/390/1024 content widths by 15px. The image filenames below are relative to `docs/design/swiss/`.
 
-| Criterion | Observation |
-| --- | --- |
-| Canonical streams | Exact `https://www.twitch.tv/yarcyberseason` and `https://vk.com/yarcyberseason`, inside the match dock, with `_blank` and `noopener noreferrer`. External sites were not opened. |
-| Conditional streams/pending | Real r2-01 fixture with revision 19: 0 leaders, honest awaiting-statistics copy,0 broadcast blocks, completed status and no LIVE. |
-| Team/primary navigation | Team Borisogleb link opened its real `/teams/dota2-main-2026-team-borisogleb` page; “К матчам турнира” opened `/tournaments/dota2-autumn-2026#matches`. Both team hrefs were observed. |
-| Share | Clipboard was unavailable; the visible fallback exposed the exact canonical public match URL for copying. |
-| Mobile 390 | Actual 390×844/DPR 1; client 375 equals scroll 375; stream targets 162.5×48. Shared menu opens/closes and exposes all 6 navigation links. Final panorama and MVP copy were visually inspected after fixes. |
-| 4K cap | Actual 3840×2160/DPR 1; composition 1800 px centered at x 1020, document client = scroll 3840, score font 110 px. |
-| Shared header/themes | Header component and CSS byte-identical to base; existing 1200 px breakpoint preserved. Desktop navigation and mobile menu observed. CS2 and corporate toggles retain the existing match template with no Dota detail element. |
-| Console | Captured sample contains extension metadata errors only; no application-source error in that sample. This does not establish successful external network delivery. |
+- `reference-width-final.jpg`: 1024×1700 viewport, shown at 0.509 scale; entire table and surrounding page. `swiss-preview.jpg` is a mechanical crop of that browser frame.
+- `mobile-320-natural-top.jpg`, `mobile-320-natural-table.jpg`: 320 CSS px at 1:1 scale, client = scroll 305px; practical 44px team link minimum height, readable wrapped labels and statuses.
+- 390 CSS px: client = scroll 375px, team cell 203×44px; visually inspected after column fix.
+- `desktop-3840.jpg`: 3840×2160 viewport, client = scroll 3840px; centered 1800px composition. This capture predates only the final gate scale increase.
+- `nine-states.jpg`: isolated development fixture with the nine requested scores, explicit test-data notice; colored qualification and elimination checked. Fixture is removed from the application tree.
+- `desktop-natural-final.jpg`: final normal browser viewport, physical gate scaling and page context.
 
-## Comparison history
+Interactions executed: Aegis team link opens its real profile; browser Back and Matches/Swiss tabs remain operational; CS2 and corporate themes render zero new Dota Swiss elements, switching back renders one. Team Leto receives visible keyboard focus via Tab. Console sample contains browser-extension metadata errors only, no application-source errors. No animation is introduced.
 
-1. Initial desktop 1363 capture: black Dota marks and map metrics over the Dire fire were P2. Root applied red asset tint and a 285 px map content cap. The final target capture confirms both fixes.
-2. Initial 390 capture: cover crop lost the Dota sides; a stone rail crossed dynamic MVP text. Root changed mobile panorama to 100% auto / min-height 375, shifted the band artwork and added the dark MVP text layer. Final 390 capture confirms the scene and unobstructed nickname/team/score/footnote.
-3. Final combined desktop comparison and corrected mobile inspection: no remaining P0/P1/P2 finding.
+## Functional and data checks
 
-## Open questions and scope limits
+- Author: 23/23 tests across Swiss presentation, tournament navigation/data, data integrity and static hosting. `npm run data:check` validates 52 teams / 144 matches. Final production build succeeds with 209 canonical routes and 3 aliases.
+- Independent: 8/8 SSR/data checks, covering all 15 legal records, 12 invalid inputs, empty state, immutable sorting, all 16 actual source teams, exclusion of scheduled R3, and the existing reader's 2:0→3:0 projection. Evidence: `ssr-results.json`, `ssr-run.log`, `protected-files.json`.
+- 31 protected data/reader/header files remain byte-identical to base. Existing R3 opponent correction retained. No broadcasts, MVP, result writer or backend changed.
 
-Ready/pending MVP rendering was exercised through a temporary fetch fixture containing the **real validated** snapshot, not hardcoded application data. Direct external MVP delivery was unavailable in this cloud preview; production network delivery is outside this local gate. The actual normal route remains open with truthful retrieval-error UI. Screenshot clip/fullPage attempts timed out; ordinary capture of a scaled iframe supplied valid evidence. 200% zoom/reduced-motion runtime were not added to this narrowed scope.
+## Scope limits
 
-## Implementation checklist
+Local fallback contains 14 confirmed fixtures; the mock depicts an earlier illustrative 16-result snapshot. The existing dynamic results reader is unchanged. This gate verifies its projection using an isolated in-memory test, not external production network availability. No invented score was copied from the image. Existing missing Nimbus font build warnings predate this change; the Swiss view uses available YCS Sans/Roboto Condensed. Full-page browser capture times out in this environment, so ordinary viewport/explicitly scaled iframe captures are retained. 200% browser zoom and physical device testing were not performed.
 
-- [x] Fix recorded visual issues and inspect revised captures.
-- [x] Verify primary interactions, conditional streams and pending MVP.
-- [x] Preserve source order/data, shared header and other themes.
-- [x] Remove all temporary qa-match HTML/JSX/JSON entries before final build.
-- [x] Preserve previous MVP R3 report at `docs/design/mvp/design-qa-before-match-detail.md`.
+Temporary QA entrypoints were removed before the final build. This report records implementation acceptance, not production publication.
 
-**Follow-up Polish**
-
-No additional polish is required for this accepted scope. This QA is implementation evidence; subjective user approval and release remain separate.
+Independent final visual gate: PASS, no remaining P0/P1/P2 findings. Repeated 8/8 SSR passed on unchanged source fingerprint `2804867b6d137c0ef6bb07466bf91357b0c7fd47c85435860c734856ed5975a8`.
 
 final result: passed

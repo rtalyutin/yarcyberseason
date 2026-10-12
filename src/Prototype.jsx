@@ -6,6 +6,7 @@ import { community } from './data/community.js';
 import { projectContent, projectLegal } from './data/project-content.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
+import { DotaSwissStandings } from "./components/DotaSwissStandings.jsx";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
 import { ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
@@ -684,7 +685,9 @@ function HistoricalMatchesStage({ stage, number }) {
 function TournamentPage({ tournament, navigate, theme }) {
   const renderStage = (stage, number) => {
     if (stage.type === "round_robin") return <RoundRobinStage stage={stage} number={number} tournament={tournament} />;
-    if (stage.type === "swiss") return <SwissStage stage={stage} number={number} tournament={tournament} />;
+    if (stage.type === "swiss") return theme === 'dota2' && tournament.discipline === 'Dota 2'
+      ? <DotaSwissStandings stage={stage} tournament={tournament} />
+      : <SwissStage stage={stage} number={number} tournament={tournament} />;
     if (stage.rounds) return <BracketStage stage={stage} number={number} tournament={tournament} />;
     return <section className="tn-info"><h2>{stage.title}</h2>{stage.notice && <p>{stage.notice}</p>}</section>;
   };

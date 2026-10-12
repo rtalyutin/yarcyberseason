@@ -1,3 +1,15 @@
+# Current Swiss presentation
+
+- October 12: user accepted combined Swiss mock 1+4, table from 1 and Dota
+  portals from 4. Apply to Dota Swiss in the Dota theme only. Preserve shared
+  header geometry, current sports data and other sections/themes. Use separate
+  raster gate illustrations and a semantic responsive table, capped at 1800px.
+- Full-row qualified colors: 3:0 emerald (round 3), 3:1 blue (round 4), 3:2
+  violet (round 5). Three losses means elimination; all unfinished records stay
+  active. Three pips count wins, never chronology. Do not color active rows as
+  qualifiers or publish the mock's demonstration teams/results. Always expose
+  the status in text. Contract/state: `docs/design/swiss/TASK_STATE.md`.
+
 # Current match-detail presentation
 
 - October 11: selected option 1 from the revised Dota match mockups. Keep the
@@ -11,7 +23,7 @@
   notices. Technical no-play has no MVP. BO3/BO5 await a defined series rule.
 - Keep canonical match `broadcastLinks` behavior below. Implementation and
   asset provenance: `docs/design/match-detail/IMPLEMENTATION.md`; rendered QA:
-  project-root `design-qa.md`. Selection authorizes this implementation; it is
+  `docs/design/match-detail/design-qa-before-swiss.md`. Selection authorizes this implementation; it is
   not evidence that a production release has happened.
 
 # Current tournament presentation

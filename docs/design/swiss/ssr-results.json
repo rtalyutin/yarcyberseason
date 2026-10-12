@@ -1,0 +1,236 @@
+{
+  "executedAt": "2026-10-12T09:41:19.062Z",
+  "runner": "independent QA /root/mockup_check",
+  "tests": [
+    {
+      "name": "all-15-legal-records: SSR status, three win pips, accessible meaning",
+      "status": "PASS",
+      "details": {
+        "records": [
+          {
+            "score": "3 : 0",
+            "classes": [
+              "ds-row",
+              "ds-row--qualified-3"
+            ],
+            "label": "Плей-офф · 3-й тур",
+            "filled": 3,
+            "pips": 3
+          },
+          {
+            "score": "3 : 1",
+            "classes": [
+              "ds-row",
+              "ds-row--qualified-4"
+            ],
+            "label": "Плей-офф · 4-й тур",
+            "filled": 3,
+            "pips": 3
+          },
+          {
+            "score": "3 : 2",
+            "classes": [
+              "ds-row",
+              "ds-row--qualified-5"
+            ],
+            "label": "Плей-офф · 5-й тур",
+            "filled": 3,
+            "pips": 3
+          },
+          {
+            "score": "2 : 0",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 2,
+            "pips": 3
+          },
+          {
+            "score": "2 : 1",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 2,
+            "pips": 3
+          },
+          {
+            "score": "2 : 2",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 2,
+            "pips": 3
+          },
+          {
+            "score": "2 : 3",
+            "classes": [
+              "ds-row",
+              "ds-row--eliminated"
+            ],
+            "label": "Вылет",
+            "filled": 2,
+            "pips": 3
+          },
+          {
+            "score": "1 : 0",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 1,
+            "pips": 3
+          },
+          {
+            "score": "1 : 1",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 1,
+            "pips": 3
+          },
+          {
+            "score": "1 : 2",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 1,
+            "pips": 3
+          },
+          {
+            "score": "1 : 3",
+            "classes": [
+              "ds-row",
+              "ds-row--eliminated"
+            ],
+            "label": "Вылет",
+            "filled": 1,
+            "pips": 3
+          },
+          {
+            "score": "0 : 0",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 0,
+            "pips": 3
+          },
+          {
+            "score": "0 : 1",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 0,
+            "pips": 3
+          },
+          {
+            "score": "0 : 2",
+            "classes": [
+              "ds-row",
+              "ds-row--active"
+            ],
+            "label": "Продолжают борьбу",
+            "filled": 0,
+            "pips": 3
+          },
+          {
+            "score": "0 : 3",
+            "classes": [
+              "ds-row",
+              "ds-row--eliminated"
+            ],
+            "label": "Вылет",
+            "filled": 0,
+            "pips": 3
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-or-unknown-inputs: no qualification, no fabricated zero victories",
+      "status": "PASS",
+      "details": {
+        "cases": 12
+      }
+    },
+    {
+      "name": "bundled-source-fallback: exact 16 existing source records retained, active statuses, no mock examples",
+      "status": "PASS",
+      "details": {
+        "records": 16,
+        "currentQualifiedRows": 0,
+        "originalDataUnchanged": true
+      }
+    },
+    {
+      "name": "independent fixture totals match displayed standings without counting unconfirmed R3",
+      "status": "PASS",
+      "details": {
+        "confirmedFixturesCounted": 14,
+        "scheduledR3FixturesExcluded": 8,
+        "opponentCorrectionsPreserved": true,
+        "scope": "existing bundled source, not live reader overlay"
+      }
+    },
+    {
+      "name": "existing result-reader overlay changes 2:0 to 3:0 without mutating source or other fixtures",
+      "status": "PASS",
+      "details": {
+        "testData": "synthetic, in-memory only",
+        "winner": [
+          "3 : 0",
+          "Плей-офф · 3-й тур"
+        ],
+        "loser": [
+          "1 : 1",
+          "Продолжают борьбу"
+        ],
+        "otherFixturesUnchanged": 23
+      }
+    },
+    {
+      "name": "empty groups show honest unpublished state, no synthetic row",
+      "status": "PASS",
+      "details": {
+        "cases": 3
+      }
+    },
+    {
+      "name": "sorting is stable among equal records and leaves original references/data intact",
+      "status": "PASS",
+      "details": {
+        "tieOrder": [
+          "tie-A",
+          "tie-B"
+        ],
+        "inputImmutable": true
+      }
+    },
+    {
+      "name": "semantic landmarks and real asset references are present",
+      "status": "PASS",
+      "details": {
+        "table": 1,
+        "rows": 16,
+        "columnHeaders": 5,
+        "portals": 3
+      }
+    }
+  ],
+  "passed": 8,
+  "failed": 0
+}

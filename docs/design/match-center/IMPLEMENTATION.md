@@ -17,9 +17,10 @@ and other legacy presentations are unchanged, as is SiteHeader geometry.
   live/scheduled/cancelled map state takes precedence over retained snapshots.
 - Per-map Dota ranking uses existing exact published MVP scores; no new series
   aggregate. Ties, estimates, correction and stale information remain explicit.
-- Dota table uses K/D/A, hero damage and MVP. GPM/XPM and hero portrait metadata
-  are absent from the current public contract and are not fabricated. Puck is
-  labelled decorative art, not a claim about the actual player's selected hero.
+- Dota table uses K/D/A, hero damage and MVP. GPM/XPM are absent from the
+  public contract and are not fabricated. Each selected-map player's validated
+  `heroId` supplies their hero portrait/name, including the map's MVP and ties.
+  Puck remains labelled decorative art, independent of the actual pick.
 - CS2 supports optional confirmed `map.playerStats` with ten unique players,
   five per actual team. Fields: accountId, nickname, teamId, kills, deaths,
   assists, adr, headshotPercent. Missing optional metrics remain null.
@@ -63,3 +64,25 @@ Final local build passed: Vite compilation, data validation (52 teams/144 matche
 209 canonical prerendered URLs plus3 aliases, Sites server bundle. Root combined
 regression suite52/52, zero failed/skipped. Existing Docker dependency closure test
 passed1/1 and observed /healthz200 from the staged package. No QA harness remains.
+
+## Hero picks correction — 13 October 2026
+
+`DotaHero.jsx` resolves only the validated selected-map `heroId` against
+`src/data/dota-heroes.json`. No pick is inferred from a nickname, a roster or
+another map. Unknown IDs show «Герой не указан»; a failed image preserves its
+verified name. Estimated MVP rows retain actual confirmed picks and unknown
+individual metrics. Technical/unplayed maps have no player picks or award.
+
+The 127-entry catalogue was retrieved from Valve's official
+https://www.dota2.com/datafeed/herolist?language=english on 13 October 2026.
+Names use `name_english_loc`; portrait filenames use the returned canonical
+`npc_dota_hero_` name. Every source image returned HTTP200 from
+https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/.
+Local 128×72 WebP derivatives total 332,562 bytes in
+`public/assets/dota-heroes/`. There is no additional external image/API request
+at render time. These are factual Valve portraits, not generated artwork.
+
+Only Dota player identities and the Dota map MVP badge change. CS2 statistics,
+scoring, schedules/results, collector packages, header and optional media
+contracts remain unchanged. The earlier no-publication paragraphs describe
+the original local preparation; current release status is in TASK_STATE.md.

@@ -1,5 +1,24 @@
 # Match detail task state
 
+## Hero picks correction — 13 October 2026
+
+- User reports missing picked heroes on the match page. This is a local
+  correction of the selected Dota match center, within the existing publication
+  authorization, not a new visual direction or a sporting-data update.
+- Fresh base main a07967d7f8ff8b7631246f734d2e850009aa22a3, including newer
+  R3/R4 schedule/result changes. Those files are preserved.
+- Selected-map heroId drives portrait/name next to each nickname and in map MVP.
+  Official Valve catalogue and local portraits cover 127 heroes. Unknown IDs
+  and unavailable images have truthful fallbacks. No-play/pending maps retain
+  their existing honest states; estimates retain actual picks and metric dashes.
+- Author build passes: 52 teams /150 matches,215 canonical URLs +3 aliases.
+  Focused existing per-map/MVP regression tests pass29/29,zero skipped.
+- Independent acceptance and actual browser verification are in progress.
+  Publication of this correction has not yet happened at this checkpoint.
+- Original expanded match-center release below completed on 12October:
+  frontend main f140bb9c / runtime main c7a4581f; their live page/API readbacks
+  were verified. The older preparation statuses are historical checkpoints.
+
 ## Current contract — 12 October 2026
 
 - User selected the complete Dota + CS2 match center, including BO3/BO5 and

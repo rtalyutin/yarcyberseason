@@ -1,5 +1,11 @@
 # Expanded match center — October 12
 
+- October 13 hero-pick correction: each Dota player's selected-map validated
+  heroId shows its actual hero portrait/name in the statistics table and map
+  MVP badge. Use the official local hero catalogue, never infer picks from
+  decorative Puck art, nicknames, tournament rosters or another map. Unknown
+  IDs stay unknown; unplayed maps show no picks. Keep MVP/statistics rules intact.
+
 - User selected the complete Dota/CS2 match-center implementation, including
   BO1/BO3/BO5 map navigation, per-map rosters/statistics/MVP and manually entered
   clips. This supersedes the earlier BO1-only presentation limit below; no series

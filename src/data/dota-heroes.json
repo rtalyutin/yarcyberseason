@@ -1,0 +1,510 @@
+{
+  "1": {
+    "name": "Anti-Mage",
+    "portrait": "/assets/dota-heroes/1.webp"
+  },
+  "2": {
+    "name": "Axe",
+    "portrait": "/assets/dota-heroes/2.webp"
+  },
+  "3": {
+    "name": "Bane",
+    "portrait": "/assets/dota-heroes/3.webp"
+  },
+  "4": {
+    "name": "Bloodseeker",
+    "portrait": "/assets/dota-heroes/4.webp"
+  },
+  "5": {
+    "name": "Crystal Maiden",
+    "portrait": "/assets/dota-heroes/5.webp"
+  },
+  "6": {
+    "name": "Drow Ranger",
+    "portrait": "/assets/dota-heroes/6.webp"
+  },
+  "7": {
+    "name": "Earthshaker",
+    "portrait": "/assets/dota-heroes/7.webp"
+  },
+  "8": {
+    "name": "Juggernaut",
+    "portrait": "/assets/dota-heroes/8.webp"
+  },
+  "9": {
+    "name": "Mirana",
+    "portrait": "/assets/dota-heroes/9.webp"
+  },
+  "10": {
+    "name": "Morphling",
+    "portrait": "/assets/dota-heroes/10.webp"
+  },
+  "11": {
+    "name": "Shadow Fiend",
+    "portrait": "/assets/dota-heroes/11.webp"
+  },
+  "12": {
+    "name": "Phantom Lancer",
+    "portrait": "/assets/dota-heroes/12.webp"
+  },
+  "13": {
+    "name": "Puck",
+    "portrait": "/assets/dota-heroes/13.webp"
+  },
+  "14": {
+    "name": "Pudge",
+    "portrait": "/assets/dota-heroes/14.webp"
+  },
+  "15": {
+    "name": "Razor",
+    "portrait": "/assets/dota-heroes/15.webp"
+  },
+  "16": {
+    "name": "Sand King",
+    "portrait": "/assets/dota-heroes/16.webp"
+  },
+  "17": {
+    "name": "Storm Spirit",
+    "portrait": "/assets/dota-heroes/17.webp"
+  },
+  "18": {
+    "name": "Sven",
+    "portrait": "/assets/dota-heroes/18.webp"
+  },
+  "19": {
+    "name": "Tiny",
+    "portrait": "/assets/dota-heroes/19.webp"
+  },
+  "20": {
+    "name": "Vengeful Spirit",
+    "portrait": "/assets/dota-heroes/20.webp"
+  },
+  "21": {
+    "name": "Windranger",
+    "portrait": "/assets/dota-heroes/21.webp"
+  },
+  "22": {
+    "name": "Zeus",
+    "portrait": "/assets/dota-heroes/22.webp"
+  },
+  "23": {
+    "name": "Kunkka",
+    "portrait": "/assets/dota-heroes/23.webp"
+  },
+  "25": {
+    "name": "Lina",
+    "portrait": "/assets/dota-heroes/25.webp"
+  },
+  "26": {
+    "name": "Lion",
+    "portrait": "/assets/dota-heroes/26.webp"
+  },
+  "27": {
+    "name": "Shadow Shaman",
+    "portrait": "/assets/dota-heroes/27.webp"
+  },
+  "28": {
+    "name": "Slardar",
+    "portrait": "/assets/dota-heroes/28.webp"
+  },
+  "29": {
+    "name": "Tidehunter",
+    "portrait": "/assets/dota-heroes/29.webp"
+  },
+  "30": {
+    "name": "Witch Doctor",
+    "portrait": "/assets/dota-heroes/30.webp"
+  },
+  "31": {
+    "name": "Lich",
+    "portrait": "/assets/dota-heroes/31.webp"
+  },
+  "32": {
+    "name": "Riki",
+    "portrait": "/assets/dota-heroes/32.webp"
+  },
+  "33": {
+    "name": "Enigma",
+    "portrait": "/assets/dota-heroes/33.webp"
+  },
+  "34": {
+    "name": "Tinker",
+    "portrait": "/assets/dota-heroes/34.webp"
+  },
+  "35": {
+    "name": "Sniper",
+    "portrait": "/assets/dota-heroes/35.webp"
+  },
+  "36": {
+    "name": "Necrophos",
+    "portrait": "/assets/dota-heroes/36.webp"
+  },
+  "37": {
+    "name": "Warlock",
+    "portrait": "/assets/dota-heroes/37.webp"
+  },
+  "38": {
+    "name": "Beastmaster",
+    "portrait": "/assets/dota-heroes/38.webp"
+  },
+  "39": {
+    "name": "Queen of Pain",
+    "portrait": "/assets/dota-heroes/39.webp"
+  },
+  "40": {
+    "name": "Venomancer",
+    "portrait": "/assets/dota-heroes/40.webp"
+  },
+  "41": {
+    "name": "Faceless Void",
+    "portrait": "/assets/dota-heroes/41.webp"
+  },
+  "42": {
+    "name": "Wraith King",
+    "portrait": "/assets/dota-heroes/42.webp"
+  },
+  "43": {
+    "name": "Death Prophet",
+    "portrait": "/assets/dota-heroes/43.webp"
+  },
+  "44": {
+    "name": "Phantom Assassin",
+    "portrait": "/assets/dota-heroes/44.webp"
+  },
+  "45": {
+    "name": "Pugna",
+    "portrait": "/assets/dota-heroes/45.webp"
+  },
+  "46": {
+    "name": "Templar Assassin",
+    "portrait": "/assets/dota-heroes/46.webp"
+  },
+  "47": {
+    "name": "Viper",
+    "portrait": "/assets/dota-heroes/47.webp"
+  },
+  "48": {
+    "name": "Luna",
+    "portrait": "/assets/dota-heroes/48.webp"
+  },
+  "49": {
+    "name": "Dragon Knight",
+    "portrait": "/assets/dota-heroes/49.webp"
+  },
+  "50": {
+    "name": "Dazzle",
+    "portrait": "/assets/dota-heroes/50.webp"
+  },
+  "51": {
+    "name": "Clockwerk",
+    "portrait": "/assets/dota-heroes/51.webp"
+  },
+  "52": {
+    "name": "Leshrac",
+    "portrait": "/assets/dota-heroes/52.webp"
+  },
+  "53": {
+    "name": "Nature's Prophet",
+    "portrait": "/assets/dota-heroes/53.webp"
+  },
+  "54": {
+    "name": "Lifestealer",
+    "portrait": "/assets/dota-heroes/54.webp"
+  },
+  "55": {
+    "name": "Dark Seer",
+    "portrait": "/assets/dota-heroes/55.webp"
+  },
+  "56": {
+    "name": "Clinkz",
+    "portrait": "/assets/dota-heroes/56.webp"
+  },
+  "57": {
+    "name": "Omniknight",
+    "portrait": "/assets/dota-heroes/57.webp"
+  },
+  "58": {
+    "name": "Enchantress",
+    "portrait": "/assets/dota-heroes/58.webp"
+  },
+  "59": {
+    "name": "Huskar",
+    "portrait": "/assets/dota-heroes/59.webp"
+  },
+  "60": {
+    "name": "Night Stalker",
+    "portrait": "/assets/dota-heroes/60.webp"
+  },
+  "61": {
+    "name": "Broodmother",
+    "portrait": "/assets/dota-heroes/61.webp"
+  },
+  "62": {
+    "name": "Bounty Hunter",
+    "portrait": "/assets/dota-heroes/62.webp"
+  },
+  "63": {
+    "name": "Weaver",
+    "portrait": "/assets/dota-heroes/63.webp"
+  },
+  "64": {
+    "name": "Jakiro",
+    "portrait": "/assets/dota-heroes/64.webp"
+  },
+  "65": {
+    "name": "Batrider",
+    "portrait": "/assets/dota-heroes/65.webp"
+  },
+  "66": {
+    "name": "Chen",
+    "portrait": "/assets/dota-heroes/66.webp"
+  },
+  "67": {
+    "name": "Spectre",
+    "portrait": "/assets/dota-heroes/67.webp"
+  },
+  "68": {
+    "name": "Ancient Apparition",
+    "portrait": "/assets/dota-heroes/68.webp"
+  },
+  "69": {
+    "name": "Doom",
+    "portrait": "/assets/dota-heroes/69.webp"
+  },
+  "70": {
+    "name": "Ursa",
+    "portrait": "/assets/dota-heroes/70.webp"
+  },
+  "71": {
+    "name": "Spirit Breaker",
+    "portrait": "/assets/dota-heroes/71.webp"
+  },
+  "72": {
+    "name": "Gyrocopter",
+    "portrait": "/assets/dota-heroes/72.webp"
+  },
+  "73": {
+    "name": "Alchemist",
+    "portrait": "/assets/dota-heroes/73.webp"
+  },
+  "74": {
+    "name": "Invoker",
+    "portrait": "/assets/dota-heroes/74.webp"
+  },
+  "75": {
+    "name": "Silencer",
+    "portrait": "/assets/dota-heroes/75.webp"
+  },
+  "76": {
+    "name": "Outworld Destroyer",
+    "portrait": "/assets/dota-heroes/76.webp"
+  },
+  "77": {
+    "name": "Lycan",
+    "portrait": "/assets/dota-heroes/77.webp"
+  },
+  "78": {
+    "name": "Brewmaster",
+    "portrait": "/assets/dota-heroes/78.webp"
+  },
+  "79": {
+    "name": "Shadow Demon",
+    "portrait": "/assets/dota-heroes/79.webp"
+  },
+  "80": {
+    "name": "Lone Druid",
+    "portrait": "/assets/dota-heroes/80.webp"
+  },
+  "81": {
+    "name": "Chaos Knight",
+    "portrait": "/assets/dota-heroes/81.webp"
+  },
+  "82": {
+    "name": "Meepo",
+    "portrait": "/assets/dota-heroes/82.webp"
+  },
+  "83": {
+    "name": "Treant Protector",
+    "portrait": "/assets/dota-heroes/83.webp"
+  },
+  "84": {
+    "name": "Ogre Magi",
+    "portrait": "/assets/dota-heroes/84.webp"
+  },
+  "85": {
+    "name": "Undying",
+    "portrait": "/assets/dota-heroes/85.webp"
+  },
+  "86": {
+    "name": "Rubick",
+    "portrait": "/assets/dota-heroes/86.webp"
+  },
+  "87": {
+    "name": "Disruptor",
+    "portrait": "/assets/dota-heroes/87.webp"
+  },
+  "88": {
+    "name": "Nyx Assassin",
+    "portrait": "/assets/dota-heroes/88.webp"
+  },
+  "89": {
+    "name": "Naga Siren",
+    "portrait": "/assets/dota-heroes/89.webp"
+  },
+  "90": {
+    "name": "Keeper of the Light",
+    "portrait": "/assets/dota-heroes/90.webp"
+  },
+  "91": {
+    "name": "Io",
+    "portrait": "/assets/dota-heroes/91.webp"
+  },
+  "92": {
+    "name": "Visage",
+    "portrait": "/assets/dota-heroes/92.webp"
+  },
+  "93": {
+    "name": "Slark",
+    "portrait": "/assets/dota-heroes/93.webp"
+  },
+  "94": {
+    "name": "Medusa",
+    "portrait": "/assets/dota-heroes/94.webp"
+  },
+  "95": {
+    "name": "Troll Warlord",
+    "portrait": "/assets/dota-heroes/95.webp"
+  },
+  "96": {
+    "name": "Centaur Warrunner",
+    "portrait": "/assets/dota-heroes/96.webp"
+  },
+  "97": {
+    "name": "Magnus",
+    "portrait": "/assets/dota-heroes/97.webp"
+  },
+  "98": {
+    "name": "Timbersaw",
+    "portrait": "/assets/dota-heroes/98.webp"
+  },
+  "99": {
+    "name": "Bristleback",
+    "portrait": "/assets/dota-heroes/99.webp"
+  },
+  "100": {
+    "name": "Tusk",
+    "portrait": "/assets/dota-heroes/100.webp"
+  },
+  "101": {
+    "name": "Skywrath Mage",
+    "portrait": "/assets/dota-heroes/101.webp"
+  },
+  "102": {
+    "name": "Abaddon",
+    "portrait": "/assets/dota-heroes/102.webp"
+  },
+  "103": {
+    "name": "Elder Titan",
+    "portrait": "/assets/dota-heroes/103.webp"
+  },
+  "104": {
+    "name": "Legion Commander",
+    "portrait": "/assets/dota-heroes/104.webp"
+  },
+  "105": {
+    "name": "Techies",
+    "portrait": "/assets/dota-heroes/105.webp"
+  },
+  "106": {
+    "name": "Ember Spirit",
+    "portrait": "/assets/dota-heroes/106.webp"
+  },
+  "107": {
+    "name": "Earth Spirit",
+    "portrait": "/assets/dota-heroes/107.webp"
+  },
+  "108": {
+    "name": "Underlord",
+    "portrait": "/assets/dota-heroes/108.webp"
+  },
+  "109": {
+    "name": "Terrorblade",
+    "portrait": "/assets/dota-heroes/109.webp"
+  },
+  "110": {
+    "name": "Phoenix",
+    "portrait": "/assets/dota-heroes/110.webp"
+  },
+  "111": {
+    "name": "Oracle",
+    "portrait": "/assets/dota-heroes/111.webp"
+  },
+  "112": {
+    "name": "Winter Wyvern",
+    "portrait": "/assets/dota-heroes/112.webp"
+  },
+  "113": {
+    "name": "Arc Warden",
+    "portrait": "/assets/dota-heroes/113.webp"
+  },
+  "114": {
+    "name": "Monkey King",
+    "portrait": "/assets/dota-heroes/114.webp"
+  },
+  "119": {
+    "name": "Dark Willow",
+    "portrait": "/assets/dota-heroes/119.webp"
+  },
+  "120": {
+    "name": "Pangolier",
+    "portrait": "/assets/dota-heroes/120.webp"
+  },
+  "121": {
+    "name": "Grimstroke",
+    "portrait": "/assets/dota-heroes/121.webp"
+  },
+  "123": {
+    "name": "Hoodwink",
+    "portrait": "/assets/dota-heroes/123.webp"
+  },
+  "126": {
+    "name": "Void Spirit",
+    "portrait": "/assets/dota-heroes/126.webp"
+  },
+  "128": {
+    "name": "Snapfire",
+    "portrait": "/assets/dota-heroes/128.webp"
+  },
+  "129": {
+    "name": "Mars",
+    "portrait": "/assets/dota-heroes/129.webp"
+  },
+  "131": {
+    "name": "Ringmaster",
+    "portrait": "/assets/dota-heroes/131.webp"
+  },
+  "135": {
+    "name": "Dawnbreaker",
+    "portrait": "/assets/dota-heroes/135.webp"
+  },
+  "136": {
+    "name": "Marci",
+    "portrait": "/assets/dota-heroes/136.webp"
+  },
+  "137": {
+    "name": "Primal Beast",
+    "portrait": "/assets/dota-heroes/137.webp"
+  },
+  "138": {
+    "name": "Muerta",
+    "portrait": "/assets/dota-heroes/138.webp"
+  },
+  "145": {
+    "name": "Kez",
+    "portrait": "/assets/dota-heroes/145.webp"
+  },
+  "155": {
+    "name": "Largo",
+    "portrait": "/assets/dota-heroes/155.webp"
+  }
+}

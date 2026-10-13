@@ -160,7 +160,7 @@ test('projection cannot create real fixtures, schedule counts or team history', 
   assert.deepEqual(tournament, before);
   assert.deepEqual(getTournamentModel(tournament), schedule);
   assert.deepEqual([...buildCommunityModel([tournament], registry).matches.keys()], [...history.matches.keys()]);
-  assert.equal(schedule.matches.length, 30);
+  assert.equal(schedule.matches.length, 33);
 });
 
 test('only confirmed actual playoff pairs supply later slots; corrections drop old participants', () => {

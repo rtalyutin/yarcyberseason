@@ -20,7 +20,8 @@ function dateGroup(match) {
       const day = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Moscow' }).format(new Date(match.scheduledAt));
       return dateGroup({ date: day });
     }
-    return { key: 'unknown', label: match.dateDisplay || match.date || 'Дата уточняется' };
+    const label = match.dateDisplay || match.date || 'Дата уточняется';
+    return { key: `unknown:${label}`, label };
   }
   const date = new Date(Date.UTC(parts.year || 2000, parts.month - 1, parts.day, 12));
   // A legacy source without a year cannot establish a weekday.

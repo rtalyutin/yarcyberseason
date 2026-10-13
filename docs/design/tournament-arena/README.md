@@ -15,7 +15,8 @@ The current header is not sticky, so the section menu sticks at `top: 0`.
 `TournamentMatchCard` uses normalized confirmed results, actual team logos
 (initials if unavailable), MSK times and independently expandable details.
 Adjacent date groups preserve the model's unfinished-first and finished-newest
-order; grouping does not reorder fixtures. A yearless date cannot establish a
+order; grouping does not reorder fixtures. Different published multi-day periods
+keep separate headings; a period does not imply an exact appointment. A yearless date cannot establish a
 weekday. Missing time is explicit. Scheduled fixtures keep VS even after their
 start time passes. Long labels and additional actions grow their panels.
 The search counter reflects the filtered result; clearing Dota search preserves

@@ -1249,6 +1249,57 @@
               "scheduledAt": "2026-10-13T17:30:00+03:00"
             }
           ]
+        },
+        {
+          "id": "round-5",
+          "label": "5-й тур",
+          "matches": [
+            {
+              "id": "dota-autumn-swiss-r5-01",
+              "status": "scheduled",
+              "bestOf": "BO3",
+              "team1": "Team Borisogleb",
+              "team1Id": "dota2-main-2026-team-borisogleb",
+              "team2": "Mi Ne Pushim!",
+              "team2Id": "dota2-main-2026-mi-ne-pushim",
+              "date": "15–16 октября",
+              "dateDisplay": "15–16 октября",
+              "windowStart": "2026-10-15T00:00:00+03:00",
+              "windowEnd": "2026-10-17T00:00:00+03:00",
+              "note": "Время начала матча уточняется."
+            },
+            {
+              "id": "dota-autumn-swiss-r5-02",
+              "status": "scheduled",
+              "bestOf": "BO3",
+              "team1": "Tech Titans",
+              "team1Id": "dota2-main-2026-tech-titans",
+              "team2": "strela team",
+              "team2Id": "dota2-autumn-2026-strela-team",
+              "date": "15–16 октября",
+              "dateDisplay": "15–16 октября",
+              "windowStart": "2026-10-15T00:00:00+03:00",
+              "windowEnd": "2026-10-17T00:00:00+03:00",
+              "note": "Время начала матча уточняется."
+            },
+            {
+              "id": "dota-autumn-swiss-r5-03",
+              "status": "scheduled",
+              "bestOf": "BO3",
+              "team1": "Fummo",
+              "team1Id": "dota2-autumn-2026-fummo",
+              "team2": "TEAM SPERMINT",
+              "team2Id": "dota2-autumn-2026-4fans",
+              "date": "15–16 октября",
+              "dateDisplay": "15–16 октября",
+              "windowStart": "2026-10-15T00:00:00+03:00",
+              "windowEnd": "2026-10-17T00:00:00+03:00",
+              "note": "Время начала матча уточняется.",
+              "broadcastLinks": {
+                "twitch": "https://www.twitch.tv/YarCyberSeason"
+              }
+            }
+          ]
         }
       ],
       "ranking": "buchholz"

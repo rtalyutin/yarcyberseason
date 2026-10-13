@@ -7,14 +7,34 @@
   authorization, not a new visual direction or a sporting-data update.
 - Fresh base main a07967d7f8ff8b7631246f734d2e850009aa22a3, including newer
   R3/R4 schedule/result changes. Those files are preserved.
+- During publication main advanced to7a871b907135e62ad1020aa79b833050adba50a4.
+  Conflict-free rebase produced270f87a81644eb1e3300da9ee8923487a7510fd0,
+  tree2fdb1e84ff5c646bf4db66f2593574438525304b. Its updated appointments,
+  calendar publications and partner/series-prize metadata are preserved exactly.
 - Selected-map heroId drives portrait/name next to each nickname and in map MVP.
   Official Valve catalogue and local portraits cover 127 heroes. Unknown IDs
   and unavailable images have truthful fallbacks. No-play/pending maps retain
   their existing honest states; estimates retain actual picks and metric dashes.
 - Author build passes: 52 teams /150 matches,215 canonical URLs +3 aliases.
   Focused existing per-map/MVP regression tests pass29/29,zero skipped.
-- Independent acceptance and actual browser verification are in progress.
-  Publication of this correction has not yet happened at this checkpoint.
+- Independent source/SSR acceptance passes6/6 distinguishing cases plus17
+  existing regressions. All127 catalogue names/portraits verified against Valve;
+  rebase preserves the identical functional fingerprintbc47884f….
+- Source publication completed: main42266d871ee3354cc18d1309f142d8293ecb43c4,
+  exact accepted tree2fdb1e84…, guarded against newer main. Existing host now
+  renders ten actual portraits/names and the Snapfire MVP badge on R1-04.
+  Root browser confirms every pre-update K/D/A, damage and MVP value unchanged;
+  all11 images loaded, page width1348 at1363×936 CSSpx. Sanitized summary:
+  docs/design/match-center/evidence/heroes-summary-QA.md.
+- Independent live acceptance passes: actual BO3 R3-02 map1→2 switches all
+  ten correct hero bindings; technical map3 has no picks, statistics or award.
+  CS2 lower-final rendering remains unchanged with zero Dota hero elements.
+  Independent portrait128 HTTP readback matches accepted bytes exactly.
+  Report: docs/design/match-center/evidence/heroes-summary-QA.md.
+- Hero-pick correction is LIVE VERIFIED for the observed desktop scope.
+  Local browser was inaccessible through the isolated network namespace;
+  320/390 viewport control and an actual image-failure event were NOT_RUN.
+  No mobile/image-error PASS is implied by source or SSR checks.
 - Original expanded match-center release below completed on 12October:
   frontend main f140bb9c / runtime main c7a4581f; their live page/API readbacks
   were verified. The older preparation statuses are historical checkpoints.

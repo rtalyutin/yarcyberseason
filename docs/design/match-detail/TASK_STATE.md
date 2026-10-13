@@ -25,7 +25,20 @@
   and all20before/after player-stat rows identical. No page overflow at1363×936.
   Visual inspection found excess empty space; compact single-leader layout keeps
   the player/total left and actual portraits right at native128px image width.
-  Its build passes; final immutable QA and layout live readback pending.
+  Its build passes; final immutable QA passes8SSR/37relevant regressions, with
+  unchanged scoring/protected files preserving the prior15/105 gate. Compact
+  accepted locala4a6d29d26a1c27385a963c4c6e892a820fd980f,
+  tree6c864ccbb6e9132f7ec1e308b83a2bda11a49569; published main
+  b8cc79de132624524408e663791d4371d5b1c9b5 matches that exact tree.
+  Actual plain-URL CSS is byte-identical (26,532bytes, SHA256
+  5f338a85e81774618b7e410203e77092880095842c9c3eb81426b028878f46d9);
+  public JS has all1131accepted literals after excluding regenerated hashedimports.
+  Independent live acceptance passes4scenarios: BO3map1→2→unplayed3 award
+  invariance, BO1 map/fixture equivalence, technical no-play and CS2 preservation.
+  Final compact actual viewport1363×936 has no page overflow/clipping/overlap;
+  player/total left, actual picks right, both portraits render/load at128px.
+  Status: LIVE_VERIFIED for the observed desktop scope; no remaining code/runtime
+  action. Release evidence contains only sanitized counts, verdicts and revisions.
   Actual phone/4K viewports remain NOT_RUN in the current browser environment.
   Raw QA snapshots/identifiers/logs/screenshots remain outside repository;
   only sanitized verdicts/counts/revisions may be published.

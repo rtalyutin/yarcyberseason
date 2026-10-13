@@ -34,8 +34,8 @@
 - Acceptance: current BH verified against independent revision23 oracle; correct
   ties/technical/unconfirmed results, fixed 14-match graph, no forecast leaks,
   SSR/browser resize/links and build/data tests. No FPS or Telegram-client claim.
-- Status: VERIFIED for this feature on implementation commit
-  `5ad12aecb18988cec04fb8f2e460f447e0aaf7ff`; no publication performed.
+- Status: LIVE_VERIFIED for the observed desktop feature scope. Accepted
+  implementation: `5ad12aecb18988cec04fb8f2e460f447e0aaf7ff`.
 - Data used for acceptance: public results revision 23, updated
   `2026-10-13T19:53:52.024Z`: 28 confirmed series, including five technical
   series. Current four qualifiers: Team Leto (3:0, +4), Aegis Guardians
@@ -72,7 +72,36 @@
   Operation: non-force update of main, then remote-head and public-asset readback.
   Recovery reference: baseline above; preserve later independent changes if a
   corrective revert is needed. No sporting-result or backend data writes.
-- Next: execute the authorized main update and confirm the existing host.
+- Main update SUCCEEDED and read back independently through the GitHub API
+  and git fetch: `c670214eee155aa14b08c28451d7c4c983327ffd`, exact accepted
+  delivery tree `7eee9d7f737c55586c2f84245257fc45d113114d`.
+  GitHub Git Data API used an expected-head, non-force update; direct git push
+  had no write credential and made no change. Auto-review initially rejected
+  the tournament/test blobs because they contain existing player data. Direct
+  comparisons with immutable published baseline files proved that no player
+  identifiers, names, rosters or sporting results were added/changed; the same
+  blob operations then succeeded. No alternate route bypassed the rejection.
+- Public desktop browser readback on 14 October: the actual host serves eight
+  seed rows, 14 match cards and 20 SVG connectors. Four qualifiers remain;
+  current Buchholz values reflect 29 confirmed series rather than the earlier
+  acceptance snapshot's 28. The lower-bracket jump focuses Н1. Document and
+  viewport widths both equal 1348px; no page-wide overflow. These are live
+  browser observations, not the isolated author browser fixtures above.
+- Verified public route:
+  `https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/?section=playoffs&phase=all`.
+  Existing host/configuration and sporting data writers are unchanged. Runtime
+  mobile/4K checks remain the earlier isolated checks, not production claims.
+- Independent release readback: PASS, observed 13 October 22:02–22:05 UTC.
+  Public App CSS is byte-identical to the accepted build (SHA256
+  `c6b3ac07ee19677baa5ead385a463968c83ba128691bde733cdc0165c26cb2ac`).
+  Public App JS matches after normalizing only hashed asset names and the
+  build timestamp. A fresh independent calculation from results revision 24
+  (29 confirmed series, four qualifiers) matches all eight rows observed in
+  the production browser. This verifies the delivered assets and current data;
+  it does not claim an additional independent browser run or full CI PASS.
+- Authorized release is complete. Subsequent visual feedback does not change
+  the verified delivery record or tournament rules. No background monitoring
+  or new external operation is scheduled.
 
 ## Previous Swiss visual contract (retained)
 

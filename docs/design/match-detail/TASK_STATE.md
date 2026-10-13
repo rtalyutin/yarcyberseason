@@ -15,8 +15,19 @@
 - Missing maps, ongoing series, estimates, corrections or stale snapshots never
   receive a final award. Exact ties/substitutions/technical exclusions preserved.
 - Author checks passed88/88 focused tests, zero skipped; production build passed
- 52teams/150matches and215canonicalURLs+3aliases. Independent QA and source/live
-  gates pending. Raw QA snapshots/identifiers/logs/screenshots remain outside repository;
+  52teams/150matches and215canonicalURLs+3aliases. Independent immutable QA passed
+  15projection +7SSR scenarios and105focused regressions, zero failures/skips.
+  Accepted local3eb5e2210cfd95d9d05b61ab621a844905af7441,
+  tree47e2023459a32e739ac401401e68fbb7e3255438. Source main published as
+  d25c94af140cc370b76b0b3b66fdfd39f8fe7dd4 with identical accepted tree,
+  expected-head CAS preserving all prior data. Root live desktop readback passes:
+  series1→2→unplayed3 invariance, correct two actual portraits loaded, no Puck,
+  and all20before/after player-stat rows identical. No page overflow at1363×936.
+  Visual inspection found excess empty space; compact single-leader layout keeps
+  the player/total left and actual portraits right at native128px image width.
+  Its build passes; final immutable QA and layout live readback pending.
+  Actual phone/4K viewports remain NOT_RUN in the current browser environment.
+  Raw QA snapshots/identifiers/logs/screenshots remain outside repository;
   only sanitized verdicts/counts/revisions may be published.
 
 ## Hero picks correction — 13 October 2026

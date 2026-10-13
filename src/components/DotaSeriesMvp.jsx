@@ -16,7 +16,7 @@ export function DotaSeriesMvp({ mvp, match }) {
         <p>{series ? 'Сумма баллов по сыгранным картам' : 'По статистике сыгранной карты'}{mvp.countedMapNumbers.length > 0 && ` · Учтены: ${mvp.countedMapNumbers.join(', ')}`}</p>
       </div>
     </div>
-    {leaders.length ? <div className="mc-series-leaders">{leaders.map((player) => <article className="mc-series-leader" key={player.accountId}>
+    {leaders.length ? <div className={`mc-series-leaders${leaders.length === 1 ? ' is-single' : ''}`}>{leaders.map((player) => <article className="mc-series-leader" key={player.accountId}>
       <div className="mc-series-identity"><h3>{player.nickname}</h3><p>{player.teamNames.join(' / ')} · Карт: {player.countedMaps}</p></div>
       <p className="mc-series-total"><strong>{scoreText(player.ratingExact)}</strong><span>Баллы {series ? 'за серию' : 'за матч'}</span></p>
       <ol className="mc-series-picks" aria-label={`Пики и вклад игрока ${player.nickname}`}>

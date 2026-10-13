@@ -30,7 +30,7 @@ export const confirmedPartners = Object.freeze([
   partner({ id: 'gingerbread-house', name: 'Пряничный домик', shortName: 'Пряничный домик', scope: 'final', url: 'https://vk.com/club96693175', description: 'Партнёр финала.' }),
   partner({ id: 'yarvzlet', name: 'Аэротруба «Взлёт»', shortName: 'Взлёт', scope: 'unassigned', url: 'https://vk.com/yarvzlet' }),
   partner({ id: 'questoria', name: 'Квестория', shortName: 'Квестория', scope: 'unassigned' }),
-  partner({ id: 'pipyao', name: 'Пипяо', shortName: 'Пипяо', scope: 'unassigned', url: 'https://vk.com/pipyao_panasia' }),
+  partner({ id: 'pipyao', name: 'Пипяо', shortName: 'Пипяо', scope: 'match', matchId: 'dota-autumn-swiss-r4-04', scopeLabel: 'Матч 4-го тура', url: 'https://vk.com/pipyao_panasia', description: 'Партнёр серии Vnext — strela team: сертификат 1 000 ₽ для MVP всей серии BO3.' }),
   partner({ id: 'strelets', name: 'Стрелец', shortName: 'Стрелец', scope: 'unassigned', url: 'https://yarbalet.ru' }),
   partner({ id: 'tortofe', name: 'Тортофэ', shortName: 'Тортофэ', scope: 'unassigned', url: 'https://vk.ru/tortoferu' }),
   partner({ id: 'yaponchik', name: 'Япончик', shortName: 'Япончик', scope: 'unassigned', url: 'https://yaponchik.net/' }),
@@ -56,7 +56,7 @@ export function getMatchPartners(tournament, matchOrId) {
 export function getPartnerScopeLabel(entry) {
   if (entry.scope === 'tournament') return 'Партнёр турнира';
   if (entry.scope === 'official') return 'Официальная поддержка';
-  if (entry.scope === 'match') return 'Матч открытия';
+  if (entry.scope === 'match') return entry.scopeLabel || 'Матч открытия';
   if (entry.scope === 'final') return 'Финал';
   return 'Матч пока не назначен';
 }

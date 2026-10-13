@@ -225,6 +225,44 @@
       "description": "Матч завершён. Результат — на странице матча.",
       "revision": 1,
       "updatedAt": "2026-10-11T14:14:29.396Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r4-04",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r4-04@ycs.bar",
+      "start": "2026-10-13T23:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-strela-team",
+        "dota2-autumn-2026-vnext"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-strela-team",
+        "dota2-autumn-2026-vnext"
+      ],
+      "summary": "Vnext — strela team · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r4-04",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-13T08:24:42.013Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r4-06",
+      "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r4-06@ycs.bar",
+      "start": "2026-10-13T17:30:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-parallax-team",
+        "dota2-main-2026-tech-titans"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-parallax-team",
+        "dota2-main-2026-tech-titans"
+      ],
+      "summary": "Tech Titans — Parallax Team · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/dota-autumn-swiss-r4-06",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-13T08:24:42.013Z"
     }
   ]
 }

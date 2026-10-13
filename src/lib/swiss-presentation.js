@@ -17,6 +17,8 @@ export function sortSwissRows(rows) {
   return [...rows].sort((a, b) => {
     const left = getSwissRecordState(a.won, a.lost), right = getSwissRecordState(b.won, b.lost);
     if (left.kind === 'unknown' || right.kind === 'unknown') return (left.kind === 'unknown') - (right.kind === 'unknown');
-    return b.won - a.won || a.lost - b.lost;
+    return b.won - a.won || a.lost - b.lost
+      || (Number.isSafeInteger(a.buchholz) && Number.isSafeInteger(b.buchholz) ? b.buchholz - a.buchholz : 0)
+      || (Number.isSafeInteger(a.initialSeed) && Number.isSafeInteger(b.initialSeed) ? a.initialSeed - b.initialSeed : 0);
   });
 }

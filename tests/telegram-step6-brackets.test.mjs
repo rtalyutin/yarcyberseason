@@ -39,12 +39,13 @@ test("real Swiss shows all four published rounds and confirmed standings without
   assert.match(swiss, /3 победы/);
   assert.match(swiss, /<table/);
   assert.equal((swiss.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r1-/g) || []).length, 8);
-  assert.equal((bracket.match(/class="tg-empty-slot"/g) || []).length, 7);
-  assert.match(bracket, /Верхняя сетка/);
-  assert.match(bracket, /Нижняя сетка/);
+  assert.equal((bracket.match(/class="tg-empty-slot"/g) || []).length, 14);
+  assert.match(bracket, /Верхняя · 1\/4 финала/);
+  assert.match(bracket, /Нижняя · раунд 1/);
   assert.match(bracket, /Гранд-финал/);
-  assert.match(bracket, /Переходы между парами ещё не опубликованы/);
-  assert.doesNotMatch(bracket, /data-match-key=|tg-bracket-transition|0:0/);
+  assert.doesNotMatch(bracket, /Переходы между парами ещё не опубликованы/);
+  assert.equal((bracket.match(/class="tg-bracket-transition/g) || []).length, 20);
+  assert.doesNotMatch(bracket, /data-match-key=|0:0/);
   assert.equal(real.matches.length, 30);
   assert.equal((swiss.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r2-/g) || []).length, 8);
   assert.equal((swiss.match(/data-match-key="dota2-autumn-2026\/dota-autumn-swiss-r3-/g) || []).length, 8);

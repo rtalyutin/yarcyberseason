@@ -1,3 +1,22 @@
+# Current Dota playoff projection — October 14
+
+- Roman selected a complete eight-team Double Elimination bracket with the
+  current Buchholz/seeding table. Show 14 series: 13 BO3 and one BO5 grand
+  final from 0:0 without reset. Keep existing match IDs; add the missing rounds.
+- The published autumn regulation ranks 3:0, then 3:1, then 3:2; within equal
+  records use Buchholz (opponents' current W−L sum) descending, then the initial
+  R1 draw ascending. No head-to-head tiebreak. Technical series count once.
+- Before Swiss ends, all seed numbers/pairs are explicitly provisional. Mark
+  teams with three wins as qualified and the remaining current top-eight slots
+  as forecasts. Derived slots must never enter real fixtures/schedules/history.
+- QFs: 1–8, 4–5 / 2–7, 3–6. Lower R2 crosses semifinal losers: В6→Н3,
+  В5→Н4. Keep this topology fixed; it delays playoff rematches, not Swiss
+  rematches. Preserve existing Swiss artwork/status colors, header and archives.
+- Roman subsequently authorized publication with «выкладывай в main» on
+  14 October. Publish this accepted frontend revision to the existing main and
+  observe the existing host; no new hosting/backend writer or Telegram setup.
+  Contract/evidence: docs/design/swiss/TASK_STATE.md.
+
 # Expanded match center — October 12
 
 - October 13 series-MVP correction supersedes the earlier BO1-only award rule:

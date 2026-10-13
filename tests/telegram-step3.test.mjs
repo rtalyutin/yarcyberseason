@@ -77,7 +77,7 @@ test("the real adapter builds the selected tournament without copying source dat
   assert.equal(model.matches.filter((match) => match.roundId === "round-3" && match.result.confirmed).length, 8);
   assert.equal(model.matches.filter((match) => match.roundId === "round-4" && !match.result.confirmed).length, 6);
   assert.equal(model.stages.find((stage) => stage.id === "swiss").availability, "ready");
-  assert.equal(model.stages.find((stage) => stage.id === "playoffs").rounds.flatMap((round) => round.slots).length, 7);
+  assert.equal(model.stages.find((stage) => stage.id === "playoffs").rounds.flatMap((round) => round.slots).length, 14);
   assert.equal(model.stages.find((stage) => stage.id === "playoffs").rounds.flatMap((round) => round.slots).every((slot) => slot.kind === "empty"), true);
   assert.equal(model.sections.some((section) => section.id === "results"), false);
 });

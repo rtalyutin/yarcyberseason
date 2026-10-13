@@ -64,6 +64,12 @@
 .ds-empty h2 { margin-top: 0; }
 .ds-footnote { padding: 14px 12px 0; color: #b3c8cb; font-size: 15px; line-height: 1.5; }
 .ds-footnote p { margin: 5px 0; }
+.ds-table--buchholz thead th:nth-child(2) { width: 31%; }
+.ds-table--buchholz thead th:nth-child(3) { width: 12%; }
+.ds-table--buchholz thead th:nth-child(4) { width: 13%; }
+.ds-table--buchholz thead th:nth-child(5) { width: 14%; }
+.ds-table--buchholz thead th:nth-child(6) { width: 25%; }
+.ds-buchholz { font-weight: 700; font-variant-numeric: tabular-nums; }
 @media (max-width: 1100px) {
   .ds-intro { min-height: 140px; }
   .ds-path { padding-right: 12px; grid-template-columns: 40% minmax(0, 1fr); min-height: 164px; }
@@ -76,6 +82,9 @@
   .ds-table thead th:nth-child(2) { width: 38%; }
   .ds-table thead th:nth-child(4) { width: 16%; }
   .ds-table thead th:nth-child(5) { width: 28%; }
+  .ds-table--buchholz thead th:nth-child(2) { width: 30%; }
+  .ds-table--buchholz thead th:nth-child(4) { width: 13%; }
+  .ds-table--buchholz thead th:nth-child(5) { width: 14%; }
   .ds-team > div { gap: 10px; }
 }
 @media (max-width: 650px) {
@@ -111,5 +120,9 @@
   .ds-wins { gap: 5px; }
   .ds-wins svg { width: 16px; height: 16px; }
   .ds-table tbody .ds-status { grid-column: 1 / -1; grid-row: 2; padding-left: 36px; font-size: 12px; }
+  .ds-table .ds-buchholz-heading { display: none; }
+  .ds-table--buchholz tbody .ds-status { grid-column: 1; }
+  .ds-table tbody .ds-buchholz { grid-column: 2 / 4; grid-row: 2; text-align: right; font-size: 12px; align-self: center; }
+  .ds-buchholz::before { content: 'БХ '; color: var(--ds-muted); font-weight: 400; }
   .ds-footnote { font-size: 13px; padding-inline: 6px; }
 }

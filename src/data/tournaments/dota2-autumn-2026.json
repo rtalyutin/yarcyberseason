@@ -1250,55 +1250,236 @@
             }
           ]
         }
-      ]
+      ],
+      "ranking": "buchholz"
     },
     {
       "id": "playoffs",
       "type": "double_elimination",
       "title": "Плей-офф",
-      "notice": "Double elimination: BO3, гранд-финал BO5.",
+      "notice": "Double Elimination: верхняя и нижняя сетки. Матчи BO3, гранд-финал BO5 без переигровки.",
       "emptyState": "Пары плей-офф будут опубликованы после швейцарского этапа.",
       "rounds": [
         {
           "id": "upper",
-          "label": "Верхняя сетка",
+          "label": "Верхняя · 1/4 финала",
+          "bracket": "upper",
           "matches": [
             {
-              "id": "upper-1"
+              "id": "upper-1",
+              "sourceLabel": "В1",
+              "bestOf": "BO3",
+              "seed1": 1,
+              "seed2": 8,
+              "winnerTo": {
+                "matchId": "upper-5",
+                "slot": 1
+              },
+              "loserTo": {
+                "matchId": "lower-1",
+                "slot": 1
+              }
             },
             {
-              "id": "upper-2"
+              "id": "upper-2",
+              "sourceLabel": "В2",
+              "bestOf": "BO3",
+              "seed1": 4,
+              "seed2": 5,
+              "winnerTo": {
+                "matchId": "upper-5",
+                "slot": 2
+              },
+              "loserTo": {
+                "matchId": "lower-1",
+                "slot": 2
+              }
             },
             {
-              "id": "upper-3"
+              "id": "upper-3",
+              "sourceLabel": "В3",
+              "bestOf": "BO3",
+              "seed1": 2,
+              "seed2": 7,
+              "winnerTo": {
+                "matchId": "upper-6",
+                "slot": 1
+              },
+              "loserTo": {
+                "matchId": "lower-2",
+                "slot": 1
+              }
             },
             {
-              "id": "upper-4"
+              "id": "upper-4",
+              "sourceLabel": "В4",
+              "bestOf": "BO3",
+              "seed1": 3,
+              "seed2": 6,
+              "winnerTo": {
+                "matchId": "upper-6",
+                "slot": 2
+              },
+              "loserTo": {
+                "matchId": "lower-2",
+                "slot": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "upper-semis",
+          "label": "Верхняя · 1/2 финала",
+          "bracket": "upper",
+          "matches": [
+            {
+              "id": "upper-5",
+              "sourceLabel": "В5",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "upper-7",
+                "slot": 1
+              },
+              "loserTo": {
+                "matchId": "lower-4",
+                "slot": 2
+              }
+            },
+            {
+              "id": "upper-6",
+              "sourceLabel": "В6",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "upper-7",
+                "slot": 2
+              },
+              "loserTo": {
+                "matchId": "lower-3",
+                "slot": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "upper-final",
+          "label": "Верхняя · финал",
+          "bracket": "upper",
+          "matches": [
+            {
+              "id": "upper-7",
+              "sourceLabel": "В7",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "final-1",
+                "slot": 1
+              },
+              "loserTo": {
+                "matchId": "lower-6",
+                "slot": 2
+              }
             }
           ]
         },
         {
           "id": "lower",
-          "label": "Нижняя сетка",
+          "label": "Нижняя · раунд 1",
+          "bracket": "lower",
           "matches": [
             {
-              "id": "lower-1"
+              "id": "lower-1",
+              "sourceLabel": "Н1",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "lower-3",
+                "slot": 1
+              }
             },
             {
-              "id": "lower-2"
+              "id": "lower-2",
+              "sourceLabel": "Н2",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "lower-4",
+                "slot": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "lower-round-2",
+          "label": "Нижняя · раунд 2",
+          "bracket": "lower",
+          "matches": [
+            {
+              "id": "lower-3",
+              "sourceLabel": "Н3",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "lower-5",
+                "slot": 1
+              }
+            },
+            {
+              "id": "lower-4",
+              "sourceLabel": "Н4",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "lower-5",
+                "slot": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "lower-semi",
+          "label": "Нижняя · полуфинал",
+          "bracket": "lower",
+          "matches": [
+            {
+              "id": "lower-5",
+              "sourceLabel": "Н5",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "lower-6",
+                "slot": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "lower-final",
+          "label": "Нижняя · финал",
+          "bracket": "lower",
+          "matches": [
+            {
+              "id": "lower-6",
+              "sourceLabel": "Н6",
+              "bestOf": "BO3",
+              "winnerTo": {
+                "matchId": "final-1",
+                "slot": 2
+              }
             }
           ]
         },
         {
           "id": "final",
           "label": "Гранд-финал",
+          "bracket": "final",
           "matches": [
             {
-              "id": "final-1"
+              "id": "final-1",
+              "sourceLabel": "Ф1",
+              "bestOf": "BO5"
             }
           ]
         }
-      ]
+      ],
+      "seeding": {
+        "sourceStageId": "swiss",
+        "method": "buchholz",
+        "places": 8
+      }
     }
   ],
   "registration": {

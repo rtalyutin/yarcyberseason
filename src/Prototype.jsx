@@ -7,6 +7,8 @@ import { projectContent, projectLegal } from './data/project-content.js';
 import { MatchdayPage } from "./components/Matchday.jsx";
 import { TournamentNavigator } from "./components/TournamentNavigator.jsx";
 import { DotaSwissStandings } from "./components/DotaSwissStandings.jsx";
+import { SwissPlayoffs } from "./components/SwissPlayoffs.jsx";
+import { getSwissStandings, formatBuchholz } from "./lib/swiss-seeding.js";
 import { OrganizerRoom } from "./components/OrganizerRoom.jsx";
 import { ThemeArtwork } from "./components/ThemeSwitcher.jsx";
 import { readTheme, saveTheme, normalizeTheme, THEME_STORAGE_KEY } from "./lib/theme.js";
@@ -625,7 +627,7 @@ function BracketStage({ stage, number, tournament }) {
 }
 
 function SwissStage({ stage, number, tournament }) {
-  const groups = (stage.groups || []).filter((group) => group.rows?.length > 0);
+  const groups = (stage.ranking === 'buchholz' ? [{ id: 'current-swiss', title: 'Текущие результаты Swiss', rows: getSwissStandings(tournament, stage) }] : stage.groups || []).filter((group) => group.rows?.length > 0);
   return (
     <section className="container tournament-stage" id={stage.id}>
       <StageTitle number={number} title={stage.title} description={stage.notice} />
@@ -644,11 +646,11 @@ function SwissStage({ stage, number, tournament }) {
           <h3>{group.title}</h3>
           <div className="table-wrap">
             <table className="standings-table" aria-label={group.title}>
-              <thead><tr><th>Команда</th><th>И</th><th>В</th><th>П</th></tr></thead>
+              <thead><tr><th>Команда</th><th>И</th><th>В</th><th>П</th>{stage.ranking === 'buchholz' && <th>Бухгольц</th>}</tr></thead>
               <tbody>{[...group.rows].sort((a, b) => b.won - a.won || a.lost - b.lost).map((row) => (
                 <tr key={row.teamId || row.team}>
                   <td><TeamIdentity tournament={tournament} team={row.team} size="compact" /></td>
-                  <td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>
+                  <td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{stage.ranking === 'buchholz' && <td>{formatBuchholz(row.buchholz)}</td>}
                 </tr>
               ))}</tbody>
             </table>
@@ -684,6 +686,7 @@ function HistoricalMatchesStage({ stage, number }) {
 
 function TournamentPage({ tournament, navigate, theme }) {
   const renderStage = (stage, number) => {
+    if (stage.seeding?.method === 'buchholz') return <SwissPlayoffs stage={stage} tournament={tournament} />;
     if (stage.type === "round_robin") return <RoundRobinStage stage={stage} number={number} tournament={tournament} />;
     if (stage.type === "swiss") return theme === 'dota2' && tournament.discipline === 'Dota 2'
       ? <DotaSwissStandings stage={stage} tournament={tournament} />

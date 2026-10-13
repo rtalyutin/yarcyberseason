@@ -55,6 +55,14 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
         for (const index of [2, 3, 4]) before.stages[0].rounds[0].matches[index] = current.stages[0].rounds[0].matches[index];
       }
       before.stages[0].groups = current.stages[0].groups;
+      // October14: the organizer requested the full DE topology. Only empty
+      // playoff slots change; stable IDs survive and no future results appear.
+      const oldIds = before.stages[1].rounds.flatMap((round) => round.matches.map((match) => match.id));
+      const newSlots = current.stages[1].rounds.flatMap((round) => round.matches);
+      assert.equal(newSlots.length, 14);
+      assert.ok(oldIds.every((id) => newSlots.some((match) => match.id === id)));
+      assert.ok(newSlots.every((match) => !match.team1 && !match.team2 && !match.team1Id && !match.team2Id && match.score1 == null && match.score2 == null && !match.resultConfirmed));
+      before.stages[1] = current.stages[1];
       before.additionalAwards = current.additionalAwards;
       before.teamLogos = { PSB_Bank: '/assets/teams/dota2-autumn-2026/psb-bank/logo.png' };
       before.participants[1] = { teamId: 'dota2-autumn-2026-aegis-guardians', displayName: 'Aegis Guardians', status: 'registered' };

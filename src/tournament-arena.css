@@ -16,7 +16,7 @@ body:has(.site-shell--tournament[data-theme="dota2"] .tn-page--arena) { min-widt
   background: #061f22;
 }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(button, a, input):focus-visible { outline: 2px solid #8ff3e5; outline-offset: 4px; }
-.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(button, input) { font: inherit; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(button, input):not(.swiss-playoffs *) { font: inherit; }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-heading {
   width: min(100%, 1440px); min-height: 232px; padding: 16px var(--arena-gutter) 18px; text-align: left; overflow: hidden;
 }
@@ -44,7 +44,7 @@ body:has(.site-shell--tournament[data-theme="dota2"] .tn-page--arena) { min-widt
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav [aria-current="page"] { border-color: #8ff3e5; color: #f3efdc; font-weight: 700; }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav button:hover { color: #8ff3e5; background: none; }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-content { min-width: 0; padding: 26px 0 48px; border: 0; scroll-margin-top: 72px; }
-.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(h2, h3, h4) { font-family: "YCS Sans", Arial, sans-serif; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena :is(h2, h3, h4):not(.swiss-playoffs *) { font-family: "YCS Sans", Arial, sans-serif; }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 10px; }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 20px; }
 .site-shell--tournament[data-theme="dota2"] .tn-page--arena .tn-panel-heading h2 { margin: 0; font: 700 36px/1.2 "YCS Sans", Arial, sans-serif; letter-spacing: -.04em; }

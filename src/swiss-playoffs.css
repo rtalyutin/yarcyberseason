@@ -1,99 +1,179 @@
-/* Shared sports projection, using the selected presentation's existing tokens. */
-.swiss-playoffs { --sp-bg: var(--inside-bg, #061f22); --sp-panel: var(--inside-panel, #102c2d); --sp-ink: var(--inside-text, #f3efdc); --sp-muted: var(--inside-muted, #b7d0ca); --sp-accent: var(--inside-accent, #8ff3e5); --sp-rule: var(--inside-rule, #365753); color: var(--sp-ink); min-width: 0; max-width: 1800px; margin-inline: auto; }
-.sp-intro { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
-.sp-eyebrow { color: var(--sp-accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 10px; }
-.sp-intro h1 { margin: 0; font: 800 clamp(36px, 4vw, 64px)/1.05 'YCS Dota Display', Arial, sans-serif; text-transform: uppercase; }
-.sp-qualified { display: flex; flex-direction: column; gap: 8px; margin: 0; font-size: 13px; color: var(--sp-muted); }
-.sp-qualified strong { font-size: 38px; line-height: 1; color: var(--sp-accent); font-variant-numeric: tabular-nums; }
-.sp-qualified strong span { color: var(--sp-muted); font-size: 24px; }
-.sp-explanation { max-width: 900px; margin: 20px 0 26px; font-size: 16px; line-height: 1.55; color: var(--sp-muted); }
-.sp-table-scroll { overflow-x: auto; max-width: 100%; border: 1px solid var(--sp-rule); }
-.sp-seeding { width: 100%; min-width: 780px; border-collapse: collapse; background: var(--sp-bg); }
-.sp-seeding caption { text-align: left; padding: 20px; background: var(--sp-panel); font-size: 22px; font-weight: 700; }
-.sp-seeding caption span { display: block; margin-top: 6px; color: var(--sp-muted); font-size: 13px; font-weight: 400; }
-.sp-seeding th, .sp-seeding td { padding: 13px 16px; border-bottom: 1px solid var(--sp-rule); text-align: left; }
-.sp-seeding thead th { color: var(--sp-muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
-.sp-seeding tbody th { font-size: 15px; }
-.sp-seeding tbody tr:last-child > * { border-bottom: 0; }
-.sp-seeding .sp-seed-number { width: 60px; text-align: center; font-size: 20px; font-weight: 700; color: var(--sp-accent); }
-.sp-team { display: flex; align-items: center; gap: 10px; }
-.sp-team img { height: 30px; width: 30px; object-fit: contain; flex: 0 0 30px; }
+/* The bracket is the primary surface; rules and selected-match details stay nearby. */
+.swiss-playoffs { --sp-bg: var(--inside-bg, #061f22); --sp-panel: var(--inside-panel, #102c2d); --sp-ink: var(--inside-text, #f3efdc); --sp-muted: var(--inside-muted, #b7d0ca); --sp-accent: var(--inside-accent, #8ff3e5); --sp-rule: var(--inside-rule, #365753); color: var(--sp-ink); min-width: 0; max-width: 1800px; margin-inline: auto; padding: 28px 0; font-size: 14px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--playoffs[data-section] .tn-heading { min-height: 0; padding: 8px 40px; width: min(1800px, 100%); background: #071d21; border: 0; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--playoffs[data-section] .tn-heading::before { display: none; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--playoffs[data-section] .tn-layout { width: min(1800px, 100%); }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--playoffs[data-section] .tn-sidebar { padding-inline: 40px; margin: 0; background: #071d21; }
+.site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--playoffs[data-section] .tn-content { padding: 0; }
+[data-theme="dota2"] .swiss-playoffs { padding: 34px 44px 42px; background: #022328 url('/assets/playoffs/arena-frame.webp') center / 100% 100% no-repeat; }
+.swiss-playoffs button, .swiss-playoffs select { font: inherit; color: inherit; cursor: pointer; }
+.swiss-playoffs button { border: 0; background: none; }
+.swiss-playoffs button:disabled { opacity: .35; cursor: default; }
+.swiss-playoffs :is(button, a, select):focus-visible, .sp-bracket-scroll:focus-visible, .sp-table-scroll:focus-visible, .sp-rules:focus-visible, .sp-match:focus { outline: 2px solid var(--sp-accent); outline-offset: 3px; }
+.sp-sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip-path: inset(50%); white-space: nowrap; border: 0 !important; }
+.sp-intro { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.sp-intro h1 { margin: 0; font: 800 clamp(38px, 4.2vw, 66px)/1 'YCS Dota Display', 'Arial Narrow', sans-serif; text-transform: uppercase; letter-spacing: -.035em; }
+.sp-intro p { margin: 10px 0 0; color: var(--sp-muted); font-size: 14px; }
+.sp-provisional { display: inline-block; margin-left: 14px; color: var(--sp-accent); font-size: 12px; }
+.sp-qualified { text-align: right; flex-shrink: 0; }
+.sp-qualified p { margin: 0; }
+.sp-qualified strong { display: inline-block; margin-right: 7px; font-size: 30px; color: var(--sp-accent); font-variant-numeric: tabular-nums; }
+.sp-qualified strong span { font-size: 20px; color: var(--sp-ink); }
+.sp-pips { display: flex; justify-content: end; gap: 7px; margin-top: 8px; color: var(--sp-accent); }
+.sp-pips svg { width: 11px; height: 11px; }
+.sp-toolbar { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--sp-rule); }
+.sp-view-switch { display: flex; gap: 22px; padding: 0; }
+.sp-view-switch button { padding: 9px 0; border-bottom: 2px solid transparent; font-weight: 600; font-size: 13px; color: var(--sp-muted); transition: background .16s, color .16s; }
+.sp-view-switch button[aria-pressed="true"] { color: var(--sp-ink); border-bottom-color: var(--sp-accent); }
+.sp-help-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; margin-right: auto; color: var(--sp-muted) !important; font-size: 13px !important; }
+.sp-help-toggle svg { width: 17px; height: 17px; }
+.swiss-playoffs .sp-icon-button { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex-shrink: 0; border: 1px solid var(--sp-rule); border-radius: 4px; }
+.sp-icon-button svg { width: 19px; height: 19px; }
+.swiss-playoffs :is(.sp-icon-button, .sp-help-toggle, .sp-source, .sp-team-pick, .sp-match-code):hover:not(:disabled) { background: color-mix(in srgb, var(--sp-accent) 10%, transparent); }
+.sp-rules { padding: 18px 22px; margin: 16px 0; border: 1px solid var(--sp-rule); background: var(--sp-panel); font-size: 13px; line-height: 1.65; }
+.sp-rules p { margin: 0 0 10px; }
+.sp-rules p:last-child { margin: 0; }
+.sp-bracket-scroll { overflow: auto; max-width: 100%; scrollbar-width: thin; scrollbar-color: var(--sp-rule) transparent; }
+.sp-canvas { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 30px; min-width: 1120px; padding: 24px 2px 12px; }
+.sp-track { position: relative; z-index: 1; display: grid; gap: 15px 30px; min-width: 0; pointer-events: none; }
+.sp-track--upper, .sp-track--lower { grid-column: 1 / 5; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.sp-track--upper { grid-row: 1; }
+.sp-track--lower { grid-row: 2; }
+.sp-track--upper .sp-round:last-child { grid-column: 3 / 5; width: calc((100% - 30px) / 2); justify-self: center; }
+.sp-track--final { grid-column: 5; grid-row: 1 / 3; align-self: center; padding-top: 110px; }
+.sp-track-title { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 16px; margin: 0; font: 700 20px/1.3 'YCS Dota Display', sans-serif; text-transform: uppercase; color: var(--sp-accent); }
+.sp-track-title span { font: 400 11px/1.4 Arial, sans-serif; text-transform: none; color: var(--sp-muted); }
+.sp-round { display: flex; flex-direction: column; min-width: 0; }
+.sp-round h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 4px; margin: 0 0 12px; font-size: 11px; font-weight: 500; color: var(--sp-muted); letter-spacing: .02em; }
+.sp-round h3 span { opacity: .7; font-size: 10px; white-space: nowrap; }
+.sp-round-matches { display: flex; flex-direction: column; justify-content: space-around; gap: 12px; flex: 1; }
+.sp-track--upper .sp-round-matches { min-height: 284px; }
+.sp-track--lower .sp-round-matches { min-height: 136px; }
+.sp-match { position: relative; display: grid; grid-template-columns: 27px minmax(0, 1fr); background: var(--sp-panel); border: 1px solid var(--sp-rule); border-radius: 3px; box-shadow: 0 2px 8px #0002; pointer-events: auto; scroll-margin: 24px; transition: border-color .18s, box-shadow .18s; }
+.sp-match.is-on-route { border-color: var(--sp-accent); }
+.sp-match.is-selected { box-shadow: 0 0 0 1px var(--sp-accent), 0 0 18px color-mix(in srgb, var(--sp-accent) 15%, transparent); }
+.sp-match > header { display: flex; align-items: stretch; border-right: 1px solid var(--sp-rule); }
+.sp-match > header > span { display: none; }
+.swiss-playoffs .sp-match-code { padding: 0; width: 100%; min-width: 0; font-size: 10px; font-weight: 600; color: var(--sp-muted); border-radius: 2px 0 0 2px; }
+.sp-match ol { padding: 0; margin: 0; list-style: none; min-width: 0; }
+.sp-match li { display: flex; align-items: center; min-height: 32px; min-width: 0; }
+.sp-match li + li { border-top: 1px solid var(--sp-rule); }
+.sp-match li.is-team-selected { background: color-mix(in srgb, var(--sp-accent) 13%, transparent); }
+.swiss-playoffs .sp-team-pick { display: flex; align-items: center; gap: 5px; min-height: 31px; padding: 4px 4px 4px 7px; text-align: left; flex: 1; min-width: 0; }
+.sp-team-pick img { width: 19px; height: 19px; object-fit: contain; flex-shrink: 0; }
+.sp-slot-seed { color: var(--sp-muted); width: 10px; flex-shrink: 0; font-size: 10px; }
+.sp-slot-name { font-size: 12px; line-height: 1.25; font-weight: 600; overflow-wrap: anywhere; }
+.sp-slot-status { width: 11px; height: 11px; flex-shrink: 0; margin-left: auto; color: var(--sp-accent); }
+.swiss-playoffs .sp-source { display: flex; align-items: center; min-height: 31px; padding: 6px 8px; text-align: left; flex: 1; min-width: 0; color: var(--sp-muted); font-size: 12px; line-height: 1.25; }
+.sp-unplayed, .sp-match-score { padding-right: 8px; font-size: 12px; color: var(--sp-muted); }
+.sp-match-score { color: var(--sp-ink); font-variant-numeric: tabular-nums; }
+.sp-aegis { display: none; }
+[data-theme="dota2"] .sp-aegis { display: block; position: absolute; width: 250px; height: 286px; object-fit: contain; left: 50%; top: -95px; transform: translateX(-50%); z-index: -1; opacity: .9; pointer-events: none; }
+.sp-track--final h3 { font: 700 25px/1.1 'YCS Dota Display', sans-serif; color: var(--sp-ink); justify-content: center; margin-bottom: 18px; text-align: center; }
+.sp-track--final h3 span { display: none; }
+.sp-track--final .sp-match { border-color: color-mix(in srgb, var(--sp-accent) 65%, var(--sp-rule)); }
+.sp-final-note { position: absolute; top: 100%; width: 100%; text-align: center; font-size: 10px; color: var(--sp-muted); margin: 12px 0 0; }
+.sp-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.sp-lines path { fill: none; stroke: var(--sp-accent); stroke-width: 1; opacity: .55; transition: opacity .18s; }
+.sp-lines .sp-line-loss { stroke: var(--sp-muted); stroke-dasharray: 3 5; opacity: .16; }
+.sp-lines path.is-active { stroke: var(--sp-accent); stroke-width: 1.8; opacity: .95; }
+.sp-board-footer { display: flex; justify-content: space-between; gap: 12px; margin: 18px 0 30px; font-size: 11px; color: var(--sp-muted); }
+.sp-board-footer > span:first-child { display: inline-flex; align-items: center; gap: 6px; }
+.sp-board-footer svg { width: 12px; height: 12px; color: var(--sp-accent); }
+.sp-board-footer svg:nth-of-type(2) { margin-left: 10px; }
+.sp-mobile-hint { display: none; }
+.sp-inspector { display: flex; align-items: center; gap: 20px; padding: 14px 16px; margin-bottom: 26px; background: var(--sp-panel); border: 1px solid var(--sp-accent); border-radius: 4px; }
+.sp-inspector > div:first-child { display: flex; flex-direction: column; gap: 5px; min-width: 120px; }
+.sp-inspector > div:first-child > span, .sp-inspector > div:first-child > a { font-size: 11px; color: var(--sp-muted); }
+.sp-inspector-routes { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; flex: 1; font-size: 12px; }
+.swiss-playoffs .sp-route { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--sp-rule); border-radius: 3px; color: var(--sp-accent); }
+.swiss-playoffs .sp-route-loss { color: var(--sp-muted); }
+.sp-table-area { scroll-margin: 70px; padding-top: 22px; border-top: 1px solid var(--sp-rule); }
+.sp-table-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.sp-table-heading h2 { margin: 0; font: 700 26px/1.2 'YCS Dota Display', sans-serif; }
+.sp-table-heading h2 span { font: 400 13px/1.4 Arial, sans-serif; color: var(--sp-muted); }
+.sp-table-heading > span { font-size: 11px; color: var(--sp-muted); }
+.sp-seeding-note { font-size: 12px; color: var(--sp-muted); margin: 8px 0 16px; }
+.sp-table-scroll { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 100%; }
+.sp-seeding { width: 100%; border-collapse: collapse; background: var(--sp-bg); }
+.sp-seeding :is(th, td) { padding: 8px 10px; border-bottom: 1px solid var(--sp-rule); text-align: left; }
+.sp-seeding thead th { font-size: 10px; color: var(--sp-muted); font-weight: 400; white-space: nowrap; }
+.sp-seeding th abbr { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+.sp-seeding tbody th { font-size: 13px; font-weight: 600; }
+.sp-seeding .sp-seed-number { padding: 0 3px; width: 48px; text-align: center; }
+.sp-seed-number button { width: 34px; height: 34px; font-weight: 700; border-radius: 3px; color: var(--sp-accent); }
+.sp-seed-number button:hover { background: color-mix(in srgb, var(--sp-accent) 15%, transparent); }
+.sp-team { display: flex; align-items: center; gap: 8px; }
+.sp-team img { width: 25px; height: 25px; object-fit: contain; flex: 0 0 25px; }
 .sp-team a { color: inherit; text-decoration: none; }
-.sp-team a:hover { text-decoration: underline; }
+.sp-team a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .sp-numeric, .sp-buchholz { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.sp-buchholz { font-weight: 700; font-size: 18px; }
-.sp-status { font-size: 13px; white-space: nowrap; }
-.sp-seed-row[class*="qualified"] { box-shadow: inset 3px 0 var(--sp-accent); }
-.sp-seed-row[class*="qualified"] .sp-status { font-weight: 700; color: var(--sp-accent); }
+.sp-buchholz { font-size: 15px; font-weight: 700; }
+.sp-status { font-size: 11px; white-space: nowrap; color: var(--sp-muted); }
+.sp-seed-row[class*="qualified"] { box-shadow: inset 2px 0 var(--sp-accent); }
+.sp-seed-row[class*="qualified"] .sp-status { color: var(--sp-accent); }
 [data-theme="dota2"] .sp-seed-row--qualified-3 { background: #073c32; }
 [data-theme="dota2"] .sp-seed-row--qualified-4 { background: #0a304b; }
 [data-theme="dota2"] .sp-seed-row--qualified-5 { background: #322047; }
-.sp-tiebreak { font-size: 13px; line-height: 1.6; color: var(--sp-muted); margin: 16px 0 30px; max-width: 1060px; }
-.sp-bracket-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding-top: 16px; border-top: 1px solid var(--sp-rule); }
-.sp-bracket-heading h2 { margin: 0 0 8px; font-size: clamp(24px, 3vw, 36px); }
-.sp-bracket-heading p, .sp-bracket-heading > span { margin: 0; color: var(--sp-muted); font-size: 13px; line-height: 1.5; }
-.sp-scroll-hint { color: var(--sp-muted); font-size: 12px; margin: 12px 0 18px; }
-.sp-bracket-nav { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 16px; font-size: 13px; }
-.sp-bracket-scroll { overflow: auto; max-width: 100%; padding: 4px; border: 1px solid var(--sp-rule); background: var(--sp-bg); }
-.sp-canvas { position: relative; display: grid; grid-template-columns: repeat(5, 224px); gap: 24px; min-width: max-content; width: max-content; margin-inline: auto; padding: 20px 16px 24px; }
-.sp-track { position: relative; z-index: 1; display: grid; gap: 24px; min-width: 0; pointer-events: none; }
-.sp-track--upper { grid-column: 1 / 5; grid-row: 1; grid-template-columns: repeat(4, 224px); }
-.sp-track--upper .sp-round:last-child { grid-column: 4; }
-.sp-track--lower { grid-column: 1 / 5; grid-row: 2; grid-template-columns: repeat(4, 224px); }
-.sp-track--final { grid-column: 5; grid-row: 1 / 3; align-self: center; }
-.sp-round { display: flex; flex-direction: column; min-width: 0; }
-.sp-round h3 { color: var(--sp-accent); font-size: 13px; text-transform: uppercase; margin: 0 0 14px; padding-bottom: 12px; border-bottom: 2px solid var(--sp-rule); background: var(--sp-bg); }
-.sp-round-matches { display: flex; flex-direction: column; justify-content: space-around; gap: 20px; flex: 1; }
-.sp-match { position: relative; background: var(--sp-panel); border: 1px solid var(--sp-rule); pointer-events: auto; scroll-margin: 20px; }
-.sp-match > header { display: flex; justify-content: space-between; padding: 9px 12px; font-size: 11px; border-bottom: 1px solid var(--sp-rule); color: var(--sp-muted); }
-.sp-match > header strong { color: var(--sp-accent); letter-spacing: .05em; }
-.sp-match ol { padding: 0; margin: 0; list-style: none; }
-.sp-match li { display: flex; align-items: center; gap: 8px; padding: 12px; min-height: 55px; font-size: 13px; line-height: 1.4; }
-.sp-match li + li { border-top: 1px solid var(--sp-rule); }
-.sp-match li > div { min-width: 0; flex: 1; }
-.sp-match li a { color: inherit; font-weight: 700; overflow-wrap: anywhere; }
-.sp-match li small { display: block; font-size: 10px; color: var(--sp-muted); margin-top: 3px; }
-.sp-slot-seed { color: var(--sp-accent); font-weight: 700; width: 16px; flex: 0 0 16px; }
-.sp-match footer { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 8px 12px; border-top: 1px solid var(--sp-rule); font-size: 10px; line-height: 1.5; color: var(--sp-muted); }
-.swiss-playoffs button.sp-jump, .swiss-playoffs button.sp-route { font: inherit; color: var(--sp-accent); background: none; padding: 2px 0; border: 0; text-align: left; cursor: pointer; }
-.swiss-playoffs button.sp-jump { white-space: nowrap; }
-.swiss-playoffs button.sp-route-loss { color: var(--sp-muted); }
-.swiss-playoffs button:hover { text-decoration: underline; text-underline-offset: 3px; }
-.swiss-playoffs :is(button, a):focus-visible, .sp-table-scroll:focus-visible, .sp-bracket-scroll:focus-visible, .sp-match:focus { outline: 2px solid var(--sp-accent); outline-offset: -2px; }
-.sp-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.sp-lines path { fill: none; stroke: var(--sp-accent); stroke-width: 1.3; opacity: .7; }
-.sp-lines .sp-line-loss { stroke: var(--sp-muted); stroke-dasharray: 4 5; opacity: .4; }
-.sp-empty { padding: 16px; }
+.sp-seed-row.is-selected { outline: 1px solid var(--sp-accent); outline-offset: -1px; }
+.sp-table-hint { display: flex; justify-content: space-between; gap: 16px; margin: 14px 0 0; font-size: 11px; color: var(--sp-muted); }
+.sp-table-hint button { display: inline-flex; align-items: center; gap: 5px; color: var(--sp-accent); white-space: nowrap; }
+.sp-round-nav { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px 0 0; }
+.sp-round-select { min-width: 0; }
+.sp-round-select select { max-width: 100%; padding: 10px; border: 1px solid var(--sp-rule); border-radius: 4px; background: var(--sp-panel); }
+.sp-mode-rounds .sp-canvas { display: block; min-width: 0; padding: 24px 2px; }
+.sp-mode-rounds .sp-track { display: block; max-width: 850px; margin: auto; }
+.sp-mode-rounds .sp-track-title { margin-bottom: 20px; }
+.sp-mode-rounds .sp-round { width: auto !important; }
+.sp-mode-rounds .sp-round-matches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 0; gap: 18px; }
+.sp-mode-rounds .sp-match { grid-template-columns: 36px minmax(0, 1fr); }
+.sp-mode-rounds .sp-match li, .sp-mode-rounds .sp-team-pick, .sp-mode-rounds .sp-source { min-height: 48px; }
+.sp-mode-rounds .sp-slot-name, .sp-mode-rounds .sp-source { font-size: 14px; }
+.sp-mode-rounds .sp-track--final { padding: 135px 0 35px; max-width: 360px; }
+.sp-mode-rounds .sp-track--final .sp-round-matches { display: block; }
+.sp-mode-rounds .sp-aegis { top: -25px; }
+.swiss-playoffs.is-fullscreen { width: 100vw; height: 100vh; max-width: none; overflow: auto; background-color: var(--sp-bg); padding: 32px; }
+@media (min-width: 1800px) { .sp-slot-name, .swiss-playoffs .sp-source { font-size: 13px; } .sp-match li, .swiss-playoffs .sp-team-pick { min-height: 40px; } .sp-track--upper .sp-round-matches { min-height: 360px; } }
+@media (max-width: 1199px) { .sp-table-scroll { gap: 14px; } .sp-seeding :is(th, td) { padding-inline: 7px; } .sp-mobile-hint { display: block; } .sp-board-footer > span:last-child { display: none; } .sp-table-heading > span { display: none; } }
+@media (max-width: 900px) { .sp-table-scroll { grid-template-columns: 1fr; gap: 0; } .sp-seeding + .sp-seeding thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } .sp-provisional { display: block; margin: 7px 0 0; } .sp-intro h1 { font-size: 44px; } .sp-qualified p { max-width: 155px; font-size: 12px; } .sp-qualified strong { display: block; margin: 0 0 5px; } }
 @media (max-width: 650px) {
-  .sp-intro { flex-direction: column; align-items: start; gap: 18px; }
-  .sp-intro h1 { font-size: 40px; }
-  .sp-qualified { flex-direction: row; align-items: center; gap: 12px; }
-  .sp-qualified strong { font-size: 28px; }
-  .sp-qualified strong span { font-size: 20px; }
-  .sp-explanation { font-size: 14px; margin: 20px 0; }
-  .sp-seeding, .sp-seeding caption, .sp-seeding tbody { display: block; min-width: 0; }
-  .sp-seeding caption { padding: 15px; font-size: 20px; }
-  .sp-seeding caption span { font-size: 12px; line-height: 1.4; }
-  .sp-seeding thead { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
-  .sp-seeding tbody tr { display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(78px, .65fr); gap: 9px 10px; padding: 14px 12px; border-bottom: 1px solid var(--sp-rule); }
-  .sp-seeding tbody tr:last-child { border: 0; }
-  .sp-seeding tbody :is(th, td) { padding: 0; border: 0; font-size: 13px; }
-  .sp-seeding tbody .sp-seed-number { grid-column: 1; grid-row: 1 / 5; width: auto; font-size: 20px; padding-top: 4px; }
-  .sp-seeding tbody th { grid-column: 2 / -1; grid-row: 1; }
-  .sp-team { gap: 8px; }
-  .sp-team img { width: 26px; height: 26px; flex-basis: 26px; }
-  .sp-team a { overflow-wrap: anywhere; min-height: 32px; display: inline-flex; align-items: center; }
-  .sp-seeding tbody td:nth-child(3) { grid-column: 2; grid-row: 2; }
-  .sp-seeding tbody td:nth-child(3)::before { content: 'В : П  '; color: var(--sp-muted); }
-  .sp-seeding tbody td:nth-child(4) { grid-column: 3; grid-row: 2; }
-  .sp-seeding tbody td:nth-child(4)::before { content: 'БХ  '; color: var(--sp-muted); font-weight: 400; }
-  .sp-seeding tbody td:nth-child(5) { grid-column: 2; grid-row: 3; align-self: center; }
-  .sp-seeding tbody td:nth-child(5)::before { content: 'Жребий  '; color: var(--sp-muted); }
-  .sp-seeding tbody .sp-status { grid-column: 2 / -1; grid-row: 4; }
-  .sp-seeding tbody td:last-child { grid-column: 3; grid-row: 3; align-self: center; }
-  .sp-bracket-heading { align-items: start; flex-direction: column; gap: 12px; }
-  .sp-tiebreak { font-size: 12px; }
-  .sp-canvas { padding: 16px; }
-  .sp-match li { min-height: 62px; }
-  .swiss-playoffs button.sp-jump, .swiss-playoffs button.sp-route { min-height: 32px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page.tn-page--playoffs[data-section] :is(.tn-heading, .tn-sidebar) { padding-inline: 16px; }
+  [data-theme="dota2"] .swiss-playoffs { padding: 28px 16px; background-size: auto 100%; }
+  .sp-intro { gap: 12px; margin-bottom: 20px; align-items: start; }
+  .sp-intro h1 { font-size: 40px; } .sp-intro p { font-size: 11px; } .sp-provisional { font-size: 10px; }
+  .sp-qualified p { max-width: 108px; font-size: 10px; } .sp-qualified strong { font-size: 25px; } .sp-qualified strong span { font-size: 16px; } .sp-pips { gap: 4px; } .sp-pips svg { width: 9px; height: 9px; }
+  .sp-toolbar { flex-wrap: wrap; gap: 8px; padding-bottom: 14px; }
+  .sp-view-switch { margin-right: auto; } .sp-view-switch button { min-height: 38px; padding: 8px 0; font-size: 12px; }
+  .sp-help-toggle { order: 4; width: 100%; min-height: 36px; padding-left: 0; }
+  .swiss-playoffs .sp-icon-button { width: 42px; height: 42px; }
+  .sp-canvas { min-width: 1200px; }
+  .sp-mode-all .sp-match li, .sp-mode-all .sp-team-pick, .sp-mode-all .sp-source { min-height: 44px; }
+  .sp-track--upper .sp-round-matches { min-height: 394px; }
+  .sp-track--lower .sp-round-matches { min-height: 191px; }
+  .sp-board-footer { flex-wrap: wrap; font-size: 10px; margin: 14px 0 22px; }
+  .sp-inspector { flex-wrap: wrap; gap: 12px; padding: 12px; } .sp-inspector > div:first-child { flex: 1; } .sp-inspector-routes { order: 3; width: 100%; flex-basis: 100%; }
+  .sp-table-heading h2 { font-size: 23px; } .sp-table-heading h2 span { font-size: 11px; }
+  .sp-seeding-note { line-height: 1.5; font-size: 11px; }
+  .sp-table-hint { flex-direction: column; gap: 8px; line-height: 1.5; } .sp-table-hint button { align-self: start; padding: 5px 0; min-height: 36px; }
+  .sp-round-nav { gap: 8px; } .sp-round-select { flex: 1; } .sp-round-select select { width: 100%; font-size: 12px; }
+  .sp-mode-rounds .sp-round-matches { grid-template-columns: 1fr; min-height: 0; }
+  .sp-track-title { font-size: 19px; flex-wrap: wrap; gap: 3px 10px; }
+  .sp-rules { padding: 14px; font-size: 12px; }
+  .swiss-playoffs.is-fullscreen { padding: 18px 16px; }
 }
+@media (max-width: 440px) {
+  .sp-seeding, .sp-seeding tbody { display: block; }
+  .sp-seeding thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .sp-seeding tbody tr { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 6px 8px; padding: 10px 6px; border-bottom: 1px solid var(--sp-rule); }
+  .sp-seeding tbody :is(th, td) { padding: 0; border: 0; }
+  .sp-seeding .sp-seed-number { grid-column: 1; grid-row: 1 / 3; width: auto; align-self: center; }
+  .sp-seed-number button { height: 44px; width: 34px; }
+  .sp-seeding th[scope="row"] { grid-column: 2 / -1; grid-row: 1; font-size: 12px; }
+  .sp-team a { min-height: 28px; display: inline-flex; align-items: center; overflow-wrap: anywhere; }
+  .sp-seeding .sp-numeric { grid-column: 2; grid-row: 2; font-size: 11px; }
+  .sp-numeric::before { content: 'В:П '; color: var(--sp-muted); }
+  .sp-seeding .sp-buchholz { grid-column: 3; grid-row: 2; font-size: 12px; }
+  .sp-buchholz::before { content: 'БХ '; color: var(--sp-muted); font-weight: 400; font-size: 10px; }
+  .sp-seeding .sp-status { grid-column: 2; grid-row: 3; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .swiss-playoffs *, .swiss-playoffs *::before, .swiss-playoffs *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }

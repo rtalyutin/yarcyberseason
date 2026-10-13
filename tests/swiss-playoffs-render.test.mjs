@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import tournament from '../src/data/tournaments/dota2-autumn-2026.json' with { type: 'json' };
 
 const bundle = await build({ entryPoints: ['src/components/SwissPlayoffs.jsx'], bundle: true, write: false,
-  platform: 'node', format: 'cjs', packages: 'external', jsx: 'automatic', loader: { '.css': 'empty' } });
+  platform: 'node', format: 'cjs', external: ['react', 'react-dom/server'], mainFields: ['module', 'main'], jsx: 'automatic', loader: { '.css': 'empty' } });
 const output = { exports: {} };
 new Function('require', 'module', 'exports', bundle.outputFiles[0].text)(createRequire(import.meta.url), output, output.exports);
 const render = (source) => renderToStaticMarkup(React.createElement(output.exports.SwissPlayoffs, {
@@ -25,7 +25,7 @@ test('SSR exposes eight seed rows and fourteen matches with truthful forecast/qu
   assert.equal((html.match(/scope="row"/g) || []).length, 8);
   assert.match(html, /Проигравший В6/);
   assert.match(html, /Проигравший В5/);
-  assert.match(html, /Поражение → 3-е место/);
+  assert.match(html, /[Пп]оражение → 3-е место/);
   assert.doesNotMatch(html, /class="sp-match-score"|community-match-link/, 'No scores or real match links for predictions');
   assert.equal((html.match(/role="region"/g) || []).length, 2);
 });

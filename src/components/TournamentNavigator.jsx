@@ -130,6 +130,7 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
   };
   const active = model.sections.find((section) => section.id === view.section);
   const swiss = arena && tournament.discipline === 'Dota 2' && active?.stage?.type === 'swiss';
+  const playoffs = arena && Boolean(active?.stage?.seeding);
   const archived = isArchive(tournament);
   const regulation = regulationsByTournament[tournament.id] ?? regulationsByDiscipline[tournament.discipline];
   const sourceFacts = (tournament.facts || []).filter((fact) => !/подтвержд[её]нн.*матч/i.test(fact));
@@ -138,8 +139,8 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
     return rank(a) - rank(b);
   }) : model.sections;
   return (
-    <main className={`tn-page${arena ? ' tn-page--arena' : ''}${swiss ? ' tn-page--swiss' : ''}`} data-section={view.section}>
-      {swiss ? <header className="tn-heading"><nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/">Турниры</InternalLink><span>/</span><span>{tournament.title}</span></nav></header> : <header className="tn-heading">
+    <main className={`tn-page${arena ? ' tn-page--arena' : ''}${swiss ? ' tn-page--swiss' : ''}${playoffs ? ' tn-page--playoffs' : ''}`} data-section={view.section}>
+      {swiss || playoffs ? <header className="tn-heading"><nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/">Турниры</InternalLink><span>/</span><span>{tournament.title}</span></nav></header> : <header className="tn-heading">
         <nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/">Турниры</InternalLink><span>/</span>{archived ? <InternalLink href="/results">Архив</InternalLink> : <span>{tournament.discipline}</span>}</nav>
         <div className="tn-title-row"><h1>{tournament.title}</h1>{!arena && <span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span>}</div>
         {tournament.dates?.display && <p className="tn-date">{tournament.dates.display}</p>}

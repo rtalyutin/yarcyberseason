@@ -4,7 +4,8 @@ import { community } from '../data/community.js';
 import { tournaments } from '../data/tournaments/index.js';
 import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
 import { matchConsequence, matchDateLabel, matchKey, matchPath, matchStates, safeHttps } from '../lib/community.js';
-import { getDotaMapMvp } from '../lib/dota-match-mvp.js';
+import { getDotaMapMvp, getDotaSeriesMvp } from '../lib/dota-match-mvp.js';
+import { DotaSeriesMvp } from './DotaSeriesMvp.jsx';
 import { formatMvpScore } from '../lib/dota-mvp.js';
 import { getMatchMapSlots, getPublishedMapStats } from '../lib/match-center.js';
 import { getMatchMapClips } from '../lib/match-media.js';
@@ -65,8 +66,8 @@ function MapSummary({ slot, match, dota }) {
 function MapMvp({ mvp, dota, slot, match }) {
   const leaders = mvp?.leaders || [], estimated = Boolean(mvp?.estimatedMapIds?.length), noPlay = match.result.technical || slot?.state === 'not-played';
   const emptyTitle = noPlay ? 'Без сыгранной карты' : slot?.state === 'scheduled' ? 'После игры' : mvp?.availability === 'loading' ? 'Загружаем статистику…' : 'MVP ещё не опубликован';
-  return <section className={`mc-mvp${leaders.length > 1 ? ' mc-mvp--tie' : ''}`} aria-labelledby="mc-mvp-title">
-    <img className="mc-mvp-art" src={`/assets/match-detail/${dota ? 'dota-puck' : 'cs2-operator'}.webp`} alt="" /><span className="mc-art-label">Иллюстрация</span>
+  return <section className={`mc-mvp${dota ? ' mc-mvp--map' : ''}${leaders.length > 1 ? ' mc-mvp--tie' : ''}`} aria-labelledby="mc-mvp-title">
+    {!dota && <><img className="mc-mvp-art" src="/assets/match-detail/cs2-operator.webp" alt="" /><span className="mc-art-label">Иллюстрация</span></>}
     <div className="mc-mvp-copy"><h2 className="mc-eyebrow" id="mc-mvp-title"><Crown weight="fill" aria-hidden="true" />{leaders.length > 1 ? 'Лидеры MVP' : 'MVP'} · Карта {slot?.number || 1}</h2>
       {leaders.length ? <><div className="mc-mvp-leaders">{leaders.map((player) => <div key={player.accountId}><h3>{player.nickname}</h3><p>{player.teamNames?.join(' / ') || teamName(match, player.teamId)}</p>{dota && <DotaHero heroId={player.heroId} className="mc-mvp-hero" />}</div>)}</div>
         {dota ? <p className="mc-mvp-value"><strong>{scoreText(leaders[0].ratingExact)}</strong>Баллы MVP{estimated && <span>Расчётная оценка</span>}</p> : <p className="mc-mvp-value"><strong>{leaders.map((p) => `${numberText(p.kills)} / ${numberText(p.deaths)} / ${numberText(p.assists)}`).join(' · ')}</strong>K / D / A</p>}
@@ -84,7 +85,7 @@ function RosterTable({ match, side, players, leaders, dota }) {
   const stats = players.filter((p) => (p.teamIds?.[0] || p.teamId) === id);
   const roster = team?.entries.find((entry) => entry.tournament.id === match.tournamentId)?.roster;
   return <section className={`mc-roster mc-roster--${side}`} aria-label={name || 'Команда уточняется'}><h3><TeamLogo team={team} /><TeamLink tournamentId={match.tournamentId} name={name} /></h3>
-    {stats.length ? <div className="mc-table-scroll" tabIndex={0} role="region" aria-label={`Статистика ${name}`}><table><thead><tr><th scope="col">Игрок</th><th scope="col"><abbr title="Убийства / смерти / помощи">K / D / A</abbr></th><th scope="col">{dota ? <abbr title="Урон по героям">Урон</abbr> : <abbr title="Средний урон за раунд">ADR</abbr>}</th><th scope="col">{dota ? 'MVP' : <abbr title="Процент попаданий в голову">HS %</abbr>}</th></tr></thead><tbody>{stats.map((player) => {
+    {stats.length ? <div className="mc-table-scroll" tabIndex={0} role="region" aria-label={`Статистика ${name}`}><table><thead><tr><th scope="col">Игрок</th><th scope="col"><abbr title="Убийства / смерти / помощи">K / D / A</abbr></th><th scope="col">{dota ? <abbr title="Урон по героям">Урон</abbr> : <abbr title="Средний урон за раунд">ADR</abbr>}</th><th scope="col">{dota ? <abbr title="Баллы MVP выбранной карты">Баллы карты</abbr> : <abbr title="Процент попаданий в голову">HS %</abbr>}</th></tr></thead><tbody>{stats.map((player) => {
       const metrics = player.records?.[0]?.metrics, leader = leaders.some((p) => p.accountId === player.accountId);
       const kda = dota ? metrics ? `${numberText(metrics.K)} / ${numberText(metrics.L)} / ${numberText(metrics.A)}` : '—' : `${numberText(player.kills)} / ${numberText(player.deaths)} / ${numberText(player.assists)}`;
       const identity = <span className="mc-player-nickname">{player.nickname}{leader && <Crown weight="fill" aria-label="Лидер MVP карты" />}</span>;
@@ -109,6 +110,7 @@ export function MatchCenterPage({ tournament, match, dotaState = null }) {
   const selected = slots.find((s) => s.key === selection) || slots.find((s) => s.state === 'available') || slots[0];
   const [copyState, setCopyState] = useState(''), [downloadState, setDownloadState] = useState('');
   const mvp = dota ? getDotaMapMvp({ tournament, match, mapId: selected?.state === 'not-played' ? null : selected?.mapId, ...dotaState }) : getPublishedMapStats(match, selected);
+  const seriesMvp = dota ? getDotaSeriesMvp({ tournament, match, ...dotaState }) : null;
   const players = mvp?.players || [], leaders = mvp?.leaders || [];
   const media = useMatchMedia({ tournamentId: tournament.id, matchId: match.id });
   const clips = selected ? getMatchMapClips(media.clips, selected) : [];
@@ -128,6 +130,7 @@ export function MatchCenterPage({ tournament, match, dotaState = null }) {
     <div className="mc-outcome"><div className="mc-outcome-copy">{winner && <Trophy weight="duotone" aria-hidden="true" />}<div><h2>{winner ? `${winner} выигрывает ${slots.length > 1 ? 'серию' : 'матч'}` : matchStates[match.status] || matchStates.unknown}</h2><p>{match.result.technical ? 'Техническое решение' : match.result.confirmed ? `${match.stageTitle} · ${match.roundTitle}` : matchDateLabel(match)}</p></div></div><div className="mc-actions">{vod && <ExternalLink href={vod} className="mc-button mc-button--primary"><Play weight="fill" aria-hidden="true" />Смотреть запись</ExternalLink>}{broadcasts.map(({ platform, href, label }) => <ExternalLink key={platform} className={`mc-button mc-stream--${platform}`} href={href} aria-label={label}>{platform === 'twitch' ? <TwitchLogo weight="fill" aria-hidden="true" /> : <Play weight="fill" aria-hidden="true" />}{platform === 'twitch' ? 'Twitch' : 'VK Видео'}</ExternalLink>)}<button className="mc-button mc-share" type="button" onClick={copy}><Copy aria-hidden="true" />Поделиться</button></div></div>
     {(match.resultIssue || match.scoreKind === 'unknown') && match.result.sourceScore && <p className="mc-notice mc-source-issue">Опубликованный счёт: {match.result.sourceScore.join(':')}. {match.resultIssue || 'Единицы счёта уточняются.'}</p>}
     {copyState && <div className="mc-copy-feedback" role="status">{copyState}{copyState !== 'Ссылка скопирована' && <input readOnly value={url} aria-label="Ссылка на матч" onFocus={(event) => event.target.select()} />}</div>}
+    {dota && <DotaSeriesMvp mvp={seriesMvp} match={match} />}
     {slots.length > 1 && <MapPicker slots={slots} selected={selected} onSelect={setSelection} match={match} dota={dota} />}
     {slots.length <= 1 && <nav className="mc-section-nav" aria-label="Разделы матча"><a href="#mc-map-detail">Обзор</a>{!match.result.technical && <a href="#mc-stats-title">Составы и статистика</a>}{clips.length > 0 && <a href="#mc-clips-title">Видео</a>}</nav>}
     <div id="mc-map-detail" className="mc-map-detail" aria-live="polite"><MapSummary slot={selected} match={match} dota={dota} /><MapMvp slot={selected} match={match} mvp={mvp} dota={dota} /></div>

@@ -15,12 +15,17 @@ and other legacy presentations are unchanged, as is SiteHeader geometry.
   result, rosters, award and clips. A confirmed 2:0 BO3 has an unplayed third slot.
 - No map winner inferred from Dota kills. Unknown results stay unknown. Explicit
   live/scheduled/cancelled map state takes precedence over retained snapshots.
-- Per-map Dota ranking uses existing exact published MVP scores; no new series
-  aggregate. Ties, estimates, correction and stale information remain explicit.
+- Main Dota award sums existing exact per-map scores for this fixture's actually
+  played maps, grouped by accountId. It is independent of map selection; the
+  selected-map award is secondary. BO1 is equivalent to its single played map.
+  Exact ties, estimates, correction and stale information remain explicit;
+  incomplete/unfinished/estimated/stale/correction data gives a provisional leader.
 - Dota table uses K/D/A, hero damage and MVP. GPM/XPM are absent from the
   public contract and are not fabricated. Each selected-map player's validated
   `heroId` supplies their hero portrait/name, including the map's MVP and ties.
-  Puck remains labelled decorative art, independent of the actual pick.
+  Main MVP shows the player and a map-ordered strip of actual picks and point
+  contributions. The persistent decorative Puck is no longer rendered. Existing
+  lightweight local hero portraits and one shared crown emblem are reused.
 - CS2 supports optional confirmed `map.playerStats` with ten unique players,
   five per actual team. Fields: accountId, nickname, teamId, kills, deaths,
   assists, adr, headshotPercent. Missing optional metrics remain null.
@@ -34,7 +39,10 @@ and other legacy presentations are unchanged, as is SiteHeader geometry.
 - Copy-link fallback and PNG result download are retained and browser-tested.
 
 Map projection: `src/lib/match-center.js`; selected-map MVP:
-`src/lib/dota-match-mvp.js`. Public media/storage/admin contract and exact future
+`src/lib/dota-match-mvp.js` (getDotaSeriesMvp and getDotaMapMvp). Technical maps,
+including retained raw links at explicit technicalMapNumbers, are excluded.
+Missing maps are never zero; replacement players retain separate account IDs.
+Public media/storage/admin contract and exact future
 runtime requirements are in `docs/organizer-table.md`.
 
 ## Artwork

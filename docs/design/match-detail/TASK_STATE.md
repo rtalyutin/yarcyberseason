@@ -1,5 +1,24 @@
 # Match detail task state
 
+## Series MVP correction — 13 October 2026
+
+- User approved the series-MVP plan with «Реализуй». This supersedes the earlier
+  no-series-aggregation rule. Existing authorization covers main/frontend release.
+- Fresh authenticated base: main fdeeeda765a4b68417ff075665929c875b47a680,
+  tree a8c5adcf6e60bf70907485ede778bd1bf19aa3b0; isolated codex/series-mvp.
+- Main award sums exact contributions across actual played fixture maps by
+  stable account ID; per-map MVP remains secondary and selection-independent.
+  Player/pick strip with map numbers, hero portraits and contributions replaces
+  the persistent Puck. Stone/city style, shared header and1800px cap preserved.
+- No sportsJSON, scoring formula, API/private state, backend or runtime change.
+  CS2 retains explicit published per-map MVP, with no inferred series formula.
+- Missing maps, ongoing series, estimates, corrections or stale snapshots never
+  receive a final award. Exact ties/substitutions/technical exclusions preserved.
+- Author checks passed88/88 focused tests, zero skipped; production build passed
+ 52teams/150matches and215canonicalURLs+3aliases. Independent QA and source/live
+  gates pending. Raw QA snapshots/identifiers/logs/screenshots remain outside repository;
+  only sanitized verdicts/counts/revisions may be published.
+
 ## Hero picks correction — 13 October 2026
 
 - User reports missing picked heroes on the match page. This is a local

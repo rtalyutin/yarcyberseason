@@ -1,4 +1,4 @@
-import { topMvpPlayers } from './dota-mvp.js';
+import { sumMvpScores, topMvpPlayers } from './dota-mvp.js';
 import { getMatchMapSlots, getOpenDotaMapId } from './match-center.js';
 
 const positiveId = (value) => /^(?:[1-9]\d*)$/.test(String(value ?? ''));
@@ -25,7 +25,61 @@ function projectionBase(mapIds, snapshot, availability) {
     coverageComplete: false, preliminary: true, stale, availability, updatedAt: snapshot?.updatedAt || null };
 }
 
-/** Match-level compatibility: still only BO1, never a newly invented series aggregation. */
+/** Series award: sum this fixture's validated, actually played map contributions.
+ * Map order/technical decisions come from the same slots as the match center.
+ * Tournament totals are never reused. A partial sum is only a provisional leader.
+ */
+export function getDotaSeriesMvp({ tournament, match, snapshot = null, availability = 'pending' }) {
+  const slots = getMatchMapSlots({ ...match, discipline: 'Dota 2', tournamentId: tournament.id }, snapshot);
+  const completed = match.status === 'completed' && match.resultConfirmed === true;
+  const relevant = slots.filter((slot) => slot.state !== 'not-played' &&
+    (completed || slot.map && slot.state !== 'scheduled'));
+  const mapIds = unique(relevant.map((slot) => slot.mapId).filter(Boolean));
+  const base = { ...projectionBase(mapIds, snapshot, availability), pendingMapNumbers: [],
+    countedMapNumbers: [], playedMapCount: relevant.length, final: false };
+  if (['walkover', 'bye', 'cancelled'].includes(match.status) || match.scoreKind === 'technical') {
+    return { ...base, status: 'not-played', reason: 'no-played-series', pendingMapIds: [] };
+  }
+  if (!['completed', 'live'].includes(match.status)) {
+    return { ...base, reason: 'series-not-started' };
+  }
+  const projections = relevant.map((slot) => ({ slot, mvp: getDotaMapMvp({
+    tournament, match, mapId: slot.mapId, snapshot, availability,
+  }) }));
+  const pendingMapNumbers = projections.filter(({ mvp }) => !mvp.coverageComplete).map(({ slot }) => slot.number);
+  const counted = projections.filter(({ mvp }) => mvp.players.length > 0);
+  const aggregated = new Map();
+  for (const { slot, mvp } of counted) for (const player of mvp.players) {
+    let entry = aggregated.get(player.accountId);
+    if (!entry) {
+      entry = { accountId: player.accountId, steamId: player.steamId, nickname: player.nickname,
+        teamIds: [], teamNames: [], records: [], estimated: false };
+      aggregated.set(player.accountId, entry);
+    }
+    entry.teamIds = unique([...entry.teamIds, ...player.teamIds]);
+    entry.teamNames = unique([...entry.teamNames, ...player.teamNames]);
+    entry.records.push({ ...structuredClone(player.records[0]), mapNumber: slot.number, estimated: player.estimated });
+    entry.estimated ||= player.estimated;
+  }
+  const players = topMvpPlayers([...aggregated.values()].map((player) => ({ ...player,
+    countedMaps: player.records.length, playedMaps: player.records.length,
+    ratingExact: sumMvpScores(player.records.map((record) => record.scoreExact)),
+  })), Math.max(1, aggregated.size));
+  const fieldIds = (field) => unique(projections.flatMap(({ mvp }) => mvp[field]));
+  const coverageComplete = relevant.length > 0 && pendingMapNumbers.length === 0;
+  const estimatedMapIds = fieldIds('estimatedMapIds'), correctionPendingMatchIds = fieldIds('correctionPendingMatchIds');
+  const preliminary = !completed || !coverageComplete || estimatedMapIds.length > 0 ||
+    correctionPendingMatchIds.length > 0 || base.stale;
+  return { ...base, status: players.length ? estimatedMapIds.length ? 'estimated' : 'ready'
+    : availability === 'unavailable' ? 'unavailable' : 'pending',
+    reason: players.length ? null : 'series-statistics-pending', players, leaders: topMvpPlayers(players, 1),
+    countedMapIds: counted.map(({ slot }) => slot.mapId), countedMapNumbers: counted.map(({ slot }) => slot.number),
+    pendingMapIds: fieldIds('pendingMapIds'), pendingMapNumbers, estimatedMapIds,
+    excludedMapIds: fieldIds('excludedMapIds'), correctionPendingMatchIds,
+    coverageComplete, preliminary, final: !preliminary };
+}
+
+/** Historical BO1-only adapter. New series consumers use getDotaSeriesMvp. */
 export function getDotaMatchMvp({ tournament, match, snapshot = null, availability = 'pending' }) {
   const mapIds = fixtureMapIds(match, snapshot);
   const base = projectionBase(mapIds, snapshot, availability);

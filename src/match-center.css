@@ -38,3 +38,31 @@
 .mc-mvp-hero .mc-hero-name{font-size:12px;color:var(--mc-text)}
 .mc-mvp-hero .mc-hero-portrait{width:64px;height:36px}
 @media(max-width:760px){.mc-player-hero{gap:7px}.mc-hero-portrait{width:44px;height:25px}.mc-hero-name{font-size:10px}.mc-mvp-hero .mc-hero-portrait{width:56px;height:32px}}
+
+/* Series trophy: the player and real picks are the artwork, independent of map selection. */
+.mc-series-award{margin:24px 4% 0;padding:26px 30px;background:linear-gradient(105deg,#06242bf5,#04191ecf),url('/assets/match-detail/dota-mvp-stone.webp') center/cover;border:1px solid var(--mc-line);border-top:2px solid #d4b576}
+.mc-series-award-heading{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.mc-series-emblem{display:flex;align-items:center;justify-content:center;flex:0 0 60px;height:60px;color:#f0cd78;background:#332c1a;border:1px solid #8c7547;transform:rotate(45deg);border-radius:8px}
+.mc-series-emblem svg{width:36px;height:36px;transform:rotate(-45deg)}
+.mc-series-award-heading h2{font-size:26px;color:#f0cd78}
+.mc-series-award-heading p{margin-top:6px;font-size:13px;color:var(--mc-muted)}
+.mc-series-leaders{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:22px 30px}
+.mc-series-leader{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 24px;padding-top:18px;border-top:1px solid var(--mc-line)}
+.mc-series-identity h3{font-size:clamp(30px,3vw,44px);overflow-wrap:anywhere}
+.mc-series-identity p{margin-top:7px;font-size:13px;color:var(--mc-muted);overflow-wrap:anywhere}
+.mc-series-total{text-align:right;align-self:center;display:flex;flex-direction:column}
+.mc-series-total strong{font-family:'YCS Match',sans-serif;font-size:clamp(34px,4vw,54px);line-height:1.05;color:var(--mc-accent)}
+.mc-series-total span{margin-top:5px;font-size:12px;color:var(--mc-muted)}
+.mc-series-picks{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;list-style:none;margin:0;padding:0}
+.mc-series-picks>li{flex:1 1 150px;max-width:240px;padding:12px;background:#032027;border:1px solid var(--mc-line)}
+.mc-series-map-label{display:block;font-size:11px;color:var(--mc-muted);margin-bottom:8px}
+.mc-series-pick{display:block}.mc-series-pick .mc-hero-portrait{width:100%;height:auto;aspect-ratio:16/9;max-width:192px;margin-bottom:8px}
+.mc-series-pick .mc-hero-name{font-size:14px;color:var(--mc-text)}
+.mc-series-contribution{display:block;margin-top:7px;font-weight:650;color:var(--mc-accent)}
+.mc-series-contribution small{font-size:11px;font-weight:400;color:var(--mc-muted)}
+.mc-series-note,.mc-series-empty p{margin-top:14px!important;font-size:13px;color:var(--mc-muted)}
+.mc-series-empty h3{font-size:26px}.mc-series-award>.mc-notice{margin-top:14px}
+.match-center--dota .mc-mvp--map{padding:24px 30px;min-height:210px}
+.mc-mvp--map .mc-mvp-copy{max-width:100%}.mc-mvp--map .mc-mvp-leaders h3{font-size:30px}
+.mc-mvp--map .mc-mvp-value strong{font-size:30px}.mc-mvp--map .mc-mvp-hero .mc-hero-portrait{width:96px;height:54px}
+@media(max-width:760px){.mc-series-award{margin:20px 16px 0;padding:20px 16px}.mc-series-award-heading{gap:16px;margin-bottom:15px}.mc-series-emblem{flex-basis:42px;height:42px;border-radius:5px}.mc-series-emblem svg{width:28px;height:28px}.mc-series-award-heading h2{font-size:23px}.mc-series-award-heading p{font-size:11px}.mc-series-leader{gap:16px;grid-template-columns:1fr}.mc-series-total{align-items:flex-start;text-align:left}.mc-series-total strong{font-size:42px}.mc-series-total span{font-size:11px}.mc-series-picks{gap:8px}.mc-series-picks>li{flex-basis:120px;max-width:none;padding:10px}.mc-series-identity h3{font-size:32px}.match-center--dota .mc-mvp--map{padding:22px 20px}.mc-mvp--map .mc-mvp-hero .mc-hero-portrait{width:80px;height:45px}}

@@ -57,6 +57,10 @@ export function mvpContributions(metrics) {
 export function scoreMvpMetrics(metrics) {
   return encode(Object.values(mvpContributions(metrics)).map(decode).reduce(add, rational(0n)));
 }
+/** Sum published contributions without rounding or converting them to floats. */
+export function sumMvpScores(scores) {
+  return encode(scores.map(decode).reduce(add, rational(0n)));
+}
 export function formatMvpScore(exact, decimals = 2) {
   if (!Number.isSafeInteger(decimals) || decimals < 0 || decimals > 6) throw new Error('Invalid display precision');
   const value = decode(exact), factor = 10n ** BigInt(decimals), negative = value.n < 0n;

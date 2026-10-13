@@ -1,5 +1,14 @@
 # Expanded match center — October 12
 
+- October 13 series-MVP correction supersedes the earlier BO1-only award rule:
+  main Dota MVP sums exact published contributions across this fixture's actual
+  played maps, grouped by stable account ID. Selected-map MVP remains secondary.
+  Use real per-map portraits/names/contributions beside the player; no perpetual
+  Puck and no new collection of hero models. Technical/unplayed maps contribute
+  nothing, including retained stale map links. Incomplete/estimated/stale or
+  corrected data remains provisional; preserve exact ties and substitutions.
+  CS2 retains its explicitly published per-map award; no scoring formula added.
+
 - October 13 hero-pick correction: each Dota player's selected-map validated
   heroId shows its actual hero portrait/name in the statistics table and map
   MVP badge. Use the official local hero catalogue, never infer picks from
@@ -8,8 +17,8 @@
 
 - User selected the complete Dota/CS2 match-center implementation, including
   BO1/BO3/BO5 map navigation, per-map rosters/statistics/MVP and manually entered
-  clips. This supersedes the earlier BO1-only presentation limit below; no series
-  MVP aggregation is introduced. See docs/design/match-detail/TASK_STATE.md.
+  clips. This supersedes the earlier BO1-only presentation limit below. The
+  October13 series-MVP rule above now applies. See docs/design/match-detail/TASK_STATE.md.
 - Never use demonstration results or player statistics from the selected images.
   Dota consumes validated existing per-map metrics, including estimates/ties and
   stale/correction notices. CS2 requires explicit published map.playerStats and
@@ -41,7 +50,7 @@
 - Match MVP consumes the existing validated snapshot, projected onto the actual
   fixture's map. Never substitute a tournament leader, infer a winner on a tie,
   or turn missing data into zero. Retain estimate, pending/correction and stale
-  notices. Technical no-play has no MVP. BO3/BO5 await a defined series rule.
+  notices. Technical no-play has no MVP. BO3/BO5 use the October13 series rule.
 - Keep canonical match `broadcastLinks` behavior below. Implementation and
   asset provenance: `docs/design/match-detail/IMPLEMENTATION.md`; rendered QA:
   `docs/design/match-detail/design-qa-before-swiss.md`. Selection authorizes this implementation; it is

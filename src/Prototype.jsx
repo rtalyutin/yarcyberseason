@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDotaResults } from "./lib/dota-results-client.js";
-import { ArrowUpRight, CaretRight, Plus } from "@phosphor-icons/react";
+import { ArrowUpRight, CaretRight } from "@phosphor-icons/react";
 import { getChampionLabels, getTournamentOutcome, isArchive, hasScore, isFinished, participantCount } from "./lib/tournament.js";
 import { community } from './data/community.js';
 import { projectContent, projectLegal } from './data/project-content.js';
@@ -28,6 +28,7 @@ import { PartnersPage } from "./components/PartnersPage.jsx";
 import { BroadcastLinks, MatchCasters } from "./components/BroadcastLinks.jsx";
 import { getTournamentBroadcasts, isClosedBroadcast } from "./lib/home-board.js";
 import "./content-refresh.css";
+import "./home-partners.css";
 import { SiteHeader } from "./components/SiteHeader.jsx";
 import { applyPageMetadata } from "./lib/page-metadata.js";
 import {
@@ -272,19 +273,27 @@ function HomePage({ navigate, theme }) {
             <a className="home-all-results" href="/results" onClick={(event) => followPublicLink(event, "/results", navigate)}>Все результаты <ArrowUpRight weight="bold" aria-hidden="true" /></a>
           </aside>
         </section>
-        <section className="home-partners container" aria-labelledby="home-partners-title">
-          <h2 id="home-partners-title">Партнёры турнира</h2>
-          <div className="home-partners-grid">
-            {home.partners.map((partner) => (
-              <div className={`home-partner${partner.shortName === "Додо Пицца" ? " home-partner--dodo" : ""}`} key={partner.name}>
-                {partner.logoUrl ? <img src={partner.logoUrl} alt={partner.shortName || partner.name} width={partner.shortName === "Додо Пицца" ? 180 : 160} height={partner.shortName === "Додо Пицца" ? 100 : 80} loading="lazy" /> : <strong className="home-partner-wordmark">{partner.shortName || partner.name}</strong>}
-                {partner.logoUrl && partner.shortName !== "Додо Пицца" && <p>{partner.name}</p>}
-              </div>
-            ))}
-            <a className="home-partner home-partner--join" href={`mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>
-              <Plus size={58} weight="light" aria-hidden="true" />
-              <span>Стать партнёром <CaretRight size={16} weight="bold" aria-hidden="true" /></span>
+        <section className="home-partners home-partners--brand-row container" aria-labelledby="home-partners-title">
+          <div className="home-partners-heading">
+            <h2 id="home-partners-title">Партнёры турнира</h2>
+            <a className="home-partners-contact" href={`mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>
+              Стать партнёром <ArrowUpRight size={20} weight="bold" aria-hidden="true" />
             </a>
+          </div>
+          <div className="home-partners-brands">
+            {home.partners.map((partner) => {
+              const url = safeHttps(partner.homeUrl || partner.url);
+              const Tag = url ? "a" : "div";
+              const logo = partner.homeLogoUrl || partner.logoUrl;
+              return <Tag className={`home-brand home-brand--${partner.id}`} key={partner.id || partner.name}
+                {...(url ? { href: url, target: "_blank", rel: "noopener noreferrer", "aria-label": `${partner.name} — сайт партнёра (новая вкладка)` } : {})}>
+                <div className="home-brand-logo">
+                  {logo ? <img src={logo} alt={partner.name} loading="lazy" decoding="async" /> : <strong>{partner.shortName || partner.name}</strong>}
+                </div>
+                <span className="home-brand-role">{partner.homeRole || partner.description}</span>
+                {url && <ArrowUpRight className="home-brand-arrow" size={20} aria-hidden="true" />}
+              </Tag>;
+            })}
           </div>
         </section>
         {home.officialSupport.length > 0 && <section className="home-official-support container" aria-label="При поддержке">

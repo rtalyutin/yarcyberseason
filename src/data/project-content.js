@@ -18,9 +18,9 @@ const partner = (record) => Object.freeze({
 // Public confirmed agreements only. Private representatives and prize logistics
 // belong to the organizer's source register, not the website.
 export const confirmedPartners = Object.freeze([
-  partner({ id: 'dodo-pizza', name: 'Додо Пицца', shortName: 'Додо Пицца', scope: 'tournament', logoUrl: '/assets/partners/dodo-pizza.jpg', description: 'Партнёр турнира.' }),
-  partner({ id: 'torrefacto', name: 'Торрефакто', shortName: 'Торрефакто', scope: 'tournament', description: 'Кофейный партнёр команды эфира.' }),
-  partner({ id: 'redragon', name: 'Redragon', shortName: 'Redragon', scope: 'tournament', description: 'Партнёр турнира: устройства для награждения топ-3.' }),
+  partner({ id: 'dodo-pizza', name: 'Додо Пицца', shortName: 'Додо Пицца', scope: 'tournament', logoUrl: '/assets/partners/dodo-pizza.jpg', homeLogoUrl: '/assets/partners/dodo-pizza-inverse.svg', homeRole: 'Партнёр турнира', homeUrl: 'https://dodopizza.ru/', description: 'Партнёр турнира.' }),
+  partner({ id: 'torrefacto', name: 'Торрефакто', shortName: 'Торрефакто', scope: 'tournament', homeLogoUrl: '/assets/partners/torrefacto-inverse.svg', homeRole: 'Кофейный партнёр команды эфира', homeUrl: 'https://www.torrefacto.ru/', description: 'Кофейный партнёр команды эфира.' }),
+  partner({ id: 'redragon', name: 'Redragon', shortName: 'Redragon', scope: 'tournament', homeLogoUrl: '/assets/partners/redragon.svg', homeRole: 'Партнёр турнира', homeUrl: 'https://redragon.ru/', description: 'Партнёр турнира: устройства для награждения топ-3.' }),
   partner({ id: 'minsport-yao', name: 'Министерство спорта Ярославской области', shortName: 'Минспорт ЯО', scope: 'official', logoUrl: '/assets/partners/minsport-yao.png', url: 'https://vk.com/minsport76', description: 'Официальная поддержка турнира.' }),
   partner({ id: 'fks-yao', name: 'Ярославское областное отделение ФКС России', shortName: 'ФКС ЯО', scope: 'official', logoUrl: '/assets/partners/fks-yao.png', url: 'https://vk.com/resf76', description: 'Официальная поддержка турнира.' }),
   partner({ id: 'small-choice', name: 'Small Choice', shortName: 'Small Choice', scope: 'match', matchId: 'dota-autumn-swiss-r1-04', url: 'https://vk.com/small_choice', description: 'Партнёр матча открытия.' }),

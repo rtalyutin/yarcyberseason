@@ -1,3 +1,15 @@
+# Homepage partner artwork — October 14
+
+- Roman rejected the pictured homepage partner strip and requested real logos.
+  The correction is scoped to that section: use original brand assets, balanced
+  visual weight, published partner roles, and a compact contact action separate
+  from the three brands. Keep the Dota parchment/artwork and all other sections.
+  Home-specific inverse logos do not replace legacy assets on other routes or
+  in the Telegram Mini App. This request authorizes local implementation;
+  publication of this new revision requires its own explicit permission.
+  Roman then authorized publication to the existing main and website with
+  «Выкладываем» on14October at03:38MSK. Preserve later round-five fixtures.
+
 # Current Dota playoff projection — October 14
 
 - Roman selected a complete eight-team Double Elimination bracket with the

@@ -5,4 +5,5 @@
 .about-contact-links a { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; font-size: clamp(18px, 2.2vw, 28px); color: var(--about-text); text-underline-offset: 6px; overflow-wrap: anywhere; }
 .about-contact-links a svg { flex-shrink: 0; color: var(--about-blue); }
 .about-contact-links a:hover { color: var(--about-blue); }
+.about-contact-links a > span { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 760px) { .about-contact-links { width: 100%; gap: 8px; } }

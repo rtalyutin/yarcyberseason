@@ -17,4 +17,6 @@ assets and content; `homeLogoUrl`, `homeRole`, and `homeUrl` are homepage fields
 
 No brand marks were drawn, generated, traced, recolored, or substituted with text.
 Roles and partner membership come from the existing confirmed partner registry.
-The homepage contact action stays `mailto:info@ycs.bar`; it sends nothing itself.
+The homepage contact action consumes `projectContent.contactEmail`, currently
+`mailto:info@yarcyberseason.ru` as specified by Roman on October 14; it sends
+nothing itself.

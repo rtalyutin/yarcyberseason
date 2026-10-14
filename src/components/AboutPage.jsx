@@ -47,8 +47,11 @@ export function AboutPage({ people = organizers }) {
     <section className="about-contact container" aria-labelledby="about-contact-title">
       <div><p className="about-kicker">Прямая связь</p><h2 id="about-contact-title">Связь с проектом</h2></div>
       <div className="about-contact-links">
-        <a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail} <ArrowUpRight aria-hidden="true" /></a>
-        <a href={projectContent.telegramUrl} target="_blank" rel="noreferrer">{projectContent.telegramLabel} <ArrowUpRight aria-hidden="true" /></a>
+        <a href={`mailto:${projectContent.contactEmail}`}><span>{projectContent.contactEmail}</span> <ArrowUpRight aria-hidden="true" /></a>
+        <a href={projectContent.contactPhoneUrl}><span>{projectContent.contactPhone}</span> <ArrowUpRight aria-hidden="true" /></a>
+        <a href={projectContent.contactTelegramUrl} target="_blank" rel="noreferrer"><span>{projectContent.contactTelegramLabel}</span> <ArrowUpRight aria-hidden="true" /></a>
+        <a href={projectContent.contactVkUrl} target="_blank" rel="noreferrer"><span>{projectContent.contactVkLabel}</span> <ArrowUpRight aria-hidden="true" /></a>
+        <a href={projectContent.telegramUrl} target="_blank" rel="noreferrer"><span>Канал турнира @dota2yar</span> <ArrowUpRight aria-hidden="true" /></a>
       </div>
     </section>
 
@@ -57,7 +60,10 @@ export function AboutPage({ people = organizers }) {
       <p>{projectLegal.companyName}</p>
       <dl><dt>Юридический адрес</dt><dd>150040, Ярославская область, г. Ярославль, ул. Володарского, д. 64, кв. 37</dd>
       <dt>ИНН / КПП</dt><dd>7606143578 / 760601001</dd><dt>ОГРН</dt><dd>1257600007500</dd>
-      <dt>Электронная почта</dt><dd><a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail}</a></dd></dl>
+      <dt>Электронная почта</dt><dd><a href={`mailto:${projectContent.contactEmail}`}>{projectContent.contactEmail}</a></dd>
+      <dt>Телефон</dt><dd><a href={projectContent.contactPhoneUrl}>{projectContent.contactPhone}</a></dd>
+      <dt>Telegram</dt><dd><a href={projectContent.contactTelegramUrl} target="_blank" rel="noreferrer">@evieer</a></dd>
+      <dt>VK</dt><dd><a href={projectContent.contactVkUrl} target="_blank" rel="noreferrer">Роман Талютин</a></dd></dl>
     </section>
   </main>;
 }

@@ -276,8 +276,8 @@ function HomePage({ navigate, theme }) {
         <section className="home-partners home-partners--brand-row container" aria-labelledby="home-partners-title">
           <div className="home-partners-heading">
             <h2 id="home-partners-title">Партнёры турнира</h2>
-            <a className="home-partners-contact" href={`mailto:${projectContent.contactEmail}?subject=Партнёрство%20с%20ЯрКиберСезоном`}>
-              Стать партнёром <ArrowUpRight size={20} weight="bold" aria-hidden="true" />
+            <a className="home-partners-contact" href="/partners" onClick={(event) => followPublicLink(event, "/partners", navigate)}>
+              Проект в цифрах <ArrowUpRight size={20} weight="bold" aria-hidden="true" />
             </a>
           </div>
           <div className="home-partners-brands">

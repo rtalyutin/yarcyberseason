@@ -14,7 +14,7 @@ export function SiteHeader({ path, navigate, theme, onThemeChange, matchdayRoute
     { label: "Matchday", href: matchdayRoute },
     { label: "Архив", href: "/results" },
     { label: "Трансляции", href: "/broadcasts" },
-    { label: "Партнёры", href: "/partners" },
+    { label: "Партнёрам", href: "/partners" },
     { label: "О проекте", href: "/about" },
   ];
 

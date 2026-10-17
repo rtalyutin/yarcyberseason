@@ -263,6 +263,82 @@
       "description": "Матч завершён. Результат — на странице матча.",
       "revision": 1,
       "updatedAt": "2026-10-16T19:54:08.609Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/upper-1",
+      "uid": "dota2-autumn-2026%2Fupper-1@ycs.bar",
+      "start": "2026-10-17T18:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-4fans",
+        "dota2-autumn-2026-team-leto"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-4fans",
+        "dota2-autumn-2026-team-leto"
+      ],
+      "summary": "Team Leto — TEAM SPERMINT · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/upper-1",
+      "cancelled": false,
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 0,
+      "updatedAt": "2026-10-17T17:32:19.145Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/upper-2",
+      "uid": "dota2-autumn-2026%2Fupper-2@ycs.bar",
+      "start": "2026-10-18T13:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-main-2026-way-prod",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "publishedTeamIds": [
+        "dota2-main-2026-way-prod",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "summary": "WAYPROD. — ARB Esports · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/upper-2",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-17T17:32:19.145Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/upper-3",
+      "uid": "dota2-autumn-2026%2Fupper-3@ycs.bar",
+      "start": "2026-10-18T21:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-aegis-guardians",
+        "dota2-autumn-2026-strela-team"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-aegis-guardians",
+        "dota2-autumn-2026-strela-team"
+      ],
+      "summary": "Aegis Guardians — strela team · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/upper-3",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-17T17:32:19.145Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/upper-4",
+      "uid": "dota2-autumn-2026%2Fupper-4@ycs.bar",
+      "start": "2026-10-17T23:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-easy-gaming",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-easy-gaming",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "summary": "Easy Gaming — Mi Ne Pushim! · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/upper-4",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-10-17T17:32:19.145Z"
     }
   ]
 }

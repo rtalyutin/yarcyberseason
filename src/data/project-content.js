@@ -35,7 +35,8 @@ export const confirmedPartners = Object.freeze([
   partner({ id: 'tortofe', name: 'Тортофэ', shortName: 'Тортофэ', scope: 'unassigned', url: 'https://vk.ru/tortoferu' }),
   partner({ id: 'yaponchik', name: 'Япончик', shortName: 'Япончик', scope: 'unassigned', url: 'https://yaponchik.net/' }),
   partner({ id: 'curling76', name: 'Ярославский кёрлинг-клуб', shortName: 'Ярославский кёрлинг-клуб', scope: 'unassigned', url: 'https://vk.com/curling76' }),
-  partner({ id: 'ogni', name: 'Ресторан «ОГНИ»', shortName: 'ОГНИ', scope: 'unassigned', url: 'https://ogni.rest/' }),
+  partner({ id: 'ogni', name: 'Ресторан «ОГНИ»', shortName: 'ОГНИ', scope: 'match', matchId: 'upper-1', scopeLabel: 'Первый матч плей-офф', logoUrl: '/assets/partners-2027/ogni.png', url: 'https://vk.com/ogni.rest', description: 'Партнёр серии Team Leto — TEAM SPERMINT: сертификат для MVP всей серии BO3.' }),
+  partner({ id: 'chicko', name: 'Чико', shortName: 'Чико', scope: 'match', matchId: 'upper-4', scopeLabel: 'Четвертьфинал верхней сетки', url: 'https://vk.com/chicko_yar', description: 'Партнёр серии Easy Gaming — Mi Ne Pushim!: сертификат 1 000 ₽ для MVP всей серии BO3 при счёте от 2 000 ₽.' }),
 ]);
 
 const tournamentId = (tournament) => typeof tournament === 'string' ? tournament : tournament?.id;

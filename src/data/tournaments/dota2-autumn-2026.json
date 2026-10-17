@@ -1605,7 +1605,7 @@
       "type": "double_elimination",
       "title": "Плей-офф",
       "notice": "Double Elimination: верхняя и нижняя сетки. Матчи BO3, гранд-финал BO5 без переигровки.",
-      "emptyState": "Пары плей-офф будут опубликованы после швейцарского этапа.",
+      "emptyState": "Участники следующих матчей определятся по результатам плей-офф.",
       "rounds": [
         {
           "id": "upper",
@@ -1625,6 +1625,58 @@
               "loserTo": {
                 "matchId": "lower-1",
                 "slot": 1
+              },
+              "team1": "Team Leto",
+              "team1Id": "dota2-autumn-2026-team-leto",
+              "team2": "TEAM SPERMINT",
+              "team2Id": "dota2-autumn-2026-4fans",
+              "status": "completed",
+              "date": "2026-10-17",
+              "dateDisplay": "17 октября",
+              "time": "18:00",
+              "scheduledAt": "2026-10-17T18:00:00+03:00",
+              "broadcastLinks": {
+                "twitch": "https://www.twitch.tv/YarCyberSeason"
+              },
+              "opendotaTeamIds": {
+                "team1": 9845511,
+                "team2": 10261009
+              },
+              "resultConfirmed": true,
+              "scoreKind": "series",
+              "score1": 2,
+              "score2": 0,
+              "winnerTeamId": "dota2-autumn-2026-team-leto",
+              "winner": "Team Leto",
+              "maps": [
+                {
+                  "id": "9049400157",
+                  "matchId": "9049400157",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-autumn-2026-team-leto",
+                  "kills1": 47,
+                  "kills2": 20,
+                  "durationSeconds": 1658,
+                  "url": "https://www.opendota.com/matches/9049400157"
+                },
+                {
+                  "id": "9049488885",
+                  "matchId": "9049488885",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-autumn-2026-team-leto",
+                  "kills1": 38,
+                  "kills2": 29,
+                  "durationSeconds": 2303,
+                  "url": "https://www.opendota.com/matches/9049488885"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "seriesId": 1155903,
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9049400157",
+                "status": "confirmed",
+                "observedAt": "2026-10-17"
               }
             },
             {
@@ -1640,7 +1692,16 @@
               "loserTo": {
                 "matchId": "lower-1",
                 "slot": 2
-              }
+              },
+              "team1": "WAYPROD.",
+              "team1Id": "dota2-main-2026-way-prod",
+              "team2": "ARB Esports",
+              "team2Id": "dota2-qual-2026-arb-esports",
+              "status": "scheduled",
+              "date": "2026-10-18",
+              "dateDisplay": "18 октября",
+              "time": "13:00",
+              "scheduledAt": "2026-10-18T13:00:00+03:00"
             },
             {
               "id": "upper-3",
@@ -1655,7 +1716,16 @@
               "loserTo": {
                 "matchId": "lower-2",
                 "slot": 1
-              }
+              },
+              "team1": "Aegis Guardians",
+              "team1Id": "dota2-autumn-2026-aegis-guardians",
+              "team2": "strela team",
+              "team2Id": "dota2-autumn-2026-strela-team",
+              "status": "scheduled",
+              "date": "2026-10-18",
+              "dateDisplay": "18 октября",
+              "time": "21:00",
+              "scheduledAt": "2026-10-18T21:00:00+03:00"
             },
             {
               "id": "upper-4",
@@ -1670,6 +1740,18 @@
               "loserTo": {
                 "matchId": "lower-2",
                 "slot": 2
+              },
+              "team1": "Easy Gaming",
+              "team1Id": "dota2-autumn-2026-easy-gaming",
+              "team2": "Mi Ne Pushim!",
+              "team2Id": "dota2-main-2026-mi-ne-pushim",
+              "status": "scheduled",
+              "date": "2026-10-17",
+              "dateDisplay": "17 октября",
+              "time": "23:00",
+              "scheduledAt": "2026-10-17T23:00:00+03:00",
+              "broadcastLinks": {
+                "twitch": "https://www.twitch.tv/YarCyberSeason"
               }
             }
           ]
@@ -1690,7 +1772,11 @@
               "loserTo": {
                 "matchId": "lower-4",
                 "slot": 2
-              }
+              },
+              "team1": "Team Leto",
+              "team1Id": "dota2-autumn-2026-team-leto",
+              "team2": "Победитель В2",
+              "status": "scheduled"
             },
             {
               "id": "upper-6",
@@ -1739,7 +1825,11 @@
               "winnerTo": {
                 "matchId": "lower-3",
                 "slot": 1
-              }
+              },
+              "team1": "TEAM SPERMINT",
+              "team1Id": "dota2-autumn-2026-4fans",
+              "team2": "Проигравший В2",
+              "status": "scheduled"
             },
             {
               "id": "lower-2",
@@ -2015,5 +2105,8 @@
   ],
   "matchday": {
     "route": "/tournaments/dota2-autumn-2026/matchday"
-  }
+  },
+  "homeBroadcastMatchIds": [
+    "upper-4"
+  ]
 }

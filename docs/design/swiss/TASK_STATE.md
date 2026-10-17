@@ -1,5 +1,33 @@
 # Swiss design — active contract and state
 
+## First playoff result — 17 October 2026
+
+- Data-only continuation from `6ffc3586f79c0dada59a83ab4b72d04404d99f91`:
+  publish the final Swiss seeds as the four actual quarterfinal pairs, retaining
+  IDs, seed order and all 20 bracket edges. Swiss fixtures/results are unchanged.
+- Team Leto–TEAM SPERMINT is confirmed 2:0 from OpenDota series 1155903,
+  maps 9049400157 and 9049488885. Source: public MVP raw cache revision 1935,
+  updated 2026-10-17T17:27:17.022Z. `collectDotaResults` and
+  `applyDotaSnapshot` normalize Radiant/Dire into fixture order: 47:20 / 27:38
+  and 38:29 / 38:23. This is API evidence, not manual organizer confirmation.
+- `getPlayoffView` resolves Leto into В5 slot1 and SPERMINT into Н1 slot1.
+  Those two known sides are also published for the Mini App's existing raw-slot
+  adapter. Their opponents remain «Победитель В2»/«Проигравший В2», without team
+  IDs, appointments or results. No later round is a complete scheduled pair.
+- Current caster memos `libfile_ff133265888c8191ad2e0eb709f9cab7`
+  and `libfile_9914304f36ec8191b7c8c1d005628285` establish
+  17 October 18:00 / 23:00 MSK and Twitch YarCyberSeason for В1/В4.
+  Roman's explicit schedule establishes WAYPROD.–ARB 18 October 13:00 MSK and
+  Aegis–strela 18 October 21:00 MSK; no channels are assigned to those two matches.
+  Scheduled quarterfinals retain the collector's existing appointment window
+  through 03:00 MSK the next day, without a midnight cutoff for the 23:00 series.
+- Partner memos bind ОГНИ to В1 (series-MVP certificate, no published value)
+  and Чико to В4 (series-MVP certificate 1,000 ₽, bill of at least 2,000 ₽).
+  Only these two partner records change. Both homes select the upcoming В4
+  broadcast from canonical match links; dependent calendar records are synced.
+- Author checks and deployment state are recorded in the delivery handoff.
+  This entry alone does not claim deployment or independent QA acceptance.
+
 ## Current contract: playoff seeding, 14 October 2026
 
 - ACTIVE_CONTRACT: PLAYOFF-BH/r1, Roman's request to display the complete Double

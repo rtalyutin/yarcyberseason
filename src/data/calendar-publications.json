@@ -298,9 +298,9 @@
       "summary": "WAYPROD. — ARB Esports · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/upper-2",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-17T17:32:19.145Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 1,
+      "updatedAt": "2026-10-18T12:00:59.774Z"
     },
     {
       "matchKey": "dota2-autumn-2026/upper-3",
@@ -336,9 +336,9 @@
       "summary": "Easy Gaming — Mi Ne Pushim! · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/upper-4",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-17T17:32:19.145Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 1,
+      "updatedAt": "2026-10-18T12:00:59.774Z"
     }
   ]
 }

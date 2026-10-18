@@ -1697,11 +1697,47 @@
               "team1Id": "dota2-main-2026-way-prod",
               "team2": "ARB Esports",
               "team2Id": "dota2-qual-2026-arb-esports",
-              "status": "scheduled",
+              "status": "completed",
               "date": "2026-10-18",
               "dateDisplay": "18 октября",
               "time": "13:00",
-              "scheduledAt": "2026-10-18T13:00:00+03:00"
+              "scheduledAt": "2026-10-18T13:00:00+03:00",
+              "resultConfirmed": true,
+              "scoreKind": "series",
+              "score1": 2,
+              "score2": 0,
+              "winnerTeamId": "dota2-main-2026-way-prod",
+              "seriesId": 1156291,
+              "winner": "WAYPROD.",
+              "maps": [
+                {
+                  "id": "9050650763",
+                  "matchId": "9050650763",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-main-2026-way-prod",
+                  "kills1": 46,
+                  "kills2": 25,
+                  "durationSeconds": 1969,
+                  "url": "https://www.opendota.com/matches/9050650763"
+                },
+                {
+                  "id": "9050724284",
+                  "matchId": "9050724284",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-main-2026-way-prod",
+                  "kills1": 54,
+                  "kills2": 35,
+                  "durationSeconds": 2348,
+                  "url": "https://www.opendota.com/matches/9050724284"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9050650763",
+                "status": "confirmed",
+                "observedAt": "2026-10-18"
+              }
             },
             {
               "id": "upper-3",
@@ -1725,7 +1761,10 @@
               "date": "2026-10-18",
               "dateDisplay": "18 октября",
               "time": "21:00",
-              "scheduledAt": "2026-10-18T21:00:00+03:00"
+              "scheduledAt": "2026-10-18T21:00:00+03:00",
+              "broadcastLinks": {
+                "twitch": "https://www.twitch.tv/YarCyberSeason"
+              }
             },
             {
               "id": "upper-4",
@@ -1745,13 +1784,49 @@
               "team1Id": "dota2-autumn-2026-easy-gaming",
               "team2": "Mi Ne Pushim!",
               "team2Id": "dota2-main-2026-mi-ne-pushim",
-              "status": "scheduled",
+              "status": "completed",
               "date": "2026-10-17",
               "dateDisplay": "17 октября",
               "time": "23:00",
               "scheduledAt": "2026-10-17T23:00:00+03:00",
               "broadcastLinks": {
                 "twitch": "https://www.twitch.tv/YarCyberSeason"
+              },
+              "resultConfirmed": true,
+              "scoreKind": "series",
+              "score1": 2,
+              "score2": 0,
+              "winnerTeamId": "dota2-autumn-2026-easy-gaming",
+              "seriesId": 1156073,
+              "winner": "Easy Gaming",
+              "maps": [
+                {
+                  "id": "9049867073",
+                  "matchId": "9049867073",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-autumn-2026-easy-gaming",
+                  "kills1": 21,
+                  "kills2": 27,
+                  "durationSeconds": 2501,
+                  "url": "https://www.opendota.com/matches/9049867073"
+                },
+                {
+                  "id": "9049959643",
+                  "matchId": "9049959643",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-autumn-2026-easy-gaming",
+                  "kills1": 49,
+                  "kills2": 56,
+                  "durationSeconds": 4184,
+                  "url": "https://www.opendota.com/matches/9049959643"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9049867073",
+                "status": "confirmed",
+                "observedAt": "2026-10-18"
               }
             }
           ]
@@ -1775,8 +1850,9 @@
               },
               "team1": "Team Leto",
               "team1Id": "dota2-autumn-2026-team-leto",
-              "team2": "Победитель В2",
-              "status": "scheduled"
+              "team2": "WAYPROD.",
+              "status": "scheduled",
+              "team2Id": "dota2-main-2026-way-prod"
             },
             {
               "id": "upper-6",
@@ -1789,7 +1865,10 @@
               "loserTo": {
                 "matchId": "lower-3",
                 "slot": 2
-              }
+              },
+              "team2": "Easy Gaming",
+              "team2Id": "dota2-autumn-2026-easy-gaming",
+              "status": "scheduled"
             }
           ]
         },
@@ -1828,8 +1907,9 @@
               },
               "team1": "TEAM SPERMINT",
               "team1Id": "dota2-autumn-2026-4fans",
-              "team2": "Проигравший В2",
-              "status": "scheduled"
+              "team2": "ARB Esports",
+              "status": "scheduled",
+              "team2Id": "dota2-qual-2026-arb-esports"
             },
             {
               "id": "lower-2",
@@ -1838,7 +1918,10 @@
               "winnerTo": {
                 "matchId": "lower-4",
                 "slot": 1
-              }
+              },
+              "team2": "Mi Ne Pushim!",
+              "team2Id": "dota2-main-2026-mi-ne-pushim",
+              "status": "scheduled"
             }
           ]
         },
@@ -2107,6 +2190,6 @@
     "route": "/tournaments/dota2-autumn-2026/matchday"
   },
   "homeBroadcastMatchIds": [
-    "upper-4"
+    "upper-3"
   ]
 }

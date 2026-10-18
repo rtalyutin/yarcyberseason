@@ -67,6 +67,8 @@
 .swiss-playoffs .sp-source { display: flex; align-items: center; min-height: 31px; padding: 6px 8px; text-align: left; flex: 1; min-width: 0; color: var(--sp-muted); font-size: 12px; line-height: 1.25; }
 .sp-unplayed, .sp-match-score { padding-right: 8px; font-size: 12px; color: var(--sp-muted); }
 .sp-match-score { color: var(--sp-ink); font-variant-numeric: tabular-nums; }
+.sp-match-schedule { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 3px 8px; margin: 0; padding: 6px 8px; border-top: 1px solid var(--sp-rule); color: var(--sp-muted); font-size: 11px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.sp-match-schedule > span:first-child { color: var(--sp-ink); }
 .sp-aegis { display: none; }
 [data-theme="dota2"] .sp-aegis { display: block; position: absolute; width: 250px; height: 286px; object-fit: contain; left: 50%; top: -95px; transform: translateX(-50%); z-index: -1; opacity: .9; pointer-events: none; }
 .sp-track--final h3 { font: 700 25px/1.1 'YCS Dota Display', sans-serif; color: var(--sp-ink); justify-content: center; margin-bottom: 18px; text-align: center; }

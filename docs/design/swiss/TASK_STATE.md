@@ -1,5 +1,36 @@
 # Swiss design — active contract and state
 
+## Playoff calendar — 18 October 2026
+
+- Add the organizer's supplied calendar to the current playoff bracket: Н1/Н2
+  19 October, В5/В6 20 October, Н3/Н4 21 October, Н5 22 October,
+  В7 23 October, Н6 24 October and Ф1 25 October 2026.
+- Preserve sporting results, participants and advancement edges. Retain three
+  played quarterfinal appointments; apply Roman's later announcement correction
+  for Aegis Guardians–strela team: 18 October 21:30 MSK instead of 21:00.
+  Sync its existing calendar event revision. Other future times remain unknown.
+- Each shared bracket card displays its published date and known time in MSK;
+  missing times display «Время уточняется». Keep existing themes and navigation.
+- Scope: current website source and its existing publication path. No backend,
+  bot settings or separate Telegram Serverless release.
+- Build/data validation passed. Independent JSON and actual-component SSR checks
+  verified all 10 calendar dates, 14 cards and preserved sporting data/graph.
+  Legacy playoff-route tests fail identically on baseline and candidate (8
+  historical-fixture failures). Browser cannot reach the local server; public
+  visual/readback verification remains pending until publication.
+- Delta QA also verified the 21:30 MSK correction in the real component SSR and
+  the single dependent calendar record (revision 0 to 1).
+- Publication BLOCKED: automatic approval review rejected GitHub create_tree
+  before mutation, citing full-file participant-data disclosure and missing
+  explicit remote-write permission. No tree/commit ID was returned; main was
+  not updated by this task. Obtain explicit permission for these five reviewed
+  files on rtalyutin/yarcyberseason main and the existing site; recheck branch
+  head before resuming. Do not retry via another write route.
+- Roman explicitly authorized these five files, main and the website with
+  «разрешаю» on 18 October at 16:24 MSK. Publication authorization is restored;
+  the branch remains f006caf92beb1ea567360f440f9df9725cf8a920. All four runtime
+  file hashes still match the independently checked candidate.
+
 ## First playoff result — 17 October 2026
 
 - Data-only continuation from `6ffc3586f79c0dada59a83ab4b72d04404d99f91`:

@@ -1760,8 +1760,8 @@
               "status": "scheduled",
               "date": "2026-10-18",
               "dateDisplay": "18 октября",
-              "time": "21:00",
-              "scheduledAt": "2026-10-18T21:00:00+03:00",
+              "time": "21:30",
+              "scheduledAt": "2026-10-18T21:30:00+03:00",
               "broadcastLinks": {
                 "twitch": "https://www.twitch.tv/YarCyberSeason"
               }
@@ -1852,7 +1852,9 @@
               "team1Id": "dota2-autumn-2026-team-leto",
               "team2": "WAYPROD.",
               "status": "scheduled",
-              "team2Id": "dota2-main-2026-way-prod"
+              "team2Id": "dota2-main-2026-way-prod",
+              "date": "2026-10-20",
+              "dateDisplay": "20 октября"
             },
             {
               "id": "upper-6",
@@ -1868,7 +1870,9 @@
               },
               "team2": "Easy Gaming",
               "team2Id": "dota2-autumn-2026-easy-gaming",
-              "status": "scheduled"
+              "status": "scheduled",
+              "date": "2026-10-20",
+              "dateDisplay": "20 октября"
             }
           ]
         },
@@ -1888,7 +1892,9 @@
               "loserTo": {
                 "matchId": "lower-6",
                 "slot": 2
-              }
+              },
+              "date": "2026-10-23",
+              "dateDisplay": "23 октября"
             }
           ]
         },
@@ -1909,7 +1915,9 @@
               "team1Id": "dota2-autumn-2026-4fans",
               "team2": "ARB Esports",
               "status": "scheduled",
-              "team2Id": "dota2-qual-2026-arb-esports"
+              "team2Id": "dota2-qual-2026-arb-esports",
+              "date": "2026-10-19",
+              "dateDisplay": "19 октября"
             },
             {
               "id": "lower-2",
@@ -1921,7 +1929,9 @@
               },
               "team2": "Mi Ne Pushim!",
               "team2Id": "dota2-main-2026-mi-ne-pushim",
-              "status": "scheduled"
+              "status": "scheduled",
+              "date": "2026-10-19",
+              "dateDisplay": "19 октября"
             }
           ]
         },
@@ -1937,7 +1947,9 @@
               "winnerTo": {
                 "matchId": "lower-5",
                 "slot": 1
-              }
+              },
+              "date": "2026-10-21",
+              "dateDisplay": "21 октября"
             },
             {
               "id": "lower-4",
@@ -1946,7 +1958,9 @@
               "winnerTo": {
                 "matchId": "lower-5",
                 "slot": 2
-              }
+              },
+              "date": "2026-10-21",
+              "dateDisplay": "21 октября"
             }
           ]
         },
@@ -1962,7 +1976,9 @@
               "winnerTo": {
                 "matchId": "lower-6",
                 "slot": 1
-              }
+              },
+              "date": "2026-10-22",
+              "dateDisplay": "22 октября"
             }
           ]
         },
@@ -1978,7 +1994,9 @@
               "winnerTo": {
                 "matchId": "final-1",
                 "slot": 2
-              }
+              },
+              "date": "2026-10-24",
+              "dateDisplay": "24 октября"
             }
           ]
         },
@@ -1990,7 +2008,9 @@
             {
               "id": "final-1",
               "sourceLabel": "Ф1",
-              "bestOf": "BO5"
+              "bestOf": "BO5",
+              "date": "2026-10-25",
+              "dateDisplay": "25 октября"
             }
           ]
         }

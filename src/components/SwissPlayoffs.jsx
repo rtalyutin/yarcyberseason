@@ -4,6 +4,8 @@ import { community } from '../data/community.js';
 import { formatBuchholz, getPlayoffView } from '../lib/swiss-seeding.js';
 import { getSwissRecordState } from '../lib/swiss-presentation.js';
 import { getPlayoffRoute } from '../lib/playoff-route.js';
+import { displayMatchDate } from '../lib/tournament.js';
+import { matchTimeLabel } from './TournamentMatchCard.jsx';
 import { TeamLink, MatchLink } from './CommunityLinks.jsx';
 import { TeamLogo } from './TeamLogo.jsx';
 import '../swiss-playoffs.css';
@@ -141,6 +143,7 @@ export function SwissPlayoffs({ stage, tournament }) {
   const showRules = () => { focusRules.current = true; if (rulesOpen) { rules.current?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'center' }); rules.current?.focus({ preventScroll: true }); focusRules.current = false; } else setRulesOpen(true); };
   const renderMatch = (match, round) => {
     const settled = match.resultConfirmed === true && ['completed', 'walkover'].includes(match.status);
+    const time = matchTimeLabel(match);
     return <article className={`sp-match${route.nodes.has(match.id) ? ' is-on-route' : ''}${activeMatch?.id === match.id ? ' is-selected' : ''}`} id={`${prefix}-${match.id}`} data-bracket-match={match.id} tabIndex={-1} key={match.id} aria-label={`Матч ${match.sourceLabel}`}>
       <header><button type="button" className="sp-match-code" onClick={() => setSelection({ matchId: match.id })} aria-label={`Матч ${match.sourceLabel}: показать переходы`} aria-pressed={activeMatch?.id === match.id}>{match.sourceLabel}</button><span>{match.bestOf}</span></header>
       <ol>{match.slots.map((slot, index) => <li key={index} className={`${slot.projected && slot.team ? 'sp-slot-projected' : ''}${slot.teamId === selection?.teamId ? ' is-team-selected' : ''}`}>
@@ -150,6 +153,7 @@ export function SwissPlayoffs({ stage, tournament }) {
         </button> : slot.matchId ? <button type="button" className="sp-source" onClick={() => jump(slot.matchId)}>{slot.label}</button> : <span className="sp-source">{slot.label}</span>}
         {settled ? <b className="sp-match-score">{match[`score${index + 1}`] ?? '—'}</b> : <span className="sp-unplayed" aria-label="Матч не сыгран">—</span>}
       </li>)}</ol>
+      <p className="sp-match-schedule"><span>{displayMatchDate(match)}</span><span>{time ? `${time} МСК` : 'Время уточняется'}</span></p>
       {round.bracket === 'final' && <p className="sp-final-note">BO5 · с 0:0 · без сброса сетки</p>}
     </article>;
   };

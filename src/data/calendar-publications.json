@@ -305,7 +305,7 @@
     {
       "matchKey": "dota2-autumn-2026/upper-3",
       "uid": "dota2-autumn-2026%2Fupper-3@ycs.bar",
-      "start": "2026-10-18T21:00:00+03:00",
+      "start": "2026-10-18T21:30:00+03:00",
       "currentTeamIds": [
         "dota2-autumn-2026-aegis-guardians",
         "dota2-autumn-2026-strela-team"
@@ -318,8 +318,8 @@
       "path": "/tournaments/dota2-autumn-2026/matches/upper-3",
       "cancelled": false,
       "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 0,
-      "updatedAt": "2026-10-17T17:32:19.145Z"
+      "revision": 1,
+      "updatedAt": "2026-10-18T13:21:22.983Z"
     },
     {
       "matchKey": "dota2-autumn-2026/upper-4",

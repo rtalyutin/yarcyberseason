@@ -16,11 +16,11 @@
 - Build/data validation passed. Independent JSON and actual-component SSR checks
   verified all 10 calendar dates, 14 cards and preserved sporting data/graph.
   Legacy playoff-route tests fail identically on baseline and candidate (8
-  historical-fixture failures). Browser cannot reach the local server; public
-  visual/readback verification remains pending until publication.
+  historical-fixture failures). Browser could not reach the local server;
+  final verification was performed on the published site as recorded below.
 - Delta QA also verified the 21:30 MSK correction in the real component SSR and
   the single dependent calendar record (revision 0 to 1).
-- Publication BLOCKED: automatic approval review rejected GitHub create_tree
+- Initial publication was BLOCKED: automatic approval review rejected GitHub create_tree
   before mutation, citing full-file participant-data disclosure and missing
   explicit remote-write permission. No tree/commit ID was returned; main was
   not updated by this task. Obtain explicit permission for these five reviewed
@@ -30,6 +30,15 @@
   «разрешаю» on 18 October at 16:24 MSK. Publication authorization is restored;
   the branch remains f006caf92beb1ea567360f440f9df9725cf8a920. All four runtime
   file hashes still match the independently checked candidate.
+- LIVE_VERIFIED: commit c4a6740f1a029446f84fc50a7e854a84eaa64dbe was
+  published to main with an expected-head update; remote readback and a local
+  comparison against origin/main confirmed all five reviewed files exactly.
+  The existing host propagated the update on 18 October at approximately
+  16:30 MSK. Public DOM readback verified all 14 schedule rows, the ten new
+  dates, four known MSK appointments and Aegis–strela at 21:30.
+  Desktop visual inspection in the Dota theme confirmed readable dates/times
+  in the upper/lower bracket and grand final. Mobile was not visually retested.
+  No hosting settings or separate Telegram deployment changed.
 
 ## First playoff result — 17 October 2026
 

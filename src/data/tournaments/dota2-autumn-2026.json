@@ -2064,11 +2064,51 @@
               },
               "team2": "Mi Ne Pushim!",
               "team2Id": "dota2-main-2026-mi-ne-pushim",
-              "status": "scheduled",
+              "status": "completed",
               "date": "2026-10-19",
               "dateDisplay": "19 октября",
               "team1": "Aegis Guardians",
-              "team1Id": "dota2-autumn-2026-aegis-guardians"
+              "team1Id": "dota2-autumn-2026-aegis-guardians",
+              "opendotaTeamIds": {
+                "team1": 10271737,
+                "team2": 3562958
+              },
+              "scoreKind": "series",
+              "resultConfirmed": true,
+              "score1": 0,
+              "score2": 2,
+              "winnerTeamId": "dota2-main-2026-mi-ne-pushim",
+              "seriesId": 1157037,
+              "winner": "Mi Ne Pushim!",
+              "maps": [
+                {
+                  "id": "9053041341",
+                  "matchId": "9053041341",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-main-2026-mi-ne-pushim",
+                  "kills1": 38,
+                  "kills2": 41,
+                  "durationSeconds": 2690,
+                  "url": "https://www.opendota.com/matches/9053041341"
+                },
+                {
+                  "id": "9053117329",
+                  "matchId": "9053117329",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-main-2026-mi-ne-pushim",
+                  "kills1": 20,
+                  "kills2": 31,
+                  "durationSeconds": 2231,
+                  "url": "https://www.opendota.com/matches/9053117329"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9053041341",
+                "status": "confirmed",
+                "observedAt": "2026-10-20"
+              }
             }
           ]
         },
@@ -2103,7 +2143,9 @@
               "dateDisplay": "21 октября",
               "team2": "WAYPROD.",
               "team2Id": "dota2-main-2026-way-prod",
-              "status": "scheduled"
+              "status": "scheduled",
+              "team1": "Mi Ne Pushim!",
+              "team1Id": "dota2-main-2026-mi-ne-pushim"
             }
           ]
         },

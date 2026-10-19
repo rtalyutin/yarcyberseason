@@ -265,6 +265,25 @@
       "updatedAt": "2026-10-16T19:54:08.609Z"
     },
     {
+      "matchKey": "dota2-autumn-2026/lower-1",
+      "uid": "dota2-autumn-2026%2Flower-1@ycs.bar",
+      "start": "2026-10-19T21:15:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-4fans",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-4fans",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "summary": "TEAM SPERMINT — ARB Esports · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/lower-1",
+      "cancelled": false,
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 0,
+      "updatedAt": "2026-10-19T21:29:42.750Z"
+    },
+    {
       "matchKey": "dota2-autumn-2026/upper-1",
       "uid": "dota2-autumn-2026%2Fupper-1@ycs.bar",
       "start": "2026-10-17T18:00:00+03:00",
@@ -317,9 +336,9 @@
       "summary": "Aegis Guardians — strela team · Dota 2 / YCS",
       "path": "/tournaments/dota2-autumn-2026/matches/upper-3",
       "cancelled": false,
-      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
-      "revision": 1,
-      "updatedAt": "2026-10-18T13:21:22.983Z"
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 2,
+      "updatedAt": "2026-10-19T21:29:42.750Z"
     },
     {
       "matchKey": "dota2-autumn-2026/upper-4",
@@ -339,6 +358,25 @@
       "description": "Матч завершён. Результат — на странице матча.",
       "revision": 1,
       "updatedAt": "2026-10-18T12:00:59.774Z"
+    },
+    {
+      "matchKey": "dota2-autumn-2026/upper-5",
+      "uid": "dota2-autumn-2026%2Fupper-5@ycs.bar",
+      "start": "2026-10-19T22:30:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-team-leto",
+        "dota2-main-2026-way-prod"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-team-leto",
+        "dota2-main-2026-way-prod"
+      ],
+      "summary": "Team Leto — WAYPROD. · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/upper-5",
+      "cancelled": false,
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 0,
+      "updatedAt": "2026-10-19T21:29:42.750Z"
     }
   ]
 }

@@ -1757,13 +1757,59 @@
               "team1Id": "dota2-autumn-2026-aegis-guardians",
               "team2": "strela team",
               "team2Id": "dota2-autumn-2026-strela-team",
-              "status": "scheduled",
+              "status": "completed",
               "date": "2026-10-18",
               "dateDisplay": "18 октября",
               "time": "21:30",
               "scheduledAt": "2026-10-18T21:30:00+03:00",
               "broadcastLinks": {
                 "twitch": "https://www.twitch.tv/YarCyberSeason"
+              },
+              "scoreKind": "series",
+              "resultConfirmed": true,
+              "score1": 1,
+              "score2": 2,
+              "winnerTeamId": "dota2-autumn-2026-strela-team",
+              "seriesId": 1156659,
+              "winner": "strela team",
+              "maps": [
+                {
+                  "id": "9051548274",
+                  "matchId": "9051548274",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-autumn-2026-strela-team",
+                  "kills1": 22,
+                  "kills2": 46,
+                  "durationSeconds": 2378,
+                  "url": "https://www.opendota.com/matches/9051548274"
+                },
+                {
+                  "id": "9051652338",
+                  "matchId": "9051652338",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-autumn-2026-aegis-guardians",
+                  "kills1": 32,
+                  "kills2": 20,
+                  "durationSeconds": 1669,
+                  "url": "https://www.opendota.com/matches/9051652338"
+                },
+                {
+                  "id": "9051710361",
+                  "matchId": "9051710361",
+                  "name": "Карта 3",
+                  "winnerTeamId": "dota2-autumn-2026-strela-team",
+                  "kills1": 24,
+                  "kills2": 40,
+                  "durationSeconds": 1982,
+                  "url": "https://www.opendota.com/matches/9051710361"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9051548274",
+                "status": "confirmed",
+                "observedAt": "2026-10-20"
               }
             },
             {
@@ -1851,10 +1897,52 @@
               "team1": "Team Leto",
               "team1Id": "dota2-autumn-2026-team-leto",
               "team2": "WAYPROD.",
-              "status": "scheduled",
+              "status": "completed",
               "team2Id": "dota2-main-2026-way-prod",
-              "date": "2026-10-20",
-              "dateDisplay": "20 октября"
+              "date": "2026-10-19",
+              "dateDisplay": "19 октября",
+              "time": "22:30",
+              "scheduledAt": "2026-10-19T22:30:00+03:00",
+              "opendotaTeamIds": {
+                "team1": 9845511,
+                "team2": 9973711
+              },
+              "scoreKind": "series",
+              "resultConfirmed": true,
+              "score1": 2,
+              "score2": 0,
+              "winnerTeamId": "dota2-autumn-2026-team-leto",
+              "seriesId": 1157030,
+              "winner": "Team Leto",
+              "maps": [
+                {
+                  "id": "9053010339",
+                  "matchId": "9053010339",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-autumn-2026-team-leto",
+                  "kills1": 45,
+                  "kills2": 14,
+                  "durationSeconds": 1999,
+                  "url": "https://www.opendota.com/matches/9053010339"
+                },
+                {
+                  "id": "9053078158",
+                  "matchId": "9053078158",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-autumn-2026-team-leto",
+                  "kills1": 43,
+                  "kills2": 36,
+                  "durationSeconds": 2307,
+                  "url": "https://www.opendota.com/matches/9053078158"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9053010339",
+                "status": "confirmed",
+                "observedAt": "2026-10-20"
+              }
             },
             {
               "id": "upper-6",
@@ -1872,7 +1960,9 @@
               "team2Id": "dota2-autumn-2026-easy-gaming",
               "status": "scheduled",
               "date": "2026-10-20",
-              "dateDisplay": "20 октября"
+              "dateDisplay": "20 октября",
+              "team1": "strela team",
+              "team1Id": "dota2-autumn-2026-strela-team"
             }
           ]
         },
@@ -1894,7 +1984,10 @@
                 "slot": 2
               },
               "date": "2026-10-23",
-              "dateDisplay": "23 октября"
+              "dateDisplay": "23 октября",
+              "team1": "Team Leto",
+              "team1Id": "dota2-autumn-2026-team-leto",
+              "status": "scheduled"
             }
           ]
         },
@@ -1914,10 +2007,52 @@
               "team1": "TEAM SPERMINT",
               "team1Id": "dota2-autumn-2026-4fans",
               "team2": "ARB Esports",
-              "status": "scheduled",
+              "status": "completed",
               "team2Id": "dota2-qual-2026-arb-esports",
               "date": "2026-10-19",
-              "dateDisplay": "19 октября"
+              "dateDisplay": "19 октября",
+              "time": "21:15",
+              "scheduledAt": "2026-10-19T21:15:00+03:00",
+              "opendotaTeamIds": {
+                "team1": 10261009,
+                "team2": 9906817
+              },
+              "scoreKind": "series",
+              "resultConfirmed": true,
+              "score1": 0,
+              "score2": 2,
+              "winnerTeamId": "dota2-qual-2026-arb-esports",
+              "seriesId": 1157001,
+              "winner": "ARB Esports",
+              "maps": [
+                {
+                  "id": "9052908958",
+                  "matchId": "9052908958",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-qual-2026-arb-esports",
+                  "kills1": 30,
+                  "kills2": 37,
+                  "durationSeconds": 2347,
+                  "url": "https://www.opendota.com/matches/9052908958"
+                },
+                {
+                  "id": "9052999464",
+                  "matchId": "9052999464",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-qual-2026-arb-esports",
+                  "kills1": 43,
+                  "kills2": 43,
+                  "durationSeconds": 2955,
+                  "url": "https://www.opendota.com/matches/9052999464"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9052908958",
+                "status": "confirmed",
+                "observedAt": "2026-10-20"
+              }
             },
             {
               "id": "lower-2",
@@ -1931,7 +2066,9 @@
               "team2Id": "dota2-main-2026-mi-ne-pushim",
               "status": "scheduled",
               "date": "2026-10-19",
-              "dateDisplay": "19 октября"
+              "dateDisplay": "19 октября",
+              "team1": "Aegis Guardians",
+              "team1Id": "dota2-autumn-2026-aegis-guardians"
             }
           ]
         },
@@ -1949,7 +2086,10 @@
                 "slot": 1
               },
               "date": "2026-10-21",
-              "dateDisplay": "21 октября"
+              "dateDisplay": "21 октября",
+              "team1": "ARB Esports",
+              "team1Id": "dota2-qual-2026-arb-esports",
+              "status": "scheduled"
             },
             {
               "id": "lower-4",
@@ -1960,7 +2100,10 @@
                 "slot": 2
               },
               "date": "2026-10-21",
-              "dateDisplay": "21 октября"
+              "dateDisplay": "21 октября",
+              "team2": "WAYPROD.",
+              "team2Id": "dota2-main-2026-way-prod",
+              "status": "scheduled"
             }
           ]
         },

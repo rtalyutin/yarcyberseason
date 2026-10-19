@@ -24,7 +24,7 @@
 
 ## TASK_STATE
 
-stage: release-ready · publication authorized · data collection BLOCKED
+stage: frontend-published · data collection BLOCKED
 
 - Frontend: форма и карточка, кадрирование Canvas 2D, повторный вход в popup,
   сохранность черновика, CAS conflict и проверка неизвестного исхода записи.
@@ -33,8 +33,8 @@ stage: release-ready · publication authorized · data collection BLOCKED
   counts и проверенная область указаны в разделе Independent QA ниже.
 - Регрессия NAME-01 revision 3: ФИО optional; `??` буквально, числовой суффикс
   при коллизии; последний ответ пользователя от 18.10.2026 22:26 МСК.
-- Внешние операции: разрешена публикация, результат remote/deployment проверяется
-  отдельно после отправки; локальный build не считается production-readback.
+- Внешние операции: source `36cde34` опубликован в существующую main.
+  Публичная страница проверена в браузере 19 октября в 11:58 UTC; подробности ниже.
 - Завершено локально: build PASS; профильные проверки и независимые manifests
   приведены ниже. Итоговый запуск 19 октября: 50/50 профильных тестов PASS,
   включая упаковку backend и недоступный context. Отдельная runtime/media/organizer регрессия 30/30 PASS.
@@ -274,3 +274,28 @@ backend/packaging/build gates выполняет координатор отде
 ddbbbcc4fbc72fcc86627920dbacd13b13921799b6f073d9498086d300cb7b7b src/components/PlayerProfilePage.jsx
 03e74c55a89186fd26d7e932191932ea400bcc28eac36420d46bcab67c74614f tests/player-profile-verifier-ui.test.mjs
 ```
+
+## Публикация · 19 октября 2026
+
+Пользовательское «выложи и скажи как найти» выполнено через подключённый GitHub:
+main `36cde3413d4c1ab5f0929b4dafced5a678db33d4`, tree
+`2cb4033fb327c03f111d03125bca9cee9317ef58`. Tree совпал с локально проверенным
+деревом байт в байт; update-ref выполнен без force с ожидаемой предыдущей main
+`fe10fba8c4c637d53563e266a107928c0b6e876b`. После readback локальная main
+согласована с remote без изменения рабочих файлов.
+
+Хостинг переключился на новую страницу; браузер в 11:58 UTC подтвердил
+`https://xn--90aiaibl0ahlel5n.xn--p1ai/player/profile/?Dis=cs` после штатного
+перенаправления на trailing slash. Видны CS2, карточка, optional ФИО, все поля
+и явный статус «Сервис профиля ещё не подключён». Telegram/VK, фото, поля и
+сохранение заблокированы; сохранённых пользовательских записей не показано.
+HTTP readback этого адреса: 200, HTML 7121 bytes, `player-heading` присутствует.
+Same-origin `/api/player/v1/context?Dis=cs` отвечает 404: реальный backend,
+Telegram/VK и приватный S3 в целевой серверной среде не активированы.
+Публикация frontend не означает готовность реального сбора данных.
+
+Визуальная проверка выявила пересечение disabled-opacity с невидимым file input.
+CSS-поправка исключает только file input из этого правила; функциональная логика
+не меняется. Предыдущий hash CSS `96d6eec6…` относится к версии до этой поправки.
+Реального Docker build, авторизации пользователя и записи в production S3
+не выполнялось. Новые hosts, buckets и приложения не создавались.

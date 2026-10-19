@@ -1,6 +1,10 @@
 .player-page{--pp-bg:#0b111d;--pp-card:#111b2c;--pp-line:#2b3850;--pp-text:#f3f6ff;--pp-muted:#a4b2cc;--pp-accent:#4280ff;--pp-on-accent:#fff;color:var(--pp-text);width:min(1656px,calc(100% - 80px));margin:0 auto;padding:56px 0 72px}
 [data-theme="dota2"] .player-page{--pp-bg:#102820;--pp-card:#19372d;--pp-line:#416153;--pp-text:#f4f1de;--pp-muted:#bfd0bd;--pp-accent:#b9edc6;--pp-on-accent:#10251c}
 [data-theme="corporate"] .player-page{--pp-bg:#fff;--pp-card:#edf2fa;--pp-line:#b3c3db;--pp-text:#122442;--pp-muted:#526684;--pp-accent:#1759de;--pp-on-accent:#fff}
+.site-shell[data-theme="corporate"]:has(.player-page){background:#f5f7fb;color:#122442}
+.site-shell[data-theme="corporate"]:has(.player-page) .site-background,.site-shell[data-theme="corporate"]:has(.player-page)::before{display:none}
+.site-shell[data-theme="corporate"]:has(.player-page) .legal-footer,.site-shell[data-theme="corporate"]:has(.player-page) .legal-footer a{color:#526684;border-color:#b3c3db}
+.site-shell[data-theme="corporate"]:has(.player-page) .legal-company{color:#122442}
 .player-page :is(h1,h2,h3,p){margin:0}.player-kicker{color:var(--pp-accent);font-size:11px;font-weight:700;letter-spacing:.18em;margin-bottom:22px!important}
 .player-heading{border-bottom:1px solid var(--pp-line);padding-bottom:36px;margin-bottom:24px}.player-heading>div{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
 .player-heading h1{color:var(--pp-text);font-family:"YCS Condensed",Arial,sans-serif;font-size:clamp(46px,5vw,84px);line-height:.94;text-transform:uppercase;letter-spacing:-.035em;font-weight:800}.player-heading h1 span{color:var(--pp-accent)}

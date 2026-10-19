@@ -15,7 +15,7 @@
 
 ## TASK_STATE · revision 4
 
-stage: local-verified · publication IN_PROGRESS · live upload BLOCKED
+stage: frontend-published · live upload BLOCKED
 
 - Разовая форма: ник, необязательное ФИО, фото с прежним кадрированием.
   Нет входа, восстановления профиля или последующего редактирования.
@@ -31,7 +31,7 @@ stage: local-verified · publication IN_PROGRESS · live upload BLOCKED
 - Флаг `YCS_PLAYER_INTAKE_ENABLED=true` включает только новый MVP; по умолчанию
   он выключен. Старый `YCS_PLAYER_ENABLED` не включает MVP. OAuth, session secret
   и callback URI для MVP не нужны.
-- Runtime adapter для существующего Tg-mcp готовится отдельно. Новые hosts,
+- Runtime adapter для существующего Tg-mcp подготовлен к отдельному draft PR. Новые hosts,
   buckets и аккаунты не создаются. Секреты остаются в серверной среде.
 - Live gate BLOCKED: OPTIONS к существующему S3 от origin сайта, method PUT,
   headers content-type/if-none-match/x-amz-acl/x-amz-meta-owner/
@@ -453,3 +453,23 @@ f76c6cc39cae331daf96ac61d172af3ff275e44a4e92484d4cd7abf77dbd57ff tests/player-pr
 инфраструктуры не создаются. Перед update-ref требуется exact tree readback,
 после — main SHA и браузерная проверка обновлённого маршрута. Автодеплой
 Timeweb по main учитывается отдельно от включения загрузки.
+
+## Результат публикации MVP revision 4
+
+Main `8e7b01a1334c4b7db32ede67c66a5f915127236c`, exact tree
+`85aa0540b47474094e899a306ff7064e782c8580`; GitHub update-ref без force
+с expected parent завершён и подтверждён readback. Локальный index совпал
+с remote tree без изменения рабочих файлов.
+
+Публичный маршрут проверен браузером 19 октября:
+`https://xn--90aiaibl0ahlel5n.xn--p1ai/player/profile/?Dis=cs`. Наблюдаются
+новые заголовок «Карточка игрока», текст «Вход не нужен», только ник/optional
+ФИО/фото, disabled отправка с явным статусом недоступности. Изменение ника
+обновляет предпросмотр. Браузер не отправлял фото или заявку в production.
+Это подтверждает размещение UI, но не активацию upload.
+
+При переключении на корпоративную тему выявлен тёмный общий backdrop под
+тёмным текстом формы. Адресная CSS-правка переключает только shell этой
+страницы на светлый фон и скрывает его тёмную подложку; остальные маршруты
+не меняются. Сборка после CSS-правки PASS. Upload-код не менялся; его
+87/87 профильных тестов и независимый gate сохраняют прежнюю границу.

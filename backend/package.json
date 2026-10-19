@@ -10,6 +10,8 @@
     "start": "node server.mjs"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.1143.0"
+    "@aws-sdk/client-s3": "3.1143.0",
+    "jose": "6.2.12",
+    "sharp": "0.35.5"
   }
 }

@@ -6,15 +6,17 @@ import { createCaptainService } from "./captain-service.mjs";
 import { createCaptainHandler } from "./captain-api.mjs";
 import { startCaptainCleanupWorker } from "./captain-cleanup-worker.mjs";
 import { createMatchMediaPublicHandler, createMatchMediaService } from './match-media-service.mjs';
+import { createPlayerProfileHandler } from './player-profile-api.mjs';
 
 // The frontend reads the public S3 object directly. This service has no public
 // import trigger or sporting-data write API. Organizer data is authenticated.
-export function createResultsServer({ env = process.env, organizerOptions = {}, captainOptions = {}, mediaOptions = {},
+export function createResultsServer({ env = process.env, organizerOptions = {}, captainOptions = {}, mediaOptions = {}, playerOptions = {},
   mediaService = organizerOptions.mediaService || createMatchMediaService({ ...mediaOptions, env }),
   captainService = createCaptainService({ ...captainOptions, env }) } = {}) {
   const organizer = createOrganizerHandler({ ...organizerOptions, env, captainService, mediaService });
   const captain = createCaptainHandler({ service: captainService });
   const media = createMatchMediaPublicHandler({ service: mediaService, env });
+  const player = createPlayerProfileHandler({ ...playerOptions, env });
   return createServer(async (request, response) => {
     response.setHeader("cache-control", "no-store");
     response.setHeader("content-type", "application/json; charset=utf-8");
@@ -25,6 +27,7 @@ export function createResultsServer({ env = process.env, organizerOptions = {}, 
     if (await organizer(request, response, url)) return;
     if (await media(request, response, url)) return;
     if (await captain(request, response, url)) return;
+    if (await player(request, response, url)) return;
     if (url.pathname !== "/healthz") {
       response.writeHead(404);
       response.end(request.method === "HEAD" ? undefined : '{"error":"not_found"}');

@@ -30,6 +30,7 @@ import { getTournamentBroadcasts, isClosedBroadcast } from "./lib/home-board.js"
 import "./content-refresh.css";
 import "./home-partners.css";
 import { SiteHeader } from "./components/SiteHeader.jsx";
+import PlayerProfilePage from './components/PlayerProfilePage.jsx';
 import { applyPageMetadata } from "./lib/page-metadata.js";
 import {
   archivedTournaments,
@@ -819,6 +820,7 @@ export function Prototype({ initialPath = "/" }) {
   };
 
   const page = useMemo(() => {
+    if (path.replace(/\/$/, '') === '/player/profile') return <PlayerProfilePage />;
     if (path === "/") return <HomePage navigate={navigate} theme={theme} />;
     if (path === "/results") return <ResultsPage navigate={navigate} />;
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;

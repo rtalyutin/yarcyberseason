@@ -5,6 +5,7 @@ import { pipeline } from "node:stream/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import site from "../worker/index.js";
+import { createPlayerProfileProxy } from './player-profile-proxy.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -47,16 +48,19 @@ export function createAssetBinding(directory) {
   };
 }
 
-export function createAppServer({ directory = path.join(root, "dist/client"), logger = console } = {}) {
-  const env = { ASSETS: createAssetBinding(directory) };
+export function createAppServer({ directory = path.join(root, "dist/client"), logger = console,
+  env = process.env, playerProxyOptions = {} } = {}) {
+  const bindings = { ASSETS: createAssetBinding(directory) };
+  const playerProxy = createPlayerProfileProxy({ ...playerProxyOptions, env });
   return createServer(async (incoming, outgoing) => {
     try {
       const url = new URL(incoming.url, "http://localhost");
+      if (await playerProxy(incoming, outgoing, url)) return;
       const request = new Request(url, { method: incoming.method, headers: incoming.headers });
       const response = url.pathname === "/healthz" && ["GET", "HEAD"].includes(request.method)
         ? new Response(request.method === "HEAD" ? null : '{"status":"ok"}',
           { headers: { "content-type": "application/json", "cache-control": "no-store" } })
-        : await site.fetch(request, env);
+        : await site.fetch(request, bindings);
       outgoing.writeHead(response.status, Object.fromEntries(response.headers));
       if (incoming.method === "HEAD" || !response.body) outgoing.end();
       else await pipeline(Readable.fromWeb(response.body), outgoing);
@@ -69,10 +73,10 @@ export function createAppServer({ directory = path.join(root, "dist/client"), lo
 }
 
 export async function startApp({ port = Number(process.env.PORT || 8080), host = "0.0.0.0",
-  directory = path.join(root, "dist/client"), logger = console } = {}) {
+  directory = path.join(root, "dist/client"), logger = console, env = process.env } = {}) {
   // Fail before accepting traffic if the site build is missing.
   await stat(path.join(directory, "index.html"));
-  const server = createAppServer({ directory, logger });
+  const server = createAppServer({ directory, logger, env });
   await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(port, host, resolve);

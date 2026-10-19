@@ -14,6 +14,7 @@ export function listPublicRoutes() {
     route('/partners'),
     route('/about'),
     route('/webmcp'),
+    route('/player/profile', false),
     ...tournaments.filter((tournament) => tournament.matchday?.route).map((tournament) => route(tournament.matchday.route)),
     route('/tournaments/next', false),
     ...tournaments.map((tournament) => route(`/tournaments/${encodeURIComponent(tournament.slug)}`)),

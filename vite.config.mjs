@@ -18,6 +18,7 @@ export default defineConfig({
     include: ["react", "react-dom/client"],
   },
   server: {
+    proxy: { '/api/player/v1': 'http://127.0.0.1:8080' },
     host: "0.0.0.0",
     allowedHosts: ["terminal.local"],
     warmup: {

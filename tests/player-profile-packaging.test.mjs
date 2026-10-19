@@ -45,7 +45,7 @@ test('declared Docker runtime copies boot the actual backend with profiles disab
   t.after(() => rm(directory, { recursive: true, force: true }));
   const copied = await assembleDockerCopies(directory);
   for (const file of ['backend/player-profile-api.mjs', 'backend/player-profile-auth.mjs', 'backend/player-profile-config.mjs',
-    'backend/player-profile-service.mjs', 'backend/player-profile-store.mjs', 'src/lib/player-profile-catalog.js']) {
+    'backend/player-profile-service.mjs', 'backend/player-profile-store.mjs', 'backend/player-profile-intake.mjs', 'src/lib/player-profile-catalog.js']) {
     assert.ok(copied.has(file), `Runtime package must COPY ${file}`);
     await access(path.join(directory, file));
   }

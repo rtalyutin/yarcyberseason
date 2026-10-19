@@ -2,12 +2,13 @@ import { playerConfig, PLAYER_BASE, PlayerError, playerFail, resolvePlayerDiscip
 import { createPlayerS3Store } from './player-profile-store.mjs';
 import { createPlayerAuth, createPlayerProviders } from './player-profile-auth.mjs';
 import { createPlayerProfileService } from './player-profile-service.mjs';
+import { createPlayerIntake } from './player-profile-intake.mjs';
 
 async function readBody(request, max) {
   if (request.headers['content-length'] !== undefined && (!/^\d+$/.test(request.headers['content-length']) || Number(request.headers['content-length']) > max)) playerFail('file_too_large', 413);
   const chunks = []; let size = 0;
   const timer = setTimeout(() => request.destroy(), 30_000); timer.unref();
-  try { for await (const chunk of request) { size += chunk.length; if (size > max) playerFail('file_too_large', 413); chunks.push(Buffer.from(chunk)); } }
+  try { for await (const chunk of request.iterator({ destroyOnReturn: false })) { size += chunk.length; if (size > max) playerFail('file_too_large', 413); chunks.push(Buffer.from(chunk)); } }
   finally { clearTimeout(timer); }
   return Buffer.concat(chunks);
 }
@@ -18,9 +19,10 @@ async function json(request) {
 }
 
 export function createPlayerProfileHandler({ env = process.env, now = Date.now,
-  config = playerConfig(env), store = createPlayerS3Store({ env }), providers = createPlayerProviders({ env }),
-  auth = createPlayerAuth({ config, store, providers, now }), service = createPlayerProfileService({ config, store, now }) } = {}) {
-  const rates = new Map(); let activeUploads = 0;
+  config = playerConfig(env), store = createPlayerS3Store({ env, now }), providers = createPlayerProviders({ env }),
+  auth = createPlayerAuth({ config, store, providers, now }), service = createPlayerProfileService({ config, store, now }),
+  intake = createPlayerIntake({ env, config, store, now }) } = {}) {
+  const rates = new Map(); let activeUploads = 0; let activeIntakes = 0;
   const limit = (key, maximum) => {
     for (const [id, entry] of rates) if (entry.until <= now()) rates.delete(id);
     const entry = rates.get(key) || { count: 0, until: now() + 60_000 };
@@ -29,6 +31,8 @@ export function createPlayerProfileHandler({ env = process.env, now = Date.now,
   };
   return async (request, response, url) => {
     if (url.pathname !== PLAYER_BASE && !url.pathname.startsWith(`${PLAYER_BASE}/`)) return false;
+    const path = url.pathname.slice(PLAYER_BASE.length);
+    const intakePath = path === '/intake' || path.startsWith('/intake/');
     const send = (status, result) => { response.writeHead(status); response.end(JSON.stringify(result)); };
     response.setHeader('cache-control', 'private, no-store');
     response.setHeader('content-type', 'application/json; charset=utf-8');
@@ -37,16 +41,35 @@ export function createPlayerProfileHandler({ env = process.env, now = Date.now,
     response.setHeader('vary', 'Origin');
     if (config.origin && request.headers.origin === config.origin) {
       response.setHeader('access-control-allow-origin', config.origin);
-      response.setHeader('access-control-allow-credentials', 'true');
+      if (!intakePath) response.setHeader('access-control-allow-credentials', 'true');
     }
     try {
-      if (request.headers.origin && request.headers.origin !== config.origin) playerFail('forbidden_origin', 403);
+      if (request.headers.origin && request.headers.origin !== config.origin) playerFail(intakePath && !config.origin ? 'player_intake_not_configured' : 'forbidden_origin', intakePath && !config.origin ? 503 : 403);
       if (request.method === 'OPTIONS') {
         if (request.headers.origin !== config.origin) playerFail('forbidden_origin', 403);
-        response.writeHead(204, { 'access-control-allow-methods': 'GET, POST, PUT, OPTIONS', 'access-control-allow-headers': 'Content-Type, X-CSRF-Token' }); response.end(); return true;
+        response.writeHead(204, { 'access-control-allow-methods': intakePath ? 'GET, POST, OPTIONS' : 'GET, POST, PUT, OPTIONS',
+          'access-control-allow-headers': intakePath ? 'Content-Type' : 'Content-Type, X-CSRF-Token' }); response.end(); return true;
       }
       limit(`ip:${request.socket.remoteAddress || 'unknown'}`, 300);
-      const path = url.pathname.slice(PLAYER_BASE.length);
+      if (intakePath) {
+        if (path === '/intake/context' && request.method === 'GET') {
+          if (url.searchParams.getAll('Dis').length !== 1) playerFail('invalid_discipline', 400);
+          send(200, intake.context(url.searchParams.get('Dis'))); return true;
+        }
+        if (!config.origin) playerFail('player_intake_not_configured', 503);
+        if (request.headers.origin !== config.origin) playerFail('forbidden_origin', 403);
+        if (path === '/intake/prepare' && request.method === 'POST') {
+          limit(`intake-prepare:${request.socket.remoteAddress}`, 60); send(200, await intake.prepare(await json(request))); return true;
+        }
+        if (path === '/intake/complete' && request.method === 'POST') {
+          limit(`intake-complete:${request.socket.remoteAddress}`, 120);
+          if (activeIntakes >= 4) playerFail('upload_busy', 429);
+          activeIntakes++;
+          try { send(200, await intake.complete(await json(request))); return true; }
+          finally { activeIntakes--; }
+        }
+        send(['/intake/prepare', '/intake/complete', '/intake/context'].includes(path) ? 405 : 404, { error: ['/intake/prepare', '/intake/complete', '/intake/context'].includes(path) ? 'method_not_allowed' : 'not_found' }); return true;
+      }
       const callback = path.match(/^\/auth\/callback\/(telegram|vk)$/);
       if (callback && request.method === 'GET') { await auth.callback(request, response, callback[1], url.searchParams); return true; }
       if (path === '/context' && request.method === 'GET') {

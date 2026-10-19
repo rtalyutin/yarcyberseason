@@ -1,6 +1,55 @@
 # Профиль игрока — контракт и состояние
 
-## ACTIVE_CONTRACT · revision 3 · 18 октября 2026
+## ACTIVE_CONTRACT · revision 4 · 19 октября 2026
+
+Поправка пользователя в 16:06 МСК: MVP — разовая отправка без авторизации,
+повторного открытия и редактирования. Ник и фото обязательны, ФИО необязательно.
+Файл отправляет JavaScript браузера напрямую в существующий приватный S3.
+Сервер выдаёт ограниченную временную ссылку, проверяет реально загруженное фото
+и сохраняет безопасный JPEG с согласованным именем. Браузер затем сам получает
+готовый файл из S3 и только после проверки показывает успех. При коллизии имени
+сохраняются буквальные `??` и числовые суффиксы; чужой файл не перезаписывается.
+Дизайн карточки, кадрирование, три темы, маршрут и `Dis` сохраняются.
+Никаких ключей S3, аккаунтов, черновиков и квитанций в браузерном постоянном
+хранилище. После перезагрузки начинается пустая форма; профиль не восстанавливается.
+
+## TASK_STATE · revision 4
+
+stage: local-verified · publication IN_PROGRESS · live upload BLOCKED
+
+- Разовая форма: ник, необязательное ФИО, фото с прежним кадрированием.
+  Нет входа, восстановления профиля или последующего редактирования.
+- Браузер отправляет JPEG напрямую в S3 по временному signed PUT; backend
+  получает только metadata/ticket и проверяет сохранённый объект. Браузер
+  получает итоговый файл из S3 и проверяет его SHA/размер до успеха.
+- API по умолчанию: существующий `https://rtalyutin-tg-mcp-4776.twc1.net`,
+  узкий prefix `/api/player/v1/intake`. Override: `VITE_YCS_PLAYER_API_URL`.
+  Cookie не используются, cross-origin допускает только точный origin сайта.
+- Local QA: независимые 24/24 PASS, полный профильный suite 87/87 PASS;
+  полная сборка frontend PASS. Отдельная backend/runtime/media регрессия 66/66 PASS.
+  Эти результаты не доказывают доступы и CORS Timeweb.
+- Флаг `YCS_PLAYER_INTAKE_ENABLED=true` включает только новый MVP; по умолчанию
+  он выключен. Старый `YCS_PLAYER_ENABLED` не включает MVP. OAuth, session secret
+  и callback URI для MVP не нужны.
+- Runtime adapter для существующего Tg-mcp готовится отдельно. Новые hosts,
+  buckets и аккаунты не создаются. Секреты остаются в серверной среде.
+- Live gate BLOCKED: OPTIONS к существующему S3 от origin сайта, method PUT,
+  headers content-type/if-none-match/x-amz-acl/x-amz-meta-owner/
+  x-amz-meta-fingerprint возвращает 403 AccessDenied. Панель
+  `https://timeweb.cloud/my/apps` в текущем браузере дважды вернула
+  Site Unavailable. Доступа к конфигурации/IAM и server env в среде нет.
+- Следующий шаг: разместить проверенный adapter на существующем backend,
+  добавить точный origin сайта в CORS существующего bucket с сохранением
+  остальных правил, включить отдельный intake flag и проверить реальный
+  prepare → browser PUT → complete → browser GET. До этого отправка выключена.
+- Отключение: `YCS_PLAYER_INTAKE_ENABLED=false` без изменения остальных API.
+  Откат frontend не удаляет сохранённые объекты или технические receipts.
+
+Далее до раздела независимой приёмки anonymous MVP сохранена историческая
+основа полной версии. Старые OAuth-gates и hashes относятся только к ней и не
+являются требованиями входа в новый MVP или evidence его работы.
+
+### Историческая основа полной версии (заменена выше в области MVP)
 
 Реализовать согласованное ТЗ YCS-Player-Profile-TZ-v1.0 с последними поправками:
 отдельная `/player/profile?Dis=cs`, открыта любому; Telegram или VK; общий
@@ -22,7 +71,7 @@
 тестов; их отсутствие не имитируется demo-входом. Сбор данных остаётся выключен
 до настройки действующей серверной среды.
 
-## TASK_STATE
+## Исторический TASK_STATE · revision 3
 
 stage: frontend-published · data collection BLOCKED
 
@@ -299,3 +348,108 @@ CSS-поправка исключает только file input из этого 
 не меняется. Предыдущий hash CSS `96d6eec6…` относится к версии до этой поправки.
 Реального Docker build, авторизации пользователя и записи в production S3
 не выполнялось. Новые hosts, buckets и приложения не создавались.
+
+## Independent QA: анонимная разовая отправка напрямую в S3 · 19 октября, 13:26 UTC
+
+Новый предмет проверки — последняя поправка пользователя от 19.10, 16:06 МСК:
+только необязательное ФИО, обязательные ник+фото; без входа, возврата и
+редактирования; файл отправляется браузером напрямую в S3. Старые проверки
+полноценного профиля/TG/VK не являются приёмкой этого контура. Старые hashes
+`backend/player-profile-api.mjs` и `player-profile-store.mjs` для текущей версии
+STALE; исторические наблюдения выше сохранены.
+
+Исполнитель `profile_verifier` независимо от авторов UI/backend. Объект:
+HEAD `dd571d738c9d71712b3e609d95b3b212c10608d4` плюс рабочие файлы по manifest
+ниже. Среда Node v24.19.0, React/react-test-renderer 19.2.0, настоящий Sharp.
+Все фотографии, имена, credentials и capabilities в тестах синтетические.
+
+```text
+node --test tests/player-profile-intake-verifier*.test.mjs
+tests 23 / pass 23 / fail 0 / cancelled 0 / skipped 0 / todo 0
+git diff --check: exit 0
+```
+
+| Набор | Наблюдаемый результат |
+|---|---|
+| Client/runner, 9 тестов | API получает только JSON metadata и `{ticket}`. Фото PUT и финальный GET идут по проверенному S3 URL, credentials omit/no-referrer. Ошибочные URL, receipt, размер, SHA и HTTP-отказы не дают успеха. Deadline действует после headers при зависшем JSON body; внешний abort прерывает S3 body. Потерянные PUT/complete ответы повторяются с тем же request/blob, без второго PUT; истёкший PUT обновляется через тот же запрос. |
+| React, 6 тестов | Только три поля, ФИО необязательно, вход/чтение личности отсутствуют. Успех не появляется от finalized receipt без завершения read. После успеха поля заблокированы; remount пуст. Неизвестный prepare сохраняет тот же объект request и blob, encoder вызывается один раз. Неудачный финальный read повторяется без нового upload. Неактивный context разрешает локальный preview, отправка недоступна; неизвестный Dis не подставляется CS2. Поздний decode закрывается, смена Dis отменяет операцию и исключает старый результат из нового экрана. |
+| HTTP/API/S3 boundary, 8 тестов | Настоящие client, API handler, store и intake проходят metadata → прямой PUT в отдельный object HTTP server → Sharp S3→S3 → фактический GET. Выход JPEG 1024×1024 без EXIF, размер и SHA совпадают с receipt. Персональные account/session/identity не создаются. Управляемый overlap резервирует `??-nick.jpg`, `??-nick-1.jpg`; далее `-2`; именованный пример `Иван-Иванов-Ник.jpg`. Повтор/concurrent complete оставляет один файл. Истёкший GET 60 секунд заменяется новым через complete. Подмена staging bytes/metadata, не-JPEG, ticket и final bytes не даёт успеха. Обрывы final PUT/CAS восстанавливаются без новой фотографии. Durable pending intent восстанавливает сохранённый final после потери финального CAS даже без staging и без второго final PUT. Производная свыше 1024² отклоняется до intent/final write. |
+
+Выявленные статически проблемы времени жизни body deadline, сброса ID после
+неизвестного prepare и обновления истёкшего PUT исправлены автором до финального
+прогона; перечисленные различающие тесты на новых байтах прошли. Промежуточные
+ошибки тестового setup (ожидание до завершения native crypto digest и
+неидемпотентный close double) устранены; они не названы дефектами приложения.
+Один промежуточный assertion требовал не заданное контрактом имя локальной
+ошибки mismatch; итоговый oracle проверяет обязательный отказ без ложного успеха.
+
+`evidence_status=VERIFIED`, `gate_verdict=PASS` только для этих 23 локальных
+сценариев. Подпись capability в HTTP fixture эмулируется; это **не PASS**
+реальных Timeweb CORS, AWS signature validation, credentials, bucket IAM/ACL,
+production signer/route или retention/version/backup policy. Реальный browser,
+viewport/mobile, пиксели Canvas и пользовательская субъективная приёмка данным
+агентом не проверялись. Target integration/readback остаются отдельным gate;
+внешних действий этот агент не выполнял. Новый backend после изменения pending
+intent/decode bound проверен повторно; прежний промежуточный HTTP gate 6/6 его
+не подменяет. Изменение любого manifest-файла делает зависимый результат STALE.
+
+SHA-256 проверенного scope:
+
+```text
+4c4ea10c70bba9059ba8732d24de35d258c03483b275dbe21554df36296aad87 src/components/PlayerIntakePage.jsx
+b879efdcc79e381eb1f04fe19aeab078fb195a1c9fb54c24ba2a03af3182ce5f src/lib/player-intake-client.js
+5b33ac517c4653fb0ef450425cbd5450039417cf67f792dadf085a1e055fa42d src/lib/player-profile-catalog.js
+dd6412deecc3063e7bed8159cd68bf97445f29d05932fd5da168ccbc4763b470 src/lib/player-profile.js
+c447e5a4a82b2f8931ba6ea90da24cd32f70e3193d92fab11c5588dbb713bee3 src/player-profile.css
+67f0e787a686486872f93b9066d36515cf33410f6b1e004d3227795a57eba88b src/Prototype.jsx
+0dddb45e9123279688e7f52c6cd9cecb730d68ffac0cdbda5221b7c5e4ce65f8 backend/player-profile-intake.mjs
+fcf4990df33f0203913480d857e2dded4bd67a18d606b09c2e0ad0347432eb63 backend/player-profile-api.mjs
+a4e588e91b38430189dae40128933cd18c0cb826ff06b54a3988d5b46de0598e backend/player-profile-store.mjs
+890c033af560da57491851ed7bfdd4965fceffff3a3d0c473c2633c3c0094d00 backend/player-profile-service.mjs
+98197ce923985d413b42e389ef4f9a543c874ee5160f8e063bd254c297abcf74 backend/player-profile-config.mjs
+cae0838f3371cbaf24ae276c88f20acb0a98db8c1aeee754df1bfb8c597e2cd8 backend/package.json
+652071180e6df260aa628a0e8528e0893813a0b7221dc3484c8155255fa16b55 backend/package-lock.json
+65808b6a5f27aca817b5b307eb24b839a914b196632358e36940735a4ed1c84f tests/player-profile-intake-verifier-client.test.mjs
+b2309eef3416d38e09f9bade8fb6f82b9611efe0efca922a8447180c2c8a90eb tests/player-profile-intake-verifier-http.test.mjs
+e7c38c2b50ef496c1bbb78ab5d735c87421b09115084718a784faa7874f2a676 tests/player-profile-intake-verifier-ui.test.mjs
+```
+
+### Independent QA delta: адрес существующего backend · 13:32 UTC
+
+Default client переведён с same-origin на существующий
+`https://rtalyutin-tg-mcp-4776.twc1.net`, если VITE_YCS_PLAYER_API_URL не задан.
+Прежний hash страницы `4c4ea10c…` для этой ревизии STALE. Зависимый повтор:
+
+```text
+node --test tests/player-profile-intake-verifier-client.test.mjs tests/player-profile-intake-verifier-ui.test.mjs
+tests 16 / pass 16 / fail 0 / skipped 0
+```
+
+Новый UI-07 создаёт страницу **без injected client** и наблюдает настоящий
+defaultClient: единственный context-запрос идёт на точный указанный backend
+с `Dis=cs`, credentials omit/no-referrer и без Cookie/Authorization. При
+`available:false` локальная карточка редактируется, отправка отключена.
+Остальные девять client и шесть lifecycle-сценариев повторно прошли.
+Восемь HTTP/S3 сценариев выше не перезапускались: их source не менялся.
+
+Локальный delta gate `PASS`; реальный CORS, signer и активация backend этим
+тестом не подтверждены. Сообщённые координатором OPTIONS 403 и недоступность
+панели Timeweb не заменяются mock-ответом; до target gate отправка остаётся
+неактивной. Изменённый manifest:
+
+```text
+217059c5cdb76d45dc5bd291e1276bda1f791b60c39e8cc835a17f5affdabf6b src/components/PlayerIntakePage.jsx
+b879efdcc79e381eb1f04fe19aeab078fb195a1c9fb54c24ba2a03af3182ce5f src/lib/player-intake-client.js
+f76c6cc39cae331daf96ac61d172af3ff275e44a4e92484d4cd7abf77dbd57ff tests/player-profile-intake-verifier-ui.test.mjs
+```
+
+## Подготовка публикации MVP revision 4
+
+Операция: обновить существующую main `rtalyutin/yarcyberseason`, parent
+`dd571d738c9d71712b3e609d95b3b212c10608d4`. Разрешение: пользовательское
+«выложи и скажи как найти» с последующими поправками MVP/JS. Целевая аудитория:
+посетители существующей страницы `/player/profile/?Dis=cs`. Внешняя запись
+сейчас касается source/UI; live intake остаётся выключенным. Новые объекты
+инфраструктуры не создаются. Перед update-ref требуется exact tree readback,
+после — main SHA и браузерная проверка обновлённого маршрута. Автодеплой
+Timeweb по main учитывается отдельно от включения загрузки.

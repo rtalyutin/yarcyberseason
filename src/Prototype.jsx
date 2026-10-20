@@ -99,18 +99,23 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const isHome = path === "/";
   const isAbout = path.replace(/\/$/, "") === "/about";
+  const isPlayerIntake = path.replace(/\/$/, "") === "/player/profile";
   const isTeam = path.startsWith("/teams/");
   const matchdayPath = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday\/?$/);
   const isMatchday = Boolean(matchdayPath && getTournament(matchdayPath[1])?.matchday);
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
 
   return (
-    <div data-theme={isAbout ? "ycs" : theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
+    <div data-theme={isAbout ? "ycs" : isPlayerIntake ? "corporate" : theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isPlayerIntake ? " site-shell--player-league" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       <SiteHeader path={path} navigate={navigate} theme={theme} onThemeChange={onThemeChange}
-        matchdayRoute={currentTournament.matchday.route} fixedTheme={isAbout} />
+        matchdayRoute={currentTournament.matchday.route} fixedTheme={isAbout || isPlayerIntake} />
       {children}
-      {!isHome && <Footer navigate={navigate} compact={isTournament} />}
+      {isPlayerIntake ? <footer className="league-footer">
+        <span>Лига цифровой экономики · Карточка игрока</span>
+        <nav aria-label="Документы формы"><a href={projectLegal.privacyUrl} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных</a>
+          <a href="/about#requisites">Контакты организатора</a></nav>
+      </footer> : !isHome && <Footer navigate={navigate} compact={isTournament} />}
     </div>
   );
 }

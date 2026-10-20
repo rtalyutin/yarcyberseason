@@ -1,3 +1,17 @@
+# Player intake League identity — October 20
+
+- Roman explicitly scoped the League of Digital Economy redesign to
+  `/player/profile` only. Use the supplied CS2 promo, light blue/white,
+  blue/orange, and original League identity. YCS branding appears only in
+  the shared menu and breadcrumbs, including the removal of YCS in the
+  card, footer and route metadata. Keep links to privacy and organizer details.
+- This route has a fixed light presentation without overwriting the visitor's
+  saved theme. Other routes restore the existing theme. Preserve shared header
+  geometry and all other tournament pages. Keep required nickname/photo,
+  optional FIO, crop/preview and anonymous one-shot direct-S3 behavior intact.
+  `Dis` still determines the discipline; CS2 promo only accompanies `Dis=cs`.
+- Contract and verification status remain in `docs/player-profile.md`.
+
 # Homepage partner artwork — October 14
 
 - Roman rejected the pictured homepage partner strip and requested real logos.

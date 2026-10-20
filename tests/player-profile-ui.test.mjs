@@ -13,7 +13,12 @@ test('profile direct route has a shared site frame, private metadata and no pers
     const { listPublicRoutes } = await server.ssrLoadModule('/src/lib/public-routes.js');
     const html = renderToStaticMarkup(React.createElement(App, { initialPath: '/player/profile/' }));
     assert.match(html, /Карточка/); assert.match(html, /ycs-header-brand/);
-    assert.match(html, /ООО «ЯрКиберСезон»/);
+    assert.match(html, /Лига цифровой экономики/);
+    assert.match(html, /aria-label="Хлебные крошки"/);
+    assert.match(html, /Политика обработки персональных данных/);
+    assert.match(html, /Контакты организатора/);
+    assert.doesNotMatch(html, /ООО «ЯрКиберСезон»|Твоя карточка ЯКС|YCS \/ PLAYER/);
+    assert.match(getPageMetadata('/player/profile').title, /Лига цифровой экономики/);
     assert.doesNotMatch(html, /Маршрут<br\/>не найден/);
     assert.equal(getPageMetadata('/player/profile').noindex, true);
     assert.equal(listPublicRoutes().find((item) => item.pathname === '/player/profile').includeInSitemap, false);

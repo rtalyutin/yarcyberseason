@@ -137,7 +137,8 @@ test('intake verifier UI-05: unavailable context allows local preview but not se
   assert.ok(f.renderer.root.findAllByType('fieldset').every((n) => !n.props.disabled)); assert.equal(sendButton(f).props.disabled, true);
   assert.deepEqual(f.state.calls.map((c) => c[0]), ['context']);
   await f.navigate('?Dis=unsupported'); assert.equal(f.renderer.root.findAllByType('form').length, 0);
-  assert.equal(f.renderer.root.findAllByType('span').find((n) => n.props.className === 'player-discipline').children.join(''), 'ЯКС');
+  assert.equal(f.renderer.root.findAllByType('span').filter((n) => n.props.className === 'player-discipline').length, 0);
+  assert.match(text(f.renderer.root), /Неизвестная дисциплина/);
   assert.deepEqual(f.state.calls.map((c) => c[0]), ['context']); assert.equal(f.state.closed, 1);
 });
 

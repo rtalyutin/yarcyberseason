@@ -4,6 +4,7 @@ import { createPlayerIntakeClient, intakeSha256, runPlayerIntake } from '../lib/
 import { DEFAULT_PLAYER_DISCIPLINES, PHOTO_LIMITS } from '../lib/player-profile-catalog.js';
 import { defaultPhotoCrop, drawPlayerCrop, playerPhotoBlob, readPlayerDiscipline } from '../lib/player-profile.js';
 import '../player-profile.css';
+import '../player-league.css';
 
 const stages = { prepare: 'Готовим загрузку…', upload: 'Отправляем фото…',
   complete: 'Проверяем сохранение…', read: 'Получаем сохранённое фото…', photo: 'Открываем фото…' };
@@ -122,11 +123,22 @@ export default function PlayerIntakePage({ client, initialSearch = null, photoEn
     } finally { if (mounted.current && active.current === controller) { setBusy(''); active.current = null; } }
   }
 
-  return <main className="player-page">
-    <header className="player-heading"><p className="player-kicker">ЯРКИБЕРСЕЗОН / ИГРОК</p>
-      <div><h1>Карточка<br /><span>игрока</span></h1>
-        <div className="player-heading-note"><span className="player-discipline">{discipline?.label || 'ЯКС'}</span>
-          <p>Твой ник. Твоё лицо.<br />Твоя карточка ЯКС.</p></div></div></header>
+  return <main className="player-page player-page--league">
+    <nav className="league-breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">ЯКС</a><span aria-hidden="true">/</span><span>Лига цифровой экономики</span>
+      <span aria-hidden="true">/</span><span aria-current="page">Карточка игрока</span>
+    </nav>
+    <header className="league-heading">
+      <div className="league-heading-copy">
+        <img className="league-logo" src="/assets/player-league/league-25.svg" width="220" height="70" alt="Лига — 25 лет совместных побед" />
+        <p className="player-kicker">ЛИГА ЦИФРОВОЙ ЭКОНОМИКИ</p>
+        <h1>В команде.<br /><span>В игре.</span></h1>
+        <p className="league-heading-description">Собери свою карточку игрока.<br />Добавь фото и ник — результат сразу перед тобой.</p>
+        {discipline && <span className="player-discipline">{discipline.label}</span>}
+      </div>
+      {code === 'cs' && <img className="league-promo" src="/assets/player-league/cs2-promo.jpg" width="1280" height="720"
+        alt="Корпоративный турнир Counter-Strike 2. Лига: 25 лет совместных побед. Синяя игровая экипировка на светлом фоне." />}
+    </header>
     {search === null ? <p className="player-message" role="status">Открываем форму…</p>
       : !discipline ? <section className="player-message" role="alert">
         <h2>{code ? 'Неизвестная дисциплина' : 'В ссылке не указана дисциплина'}</h2>
@@ -140,13 +152,14 @@ export default function PlayerIntakePage({ client, initialSearch = null, photoEn
         {completed && <section className="player-message player-message--success" role="status">
           <h2>Карточка отправлена</h2><p>Сохранённое фото получено из хранилища и проверено. Редактирование завершено.</p></section>}
         <div className="player-workspace">
-          <aside className="player-card-rail" aria-label="Предпросмотр карточки"><article className="player-card">
-            <div className="player-card-top"><span>YCS / PLAYER</span><span>{discipline.label}</span></div>
+          <aside className="player-card-rail" aria-label="Предпросмотр карточки">
+            <p className="league-section-label">ТВОЯ КАРТОЧКА</p><article className="player-card">
+            <div className="player-card-top"><span>ЛИГА / ИГРОК</span><span>{discipline.label}</span></div>
             <div className="player-portrait">{completed ? <img src={completed.url} alt="Фото, полученное после сохранения" />
               : image ? <canvas ref={canvas} aria-label="Выбранный кадр фотографии" />
                 : <div className="player-photo-empty"><UserCircle weight="thin" aria-hidden="true" /><span>Здесь будет твоё фото</span></div>}</div>
             <div className="player-card-identity"><p>{form.name || 'ПРОФИЛЬ ИГРОКА'}</p><h2>{form.nickname || 'ТВОЙ НИК'}</h2><span>{discipline.label}</span></div>
-            <div className="player-card-foot"><img src="/assets/ycs-logo.jpg" width="58" height="32" alt="ЯКС" />
+            <div className="player-card-foot"><img src="/assets/player-league/league-25.svg" width="110" height="35" alt="Лига — 25 лет совместных побед" />
               <span>{completed ? 'КАРТОЧКА ОТПРАВЛЕНА' : 'ПРЕДПРОСМОТР'}</span></div></article>
             <p className="player-preview-note">{completed ? 'На карточке показано сохранённое фото.' : 'Текст и кадр сразу видны на карточке.'}</p></aside>
           <form className="player-form" onSubmit={submit}>

@@ -11,6 +11,9 @@
   optional FIO, crop/preview and anonymous one-shot direct-S3 behavior intact.
   `Dis` still determines the discipline; CS2 promo only accompanies `Dis=cs`.
 - Contract and verification status remain in `docs/player-profile.md`.
+- League UI source `1c75e7e` is published and desktop-browser verified.
+  Fresh intake context returns HTTP200/available:true; prior503 is historical.
+  Full production S3 upload and mobile-browser acceptance remain unverified.
 
 # Homepage partner artwork — October 14
 

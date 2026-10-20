@@ -1958,11 +1958,46 @@
               },
               "team2": "Easy Gaming",
               "team2Id": "dota2-autumn-2026-easy-gaming",
-              "status": "scheduled",
+              "status": "completed",
               "date": "2026-10-20",
               "dateDisplay": "20 октября",
               "team1": "strela team",
-              "team1Id": "dota2-autumn-2026-strela-team"
+              "team1Id": "dota2-autumn-2026-strela-team",
+              "resultConfirmed": true,
+              "scoreKind": "series",
+              "score1": 0,
+              "score2": 2,
+              "winner": "Easy Gaming",
+              "winnerTeamId": "dota2-autumn-2026-easy-gaming",
+              "maps": [
+                {
+                  "id": "9054164679",
+                  "matchId": "9054164679",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-autumn-2026-easy-gaming",
+                  "kills1": 9,
+                  "kills2": 17,
+                  "durationSeconds": 985,
+                  "url": "https://www.opendota.com/matches/9054164679"
+                },
+                {
+                  "id": "9054221077",
+                  "matchId": "9054221077",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-autumn-2026-easy-gaming",
+                  "kills1": 1,
+                  "kills2": 23,
+                  "durationSeconds": 844,
+                  "url": "https://www.opendota.com/matches/9054221077"
+                }
+              ],
+              "mapLinks": [],
+              "resultSource": "opendota",
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9054164679",
+                "status": "confirmed",
+                "observedAt": "2026-10-20"
+              }
             }
           ]
         },
@@ -1987,7 +2022,9 @@
               "dateDisplay": "23 октября",
               "team1": "Team Leto",
               "team1Id": "dota2-autumn-2026-team-leto",
-              "status": "scheduled"
+              "status": "scheduled",
+              "team2": "Easy Gaming",
+              "team2Id": "dota2-autumn-2026-easy-gaming"
             }
           ]
         },
@@ -2129,7 +2166,9 @@
               "dateDisplay": "21 октября",
               "team1": "ARB Esports",
               "team1Id": "dota2-qual-2026-arb-esports",
-              "status": "scheduled"
+              "status": "scheduled",
+              "team2": "strela team",
+              "team2Id": "dota2-autumn-2026-strela-team"
             },
             {
               "id": "lower-4",

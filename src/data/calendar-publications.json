@@ -303,6 +303,25 @@
       "updatedAt": "2026-10-24T16:18:05.513Z"
     },
     {
+      "matchKey": "dota2-autumn-2026/lower-6",
+      "uid": "dota2-autumn-2026%2Flower-6@ycs.bar",
+      "start": "2026-10-24T21:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-autumn-2026-easy-gaming",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "publishedTeamIds": [
+        "dota2-autumn-2026-easy-gaming",
+        "dota2-main-2026-mi-ne-pushim"
+      ],
+      "summary": "Mi Ne Pushim! — Easy Gaming · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/lower-6",
+      "cancelled": false,
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 0,
+      "updatedAt": "2026-10-24T22:11:43.749Z"
+    },
+    {
       "matchKey": "dota2-autumn-2026/upper-1",
       "uid": "dota2-autumn-2026%2Fupper-1@ycs.bar",
       "start": "2026-10-17T18:00:00+03:00",

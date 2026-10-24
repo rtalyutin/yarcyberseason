@@ -284,6 +284,25 @@
       "updatedAt": "2026-10-19T21:29:42.750Z"
     },
     {
+      "matchKey": "dota2-autumn-2026/lower-5",
+      "uid": "dota2-autumn-2026%2Flower-5@ycs.bar",
+      "start": "2026-10-24T14:00:00+03:00",
+      "currentTeamIds": [
+        "dota2-main-2026-mi-ne-pushim",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "publishedTeamIds": [
+        "dota2-main-2026-mi-ne-pushim",
+        "dota2-qual-2026-arb-esports"
+      ],
+      "summary": "ARB Esports — Mi Ne Pushim! · Dota 2 / YCS",
+      "path": "/tournaments/dota2-autumn-2026/matches/lower-5",
+      "cancelled": false,
+      "description": "Матч завершён. Результат — на странице матча.",
+      "revision": 0,
+      "updatedAt": "2026-10-24T16:18:05.513Z"
+    },
+    {
       "matchKey": "dota2-autumn-2026/upper-1",
       "uid": "dota2-autumn-2026%2Fupper-1@ycs.bar",
       "start": "2026-10-17T18:00:00+03:00",

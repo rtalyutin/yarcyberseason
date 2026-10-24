@@ -2290,13 +2290,65 @@
                 "matchId": "lower-6",
                 "slot": 1
               },
-              "date": "2026-10-22",
-              "dateDisplay": "22 октября",
+              "date": "2026-10-24",
+              "dateDisplay": "24 октября",
               "team1Id": "dota2-qual-2026-arb-esports",
               "team1": "ARB Esports",
               "team2Id": "dota2-main-2026-mi-ne-pushim",
               "team2": "Mi Ne Pushim!",
-              "status": "scheduled"
+              "status": "completed",
+              "time": "14:00",
+              "scheduledAt": "2026-10-24T14:00:00+03:00",
+              "opendotaTeamIds": {
+                "team1": 9906817,
+                "team2": 3562958
+              },
+              "resultConfirmed": true,
+              "scoreKind": "series",
+              "score1": 1,
+              "score2": 2,
+              "winnerTeamId": "dota2-main-2026-mi-ne-pushim",
+              "winner": "Mi Ne Pushim!",
+              "seriesId": 1158765,
+              "resultSource": "opendota",
+              "mapLinks": [],
+              "provenance": {
+                "sourceUrl": "https://www.opendota.com/matches/9059407226",
+                "status": "confirmed",
+                "observedAt": "2026-10-24"
+              },
+              "maps": [
+                {
+                  "id": "9059407226",
+                  "matchId": "9059407226",
+                  "name": "Карта 1",
+                  "winnerTeamId": "dota2-qual-2026-arb-esports",
+                  "kills1": 41,
+                  "kills2": 41,
+                  "durationSeconds": 3843,
+                  "url": "https://www.opendota.com/matches/9059407226"
+                },
+                {
+                  "id": "9059543963",
+                  "matchId": "9059543963",
+                  "name": "Карта 2",
+                  "winnerTeamId": "dota2-main-2026-mi-ne-pushim",
+                  "kills1": 30,
+                  "kills2": 40,
+                  "durationSeconds": 2749,
+                  "url": "https://www.opendota.com/matches/9059543963"
+                },
+                {
+                  "id": "9059666616",
+                  "matchId": "9059666616",
+                  "name": "Карта 3",
+                  "winnerTeamId": "dota2-main-2026-mi-ne-pushim",
+                  "kills1": 31,
+                  "kills2": 42,
+                  "durationSeconds": 3300,
+                  "url": "https://www.opendota.com/matches/9059666616"
+                }
+              ]
             }
           ]
         },

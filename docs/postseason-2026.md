@@ -58,7 +58,7 @@ IMPLEMENTED: shared completed home, confirmed 3:0 final and podium, dynamic
 archive selection, explicit overview route, scoped partner acknowledgements.
 The captain's existing verified access remains available for its tournament.
 
-CHECKED: 66 targeted postseason/home/routing/results/archive checks passed.
+CHECKED: 78 targeted postseason/home/routing/results/archive/captain checks passed.
 Build passed: 52 team records, 167 matches, 232 canonical pages + 4 aliases.
 Full suite before the final fixture-selection correction: 399/453 passed;
 one new failure selected the newly archived current event as an unrelated
@@ -66,8 +66,13 @@ captain archive and was corrected. The other failures reproduce on the base.
 Sites checks: 4/6 passed; both missing prerendered match h1 failures were
 reproduced after building the untouched base in a separate checkout.
 
-IN_PROGRESS: source publication and live readback. Browser previews cannot
-reach this executor's localhost; no local visual pass is claimed.
+PUBLISHED_SOURCE: main e14cb1cc5f0cfd8d447337e9ab8db47c137b9f8f,
+tree 2cbb01b89e8ea0a09b64505b3b1a0d9c5185fa7b. Expected-head update and
+remote ref readback passed; local tracked source exactly matches that commit.
+Browser previews cannot reach this executor's localhost; no local visual pass
+is claimed. Public HTTP and browser reload still return the previous homepage
+«Следующий эфир» with index-CYF2VeQi.js. Production deployment and the final
+visual gate remain UNVERIFIED; a source push is not a live-release receipt.
 UNRESOLVED: final MVP inputs; separate Serverless static publication requires
 the existing CLI credential, absent from this environment. No hosting, bot,
 access settings or remote modules were changed.

@@ -74,8 +74,15 @@ served the completed-season homepage and Team Leto title. Browser navigation
 verified the 3:0 podium/results page. Live theme checks found legacy CSS
 specificity affecting the Dota heading and corporate kicker; isolated completed
 hero selectors now outrank it. Archived tournament headers and participant
-labels no longer retain the registration messaging. Final visual recheck is
-in progress. Localhost and mobile viewport checks remain unavailable.
+labels no longer retain the registration messaging. FINAL_LIVE_CHECK: main af302735dc7e1d897c5d3a54eb656dbf39728aae reached
+production. Public postseason-pCg1Gbr4.css exactly matches build SHA-256
+38ad0f18d40d3d7ccf013510055d525e6839bee7f2b2328a4efc740cedb722d3.
+Desktop: all three themes inspected; the Dota heading is inside its card with
+position:static, corporate kicker is rgb(23,89,222), no horizontal overflow at
+1348px. Home → results → grand-final navigation shows the confirmed 3:0 and
+all three map results. Website /tg displays the new champion, podium and
+results; explicit overview survives reload. Screenshot: evidence/postseason-home.jpg.
+Localhost, actual mobile viewport and genuine Telegram checks remain unavailable.
 UNRESOLVED: final MVP inputs; separate Serverless static publication requires
 the existing CLI credential, absent from this environment. No hosting, bot,
 access settings or remote modules were changed.

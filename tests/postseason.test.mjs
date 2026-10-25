@@ -15,13 +15,14 @@ import { resolveMiniAppLocation, serializeMiniAppRoute, tournamentRoute } from '
 import { applyDotaSnapshot } from '../src/lib/dota-results.js';
 
 async function components(path) {
-  const bundle = await build({ entryPoints: [path], bundle: true, write: false, platform: 'node', format: 'cjs', jsx: 'automatic', packages: 'external' });
+  const bundle = await build({ entryPoints: [path], bundle: true, write: false, platform: 'node', format: 'cjs', jsx: 'automatic', external: ['react', 'react-dom'], loader: { '.css': 'empty' } });
   const result = { exports: {} };
   new Function('require', 'module', 'exports', bundle.outputFiles[0].text)(createRequire(import.meta.url), result, result.exports);
   return result.exports;
 }
 const { SeasonFinale } = await components('src/components/SeasonFinale.jsx');
 const { HomeScreen, TournamentScreen } = await components('src/telegram/MiniApp.jsx');
+const { TournamentNavigator } = await components('src/components/TournamentNavigator.jsx');
 const { getPageMetadata } = await components('src/lib/page-metadata.js');
 const markup = (Component, props) => renderToStaticMarkup(React.createElement(Component, props));
 const allMatches = (data) => data.stages.flatMap((stage) => (stage.rounds || [{ matches: stage.matches || [] }]).flatMap((round) => round.matches));
@@ -47,7 +48,8 @@ test('both homes and Mini App results show the same champion, podium and final l
   const web = markup(SeasonFinale, { content });
   const mini = markup(HomeScreen, { model, content, archives: loadArchivedModels(), navigate() {} });
   const results = markup(TournamentScreen, { model, route: tournamentRoute('results'), navigate() {} });
-  for (const html of [web, mini, results]) {
+  const webResults = markup(TournamentNavigator, { tournament, navigate() {} });
+  for (const html of [web, mini, results, webResults]) {
     for (const team of ['Team Leto', 'Easy Gaming', 'Mi Ne Pushim!']) assert.ok(html.includes(team), team);
     assert.doesNotMatch(html, /Следующий эфир|Регистрация закрыта|Итог грандфинала ожидает публикации/);
   }

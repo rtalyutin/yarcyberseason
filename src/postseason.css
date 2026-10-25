@@ -2,7 +2,7 @@
 .home-victory-identity { min-width: 0; padding: 28px; background: rgba(5, 12, 20, .9); border-left: 3px solid #80b7ff; }
 .home-victory-emblem { margin-top: 22px; }
 .home-victory-emblem img { display: block; width: 100px; height: 100px; object-fit: contain; }
-.site-shell--home .home-conversion--completed .home-victory h1 { position: static; width: auto; max-width: none; margin: 20px 0; padding: 0; font: 900 clamp(42px, 5.8vw, 100px)/.98 "YCS Dota Display", "Arial Narrow", sans-serif; letter-spacing: -.045em; color: #f5f3eb; white-space: normal; overflow-wrap: anywhere; transform: none; text-transform: none; text-align: left; text-shadow: none; }
+.site-shell--home[data-theme] .home-conversion--completed .home-victory h1 { position: static; width: auto; max-width: none; margin: 20px 0; padding: 0; font: 900 clamp(42px, 5.8vw, 100px)/.98 "YCS Dota Display", "Arial Narrow", sans-serif; letter-spacing: -.045em; color: #f5f3eb; white-space: normal; overflow-wrap: anywhere; transform: none; text-transform: none; text-align: left; text-shadow: none; }
 .home-victory-caption { font-size: 15px; line-height: 1.6; color: #d5e1ec; }
 .home-victory-facts { display: flex; gap: 12px 22px; flex-wrap: wrap; list-style: none; padding: 0; font-size: 13px; color: #d5e1ec; }
 .home-victory-results { padding: 28px; background: #0d1b28; border: 1px solid #415b72; min-width: 0; color: #f5f3eb; }
@@ -16,7 +16,7 @@
 .home-victory-podium li > span { font-size: 12px; color: #9bb3c8; min-width: 20px; }
 .home-victory-podium a { color: inherit; }
 .home-victory-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.home-victory-actions .button { flex: 1 1 auto; min-height: 46px; font-size: 14px; text-align: center; }
+.site-shell--home[data-theme] .home-conversion--completed .home-victory-actions .button { flex: 1 1 auto; min-height: 46px; padding: 12px 16px; font-size: 14px; text-align: center; white-space: normal; }
 .home-victory-link, .home-victory-follow { display: block; font-size: 14px; line-height: 1.5; padding: 10px 0; color: #b4d0ff; }
 .home-victory-link { width: 100%; }
 .home-victory-follow { margin-top: 12px; color: #c2cedb; }
@@ -43,12 +43,12 @@
 @media (max-width: 760px) {
   .home-victory { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-block: 26px; min-height: 0; }
   .home-victory-identity, .home-victory-results { padding: 22px 18px; }
-  .site-shell--home .home-conversion--completed .home-victory h1 { font-size: clamp(38px, 10vw, 64px); }
+  .site-shell--home[data-theme] .home-conversion--completed .home-victory h1 { font-size: clamp(38px, 10vw, 64px); }
   .home-victory-emblem img { width: 76px; height: 76px; }
   .home-victory-score { font-size: 68px; }
   .season-thanks-groups { grid-template-columns: minmax(0, 1fr); gap: 18px; }
 }
 
 .site-shell--home[data-theme] .home-conversion--completed { min-height: 0; }
-.site-shell--home[data-theme="corporate"] .home-victory-identity .home-kicker { color: #1759de; }
+.site-shell--home[data-theme="corporate"] .home-conversion--completed .home-victory-identity .home-kicker { color: #1759de; }
 .site-shell--home[data-theme="corporate"] .home-conversion--completed .home-victory h1 { color: #112448; }

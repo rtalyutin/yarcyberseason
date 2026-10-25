@@ -69,10 +69,13 @@ reproduced after building the untouched base in a separate checkout.
 PUBLISHED_SOURCE: main e14cb1cc5f0cfd8d447337e9ab8db47c137b9f8f,
 tree 2cbb01b89e8ea0a09b64505b3b1a0d9c5185fa7b. Expected-head update and
 remote ref readback passed; local tracked source exactly matches that commit.
-Browser previews cannot reach this executor's localhost; no local visual pass
-is claimed. Public HTTP and browser reload still return the previous homepage
-«Следующий эфир» with index-CYF2VeQi.js. Production deployment and the final
-visual gate remain UNVERIFIED; a source push is not a live-release receipt.
+PUBLIC_SITE: after the initial stale response, the existing Timeweb pipeline
+served the completed-season homepage and Team Leto title. Browser navigation
+verified the 3:0 podium/results page. Live theme checks found legacy CSS
+specificity affecting the Dota heading and corporate kicker; isolated completed
+hero selectors now outrank it. Archived tournament headers and participant
+labels no longer retain the registration messaging. Final visual recheck is
+in progress. Localhost and mobile viewport checks remain unavailable.
 UNRESOLVED: final MVP inputs; separate Serverless static publication requires
 the existing CLI credential, absent from this environment. No hosting, bot,
 access settings or remote modules were changed.

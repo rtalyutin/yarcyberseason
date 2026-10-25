@@ -85,7 +85,7 @@ export function getTournamentModel(tournament, { includeEmptyMatches = false } =
   const otherStages = stages.filter((stage) => !tableStages.includes(stage) && !playoffStages.includes(stage) && !["match_schedule", "historical_matches"].includes(stage.type));
   const sections = [
     ...(getTournamentOutcome(tournament) ? [{ id: "results", title: "Итоги" }] : []),
-    ...(tournament.participants ? [{ id: "participants", title: "Заявленные команды", count: participantCount(tournament) }] : []),
+    ...(tournament.participants ? [{ id: "participants", title: isArchive(tournament) ? "Участники" : "Заявленные команды", count: participantCount(tournament) }] : []),
     ...tableStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),
     ...(matches.length || includeEmptyMatches ? [{ id: "matches", title: "Матчи", count: matches.length }] : []),
     ...playoffStages.map((stage) => ({ id: stage.id, title: stage.title, stage })),

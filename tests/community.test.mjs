@@ -213,7 +213,7 @@ test('calendar GET/HEAD returns a calendar and missing feeds never return HTML',
   assert.equal(response.status, 404); assert.equal(calls, 1);
 });
 test('team registration remains closed and participant registry excludes private contacts', () => {
-  assert.equal(tournaments.find((t) => t.id === 'dota2-autumn-2026').primaryAction.target, '/tournaments/dota2-autumn-2026?section=participants');
+  assert.equal(tournaments.find((t) => t.id === 'dota2-autumn-2026').primaryAction.target, '/tournaments/dota2-autumn-2026?section=results');
   const registryText = JSON.stringify(registry);
   assert.doesNotMatch(registryText, /"(?:email|phone|captain|players|roster|telegramId|steamId|faceitId)"/i);
 });

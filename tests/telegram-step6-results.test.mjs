@@ -38,7 +38,8 @@ function source(change = () => {}) {
 }
 const modelFor = ({ tournament, registry }) => buildMiniAppModel(tournament, registry, projectContent);
 
-test("current tournament hides results and normalizes direct entry to overview", () => {
+test("an unfinished tournament hides results and normalizes direct entry to overview", () => {
+  const real = modelFor(source((t) => { t.status = "upcoming"; delete t.results; }));
   const ids = real.sections.map((section) => section.id);
   assert.equal(real.results, null);
   assert.equal(ids.includes("results"), false);

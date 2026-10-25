@@ -12,7 +12,8 @@ import { TeamProfile } from "./TeamProfile.jsx";
 import { CaptainCabinet } from "./CaptainCabinet.jsx";
 import { CAPTAIN_TOURNAMENT } from "./captain-client.js";
 import { loadHomeContent } from "../data/home-content.js";
-import { HomeBroadcastCard, HomeSeasonCard, HomeLegalFooter } from "./HomeContent.jsx";
+import { HomeBroadcastCard, HomeFinaleCard, HomeSeasonCard, HomeLegalFooter } from "./HomeContent.jsx";
+import { TournamentThanks } from '../components/SeasonFinale.jsx';
 
 function deviceStorage() { try { return window.localStorage; } catch { return undefined; } }
 
@@ -154,17 +155,16 @@ export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PR
   return <div className="tg-home-layout">
     <section className="tg-hero">
       <div className="tg-art" aria-hidden="true"><div className="tg-map" /></div>
-      <p className="tg-kicker">{content.kicker}</p>
-      <h1 className="tg-home-title" ref={headingRef} tabIndex={-1}><span>{content.headline[0]}</span>{content.headline[1] && <em>{content.headline[1]}</em>}</h1>
+      <p className="tg-kicker">{content.completed ? content.outcome?.champion ? 'ПОБЕДИТЕЛЬ ТУРНИРА' : 'ТУРНИР ЗАВЕРШЁН' : content.kicker}</p>
+      {content.outcome?.champion && content.featuredTournament.teamLogos?.[content.outcome.champion] && <img className="tg-finale-logo" src={content.featuredTournament.teamLogos[content.outcome.champion]} alt="" />}
+      <h1 className="tg-home-title" ref={headingRef} tabIndex={-1}>{content.completed ? <span>{content.outcome?.champion || 'GG. Турнир завершён.'}</span> : <><span>{content.headline[0]}</span>{content.headline[1] && <em>{content.headline[1]}</em>}</>}</h1>
       <p className="tg-home-tournament">{content.featuredTournament.title}<small>{content.featuredTournament.season}</small></p>
       <p className="tg-date">{content.featuredTournament.dates.display || copy.noDates}</p>
       <ul className="tg-facts" aria-label="Турнир в цифрах">{content.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
     </section>
     <section className="tg-dock">
-      <RegistrationStatus model={model} copy={copy} />
-      <HomeBroadcastCard content={content.broadcast} tournamentSlug={content.featuredTournament.slug} navigate={navigate} runtime={runtime} />
-      <button className="tg-primary" onClick={() => navigate(tournamentRoute())}>{copy.open}<span aria-hidden="true">↗</span></button>
-      <button className="tg-secondary" onClick={() => navigate(tournamentRoute("participants"))}>{copy.participants} · {model.participants.length}</button>
+      {content.completed ? <HomeFinaleCard content={content} navigate={navigate} runtime={runtime} /> : <><RegistrationStatus model={model} copy={copy} /><HomeBroadcastCard content={content.broadcast} tournamentSlug={content.featuredTournament.slug} navigate={navigate} runtime={runtime} /><button className="tg-primary" onClick={() => navigate(tournamentRoute())}>{copy.open}<span aria-hidden="true">↗</span></button></>}
+      <button className="tg-secondary" onClick={() => navigate(tournamentRoute("participants", content.featuredTournament.slug))}>{content.completed ? 'Участники' : copy.participants} · {model.participants.length}</button>
       {captainAvailable && model.tournament.slug === CAPTAIN_TOURNAMENT && <button className="tg-captain-entry" onClick={() => navigate(tournamentRoute("captain"))}>Кабинет капитана <span aria-hidden="true">→</span></button>}
     </section>
     <HomeSeasonCard season={content.season} navigate={navigate} />
@@ -172,6 +172,7 @@ export function HomeScreen({ model, archives = [], copy = getMessages(DEFAULT_PR
       <ArchiveList archives={archivePreview} champions={champions} copy={copy} navigate={navigate} />
       {remainingArchives.length > 0 && <details className="tg-all-results"><summary>Все результаты</summary><ArchiveList archives={remainingArchives} copy={copy} navigate={navigate} titleId="other-archive-title" /></details>}
     </div>
+    {content.completed && <TournamentThanks tournament={content.featuredTournament} />}
     <section className="tg-home-partners" aria-labelledby="tg-partners-title">
       <h2 id="tg-partners-title">Партнёры турнира</h2>
       <div className="tg-partners">{content.partners.map((partner) => <div key={partner.id || partner.name}>{partner.logoUrl ? <img src={partner.logoUrl} alt={partner.shortName || partner.name} /> : <strong>{partner.name}</strong>}{partner.logoUrl && partner.shortName !== 'Додо Пицца' && <p>{partner.name}</p>}</div>)}</div>
@@ -207,6 +208,7 @@ function TeamLogo({ participant }) {
 export function TournamentScreen({ model, runtime, copy = getMessages("ru"), route, navigate, headingRef, captainAccess, onCaptainAccessLost }) {
   const isParticipants = route.section === "participants";
   const archived = ["archive", "completed"].includes(model.tournament.status);
+  const completeRoster = model.registration.capacity > 0 && model.participants.length === model.registration.capacity;
   const target = (section) => tournamentRoute(section, model.tournament.slug);
   return <div className="tg-tournament-layout" data-section={route.section}>
     <section className="tg-tournament-title">
@@ -221,16 +223,16 @@ export function TournamentScreen({ model, runtime, copy = getMessages("ru"), rou
     {route.section === "captain" && model.tournament.slug === CAPTAIN_TOURNAMENT ? <CaptainCabinet client={runtime.captain} access={captainAccess} runtime={runtime} onAccessLost={onCaptainAccessLost} onRules={() => navigate(target("rules"))} /> : isParticipants ? <section className="tg-participants" aria-labelledby="participant-title">
       <p className="tg-kicker">{copy.participantSection}</p>
       <h2 id="participant-title">{archived ? copy.archiveCount : copy.count}: {model.participants.length}</h2>
-      {archived ? <p className="tg-source-state">{copy.archiveTeamsNotice}</p> : <RegistrationStatus model={model} copy={copy} />}
+      {archived ? !completeRoster && <p className="tg-source-state">{copy.archiveTeamsNotice}</p> : <RegistrationStatus model={model} copy={copy} />}
       {model.participants.length ? <ol>{model.participants.map((participant, index) => <li key={participant.teamId} data-team-id={participant.teamId}>
         <span className="tg-team-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
         <TeamLogo participant={participant} /><button className="tg-team-link" type="button" onClick={() => navigate(teamRoute(participant.teamId, model.tournament.slug))}>{participant.displayName}</button>
-        <small>{participant.status === "registered" ? copy.registered : participant.status === "played" ? copy.played : copy.unknownStatus}</small>
+        <small>{participant.status === "registered" ? archived ? copy.played : copy.registered : participant.status === "played" ? copy.played : copy.unknownStatus}</small>
       </li>)}</ol> : <p>{copy.noTeams}</p>}
     </section> : route.section === "overview" ? <section className="tg-overview">
       <p>{model.tournament.summary}</p>
       <ul className="tg-facts">{model.tournament.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
-      {model.registration.message && <p className="tg-notice">{model.registration.message}</p>}
+      {!archived && model.registration.message && <p className="tg-notice">{model.registration.message}</p>}
       <button className="tg-primary" onClick={() => navigate(target("participants"))}>{archived ? copy.participantSection : copy.participants}<span aria-hidden="true">→</span></button>
     </section> : route.section === "rules" ? <RulesSection model={model} copy={copy} />
       : route.section === "schedule" ? <ScheduleSection model={model} copy={copy} />

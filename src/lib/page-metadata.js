@@ -2,6 +2,7 @@ import { community } from '../data/community.js';
 import { matchPath, matchStates, teamPath } from './community.js';
 import { currentTournament, getTournament, nextTournament } from '../data/tournaments/index.js';
 import { normalizePublicPath, PUBLIC_ORIGIN } from './public-routes.js';
+import { getTournamentOutcome, isArchive } from './tournament.js';
 
 const defaultImage = `${PUBLIC_ORIGIN}/assets/ycs-logo.jpg`;
 const homeDescription = 'Киберспортивные турниры Ярославля: расписание, результаты и команды ЯрКиберСезона.';
@@ -10,7 +11,13 @@ export function getPageMetadata(pathname) {
   const path = normalizePublicPath(pathname);
   const base = { title: 'ЯрКиберСезон — киберспортивные турниры Ярославля', description: homeDescription, canonicalPath: path, image: defaultImage };
 
-  if (path === '/') return { ...base, canonicalPath: '/' };
+  if (path === '/') {
+    const outcome = getTournamentOutcome(currentTournament);
+    return isArchive(currentTournament) ? { ...base, canonicalPath: '/',
+      title: `${outcome?.champion ? `${outcome.champion} — чемпион` : 'Итоги турнира'} · ${currentTournament.title} — ЯрКиберСезон`,
+      description: `${currentTournament.title}, ${currentTournament.dates.display}. Турнир завершён. ${outcome?.final ? `Грандфинал: ${outcome.final.team1} — ${outcome.final.team2}, ${outcome.final.score1}:${outcome.final.score2}.` : 'Результаты матчей и статистика игроков.'}`,
+    } : { ...base, canonicalPath: '/' };
+  }
   if (path === '/player/profile') return { ...base, title: 'Карточка игрока — Лига цифровой экономики', description: 'Карточка игрока Лиги цифровой экономики: фото, никнейм и необязательное ФИО.', image: `${PUBLIC_ORIGIN}/assets/player-league/league-25.svg`, noindex: true };
   if (path === '/org' || path === '/orgs') return { ...base, canonicalPath: '/org', title: 'Матчи и капитаны · Организаторы — ЯрКиберСезон', description: 'Закрытая рабочая таблица организаторов ЯрКиберСезона.', noindex: true };
   if (path === '/results') return { ...base, title: 'Архив и результаты турниров — ЯрКиберСезон', description: 'Архив турниров ЯрКиберСезона в Ярославле: подтверждённые результаты и история соревнований.' };
@@ -23,7 +30,10 @@ export function getPageMetadata(pathname) {
   const matchdayTournament = matchdayPath && getTournament(matchdayPath[1]);
   if (matchdayTournament?.matchday?.route === path) return { ...base, title: `Matchday · ${matchdayTournament.title} — ЯрКиберСезон`, description: `Расписание и опубликованные результаты матчей турнира ${matchdayTournament.title}.` };
 
-  if (path === '/tournaments/next') return tournamentMetadata(nextTournament, `/tournaments/${encodeURIComponent(nextTournament.slug)}`);
+  if (path === '/tournaments/next') {
+    const target = nextTournament || currentTournament;
+    return tournamentMetadata(target, `/tournaments/${encodeURIComponent(target.slug)}`);
+  }
   const tournamentPath = path.match(/^\/tournaments\/([a-z0-9-]+)$/);
   if (tournamentPath) {
     const tournament = getTournament(decodeURIComponent(tournamentPath[1]));

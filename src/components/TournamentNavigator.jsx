@@ -2,6 +2,7 @@ import { InternalLink, TeamLink, MatchLink } from './CommunityLinks.jsx';
 import { community } from '../data/community.js';
 import { regulationsByDiscipline, regulationsByTournament } from '../data/regulations.js';
 import { TeamLogo } from './TeamLogo.jsx';
+import { TournamentThanks } from './SeasonFinale.jsx';
 import { MatchMapLinks } from './MatchMapLinks.jsx';
 import { MatchBroadcastLinks } from './MatchBroadcastLinks.jsx';
 import { TournamentMatchCard, groupMatchDates } from './TournamentMatchCard.jsx';
@@ -47,7 +48,7 @@ function MatchRow({ match, tournament, teamLogos }) {
 }
 
 function ResultsPodium({ placements, tournament, label = "Призовые места" }) {
-  return <ol className="tn-podium" aria-label={label}>{placements.map((entry) => <li key={`${entry.position}-${entry.team}`} data-place={entry.position} className={entry.position === 1 ? "tn-podium-champion" : ""}>
+  return <ol className="tn-podium" aria-label={label}>{placements.map((entry) => <li key={`${entry.position}-${entry.team}`} value={entry.position} data-place={entry.position} className={entry.position === 1 ? "tn-podium-champion" : ""}>
       <span className="tn-ordinal" aria-hidden="true">{entry.position}</span>
       <span className="tn-place">{entry.position === 1 && <Trophy aria-hidden="true" />}{entry.position === 1 ? "Чемпион" : `${entry.position} место`}</span>
       {tournament.teamLogos?.[entry.team] && <img src={tournament.teamLogos[entry.team]} alt="" />}
@@ -59,6 +60,7 @@ function TournamentResults({ tournament, changeView, navigate }) {
   const outcome = getTournamentOutcome(tournament);
   return <section className="tn-results" aria-labelledby="tn-results-title">
     <div className="tn-panel-heading"><h2 id="tn-results-title">Итоги турнира</h2></div>
+    {tournament.results?.notice && <p className="tn-source-note">{tournament.results.notice}</p>}
     {outcome.divisions.length ? outcome.divisions.map((division) => <section className="tn-division" key={division.id} aria-labelledby={`tn-division-${division.id}`}>
       <h3 id={`tn-division-${division.id}`}>{division.title}</h3>
       <ResultsPodium placements={division.placements} tournament={tournament} label={`Призовые места · ${division.title}`} />
@@ -67,9 +69,11 @@ function TournamentResults({ tournament, changeView, navigate }) {
     {outcome.final && <div className="tn-final-result"><h3>Гранд-финал</h3><MatchRow tournament={tournament} match={{ ...outcome.final, roundTitle: "Гранд-финал" }} teamLogos={tournament.teamLogos} /></div>}
     <div className="tn-header-actions tn-result-actions">
       <button className="tn-outline" type="button" onClick={() => changeView({ section: "matches", phase: "all" })}>Все матчи</button>
+      {tournament.discipline === 'Dota 2' && <button className="tn-outline" type="button" onClick={() => changeView({ section: 'mvp' })}>MVP турнира и расчёт</button>}
       {tournament.matchday && <InternalLink className="tn-outline" href={tournament.matchday.route}>Matchday</InternalLink>}
       {outcome.final?.replayUrl && <a className="tn-outline" href={outcome.final.replayUrl} target="_blank" rel="noreferrer">Запись финала<ArrowUpRight aria-hidden="true" /></a>}
     </div>
+    <TournamentThanks tournament={tournament} />
   </section>;
 }
 

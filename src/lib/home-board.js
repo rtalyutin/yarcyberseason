@@ -1,5 +1,6 @@
 import { getMatchBroadcastLinks } from './broadcasts.js';
 import { exactStart } from './community.js';
+import { getTournamentOutcome, isArchive } from './tournament.js';
 
 export const HOME_TIME_ZONE = 'Europe/Moscow';
 
@@ -35,6 +36,10 @@ export function getTournamentBroadcasts(tournament) {
 // Only published status/result data advances the selected stream. A clock
 // changes the day-sensitive headline, never LIVE or a match outcome.
 export function getHomeBroadcastBoard(tournament) {
+  if (isArchive(tournament)) {
+    const match = getTournamentOutcome(tournament)?.final || null;
+    return { match, state: 'completed', score: match ? [match.score1, match.score2] : null, previous: null };
+  }
   const active = getTournamentBroadcasts(tournament).filter((match) => !isClosedBroadcast(match));
   const match = active.find((item) => item.status === 'live') || active[0] || null;
   const state = !match ? 'unannounced' : match.status === 'live' ? 'live'
@@ -54,6 +59,7 @@ export function getMoscowDate(value = new Date()) {
 
 export function getHomeBroadcastTitle(tournament, now = new Date()) {
   const { match, state } = getHomeBroadcastBoard(tournament);
+  if (state === 'completed') return 'Турнир завершён';
   if (state === 'live') return 'В эфире';
   if (state === 'pending') return 'Итог уточняется';
   if (state === 'postponed') return 'Матч перенесён';

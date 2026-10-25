@@ -72,7 +72,7 @@ function validateTournamentResults(tournament, declared, registry) {
 }
 
 function validateClosedRegistrationActions(tournament) {
-  if (tournament.registration?.status !== "closed") return [];
+  if (tournament.registration?.status !== "closed" || ['completed', 'archive'].includes(tournament.status)) return [];
   const errors = [];
   const actions = [tournament.primaryAction, tournament.secondaryAction];
   for (const [index, action] of actions.entries()) {

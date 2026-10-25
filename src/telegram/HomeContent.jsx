@@ -26,7 +26,21 @@ export function HomeBroadcastCard({ content, tournamentSlug, navigate, runtime }
     {content.note && <p className="tg-home-note">{content.note}</p>}
     {content.casters?.length > 0 && <p className="tg-home-note">Комментатор: {content.casters.map((caster, index) => <React.Fragment key={caster.name}>{index > 0 && ' · '}{caster.url ? <HomeExternalLink href={caster.url} runtime={runtime}>{caster.name}</HomeExternalLink> : caster.name}</React.Fragment>)}</p>}
     {content.links?.map((link) => <HomeExternalLink className="tg-primary" key={link.platform} href={link.href} runtime={runtime}>{link.label} <span aria-hidden="true">↗</span></HomeExternalLink>)}
-    <button className={content.links?.length ? 'tg-secondary' : 'tg-primary'} onClick={() => navigate(tournamentRoute('matches', tournamentSlug))}>{content.actionLabel}<span aria-hidden="true">→</span></button>
+    <button className={content.links?.length ? 'tg-secondary' : 'tg-primary'} onClick={() => navigate(tournamentRoute(content.actionSection || 'matches', tournamentSlug))}>{content.actionLabel}<span aria-hidden="true">→</span></button>
+  </section>;
+}
+
+export function HomeFinaleCard({ content, navigate, runtime }) {
+  const { featuredTournament: tournament, outcome } = content;
+  const final = outcome?.final;
+  return <section className="tg-home-board tg-home-board--completed" aria-label="Итоги сезона">
+    <p className="tg-kicker">Грандфинал</p>
+    {final ? <><p className="tg-finale-score" aria-label={`Счёт серии ${final.score1}:${final.score2}`}>{final.score1} : {final.score2}</p><p>{final.team1} — {final.team2} · {final.bestOf}</p></> : <p>Итог грандфинала ожидает публикации.</p>}
+    {outcome?.placements.length > 0 && <ol className="tg-finale-podium">{outcome.placements.filter((place) => place.position <= 3).map((place) => <li key={`${place.position}-${place.team}`} value={place.position}>{place.team}</li>)}</ol>}
+    <button className="tg-primary" onClick={() => navigate(tournamentRoute('results', tournament.slug))}>Итоги турнира →</button>
+    {tournament.results?.finalMatchId && <HomeExternalLink className="tg-secondary" href={`${websiteOrigin}/tournaments/${tournament.slug}/matches/${tournament.results.finalMatchId}`} runtime={runtime}>Грандфинал ↗</HomeExternalLink>}
+    {tournament.discipline === 'Dota 2' && <HomeExternalLink className="tg-secondary" href={`${websiteOrigin}/tournaments/${tournament.slug}?section=mvp`} runtime={runtime}>MVP турнира и расчёт ↗</HomeExternalLink>}
+    {content.telegramUrl && <HomeExternalLink className="tg-secondary" href={content.telegramUrl} runtime={runtime}>Следующий анонс — в Telegram ЯКС ↗</HomeExternalLink>}
   </section>;
 }
 

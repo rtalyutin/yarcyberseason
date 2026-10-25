@@ -8,6 +8,8 @@ const featured = (data) => data.stages[0].rounds[0].matches.find((match) => matc
 // Explicitly reset the synthetic state; the real opening is already confirmed.
 const fixture = () => {
   const data = structuredClone(tournament);
+  data.status = "matches_live";
+  delete data.results;
   for (const stage of data.stages) for (const round of stage.rounds || [{ matches: stage.matches || [] }]) for (const match of round.matches || []) {
     if (match.id !== featured(data).id) delete match.broadcastLinks;
   }
@@ -59,20 +61,14 @@ test('a next stream must have canonical links and advances only after confirmed 
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
 });
 
-test('confirmed technical decisions close a stream; the current selection uses October13 without inventing a start time', () => {
+test('confirmed technical decisions close a stream; the completed event retains its final', () => {
   const data = fixture();
   Object.assign(featured(data), { status: 'walkover', score1: 1, score2: 0, scoreKind: 'technical', resultConfirmed: true });
   assert.equal(getHomeBroadcastBoard(data).state, 'unannounced');
   assert.equal(getHomeBroadcastBoard(data).score, null);
   const board = getHomeBroadcastBoard(tournament);
-  assert.equal(board.match.id, 'dota-autumn-swiss-r4-04');
-  assert.equal(board.state, 'scheduled');
-  assert.deepEqual([board.match.team1, board.match.team2], ['Vnext', 'strela team']);
-  assert.equal(board.match.bestOf, 'BO3');
-  assert.equal(board.match.scheduledAt, undefined);
-  assert.equal(board.match.date, '2026-10-13');
-  assert.equal(board.match.time, undefined);
-  assert.deepEqual(getMatchBroadcastLinks(board.match), [{ platform: 'twitch', label: 'Смотреть на Twitch', href: 'https://www.twitch.tv/YarCyberSeason' }]);
-  assert.equal(featured(tournament).resultConfirmed, true);
-  assert.equal(featured(tournament).status, 'completed');
+  assert.equal(board.match.id, 'final-1');
+  assert.equal(board.state, 'completed');
+  assert.deepEqual(board.score, [3, 0]);
+  assert.deepEqual([board.match.team1, board.match.team2], ['Team Leto', 'Easy Gaming']);
 });

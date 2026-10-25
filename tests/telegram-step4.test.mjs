@@ -53,20 +53,20 @@ test("step4 launch wins once; popstate and later transitions never replay it", (
   router.navigate(homeRoute());
   f.address("/tg/tournament");
   f.events.get("popstate")();
-  assert.deepEqual(router.getSnapshot().route, tournamentRoute());
+  assert.deepEqual(router.getSnapshot().route, tournamentRoute("results"));
   assert.equal(reads, 1);
   assert.ok(!JSON.stringify(f.calls).includes("private"));
   assert.ok(!JSON.stringify(f.calls).includes("startapp"));
 });
 test("step4 unsupported paths/sections normalize; unavailable results fall back", () => {
   const f = windowFixture("/tg/teams");
-  const router = createMiniAppRouter(f.win, port(), sections);
+  const router = createMiniAppRouter(f.win, port(), sections.filter((id) => id !== "results"));
   assert.ok(router.getSnapshot().notice);
   assert.deepEqual(router.getSnapshot().route, homeRoute());
   router.navigate(tournamentRoute("results"));
   assert.deepEqual(router.getSnapshot().route, tournamentRoute());
   f.address("/tg/tournament?section=evil&slug=cs2"); f.events.get("popstate")();
-  assert.equal(f.calls.at(-1).url, "/tg/tournament");
+  assert.equal(f.calls.at(-1).url, "/tg/tournament?section=overview");
 });
 test("step4 SDK launch is not replayed after retry/remount on the same page", () => {
   const f = windowFixture("/tg");
@@ -103,12 +103,13 @@ new Function("require", "module", "exports", bundle.outputFiles[0].text)(createR
 const { HomeScreen, TournamentScreen, MiniAppView, MiniAppHeader } = result.exports;
 const model = loadMiniAppModel();
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, { model, navigate() {}, ...props }));
-test("step4 real home renders chosen Dota data and truthful registration", () => {
+test("step4 real home renders the confirmed completed Dota season", () => {
   const html = render(HomeScreen);
   assert.match(html, /9 — 25 октября 2026/);
-  assert.match(html, /Регистрация закрыта/);
-  assert.match(html, /16 \/ 16/);
-  assert.match(html, /Открыть турнир/);
+  assert.match(html, /Team Leto/);
+  assert.doesNotMatch(html, /Регистрация закрыта|Следующий эфир/);
+  assert.match(html, /16 команд/);
+  assert.match(html, /Итоги турнира/);
   assert.ok(!html.includes("forms.yandex"));
   assert.equal((html.match(/<footer/g) || []).length, 1);
 });

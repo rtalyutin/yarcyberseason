@@ -22,6 +22,7 @@ export function getHomeBroadcastContent(tournament) {
     postponed: 'Новая дата будет опубликована после согласования.',
     unannounced: 'Следующий эфир пока не объявлен.',
     unknown: 'Статус матча уточняется.',
+    completed: match ? null : 'Итог грандфинала ожидает публикации.',
   };
   const casters = (match?.casters || []).flatMap((caster) => {
     const name = typeof caster === 'string' ? caster : caster?.name;
@@ -31,18 +32,21 @@ export function getHomeBroadcastContent(tournament) {
   return {
     ...board,
     label: { scheduled: 'Следующий эфир', live: 'В эфире', pending: 'Итог уточняется',
-      postponed: 'Матч перенесён', unannounced: 'Следующий эфир', unknown: 'Статус уточняется' }[state],
+      postponed: 'Матч перенесён', unannounced: 'Следующий эфир', unknown: 'Статус уточняется', completed: 'Турнир завершён' }[state],
     date: match ? state === 'postponed' ? 'Дата уточняется' : matchDateLabel(match) : null,
     format: match?.bestOf || 'Формат уточняется',
     note: notes[state] || (state === 'scheduled' && !match.scheduledAt && !match.time ? 'Время начала уточняется. Трансляция запланирована.' : null),
-    links: getMatchBroadcastLinks(match),
+    links: state === 'completed' ? [] : getMatchBroadcastLinks(match),
     casters,
-    actionLabel: 'Расписание матчей',
+    actionLabel: state === 'completed' ? 'Итоги турнира' : 'Расписание матчей',
+    actionSection: state === 'completed' ? 'results' : 'matches',
   };
 }
 
 export function buildHomeContent({ featuredTournament, seasonTournament, archives, project, now = new Date() }) {
   const title = getHomeBroadcastTitle(featuredTournament, now);
+  const completed = isArchive(featuredTournament);
+  const outcome = getTournamentOutcome(featuredTournament);
   const total = featuredTournament.prizeDistribution?.total;
   const registry = project.partnerRegistry;
   const scoped = (items, scope) => (items || []).filter((partner) =>
@@ -53,12 +57,16 @@ export function buildHomeContent({ featuredTournament, seasonTournament, archive
     kicker: 'YAR CYBER SEASON / 2026',
     headline: title === 'Сегодня открываем сезон.' ? ['Сегодня открываем', 'сезон.'] : [title, ''],
     featuredTournament,
+    completed,
+    outcome,
+    telegramUrl: safeHttps(project.telegramUrl),
     facts: [`${participantCount(featuredTournament)} команд`, ...(total ? [`Призовой фонд ${total}`] : [])],
     broadcast: getHomeBroadcastContent(featuredTournament),
     season: { tournament: seasonTournament, finished: isArchive(seasonTournament),
       match: getHomePlayoffMatch(seasonTournament), outcome: getTournamentOutcome(seasonTournament) },
     archivePreview: archives.slice(0, 3).map((tournament) => ({ tournament, champions: getChampionLabels(tournament) })),
     partners: scoped(registry || project.partners, 'tournament'),
+    finalPartners: completed ? scoped(registry, 'final') : [],
     officialSupport: scoped(registry || project.officialSupport, 'official'),
     contactEmail: project.contactEmail,
   };

@@ -71,7 +71,7 @@ export function serializeMiniAppRoute(route) {
   if (route.screen === "home") return MINI_APP_CONFIG.basePath;
   const params = new URLSearchParams();
   if (route.tournamentSlug && route.tournamentSlug !== MINI_APP_CONFIG.tournamentSlug) params.set("tournament", route.tournamentSlug);
-  if (route.section !== "overview" || route.tournamentSlug) params.set("section", route.section);
+  params.set("section", route.section);
   if (route.teamId) params.set("team", route.teamId);
   const suffix = params.size ? `?${params}` : "";
   return `${MINI_APP_CONFIG.basePath}/tournament${suffix}`;
@@ -107,7 +107,7 @@ export function resolveMiniAppLocation({ pathname, search = "", availableSection
       notice: "Этот раздел недоступен в мини-приложении",
     };
   }
-  const defaultSection = slug !== MINI_APP_CONFIG.tournamentSlug ? (available.has("results") ? "results" : available.has("standings") ? "standings" : "overview") : "overview";
+  const defaultSection = available.has("results") ? "results" : slug !== MINI_APP_CONFIG.tournamentSlug && available.has("standings") ? "standings" : "overview";
   const requested = params.get("section") || defaultSection;
   const section = isSectionId(requested) && available.has(requested) ? requested : "overview";
   const requestedTeam = params.get("team");

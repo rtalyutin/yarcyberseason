@@ -234,6 +234,8 @@ test("previous revision is retained, conflicting map is rejected, malformed snap
 test("actual tournament UI renders score, map winner, kills, duration and source", async () => {
   const snapshot = collectDotaResults(tournament, [first]).snapshot;
   const updated = applyDotaSnapshot(tournament, snapshot);
+  updated.status = "matches_live";
+  delete updated.results;
   updated.stages = updated.stages.filter((stage) => stage.type === "swiss");
   updated.stages[0].rounds[0].matches = updated.stages[0].rounds[0].matches.filter((match) => match.id === "dota-autumn-swiss-r1-04");
   const bundle = await build({ entryPoints: ["src/components/TournamentNavigator.jsx"], bundle: true,

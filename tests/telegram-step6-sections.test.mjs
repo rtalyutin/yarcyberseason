@@ -149,9 +149,9 @@ test("step6 navigation exposes only implemented sections and rendering is read-o
   const before = structuredClone(real);
   const html = render(real, "rules");
   const nav = html.match(/<nav.*?<\/nav>/s)[0];
-  assert.equal((nav.match(/<button/g) || []).length, 7);
+  assert.equal((nav.match(/<button/g) || []).length, 8);
   assert.match(nav, /aria-current="page"[^>]*>Формат/);
-  assert.ok(nav.includes("Swiss") && nav.includes("Плей-офф") && !nav.includes("Итоги"));
+  assert.ok(nav.includes("Swiss") && nav.includes("Плей-офф") && nav.includes("Итоги"));
   render(real, "schedule");
   assert.deepEqual(real, before);
 });

@@ -29,8 +29,10 @@ import { BroadcastLinks, MatchCasters } from "./components/BroadcastLinks.jsx";
 import { getTournamentBroadcasts, isClosedBroadcast } from "./lib/home-board.js";
 import "./content-refresh.css";
 import "./home-partners.css";
+import "./postseason.css";
 import { SiteHeader } from "./components/SiteHeader.jsx";
 import PlayerIntakePage from './components/PlayerIntakePage.jsx';
+import { SeasonFinale, TournamentThanks } from './components/SeasonFinale.jsx';
 import { applyPageMetadata } from "./lib/page-metadata.js";
 import {
   archivedTournaments,
@@ -133,7 +135,7 @@ function Footer({ navigate }) {
         <a href="/about#requisites">Контакты и реквизиты</a>
         <a href="/webmcp">Данные для ИИ</a>
         <a href={projectLegal.privacyUrl} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
-        <a href={`/tournaments/${nextTournament.slug}#format`}>Правила участия</a>
+        <a href={`/tournaments/${currentTournament.slug}#format`}>Регламент турнира</a>
       </nav>
     </div>
     <p className="legal-copyright">{projectLegal.copyright}</p>
@@ -174,23 +176,23 @@ function HomeGameMark({ src, label }) {
 }
 
 function HomeBroadcastBoard({ tournament, navigate }) {
-  const { match, state, label, date, format, note, links } = getHomeBroadcastContent(tournament);
-  const schedule = tournament.matchday?.route || `/tournaments/${tournament.slug}?section=matches`;
+  const { match, state, label, date, format, note, links, score } = getHomeBroadcastContent(tournament);
+  const schedule = state === 'completed' ? `/tournaments/${tournament.slug}?section=results` : tournament.matchday?.route || `/tournaments/${tournament.slug}?section=matches`;
   return <aside className={`home-broadcast-board home-broadcast-board--${state}`} aria-label="Табло сезона">
     <div className="home-board-topline"><span className="home-board-signal" aria-hidden="true" /><p>{label}</p><span>YCS / 2026</span></div>
     {match && <>
       <p className="home-board-date">{date} · {format}</p>
       <div className="home-board-teams">
         <TeamIdentity tournament={tournament} team={match.team1} />
-        <strong aria-label="Против">VS</strong>
+        <strong aria-label={score ? `Счёт серии ${score.join(':')}` : 'Против'}>{score ? score.join(':') : 'VS'}</strong>
         <TeamIdentity tournament={tournament} team={match.team2} align="end" />
       </div>
       <MatchCasters match={match} />
     </>}
     {note && <p className="home-board-note">{note}</p>}
     <div className="home-board-actions">
-      <BroadcastLinks match={match} className="button button--primary" />
-      <ActionButton action={{ label: 'Открыть Matchday', target: schedule }} navigate={navigate} variant={links.length ? 'secondary' : 'primary'} />
+      {state !== 'completed' && <BroadcastLinks match={match} className="button button--primary" />}
+      <ActionButton action={{ label: state === 'completed' ? 'Итоги турнира' : 'Открыть Matchday', target: schedule }} navigate={navigate} variant={links.length ? 'secondary' : 'primary'} />
     </div>
   </aside>;
 }
@@ -213,11 +215,11 @@ function HomePage({ navigate, theme }) {
   return (
     <>
       <main className="home-page">
-        <section className="home-conversion" aria-labelledby="home-title">
+        <section className={`home-conversion${home.completed ? ' home-conversion--completed' : ''}`} aria-labelledby="home-title">
           <ThemeArtwork theme={theme} imageRef={heroImageRef} />
           {theme === "cs2" && <ClickHighlight imageRef={heroImageRef} />}
           {theme === "dota2" && <TechiesEgg />}
-          <div className="home-conversion-inner container">
+          {home.completed ? <SeasonFinale content={home} /> : <div className="home-conversion-inner container">
             <div className="home-conversion-copy">
               <p className="home-kicker">{home.kicker}</p>
               <h1 id="home-title">{home.headline[0]}{home.headline[1] && <><br /><span>{home.headline[1]}</span></>}</h1>
@@ -235,7 +237,7 @@ function HomePage({ navigate, theme }) {
               </ul>
               <HomeBroadcastBoard tournament={featuredTournament} navigate={navigate} />
             </div>
-          </div>
+          </div>}
         </section>
 
         <section className="home-season container" aria-label="Завершённый турнир">
@@ -279,6 +281,7 @@ function HomePage({ navigate, theme }) {
             <a className="home-all-results" href="/results" onClick={(event) => followPublicLink(event, "/results", navigate)}>Все результаты <ArrowUpRight weight="bold" aria-hidden="true" /></a>
           </aside>
         </section>
+        {home.completed && <div className="container"><TournamentThanks tournament={featuredTournament} /></div>}
         <section className="home-partners home-partners--brand-row container" aria-labelledby="home-partners-title">
           <div className="home-partners-heading">
             <h2 id="home-partners-title">Партнёры турнира</h2>
@@ -736,7 +739,7 @@ function BroadcastsPage({ navigate }) {
   const broadcasts = getTournamentBroadcasts(currentTournament);
   const current = getHomeBroadcastContent(currentTournament);
   const history = broadcasts.filter(isClosedBroadcast);
-  const upcoming = broadcasts.filter((match) => !isClosedBroadcast(match) && match.id !== current.match?.id);
+  const upcoming = isArchive(currentTournament) ? [] : broadcasts.filter((match) => !isClosedBroadcast(match) && match.id !== current.match?.id);
   const card = (match, completed) => <article className="broadcast-match-card" key={match.id} data-match-id={match.id}>
     <p className="eyebrow">{match.status === 'cancelled' ? 'Эфир отменён' : completed ? 'Завершённый эфир' : match.status === 'live' ? 'В эфире' : 'Назначенный эфир'}</p>
     <h3>{match.team1} — {match.team2}</h3><p>{matchDateLabel(match)}{match.bestOf && ` · ${match.bestOf}`}</p>
@@ -831,7 +834,7 @@ export function Prototype({ initialPath = "/" }) {
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;
     if (path === "/partners") return <PartnersPage navigate={navigate} />;
     if (path.replace(/\/$/, "") === "/about") return <AboutPage />;
-    if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament} navigate={navigate} theme={theme} />;
+    if (path === "/tournaments/next") return <TournamentPage tournament={nextTournament || currentTournament} navigate={navigate} theme={theme} />;
     const matchdayRoute = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday\/?$/);
     const matchdayTournament = matchdayRoute && getTournament(matchdayRoute[1]);
     if (matchdayTournament?.matchday) return <MatchdayPage tournament={matchdayTournament} navigate={navigate} />;
@@ -848,7 +851,7 @@ export function Prototype({ initialPath = "/" }) {
 
   return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>
     {dotaResults.revision > 0 && dotaResults.availability === "unavailable" && (path === "/" || path.includes("dota2-autumn-2026") ||
-      nextTournament.participants.some((participant) => path === `/teams/${participant.teamId}`)) &&
+      currentTournament.participants?.some((participant) => path === `/teams/${participant.teamId}`)) &&
       <p className="dota-results-notice" role="status">Результаты могут обновляться с задержкой.</p>}
     {page}
   </PageFrame></NavigationContext.Provider>;

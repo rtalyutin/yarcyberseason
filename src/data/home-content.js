@@ -4,8 +4,8 @@ import { buildHomeContent } from '../lib/home-content.js';
 
 // Read on each render so an accepted results overlay reaches both homes.
 export function loadHomeContent(now = new Date()) {
-  const seasonTournament = archivedTournaments.find((tournament) => tournament.discipline === 'Counter-Strike 2')
-    || archivedTournaments[0] || currentTournament;
+  const seasonTournament = archivedTournaments.find((tournament) => tournament.id !== currentTournament.id)
+    || currentTournament;
   return buildHomeContent({ featuredTournament: currentTournament, seasonTournament,
     archives: archivedTournaments, project: projectContent, now });
 }

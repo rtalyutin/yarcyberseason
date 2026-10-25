@@ -32,13 +32,13 @@ test("the route matrix has only home and one tournament screen", () => {
   const cases = [
     ["/tg", "", { screen: "home" }, "/tg", false],
     ["/tg/", "", { screen: "home" }, "/tg", true],
-    ["/tg/tournament", "", { screen: "tournament", section: "overview" }, "/tg/tournament", false],
+    ["/tg/tournament", "", { screen: "tournament", section: "overview" }, "/tg/tournament?section=overview", true],
     ["/tg/tournament", "?section=participants", { screen: "tournament", section: "participants" }, "/tg/tournament?section=participants", false],
-    ["/tg/tournament", "?section=unknown", { screen: "tournament", section: "overview" }, "/tg/tournament", true],
-    ["/tg/tournament", "?tournament=cs2-august-2026", { screen: "tournament", section: "overview" }, "/tg/tournament", true],
+    ["/tg/tournament", "?section=unknown", { screen: "tournament", section: "overview" }, "/tg/tournament?section=overview", true],
+    ["/tg/tournament", "?tournament=cs2-august-2026", { screen: "tournament", section: "overview" }, "/tg/tournament?section=overview", true],
   ];
   for (const [pathname, search, route, canonicalUrl, needsReplace] of cases) {
-    const resolved = resolveMiniAppLocation({ pathname, search });
+    const resolved = resolveMiniAppLocation({ pathname, search, availableSections: SECTION_IDS.filter((id) => id !== "results") });
     assert.deepEqual(resolved.route, route);
     assert.equal(resolved.canonicalUrl, canonicalUrl);
     assert.equal(resolved.needsReplace, needsReplace);
@@ -53,7 +53,7 @@ test("sections and startapp stay inside the same selected tournament", () => {
   for (const section of SECTION_IDS) {
     const route = tournamentRoute(section);
     if (section !== "overview") assert.deepEqual(routeFromStartTarget(section), route);
-    assert.equal(serializeMiniAppRoute(route), section === "overview" ? "/tg/tournament" : `/tg/tournament?section=${section}`);
+    assert.equal(serializeMiniAppRoute(route), `/tg/tournament?section=${section}`);
   }
   assert.deepEqual(routeFromStartTarget("tournament"), { screen: "tournament", section: "overview" });
   assert.deepEqual(routeFromStartTarget("home"), { screen: "home" });

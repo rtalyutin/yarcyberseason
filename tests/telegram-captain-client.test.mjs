@@ -139,11 +139,11 @@ new Function("require", "module", "exports", bundle.outputFiles[0].text)(createR
 const { HomeScreen, TournamentScreen } = module.exports;
 const current = loadMiniAppModel();
 
-test("cabinet entry is absent without verified access and absent in archives", () => {
+test("cabinet access stays verified for its tournament and absent in other archives", () => {
   const home = (captainAvailable) => renderToStaticMarkup(React.createElement(HomeScreen, { model: current, captainAvailable, navigate() {} }));
   assert.doesNotMatch(home(false), /Кабинет капитана/);
   assert.match(home(true), /Кабинет капитана/);
-  const archive = loadArchivedModels()[0];
+  const archive = loadArchivedModels().find((model) => model.tournament.slug !== current.tournament.slug);
   const html = renderToStaticMarkup(React.createElement(TournamentScreen, { model: archive, runtime: {}, route: tournamentRoute("overview", archive.tournament.slug), captainAccess: { authorized: true }, navigate() {} }));
   assert.doesNotMatch(html, /Кабинет капитана/);
 });

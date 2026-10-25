@@ -4,6 +4,7 @@ import { loadTelegramBridge } from "./runtime/load-bridge.js";
 import { createRuntime } from "./runtime/create-runtime.js";
 import { createBrowserRuntime } from "./runtime/browser.js";
 import "./styles/miniapp.css";
+import "../postseason.css";
 
 export async function mountMiniApp(root) {
   root.render(<main className="tg-app"><p role="status">Загружаем турнир…</p></main>);

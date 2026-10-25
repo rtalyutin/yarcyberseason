@@ -15,13 +15,13 @@ const tournamentSlugs = [...models.keys()];
 const availableSections = (slug) => models.get(slug).sections.map((section) => section.id);
 const resolve = (search) => resolveMiniAppLocation({ pathname: "/tg/tournament", search, availableSections, tournamentSlugs });
 
-test("archive catalog contains only the four published completed tournaments; current stays isolated", () => {
-  assert.deepEqual(archives.map((model) => model.tournament.slug), ["cs2-august-2026", "dota2-main-2026", "cs2-february-2026", "dota2-qual-2026"]);
-  assert.deepEqual(archives.map((model) => model.matches.length), [45, 29, 33, 13]);
-  assert.equal(current.matches.length, 30);
-  assert.equal(current.matches.filter((match) => match.result.confirmed).length, 24);
+test("archive catalog contains all five completed tournaments, newest first", () => {
+  assert.deepEqual(archives.map((model) => model.tournament.slug), ["dota2-autumn-2026", "cs2-august-2026", "dota2-main-2026", "cs2-february-2026", "dota2-qual-2026"]);
+  assert.deepEqual(archives.map((model) => model.matches.length), [47, 45, 29, 33, 13]);
+  assert.equal(current.matches.length, 47);
+  assert.equal(current.matches.filter((match) => match.result.confirmed).length, 47);
   assert.equal(current.participants.length, 16);
-  assert.equal(current.results, null);
+  assert.equal(current.results.placements[0].team, "Team Leto");
   for (const model of models.values()) {
     assert.deepEqual(validateMiniAppModel(model), []);
     assert.ok(model.matches.every((match) => match.tournamentId === model.tournament.id));
@@ -29,7 +29,7 @@ test("archive catalog contains only the four published completed tournaments; cu
       assert.equal(action.route.tournamentSlug || current.tournament.slug, model.tournament.slug);
     }
   }
-  const mixed = structuredClone(current); mixed.matches.push(archives[0].matches[0]);
+  const mixed = structuredClone(current); mixed.matches.push(archives[1].matches[0]);
   assert.ok(validateMiniAppModel(mixed).some((error) => error.includes("another tournament")));
   assert.throws(() => loadMiniAppModel("unpublished"), /Unknown/);
 });
@@ -44,7 +44,7 @@ test("archive direct links, explicit overview and each available section retain 
       assert.deepEqual(resolve(url.search).route, route);
     }
   }
-  assert.deepEqual(resolve("?tournament=unknown&section=results").route, tournamentRoute());
+  assert.deepEqual(resolve("?tournament=unknown&section=results").route, tournamentRoute("results"));
   assert.deepEqual(resolve("?tournament=dota2-qual-2026&section=playoffs").route, tournamentRoute("overview", "dota2-qual-2026"));
 });
 
@@ -77,22 +77,23 @@ test("archive cards invoke their own destination and real screen headings distin
   const clicked = [];
   const element = ArchiveList({ archives, navigate: (route) => clicked.push(route) });
   element.props.children[1].props.children.forEach((item) => item.props.children.props.onClick());
-  assert.deepEqual(clicked.map((route) => route.tournamentSlug), archives.map((model) => model.tournament.slug));
+  assert.deepEqual(clicked.map((route) => route.tournamentSlug || current.tournament.slug), archives.map((model) => model.tournament.slug));
   const home = renderToStaticMarkup(React.createElement(HomeScreen, { model: current, archives, navigate() {} }));
-  assert.match(home, /Прошедшие турниры/); assert.match(home, /16 \/ 16/);
+  assert.match(home, /Прошедшие турниры/); assert.match(home, /16 команд/);
   for (const model of archives) {
     const screen = TournamentScreen({ model, route: tournamentRoute("overview", model.tournament.slug), navigate: (route) => clicked.push(route) });
     screen.props.children[1].props.children.forEach((button) => button.props.onClick());
-    assert.ok(clicked.slice(-model.sections.length).every((route) => route.tournamentSlug === model.tournament.slug));
+    assert.ok(clicked.slice(-model.sections.length).every((route) => (route.tournamentSlug || current.tournament.slug) === model.tournament.slug));
     assert.match(render(model, "participants"), /Участник турнира/);
     assert.match(render(model, "participants"), /Записей команд/);
-    assert.match(render(model, "participants"), /Список может быть неполным/);
+    if (model.tournament.slug !== current.tournament.slug) assert.match(render(model, "participants"), /Список может быть неполным/);
+    else assert.doesNotMatch(render(model, "participants"), /Список может быть неполным|Заявлена/);
     assert.doesNotMatch(render(model, "participants"), /Регистрация|Текущий турнир/);
   }
 });
 
 test("real archive tables, partial playoffs, unknown year and confirmed final preserve source meaning", () => {
-  const [cs2, main, february, qual] = archives;
+  const [, cs2, main, february, qual] = archives;
   assert.match(render(cs2, "results"), /PIVNAYA KEGA/);
   const final = cs2.matches.find((match) => match.id === cs2.results.finalMatchId);
   assert.deepEqual(final.result.score, [2, 3]); assert.equal(final.result.maps.length, 0);

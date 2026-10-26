@@ -3,6 +3,7 @@ import { currentTournament, getTournament } from '../data/tournaments/index.js';
 import { getConfirmedPartners, getMatchPartners, getPartnerScopeLabel, projectContent } from '../data/project-content.js';
 import { audienceSourceIsStale, partnershipMailto, teamParticipationCount, useAudienceSnapshot, usePartnerProject } from '../lib/audience-client.js';
 import { partnerDisciplineVisuals, partnerLogo } from '../data/partner-visuals.js';
+import twitchAnalytics from '../data/twitch-analytics.json';
 import '../partners-content.css';
 
 const number = (value) => typeof value === 'number' ? new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 1 }).format(value) : null;
@@ -17,6 +18,46 @@ function Metric({ label, value, detail }) {
     <dt>{label}</dt><dd className={formatted === null ? 'partner-metric-empty' : undefined}>{formatted ?? 'Нет данных'}</dd>
     {detail && <small>{detail}</small>}
   </div>;
+}
+
+function TwitchAudience({ source, availability }) {
+  const { totals, final, period, importedOn, channelUrl } = twitchAnalytics;
+  const stale = audienceSourceIsStale(source, availability);
+  return <article className="partner-audience-source" data-audience-platform="twitch">
+    <div className="partner-source-heading"><TwitchLogo size={28} aria-hidden="true" /><h3>Twitch YarCyberSeason</h3><span className="partner-source-status">Выгрузка Twitch · обновлено {date(importedOn)}</span></div>
+    <p className="partner-source-date">{date(period.from)} — {date(period.to)} · {number(totals.broadcastDays)} дня с эфиром</p>
+    <dl className="partner-metrics">
+      <Metric label="Просмотры прямых трансляций" value={totals.liveViews} detail="За указанный период" />
+      <Metric label="Зритель-часы" value={totals.minutesWatched / 60} />
+      <Metric label="Часы эфира" value={totals.minutesStreamed / 60} />
+      <Metric label="Новые фолловеры" value={totals.newFollowers} detail="За период, не общий размер канала" />
+      <Metric label="Средний онлайн" value={totals.minutesWatched / totals.minutesStreamed} detail="С учётом длительности эфиров" />
+      <Metric label="Пиковый онлайн" value={totals.peakViewers} />
+    </dl>
+    <h4>Гранд-финал · {date(final.date)}</h4>
+    <dl className="partner-metrics">
+      <Metric label="Просмотры трансляции" value={final.liveViews} />
+      <Metric label="Уникальные зрители за день" value={final.uniqueViewers} />
+      <Metric label="Средний онлайн" value={final.averageViewers} />
+      <Metric label="Пиковый онлайн" value={final.peakViewers} />
+    </dl>
+    <p className="partner-source-note">{Math.floor(final.minutesStreamed / 60)} ч {final.minutesStreamed % 60} мин эфира · {number(final.chatMessages)} сообщения в чате · {number(final.newFollowers)} новых фолловера.</p>
+    {source?.metrics.followers != null && <>
+      <dl className="partner-metrics partner-metrics--single"><Metric label="Подписчики канала (followers)" value={source.metrics.followers} /></dl>
+      <p className="partner-source-date">{stale ? 'Последний доступный срез' : 'Внешний источник'} · получено {date(source.fetchedAt, true)} МСК</p>
+    </>}
+    <details className="partner-source-method">
+      <summary>Источник и методика</summary>
+      <div>
+        <a href={channelUrl} target="_blank" rel="noopener noreferrer">Открыть канал <ArrowUpRight aria-hidden="true" /></a>
+        <p>Источник — дневная выгрузка аналитики Twitch, предоставленная организатором {date(importedOn)}. Период и дата финала соответствуют датам в CSV. 26 октября — неполный день на момент выгрузки.</p>
+        <p>Просмотры, минуты просмотра и эфира, новые фолловеры суммируются по дням. Зритель-часы и часы эфира — минуты, делённые на 60. Средний онлайн за период — все минуты просмотра, делённые на все минуты эфира; пик — максимум дневных пиков.</p>
+        <p>Просмотры включают повторные заходы. Дневных уникальных зрителей не складываем: {number(final.uniqueViewers)} — значение только за {date(final.date)}. Итоги финала уже входят в общий период. Статистика других Twitch-каналов в выгрузку не входит.</p>
+        <p>За период: {number(totals.chatMessages)} сообщений в чате, {number(totals.clipsCreated)} созданных клипов и {number(totals.clipViews)} просмотров клипов. Финал: {number(final.chatParticipants)} участника чата.</p>
+        {source?.method && <p>Текущие фолловеры: {source.method}</p>}
+      </div>
+    </details>
+  </article>;
 }
 
 function AudienceSource({ source, availability, platform }) {
@@ -131,6 +172,10 @@ export function PartnersPage({ tournament = currentTournament }) {
   const cs2 = getTournament('cs2-august-2026');
   const final = cs2?.stages?.flatMap((stage) => stage.rounds ? stage.rounds.flatMap((round) => round.matches || []) : stage.matches || []).find((match) => match.id === cs2.results?.finalMatchId && match.resultConfirmed && match.published !== false);
   const twitchSources = snapshot?.sources.filter((source) => source.platform === 'twitch') || [];
+  const primaryTwitch = twitchSources.find((source) => {
+    const url = new URL(source.url);
+    return url.hostname.replace(/^www\./, '') === 'twitch.tv' && url.pathname.toLowerCase().replace(/\/$/, '') === `/${twitchAnalytics.channel}`;
+  });
   const telegram = snapshot?.sources.find((source) => source.id === 'telegram-dota2yar');
   const totalPlanned = project?.initiatives.reduce((sum, item) => sum + item.tournaments, 0);
   const contactHref = partnershipMailto(projectContent.contactEmail);
@@ -162,7 +207,8 @@ export function PartnersPage({ tournament = currentTournament }) {
       <p className="partner-data-status" role="status">{audienceAvailability === 'loading' ? 'Получаем статистику из внешнего источника…' : audienceAvailability === 'stale' ? 'Источник не обновился. Последний полученный срез сохранён.' : 'У каждого показателя — источник, дата и способ расчёта.'}</p>
       <div className="partner-audience-grid">
         <AudienceSource source={telegram} availability={audienceAvailability} platform="telegram" />
-        {twitchSources.length ? twitchSources.map((source) => <AudienceSource key={source.id} source={source} availability={audienceAvailability} platform="twitch" />) : <AudienceSource availability={audienceAvailability} platform="twitch" />}
+        <TwitchAudience source={primaryTwitch} availability={audienceAvailability} />
+        {twitchSources.filter((source) => source !== primaryTwitch).map((source) => <AudienceSource key={source.id} source={source} availability={audienceAvailability} platform="twitch" />)}
       </div>
     </section>
 

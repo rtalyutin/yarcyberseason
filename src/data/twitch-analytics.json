@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "channel": "yarcyberseason",
+  "channelUrl": "https://www.twitch.tv/yarcyberseason",
+  "importedOn": "2026-10-26",
+  "source": {
+    "kind": "Twitch channel analytics CSV supplied by organizer",
+    "fileName": "Аналитика_канала_и_доход_за_день_с_Jan_1_2026_по_Oct_26_2026.csv",
+    "sha256": "f4309d406cf0fdd4793234e0bb8c95ba803ff2e8020d24ea9767783abcb9b521",
+    "dailyRows": 299
+  },
+  "period": {
+    "from": "2026-01-01",
+    "to": "2026-10-26"
+  },
+  "totals": {
+    "liveViews": 16115,
+    "minutesStreamed": 9147,
+    "minutesWatched": 128754,
+    "newFollowers": 177,
+    "peakViewers": 113,
+    "broadcastDays": 62,
+    "chatMessages": 4891,
+    "clipsCreated": 39,
+    "clipViews": 388
+  },
+  "final": {
+    "date": "2026-10-25",
+    "liveViews": 2749,
+    "uniqueViewers": 954,
+    "averageViewers": 73.45,
+    "peakViewers": 113,
+    "minutesStreamed": 224,
+    "minutesWatched": 16452,
+    "newFollowers": 4,
+    "chatParticipants": 23,
+    "chatMessages": 244
+  }
+}

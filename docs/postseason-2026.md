@@ -123,3 +123,30 @@ seven failures reproduced on untouched parent4b8da4ac. No scoring/runtime code
 changes. Production activation and published MVP readback are separate gates.
 The Timeweb control-panel page is currently unavailable in the cloud browser;
 no restart or settings mutation has been issued.
+
+## Grand-final MVP — production verification, 26 October2026
+
+The follow-up screenshot showed correct map scores but no series MVP. Those
+cards consume confirmed tournament results, while player ratings consume the
+separate published MVP snapshot. The initial read still showed revision158.
+During verification the existing collector processed the corrected fixtures:
+cache4343 at09:21:44.638Z marks all five requested maps ready with ten players
+each and no ingestion-pending IDs. Public MVP159 has the same timestamp and
+all three grand-final maps ready. It exactly matches the independently checked
+local projection (every player score, map status and ingestion field; only
+publication revision/timestamp and the explicit empty correction list differ).
+
+LIVE UI PASS: the published final-1 page in Dota theme renders uma turman,
+Team Leto,117.58, all3maps counted, with Kez40.52/Lifestealer16.77/Tiny60.28.
+The wait-for-maps notice is absent. Map4/5 remain unplayed. Screenshot:
+evidence/grand-final-mvp-live.jpg. URL:
+https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/matches/final-1/
+
+The existing pipeline completed the request. A bundled fallback was considered
+but NOT implemented because fresh public data and the actual page now pass.
+No additional runtime, formula, access or S3 writer changes. Source eaa1d616
+and collector package ee5bff9b are the published fix. Runtime health readback
+in this follow-up timed out/returned an empty body; no fresh fingerprint claim
+is made. Public calculation and real browser rendering are verified directly.
+TASK_STATE: grand-final MVP EXECUTED/VERIFIED; older estimated/pending maps
+elsewhere in the tournament retain their existing provisional treatment.

@@ -2530,7 +2530,9 @@
                   "durationSeconds": 3747,
                   "url": "https://www.opendota.com/matches/9061715579"
                 }
-              ]
+              ],
+              "windowStart": "2026-10-25T00:00:00+03:00",
+              "windowEnd": "2026-10-26T00:00:00+03:00"
             }
           ]
         }

@@ -86,3 +86,40 @@ Localhost, actual mobile viewport and genuine Telegram checks remain unavailable
 UNRESOLVED: final MVP inputs; separate Serverless static publication requires
 the existing CLI credential, absent from this environment. No hosting, bot,
 access settings or remote modules were changed.
+
+## Grand-final MVP ingestion — 26 October 2026
+
+User request: ingest the grand-final map results so MVP can be calculated.
+Public MVP revision158 still has five ingestion-pending IDs. Live collector
+fingerprint f2e5881701e4c33e616f11c46ef53a15711703750e2c0d91e6008185dbf119e0
+matches Tg-mcp f19fd8c9, older than its main4b8da4ac. Cache revision4340
+contains fully parsed version22 sources for all five maps; each is unmatched.
+Browser OpenDota readback independently confirms all five parsed ten-player
+maps (three grand-final and two lower-final).
+
+There are two causes: the active collector still has unresolved finalist data,
+and final-1 has no individual appointment so the importer assumes18:00MSK.
+Map9061493228 actually started25October17:45:54MSK. An explicit matching
+window for the published calendar day (25October00:00–26October00:00MSK)
+now admits all three maps without inventing an appointment. Only windowStart
+and windowEnd change in the website data. Transfer the exact completed data to
+the existing single Tg-mcp writer and update both shared-data manifests.
+No scoring, estimates, access configuration, new writer or unrelated services.
+
+Verification: replay the existing collector against saved cache4340. All five
+maps become ready with50 player-map records and ingestionPendingMatchIds=[];
+previous real contributions survive byte-for-byte. Before the window correction
+the first grand-final map has no fixture; foreign team IDs still have no fixture.
+An independent Python Fraction calculation from raw targets/healing/ward logs
+matches all50 exact scores. Grand-final projection is complete: uma turman,
+account1428538045,117.58 across3maps. This is a LOCAL verification until S3 readback.
+Three older pending cache entries remain; existing estimated/provisional rules
+are preserved. The tournament's projected leader is Perec_amigo694.31.
+
+Website build PASS. Targeted source tests59/66 (all seven failures reproduced
+on untouched parent7987c8c, not a clean-suite claim). Tg-mcp typecheck, build
+and both manifest checks PASS; targeted runtime/captain/MVP86/93, with all
+seven failures reproduced on untouched parent4b8da4ac. No scoring/runtime code
+changes. Production activation and published MVP readback are separate gates.
+The Timeweb control-panel page is currently unavailable in the cloud browser;
+no restart or settings mutation has been issued.

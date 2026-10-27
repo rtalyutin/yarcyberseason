@@ -1,22 +1,16 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { List, X } from "@phosphor-icons/react";
 import { ThemeSwitcher } from "./ThemeSwitcher.jsx";
+import { getSiteNavigation } from '../lib/site-navigation.js';
 import "../site-header.css";
 
-export function SiteHeader({ path, navigate, theme, onThemeChange, matchdayRoute, fixedTheme = false }) {
+export function SiteHeader({ path, navigate, theme, onThemeChange, fixedTheme = false }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef(null);
   const toggleRef = useRef(null);
   const panelId = useId();
   const currentPath = path.replace(/\/$/, "") || "/";
-  const links = [
-    { label: "Турниры", href: "/", active: currentPath === "/" || (currentPath.startsWith("/tournaments/") && currentPath !== matchdayRoute) },
-    { label: "Matchday", href: matchdayRoute },
-    { label: "Архив", href: "/results" },
-    { label: "Трансляции", href: "/broadcasts" },
-    { label: "Партнёрам", href: "/partners" },
-    { label: "О проекте", href: "/about" },
-  ];
+  const links = getSiteNavigation(currentPath);
 
   useEffect(() => { setMenuOpen(false); }, [path]);
 
@@ -56,6 +50,10 @@ export function SiteHeader({ path, navigate, theme, onThemeChange, matchdayRoute
   ));
 
   return <header className="ycs-header" ref={headerRef}>
+    <a className="site-skip-link" href="#page-content" onClick={(event) => {
+      const content = document.getElementById('page-content');
+      if (content) { event.preventDefault(); content.focus(); content.scrollIntoView({ block: 'start' }); }
+    }}>Перейти к содержимому</a>
     <div className="ycs-header-row">
       <a className="ycs-header-brand" href="/" onClick={(event) => follow(event, "/")} aria-label="YCS — на главную">
         <img src="/assets/ycs-logo.jpg" alt="ЯКС" width="92" height="42" />

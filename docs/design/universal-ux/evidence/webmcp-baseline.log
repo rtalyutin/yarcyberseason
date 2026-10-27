@@ -1,0 +1,38 @@
+✔ all six tools read the shared snapshot and reject writes/invalid input (1.448764ms)
+✔ every public match is reachable once through pagination and detailed read (31.528397ms)
+✖ confirmed final, unknown scores, yearless dates and published Swiss rounds keep their meaning (2.224382ms)
+✔ aliases, historical names and disciplines resolve without duplicate teams (8.962108ms)
+✔ team rosters stay attached to their published tournament and URLs use the main domain (1.01509ms)
+✔ callers cannot mutate the source through nested response objects (29.68509ms)
+✔ published context and source attribution remain attached to every match (5.079315ms)
+✔ unpublished matches are absent from lists, detail, and tournament stage references (0.639504ms)
+✔ unsupported browser keeps the ordinary page usable (0.288675ms)
+✔ StrictMode async registration is serialized and unmount removes all tools (7.659643ms)
+✔ partial registration failure rolls back tools and reports the failure (0.781268ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 191.528528
+
+✖ failing tests:
+
+test at ../../../../tmp/ycs-webmcp-baseline.eaZbig/tests/webmcp.test.mjs:52:1
+✖ confirmed final, unknown scores, yearless dates and published Swiss rounds keep their meaning (2.224382ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  47 !== 30
+
+      at TestContext.<anonymous> (file:///tmp/ycs-webmcp-baseline.eaZbig/tests/webmcp.test.mjs:61:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 47,
+    expected: 30,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

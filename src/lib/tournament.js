@@ -100,7 +100,7 @@ export function getTournamentModel(tournament, { includeEmptyMatches = false } =
   }
   return { stages, sections, matches, filters, finishedCount: matches.filter(isFinished).length,
     defaultSection: getTournamentOutcome(tournament) ? "results" : matches.length || includeEmptyMatches ? "matches" : sections.find((section) => section.id === "info")?.id || sections[0]?.id,
-    defaultPhase: filters.some((filter) => filter.id === "playoffs") ? "playoffs" : "all" };
+    defaultPhase: "all" };
 }
 
 export function resolveTournamentView(model, search = "", hash = "") {

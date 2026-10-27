@@ -1,0 +1,53 @@
+✔ changing presentation preserves match maps, statistics, awards and tournament navigation (2625.665591ms)
+✔ previous day follows selected date, including completed days and month boundaries (26.510523ms)
+✔ previous results come from full history even when live date tabs hide older dates (1.069412ms)
+✔ source-order display keeps scores and map scores tied to the correct teams (0.382296ms)
+✔ completed matchday opens the grand final and retains every playoff date (2.77408ms)
+✔ winner-first display reverses map scores without modifying the source (0.468797ms)
+✔ technical wins and unavailable map scores are not fabricated (0.202064ms)
+✔ completed tournament retains its final result (2.250571ms)
+✔ direct stage matches work and absent dates remain absent (0.600635ms)
+WebSocket server error: Port 24678 is already in use
+✔ profile direct route has a shared site frame, private metadata and no personal prerender data (3117.959506ms)
+WebSocket server error: Port 24678 is already in use
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ every tournament has a direct catalogue route and contextual matches stay in its own tournament (3060.397386ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ catalogue filters, URL restoration and empty-state reset preserve the correct records (43.118428ms)
+✔ catalogue follows replacement of the mutable live tournament record on rerender (18.267236ms)
+✔ catalogue and archive render through shared app shell with reachable skip target and metadata (28.569512ms)
+✔ unknown tournament routes do not claim an unrelated current tournament (14.020641ms)
+✔ every built match contains its real matchup and result before client JavaScript (26.763695ms)
+✔ serves existing static assets without routing them through the app (5.858599ms)
+✔ serves the requested prerendered route and returns a useful 404 for unknown routes (3.845165ms)
+✔ preserves client-only Mini App and Swiss simulator routes with the SPA shell (3.001334ms)
+✔ missing API, asset, and write requests do not become app HTML (2.033595ms)
+✔ built pages, metadata, robots, sitemap, and aliases match the public route inventory (359.983929ms)
+✔ built routes and HEAD requests return page-specific status and canonical metadata (16.352104ms)
+WebSocket server error: Port 24678 is already in use
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ all themes keep the same shareable sections, order, labels, and canonical catalogue escape (2404.085167ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ an unpublished schedule remains reachable and honest in every theme (12.430264ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ section links retain filters, honor modified clicks and restore via browser history (66.78264ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ search reports the filtered subset and clearing it preserves the selected phase across themes (29.611908ms)
+✔ opening Matches without a phase includes Swiss and playoffs; explicit links retain their filter (28.154216ms)
+✔ February archive shows all 33 published matches and the correct five latest playoff results (3.880459ms)
+✔ Search covers both opponents, respects the phase and handles missing results (1.937259ms)
+✔ Completed CS2 preserves final standings, results and technical 1:0 (2.007325ms)
+✔ Completed Dota exposes all five Swiss rounds and the confirmed playoff results (3.033271ms)
+✔ Arena keeps an unpublished schedule reachable without changing legacy empty tournaments (0.587064ms)
+✔ Legacy archives keep partial stages, stable unique match keys and yearless dates (3.007067ms)
+✔ Spring Dota archive keeps two confirmed divisions without inventing an open podium (1.055721ms)
+✔ Deep links and browser history resolve sections and filters without inventing a section (2.740591ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3444.294858

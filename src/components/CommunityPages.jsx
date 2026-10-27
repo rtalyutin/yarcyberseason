@@ -24,7 +24,7 @@ function CopyLink({ value, label }) {
 }
 function UnknownPage({ kind }) {
   useEffect(() => { document.title = `${kind} не найден${kind === 'Команда' ? 'а' : ''} — ЯрКиберСезон`; }, [kind]);
-  return <main className="community-page"><p className="community-eyebrow">404</p><h1>{kind} не найден{kind === 'Команда' ? 'а' : ''}</h1><InternalLink className="community-button" href="/">К турнирам</InternalLink></main>;
+  return <main className="community-page"><p className="community-eyebrow">404</p><h1>{kind} не найден{kind === 'Команда' ? 'а' : ''}</h1><InternalLink className="community-button" href="/tournaments">К турнирам</InternalLink></main>;
 }
 export function CommunityMatchRow({ match, profile = false }) {
   const identity = (side) => profile ? <span className={`tp-match-team tp-match-team--${side}`}><TeamLogo team={community.teams.get(match[`team${side}Id`])} /><TeamLink tournamentId={match.tournamentId} name={match[`team${side}`]} /></span> : <TeamLink tournamentId={match.tournamentId} name={match[`team${side}`]} />;
@@ -116,7 +116,7 @@ export function TeamPage({ teamId, theme = 'cs2' }) {
   if (!team) return <UnknownPage kind="Команда" />;
   const multiple = team.disciplines.length > 1;
   return <main className={`community-page team-profile${multiple ? ' team-profile--multiple' : ''}`} data-team-theme={theme}>
-    <nav className="community-breadcrumb" aria-label="Путь к команде"><InternalLink href="/">Турниры</InternalLink><span>/ Команда</span></nav>
+    <nav className="community-breadcrumb" aria-label="Путь к команде"><InternalLink href="/tournaments">Турниры</InternalLink><span>/ Команда</span></nav>
     <div className="tp-layout">
       <header className="tp-identity">
         <p className="community-eyebrow">{team.disciplines.join(' · ')}</p>
@@ -137,8 +137,8 @@ export function MatchPage({ tournamentSlug, matchId, theme = 'cs2' }) {
   const match = tournament && community.matches.get(matchKey(tournament.id, matchId));
   const [downloadState, setDownloadState] = useState('');
   if (!match) return <UnknownPage kind="Матч" />;
-  if (theme === 'dota2' && tournament.discipline === 'Dota 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><DotaMatchPage tournament={tournament} match={match} /></Suspense>;
-  if (theme === 'cs2' && tournament.discipline === 'Counter-Strike 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><MatchCenterPage key={`${tournament.id}:${match.id}`} tournament={tournament} match={match} /></Suspense>;
+  if (tournament.discipline === 'Dota 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><DotaMatchPage tournament={tournament} match={match} theme={theme} /></Suspense>;
+  if (tournament.discipline === 'Counter-Strike 2') return <Suspense fallback={<main className="community-page" role="status">Загружаем матч…</main>}><MatchCenterPage key={`${tournament.id}:${match.id}`} tournament={tournament} match={match} theme={theme} /></Suspense>;
   const url = publicUrl(matchPath(match));
   const consequence = matchConsequence(match, community, tournaments);
   const result = match.result;

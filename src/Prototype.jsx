@@ -31,6 +31,10 @@ import "./content-refresh.css";
 import "./home-partners.css";
 import "./postseason.css";
 import { SiteHeader } from "./components/SiteHeader.jsx";
+import { TournamentDirectory } from './components/TournamentDirectory.jsx';
+import { TournamentContext } from './components/TournamentContext.jsx';
+import { getNavigationTournament } from './lib/site-navigation.js';
+import './site-ux.css';
 import PlayerIntakePage from './components/PlayerIntakePage.jsx';
 import { SeasonFinale, TournamentThanks } from './components/SeasonFinale.jsx';
 import { applyPageMetadata } from "./lib/page-metadata.js";
@@ -99,6 +103,12 @@ function TeamIdentity({ tournament, team, align = "start", size = "default" }) {
 }
 
 function PageFrame({ children, navigate, path, theme, onThemeChange }) {
+  const frameRef = useRef(null);
+  const previousPath = useRef(path);
+  useEffect(() => {
+    if (previousPath.current !== path) frameRef.current?.querySelector('#page-content')?.focus({ preventScroll: true });
+    previousPath.current = path;
+  }, [path]);
   const isHome = path === "/";
   const isAbout = path.replace(/\/$/, "") === "/about";
   const isPlayerIntake = path.replace(/\/$/, "") === "/player/profile";
@@ -106,24 +116,28 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
   const matchdayPath = path.match(/^\/tournaments\/([a-z0-9-]+)\/matchday\/?$/);
   const isMatchday = Boolean(matchdayPath && getTournament(matchdayPath[1])?.matchday);
   const isTournament = path.startsWith("/tournaments/") && !isMatchday;
+  const contextTournament = getNavigationTournament(path);
+  const showTournamentContext = isHome || isMatchday || /\/matches\//.test(path) || path === '/broadcasts';
 
   return (
-    <div data-theme={isAbout ? "ycs" : isPlayerIntake ? "corporate" : theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isPlayerIntake ? " site-shell--player-league" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
+    <div ref={frameRef} data-theme={isAbout ? "ycs" : isPlayerIntake ? "corporate" : theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isPlayerIntake ? " site-shell--player-league" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       <SiteHeader path={path} navigate={navigate} theme={theme} onThemeChange={onThemeChange}
-        matchdayRoute={currentTournament.matchday.route} fixedTheme={isAbout || isPlayerIntake} />
-      {children}
+        fixedTheme={isAbout || isPlayerIntake} />
+      {showTournamentContext && <TournamentContext tournament={contextTournament || (isHome || path === '/broadcasts' ? currentTournament : null)} home={isHome || path === '/broadcasts'} />}
+      <div id="page-content" className="site-page-content" tabIndex={-1}>{children}</div>
       {isPlayerIntake ? <footer className="league-footer">
         <span>Лига цифровой экономики · Карточка игрока</span>
         <nav aria-label="Документы формы"><a href={projectLegal.privacyUrl} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных</a>
           <a href="/about#requisites">Контакты организатора</a></nav>
-      </footer> : !isHome && <Footer navigate={navigate} compact={isTournament} />}
+      </footer> : !isHome && <Footer path={path} />}
     </div>
   );
 }
 
 
-function Footer({ navigate }) {
+function Footer({ path = '/' }) {
+  const tournament = getNavigationTournament(path) || currentTournament;
   return <footer className="legal-footer container">
     <div className="legal-footer-grid">
       <div><p className="legal-company">{projectLegal.companyName}</p>
@@ -135,7 +149,7 @@ function Footer({ navigate }) {
         <a href="/about#requisites">Контакты и реквизиты</a>
         <a href="/webmcp">Данные для ИИ</a>
         <a href={projectLegal.privacyUrl} target="_blank" rel="noopener noreferrer">Политика обработки персональных данных <ArrowUpRight aria-hidden="true" /></a>
-        <a href={`/tournaments/${currentTournament.slug}#format`}>Регламент турнира</a>
+        <a href={`/tournaments/${tournament.slug}#format`}>Регламент турнира</a>
       </nav>
     </div>
     <p className="legal-copyright">{projectLegal.copyright}</p>
@@ -311,7 +325,7 @@ function HomePage({ navigate, theme }) {
           </div>)}</div>
         </section>}
       </main>
-      <Footer navigate={navigate} />
+      <Footer />
     </>
   );
 }
@@ -765,7 +779,7 @@ function BroadcastsPage({ navigate }) {
 }
 
 function NotFound({ navigate }) {
-  return <main><PageIntro eyebrow="404" title={<>Маршрут<br /><span>не найден</span></>} body="Вернитесь к активному турниру или в архив сезона." action={{ label: "На главную", target: "/" }} navigate={navigate} /></main>;
+  return <main><PageIntro eyebrow="404" title={<>Маршрут<br /><span>не найден</span></>} body="Откройте список турниров и выберите нужный сезон." action={{ label: "Все турниры", target: "/tournaments" }} navigate={navigate} /></main>;
 }
 
 export function Prototype({ initialPath = "/" }) {
@@ -830,7 +844,8 @@ export function Prototype({ initialPath = "/" }) {
   const page = useMemo(() => {
     if (path.replace(/\/$/, '') === '/player/profile') return <PlayerIntakePage />;
     if (path === "/") return <HomePage navigate={navigate} theme={theme} />;
-    if (path === "/results") return <ResultsPage navigate={navigate} />;
+    if (path === "/tournaments") return <TournamentDirectory key="all-tournaments" />;
+    if (path === "/results") return <TournamentDirectory key="archived-tournaments" archivedOnly />;
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;
     if (path === "/partners") return <PartnersPage navigate={navigate} />;
     if (path.replace(/\/$/, "") === "/about") return <AboutPage />;

@@ -209,3 +209,29 @@
 .tn-participant-list p { margin: .25rem 0 0; font-size: .875rem; opacity: .7; }
 @media (max-width: 640px) { .tn-participant-list { grid-template-columns: minmax(0, 1fr); } }
 .dota-results-notice { margin: 0; padding: .75rem max(1rem, calc((100vw - 1656px) / 2)); color: #f4d48a; background: #182332; border-bottom: 1px solid #756339; }
+
+/* Section navigation is a real, shareable destination in every presentation. */
+.tn-section-nav .tn-section-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 48px; padding: 10px 14px; color: var(--inside-text, #c7cfe0); font: inherit; font-size: 15px; line-height: 1.4; text-align: left; text-decoration: none; border-bottom: 2px solid transparent; }
+.tn-section-link span { font-variant-numeric: tabular-nums; font-size: .85em; }
+.site-shell--tournament[data-theme] .tn-section-nav .tn-section-link:hover { color: var(--inside-accent, #8fbbff); background: var(--inside-panel, #101e31); }
+.site-shell--tournament[data-theme="cs2"] .tn-section-nav .tn-section-link { padding: 18px 0; border-bottom-width: 3px; }
+.site-shell--tournament[data-theme="corporate"] .tn-section-nav .tn-section-link { padding: 10px 0; font-size: 14px; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav .tn-section-link { flex-shrink: 0; min-width: 44px; min-height: 54px; padding: 12px 0; font-size: 14px; color: #b7d0ca; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav .tn-section-link[aria-current="page"] { color: #f3efdc; border-color: #8ff3e5; }
+.site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav .tn-section-link:hover { color: #8ff3e5; background: transparent; }
+.tn-breadcrumb { flex-wrap: wrap; gap: 6px 14px; overflow-wrap: anywhere; }
+.tn-context-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--inside-accent, var(--tn-blue)); text-underline-offset: 4px; }
+.tn-context-link svg { width: 18px; height: 18px; }
+.tn-match-tools { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; }
+.tn-timezone { margin: 0; font-size: 13px; color: var(--inside-muted, var(--tn-muted)); }
+.tn-search { position: relative; margin-top: 22px; }
+.tn-search-label { position: absolute; top: -20px; left: 0; font-size: 12px; color: var(--inside-muted, var(--tn-muted)); }
+.tn-search button { align-self: stretch; justify-content: center; min-width: 44px; min-height: 44px; flex-shrink: 0; }
+.site-shell--tournament[data-theme] .tn-date-group h3 { color: var(--inside-muted, var(--tn-muted)); }
+.tn-date-group:first-child { margin-top: 20px; }
+@media (max-width: 760px) {
+  .site-shell--tournament[data-theme] .tn-section-nav .tn-section-link { min-height: 44px; padding: 10px 0; font-size: 13px; }
+  .site-shell--tournament[data-theme="dota2"] .tn-page--arena[data-section] .tn-section-nav .tn-section-link { min-height: 48px; font-size: 13px; }
+  .tn-breadcrumb { font-size: 13px; }
+  .tn-panel-heading > div { flex-wrap: wrap; gap: 8px 16px; }
+}

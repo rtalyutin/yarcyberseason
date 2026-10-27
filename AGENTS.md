@@ -1,3 +1,24 @@
+# Universal navigation and theme parity — October 27
+
+- Roman requested all page types inventoried/audited and shared UX across all
+  main-site themes, with a direct route to a tournament instead of going via
+  a match. Local implementation and evidence: `docs/design/universal-ux/`.
+- `/tournaments` is the catalogue; `/results` uses its archived filter. Header,
+  breadcrumbs and recovery actions use the catalogue. Matchday and regulation
+  links preserve the current tournament; match pages expose their parent.
+- Theme selection must never remove maps, statistics, MVP, clips or tournament
+  sections. Match renderer follows discipline; presentation follows theme.
+  Matches default to every phase, with explicit URL filters preserved.
+- Keep accepted art and fixed About/League/MiniApp/organizer identities. Technical
+  WebMCP and forMari remain standalone; this is an existing implementation,
+  not an explicit user prohibition on future theme support.
+- Static prerender awaits lazy content and inlines complete Suspense boundaries.
+  All built match HTML must contain its real heading/result/parent link before JS.
+- Roman subsequently authorized publication with «Выкладывай» on October 27.
+  Publish to the existing main/domain, preserving newer unrelated changes.
+  Local preview was blocked; only fresh production readback can establish live
+  exposure. Do not claim full desktop/mobile visual acceptance from unit tests.
+
 # Player intake League identity — October 20
 
 - Roman explicitly scoped the League of Digital Economy redesign to

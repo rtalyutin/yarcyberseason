@@ -142,7 +142,7 @@ export default function PlayerIntakePage({ client, initialSearch = null, photoEn
     {search === null ? <p className="player-message" role="status">Открываем форму…</p>
       : !discipline ? <section className="player-message" role="alert">
         <h2>{code ? 'Неизвестная дисциплина' : 'В ссылке не указана дисциплина'}</h2>
-        <p>Для CS2 нужна полная ссылка с параметром <code>?Dis=cs</code>.</p><a href="/">К турнирам</a></section>
+        <p>Для CS2 нужна полная ссылка с параметром <code>?Dis=cs</code>.</p><a href="/tournaments">К турнирам</a></section>
       : <>
         <section className="player-access" aria-label="Разовая отправка карточки"><div>
           <strong>Ник. Фото. Готово.</strong><p>Вход не нужен. После отправки открыть и изменить карточку здесь нельзя.</p></div></section>

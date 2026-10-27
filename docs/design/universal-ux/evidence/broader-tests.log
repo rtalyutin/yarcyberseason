@@ -1,0 +1,262 @@
+✔ changing presentation preserves match maps, statistics, awards and tournament navigation (3132.35873ms)
+✔ previous day follows selected date, including completed days and month boundaries (26.897168ms)
+✔ previous results come from full history even when live date tabs hide older dates (0.995881ms)
+✔ source-order display keeps scores and map scores tied to the correct teams (0.401435ms)
+✔ completed matchday opens the grand final and retains every playoff date (3.432904ms)
+✔ winner-first display reverses map scores without modifying the source (0.352251ms)
+✔ technical wins and unavailable map scores are not fabricated (0.184538ms)
+✔ completed tournament retains its final result (2.641942ms)
+✔ direct stage matches work and absent dates remain absent (0.743361ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@aws-sdk/s3-request-presigner' imported from /workspace/scratch/9e0d507903a8/ycs/backend/player-profile-store.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.22.1
+✖ tests/player-profile-backend.test.mjs (113.024582ms)
+✔ Dis accepts the explicit context only, not theme, repeated or missing parameters (1.471988ms)
+✔ form keeps metadata fields and requires a new decision for changed usage text (2.173335ms)
+✔ client uses cookie ownership and session CSRF, leaving multipart boundary to the browser (5.083953ms)
+✔ a lost response can be looked up and retried with the identical operation and payload (1.613322ms)
+✔ known validation failure is separate from an unknown transport result (0.493243ms)
+✔ portrait crop uses the central square and bounded translated area after a quarter turn (1.080168ms)
+✔ intake verifier CLIENT-01: only JSON metadata/ticket reach API; exact photo PUT/GET use S3 with credentials omitted (16.729955ms)
+✔ intake verifier CLIENT-02: wrong S3 photo size/hash or HTTP failure never produce successful read (7.675744ms)
+✔ intake verifier CLIENT-03: forged S3 destination is rejected before a photo can leave the browser (4.275023ms)
+✔ intake verifier CLIENT-04: malformed complete receipt is rejected before any final GET/success (1.558458ms)
+✔ intake verifier CLIENT-05: response-body stall remains inside JSON deadline after response headers arrive (12.321602ms)
+✔ intake verifier CLIENT-06: S3 read-body stall remains abortable after response headers arrive (1.355663ms)
+✔ intake verifier RETRY-01: lost PUT acknowledgement recovers by complete/read with same request/blob and no second PUT (2.29586ms)
+✔ intake verifier RETRY-02: lost complete acknowledgement does not repeat PUT or allocate another request (4.917351ms)
+✔ intake verifier RETRY-03: expired PUT capability refreshes by the same immutable request before attempting upload (0.910192ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@aws-sdk/s3-request-presigner' imported from /workspace/scratch/9e0d507903a8/ycs/backend/player-profile-store.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.22.1
+✖ tests/player-profile-intake-verifier-http.test.mjs (116.806943ms)
+WebSocket server error: Port 24678 is already in use
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ intake verifier UI-01: exactly nickname/optional FIO/photo, no login or identity read, mandatory pair gates submit (2636.257813ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ intake verifier UI-02: finalized receipt alone is insufficient; success appears only after read, then no edit and reload is empty (101.006308ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ intake verifier UI-03: unknown prepare retry keeps exact request/blob and encodes only once (19.825341ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ intake verifier UI-04: failed final photo read offers same-operation retry without a new request or second upload (28.757993ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ intake verifier UI-05: unavailable context allows local preview but not send; unknown Dis gets no CS2 form (20.079354ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ intake verifier UI-06: stale decode is closed and late upload completion cannot populate another Dis (39.650659ms)
+✔ intake verifier UI-07: default non-injected client uses existing backend without credentials and stays disabled when unavailable (17.323439ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@aws-sdk/s3-request-presigner' imported from /workspace/scratch/9e0d507903a8/ycs/backend/player-profile-store.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.22.1
+✖ tests/player-profile-intake.test.mjs (93.339107ms)
+✖ declared Docker runtime copies boot the actual backend with profiles disabled (134.233528ms)
+✔ only the exact player prefix gets configured proxy/explicit unavailable; health and other APIs/pages retain behavior (123.561037ms)
+✔ upstream validation accepts only a trusted HTTPS origin or local HTTP test origin (27.470733ms)
+✔ real HTTP forwarding preserves method/query/player cookies/Origin/CSRF/body and keeps destination fixed (23.336181ms)
+✔ multipart bytes and protected binary image responses remain intact (22.06767ms)
+✔ OAuth 303 and Set-Cookie are relayed without following redirect or exposing proxy configuration (25.53777ms)
+✔ declared and streamed request bounds reject before effect; response bounds never send partial success (26.364135ms)
+✔ connection loss and total deadline return private errors; timed-out upstream is aborted (70.757214ms)
+✔ bounded admission and client cancellation do not block unrelated frontend traffic (15.620147ms)
+WebSocket server error: Port 24678 is already in use
+✔ profile direct route has a shared site frame, private metadata and no personal prerender data (3702.712164ms)
+✔ verifier PROXY-01: app-server photo forwarding strips other-feature credentials, fixes target and preserves exact private bytes (93.149917ms)
+WebSocket server error: Port 24678 is already in use
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ verifier UI-SAVE-01: unknown request followed by definitive 422 unlocks unchanged draft and retains exact request ID (2525.569418ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ verifier UI-AUTH-01: new owner clears old private draft before delayed profile read and keeps all editing locked (104.929812ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ verifier UI-DIS-01: changing URL discipline does not transplant the previous discipline draft (45.129668ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ verifier UI-AUTH-02: same-owner reauthentication keeps text, selected bitmap and crop controls in memory (30.243883ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ verifier UI-PHOTO-01: cancelling photo replacement restores saved asset, preserves other edits and does not upload (25.755072ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ verifier UI-UNAVAILABLE-01: context failure shows CS2 public form metadata with optional FIO and disables all private actions (8.988649ms)
+✔ verifier UI-UNAVAILABLE-02: unknown Dis with failed context never falls back to CS2 or invents a profile (2.824537ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@aws-sdk/s3-request-presigner' imported from /workspace/scratch/9e0d507903a8/ycs/backend/player-profile-store.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.22.1
+✖ tests/player-profile-verifier.test.mjs (142.597484ms)
+WebSocket server error: Port 24678 is already in use
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ every tournament has a direct catalogue route and contextual matches stay in its own tournament (3351.921549ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ catalogue filters, URL restoration and empty-state reset preserve the correct records (46.575797ms)
+✔ catalogue follows replacement of the mutable live tournament record on rerender (15.887415ms)
+✔ catalogue and archive render through shared app shell with reachable skip target and metadata (21.142296ms)
+✔ unknown tournament routes do not claim an unrelated current tournament (8.534313ms)
+✔ every built match contains its real matchup and result before client JavaScript (30.157792ms)
+✔ serves existing static assets without routing them through the app (5.939312ms)
+✔ serves the requested prerendered route and returns a useful 404 for unknown routes (3.665605ms)
+✔ preserves client-only Mini App and Swiss simulator routes with the SPA shell (2.797606ms)
+✔ missing API, asset, and write requests do not become app HTML (9.433157ms)
+✔ built pages, metadata, robots, sitemap, and aliases match the public route inventory (268.893224ms)
+✔ built routes and HEAD requests return page-specific status and canonical metadata (20.802994ms)
+WebSocket server error: Port 24678 is already in use
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ all themes keep the same shareable sections, order, labels, and canonical catalogue escape (2916.357346ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ an unpublished schedule remains reachable and honest in every theme (12.186267ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ section links retain filters, honor modified clicks and restore via browser history (48.226816ms)
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+✔ search reports the filtered subset and clearing it preserves the selected phase across themes (29.190344ms)
+✔ opening Matches without a phase includes Swiss and playoffs; explicit links retain their filter (31.737003ms)
+✔ February archive shows all 33 published matches and the correct five latest playoff results (5.941085ms)
+✔ Search covers both opponents, respects the phase and handles missing results (2.340378ms)
+✔ Completed CS2 preserves final standings, results and technical 1:0 (2.927352ms)
+✔ Completed Dota exposes all five Swiss rounds and the confirmed playoff results (3.672735ms)
+✔ Arena keeps an unpublished schedule reachable without changing legacy empty tournaments (0.821057ms)
+✔ Legacy archives keep partial stages, stable unique match keys and yearless dates (3.626715ms)
+✔ Spring Dota archive keeps two confirmed divisions without inventing an open podium (1.39277ms)
+✔ Deep links and browser history resolve sections and filters without inventing a section (3.003747ms)
+✔ all six tools read the shared snapshot and reject writes/invalid input (3.322587ms)
+✔ every public match is reachable once through pagination and detailed read (62.068898ms)
+✖ confirmed final, unknown scores, yearless dates and published Swiss rounds keep their meaning (3.541638ms)
+✔ aliases, historical names and disciplines resolve without duplicate teams (17.159964ms)
+✔ team rosters stay attached to their published tournament and URLs use the main domain (1.317946ms)
+✔ callers cannot mutate the source through nested response objects (41.414959ms)
+✔ published context and source attribution remain attached to every match (7.53089ms)
+✔ unpublished matches are absent from lists, detail, and tournament stage references (0.672063ms)
+✔ unsupported browser keeps the ordinary page usable (0.485902ms)
+✔ StrictMode async registration is serialized and unmount removes all tools (33.120202ms)
+✔ partial registration failure rolls back tools and reports the failure (0.773546ms)
+ℹ tests 89
+ℹ suites 0
+ℹ pass 83
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4254.010273
+
+✖ failing tests:
+
+test at tests/player-profile-backend.test.mjs:1:1
+✖ tests/player-profile-backend.test.mjs (113.024582ms)
+  'test failed'
+
+test at tests/player-profile-intake-verifier-http.test.mjs:1:1
+✖ tests/player-profile-intake-verifier-http.test.mjs (116.806943ms)
+  'test failed'
+
+test at tests/player-profile-intake.test.mjs:1:1
+✖ tests/player-profile-intake.test.mjs (93.339107ms)
+  'test failed'
+
+test at tests/player-profile-packaging.test.mjs:43:1
+✖ declared Docker runtime copies boot the actual backend with profiles disabled (134.233528ms)
+  Error: Runtime package exited 1: node:internal/modules/package_json_reader:331
+    throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+          ^
+
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@aws-sdk/client-s3' imported from /tmp/ycs-runtime-package-gfDonw/backend/dota-results-import.mjs
+      at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+      at packageResolve (node:internal/modules/esm/resolve:784:25)
+      at moduleResolve (node:internal/modules/esm/resolve:873:18)
+      at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+      at #resolve (node:internal/modules/esm/loader:687:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+      at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+    code: 'ERR_MODULE_NOT_FOUND'
+  }
+
+  Node.js v24.22.1
+
+      at ChildProcess.<anonymous> (file:///workspace/scratch/9e0d507903a8/ycs/tests/player-profile-packaging.test.mjs:66:66)
+      at ChildProcess.wrapper (node:events:639:12)
+      at ChildProcess.emit (node:events:514:28)
+      at ChildProcess._handle.onexit (node:internal/child_process:324:12)
+
+test at tests/player-profile-verifier.test.mjs:1:1
+✖ tests/player-profile-verifier.test.mjs (142.597484ms)
+  'test failed'
+
+test at tests/webmcp.test.mjs:52:1
+✖ confirmed final, unknown scores, yearless dates and published Swiss rounds keep their meaning (3.541638ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  47 !== 30
+
+      at TestContext.<anonymous> (file:///workspace/scratch/9e0d507903a8/ycs/tests/webmcp.test.mjs:61:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 47,
+    expected: 30,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

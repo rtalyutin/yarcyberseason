@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Copy, Crown, DownloadSimple, Play, Trophy, TwitchLogo } from '@phosphor-icons/react';
+import { ArrowRight, ArrowUpRight, Check, Copy, Crown, DownloadSimple, Play, Trophy, TwitchLogo } from '@phosphor-icons/react';
 import { community } from '../data/community.js';
 import { tournaments } from '../data/tournaments/index.js';
 import { getMatchBroadcastLinks } from '../lib/broadcasts.js';
@@ -19,6 +19,7 @@ import '../match-center.css';
 
 const DOTA_ART = '/assets/match-detail/dota-volga-panorama.webp';
 const CS_ART = '/assets/match-detail/cs2-nuke-panorama.webp';
+const CORPORATE_ART = '/assets/themes/yaroslavl-strelka.webp';
 const scoreText = (exact) => formatMvpScore(exact).replace('.', ',');
 const durationText = (seconds) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 const numberText = (value) => typeof value === 'number' && Number.isFinite(value) ? value.toLocaleString('ru-RU', { maximumFractionDigits: 1 }) : '—';
@@ -51,11 +52,11 @@ function MapPicker({ slots, selected, onSelect, match, dota }) {
     </div>
   </section>;
 }
-function MapSummary({ slot, match, dota }) {
+function MapSummary({ slot, match, dota, artwork }) {
   const result = slot?.result, score = result?.kills || result?.score;
   const mapUrl = safeHttps(result?.url || slot?.map?.url) || safeHttps((match.mapLinks || []).find((link) => String(link.matchId) === slot?.mapId)?.url);
-  return <section className="mc-map-summary" aria-labelledby="mc-map-title">
-    {dota && slot?.state !== 'not-played' && <div className="mc-map-landscape" style={{ backgroundImage: "url('/assets/match-detail/dota-map-landscape.webp')" }} aria-hidden="true" />}
+  return <section className={`mc-map-summary${artwork ? '' : ' mc-map-summary--plain'}`} aria-labelledby="mc-map-title">
+    {dota && artwork && slot?.state !== 'not-played' && <div className="mc-map-landscape" style={{ backgroundImage: "url('/assets/match-detail/dota-map-landscape.webp')" }} aria-hidden="true" />}
     <div className="mc-map-summary-copy"><p className="mc-eyebrow">{dota ? 'Dota 2' : 'Counter-Strike 2'} · {match.bestOf || 'Матч'}</p><h2 id="mc-map-title">{mapHeading(slot, dota)}</h2>
       {slot?.winnerTeamId && <p className="mc-map-winner">Победа <strong>{teamName(match, slot.winnerTeamId)}</strong></p>}
       {score ? <dl className="mc-map-numbers"><div><dd>{score.join(' : ')}</dd><dt>{dota ? 'Убийства' : result?.unit || 'Раунды'}</dt></div>{result.durationSeconds > 0 && <div><dd>{durationText(result.durationSeconds)}</dd><dt>Длительность</dt></div>}{!dota && <div><dd>{score[0] + score[1]}</dd><dt>Всего раундов</dt></div>}</dl> : <p className="mc-empty-message">{match.result.technical || slot?.technical ? 'Техническое решение без игры.' : stateLabels[slot?.state] || 'Результаты карт пока не опубликованы.'}</p>}
@@ -63,11 +64,11 @@ function MapSummary({ slot, match, dota }) {
     </div>
   </section>;
 }
-function MapMvp({ mvp, dota, slot, match }) {
+function MapMvp({ mvp, dota, slot, match, artwork }) {
   const leaders = mvp?.leaders || [], estimated = Boolean(mvp?.estimatedMapIds?.length), noPlay = match.result.technical || slot?.state === 'not-played';
   const emptyTitle = noPlay ? 'Без сыгранной карты' : slot?.state === 'scheduled' ? 'После игры' : mvp?.availability === 'loading' ? 'Загружаем статистику…' : 'MVP ещё не опубликован';
-  return <section className={`mc-mvp${dota ? ' mc-mvp--map' : ''}${leaders.length > 1 ? ' mc-mvp--tie' : ''}`} aria-labelledby="mc-mvp-title">
-    {!dota && <><img className="mc-mvp-art" src="/assets/match-detail/cs2-operator.webp" alt="" /><span className="mc-art-label">Иллюстрация</span></>}
+  return <section className={`mc-mvp${dota ? ' mc-mvp--map' : ''}${leaders.length > 1 ? ' mc-mvp--tie' : ''}${!artwork ? ' mc-mvp--plain' : ''}`} aria-labelledby="mc-mvp-title">
+    {!dota && artwork && <><img className="mc-mvp-art" src="/assets/match-detail/cs2-operator.webp" alt="" /><span className="mc-art-label">Иллюстрация</span></>}
     <div className="mc-mvp-copy"><h2 className="mc-eyebrow" id="mc-mvp-title"><Crown weight="fill" aria-hidden="true" />{leaders.length > 1 ? 'Лидеры MVP' : 'MVP'} · Карта {slot?.number || 1}</h2>
       {leaders.length ? <><div className="mc-mvp-leaders">{leaders.map((player) => <div key={player.accountId}><h3>{player.nickname}</h3><p>{player.teamNames?.join(' / ') || teamName(match, player.teamId)}</p>{dota && <DotaHero heroId={player.heroId} className="mc-mvp-hero" />}</div>)}</div>
         {dota ? <p className="mc-mvp-value"><strong>{scoreText(leaders[0].ratingExact)}</strong>Баллы MVP{estimated && <span>Расчётная оценка</span>}</p> : <p className="mc-mvp-value"><strong>{leaders.map((p) => `${numberText(p.kills)} / ${numberText(p.deaths)} / ${numberText(p.assists)}`).join(' · ')}</strong>K / D / A</p>}
@@ -103,8 +104,11 @@ function MatchContext({ match, tournament, slots }) {
     <div className="mc-context-links"><InternalLink href={`/tournaments/${tournament.slug}#${match.stageId}`}>Открыть этап турнира <ArrowUpRight aria-hidden="true" /></InternalLink>{['winnerTo', 'loserTo'].map((field) => { const target = match[field], next = target && community.matches.get(matchKey(target.tournamentId || match.tournamentId, target.matchId)); return next ? <InternalLink key={field} href={matchPath(next)}>{field === 'winnerTo' ? 'Победитель' : 'Проигравший'} → {next.roundTitle}</InternalLink> : null; })}</div>
   </section>;
 }
-export function MatchCenterPage({ tournament, match, dotaState = null }) {
+export function MatchCenterPage({ tournament, match, dotaState = null, theme = 'cs2' }) {
   const dota = tournament.discipline === 'Dota 2';
+  const presentation = ['cs2', 'dota2', 'corporate'].includes(theme) ? theme : 'cs2';
+  const heroArtwork = presentation === 'dota2' ? DOTA_ART : presentation === 'corporate' ? CORPORATE_ART : CS_ART;
+  const gameArtwork = dota ? presentation === 'dota2' : presentation === 'cs2';
   const slots = getMatchMapSlots(match, dotaState?.snapshot);
   const [selection, setSelection] = useState(null);
   const selected = slots.find((s) => s.key === selection) || slots.find((s) => s.state === 'available') || slots[0];
@@ -120,9 +124,9 @@ export function MatchCenterPage({ tournament, match, dotaState = null }) {
   const url = publicUrl(matchPath(match));
   const copy = async () => { try { await navigator.clipboard.writeText(url); setCopyState('Ссылка скопирована'); } catch { setCopyState('Скопируйте ссылку:'); } };
   const download = async () => { setDownloadState('loading'); try { await downloadResultCard(match, window.location.origin); setDownloadState('PNG передан браузеру для скачивания.'); } catch { setDownloadState('Не удалось подготовить PNG. Попробуйте ещё раз.'); } };
-  return <main className={`match-center match-center--${dota ? 'dota' : 'cs2'}`}>
-    <section className="mc-hero" aria-labelledby="mc-title" style={{ backgroundImage: `url('${dota ? DOTA_ART : CS_ART}')` }}>
-      <nav className="mc-breadcrumb" aria-label="Путь к матчу"><InternalLink href={`/tournaments/${tournament.slug}#matches`}><ArrowLeft aria-hidden="true" />К матчам</InternalLink><span>/</span><InternalLink href={`/tournaments/${tournament.slug}`}>{tournament.title}</InternalLink></nav>
+  return <main className={`match-center match-center--${dota ? 'dota' : 'cs2'}`} data-match-theme={presentation}>
+    <section className="mc-hero" aria-labelledby="mc-title" style={{ backgroundImage: `url('${heroArtwork}')` }}>
+      <nav className="mc-breadcrumb" aria-label="Путь к матчу"><InternalLink href="/tournaments">Турниры</InternalLink><span>/</span><InternalLink href={`/tournaments/${tournament.slug}`}>{tournament.title}</InternalLink><span>/</span><span aria-current="page">Матч</span></nav>
       <h1 id="mc-title" className="mc-sr-only">{match.team1 || 'Участник уточняется'} — {match.team2 || 'Участник уточняется'}</h1>
       <div className="mc-scoreboard"><MatchTeam match={match} side={1} /><div className="mc-result"><p className="mc-round">{match.roundTitle}{match.bestOf && ` · ${match.bestOf}`}</p><p className="mc-date">{matchDateLabel(match)}</p><strong className="mc-score" aria-label={`${match.result.label || 'Счёт'}: ${match.result.score ? match.result.score.join(' : ') : 'не опубликован'}`}>{match.result.score ? match.result.score.join(' : ') : '— : —'}</strong><p className={`mc-status mc-status--${match.status}`}>{matchStates[match.status] || matchStates.unknown}</p><span className="mc-score-label">{match.result.score ? match.result.label : match.result.confirmed ? 'Смысл счёта уточняется' : 'Итог не подтверждён'}</span><img className="mc-game-mark" src={`/assets/games/${dota ? 'dota2' : 'counterstrike'}.svg`} alt={dota ? 'Dota 2' : 'Counter-Strike 2'} /></div><MatchTeam match={match} side={2} /></div>
       {(match.status === 'scheduled' || match.technicalMapNumbers?.length > 0) && match.note && <p className="mc-schedule-note">{match.note}</p>}
@@ -133,7 +137,7 @@ export function MatchCenterPage({ tournament, match, dotaState = null }) {
     {dota && <DotaSeriesMvp mvp={seriesMvp} match={match} />}
     {slots.length > 1 && <MapPicker slots={slots} selected={selected} onSelect={setSelection} match={match} dota={dota} />}
     {slots.length <= 1 && <nav className="mc-section-nav" aria-label="Разделы матча"><a href="#mc-map-detail">Обзор</a>{!match.result.technical && <a href="#mc-stats-title">Составы и статистика</a>}{clips.length > 0 && <a href="#mc-clips-title">Видео</a>}</nav>}
-    <div id="mc-map-detail" className="mc-map-detail" aria-live="polite"><MapSummary slot={selected} match={match} dota={dota} /><MapMvp slot={selected} match={match} mvp={mvp} dota={dota} /></div>
+    <div id="mc-map-detail" className="mc-map-detail" aria-live="polite"><MapSummary slot={selected} match={match} dota={dota} artwork={gameArtwork} /><MapMvp slot={selected} match={match} mvp={mvp} dota={dota} artwork={gameArtwork} /></div>
     {selected?.state !== 'not-played' && !match.result.technical && <section className="mc-statistics" aria-labelledby="mc-stats-title"><div className="mc-section-heading"><h2 id="mc-stats-title">Составы и статистика{selected ? ` · Карта ${selected.number}` : ''}</h2>{slots.length > 1 && <label className="mc-map-select"><span className="mc-sr-only">Карта для статистики</span><select value={selected?.key || ''} onChange={(event) => setSelection(event.target.value)}>{slots.map((s) => <option key={s.key} value={s.key}>{mapHeading(s, dota)}{s.state === 'not-played' ? ' · Не игралась' : ''}</option>)}</select></label>}</div>
       <div className="mc-rosters"><RosterTable match={match} side={1} players={players} leaders={leaders} dota={dota} /><RosterTable match={match} side={2} players={players} leaders={leaders} dota={dota} /></div>
       <p className="mc-statistics-note">{players.length ? mvp?.estimatedMapIds?.length ? 'Баллы MVP рассчитаны по среднему турнира. Индивидуальная статистика не получена — вместо неё стоят прочерки.' : dota ? 'K / D / A — убийства / смерти / помощи. Урон — по героям. Баллы MVP рассчитаны для выбранной карты.' : 'Показатели относятся к выбранной карте.' : 'Статистика игроков выбранной карты пока не опубликована. Заявленный состав может отличаться от состава в игре.'}</p>

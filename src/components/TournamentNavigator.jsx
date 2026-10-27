@@ -89,13 +89,13 @@ function MatchList({ model, view, changeView, fixedStage, tournament, arena = fa
   return (
     <section className="tn-matches" aria-labelledby="tn-matches-title">
       <div className="tn-panel-heading">
-        <div><h2 id="tn-matches-title">{fixedStage?.title || "Матчи"}</h2><span>{arena ? matchLabel(matches.length) : complete ? resultLabel(fixedStage ? matches.length : model.finishedCount) : matchLabel(fixedStage ? matches.length : model.matches.length)}</span></div>
-        <label className="tn-search">{arena && <span className="tn-search-label">Найти команду</span>}<MagnifyingGlass aria-hidden="true" /><input type="search" aria-label="Найти команду" placeholder={arena ? "Название команды" : "Найти команду"} value={view.query} onChange={(event) => changeView({ query: event.target.value }, false)} />{view.query && <button type="button" aria-label="Очистить поиск" onClick={() => changeView({ query: "" }, false)}><X aria-hidden="true" /></button>}</label>
+        <div><h2 id="tn-matches-title">{fixedStage?.title || "Матчи"}</h2><span>{matchLabel(matches.length)}</span></div>
+        <label className="tn-search"><span className="tn-search-label">Найти команду</span><MagnifyingGlass aria-hidden="true" /><input type="search" aria-label="Найти команду" placeholder="Название команды" value={view.query} onChange={(event) => changeView({ query: event.target.value }, false)} />{view.query && <button type="button" aria-label="Очистить поиск" onClick={() => changeView({ query: "" }, false)}><X aria-hidden="true" /></button>}</label>
       </div>
-      <div className={arena ? 'tn-match-tools' : undefined}>{!fixedStage && <nav className="tn-filters" aria-label="Фильтр матчей по этапу">{model.filters.map((filter) => <button type="button" key={filter.id} aria-pressed={view.phase === filter.id} onClick={() => changeView({ phase: filter.id })}>{filter.title} <span>{filter.count}</span></button>)}</nav>}{arena && <p className="tn-timezone">Время — МСК</p>}</div>
-      <p className={`tn-list-summary${arena ? ' tn-visually-hidden' : ''}`} role="status">{view.query ? `Найдено: ${matchLabel(matches.length)}. Показано: ${shown.length}.` : `Показаны ${complete ? "последние " : ""}${shown.length} из ${matches.length} матчей${subsetTitle ? ` ${subsetTitle}` : ""}.`}</p>
-      <div className="tn-match-list">{arena ? groupMatchDates(shown).map((group, index) => <section className="tn-date-group" key={`${group.date.key}-${index}`} aria-labelledby={`tn-date-${index}`}><h3 id={`tn-date-${index}`}>{group.date.label}{group.date.weekday && <span>{group.date.weekday}</span>}</h3><div className="tn-date-matches">{group.matches.map((match) => <TournamentMatchCard key={match.key} match={match} tournament={tournament} />)}</div></section>) : shown.map((match) => <MatchRow key={match.key} match={match} tournament={tournament} />)}</div>
-      {!shown.length && <div className="tn-empty"><h3>{view.query ? "Команда не найдена" : arena && !model.matches.length ? "Расписание ещё не опубликовано" : "Матчи ещё не опубликованы"}</h3><p>{view.query ? "Проверьте название команды или выберите другой этап." : "Пары и результаты появятся после публикации организатором."}</p>{view.query && <button className="tn-outline" type="button" onClick={() => changeView(arena ? { query: "" } : { query: "", phase: "all" })}>{arena ? 'Очистить поиск' : 'Сбросить поиск и фильтр'}</button>}</div>}
+      <div className="tn-match-tools">{!fixedStage && <nav className="tn-filters" aria-label="Фильтр матчей по этапу">{model.filters.map((filter) => <button type="button" key={filter.id} aria-pressed={view.phase === filter.id} onClick={() => changeView({ phase: filter.id })}>{filter.title} <span>{filter.count}</span></button>)}</nav>}<p className="tn-timezone">Время — МСК</p></div>
+      <p className="tn-list-summary" role="status">{view.query ? `Найдено: ${matchLabel(matches.length)}. Показано: ${shown.length}.` : `Показаны ${complete ? "последние " : ""}${shown.length} из ${matches.length} матчей${subsetTitle ? ` ${subsetTitle}` : ""}.`}</p>
+      <div className="tn-match-list">{groupMatchDates(shown).map((group, index) => <section className="tn-date-group" key={`${group.date.key}-${index}`} aria-labelledby={`tn-date-${index}`}><h3 id={`tn-date-${index}`}>{group.date.label}{group.date.weekday && <span>{group.date.weekday}</span>}</h3><div className="tn-date-matches">{group.matches.map((match) => arena ? <TournamentMatchCard key={match.key} match={match} tournament={tournament} /> : <MatchRow key={match.key} match={match} tournament={tournament} />)}</div></section>)}</div>
+      {!shown.length && <div className="tn-empty"><h3>{view.query ? "Команда не найдена" : !model.matches.length ? "Расписание ещё не опубликовано" : "Матчи ещё не опубликованы"}</h3><p>{view.query ? "Проверьте название команды или выберите другой этап." : "Пары и результаты появятся после публикации организатором."}</p>{view.query && <button className="tn-outline" type="button" onClick={() => changeView({ query: "" }, false)}>Очистить поиск</button>}</div>}
       <div className="tn-list-footer">{matches.length > visibleCount && <button className="tn-outline" type="button" onClick={() => setVisibleCount(matches.length)}>Показать ещё {matchLabel(matches.length - visibleCount)}</button>}{notes.filter(Boolean).map((note) => <p key={note}>{note}</p>)}</div>
     </section>
   );
@@ -103,18 +103,18 @@ function MatchList({ model, view, changeView, fixedStage, tournament, arena = fa
 
 export function TournamentNavigator({ tournament, navigate, theme, renderStage, renderRewards }) {
   const arena = theme === 'dota2';
-  const model = useMemo(() => getTournamentModel(tournament, { includeEmptyMatches: arena }), [tournament, arena]);
+  const model = useMemo(() => getTournamentModel(tournament, { includeEmptyMatches: true }), [tournament]);
   const [view, setView] = useState(() => resolveTournamentView(model, "", ""));
   const sectionNav = useRef(null);
   useEffect(() => {
     const nav = sectionNav.current;
     const selected = nav?.querySelector('[aria-current="page"]');
-    if (arena && selected) {
+    if (selected) {
       const bounds = nav.getBoundingClientRect(), item = selected.getBoundingClientRect();
       if (item.left < bounds.left) nav.scrollLeft -= bounds.left - item.left;
       else if (item.right > bounds.right) nav.scrollLeft += item.right - bounds.right;
     }
-  }, [arena, view.section]);
+  }, [view.section]);
   useEffect(() => {
     const sync = () => setView(resolveTournamentView(model, window.location.search, window.location.hash));
     sync();
@@ -138,14 +138,14 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
   const archived = isArchive(tournament);
   const regulation = regulationsByTournament[tournament.id] ?? regulationsByDiscipline[tournament.discipline];
   const sourceFacts = (tournament.facts || []).filter((fact) => !/подтвержд[её]нн.*матч/i.test(fact));
-  const sections = arena ? [...model.sections].sort((a, b) => {
+  const sections = [...model.sections].sort((a, b) => {
     const rank = (section) => section.id === 'results' ? -1 : section.id === 'matches' ? 0 : section.id === 'participants' ? 1 : section.stage?.type === 'swiss' || section.stage?.type === 'round_robin' ? 2 : section.stage && isPlayoffStage(section.stage) ? 3 : section.id === 'mvp' ? 4 : section.id === 'info' ? 6 : 5;
     return rank(a) - rank(b);
-  }) : model.sections;
+  });
   return (
     <main className={`tn-page${arena ? ' tn-page--arena' : ''}${swiss ? ' tn-page--swiss' : ''}${playoffs ? ' tn-page--playoffs' : ''}`} data-section={view.section}>
-      {swiss || playoffs ? <header className="tn-heading"><nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/">Турниры</InternalLink><span>/</span><span>{tournament.title}</span></nav></header> : <header className="tn-heading">
-        <nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/">Турниры</InternalLink><span>/</span>{archived ? <InternalLink href="/results">Архив</InternalLink> : <span>{tournament.discipline}</span>}</nav>
+      {swiss || playoffs ? <header className="tn-heading"><nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/tournaments">Турниры</InternalLink><span>/</span><span aria-current="page">{tournament.title}</span></nav>{tournament.matchday && <InternalLink className="tn-context-link" href={tournament.matchday.route}>Матчи по дням · Matchday<ArrowUpRight aria-hidden="true" /></InternalLink>}</header> : <header className="tn-heading">
+        <nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/tournaments">Турниры</InternalLink><span>/</span><span aria-current="page">{tournament.title}</span></nav>
         <div className="tn-title-row"><h1>{tournament.title}</h1>{!arena && <span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span>}</div>
         {tournament.dates?.display && <p className="tn-date">{tournament.dates.display}</p>}
         {arena ? <div className="tn-passport">
@@ -154,18 +154,29 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
           {tournament.statusLabel && <span><LockSimple aria-hidden="true" />{tournament.statusLabel}</span>}
           {regulation && <a href={regulation.url} target="_blank" rel="noopener noreferrer"><FileText aria-hidden="true" />Регламент PDF<ArrowUpRight aria-hidden="true" /></a>}
         </div> : !archived && tournament.registration?.status === 'closed' && <p className="tn-registration-closed">{tournament.registration.message} · {registrationCountLabel(tournament)}</p>}
-        {(!archived || regulation) && <div className="tn-header-actions">
-          {!archived && [tournament.primaryAction, tournament.secondaryAction, ...(!arena && tournament.matchday ? [{ label: "Matchday", target: tournament.matchday.route }] : [])].filter((action) => action && (!arena || (!action.target.includes('section=participants') && action.target !== '#format'))).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <InternalLink className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></InternalLink>)}
+        {(!archived || regulation || tournament.matchday) && <div className="tn-header-actions">
+          {tournament.matchday && <InternalLink className="tn-outline" href={tournament.matchday.route}>Матчи по дням · Matchday<ArrowUpRight aria-hidden="true" /></InternalLink>}
+          {!archived && [tournament.primaryAction, tournament.secondaryAction].filter((action) => action && (!arena || (!action.target.includes('section=participants') && action.target !== '#format'))).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <InternalLink className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></InternalLink>)}
           {!arena && regulation && <a className="tn-outline" href={regulation.url} target="_blank" rel="noopener noreferrer">{regulation.label}<ArrowUpRight aria-hidden="true" /></a>}
         </div>}
       </header>}
       <div className="tn-layout">
         <aside className="tn-sidebar">
           <p className="tn-eyebrow">Разделы турнира</p>
-          <nav ref={sectionNav} className="tn-section-nav" aria-label="Разделы турнира">{sections.map((section) => <button type="button" key={section.id} aria-current={section.id === view.section ? "page" : undefined} onClick={() => changeView({ section: section.id })}>{arena && section.id === 'participants' ? 'Команды' : arena && section.id === 'mvp' ? 'MVP' : section.title}{!arena && section.count !== undefined && <span>{section.count}</span>}</button>)}</nav>
+          <nav ref={sectionNav} className="tn-section-nav" aria-label="Разделы турнира">{sections.map((section) => {
+            const params = new URLSearchParams({ section: section.id, phase: view.phase });
+            if (view.query) params.set('q', view.query);
+            return <a className="tn-section-link" key={section.id} href={`/tournaments/${encodeURIComponent(tournament.slug)}?${params}`}
+              aria-current={section.id === view.section ? "page" : undefined}
+              onClick={(event) => {
+                if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                changeView({ section: section.id });
+              }}>{section.title}{section.count !== undefined && <span>{section.count}</span>}</a>;
+          })}</nav>
           <div className="tn-facts">{sourceFacts.map((fact) => <p key={fact}>{/команд/i.test(fact) ? <Users aria-hidden="true" /> : <Trophy aria-hidden="true" />}<span>{/команд/i.test(fact) && tournament.registration && !archived ? registrationCountLabel(tournament) : fact}</span></p>)}</div>
           {model.finishedCount > 0 && <p className="tn-archive-count">{archived ? "В архиве сохранены" : "Подтверждено"}<br />{resultLabel(model.finishedCount)}.</p>}
-          <InternalLink className="tn-back" href={archived ? "/results" : "/"}><ArrowLeft aria-hidden="true" />Все турниры</InternalLink>
+          <InternalLink className="tn-back" href="/tournaments"><ArrowLeft aria-hidden="true" />Все турниры</InternalLink>
         </aside>
         <div className="tn-content" key={active?.id}>
           {active?.id === "participants" ? <section className="tn-participants" aria-labelledby="participants-title"><h2 id="participants-title">{archived ? "Участники" : "Заявленные команды"} · {model.sections.find((s) => s.id === 'participants')?.count}</h2><ol className="tn-participant-list">{tournament.participants.map((participant) => <li key={participant.teamId}><TeamLogo team={community.getTeam(participant.teamId)} logo={tournament.teamLogos?.[participant.displayName]} /><div><TeamLink tournamentId={tournament.id} name={participant.displayName} /><p>{archived ? "Участник турнира" : "Заявлена"}</p></div></li>)}</ol></section> : active?.id === "results" ? <TournamentResults tournament={tournament} changeView={changeView} navigate={navigate} /> : active?.id === "matches" ? <MatchList arena={arena} tournament={tournament} model={model} view={view} changeView={changeView} /> : active?.id === "mvp" ? <Suspense fallback={<p role="status">Загружаем статистику MVP…</p>}><DotaMvpSection tournament={tournament} /></Suspense> : active?.id === "info" ? <section className="tn-info" id="info"><h2>О турнире</h2>{tournament.season && <p className="tn-season">{tournament.season}</p>}{tournament.summary && <p>{tournament.summary}</p>}{tournament.timeline?.length > 0 && <dl className="tn-timeline">{tournament.timeline.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.date}</dd></div>)}</dl>}{model.stages.some((stage) => stage.rules?.length || stage.notice) && <div className="tn-format" id="format"><h3>Формат турнира</h3>{model.stages.filter((stage) => stage.rules?.length || stage.notice).map((stage) => <div key={stage.id}><h4>{stage.title}</h4>{stage.notice && <p>{stage.notice}</p>}{stage.rules?.length > 0 && <ul>{stage.rules.map((rule, index) => <li key={index}>{typeof rule === "string" ? rule : <><strong>{rule.label}: </strong>{rule.value}</>}</li>)}</ul>}</div>)}</div>}{renderRewards()}{tournament.support && <p>{tournament.support}</p>}{tournament.sourceNote && <p className="tn-source-note">{tournament.sourceNote}</p>}</section> : active?.stage?.type === "historical_matches" ? <MatchList arena={arena} tournament={tournament} model={model} view={view} changeView={changeView} fixedStage={active.stage} /> : active?.stage ? renderStage(active.stage, String(model.stages.indexOf(active.stage) + 1).padStart(2, "0")) : <p>Информация о турнире появится после публикации.</p>}

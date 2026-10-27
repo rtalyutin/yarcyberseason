@@ -1,0 +1,41 @@
+fatal: path 'src/data/tournaments/cs2-february-2026.json' exists on disk, but not in '2800ce2e4aa48642ffe0f86343b2ffb0b160bc40'
+✔ technical map decisions require an organizer confirmation and cannot cover a played map (20.350401ms)
+✖ prior sporting values survive identity metadata and the approved KEGA logo update (4.834777ms)
+✔ stable links survive reordering; all submitted autumn rosters are published (8.871761ms)
+✔ broken identities, maps, unpublished records and results cannot pass validation (19.541712ms)
+✔ repeat import is idempotent and conflicting versions do not replace records (7.352792ms)
+✔ verifier regressions: hidden edges, source dates and collection metadata are checked (14.271414ms)
+✔ CLI validates before writing, imports once, and rejects private data and conflicts atomically (483.925585ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 678.821128
+
+✖ failing tests:
+
+test at tests/data-integrity.test.mjs:34:1
+✖ prior sporting values survive identity metadata and the approved KEGA logo update (4.834777ms)
+  Error: Command failed: git show 2800ce2e4aa48642ffe0f86343b2ffb0b160bc40:src/data/tournaments/cs2-february-2026.json
+  fatal: path 'src/data/tournaments/cs2-february-2026.json' exists on disk, but not in '2800ce2e4aa48642ffe0f86343b2ffb0b160bc40'
+
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:943:11)
+      at execFileSync (node:child_process:979:15)
+      at TestContext.<anonymous> (file:///workspace/scratch/9e0d507903a8/ycs/tests/data-integrity.test.mjs:44:31)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12) {
+    status: 128,
+    signal: null,
+    output: [ null, '', "fatal: path 'src/data/tournaments/cs2-february-2026.json' exists on disk, but not in '2800ce2e4aa48642ffe0f86343b2ffb0b160bc40'\n" ],
+    pid: 25,
+    stdout: '',
+    stderr: "fatal: path 'src/data/tournaments/cs2-february-2026.json' exists on disk, but not in '2800ce2e4aa48642ffe0f86343b2ffb0b160bc40'\n"
+  }

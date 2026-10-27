@@ -89,13 +89,12 @@
 .site-shell--tournament[data-theme="cs2"] .tn-podium-champion .tn-ordinal { font-size: 164px; }
 .site-shell--tournament[data-theme="cs2"] .tn-podium-champion img { width: 100px; height: 100px; }
 .site-shell--tournament[data-theme="cs2"] .tn-podium-champion strong { font-size: clamp(28px, 3vw, 44px); }
-.site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] :is(.tn-content, .tn-results) { display: contents; }
-.site-shell--tournament[data-theme="cs2"] .tn-results > .tn-panel-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.site-shell--tournament[data-theme="cs2"] .tn-podium { order: 1; }
-.site-shell--tournament[data-theme="cs2"] .tn-final-result { order: 3; padding-top: 24px; }
+/* Keep result sections nested so new content follows the podium and final in DOM order. */
+.site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] :is(.tn-content, .tn-results) { display: block; }
+.site-shell--tournament[data-theme="cs2"] .tn-final-result { padding-top: 24px; }
 .site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-scoreboard { background: var(--inside-panel); padding: 20px; border-right: 4px solid var(--inside-accent); }
 .site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-score { font-size: 66px; }
-.site-shell--tournament[data-theme="cs2"] .tn-result-actions { order: 4; margin-bottom: 16px; }
+.site-shell--tournament[data-theme="cs2"] .tn-result-actions { margin-bottom: 16px; }
 .site-shell--tournament[data-theme="cs2"] .tn-result-actions .tn-outline:last-child { color: white; }
 
 /* Dota: open typographic podium, chapter navigation and the supplied map. */
@@ -391,7 +390,6 @@
  .site-shell--tournament[data-theme="cs2"] .tn-podium li:not(.tn-podium-champion) strong { font-size: 26px; }
  .site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-scoreboard { padding: 12px 20px; }
  .site-shell--tournament[data-theme="cs2"] .tn-final-result .tn-score { font-size: 56px; }
- .site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] :is(.tn-result-actions, .tn-archive-count) { grid-row: 5; grid-column: 1; align-self: center; }
  .site-shell--tournament[data-theme="cs2"] .tn-page[data-section="results"] .tn-archive-count { max-width: 300px; }
  .site-shell--tournament[data-theme="dota2"] .tn-title-row h1 { font-size: clamp(50px, 6.4vw, 88px); }
  .site-shell--tournament[data-theme="dota2"] .tn-podium-champion .tn-ordinal { font-size: 170px; }

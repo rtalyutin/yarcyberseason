@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { prerenderToNodeStream } from 'react-dom/static';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -50,13 +50,39 @@ function outputPath(pathname) {
     : path.join(clientDirectory, normalized.slice(1), 'index.html');
 }
 
+// The route includes lazy match/MVP components. A synchronous render writes
+// only their loading fallback; wait for React's complete tree before saving.
+async function renderPage(element) {
+  const controller = new AbortController();
+  let renderError;
+  const timeout = setTimeout(() => controller.abort(new Error('Prerender did not finish within 30 seconds')), 30_000);
+  try {
+    const { prelude, postponed } = await prerenderToNodeStream(element, {
+      signal: controller.signal,
+      // Static files must inline even large completed Suspense boundaries.
+      progressiveChunkSize: Infinity,
+      onError(error) { renderError ??= error; controller.abort(error); },
+    });
+    if (renderError) throw renderError;
+    if (controller.signal.aborted) throw controller.signal.reason;
+    if (postponed) throw new Error('Prerender returned an incomplete page');
+    const chunks = [];
+    for await (const chunk of prelude) chunks.push(chunk);
+    if (renderError) throw renderError;
+    if (controller.signal.aborted) throw controller.signal.reason;
+    return Buffer.concat(chunks).toString('utf8');
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 try {
   const { App } = await server.ssrLoadModule('/src/App.jsx');
   // Only the login shell is static; organizer rows come from the protected API.
   const routes = [...listPublicRoutes(), { pathname: '/org', includeInSitemap: false }, { pathname: '/orgs', includeInSitemap: false }];
   for (const item of routes) {
     const pathname = normalizePublicPath(item.pathname);
-    const markup = renderToString(React.createElement(React.StrictMode, null,
+    const markup = await renderPage(React.createElement(React.StrictMode, null,
       React.createElement(App, { initialPath: pathname })));
     const metadata = getPageMetadata(pathname);
     const html = withMetadata(shell, metadata).replace(

@@ -4,6 +4,7 @@ import { getConfirmedPartners, getMatchPartners, getPartnerScopeLabel, projectCo
 import { audienceSourceIsStale, partnershipMailto, teamParticipationCount, useAudienceSnapshot, usePartnerProject } from '../lib/audience-client.js';
 import { partnerDisciplineVisuals, partnerLogo } from '../data/partner-visuals.js';
 import twitchAnalytics from '../data/twitch-analytics.json';
+import telegramAnalytics from '../data/telegram-analytics.json';
 import '../partners-content.css';
 
 const number = (value) => typeof value === 'number' ? new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 1 }).format(value) : null;
@@ -18,6 +19,38 @@ function Metric({ label, value, detail }) {
     <dt>{label}</dt><dd className={formatted === null ? 'partner-metric-empty' : undefined}>{formatted ?? 'Нет данных'}</dd>
     {detail && <small>{detail}</small>}
   </div>;
+}
+
+function TelegramAudience() {
+  const { overview, totals, period, importedOn, channelUrl } = telegramAnalytics;
+  return <article className="partner-audience-source" data-audience-platform="telegram">
+    <div className="partner-source-heading"><TelegramLogo size={28} aria-hidden="true" /><h3>Telegram @dota2yar</h3><span className="partner-source-status">Выгрузка Telegram · обновлено {date(importedOn)}</span></div>
+    <p className="partner-source-date">По сводке выгрузки</p>
+    <dl className="partner-metrics">
+      <Metric label="Подписчики канала" value={overview.followers} detail={`На ${date(importedOn)}`} />
+      <Metric label="Просмотры на пост" value={overview.viewsPerPost} />
+      <Metric label="Реакции на пост" value={overview.reactionsPerPost} />
+      <Metric label="Пересылки на пост" value={overview.sharesPerPost} />
+    </dl>
+    <p className="partner-source-note">Период показателей на пост в сводке не указан.</p>
+    <h4>Итоги по дням</h4>
+    <p className="partner-source-date">{date(period.from)} — {date(period.to)}</p>
+    <dl className="partner-metrics">
+      <Metric label="Просмотры публикаций" value={totals.views} detail="За указанный период" />
+      <Metric label="Пересылки публикаций" value={totals.shares} detail="За указанный период" />
+      <Metric label="Подписались" value={totals.joined} />
+      <Metric label="Отписались" value={totals.left} />
+    </dl>
+    <details className="partner-source-method">
+      <summary>Источник и методика</summary>
+      <div>
+        <a href={channelUrl} target="_blank" rel="noopener noreferrer">Открыть канал <ArrowUpRight aria-hidden="true" /></a>
+        <p>Источник — выгрузка аналитики Telegram, предоставленная организатором {date(importedOn)}. Последний день — неполный на момент выгрузки.</p>
+        <p>Подписчики и показатели на пост взяты из сводки Overview. Период сводки не указан, поэтому показатели на пост не считаются средними за весь период дневной статистики.</p>
+        <p>Просмотры и пересылки суммируются по дням из Interactions; подписки и отписки — из Followers. Это количество просмотров и действий, а не уникальный охват. Размер канала по дням не суммируется.</p>
+      </div>
+    </details>
+  </article>;
 }
 
 function TwitchAudience({ source, availability }) {
@@ -176,7 +209,6 @@ export function PartnersPage({ tournament = currentTournament }) {
     const url = new URL(source.url);
     return url.hostname.replace(/^www\./, '') === 'twitch.tv' && url.pathname.toLowerCase().replace(/\/$/, '') === `/${twitchAnalytics.channel}`;
   });
-  const telegram = snapshot?.sources.find((source) => source.id === 'telegram-dota2yar');
   const totalPlanned = project?.initiatives.reduce((sum, item) => sum + item.tournaments, 0);
   const contactHref = partnershipMailto(projectContent.contactEmail);
 
@@ -206,7 +238,7 @@ export function PartnersPage({ tournament = currentTournament }) {
       <SectionHeading number="01" eyebrow="Люди и внимание" id="audience-title" title="Аудитория, которую можно измерить"><p>Подписчики, просмотры и действия — отдельные показатели. Общий охват в уникальных людях не складываем из разных площадок.</p></SectionHeading>
       <p className="partner-data-status" role="status">{audienceAvailability === 'loading' ? 'Получаем статистику из внешнего источника…' : audienceAvailability === 'stale' ? 'Источник не обновился. Последний полученный срез сохранён.' : 'У каждого показателя — источник, дата и способ расчёта.'}</p>
       <div className="partner-audience-grid">
-        <AudienceSource source={telegram} availability={audienceAvailability} platform="telegram" />
+        <TelegramAudience />
         <TwitchAudience source={primaryTwitch} availability={audienceAvailability} />
         {twitchSources.filter((source) => source !== primaryTwitch).map((source) => <AudienceSource key={source.id} source={source} availability={audienceAvailability} platform="twitch" />)}
       </div>

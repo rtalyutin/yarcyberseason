@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "channel": "dota2yar",
+  "channelUrl": "https://t.me/dota2yar",
+  "importedOn": "2026-10-27",
+  "source": {
+    "kind": "Telegram channel analytics XLSX supplied by organizer",
+    "fileName": "ЯрКиберСезон. CS2&DotA2. версия 2_2026-10-27.xlsx",
+    "sha256": "c12139d3d77ad7890cbd760158f8a3bcd51fbf65e2a34640017fd25959a3de74",
+    "sheets": [
+      "Overview",
+      "Interactions",
+      "Followers",
+      "Growth",
+      "Views by source"
+    ],
+    "dailyRows": 93
+  },
+  "overview": {
+    "period": null,
+    "followers": 268,
+    "viewsPerPost": 100,
+    "sharesPerPost": 1,
+    "reactionsPerPost": 5
+  },
+  "period": {
+    "from": "2026-07-27",
+    "to": "2026-10-27"
+  },
+  "totals": {
+    "views": 28463,
+    "shares": 559,
+    "joined": 81,
+    "left": 48
+  }
+}

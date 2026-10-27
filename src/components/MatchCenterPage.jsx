@@ -17,9 +17,9 @@ import { TeamLogo } from './TeamLogo.jsx';
 import { DotaHero } from './DotaHero.jsx';
 import '../match-center.css';
 
-const DOTA_ART = '/assets/match-detail/dota-volga-panorama.webp';
-const CS_ART = '/assets/match-detail/cs2-nuke-panorama.webp';
-const CORPORATE_ART = '/assets/themes/yaroslavl-strelka.webp';
+const DOTA_ART = '/assets/atlas/backgrounds/dota2-river.webp';
+const CS_ART = '/assets/atlas/backgrounds/cs2-river.webp';
+const CORPORATE_ART = '/assets/atlas/backgrounds/corporate-river.webp';
 const scoreText = (exact) => formatMvpScore(exact).replace('.', ',');
 const durationText = (seconds) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 const numberText = (value) => typeof value === 'number' && Number.isFinite(value) ? value.toLocaleString('ru-RU', { maximumFractionDigits: 1 }) : '—';
@@ -127,7 +127,7 @@ export function MatchCenterPage({ tournament, match, dotaState = null, theme = '
   return <main className={`match-center match-center--${dota ? 'dota' : 'cs2'}`} data-match-theme={presentation}>
     <section className="mc-hero" aria-labelledby="mc-title" style={{ backgroundImage: `url('${heroArtwork}')` }}>
       <nav className="mc-breadcrumb" aria-label="Путь к матчу"><InternalLink href="/tournaments">Турниры</InternalLink><span>/</span><InternalLink href={`/tournaments/${tournament.slug}`}>{tournament.title}</InternalLink><span>/</span><span aria-current="page">Матч</span></nav>
-      <h1 id="mc-title" className="mc-sr-only">{match.team1 || 'Участник уточняется'} — {match.team2 || 'Участник уточняется'}</h1>
+      <h1 id="mc-title" className="mc-title">{match.team1 || 'Участник уточняется'} — {match.team2 || 'Участник уточняется'}</h1>
       <div className="mc-scoreboard"><MatchTeam match={match} side={1} /><div className="mc-result"><p className="mc-round">{match.roundTitle}{match.bestOf && ` · ${match.bestOf}`}</p><p className="mc-date">{matchDateLabel(match)}</p><strong className="mc-score" aria-label={`${match.result.label || 'Счёт'}: ${match.result.score ? match.result.score.join(' : ') : 'не опубликован'}`}>{match.result.score ? match.result.score.join(' : ') : '— : —'}</strong><p className={`mc-status mc-status--${match.status}`}>{matchStates[match.status] || matchStates.unknown}</p><span className="mc-score-label">{match.result.score ? match.result.label : match.result.confirmed ? 'Смысл счёта уточняется' : 'Итог не подтверждён'}</span><img className="mc-game-mark" src={`/assets/games/${dota ? 'dota2' : 'counterstrike'}.svg`} alt={dota ? 'Dota 2' : 'Counter-Strike 2'} /></div><MatchTeam match={match} side={2} /></div>
       {(match.status === 'scheduled' || match.technicalMapNumbers?.length > 0) && match.note && <p className="mc-schedule-note">{match.note}</p>}
     </section>

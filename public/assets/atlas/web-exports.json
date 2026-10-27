@@ -1,0 +1,57 @@
+[
+  {
+    "path": "public/assets/atlas/backgrounds/corporate-river.webp",
+    "source": "YCS-HTML-Assets/backgrounds/corporate-river.webp",
+    "sourceSha256": "ced1d5a4e2308687256699122e78cb7ce2b65c92edaacc2728afb6ff3aa3dde2",
+    "sha256": "7a84e35ba0fe678fe93734d2fc2035e0f0d191d1db59c302cfdba648a57fdafc",
+    "sourceBytes": 1751314,
+    "bytes": 262652,
+    "width": 1672,
+    "height": 941,
+    "transform": "WebP quality 86 / effort 6; original dimensions, no crop or compositional edits"
+  },
+  {
+    "path": "public/assets/atlas/backgrounds/cs2-river.webp",
+    "source": "YCS-HTML-Assets/backgrounds/cs2-river.webp",
+    "sourceSha256": "adae1875cde075f4a91569f27ad62441585cff7a992725eb121e77f01a93519f",
+    "sha256": "913915482e08b00923b6bc56d12792b73616d262572e064f3f601d03817b9e90",
+    "sourceBytes": 1758032,
+    "bytes": 240790,
+    "width": 1672,
+    "height": 941,
+    "transform": "WebP quality 86 / effort 6; original dimensions, no crop or compositional edits"
+  },
+  {
+    "path": "public/assets/atlas/backgrounds/dota2-river.webp",
+    "source": "YCS-HTML-Assets/backgrounds/dota2-river.webp",
+    "sourceSha256": "11ba35bd82bf6f88db18e42c3d59bb13d6e55a273918cc68a682965d5a8feec5",
+    "sha256": "ef3c406d61b746a1dee9d0a7810b11ccd5be014ae7091d05b05c39d16df6e2d5",
+    "sourceBytes": 1953596,
+    "bytes": 296814,
+    "width": 1672,
+    "height": 941,
+    "transform": "WebP quality 86 / effort 6; original dimensions, no crop or compositional edits"
+  },
+  {
+    "path": "public/assets/atlas/textures/cs2-metal.webp",
+    "source": "YCS-HTML-Assets/textures/cs2-metal.webp",
+    "sourceSha256": "d3fd940b7943b56cb832b6f36bbabc4c9cd88310b16fc00d73e9b44b09c50cdd",
+    "sha256": "b08fef5437502538389282dc37dd3ad7c0418b0a4b11b77b1a87b6926ea5af73",
+    "sourceBytes": 1998430,
+    "bytes": 368968,
+    "width": 1254,
+    "height": 1254,
+    "transform": "WebP quality 86 / effort 6; original dimensions, no crop or compositional edits"
+  },
+  {
+    "path": "public/assets/atlas/textures/dota2-stone.webp",
+    "source": "YCS-HTML-Assets/textures/dota2-stone.webp",
+    "sourceSha256": "ecf9abcd76c5add7a4b862a481195dcfcc045ead93f26b59926a80db00647451",
+    "sha256": "130398bea94fc837526b5ffbee23bc9e55938b002f11ee0dec87f93f2f0273b0",
+    "sourceBytes": 2177354,
+    "bytes": 388358,
+    "width": 1254,
+    "height": 1254,
+    "transform": "WebP quality 86 / effort 6; original dimensions, no crop or compositional edits"
+  }
+]

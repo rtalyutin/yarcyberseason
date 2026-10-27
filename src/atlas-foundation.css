@@ -1,0 +1,60 @@
+/* Atlas v3: shared structure, three complete materials and interaction systems. */
+body:has(.site-shell[data-ycs-theme]) { min-width: 0; }
+@font-face { font-family: 'YCS Serif'; src: url('/assets/fonts/DejaVuSerif.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+.site-shell[data-theme][data-ycs-theme] { background: var(--ycs-bg); color: var(--ycs-text); --theme-accent: var(--ycs-accent); }
+.site-shell[data-theme][data-ycs-theme]::before { display: none; }
+.site-shell[data-theme][data-ycs-theme] > .site-background { background: none; opacity: 1; }
+.site-shell[data-theme][data-ycs-theme] .container { width: min(1656px, calc(100% - 80px)); }
+.site-shell[data-theme][data-ycs-theme] .ycs-header {
+  --header-bg: var(--ycs-bg); --header-text: var(--ycs-text); --header-muted: var(--ycs-muted);
+  --header-rule: var(--ycs-line-soft); --header-accent: var(--ycs-accent);
+  --header-selected: var(--ycs-action); --header-selected-text: var(--ycs-action-text); --header-hover: var(--ycs-surface-hover);
+  border-bottom-color: var(--ycs-line); background: var(--ycs-bg);
+}
+.site-shell[data-theme][data-ycs-theme] :is(h1,h2,h3) { color: var(--ycs-text); }
+.site-shell[data-theme][data-ycs-theme] .org-room :is(h1,h2,h3) { color: inherit; }
+.site-shell[data-theme][data-ycs-theme] :is(button,a,input,select,textarea,summary):focus-visible { outline: 2px solid var(--ycs-focus); outline-offset: 4px; }
+.site-shell[data-theme][data-ycs-theme] :is(.eyebrow,.home-kicker,.intro-copy,.source-note) { color: var(--ycs-muted); }
+.site-shell[data-theme][data-ycs-theme] :is(.button,.tn-outline) {
+  min-height: 44px; border-radius: 0; font-weight: 700; transition: background var(--ycs-motion-fast) var(--ycs-ease), border-color var(--ycs-motion-fast), box-shadow var(--ycs-motion-fast);
+}
+.site-shell[data-theme][data-ycs-theme] .button--primary { background: var(--ycs-action); color: var(--ycs-action-text); border: 1px solid var(--ycs-accent); }
+.site-shell[data-theme][data-ycs-theme] :is(.button--secondary,.tn-outline) { background: var(--ycs-surface); color: var(--ycs-text); border: 1px solid var(--ycs-line); }
+.site-shell[data-theme][data-ycs-theme] :is(.button,.tn-outline):hover { box-shadow: inset 0 0 0 1px var(--ycs-accent); }
+.site-shell[data-theme][data-ycs-theme] :is(.button,.tn-outline):active { transform: translateY(1px); }
+.site-shell[data-theme="cs2"] :is(.button,.ycs-theme-switcher) { border-radius: 0; }
+.site-shell[data-theme="cs2"] .button { font-family: 'YCS Condensed', sans-serif; letter-spacing: .035em; text-transform: uppercase; }
+.site-shell[data-theme="cs2"] .ycs-header { border-top: 3px solid var(--ycs-accent-strong); }
+.site-shell[data-theme="dota2"] .ycs-header { border-top: 1px solid var(--ycs-bronze); }
+.site-shell[data-theme="dota2"] .ycs-theme-switcher { border: 1px solid var(--ycs-bronze); border-radius: 22px; overflow: hidden; }
+.site-shell[data-theme="dota2"] .ycs-theme-switcher button[aria-pressed="true"] { background: var(--ycs-action); color: var(--ycs-action-text); box-shadow: inset 0 0 0 2px var(--ycs-bronze); }
+.site-shell[data-theme="dota2"] :is(.button,.tn-outline) { box-shadow: inset 0 0 0 3px var(--ycs-surface), inset 0 0 0 4px var(--ycs-bronze); border-color: var(--ycs-bronze); font-family: 'YCS Serif',Georgia,serif; font-weight: 400; }
+.site-shell[data-theme="dota2"] :is(.button,.tn-outline):hover { box-shadow: inset 0 0 0 2px var(--ycs-surface), inset 0 0 0 3px var(--ycs-bronze), 0 0 18px #c2a46740; }
+.site-shell[data-theme="corporate"] .ycs-header { border-bottom: 2px solid var(--ycs-text); }
+.site-shell[data-theme="corporate"] .ycs-theme-switcher { border: 0; border-bottom: 1px solid var(--ycs-line-soft); }
+.site-shell[data-theme="corporate"] .ycs-theme-switcher button { border: 0; border-bottom: 3px solid transparent; }
+.site-shell[data-theme="corporate"] .ycs-theme-switcher button[aria-pressed="true"] { background: transparent; color: var(--ycs-accent); border-bottom-color: var(--ycs-accent); }
+.site-shell[data-theme][data-ycs-theme] .site-tournament-context { color: var(--ycs-muted); background: var(--ycs-surface); border-color: var(--ycs-line-soft); }
+.site-shell[data-theme][data-ycs-theme] .site-tournament-context :is(a,strong) { color: var(--ycs-accent); }
+.site-shell[data-theme][data-ycs-theme] :is(.legal-footer,.league-footer) { color: var(--ycs-muted); border-color: var(--ycs-line-soft); background: var(--ycs-bg); }
+.site-shell[data-theme][data-ycs-theme] .legal-footer :is(a,.legal-company) { color: var(--ycs-text); }
+.site-shell[data-theme][data-ycs-theme] .legal-footer nav { border-color: var(--ycs-line-soft); }
+.site-shell[data-theme][data-ycs-theme] .legal-footer a:hover { color: var(--ycs-accent); }
+.site-shell[data-theme][data-ycs-theme] .page-intro { padding-block: clamp(40px,7vw,100px); border-bottom: 1px solid var(--ycs-line); }
+.site-shell[data-theme][data-ycs-theme] .page-intro h1 { font-family: var(--ycs-font-heading); font-size: clamp(36px,5vw,80px); line-height: 1.1; text-transform: none; }
+.site-shell[data-theme][data-ycs-theme] .page-intro h1 span { color: var(--ycs-accent); }
+.site-shell[data-theme="dota2"] .page-intro h1 { font-weight: 400; }
+.site-shell[data-theme][data-ycs-theme] .dota-results-notice { background: var(--ycs-surface-raised); color: var(--ycs-warning); border-color: var(--ycs-line); }
+@media (max-width: 767px) {
+  .site-shell[data-theme][data-ycs-theme] .container { width: calc(100% - 32px); }
+  .site-shell[data-theme][data-ycs-theme] .page-intro { padding-block: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .site-shell[data-ycs-theme] :is(.button,.tn-outline,.ycs-theme-switcher button) { transition: none; }
+  .site-shell[data-ycs-theme] :is(.button,.tn-outline):active { transform: none; }
+}
+@media (forced-colors: active) {
+  .site-shell[data-ycs-theme] { --ycs-text: CanvasText; --ycs-bg: Canvas; --ycs-surface: Canvas; --ycs-accent: LinkText; --ycs-focus: Highlight; --ycs-line: CanvasText; }
+  .site-shell[data-ycs-theme] .ycs-theme-switcher button[aria-pressed="true"] { border: 2px solid Highlight; }
+}

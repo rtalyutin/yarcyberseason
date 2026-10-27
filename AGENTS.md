@@ -1,3 +1,19 @@
+# Full UI atlas implementation — October 27
+
+- User accepted the revised entire three-theme atlas and rebuilt Matchday, then
+  requested implementation on the existing website. Source/contract:
+  `docs/design/atlas-v3/ACTIVE_CONTRACT.md`. This later visual choice supersedes
+  older fixed-theme/art/layout constraints within the agreed main-site pages.
+- Shared structure across themes; CS2 metal/technical, Dota stone/bronze/serif,
+  corporate white/cobalt/editorial, with distinct reduced-motion-aware reactions.
+- Keep actual sporting/business data and API contracts. Mock figures and extra
+  mock form fields are not new requirements. League identity/privacy remain.
+- Preserve direct tournament catalogue and all match features across themes.
+  Matchday is a chronological day program; arrows focus dates, Enter/Space selects.
+- Keep all existing Easter eggs and original CS2 source scene/anchor. /tg and
+  backend are excluded. Publish only to existing main/Timeweb host, and verify
+  actual serving assets/content. No replacement Sites deployment.
+
 # Universal navigation and theme parity — October 27
 
 - Roman requested all page types inventoried/audited and shared UX across all

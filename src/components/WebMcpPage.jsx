@@ -1,3 +1,4 @@
+import { UtilityThemeSwitcher } from "./ThemedUtilityShell.jsx";
 import { useEffect, useState } from 'react';
 import { tournaments } from '../data/tournaments/index.js';
 import { community } from '../data/community.js';
@@ -24,7 +25,7 @@ export default function WebMcpPage() {
     return () => { detach(); document.title = title; };
   }, []);
   return <main className="webmcp-page">
-    <header className="webmcp-header"><a href="/" aria-label="ЯрКиберСезон — главная"><img src="/assets/ycs-logo.jpg" alt="YAR CYBER SEASON" width="101" height="46" /></a><a href="/">На сайт ↗</a></header>
+    <header className="webmcp-header"><a href="/" aria-label="ЯрКиберСезон — главная"><img src="/assets/ycs-logo.jpg" alt="YAR CYBER SEASON" width="101" height="46" /></a><div className="atlas-utility-header-actions"><UtilityThemeSwitcher /><a href="/">На сайт ↗</a></div></header>
     <p className="webmcp-eyebrow">ЯРКИБЕРСЕЗОН / WEBMCP</p>
     <h1>Турниры.<br />Матчи. Команды.</h1>
     <p className="webmcp-intro">Открытые данные ЯКС для работы с ИИ. Здесь доступны те же сведения, что и на страницах сайта: расписание, опубликованные результаты и история команд.</p>

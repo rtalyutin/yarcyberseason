@@ -86,7 +86,8 @@ export default function TechiesGame({ onClose }) {
               onPointerCancel={() => { if (pointer.current) pointer.current.cancelled = true; }}
               onClick={e => { if (e.detail === 0 || !pointer.current?.cancelled) act(i); pointer.current = null; }}
               onContextMenu={e => { e.preventDefault(); act(i, 'ward'); }}>
-              <img src={asset(face)} alt="" draggable="false" width="96" height="96" />
+              <img src={asset(face === 'wrong' ? 'ward' : face)} alt="" draggable="false" width="96" height="96" />
+              {face === 'wrong' && <img className="techies-wrong-overlay" src="/assets/atlas/icons/techies-wrong-overlay.svg" alt="" aria-hidden="true" draggable="false" width="96" height="96" />}
             </button>;
           })}
         </div>

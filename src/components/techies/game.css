@@ -44,3 +44,6 @@
 @media (hover: none) { .techies-help span { display: none; } .techies-cell--closed:hover { background: #162127; } .techies-cell--closed:hover img { visibility: visible; } }
 @media (max-width: 600px) { .techies-help span { display: none; } }
 @media (prefers-reduced-motion: reduce) { .techies-game * { scroll-behavior: auto; animation: none; transition: none; } }
+
+/* The original wrong.webp is empty; preserve the ward with an explicit cross. */
+.techies-cell .techies-wrong-overlay { position: absolute; inset: 0; object-fit: contain; }

@@ -1,0 +1,371 @@
+/* Accepted YCS UI Atlas v3: shared content anatomy, three material systems.
+   Deliberately scoped to main-site content. No sporting state is encoded here. */
+.site-shell[data-theme] {
+  --ac-bg: var(--ycs-bg, #080f17);
+  --ac-surface: var(--ycs-surface, #111e29);
+  --ac-raised: var(--ycs-surface-raised, #1c2d3b);
+  --ac-text: var(--ycs-text, #f4f7fa);
+  --ac-muted: var(--ycs-muted, #b2c2cf);
+  --ac-rule: var(--ycs-line-soft, #2a3d4b);
+  --ac-edge: var(--ycs-line, #506475);
+  --ac-accent: var(--ycs-accent, #7bdfff);
+  --ac-heading: var(--ycs-font-heading, 'YCS Condensed', sans-serif);
+  --ac-numbers: var(--ycs-font-numbers, 'YCS Condensed', sans-serif);
+  --ac-gutter: clamp(16px, 3.2vw, 56px);
+  --inside-bg: var(--ac-bg); --inside-panel: var(--ac-surface);
+  --inside-text: var(--ac-text); --inside-muted: var(--ac-muted);
+  --inside-rule: var(--ac-rule); --inside-accent: var(--ac-accent);
+}
+.site-shell[data-theme] :is(.tournament-directory, .tn-page, .community-page, .partners-page, .match-center) {
+  --ux-bg: var(--ac-bg); --ux-panel: var(--ac-surface); --ux-text: var(--ac-text);
+  --ux-muted: var(--ac-muted); --ux-rule: var(--ac-rule); --ux-accent: var(--ac-accent);
+  --cp-text: var(--ac-text); --cp-muted: var(--ac-muted); --cp-line: var(--ac-rule); --cp-panel: var(--ac-surface);
+  --tp-accent: var(--ac-accent); --tp-surface: var(--ac-surface); --tp-soft: var(--ac-raised); --tp-border: var(--ac-rule);
+  --partner-text: var(--ac-text); --partner-muted: var(--ac-muted); --partner-accent: var(--ac-accent);
+  --partner-rule: var(--ac-rule); --partner-panel: var(--ac-surface); --partner-surface: var(--ac-bg);
+  --mc-bg: var(--ac-bg); --mc-surface: var(--ac-surface); --mc-accent-bg: var(--ac-raised);
+  --mc-text: var(--ac-text); --mc-muted: var(--ac-muted); --mc-line: var(--ac-rule); --mc-accent: var(--ac-accent);
+  color: var(--ac-text); background-color: var(--ac-bg);
+}
+.site-shell[data-theme] :is(.tn-page, .team-profile, .partners-page, .match-center, .tournament-directory) :is(h1,h2,h3,h4) {
+  font-family: var(--ac-heading); font-style: normal; text-wrap: pretty;
+}
+.site-shell[data-theme='dota2'] :is(.tn-page, .team-profile, .partners-page, .match-center, .tournament-directory) :is(h1,h2,h3,h4) {
+  font-weight: 400; text-transform: none; letter-spacing: -.02em;
+}
+.site-shell[data-theme='cs2'] :is(.tn-panel-heading h2,.tp-section-heading h2,.mc-section-heading h2,.directory-card h2) { text-transform: uppercase; }
+.site-shell[data-theme] :is(.tn-score,.tn-ordinal,.community-stats strong,.mc-score,.dota-mvp-total strong,.partner-metric dd) {
+  font-family: var(--ac-numbers); font-variant-numeric: tabular-nums;
+}
+.site-shell[data-theme='dota2'] :is(.tn-score,.tn-ordinal,.community-stats strong,.mc-score,.dota-mvp-total strong) { font-weight: 400; }
+
+/* A compact introduction and horizontal chapter bar, shared by every tournament. */
+.site-shell[data-theme] .tn-page.tn-page[data-section] { display: block; width: min(100%,1800px); margin-inline: auto; background: var(--ac-bg); }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-heading {
+  position: relative; isolation: isolate; width: auto; min-height: 0; margin: 0 var(--ac-gutter); padding: 22px 0 28px;
+  background: none; text-align: left; border: 0; overflow: visible;
+}
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-heading::before {
+  content: ''; position: absolute; z-index: -1; display: block; inset: 30px 0 auto auto; width: 34%; height: 150px;
+  background: var(--ycs-scene) center / cover no-repeat; opacity: .6; border: 0;
+}
+.site-shell[data-theme] .tn-page:is(.tn-page--swiss,.tn-page--playoffs)[data-section] .tn-heading::before { display: none; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-heading > * { margin-inline: 0; max-width: 100%; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-breadcrumb { justify-content: flex-start; font-size: 13px; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-title-row { display: block; max-width: 68%; margin: 18px 0 10px; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-title-row h1 { max-width: 100%; font: 700 clamp(32px,3.7vw,60px)/1.12 var(--ac-heading); letter-spacing: -.025em; }
+.site-shell[data-theme='dota2'] .tn-page.tn-page[data-section] .tn-title-row h1 { font-weight: 400; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-date { max-width: 68%; font: 400 clamp(15px,1.4vw,19px)/1.5 'YCS Sans',sans-serif; color: var(--ac-muted); }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-passport { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 16px; font-size: 13px; }
+.site-shell[data-theme] .tn-passport svg { color: var(--ac-accent); }
+.site-shell[data-theme] .tn-passport a { color: var(--ac-accent); }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-header-actions { justify-content: flex-start; gap: 12px; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-layout { display: block; width: auto; margin: 0 var(--ac-gutter); min-height: 0; border: 0; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-sidebar {
+  display: block; position: sticky; top: 0; z-index: 20; padding: 0;
+  background: var(--ac-bg); border: 0; box-shadow: none;
+}
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-sidebar::after { display: none; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-sidebar > :is(.tn-eyebrow,.tn-facts,.tn-archive-count,.tn-back) { display: none; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-section-nav {
+  display: flex; flex-flow: row nowrap; gap: 8px 22px; padding: 8px 0;
+  overflow-x: auto; overflow-y: hidden; border-bottom: 1px solid var(--ac-rule);
+  scrollbar-width: thin; scrollbar-color: var(--ac-edge) transparent; scroll-padding-inline: 6px;
+}
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link {
+  position: relative; flex: 0 0 auto; min-height: 46px; padding: 10px 16px;
+  border: 0; border-bottom: 3px solid transparent; border-radius: 0;
+  background: transparent; font: 700 15px/1.4 var(--ac-heading); color: var(--ac-muted);
+}
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link[aria-current='page'] { color: var(--ac-text); border-bottom-color: var(--ac-accent); }
+.site-shell[data-theme='cs2'] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link[aria-current='page'] { background: #2467ec; color: #fff; border-color: #2467ec; clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); }
+.site-shell[data-theme='dota2'] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link[aria-current='page'] { border-color: var(--ycs-bronze); }
+.site-shell[data-theme='dota2'] .tn-section-link[aria-current='page']::before { content: ''; position: absolute; width: 5px; height: 5px; background: var(--ycs-bronze); top: 1px; left: calc(50% - 2px); transform: rotate(45deg); }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-content { display: block; padding: 30px 0 60px; margin: 0; border: 0; scroll-margin-top: 80px; }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-results > .tn-panel-heading { position: static; width: auto; height: auto; clip-path: none; overflow: visible; }
+.site-shell[data-theme] :is(.tn-panel-heading,.tp-section-heading,.mc-section-heading,.partner-section-heading,.dota-mvp-heading) { padding-bottom: 18px; border-bottom: 1px solid var(--ac-edge); margin-bottom: 24px; }
+.site-shell[data-theme='cs2'] :is(.tn-panel-heading,.tp-section-heading,.mc-section-heading,.partner-section-heading,.dota-mvp-heading) { border-image: url('/assets/atlas/decorSVG/cs2-divider.svg') 0 0 2 / 0 0 2px stretch; }
+.site-shell[data-theme='dota2'] :is(.tn-panel-heading,.tp-section-heading,.mc-section-heading,.partner-section-heading,.dota-mvp-heading) { border: 0; padding-bottom: 26px; background: url('/assets/atlas/decorSVG/dota2-divider.svg') center bottom / 100% 12px no-repeat; }
+.site-shell[data-theme='corporate'] :is(.tn-panel-heading,.tp-section-heading,.mc-section-heading,.partner-section-heading,.dota-mvp-heading) { border-bottom: 2px solid var(--ac-text); }
+.site-shell[data-theme] .tn-page.tn-page[data-section] .tn-panel-heading h2 { font: 700 clamp(26px,2.5vw,40px)/1.2 var(--ac-heading); }
+.site-shell[data-theme='dota2'] .tn-page.tn-page[data-section] .tn-panel-heading h2 { font-weight: 400; }
+
+/* Podiums are equal ranked cards, never a different layout for a different skin. */
+.site-shell[data-theme] .tn-page.tn-page .tn-podium { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; margin: 24px 0 30px; max-width: none; }
+.site-shell[data-theme] .tn-page.tn-page .tn-podium li,
+.site-shell[data-theme] .tn-page.tn-page .tn-podium li.tn-podium-champion { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; grid-column: auto; grid-row: auto; align-items: center; justify-items: start; width: auto; padding: 22px; gap: 12px 18px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-podium .tn-ordinal { grid-column: 1; grid-row: 1; font-size: 52px; color: var(--ac-accent); line-height: 1; }
+.site-shell[data-theme] .tn-page.tn-page .tn-ordinal::before { content: '0'; }
+.site-shell[data-theme] .tn-page.tn-page .tn-podium .tn-place { grid-column: 2; grid-row: 1; color: var(--ac-muted); font-size: 13px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-podium img { grid-column: 1; grid-row: 2; width: 44px; height: 44px; border-radius: 0; }
+.site-shell[data-theme] .tn-page.tn-page .tn-podium strong { grid-column: 2; grid-row: 2; font: 700 clamp(19px,1.8vw,27px)/1.3 var(--ac-heading); text-align: left; }
+.site-shell[data-theme='dota2'] .tn-page.tn-page .tn-podium strong { font-weight: 400; }
+.site-shell[data-theme] .tn-page.tn-page .tn-final-result { text-align: left; padding: 24px; margin-bottom: 26px; background: var(--ac-surface); color: var(--ac-text); }
+.site-shell[data-theme] .tn-page.tn-page .tn-final-result :is(.tn-match-meta,.tn-team,.tn-match-details,.tn-match-details summary) { color: var(--ac-text); }
+.site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-scoreboard { background: none; padding: 16px 0; border: 0; grid-template-columns: minmax(0,1fr) 160px minmax(0,1fr); }
+.site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-score { font-size: 56px; color: var(--ac-accent); }
+.site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-team { font-size: clamp(18px,2vw,27px); }
+.site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-team img { display: block; width: 48px; height: 48px; }
+.site-shell[data-theme] .tn-participant-list { gap: 18px; grid-template-columns: repeat(3,minmax(0,1fr)); }
+.site-shell[data-theme] .tn-participant-list li { padding: 18px; border: 1px solid var(--ac-rule); }
+
+/* Reusable surfaces keep real DOM and accessible controls inside the decoration. */
+.site-shell[data-theme] :is(.directory-card,.tn-podium li,.tn-final-result,.tn-arena-match,.tn-participant-list li,.tournament-perk-card,.community-panel,.tp-entry,.tp-match,.tp-trophies,.partner-audience-source,.partner-registry-card,.broadcast-match-card,.mc-series-award,.mc-map-tile,.mc-map-summary,.mc-mvp,.mc-clip,.dota-mvp-identity,.sp-rules,.sp-inspector) {
+  position: relative; background-color: var(--ac-surface); color: var(--ac-text); border: 1px solid var(--ac-edge); border-radius: 0;
+}
+.site-shell[data-theme='cs2'] :is(.directory-card,.tn-podium li,.tn-final-result,.tn-arena-match,.tn-participant-list li,.tournament-perk-card,.tp-entry,.tp-match,.tp-trophies,.partner-audience-source,.partner-registry-card,.broadcast-match-card,.mc-series-award,.mc-map-tile,.mc-map-summary,.mc-mvp,.mc-clip,.dota-mvp-identity,.sp-rules,.sp-inspector) {
+  border: 12px solid transparent; border-image: url('/assets/atlas/decorSVG/cs2-panel.svg') 28 / 12px stretch;
+}
+.site-shell[data-theme='dota2'] :is(.directory-card,.tn-podium li,.tn-final-result,.tn-arena-match,.tn-participant-list li,.tournament-perk-card,.tp-entry,.tp-match,.tp-trophies,.partner-audience-source,.partner-registry-card,.broadcast-match-card,.mc-series-award,.mc-map-tile,.mc-map-summary,.mc-mvp,.mc-clip,.dota-mvp-identity,.sp-rules,.sp-inspector) {
+  border: 12px solid transparent; border-image: url('/assets/atlas/decor/dota2-frame.png') 210 / 22px stretch;
+}
+.site-shell[data-theme='corporate'] :is(.directory-card,.tn-podium li,.tn-final-result,.tn-arena-match,.tn-participant-list li,.tournament-perk-card,.tp-entry,.tp-match,.tp-trophies,.partner-audience-source,.partner-registry-card,.broadcast-match-card,.mc-series-award,.mc-map-tile,.mc-map-summary,.mc-mvp,.mc-clip,.dota-mvp-identity,.sp-rules,.sp-inspector) {
+  border: 0; border-top: 2px solid var(--ac-text); border-bottom: 1px solid var(--ac-rule); background: transparent; box-shadow: none;
+}
+.site-shell[data-theme='corporate'] :is(.directory-card,.tn-podium li,.tn-final-result,.tn-arena-match,.tn-participant-list li,.tp-entry,.partner-audience-source,.mc-series-award,.mc-map-tile,.dota-mvp-identity)::before {
+  content: ''; position: absolute; top: -2px; left: 0; width: 44px; height: 4px; background: var(--ac-accent); pointer-events: none;
+}
+.site-shell[data-theme] :is(.tn-arena-match,.tp-match,.directory-card) { transition: background-color var(--ycs-motion-fast,140ms), border-color var(--ycs-motion-fast,140ms); }
+.site-shell[data-theme] :is(.tn-arena-match,.tp-match,.directory-card):hover { background-color: var(--ac-raised); }
+.site-shell[data-theme] :is(.tn-page,.team-profile,.partners-page,.match-center) :is(.tn-source-note,.data-caption,.mc-statistics-note,.tp-empty,.tn-list-summary,.tn-timezone) { color: var(--ac-muted); line-height: 1.6; }
+
+/* Search, phase controls and actions: tactile steel, engraved stone, printed paper. */
+.site-shell[data-theme] .tn-page.tn-page :is(.tn-search,.tn-outline,.tn-broadcast-link) { border: 1px solid var(--ac-edge); border-radius: 0; background: var(--ac-surface); color: var(--ac-text); }
+.site-shell[data-theme] .tn-page.tn-page :is(.tn-search input,.tn-search-label,.tn-search > svg,.tn-search button) { color: var(--ac-text); }
+.site-shell[data-theme] .tn-page.tn-page .tn-filters { flex-wrap: wrap; gap: 10px; border: 0; }
+.site-shell[data-theme] .tn-page.tn-page .tn-filters button { min-height: 44px; padding: 8px 16px; margin: 0; background: var(--ac-surface); border: 1px solid var(--ac-edge); border-radius: 0; color: var(--ac-muted); }
+.site-shell[data-theme] .tn-page.tn-page .tn-filters button[aria-pressed='true'] { color: var(--ycs-action-text); background: var(--ycs-action); border-color: var(--ac-accent); }
+.site-shell[data-theme='dota2'] :is(.directory-search>div,.directory-tools select,.tn-page.tn-page .tn-search,.tn-page.tn-page .tn-filters button) { border-radius: 24px; border-color: var(--ycs-bronze); }
+.site-shell[data-theme='corporate'] :is(.directory-search>div,.directory-tools select,.tn-page.tn-page .tn-search,.tn-page.tn-page .tn-filters button) { border: 0; border-bottom: 1px solid var(--ac-edge); border-radius: 0; background: transparent; }
+.site-shell[data-theme='corporate'] .tn-page.tn-page .tn-filters button[aria-pressed='true'] { border-bottom: 3px solid var(--ac-accent); background: transparent; color: var(--ac-accent); }
+.site-shell[data-theme] .tn-page.tn-page .tn-match-primary { display: flex; justify-content: center; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid var(--ac-accent); background: var(--ycs-action); color: var(--ycs-action-text); border-radius: 0; text-decoration: none; font-weight: 700; font-size: 14px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-details-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px; background: none; color: var(--ac-muted); font-size: 12px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-details-toggle svg { width: 16px; height: 16px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-arena-match { border-radius: 0; }
+.site-shell[data-theme] .tn-page.tn-page :is(.tn-arena-pair,.tn-arena-actions,.tn-arena-details) { border-color: var(--ac-rule); }
+.site-shell[data-theme] .tn-page.tn-page :is(.tn-arena-meta,.tn-arena-time>span,.tn-arena-score>span,.tn-broadcasts-label) { color: var(--ac-muted); }
+.site-shell[data-theme] .tn-page.tn-page .tn-arena-logo { border-color: var(--ac-edge); color: var(--ac-accent); border-radius: 0; }
+.site-shell[data-theme='dota2'] .tn-page.tn-page .tn-arena-logo { border: 2px solid var(--ycs-bronze); border-radius: 50%; padding: 2px; }
+.site-shell[data-theme='corporate'] .tn-page.tn-page .tn-arena-logo { border: 0; border-bottom: 1px solid var(--ac-text); }
+.site-shell[data-theme] .tn-page.tn-page .tn-arena-score strong { color: var(--ac-accent); font-family: var(--ac-numbers); font-size: 30px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-arena-score strong[aria-label='Счёт пока не опубликован'] { color: var(--ac-muted); font-size: 18px; }
+.site-shell[data-theme] .tn-page.tn-page .tn-arena-details a { color: var(--ac-accent); }
+
+/* Data surfaces: row semantics and qualifier colours remain the data components'. */
+.site-shell[data-theme] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) { color: var(--ac-text); background: var(--ac-surface); border-collapse: collapse; }
+.site-shell[data-theme] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) thead th { padding: 12px; color: var(--ac-muted); border-color: var(--ac-rule); font-size: 12px; font-weight: 700; }
+.site-shell[data-theme='cs2'] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) thead th { background: #99c4ff; color: #071520; text-transform: uppercase; }
+.site-shell[data-theme='dota2'] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) thead th { background: #252e20; color: #d9be85; font-family: var(--ac-heading); font-weight: 400; }
+.site-shell[data-theme='corporate'] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) thead th { background: transparent; color: var(--ac-text); border-bottom: 2px solid var(--ac-text); }
+.site-shell[data-theme] :is(.standings-table,.dota-mvp-table,.mc-table-scroll table) tbody :is(td,th) { border-color: var(--ac-rule); padding: 13px 12px; }
+.site-shell[data-theme='cs2'] :is(.dota-mvp-player,.mc-table-scroll tbody tr):nth-child(even) { background: var(--ac-raised); }
+.site-shell[data-theme='dota2'] :is(.dota-mvp-player,.mc-table-scroll tbody tr):nth-child(even) { background: #1b362b; }
+.site-shell[data-theme='corporate'] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) { background: transparent; }
+.site-shell[data-theme] .dota-swiss { --ds-ink: var(--ac-text); --ds-muted: var(--ac-muted); --ds-rule: var(--ac-rule); padding: 0; background: none; color: var(--ac-text); }
+.site-shell[data-theme] .ds-intro { min-height: 0; padding: 0 0 24px; }
+.site-shell[data-theme] .ds-intro h1 { font: 400 clamp(30px,3.4vw,52px)/1.2 var(--ac-heading); color: var(--ac-text); text-transform: none; }
+.site-shell[data-theme] .ds-paths { background: var(--ac-surface); border-color: var(--ac-rule); }
+.site-shell[data-theme] .ds-path + .ds-path { border-left-color: var(--ac-rule); }
+.site-shell[data-theme] .ds-path-arrow { color: var(--ac-accent); background: var(--ac-surface); }
+.site-shell[data-theme='cs2'] .ds-path,.site-shell[data-theme='corporate'] .ds-path { grid-template-columns: 1fr; min-height: 160px; padding: 20px; }
+.site-shell[data-theme='cs2'] .ds-portal,.site-shell[data-theme='corporate'] .ds-portal { display: none; }
+.site-shell[data-theme='corporate'] .ds-path--3 { --ds-accent: #166d4e; }
+.site-shell[data-theme='corporate'] .ds-path--4 { --ds-accent: #175f9e; }
+.site-shell[data-theme='corporate'] .ds-path--5 { --ds-accent: #71469c; }
+.site-shell[data-theme] .ds-table-frame { padding: 12px; background: var(--ac-surface); border: 1px solid var(--ac-edge); }
+.site-shell[data-theme='cs2'] .ds-table-frame { border: 12px solid transparent; border-image: url('/assets/atlas/decorSVG/cs2-panel.svg') 28 / 12px stretch; }
+.site-shell[data-theme='dota2'] .ds-table-frame { border: 12px solid transparent; border-image: url('/assets/atlas/decor/dota2-frame.png') 210 / 22px stretch; }
+.site-shell[data-theme='corporate'] .ds-table-frame { padding: 0; border: 0; border-top: 2px solid var(--ac-text); }
+.site-shell[data-theme] .ds-table caption { color: var(--ac-text); background: var(--ac-surface); font-family: var(--ac-heading); }
+.site-shell[data-theme] .ds-footnote { color: var(--ac-muted); }
+.site-shell[data-theme='corporate'] .ds-status { color: var(--ac-muted); }
+.site-shell[data-theme='corporate'] .ds-row--qualified-3 { background: #e7f5ed; --ds-state: #166d4e; }
+.site-shell[data-theme='corporate'] .ds-row--qualified-4 { background: #e7f0fa; --ds-state: #175f9e; }
+.site-shell[data-theme='corporate'] .ds-row--qualified-5 { background: #f0eaf8; --ds-state: #71469c; }
+.site-shell[data-theme='corporate'] .ds-row--eliminated { background: #fae9ed; --ds-state: #a42c44; }
+.site-shell[data-theme='corporate'] :is(.ds-row[class*='qualified'],.ds-row--eliminated) .ds-status { color: var(--ds-state); }
+.site-shell[data-theme='corporate'] :is(.ds-row--active,.ds-row--unknown):hover { background: var(--ac-raised); }
+.site-shell[data-theme='corporate'] .ds-wins svg { color: #788aa3; }
+.site-shell[data-theme='corporate'] .ds-wins .is-filled { color: #166d4e; }
+.site-shell[data-theme='corporate'] .ds-row[class*='qualified'] .ds-wins .is-filled { color: var(--ds-state); }
+.site-shell[data-theme] .swiss-playoffs { padding: 0; background: none; }
+.site-shell[data-theme] .sp-match { border-radius: 0; }
+.site-shell[data-theme='dota2'] .sp-match { border-color: #887248; box-shadow: inset 0 0 0 3px #9d82442e; }
+.site-shell[data-theme='corporate'] .sp-match { box-shadow: none; border: 1px solid var(--ac-rule); border-top: 2px solid var(--ac-text); }
+.site-shell[data-theme='corporate'] .sp-match.is-selected { box-shadow: 0 0 0 2px var(--ac-accent); }
+.site-shell[data-theme] .dota-mvp { --mvp-display: var(--ac-heading); --mvp-score: var(--ac-accent); }
+.site-shell[data-theme] .dota-mvp-composition { gap: 24px; }
+.site-shell[data-theme] .dota-mvp-identity { padding: 24px; }
+.site-shell[data-theme] .dota-mvp-ranking { padding-left: 0; border: 0; }
+.site-shell[data-theme] .dota-mvp-identity-art { display: block; width: 100%; min-height: 150px; background: var(--ycs-scene) center / cover no-repeat; }
+.site-shell[data-theme] .dota-mvp-name button { min-height: 44px; }
+.site-shell[data-theme] .dota-mvp-score { color: var(--ac-accent); }
+.site-shell[data-theme] .dota-mvp-detail-inner { background: var(--ac-raised); }
+
+/* The team page has one identity, then the same discipline sections in every skin. */
+.site-shell[data-theme] .community-page.team-profile { width: min(100%,1800px); max-width: 1800px; padding: 24px var(--ac-gutter) 64px; }
+.site-shell[data-theme] .team-profile .tp-layout { display: block; }
+.site-shell[data-theme] .team-profile .tp-identity { display: grid; grid-template-columns: 100px minmax(0,1fr) minmax(200px,.5fr); gap: 10px 24px; padding: 26px 0; margin-bottom: 28px; background: none; border: 0; border-bottom: 1px solid var(--ac-rule); }
+.site-shell[data-theme] .team-profile .tp-identity::before { display: block; inset: 0 0 0 auto; width: 33%; background: var(--ycs-scene) center / cover; clip-path: none; opacity: .5; }
+.site-shell[data-theme] .team-profile .tp-identity .community-eyebrow { grid-column: 2; grid-row: 1; order: initial; margin: 0; color: var(--ac-accent); }
+.site-shell[data-theme] .team-profile .tp-identity h1 { grid-column: 2; grid-row: 2; order: initial; margin: 0; font: 700 clamp(34px,3.8vw,60px)/1.15 var(--ac-heading); letter-spacing: -.025em; }
+.site-shell[data-theme='dota2'] .team-profile .tp-identity h1 { font-weight: 400; }
+.site-shell[data-theme] .team-profile .tp-team-logo { grid-column: 1; grid-row: 1 / 4; order: initial; width: 100px; height: 100px; padding: 6px; margin: 0; align-self: center; background: var(--ac-surface); border: 1px solid var(--ac-edge); }
+.site-shell[data-theme='dota2'] .team-profile .tp-team-logo { border: 2px solid var(--ycs-bronze); border-radius: 50%; }
+.site-shell[data-theme] .team-profile .tp-follow { grid-column: 3; grid-row: 1 / 4; order: initial; align-self: center; }
+.site-shell[data-theme] .team-profile .tp-follow > summary { color: var(--ycs-action-text); background: var(--ycs-action); border: 1px solid var(--ac-edge); }
+.site-shell[data-theme] .team-profile .tp-follow[open] { background: var(--ac-surface); padding: 16px; }
+.site-shell[data-theme] .team-profile .tp-discipline { display: block; padding: 24px 0; margin: 0; border: 0; }
+.site-shell[data-theme] .team-profile .tp-discipline + .tp-discipline { border-top: 2px solid var(--ac-accent); }
+.site-shell[data-theme] .team-profile .tp-discipline-title { margin-bottom: 26px; }
+.site-shell[data-theme] .team-profile .tp-statistics { margin-bottom: 36px; padding: 0; border: 0; }
+.site-shell[data-theme] .team-profile .community-stats { grid-template-columns: repeat(4,minmax(0,1fr)); border-block: 1px solid var(--ac-rule); }
+.site-shell[data-theme] .team-profile .community-stats > div { padding: 16px; }
+.site-shell[data-theme] .team-profile .community-stats strong { font-size: 42px; color: var(--ac-accent); }
+.site-shell[data-theme] .team-profile .tp-panel { margin-bottom: 36px; }
+.site-shell[data-theme] .team-profile .tp-match { padding: 14px 20px; }
+.site-shell[data-theme] .team-profile .tp-tournament-grid { grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); }
+.site-shell[data-theme] .team-profile .tp-entry { padding: 22px; }
+.site-shell[data-theme] .team-profile .tp-entry-title { font: 700 24px/1.25 var(--ac-heading); color: var(--ac-text); }
+.site-shell[data-theme='dota2'] .team-profile .tp-entry-title { font-weight: 400; }
+.site-shell[data-theme] .team-profile .community-roster-list li { padding: 12px; background: var(--ac-raised); border-bottom: 1px solid var(--ac-rule); }
+.site-shell[data-theme] .team-profile .community-trophy strong { color: var(--ac-accent); }
+.site-shell[data-theme] .team-profile .community-opponent > summary { color: var(--ac-text); }
+
+/* Catalogue and partnership content use the same panels as the competition data. */
+.site-shell[data-theme] .directory-heading { position: relative; padding: 36px var(--ac-gutter) 28px; isolation: isolate; }
+.site-shell[data-theme] .directory-heading::before { content: ''; position: absolute; z-index: -1; inset: 28px var(--ac-gutter) 28px auto; width: 32%; background: var(--ycs-scene) center / cover; opacity: .45; }
+.site-shell[data-theme] .directory-heading h1 { max-width: 70%; font-size: clamp(36px,4vw,64px); line-height: 1.1; }
+.site-shell[data-theme] .directory-workspace { padding: 28px var(--ac-gutter) 56px; }
+.site-shell[data-theme] .directory-list { gap: 22px; }
+.site-shell[data-theme] .directory-card h2 { font-size: clamp(26px,2.5vw,40px); }
+.site-shell[data-theme] .partners-page { width: min(100%,1800px); margin: auto; background-image: none; }
+.site-shell[data-theme] .partners-page .container { width: calc(100% - var(--ac-gutter) * 2); }
+.site-shell[data-theme] .partner-hero { background: var(--ac-bg); }
+.site-shell[data-theme] .partner-hero::before { inset: 16px var(--ac-gutter) 16px auto; width: 35%; background: var(--ycs-scene) center / cover; opacity: .55; }
+.site-shell[data-theme] .partner-hero::after { display: none; }
+.site-shell[data-theme] .partner-hero :is(h1,.partner-kicker) { color: var(--ac-text); }
+.site-shell[data-theme] .partner-hero .partner-hero-copy { color: var(--ac-muted); }
+.site-shell[data-theme] .partner-primary-action { background: var(--ycs-action); color: var(--ycs-action-text); border: 1px solid var(--ac-edge); }
+.site-shell[data-theme] .partner-section-heading { padding-bottom: 22px; }
+.site-shell[data-theme] .partner-audience-source { padding: 28px; }
+.site-shell[data-theme] .partner-metric { border-color: var(--ac-rule); }
+.site-shell[data-theme] .partner-registry-card { padding: 24px; }
+.site-shell[data-theme] .partner-registry-logo { background: #fff; }
+.site-shell[data-theme] .partner-registry-logo--inverse { background: #071b2c; }
+.site-shell[data-theme] .partners-page :is(.partner-source-date,.partner-source-note,.partner-source-status,.partner-source-method,.partner-provenance) { color: var(--ac-muted); }
+.site-shell[data-theme] .broadcasts-page { max-width: 1800px; margin-inline: auto; }
+
+/* Match centre: visible title, compact series panel, data remains in the DOM. */
+.site-shell[data-theme] .match-center .mc-hero { min-height: 0; padding: 24px var(--ac-gutter) 0; background-size: 32% 150px; background-position: right var(--ac-gutter) top 28px; background-repeat: no-repeat; }
+.site-shell[data-theme] .match-center .mc-hero::before { display: none; }
+.site-shell[data-theme] .match-center .mc-breadcrumb { max-width: 68%; color: var(--ac-muted); text-shadow: none; flex-wrap: wrap; }
+.site-shell[data-theme] .match-center .mc-title { display: block; position: static; width: auto; height: auto; margin: 24px 0 26px; max-width: 68%; color: var(--ac-text); font: 700 clamp(30px,3.3vw,52px)/1.2 var(--ac-heading); overflow: visible; clip-path: none; }
+.site-shell[data-theme='dota2'] .match-center .mc-title { font-weight: 400; }
+.site-shell[data-theme] .match-center .mc-scoreboard { width: 100%; margin: 0; padding: 22px; gap: 22px; grid-template-columns: minmax(0,1fr) minmax(160px,.7fr) minmax(0,1fr); color: var(--ac-text); text-shadow: none; background: var(--ac-surface); border: 1px solid var(--ac-edge); }
+.site-shell[data-theme='cs2'] .match-center .mc-scoreboard { border: 12px solid transparent; border-image: url('/assets/atlas/decorSVG/cs2-panel.svg') 28 / 12px stretch; background-image: url('/assets/atlas/textures/cs2-metal.webp'); background-size: cover; }
+.site-shell[data-theme='dota2'] .match-center .mc-scoreboard { border: 12px solid transparent; border-image: url('/assets/atlas/decor/dota2-frame.png') 210 / 24px stretch; background-image: url('/assets/atlas/textures/dota2-stone.webp'); background-size: cover; }
+.site-shell[data-theme='corporate'] .match-center .mc-scoreboard { border: 0; border-top: 2px solid var(--ac-text); border-bottom: 1px solid var(--ac-rule); background: transparent; }
+.site-shell[data-theme] .match-center .mc-team { padding-top: 0; }
+.site-shell[data-theme] .match-center .mc-team>a,.site-shell[data-theme] .match-center .mc-team>span { flex-direction: row; justify-content: center; gap: 16px; }
+.site-shell[data-theme] .match-center .mc-team img { width: 64px; height: 64px; border: 1px solid var(--ac-edge); box-shadow: none; background: var(--ac-bg); }
+.site-shell[data-theme='dota2'] .match-center .mc-team img { border: 2px solid var(--ycs-bronze); border-radius: 50%; }
+.site-shell[data-theme] .match-center .mc-team span { font: 700 clamp(18px,1.9vw,28px)/1.3 var(--ac-heading); }
+.site-shell[data-theme='dota2'] .match-center .mc-team span { font-weight: 400; }
+.site-shell[data-theme] .match-center .mc-score { font: 400 clamp(42px,5vw,76px)/1.1 var(--ac-numbers); color: var(--ac-accent); }
+.site-shell[data-theme] .match-center :is(.mc-round,.mc-date,.mc-score-label,.mc-status) { color: var(--ac-muted); }
+.site-shell[data-theme] .match-center .mc-status--live { color: var(--ycs-success); }
+.site-shell[data-theme] .match-center :is(.mc-outcome,.mc-maps,.mc-section-nav,.mc-statistics,.mc-bottom,.mc-footer) { padding-inline: var(--ac-gutter); background: none; }
+.site-shell[data-theme] .match-center .mc-map-detail { margin: 26px var(--ac-gutter); padding: 0; gap: 24px; background: none; }
+.site-shell[data-theme] .match-center .mc-series-award { margin: 24px var(--ac-gutter) 0; padding: 24px; background-image: none; }
+.site-shell[data-theme] .match-center .mc-series-award-heading h2 { color: var(--ac-accent); }
+.site-shell[data-theme] .match-center :is(.mc-series-picks>li,.mc-map-picture,.mc-map-summary--plain,.mc-mvp--plain) { background: var(--ac-surface); }
+.site-shell[data-theme] .match-center .mc-map-summary { padding: 24px; }
+.site-shell[data-theme] .match-center .mc-mvp { padding: 24px; }
+.site-shell[data-theme] .match-center .mc-map-landscape { opacity: .25; }
+.site-shell[data-theme] .match-center .mc-map-tile { min-width: 0; padding: 10px; }
+.site-shell[data-theme] .match-center .mc-map-tile.is-selected { outline: 2px solid var(--ac-accent); outline-offset: 3px; }
+.site-shell[data-theme] .match-center .mc-map-tile.is-unplayed { opacity: .7; }
+.site-shell[data-theme] .match-center .mc-map-picture { height: 92px; }
+.site-shell[data-theme] .match-center .mc-map-picture img { opacity: .35; }
+.site-shell[data-theme] .match-center .mc-map-name { color: var(--ac-text); }
+.site-shell[data-theme] .match-center .mc-button { color: var(--ac-accent); background: transparent; border-color: var(--ac-edge); }
+.site-shell[data-theme] .match-center .mc-button--primary { color: var(--ycs-action-text); background: var(--ycs-action); border-color: var(--ac-accent); }
+.site-shell[data-theme='dota2'] .match-center[data-match-theme='dota2'] .mc-button--primary { color: var(--ycs-action-text) !important; }
+.site-shell[data-theme] .match-center .mc-context { padding: 24px; background: var(--ac-surface); border: 1px solid var(--ac-rule); }
+.site-shell[data-theme='corporate'] .match-center .mc-context { background: none; border: 0; border-block: 1px solid var(--ac-rule); }
+.site-shell[data-theme] .match-center .mc-table-scroll { border-color: var(--ac-rule); }
+.site-shell[data-theme] .match-center .mc-table-scroll :is(td,th) { color: var(--ac-text); }
+.site-shell[data-theme] .match-center .mc-table-scroll .is-mvp { background: var(--ac-raised); color: var(--ac-text); }
+
+/* Dense sections shrink their chrome, not their data or touch targets. */
+@media (max-width: 900px) {
+  .site-shell[data-theme] .tn-page.tn-page .tn-podium { gap: 12px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-podium li,.site-shell[data-theme] .tn-page.tn-page .tn-podium li.tn-podium-champion { padding: 16px; gap: 12px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-podium strong { grid-column: 1 / -1; grid-row: 3; }
+  .site-shell[data-theme] .tn-participant-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .site-shell[data-theme] .team-profile .tp-identity { grid-template-columns: 80px minmax(0,1fr); }
+  .site-shell[data-theme] .team-profile .tp-team-logo { width: 80px; height: 80px; }
+  .site-shell[data-theme] .team-profile .tp-follow { grid-column: 1 / -1; grid-row: 4; max-width: 360px; }
+  .site-shell[data-theme] .match-center .mc-team>a,.site-shell[data-theme] .match-center .mc-team>span { flex-direction: column; }
+  .site-shell[data-theme] .match-center .mc-scoreboard { gap: 12px; padding: 16px; grid-template-columns: minmax(0,1fr) minmax(130px,.8fr) minmax(0,1fr); }
+}
+@media (max-width: 640px) {
+  .site-shell[data-theme] .ds-table thead th { padding: 10px 0; font-size: 10px; }
+  .site-shell[data-theme] .ds-table-frame { padding: 5px; }
+  .site-shell:is([data-theme='cs2'],[data-theme='dota2']) .ds-table-frame { border-width: 6px; border-image-width: 12px; }
+  .site-shell[data-theme] .ds-table--buchholz tbody .ds-status { grid-column: 1 / 3; padding-left: 0; }
+  .site-shell[data-theme] .ds-table tbody .ds-buchholz { grid-column: 3; }
+  .site-shell[data-theme='cs2'] .ds-path,.site-shell[data-theme='corporate'] .ds-path { min-height: 0; padding: 12px 4px; }
+  .site-shell[data-theme] .tn-page.tn-page[data-section] .tn-heading::before,.site-shell[data-theme] .directory-heading::before { width: 42%; opacity: .18; }
+  .site-shell[data-theme] .tn-page.tn-page[data-section] :is(.tn-title-row,.tn-date) { max-width: 100%; }
+  .site-shell[data-theme] .tn-page.tn-page[data-section] .tn-section-nav { gap: 4px; }
+  .site-shell[data-theme] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link { padding-inline: 12px; font-size: 13px; }
+  .site-shell[data-theme] .tn-page.tn-page[data-section] .tn-content { padding-top: 24px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-panel-heading { flex-wrap: wrap; gap: 22px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-search { width: 100%; min-width: 0; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-podium { grid-template-columns: 1fr; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-podium strong { grid-column: 2; grid-row: 2; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-final-result { padding: 18px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-scoreboard { grid-template-columns: minmax(0,1fr) 84px minmax(0,1fr); gap: 10px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-score { font-size: 34px; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-final-result .tn-team { flex-direction: column; gap: 10px; font-size: 14px; }
+  .site-shell[data-theme] .tn-participant-list { grid-template-columns: 1fr; }
+  .site-shell[data-theme] .tn-page.tn-page .tn-arena-score strong { font-size: 22px; }
+  .site-shell[data-theme] .directory-heading h1 { max-width: 100%; }
+  .site-shell[data-theme] .directory-tools { grid-template-columns: 1fr; }
+  .site-shell[data-theme] .directory-search { grid-column: auto; }
+  .site-shell[data-theme] .directory-card-content { padding: 18px 12px; }
+  .site-shell[data-theme] .directory-identity,.site-shell[data-theme] .directory-shortcuts { padding-inline: 12px; }
+  .site-shell[data-theme] .team-profile .community-stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .site-shell[data-theme] .team-profile .community-stats strong { font-size: 34px; }
+  .site-shell[data-theme] .team-profile .tp-match { padding: 12px; }
+  .site-shell[data-theme] .team-profile .community-row-score { grid-template-columns: minmax(0,1fr) 66px minmax(0,1fr); gap: 8px; }
+  .site-shell[data-theme] .team-profile .tp-match-team { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .site-shell[data-theme] .team-profile .tp-match-team--2 { align-items: flex-end; }
+  .site-shell[data-theme] .team-profile .tp-match-team a { font-size: 13px; }
+  .site-shell[data-theme] .team-profile .community-row-score > :nth-child(2) { font-size: 24px; }
+  .site-shell[data-theme] .partners-page .partner-hero-inner { flex-wrap: wrap; }
+  .site-shell[data-theme] .partner-audience-source,.site-shell[data-theme] .partner-registry-card { padding: 18px; }
+  .site-shell[data-theme] .match-center .mc-hero { background-size: 45% 140px; }
+  .site-shell[data-theme] .match-center .mc-breadcrumb,.site-shell[data-theme] .match-center .mc-title { max-width: 100%; }
+  .site-shell[data-theme] .match-center .mc-title { padding: 10px 0; background: color-mix(in srgb,var(--ac-bg) 85%,transparent); font-size: 28px; }
+  .site-shell[data-theme] .match-center .mc-scoreboard { grid-template-columns: minmax(0,1fr) 90px minmax(0,1fr); padding: 16px 8px; gap: 8px; }
+  .site-shell[data-theme] .match-center .mc-team img { width: 44px; height: 44px; }
+  .site-shell[data-theme] .match-center .mc-team span { font-size: 15px; }
+  .site-shell[data-theme] .match-center .mc-score { font-size: 34px; }
+  .site-shell[data-theme] .match-center :is(.mc-round,.mc-date,.mc-status) { font-size: 11px; }
+  .site-shell[data-theme] .match-center .mc-map-detail { grid-template-columns: 1fr; gap: 18px; }
+  .site-shell[data-theme] .match-center .mc-map-picture { height: 68px; }
+  .site-shell[data-theme] .match-center .mc-series-award { padding: 18px; }
+  .site-shell[data-theme] .dota-mvp-composition { grid-template-columns: 1fr; gap: 22px; }
+  .site-shell[data-theme] .dota-mvp-identity { padding: 18px; }
+  .site-shell[data-theme] .dota-mvp-identity-art { min-height: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-shell[data-theme] :is(.tn-arena-match,.tp-match,.directory-card) { transition: none; }
+}
+@media (forced-colors: active) {
+  .site-shell[data-theme] :is(.directory-card,.tn-podium li,.tn-arena-match,.tp-entry,.mc-scoreboard,.mc-series-award,.mc-map-tile,.ds-table-frame) { border: 1px solid CanvasText; border-image: none; background-image: none; }
+  .site-shell[data-theme] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link[aria-current='page'] { clip-path: none; border: 2px solid Highlight; }
+}

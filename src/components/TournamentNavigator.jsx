@@ -102,7 +102,8 @@ function MatchList({ model, view, changeView, fixedStage, tournament, arena = fa
 }
 
 export function TournamentNavigator({ tournament, navigate, theme, renderStage, renderRewards }) {
-  const arena = theme === 'dota2';
+  // One content anatomy in all atlas themes; presentation is controlled by CSS.
+  const arena = true;
   const model = useMemo(() => getTournamentModel(tournament, { includeEmptyMatches: true }), [tournament]);
   const [view, setView] = useState(() => resolveTournamentView(model, "", ""));
   const sectionNav = useRef(null);
@@ -152,6 +153,7 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
           {tournament.participants ? <span><Users aria-hidden="true" />{participantCount(tournament)} команд</span> : sourceFacts.filter((fact) => /команд/i.test(fact)).map((fact) => <span key={fact}><Users aria-hidden="true" />{fact}</span>)}
           {(tournament.prizeDistribution?.total || sourceFacts.find((fact) => /₽|руб/i.test(fact))) && <span><Trophy aria-hidden="true" />{tournament.prizeDistribution?.total || sourceFacts.find((fact) => /₽|руб/i.test(fact))}</span>}
           {tournament.statusLabel && <span><LockSimple aria-hidden="true" />{tournament.statusLabel}</span>}
+          {sourceFacts.filter((fact) => !/команд|₽|руб/i.test(fact) && fact !== tournament.statusLabel).map((fact) => <span key={fact}>{fact}</span>)}
           {regulation && <a href={regulation.url} target="_blank" rel="noopener noreferrer"><FileText aria-hidden="true" />Регламент PDF<ArrowUpRight aria-hidden="true" /></a>}
         </div> : !archived && tournament.registration?.status === 'closed' && <p className="tn-registration-closed">{tournament.registration.message} · {registrationCountLabel(tournament)}</p>}
         {(!archived || regulation || tournament.matchday) && <div className="tn-header-actions">

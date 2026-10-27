@@ -1,3 +1,4 @@
+import { UtilityThemeSwitcher } from "./ThemedUtilityShell.jsx";
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { filterOrganizerRows, organizerDate, organizerTimeNote } from '../lib/organizer-table.js';
 import { matchStates } from '../lib/community.js';
@@ -163,7 +164,7 @@ export default function OrganizerPage() {
   return <main className="orgs-page">
     <header className="orgs-header">
       <a href="/" className="orgs-brand"><img src="/assets/ycs-logo.jpg" width="44" height="44" alt="ЯрКиберСезон" /><span>ЯРКИБЕРСЕЗОН<small>ДЛЯ ОРГАНИЗАТОРОВ</small></span></a>
-      <div className="orgs-header-actions"><a href="/">На сайт ↗</a>{token && <button type="button" onClick={logout}>Выйти</button>}</div>
+      <div className="orgs-header-actions"><UtilityThemeSwitcher /><a href="/">На сайт ↗</a>{token && <button type="button" onClick={logout}>Выйти</button>}</div>
     </header>
     {!token ? <section className="orgs-login" aria-labelledby="orgs-login-title">
       <p className="orgs-eyebrow">Доступ организаторов</p><h1 id="orgs-login-title">Все матчи.<br />Один стол.</h1>

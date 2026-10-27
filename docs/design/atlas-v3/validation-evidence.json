@@ -1,0 +1,74 @@
+{
+  "runtime_source_snapshot": {
+    "base": "542261c65a83eadcd5e1488baa8d02f77899cae7",
+    "src_public_files": 495,
+    "src_public_digest": "8825e5d9fb582cdcfe2c326dc9a3617d3fa6fc7d43958c371a0422c5a5cadc90",
+    "protected_changed": []
+  },
+  "static_match_files": 167,
+  "built_atlas_files_equal": 15,
+  "build_log_sha256": "b73501701c16f286bfb013d2d3afac42c32b13109c860fd81e61bf7b63aae84c",
+  "regression_log_sha256": "53cd7bb28a3791e8eefc47966b27b1da5dc134e8f8b87b113f29ae2d4ae52830",
+  "tests": {
+    "full_regression_before_final_css": {
+      "total": 153,
+      "passed": 147,
+      "failed_preexisting": 6,
+      "failed_new": 0,
+      "skipped": 0
+    },
+    "final_focused_after_final_css": {
+      "total": 23,
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "atlas_acceptance": 10,
+      "sites_worker": 6,
+      "utility_theme_state": 1,
+      "site_navigation_including_all_167_matches": 6
+    }
+  },
+  "build": {
+    "exit_code": 0,
+    "canonical_urls": 233,
+    "aliases": 4,
+    "teams": 52,
+    "matches": 167
+  },
+  "literal_asset_references": 57,
+  "missing_asset_references": 0,
+  "build_assets": [
+    {
+      "path": "/assets/App-DVp_wOfy.js",
+      "bytes": 350418,
+      "sha256": "bc68a60bddfd6ac8b1606718cef3af5fad48d6b2f03e9ea1f725269b917c129f"
+    },
+    {
+      "path": "/assets/App-DN896fHN.css",
+      "bytes": 360870,
+      "sha256": "062698ce9a5485fe181130e23230b23bf1ef1bae6674a7b1e7eb920fb15be81e"
+    },
+    {
+      "path": "/assets/index-DomEl-y0.js",
+      "bytes": 209086,
+      "sha256": "23d80cfbb45db8a9e929972caacef33ef3e8391d9db69e16549747523cc0bf76"
+    },
+    {
+      "path": "/assets/MatchCenterPage-Cyg8ODlo.js",
+      "bytes": 56025,
+      "sha256": "4a9c4fc5724bc636bd8e7eab3d4dff1d86b3e4f230a86980239fdb6c29b880dd"
+    }
+  ],
+  "full_regression_snapshot": {
+    "base": "542261c65a83eadcd5e1488baa8d02f77899cae7",
+    "src_public_files": 495,
+    "src_public_digest": "c417dda25ddc484dd811c12630e4b1ad388a99668fc200cf463fb5bf7c058e78",
+    "protected_changed": []
+  },
+  "post_broad_change": {
+    "path": "src/atlas-foundation.css",
+    "change": "One CSS heading-color override in .org-room; no JS, API or data change.",
+    "browser_readback": "rgb(237, 243, 255) text on rgb(13, 21, 36) background, reported by browser QA agent."
+  },
+  "focused_log_sha256": "5b1a7e1ef1f6e316090ababd0d5e36d75b078a4daf03f66cabf421412beb01d2"
+}

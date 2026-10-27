@@ -1,3 +1,4 @@
+import { UtilityThemeSwitcher } from "./ThemedUtilityShell.jsx";
 import React, {useState,useEffect} from 'react';
 import '../for-mari.css';
 const initial=[{n:'16',winLimit:'4',lossLimit:'3'},{n:'18',winLimit:'4',lossLimit:'3'}];
@@ -31,7 +32,7 @@ export default function ForMari(){
  const submit=e=>{e.preventDefault();setResults(null);setDirty(false);setRound(1);setConfigs(draft.map(c=>Object.fromEntries(Object.entries(c).map(([k,v])=>[k,Number(v)]))));};
  const visible=dirty?null:results,totalRounds=visible?Math.max(...visible.map(c=>c.rounds.length)):0;
  const both=visible?.every(c=>c.status==='COMPLETED');
- return <main className="for-mari"><div className="fm-shell"><nav className="fm-top"><a href="/">← ЯрКиберСезон</a><span>ДЛЯ МАРИ · СИМУЛЯТОР</span></nav><header className="fm-intro"><h1>Сравним форматы.<br/><em>По вашим правилам.</em></h1><p>Пары — по поражениям. В плей-офф — восемь команд. Задайте параметры двух сценариев.</p></header>
+ return <main className="for-mari"><div className="fm-shell"><nav className="fm-top"><a href="/">← ЯрКиберСезон</a><span>ДЛЯ МАРИ · СИМУЛЯТОР</span><UtilityThemeSwitcher /></nav><header className="fm-intro"><h1>Сравним форматы.<br/><em>По вашим правилам.</em></h1><p>Пары — по поражениям. В плей-офф — восемь команд. Задайте параметры двух сценариев.</p></header>
  <form className="fm-form" onSubmit={submit}><div className="fm-grid">{draft.map((c,i)=><fieldset key={i}><legend>Сценарий {i?'Б':'А'}</legend><div className="fm-fields">{[['n','Команды',8],['winLimit','Побед для выхода',1],['lossLimit','Поражений до выбывания',1]].map(([key,label,min])=><label key={key}>{label}<input type="number" required min={min} step="1" value={c[key]} onChange={e=>{const value=e.target.value;setDraft(old=>old.map((x,j)=>i===j?{...x,[key]:value}:x));setDirty(true);}}/></label>)}</div></fieldset>)}</div><button className="fm-calculate" type="submit">Рассчитать сравнение</button></form>
  <div className="fm-rules"><span>Порог побед → выход и остановка</span><span>Порог поражений → выбывание</span><span>Нет пары → пропуск без результата</span><span>Осталось 8 с учётом прошедших → проходят все</span></div>
  {dirty?<p className="fm-status" role="status">Параметры изменены. Нажмите «Рассчитать сравнение».</p>:error?<p className="fm-error" role="alert">{error}</p>:!visible?<p className="fm-status" role="status">Рассчитываем пары и туры…</p>:<>

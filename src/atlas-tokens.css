@@ -1,0 +1,117 @@
+/* YCS atlas asset contract. Import once; opt in on a root element.
+   These family names are private aliases for the bundled source fonts. */
+
+
+:where([data-ycs-theme='cs2'], [data-ycs-theme='dota2'], [data-ycs-theme='corporate']) {
+  --ycs-font-body: 'YCS Sans', system-ui, sans-serif;
+  --ycs-font-heading: 'YCS Condensed', 'YCS Sans', sans-serif;
+  --ycs-font-numbers: 'YCS Condensed', 'YCS Sans', sans-serif;
+  --ycs-space-1: .25rem;
+  --ycs-space-2: .5rem;
+  --ycs-space-3: .75rem;
+  --ycs-space-4: 1rem;
+  --ycs-space-6: 1.5rem;
+  --ycs-space-8: 2rem;
+  --ycs-space-12: 3rem;
+  --ycs-control-height: 2.75rem;
+  --ycs-body-size: 1rem;
+  --ycs-small-size: .875rem;
+  --ycs-heading-size: clamp(2rem, 4vw, 4.75rem);
+  --ycs-cut: .65rem;
+  --ycs-frame-slice: 210;
+  --ycs-frame-width: 2rem;
+  --ycs-motion-fast: 160ms;
+  --ycs-motion-panel: 220ms;
+  --ycs-ease: cubic-bezier(.2,.65,.3,1);
+  --ycs-shadow: none;
+  --ycs-radius: 0;
+  color: var(--ycs-text);
+  background-color: var(--ycs-bg);
+  font-family: var(--ycs-font-body);
+  font-size: var(--ycs-body-size);
+  line-height: 1.5;
+  color-scheme: var(--ycs-color-scheme);
+}
+
+[data-ycs-theme='cs2'] {
+  --ycs-color-scheme: dark;
+  --ycs-bg: #080f17;
+  --ycs-surface: #111e29;
+  --ycs-surface-raised: #1c2d3b;
+  --ycs-surface-hover: #203b4c;
+  --ycs-text: #f4f7fa;
+  --ycs-muted: #b2c2cf;
+  --ycs-line: #506475;
+  --ycs-line-soft: #2a3d4b;
+  --ycs-accent: #7bdfff;
+  --ycs-accent-strong: #14c5ff;
+  --ycs-action: #62d4ff;
+  --ycs-action-text: #07121e;
+  --ycs-focus: #f4c666;
+  --ycs-bronze: #899caa;
+  --ycs-danger: #ff9f9f;
+  --ycs-success: #b0efc8;
+  --ycs-warning: #f4c666;
+  --ycs-texture: url('/assets/atlas/textures/cs2-metal.webp');
+  --ycs-scene: url('/assets/atlas/backgrounds/cs2-river.webp');
+  --ycs-shadow: 0 .5rem 1.5rem #0005;
+  --ycs-motion-fast: 120ms;
+  --ycs-motion-panel: 200ms;
+  --ycs-ease: steps(3, end);
+}
+
+[data-ycs-theme='dota2'] {
+  --ycs-color-scheme: dark;
+  --ycs-font-heading: 'YCS Serif', Georgia, serif;
+  --ycs-font-numbers: 'YCS Serif', Georgia, serif;
+  --ycs-bg: #091712;
+  --ycs-surface: #102720;
+  --ycs-surface-raised: #1c382c;
+  --ycs-surface-hover: #28513f;
+  --ycs-text: #f6f0db;
+  --ycs-muted: #c1c7b7;
+  --ycs-line: #a08756;
+  --ycs-line-soft: #4f523b;
+  --ycs-accent: #c9e5b6;
+  --ycs-accent-strong: #97f0c0;
+  --ycs-action: #244e3b;
+  --ycs-action-text: #fff3ce;
+  --ycs-focus: #ffe4a1;
+  --ycs-bronze: #c2a467;
+  --ycs-danger: #ffb5a0;
+  --ycs-success: #b6e9bd;
+  --ycs-warning: #f1d38d;
+  --ycs-texture: url('/assets/atlas/textures/dota2-stone.webp');
+  --ycs-scene: url('/assets/atlas/backgrounds/dota2-river.webp');
+  --ycs-shadow: 0 .5rem 1.5rem #0007;
+  --ycs-motion-fast: 180ms;
+  --ycs-motion-panel: 300ms;
+  --ycs-ease: cubic-bezier(.22,.68,.25,1);
+}
+
+[data-ycs-theme='corporate'] {
+  --ycs-color-scheme: light;
+  --ycs-font-heading: 'YCS Sans', system-ui, sans-serif;
+  --ycs-font-numbers: 'YCS Sans', system-ui, sans-serif;
+  --ycs-bg: #fffefa;
+  --ycs-surface: #fffefa;
+  --ycs-surface-raised: #edf3fc;
+  --ycs-surface-hover: #e4edff;
+  --ycs-text: #081936;
+  --ycs-muted: #475b73;
+  --ycs-line: #788aa3;
+  --ycs-line-soft: #c9d3df;
+  --ycs-accent: #0645e5;
+  --ycs-accent-strong: #0034ba;
+  --ycs-action: #0645e5;
+  --ycs-action-text: #fff;
+  --ycs-focus: #0034ba;
+  --ycs-bronze: #0645e5;
+  --ycs-danger: #a32034;
+  --ycs-success: #1a6742;
+  --ycs-warning: #75520b;
+  --ycs-texture: none;
+  --ycs-scene: url('/assets/atlas/backgrounds/corporate-river.webp');
+  --ycs-motion-fast: 140ms;
+  --ycs-motion-panel: 200ms;
+}

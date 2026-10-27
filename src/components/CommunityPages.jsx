@@ -75,7 +75,7 @@ function TeamStats({ team, discipline = team.disciplines[0] }) {
   </div>;
 }
 
-function DisciplineHistory({ sourceTeam, discipline, first, multiple, railStats }) {
+function DisciplineHistory({ sourceTeam, discipline, first, multiple }) {
   const team = teamForDiscipline(sourceTeam, discipline);
   const [visibleCount, setVisibleCount] = useState(3);
   const summary = teamSummary(team), next = upcomingMatches(team)[0];
@@ -85,7 +85,7 @@ function DisciplineHistory({ sourceTeam, discipline, first, multiple, railStats 
   const entries = [...team.entries].sort((a, b) => entryRank(a) - entryRank(b));
   return <section className={`tp-discipline${first ? ' tp-discipline--first' : ''}`} aria-label={discipline}>
     <h2 className={`tp-discipline-title${!multiple ? ' tp-visually-hidden' : ''}`}>{discipline === 'Counter-Strike 2' ? 'CS2' : discipline}</h2>
-    {!railStats && <TeamStats team={team} discipline={discipline} />}
+    <TeamStats team={team} discipline={discipline} />
     <section className="tp-panel tp-matches">
       <div className="tp-section-heading"><h2>Матчи <span className="community-count">· {team.matches.length}</span></h2>{matches.length > visibleCount && <button className="tp-text-action" type="button" onClick={() => setVisibleCount(matches.length)}>Все {matches.length} матчей <ArrowUpRight aria-hidden="true" /></button>}</div>
       {matches.length ? <div className="tp-match-list">{matches.slice(0, visibleCount).map((match) => <CommunityMatchRow key={match.key} match={match} profile />)}</div> : <p className="tp-empty">Матчи пока не опубликованы.</p>}
@@ -123,11 +123,8 @@ export function TeamPage({ teamId, theme = 'cs2' }) {
         <h1>{team.name}</h1>
         <TeamLogo className="tp-team-logo" team={team} />
         <CalendarPanel team={team} compact />
-        {theme === 'dota2' && <>{multiple && <p className="tp-rail-discipline">Статистика · {team.disciplines[0] === 'Counter-Strike 2' ? 'CS2' : team.disciplines[0]}</p>}<TeamStats team={teamForDiscipline(team, team.disciplines[0])} /><div className="tp-city" aria-hidden="true"><img src="/assets/themes/yaroslavl-dota-768.webp" alt="" /><span>Ярославль</span></div></>}
-        {theme === 'cs2' && <img className="tp-identity-brand" src="/assets/ycs-logo.jpg" alt="" aria-hidden="true" />}
       </header>
-      {theme === 'corporate' && <div className="tp-city" aria-hidden="true"><img src={theme === 'corporate' ? '/assets/themes/yaroslavl-strelka.webp' : '/assets/themes/yaroslavl-dota-768.webp'} alt="" /><span>Ярославль</span></div>}
-      {team.disciplines.map((discipline, i) => <DisciplineHistory key={`${team.id}/${discipline}`} sourceTeam={team} discipline={discipline} first={i === 0} multiple={multiple} railStats={theme === 'dota2' && i === 0} />)}
+      {team.disciplines.map((discipline, i) => <DisciplineHistory key={`${team.id}/${discipline}`} sourceTeam={team} discipline={discipline} first={i === 0} multiple={multiple} />)}
     </div>
   </main>;
 }

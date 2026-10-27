@@ -140,8 +140,17 @@ test('built pages, metadata, robots, sitemap, and aliases match the public route
     .filter((tournament) => ['archive', 'completed'].includes(tournament.status));
   for (const tournament of archivedTournaments) assert.ok(results.includes(tournament.title), `${tournament.slug} title should be server rendered`);
   const home = await readFile(new URL('index.html', clientRoot), 'utf8');
-  assert.match(home, /class="home-all-results" href="\/results"/);
-  assert.match(home, /class="home-archive-row" href="\/tournaments\//);
+  // Direct discovery is a content contract; theme-specific class names are not.
+  // Scope to main so a header-only link cannot conceal a missing content action.
+  const homeMain = home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
+  assert.ok(homeMain, 'home must render its main content before JavaScript');
+  const homeLinks = [...homeMain.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].map(([, attributes, contents]) => ({
+    href: attributes.match(/\bhref="([^"]+)"/)?.[1],
+    label: contents.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim(),
+  })).filter((link) => link.href && link.label);
+  assert.ok(homeLinks.some((link) => link.href === '/results' && /архив|результат/i.test(link.label)), 'home content must expose a labelled results archive');
+  assert.ok(homeLinks.some((link) => link.href === '/tournaments'), 'home content must expose the tournament catalogue');
+  assert.ok(homeLinks.some((link) => archivedPaths.includes(link.href)), 'home content must link directly to a published tournament, not require a match detour');
   assert.match(results, /href="\/webmcp">Данные для ИИ<\/a>/);
 
   const autumn = JSON.parse(readFileSync(new URL('../src/data/tournaments/dota2-autumn-2026.json', import.meta.url), 'utf8'));

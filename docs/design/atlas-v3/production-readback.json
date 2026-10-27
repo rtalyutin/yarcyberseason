@@ -1,0 +1,173 @@
+{
+  "verified_at": "2026-10-27T12:18:51.886314+00:00",
+  "implementation_commit": "374c7ead6346bf81f9f4dcc2f8f6b8bcbda5502c",
+  "implementation_tree": "0c9f52920453b0eecf1280797f882b2a471438a8",
+  "origin": "https://xn--90aiaibl0ahlel5n.xn--p1ai",
+  "assets": [
+    {
+      "path": "/assets/App-DN896fHN.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8",
+      "bytes": 360870,
+      "sha256": "062698ce9a5485fe181130e23230b23bf1ef1bae6674a7b1e7eb920fb15be81e",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/generation-prompts.json",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 7610,
+      "sha256": "fb52246738a8681ec799e42ea463397f88b53c79c2403c574b64a43bae21f91d",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/web-exports.json",
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 2448,
+      "sha256": "7ce289f2e493bae8d7f6c47cb407a3c08b70c1c8e6254d7907484859c8872c25",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/decorSVG/cs2-divider.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 370,
+      "sha256": "7e114f4f5054a5dceb1a74934a3fc24351624ed3dfe3c73daf2dc669481cb367",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/decorSVG/dota2-divider.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 398,
+      "sha256": "0c6cb185e17a52870976b24481de8a373318cedfcf4fd6c192b287a7d5c2574d",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/decorSVG/cs2-panel.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 471,
+      "sha256": "2100cc3d682805d9cf41c97c5d9db51223a5263cc9330343fd444e91775dd1c5",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/decorSVG/corporate-divider.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 255,
+      "sha256": "7dff29d9257e321079cd9aed45590f7cc50165fdea46c1755f2ae2e31ddaae87",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/decorSVG/dota2-medallion.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 760,
+      "sha256": "23d74083c7f18d8d3ca3a5f51e78553a2f9affd2e8dbdf86dee372e7440fb3ab",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/decor/dota2-frame.png",
+      "status": 200,
+      "content_type": "image/png",
+      "bytes": 890878,
+      "sha256": "23ba0435325a857d30da4b4f65b88758ba6a70aaecd1cb19eda21ed1365814d5",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/textures/dota2-stone.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "bytes": 388358,
+      "sha256": "130398bea94fc837526b5ffbee23bc9e55938b002f11ee0dec87f93f2f0273b0",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/textures/cs2-metal.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "bytes": 368968,
+      "sha256": "b08fef5437502538389282dc37dd3ad7c0418b0a4b11b77b1a87b6926ea5af73",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/icons/ycs-icons.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 7853,
+      "sha256": "62c75b64c4455547661c86558f21e9a1d4fb52566a710773ab242f37b65df518",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/icons/techies-wrong-overlay.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 448,
+      "sha256": "49a2e3136f19c26e058860acf3fa5334e6fb07506eb5f661b65d271f93212ce3",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/backgrounds/cs2-river.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "bytes": 240790,
+      "sha256": "913915482e08b00923b6bc56d12792b73616d262572e064f3f601d03817b9e90",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/backgrounds/dota2-river.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "bytes": 296814,
+      "sha256": "ef3c406d61b746a1dee9d0a7810b11ccd5be014ae7091d05b05c39d16df6e2d5",
+      "matches_local": true
+    },
+    {
+      "path": "/assets/atlas/backgrounds/corporate-river.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "bytes": 262652,
+      "sha256": "7a84e35ba0fe678fe93734d2fc2035e0f0d191d1db59c302cfdba648a57fdafc",
+      "matches_local": true
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/",
+      "status": 200,
+      "marker": "atlas-home",
+      "present": true
+    },
+    {
+      "path": "/tournaments/dota2-autumn-2026/matchday/",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/matchday/",
+      "status": 200,
+      "marker": "md2-match",
+      "present": true
+    },
+    {
+      "path": "/tournaments/dota2-autumn-2026/matches/final-1/",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/dota2-autumn-2026/matches/final-1/",
+      "status": 200,
+      "marker": "mc-title",
+      "present": true
+    },
+    {
+      "path": "/tournaments/",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/",
+      "status": 200,
+      "marker": "data-ycs-theme",
+      "present": true
+    },
+    {
+      "path": "/org/",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/org/",
+      "status": 200,
+      "marker": "atlas-utility-shell",
+      "present": true
+    }
+  ]
+}

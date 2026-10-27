@@ -90,3 +90,22 @@ Preview could not load the external MVP snapshot and correctly showed its
 unavailable/pending state. No production organizer write, authentication test or
 photo submission was made. Production deployment/readback is a separate release
 step; passing this preview does not itself establish that publication occurred.
+
+## Production readback — 27 October 2026
+
+Implementation commit `374c7ead6346bf81f9f4dcc2f8f6b8bcbda5502c`, tree
+`0c9f52920453b0eecf1280797f882b2a471438a8`, was promoted to existing `main`
+with the expected baseline head. Remote tree and local staged tree were equal.
+The existing host subsequently served the new home, Matchday, final match,
+catalogue and organizer shell. The stylesheet `App-DN896fHN.css` and all 15 atlas
+files matched local SHA256 values, including proper response content types;
+this was not inferred from HTTP 200. See `production-readback.json`.
+
+Live browser navigation confirmed corporate home, theme switching to Dota,
+the new Matchday and its real 3:0 final link. The final page loaded the actual
+MVP snapshot: uma turman, 117.58, three maps counted; map 4 and map 5 remain
+unplayed. Thus the preview-only snapshot limitation was not present on the
+production page. Screenshot: `evidence/live-matchday.jpg`.
+
+This release-evidence follow-up changes documentation only, without modifying
+the verified application, assets or deployment configuration.

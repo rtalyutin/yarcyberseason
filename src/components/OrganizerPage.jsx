@@ -1,3 +1,4 @@
+import OrganizerLce from './OrganizerLce.jsx';
 import { UtilityThemeSwitcher } from "./ThemedUtilityShell.jsx";
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { filterOrganizerRows, organizerDate, organizerTimeNote } from '../lib/organizer-table.js';
@@ -42,7 +43,7 @@ async function api(path, { token, signal, body } = {}) {
   let result;
   try { result = await response.json(); }
   catch { throw Object.assign(new Error('Сервис организаторов недоступен.'), { status: response.status, code: 'invalid_response' }); }
-  if (!response.ok) throw Object.assign(new Error(errors[result.error] || 'Сервис организаторов недоступен.'), { status: response.status, code: result.error });
+  if (!response.ok) throw Object.assign(new Error(errors[result.error] || (path === 'lce-results' ? result.error : null) || 'Сервис организаторов недоступен.'), { status: response.status, code: result.error });
   return result;
 }
 
@@ -179,8 +180,10 @@ export default function OrganizerPage() {
       <nav className="orgs-sections" aria-label="Разделы организатора">
         <button type="button" aria-current={section === 'matches' ? 'page' : undefined} onClick={() => setSection('matches')}>Матчи и эфиры</button>
         <button type="button" aria-current={section === 'captains' ? 'page' : undefined} onClick={() => setSection('captains')}>Капитаны</button>
+        <button type="button" aria-current={section === 'lce' ? 'page' : undefined} onClick={() => setSection('lce')}>CS2 · Лига цифровой экономики</button>
         <button type="button" aria-current={section === 'media' ? 'page' : undefined} onClick={() => setSection('media')}>Клипы и записи</button>
       </nav>
+      {section === 'lce' && <OrganizerLce key={token} token={token} api={api} onSessionExpired={() => { setToken(null); setData(null); setError(errors.unauthorized); setSection('matches'); }} />}
       <div hidden={section !== 'captains'}><OrganizerCaptains key={token} token={token} api={api} onSessionExpired={() => { setToken(null); setData(null); setError(errors.unauthorized); setSection('matches'); }} /></div>
       {section === 'media' && <OrganizerMedia key={token} token={token} api={api} onSessionExpired={() => { setToken(null); setData(null); setError(errors.unauthorized); setSection('matches'); }} />}
       <div hidden={section !== 'matches'}>
@@ -196,6 +199,7 @@ export default function OrganizerPage() {
         <label>Поиск<input type="search" placeholder="Команда, кастер, партнёр…" value={filters.query} onChange={(e) => setFilter('query', e.target.value)} /></label>
       </div>
       {error && <p className="orgs-error" role="alert">{error}{data && ' Показаны последние полученные данные.'}</p>}
+      {data?.lceResults?.availability === 'unavailable' && <p className="orgs-notice" role="status">Обновление результатов CS2 · Лига цифровой экономики недоступно. Показано последнее доступное состояние.</p>}
       {data?.results.availability === 'unavailable' && <p className="orgs-notice" role="status">Обновление результатов задерживается. {data.results.revision ? 'Сохранены последние подтверждённые результаты.' : 'Показаны опубликованные данные турниров.'}</p>}
       <div className="orgs-table-caption"><span aria-live="polite">{rows.length} из {data?.rows.length || 0} матчей</span><div className="orgs-table-tools"><span>Назначения и общая поддержка указаны отдельно</span><button type="button" aria-expanded={columnsOpen} aria-controls="orgs-columns" onClick={() => setColumnsOpen((open) => !open)}>Столбцы · {visibleColumns.length}/{organizerColumns.length}</button></div></div>
       {columnsOpen && <section id="orgs-columns" className="orgs-columns" aria-label="Настройка столбцов">

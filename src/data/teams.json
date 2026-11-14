@@ -451,6 +451,41 @@
       "disciplines": [
         "Dota 2"
       ]
+    },
+    {
+      "id": "cs2-lce-november-2026-team-1",
+      "name": "97 in 1",
+      "disciplines": [
+        "Counter-Strike 2"
+      ]
+    },
+    {
+      "id": "cs2-lce-november-2026-team-2",
+      "name": "Миссклик (Missclick)",
+      "disciplines": [
+        "Counter-Strike 2"
+      ]
+    },
+    {
+      "id": "cs2-lce-november-2026-team-3",
+      "name": "Нижний Интранет",
+      "disciplines": [
+        "Counter-Strike 2"
+      ]
+    },
+    {
+      "id": "cs2-lce-november-2026-team-4",
+      "name": "ради таймшит",
+      "disciplines": [
+        "Counter-Strike 2"
+      ]
+    },
+    {
+      "id": "cs2-lce-november-2026-team-5",
+      "name": "Хулиганы",
+      "disciplines": [
+        "Counter-Strike 2"
+      ]
     }
   ],
   "bindings": [
@@ -888,6 +923,31 @@
       "tournamentId": "dota2-autumn-2026",
       "sourceName": "Team Leto",
       "teamId": "dota2-autumn-2026-team-leto"
+    },
+    {
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceName": "97 in 1",
+      "teamId": "cs2-lce-november-2026-team-1"
+    },
+    {
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceName": "Миссклик (Missclick)",
+      "teamId": "cs2-lce-november-2026-team-2"
+    },
+    {
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceName": "Нижний Интранет",
+      "teamId": "cs2-lce-november-2026-team-3"
+    },
+    {
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceName": "ради таймшит",
+      "teamId": "cs2-lce-november-2026-team-4"
+    },
+    {
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceName": "Хулиганы",
+      "teamId": "cs2-lce-november-2026-team-5"
     }
   ],
   "aliases": [

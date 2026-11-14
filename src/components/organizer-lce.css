@@ -1,0 +1,11 @@
+.lce-editor { max-width: 1800px; margin: 24px auto; padding: 16px; }
+.lce-scroll { overflow-x: auto; }
+.lce-editor table { width: 100%; border-collapse: collapse; min-width: 650px; }
+.lce-editor td,.lce-editor th { padding: 16px; text-align: left; vertical-align: top; border-bottom: 1px solid #8886; }
+.lce-editor small { display: block; margin-top: 8px; }
+.lce-editor fieldset { border: 0; margin: 0; padding: 0; }
+.lce-editor label { display: inline-flex; align-items: center; gap: 6px; margin: 4px; }
+.lce-editor input,.lce-editor select,.lce-editor button { font: inherit; padding: 7px; }
+.lce-map { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin: 8px 0; }
+.lce-map input[type=number] { width: 65px; }
+.lce-map input[aria-invalid=true] { border: 2px solid #cf492e; }

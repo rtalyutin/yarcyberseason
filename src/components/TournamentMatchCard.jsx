@@ -61,9 +61,9 @@ export function TournamentMatchCard({ match, tournament }) {
     <div className="tn-arena-time"><strong className={time ? '' : 'tn-time-unknown'}>{time || 'Время уточняется'}</strong><span>{status}</span><span className="tn-card-timezone">МСК</span></div>
     <div className="tn-arena-pair">
       <div className="tn-arena-team tn-arena-team--first"><TeamLink tournamentId={tournament.id} name={match.team1} /><ArenaTeamLogo tournament={tournament} name={match.team1} />{result.score && <span className="tn-mobile-score" aria-hidden="true">{result.score[0]}</span>}</div>
-      <div className="tn-arena-score"><strong aria-label={result.score ? `${result.label}: ${result.score.join(':')}` : 'Счёт пока не опубликован'}>{result.score ? result.score.join(' : ') : 'VS'}</strong>{result.score && <span>{result.technical ? 'Технический счёт' : result.label}</span>}</div>
+      <div className="tn-arena-score"><strong aria-label={result.score ? `${result.label}: ${result.score.join(':')}` : 'Счёт пока не опубликован'}>{result.score ? result.score.join(' : ') : result.confirmed && match.outcome ? result.label : 'VS'}</strong>{result.score && <span>{result.technical ? 'Технический счёт' : result.label}</span>}</div>
       <div className="tn-arena-team tn-arena-team--second"><ArenaTeamLogo tournament={tournament} name={match.team2} /><TeamLink tournamentId={tournament.id} name={match.team2} />{result.score && <span className="tn-mobile-score" aria-hidden="true">{result.score[1]}</span>}</div>
-      <p className="tn-arena-meta">{[match.roundTitle, match.bestOf].filter(Boolean).join(' · ')}</p>
+      <p className="tn-arena-meta">{[match.roundTitle, match.bestOf, match.channelNumber ? `Канал ${match.channelNumber}` : null].filter(Boolean).join(' · ')}</p>
     </div>
     <div className="tn-arena-actions">
       <MatchLink tournamentId={tournament.id} matchId={match.id} className="tn-match-primary">Матч <ArrowUpRight aria-hidden="true" /></MatchLink>

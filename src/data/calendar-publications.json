@@ -2,6 +2,196 @@
   "schemaVersion": 1,
   "records": [
     {
+      "matchKey": "cs2-lce-november-2026/lce-group-01",
+      "uid": "cs2-lce-november-2026%2Flce-group-01@ycs.bar",
+      "start": "2026-11-14T12:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-2"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-2"
+      ],
+      "summary": "97 in 1 — Миссклик (Missclick) · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-01",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-02",
+      "uid": "cs2-lce-november-2026%2Flce-group-02@ycs.bar",
+      "start": "2026-11-14T12:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-3",
+        "cs2-lce-november-2026-team-4"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-3",
+        "cs2-lce-november-2026-team-4"
+      ],
+      "summary": "Нижний Интранет — ради таймшит · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-02",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-03",
+      "uid": "cs2-lce-november-2026%2Flce-group-03@ycs.bar",
+      "start": "2026-11-14T13:30:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-2",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-2",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "summary": "Хулиганы — Миссклик (Missclick) · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-03",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-04",
+      "uid": "cs2-lce-november-2026%2Flce-group-04@ycs.bar",
+      "start": "2026-11-14T13:30:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-4"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-4"
+      ],
+      "summary": "ради таймшит — 97 in 1 · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-04",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-05",
+      "uid": "cs2-lce-november-2026%2Flce-group-05@ycs.bar",
+      "start": "2026-11-14T15:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-2",
+        "cs2-lce-november-2026-team-3"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-2",
+        "cs2-lce-november-2026-team-3"
+      ],
+      "summary": "Миссклик (Missclick) — Нижний Интранет · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-05",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-06",
+      "uid": "cs2-lce-november-2026%2Flce-group-06@ycs.bar",
+      "start": "2026-11-14T15:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "summary": "97 in 1 — Хулиганы · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-06",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-07",
+      "uid": "cs2-lce-november-2026%2Flce-group-07@ycs.bar",
+      "start": "2026-11-14T16:30:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-3"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-1",
+        "cs2-lce-november-2026-team-3"
+      ],
+      "summary": "Нижний Интранет — 97 in 1 · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-07",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-08",
+      "uid": "cs2-lce-november-2026%2Flce-group-08@ycs.bar",
+      "start": "2026-11-14T16:30:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-4",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-4",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "summary": "Хулиганы — ради таймшит · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-08",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-09",
+      "uid": "cs2-lce-november-2026%2Flce-group-09@ycs.bar",
+      "start": "2026-11-14T18:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-3",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-3",
+        "cs2-lce-november-2026-team-5"
+      ],
+      "summary": "Нижний Интранет — Хулиганы · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-09",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
+      "matchKey": "cs2-lce-november-2026/lce-group-10",
+      "uid": "cs2-lce-november-2026%2Flce-group-10@ycs.bar",
+      "start": "2026-11-14T18:00:00+03:00",
+      "currentTeamIds": [
+        "cs2-lce-november-2026-team-2",
+        "cs2-lce-november-2026-team-4"
+      ],
+      "publishedTeamIds": [
+        "cs2-lce-november-2026-team-2",
+        "cs2-lce-november-2026-team-4"
+      ],
+      "summary": "Миссклик (Missclick) — ради таймшит · CS2 · Лига цифровой экономики",
+      "path": "/tournaments/cs2-lce-november-2026/matches/lce-group-10",
+      "cancelled": false,
+      "description": "Время матча указано на сайте в МСК. Проверьте расписание перед началом.",
+      "revision": 0,
+      "updatedAt": "2026-11-14T08:49:23.399Z"
+    },
+    {
       "matchKey": "dota2-autumn-2026/dota-autumn-swiss-r1-01",
       "uid": "dota2-autumn-2026%2Fdota-autumn-swiss-r1-01@ycs.bar",
       "start": "2026-10-10T17:00:00+03:00",

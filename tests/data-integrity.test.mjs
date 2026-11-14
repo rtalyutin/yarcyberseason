@@ -40,7 +40,7 @@ test('prior sporting values survive identity metadata and the approved KEGA logo
       for (const [k, v] of Object.entries(before)) preserve(v, after[k], `${path}/${k}`);
     } else assert.deepEqual(after, before, path);
   };
-  for (const f of filenames) {
+  for (const f of filenames.filter(f => f !== 'cs2-lce-november-2026.json')) {
     const before = JSON.parse(execFileSync('git', ['show', `2800ce2e4aa48642ffe0f86343b2ffb0b160bc40:src/data/tournaments/${f}`], { cwd: root, encoding: 'utf8' }));
     // Organizer-supplied replacement approved on 2026-09-16; all sporting values remain pinned.
     if (f === 'current-cs2-2026.json') before.teamLogos['PIVNAYA KEGA'] = '/assets/teams/pivnaya-kega/logo-2026-09.png';

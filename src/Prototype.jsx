@@ -1,3 +1,4 @@
+import { useLceResults } from './lib/lce-results-client.js';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AtlasHome } from "./components/AtlasHome.jsx";
 import { useThemeMotion } from "./lib/use-theme-motion.js";
@@ -333,6 +334,7 @@ function RoundRobinStage({ stage, number, tournament }) {
   const hasMapRecord = group?.rows?.some((row) => row.mapRecord) || false;
   const finalColumnLabel = stage.finalColumnLabel || "О";
   const recordColumnLabel = stage.recordColumnLabel || "Счёт";
+  const roundStats = tournament.id === "cs2-lce-november-2026";
   const thresholds = stage.outcomeThresholds;
   const getOutcomeClass = (row) => {
     if (thresholds?.losses === row.lost) return "is-three-losses";
@@ -375,7 +377,7 @@ function RoundRobinStage({ stage, number, tournament }) {
       )}
       <div className="table-wrap">
         <table className="standings-table">
-          <thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>П</th>{hasMapRecord && <th>{recordColumnLabel}</th>}<th>{finalColumnLabel}</th></tr></thead>
+          <thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>П</th>{roundStats && <><th>РЗ</th><th>РП</th><th>+/−</th></>}{hasMapRecord && <th>{recordColumnLabel}</th>}<th>{finalColumnLabel}</th></tr></thead>
           <tbody>
             {rows.length > 0 ? rows.map((row) => (
               <tr className={getOutcomeClass(row)} key={row.team}>
@@ -385,7 +387,7 @@ function RoundRobinStage({ stage, number, tournament }) {
                     <TeamIdentity tournament={tournament} team={row.team} size="compact" />
                     {row.placeLocked && <span className="standings-seed-lock">Посев {String(row.seed).padStart(2, "0")}</span>}
                   </div>
-                </td><td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{hasMapRecord && <td className="map-record">{row.mapRecord || "—"}</td>}<td className="points">{row.finalLabel || row.points}</td>
+                </td><td>{row.played}</td><td>{row.won}</td><td>{row.lost}</td>{roundStats && <><td>{row.roundsFor}</td><td>{row.roundsAgainst}</td><td>{row.roundDifference > 0 ? "+" : ""}{row.roundDifference}</td></>}{hasMapRecord && <td className="map-record">{row.mapRecord || "—"}</td>}<td className="points">{row.finalLabel || row.points}</td>
               </tr>
             )) : (
               <tr className="empty-table-row"><td colSpan={hasMapRecord ? "7" : "6"}><StatusDot state="upcoming" /> {group?.emptyState || "Данные этапа появятся после старта"}</td></tr>
@@ -465,6 +467,7 @@ function BracketMatch({ match, tournament }) {
       {meta && <p className="bracket-match-meta">{meta}</p>}
       <div><span className="bracket-team-name">{match.seed1 && <small className="bracket-seed">{match.seed1}</small>}<TeamLink tournamentId={tournament.id} name={team1} /></span><strong>{result.score?.[0] ?? "—"}</strong></div>
       <div><span className="bracket-team-name">{match.seed2 && <small className="bracket-seed">{match.seed2}</small>}<TeamLink tournamentId={tournament.id} name={team2} /></span><strong>{result.score?.[1] ?? "—"}</strong></div>
+      {match.note && <p>{match.note}</p>}
       <MatchLink tournamentId={tournament.id} matchId={match.id} />
     </div>
   );
@@ -661,6 +664,7 @@ export function Prototype({ initialPath = "/" }) {
   const [path, setPath] = useLocationPath(initialPath);
   const [theme, setTheme] = useState("cs2");
   const dotaResults = useDotaResults();
+  const lceResults = useLceResults();
 
   const changeTheme = (value) => {
     const next = normalizeTheme(value);
@@ -737,9 +741,10 @@ export function Prototype({ initialPath = "/" }) {
       if (tournament) return <TournamentPage tournament={tournament} navigate={navigate} theme={theme} />;
     }
     return <NotFound navigate={navigate} />;
-  }, [path, theme, dotaResults.revision]);
+  }, [path, theme, dotaResults.revision, lceResults.revision]);
 
   return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>
+    {path.includes('cs2-lce-november-2026') && lceResults.availability === 'unavailable' && <p className="orgs-notice" role="status">Результаты временно недоступны. {lceResults.revision ? 'Показано последнее подтверждённое состояние.' : 'Показано исходное расписание.'}</p>}
     {dotaResults.revision > 0 && dotaResults.availability === "unavailable" && (path === "/" || path.includes("dota2-autumn-2026") ||
       currentTournament.participants?.some((participant) => path === `/teams/${participant.teamId}`)) &&
       <p className="dota-results-notice" role="status">Результаты могут обновляться с задержкой.</p>}

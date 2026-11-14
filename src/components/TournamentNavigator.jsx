@@ -29,7 +29,7 @@ function MatchRow({ match, tournament, teamLogos }) {
       <p className="tn-match-meta">{metadata.join(" · ")}</p>
       <div className="tn-scoreboard">
         <strong className={`tn-team${!winner || winner === match.team1 ? " is-winner" : ""}`}>{teamLogos?.[match.team1] && <img src={teamLogos[match.team1]} alt="" />}<TeamLink tournamentId={tournament.id} name={match.team1} /></strong>
-        <span className="tn-score" aria-label={scored ? `Счёт ${result.score.join(":")}` : "Счёт пока не опубликован"}>{scored ? result.score.join(" : ") : "— : —"}</span>
+        <span className="tn-score" aria-label={scored ? `Счёт ${result.score.join(":")}` : "Счёт пока не опубликован"}>{scored ? result.score.join(" : ") : result.confirmed && match.outcome ? result.label : "— : —"}</span>
         <strong className={`tn-team tn-team--second${!winner || winner === match.team2 ? " is-winner" : ""}`}><TeamLink tournamentId={tournament.id} name={match.team2} />{teamLogos?.[match.team2] && <img src={teamLogos[match.team2]} alt="" />}</strong>
       </div>
       {match.resultIssue && <p>{match.resultIssue}</p>}
@@ -156,6 +156,7 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
           {sourceFacts.filter((fact) => !/команд|₽|руб/i.test(fact) && fact !== tournament.statusLabel).map((fact) => <span key={fact}>{fact}</span>)}
           {regulation && <a href={regulation.url} target="_blank" rel="noopener noreferrer"><FileText aria-hidden="true" />Регламент PDF<ArrowUpRight aria-hidden="true" /></a>}
         </div> : !archived && tournament.registration?.status === 'closed' && <p className="tn-registration-closed">{tournament.registration.message} · {registrationCountLabel(tournament)}</p>}
+        {tournament.id === 'cs2-lce-november-2026' && <p>Актуальное расписание — на этой странице. Время в PDF-регламенте не используется.</p>}
         {(!archived || regulation || tournament.matchday) && <div className="tn-header-actions">
           {tournament.matchday && <InternalLink className="tn-outline" href={tournament.matchday.route}>Матчи по дням · Matchday<ArrowUpRight aria-hidden="true" /></InternalLink>}
           {!archived && [tournament.primaryAction, tournament.secondaryAction].filter((action) => action && (!arena || (!action.target.includes('section=participants') && action.target !== '#format'))).map((action) => /^(https?:|mailto:|tel:)/.test(action.target) ? <a className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></a> : <InternalLink className="tn-outline" href={action.target} key={action.target}>{action.label}<ArrowUpRight aria-hidden="true" /></InternalLink>)}

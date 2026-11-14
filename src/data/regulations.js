@@ -9,6 +9,7 @@ export const regulationsByDiscipline = {
 
 // Autumn has a separate regulation; archived tournaments retain the original.
 export const regulationsByTournament = {
+ "cs2-lce-november-2026": { label: "Регламент CS2 (PDF)", url: "/docs/reglament-cs2-lce-november-2026.pdf" },
   "dota2-autumn-2026": {
     label: "Регламент Dota 2 (PDF)",
     url: "/docs/reglament-dota2-autumn-2026.pdf",

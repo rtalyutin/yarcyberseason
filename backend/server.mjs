@@ -1,3 +1,4 @@
+import { createLceResultsService, createLcePublicHandler } from './lce-results-service.mjs';
 import { createServer } from "node:http";
 import { pathToFileURL } from "node:url";
 import { startResultsWorker } from "./dota-results-worker.mjs";
@@ -8,12 +9,14 @@ import { startCaptainCleanupWorker } from "./captain-cleanup-worker.mjs";
 import { createMatchMediaPublicHandler, createMatchMediaService } from './match-media-service.mjs';
 import { createPlayerProfileHandler } from './player-profile-api.mjs';
 
-// The frontend reads the public S3 object directly. This service has no public
-// import trigger or sporting-data write API. Organizer data is authenticated.
+// Dota retains its existing importer. LCE result writes require the organizer
+// session; anonymous visitors receive a read-only tournament projection.
 export function createResultsServer({ env = process.env, organizerOptions = {}, captainOptions = {}, mediaOptions = {}, playerOptions = {},
+  lceService = organizerOptions.lceService || createLceResultsService({ env }),
   mediaService = organizerOptions.mediaService || createMatchMediaService({ ...mediaOptions, env }),
   captainService = createCaptainService({ ...captainOptions, env }) } = {}) {
-  const organizer = createOrganizerHandler({ ...organizerOptions, env, captainService, mediaService });
+  const organizer = createOrganizerHandler({ ...organizerOptions, env, captainService, mediaService, lceService });
+  const lce = createLcePublicHandler({ service: lceService, env });
   const captain = createCaptainHandler({ service: captainService });
   const media = createMatchMediaPublicHandler({ service: mediaService, env });
   const player = createPlayerProfileHandler({ ...playerOptions, env });
@@ -24,6 +27,7 @@ export function createResultsServer({ env = process.env, organizerOptions = {}, 
     let url;
     try { url = new URL(request.url, "http://localhost"); }
     catch { response.writeHead(400); response.end('{"error":"bad_request"}'); return; }
+    if (await lce(request, response, url)) return;
     if (await organizer(request, response, url)) return;
     if (await media(request, response, url)) return;
     if (await captain(request, response, url)) return;

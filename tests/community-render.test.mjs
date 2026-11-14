@@ -42,7 +42,7 @@ test('all published team and match templates render with real JSON', async () =>
     for (const match of community.matches.values()) {
       const html = renderToStaticMarkup(React.createElement(MatchPage, { tournamentSlug: match.tournamentSlug, matchId: match.id }));
       assert.ok(html.includes('Скопировать ссылку'), match.id);
-      assert.ok(html.includes('Скачать карточку результата'), match.id);
+      if (match.result.canDownload) assert.ok(html.includes('Скачать карточку результата'), match.id);
       assert.ok(!html.includes('<iframe'), match.id);
     }
     const final = renderToStaticMarkup(React.createElement(MatchPage, { tournamentSlug: 'cs2-august-2026', matchId: 'cs2-aug-grand-final' }));

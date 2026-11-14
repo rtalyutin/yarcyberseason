@@ -196,3 +196,42 @@ already supplies both routes. This is a packaging/router handoff, not a new host
 No deployment or runtime integration in another repository is claimed here.
 Author tests: `node --test tests/match-media.test.mjs`. Real S3/provider behavior,
 hosting CORS and production UI require their own release readback.
+
+
+## CS2 · Лига цифровой экономики — 14 November 2026
+
+The `/orgs` section «CS2 · Лига цифровой экономики» adds thirteen editable
+fixtures, followed by generated tiebreaks when needed. It uses the existing
+organizer session. Screenshot names, pairs, times and channel numbers take
+precedence over the original specification and the PDF schedule. The separate
+`catalogOnly` event does not replace the established homepage/next-event binding. The PDF at
+`/docs/reglament-cs2-lce-november-2026.pdf` supplies sporting rules only.
+
+GET/POST `/api/orgs/lce-results` reads or saves the tournament. Anonymous
+GET/HEAD `/api/tournaments/cs2-lce-november-2026` returns the table, fixtures,
+bracket and champion from one revision, without request receipts. Writes use
+`action` (`result`, `slot`, `draw`), `expectedRevision`, and a 32-hex `requestId`.
+Result writes include `matchId` and `result: {maps, outcome}`; each map has
+`score1`, `score2`, optional `technical`. A `series_forfeit` outcome requires
+`winnerSide`, without fabricated map/series scores. Double no-show is BO1 only.
+A draw accepts `teamIds` ordered by final placement and is available only after
+completed tiebreaks still leave those teams equal. Tiebreak slots use explicit
+zoned `scheduledAt`; simultaneous games involving one team are rejected.
+
+`backend/lce-results-service.mjs` stores the private document in the existing S3
+bucket at `results/cs2-lce-november-2026.json`, separately from Dota, captain and
+media state. It reuses the established conditional S3 transport with a dedicated
+schema validator/key. It preserves exact-request receipts, readback, ETag CAS,
+unknown-save handling and restart persistence. Corrections changing a saved
+dependent match's participants are rejected with its ID.
+
+Overtime validation defaults to standard CS2 MR3: 16:12–14, 19:15–17, etc.
+The supplied PDF requires overtime until victory but does not specify its size;
+`overtimeRoundsPerHalf` on a fixture can override that default if the organizer
+confirms another server setting. Technical cards require exactly 13:0 or 0:13.
+
+Frontend publication also requires releasing the matching backend modules on
+the existing host. Docker packaging includes the new service, calculation module,
+team registry and tournament JSON. No deployment or real-provider S3 acceptance
+is implied by local tests. Run `npm run data:check`, `npm run test:tournament`,
+organizer/media/match-center tests and `npm run build` before release.

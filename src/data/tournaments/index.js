@@ -1,3 +1,4 @@
+import lce from "./cs2-lce-november-2026.json" with { type: "json" };
 import currentCs2 from "./current-cs2-2026.json" with { type: "json" };
 import { currentDotaTournament, setCurrentDotaTournament } from "../dota-tournament.js";
 import dota2Main from "./dota2-main-2026.json" with { type: "json" };
@@ -5,7 +6,7 @@ import cs2February from "./cs2-february-2026.json" with { type: "json" };
 import dota2Qual from "./dota2-qual-2026.json" with { type: "json" };
 import { isArchive } from '../../lib/tournament.js';
 
-export const tournaments = [currentCs2, currentDotaTournament, dota2Main, cs2February, dota2Qual];
+export const tournaments = [currentCs2, currentDotaTournament, dota2Main, cs2February, dota2Qual, lce];
 
 export const tournamentBySlug = Object.fromEntries(
   tournaments.map((tournament) => [tournament.slug, tournament]),
@@ -18,7 +19,7 @@ export let nextTournament;
 
 function refreshCatalog() {
   archivedTournaments.splice(0, archivedTournaments.length, ...tournaments.filter(isArchive).sort(newestFirst));
-  const announced = tournaments.filter((tournament) => !isArchive(tournament));
+  const announced = tournaments.filter((tournament) => !isArchive(tournament) && !tournament.catalogOnly);
   currentTournament = announced.find((tournament) => tournament.id === currentDotaTournament.id)
     || announced[0] || archivedTournaments[0];
   nextTournament = announced.find((tournament) => ['upcoming', 'registration_open'].includes(tournament.status)) || null;
@@ -35,4 +36,10 @@ export function updateDotaTournament(tournament) {
   tournaments[tournaments.indexOf(tournamentBySlug[tournament.slug])] = tournament;
   tournamentBySlug[tournament.slug] = tournament;
   refreshCatalog();
+}
+
+export function updateLceTournament(tournament) {
+ if (tournament.id !== lce.id) throw new Error("Wrong tournament");
+ const index = tournaments.findIndex(t => t.id === lce.id);
+ tournaments[index] = tournament; tournamentBySlug[tournament.slug] = tournament; refreshCatalog();
 }

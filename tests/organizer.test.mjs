@@ -98,9 +98,9 @@ test('table preserves slots, unknown years, technical results, scoped assignment
 
 test('production JSON supplies every tournament and the organizer-confirmed opening broadcast and caster', async () => {
   const model = await createOrganizerDataSource({ fetcher: async () => ({ status: 404 }) })();
-  assert.equal(model.tournaments.length, 5);
+  assert.equal(model.tournaments.length, 6);
   const sourceIds = new Set();
-  for (const name of ['current-cs2-2026', 'dota2-autumn-2026', 'dota2-main-2026', 'cs2-february-2026', 'dota2-qual-2026']) {
+  for (const name of ['cs2-lce-november-2026', 'current-cs2-2026', 'dota2-autumn-2026', 'dota2-main-2026', 'cs2-february-2026', 'dota2-qual-2026']) {
     const t = JSON.parse(await readFile(new URL(`../src/data/tournaments/${name}.json`, import.meta.url), 'utf8'));
     for (const s of t.stages || []) for (const r of s.rounds || [{ matches: s.matches || [] }])
       for (const m of r.matches || []) if (m.id && m.published !== false) sourceIds.add(`${t.id}/${m.id}`);

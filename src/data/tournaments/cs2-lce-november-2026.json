@@ -22,7 +22,7 @@
     },
     {
       "teamId": "cs2-lce-november-2026-team-2",
-      "displayName": "Миссклик (Missclick)",
+      "displayName": "Missclick",
       "status": "registered"
     },
     {
@@ -70,7 +70,7 @@
             },
             {
               "position": 2,
-              "team": "Миссклик (Missclick)",
+              "team": "Missclick",
               "teamId": "cs2-lce-november-2026-team-2",
               "played": 0,
               "won": 0,
@@ -128,7 +128,7 @@
         {
           "id": "lce-group-01",
           "team1": "97 in 1",
-          "team2": "Миссклик (Missclick)",
+          "team2": "Missclick",
           "team1Id": "cs2-lce-november-2026-team-1",
           "team2Id": "cs2-lce-november-2026-team-2",
           "bestOf": "BO1",
@@ -158,7 +158,7 @@
         {
           "id": "lce-group-03",
           "team1": "Хулиганы",
-          "team2": "Миссклик (Missclick)",
+          "team2": "Missclick",
           "team1Id": "cs2-lce-november-2026-team-5",
           "team2Id": "cs2-lce-november-2026-team-2",
           "bestOf": "BO1",
@@ -187,7 +187,7 @@
         },
         {
           "id": "lce-group-05",
-          "team1": "Миссклик (Missclick)",
+          "team1": "Missclick",
           "team2": "Нижний Интранет",
           "team1Id": "cs2-lce-november-2026-team-2",
           "team2Id": "cs2-lce-november-2026-team-3",
@@ -262,7 +262,7 @@
         },
         {
           "id": "lce-group-10",
-          "team1": "Миссклик (Missclick)",
+          "team1": "Missclick",
           "team2": "ради таймшит",
           "team1Id": "cs2-lce-november-2026-team-2",
           "team2Id": "cs2-lce-november-2026-team-4",
@@ -341,7 +341,7 @@
   "catalogOnly": true,
   "teamLogos": {
     "97 in 1": "/assets/teams/cs2-lce-november-2026/971/logo.png",
-    "Миссклик (Missclick)": "/assets/teams/cs2-lce-november-2026/missclick/logo.png",
+    "Missclick": "/assets/teams/cs2-lce-november-2026/missclick/logo.png",
     "Нижний Интранет": "/assets/teams/cs2-lce-november-2026/downnet/logo.png",
     "ради таймшит": "/assets/teams/cs2-lce-november-2026/rady/logo.png",
     "Хулиганы": "/assets/teams/cs2-lce-november-2026/hooligans/logo.png"

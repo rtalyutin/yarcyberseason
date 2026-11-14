@@ -41,3 +41,27 @@ test('public client keeps a confirmed revision on outage, stale response and con
     assert.equal(getTournament(baseline.slug).status,'upcoming');
   }finally{await vite.close();}
 });
+
+test('runtime results keep current team names and logos without changing scores', async()=>{
+  const vite=await createServer({configFile:false,server:{middlewareMode:true,preTransformRequests:false,hmr:false},appType:'custom'});
+  try {
+    const {updateLceTournament,getTournament}=await vite.ssrLoadModule('/src/data/tournaments/index.js');
+    const snapshot=structuredClone(baseline);
+    const old='Миссклик (Missclick)';
+    snapshot.participants[1].displayName=old;
+    const match=snapshot.stages[1].matches[0];
+    match.team2=old;match.score1=13;match.score2=7;match.status='completed';
+    snapshot.stages[0].groups[0].rows[1].team=old;
+    snapshot.teamLogos={[old]:'/old-logo.png'};
+    updateLceTournament(snapshot);
+    const current=getTournament(baseline.slug);
+    assert.equal(current.participants[1].displayName,'Missclick');
+    assert.equal(current.stages[1].matches[0].team2,'Missclick');
+    assert.equal(current.stages[0].groups[0].rows[1].team,'Missclick');
+    assert.equal(current.teamLogos.Missclick,baseline.teamLogos.Missclick);
+    assert.equal(current.stages[1].matches[0].score1,13);
+    assert.equal(current.stages[1].matches[0].score2,7);
+    assert.equal(current.stages[1].matches[0].status,'completed');
+    assert.equal(snapshot.stages[1].matches[0].team2,old);
+  } finally {await vite.close();}
+});

@@ -1,3 +1,4 @@
+import registry from '../teams.json' with { type: 'json' };
 import lce from "./cs2-lce-november-2026.json" with { type: "json" };
 import currentCs2 from "./current-cs2-2026.json" with { type: "json" };
 import { currentDotaTournament, setCurrentDotaTournament } from "../dota-tournament.js";
@@ -40,6 +41,19 @@ export function updateDotaTournament(tournament) {
 
 export function updateLceTournament(tournament) {
  if (tournament.id !== lce.id) throw new Error("Wrong tournament");
+ // Runtime snapshots own sporting results; the registry owns current identity.
+ const names = new Map(tournament.participants.map(p => [p.displayName,
+   registry.teams.find(team => team.id === p.teamId)?.name || p.displayName]));
+ tournament = structuredClone(tournament);
+ const normalize = value => {
+   if (!value || typeof value !== 'object') return;
+   for (const [key, child] of Object.entries(value)) {
+     if (['displayName', 'team', 'team1', 'team2', 'winner'].includes(key) && names.has(child)) value[key] = names.get(child);
+     else if (child && typeof child === 'object') normalize(child);
+   }
+ };
+ normalize(tournament);
+ tournament.teamLogos = { ...lce.teamLogos };
  const index = tournaments.findIndex(t => t.id === lce.id);
  tournaments[index] = tournament; tournamentBySlug[tournament.slug] = tournament; refreshCatalog();
 }

@@ -18,6 +18,12 @@
       "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/assets/teams/pivnaya-kega/dota2-autumn-2026-roster.png",
       "section": "Состав от команды, передан организатором",
       "retrievedAt": "2026-09-16"
+    },
+    {
+      "id": "organizer-cs2-lce-november-2026-20261114",
+      "url": "https://xn--90aiaibl0ahlel5n.xn--p1ai/tournaments/cs2-lce-november-2026",
+      "section": "Составы из таблицы организатора, переданной 14.11.2026; обрезанные отчества не восстановлены.",
+      "retrievedAt": "2026-11-14"
     }
   ],
   "records": [
@@ -745,6 +751,158 @@
         },
         {
           "name": "Merkel19",
+          "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-lce-november-2026-team-1",
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceId": "organizer-cs2-lce-november-2026-20261114",
+      "sourceName": "97 in 1",
+      "members": [
+        {
+          "name": "Савинов Дмитрий «Crxz»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Галимзянов Камиль «Decoy»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Пехтерев Павел «NexteD»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Воробьев Сергей «тапочки слетели»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Егоров Игорь «Nyancat»",
+          "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-lce-november-2026-team-2",
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceId": "organizer-cs2-lce-november-2026-20261114",
+      "sourceName": "Миссклик (Missclick)",
+      "members": [
+        {
+          "name": "Тюрин Алексей «TYURIN_A»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Крутских Елизавета «eliza.bitch_»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Пакулев Илья «loli»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Беспалова Анастасия «bes24»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Виноградов Кирилл «MR.KIRITRON»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Удод Максим «Pus1k»",
+          "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-lce-november-2026-team-3",
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceId": "organizer-cs2-lce-november-2026-20261114",
+      "sourceName": "Нижний Интранет",
+      "members": [
+        {
+          "name": "Яковлев Алексей «KiDultz»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Глазов Михаил «speakLONDON»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Смолоногов Роман «RommeL»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Гасанов Даниил «ReNyX»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Шашахметов Джамиль «S P A R D A N»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Минабилов Ислям «Scorpio_07»",
+          "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-lce-november-2026-team-4",
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceId": "organizer-cs2-lce-november-2026-20261114",
+      "sourceName": "ради таймшит",
+      "members": [
+        {
+          "name": "Видякин Михаил «ЧЕМПИК»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Лысенко Дмитрий «mak1ma»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Халиуллин Адель «Varёnka»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Бушетара Рэд «Habibi»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Иваненчук Юрий «DEXP»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Соловьев Василий «Бастер»",
+          "role": "Игрок"
+        }
+      ]
+    },
+    {
+      "teamId": "cs2-lce-november-2026-team-5",
+      "tournamentId": "cs2-lce-november-2026",
+      "sourceId": "organizer-cs2-lce-november-2026-20261114",
+      "sourceName": "Хулиганы",
+      "members": [
+        {
+          "name": "Коршунов Данил «hadesxgod»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Лекомцев Владислав «WaterMaru»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Маклеев Иван «Zymimys»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Новиков Дмитрий «Эль Фаннинг»",
+          "role": "Игрок"
+        },
+        {
+          "name": "Шаров Эдуард «|GREEN|Phantom»",
           "role": "Игрок"
         }
       ]

@@ -338,5 +338,12 @@
       ]
     }
   ],
-  "catalogOnly": true
+  "catalogOnly": true,
+  "teamLogos": {
+    "97 in 1": "/assets/teams/cs2-lce-november-2026/971/logo.png",
+    "Миссклик (Missclick)": "/assets/teams/cs2-lce-november-2026/missclick/logo.png",
+    "Нижний Интранет": "/assets/teams/cs2-lce-november-2026/downnet/logo.png",
+    "ради таймшит": "/assets/teams/cs2-lce-november-2026/rady/logo.png",
+    "Хулиганы": "/assets/teams/cs2-lce-november-2026/hooligans/logo.png"
+  }
 }

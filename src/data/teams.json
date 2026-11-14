@@ -457,35 +457,40 @@
       "name": "97 in 1",
       "disciplines": [
         "Counter-Strike 2"
-      ]
+      ],
+      "logo": "/assets/teams/cs2-lce-november-2026/971/logo.png"
     },
     {
       "id": "cs2-lce-november-2026-team-2",
       "name": "Миссклик (Missclick)",
       "disciplines": [
         "Counter-Strike 2"
-      ]
+      ],
+      "logo": "/assets/teams/cs2-lce-november-2026/missclick/logo.png"
     },
     {
       "id": "cs2-lce-november-2026-team-3",
       "name": "Нижний Интранет",
       "disciplines": [
         "Counter-Strike 2"
-      ]
+      ],
+      "logo": "/assets/teams/cs2-lce-november-2026/downnet/logo.png"
     },
     {
       "id": "cs2-lce-november-2026-team-4",
       "name": "ради таймшит",
       "disciplines": [
         "Counter-Strike 2"
-      ]
+      ],
+      "logo": "/assets/teams/cs2-lce-november-2026/rady/logo.png"
     },
     {
       "id": "cs2-lce-november-2026-team-5",
       "name": "Хулиганы",
       "disciplines": [
         "Counter-Strike 2"
-      ]
+      ],
+      "logo": "/assets/teams/cs2-lce-november-2026/hooligans/logo.png"
     }
   ],
   "bindings": [

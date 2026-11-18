@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { List, X } from "@phosphor-icons/react";
+import { THEMES } from "../lib/theme.js";
 import { ThemeSwitcher } from "./ThemeSwitcher.jsx";
 import { getSiteNavigation } from '../lib/site-navigation.js';
 import "../site-header.css";
@@ -57,10 +58,10 @@ export function SiteHeader({ path, navigate, theme, onThemeChange, fixedTheme = 
     <div className="ycs-header-row">
       <a className="ycs-header-brand" href="/" onClick={(event) => follow(event, "/")} aria-label="YCS — на главную">
         <img src="/assets/ycs-logo.jpg" alt="ЯКС" width="92" height="42" />
-        <span>YAR CYBER<br />SEASON</span>
+        {theme === 'cs2' ? <strong>ЯрКиберСезон</strong> : <span>YAR CYBER<br />SEASON</span>}
       </a>
       <nav className="ycs-header-desktop" aria-label="Основная навигация">{navigation()}</nav>
-      {!fixedTheme && <div className="ycs-header-theme"><ThemeSwitcher theme={theme} onChange={onThemeChange} /></div>}
+      {!fixedTheme && <div className="ycs-header-theme">{theme === 'cs2' ? <label className="cs2-theme-choice"><span>Тема</span><select aria-label="Выбрать тему" value={theme} onChange={(event) => onThemeChange(event.target.value)}>{THEMES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label> : <ThemeSwitcher theme={theme} onChange={onThemeChange} />}</div>}
       <button ref={toggleRef} className="ycs-header-toggle" type="button"
         onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen}
         aria-controls={panelId} aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}>

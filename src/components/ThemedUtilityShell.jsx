@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { Cs2Rail } from './Cs2Rail.jsx';
 import { ThemeSwitcher } from './ThemeSwitcher.jsx';
 import { normalizeTheme, readTheme, saveTheme, THEME_STORAGE_KEY } from '../lib/theme.js';
 import { useThemeMotion } from '../lib/use-theme-motion.js';
@@ -20,7 +21,7 @@ export function ThemedUtilityShell({ children }) {
   }, []);
   const changeTheme = (next) => { const value = normalizeTheme(next); setTheme(value); saveTheme(value); };
   return <UtilityThemeContext.Provider value={{ theme, changeTheme }}>
-    <div ref={shellRef} className="site-shell atlas-utility-shell" data-theme={theme} data-ycs-theme={theme}>{children}</div>
+    <div ref={shellRef} className="site-shell atlas-utility-shell" data-theme={theme} data-ycs-theme={theme}>{theme === 'cs2' && <Cs2Rail />}{children}</div>
   </UtilityThemeContext.Provider>;
 }
 

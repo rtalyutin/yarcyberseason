@@ -1,0 +1,177 @@
+/* The CS2 edition uses the club's jersey, wordmark and cobalt chevron. */
+@font-face {
+  font-family: 'YCS Match Display';
+  src: url('/assets/fonts/RobotoCondensed-Italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+.site-shell[data-theme='cs2'][data-ycs-theme] {
+  --ycs-bg: #05070b;
+  --ycs-surface: #0b1018;
+  --ycs-surface-raised: #151c28;
+  --ycs-surface-hover: #172438;
+  --ycs-text: #fafbff;
+  --ycs-muted: #b6beca;
+  --ycs-line: #576171;
+  --ycs-line-soft: #2c3542;
+  --ycs-accent: #9bb9ff;
+  --ycs-accent-strong: #164cff;
+  --ycs-action: #164aff;
+  --ycs-action-text: #fff;
+  --ycs-focus: #aec8ff;
+  --ycs-ease: ease-out;
+  --ycs-texture: none;
+  --utility-bg: var(--ycs-bg);
+  --utility-panel: var(--ycs-surface);
+  --utility-raised: var(--ycs-surface-raised);
+  --utility-accent: var(--ycs-accent);
+  --utility-action: var(--ycs-action);
+  --utility-text: var(--ycs-text);
+  --utility-muted: var(--ycs-muted);
+  --utility-rule: var(--ycs-line-soft);
+  --club-gutter: clamp(18px, 2.8vw, 52px);
+  --club-rail: clamp(66px, 6.8vw, 108px);
+  padding-inline-start: var(--club-rail);
+  background: var(--ycs-bg);
+}
+
+.cs2-rail {
+  position: fixed; top: 0; bottom: 0; left: 0; z-index: 40;
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  width: var(--club-rail); padding: 14px 6px 22px; border-right: 1px solid var(--ycs-line);
+  background: #06080d; color: white;
+}
+.cs2-rail a { width: 83%; min-height: 40px; display: grid; place-items: center; }
+.cs2-rail img { width: 100%; max-width: 81px; height: auto; mix-blend-mode: screen; }
+.cs2-rail-city { writing-mode: vertical-rl; transform: rotate(180deg); font: 400 16px/1 Arial,sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+.cs2-rail-game { font: italic 900 27px/.9 'YCS Match Display',sans-serif; letter-spacing: -.045em; }
+.cs2-rail-game b { color: #5280ff; }
+
+.site-shell[data-theme='cs2'][data-ycs-theme] .ycs-header { width: 100%; max-width: none; border-top: 0; border-bottom: 1px solid var(--ycs-line); }
+[data-theme='cs2'] .ycs-header-row { min-height: 58px; padding: 4px var(--club-gutter); gap: clamp(14px,2vw,34px); }
+[data-theme='cs2'] .ycs-header-brand { color: var(--ycs-text); }
+[data-theme='cs2'] .ycs-header-brand img { display: none; }
+[data-theme='cs2'] .ycs-header-brand strong { font: 700 clamp(17px,1.45vw,25px)/1.1 Arial,sans-serif; letter-spacing: -.045em; }
+[data-theme='cs2'] .ycs-header-desktop { margin-inline: auto; gap: clamp(12px,1.5vw,28px); }
+[data-theme='cs2'] .ycs-header-link { font: 500 clamp(12px,1vw,17px)/1.2 Arial,sans-serif; }
+.cs2-theme-choice { display: flex; align-items: center; gap: 7px; font: 500 14px/1 Arial,sans-serif; }
+.cs2-theme-choice::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--ycs-action); }
+.cs2-theme-choice select { width: 58px; min-height: 44px; border: 0; font: inherit; background: var(--ycs-bg); color: var(--ycs-text); cursor: pointer; }
+[data-theme='cs2'] .ycs-header-toggle { border: 0; }
+[data-theme='cs2'] .ycs-header-panel { background: var(--ycs-bg); }
+
+.site-shell[data-theme='cs2'][data-ycs-theme] .atlas-home.container { width: min(100%,1920px); padding: 0 0 44px; }
+.cs2-cover { position: relative; isolation: isolate; display: grid; align-items: center; min-height: clamp(450px,48.5vw,760px); overflow: hidden; background: #070c16; }
+.cs2-cover::before { content: ''; position: absolute; inset: 0 51% 0 0; z-index: -2; background: linear-gradient(90deg,#05070eef 12%,#050a14b8 70%,#050a14a8),url('/assets/home-team-stage.webp') 72% center/cover; }
+.cs2-cover-player { position: absolute; inset: 0 0 0 auto; z-index: -1; display: block; width: 69%; height: 100%; object-fit: cover; object-position: 48% 45%; mask-image: linear-gradient(90deg,transparent,#000 12%); }
+.cs2-cover-copy { position: relative; width: max-content; max-width: 62%; padding: 34px 0 36px var(--club-gutter); color: #fff; }
+.cs2-cover-copy > p { margin: 0; font: 500 clamp(16px,1.55vw,26px)/1.35 Arial,sans-serif; }
+.site-shell[data-theme='cs2'] .atlas-home .cs2-cover h1 {
+  width: max-content; margin: .18em 0 .19em -.025em;
+  transform: scaleX(.77); transform-origin: left center;
+  font: italic 900 clamp(86px,9.65vw,170px)/.89 'YCS Match Display','YCS Condensed',sans-serif;
+  letter-spacing: -.065em; text-transform: uppercase; color: #fff;
+}
+.cs2-cover h1 span { display: block; }
+.atlas-home .cs2-cover-action { display: inline-flex; align-items: center; gap: 14px; min-height: 48px; margin-top: clamp(18px,2vw,32px); padding: 12px 20px; background: var(--ycs-action); color: white; text-decoration: none; font: 600 clamp(15px,1.24vw,21px)/1.3 Arial,sans-serif; }
+.cs2-cover-action:hover { background: #285bff; }
+.cs2-index { display: grid; grid-template-columns: minmax(150px,21%) minmax(0,1fr); gap: var(--club-gutter); padding: 22px var(--club-gutter) 28px; border-block: 1px solid var(--ycs-line-soft); }
+.site-shell[data-theme='cs2'] .cs2-index h2 { margin: 0 0 5px; font: 700 clamp(26px,2.45vw,42px)/1.1 Arial,sans-serif; letter-spacing: -.055em; text-transform: none; }
+.cs2-index header a { display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; }
+.cs2-index ul { list-style:none; padding: 0; margin: 0; }
+.cs2-index li { border-bottom: 1px solid var(--ycs-line); }
+.cs2-index a { text-decoration: none; }
+.cs2-index li a { display: grid; align-items: center; grid-template-columns: minmax(90px,.7fr) minmax(0,1.5fr) auto; gap: 14px; min-height: 46px; padding: 9px 4px; font: 400 clamp(14px,1.22vw,20px)/1.35 Arial,sans-serif; }
+.cs2-index-date { color: var(--ycs-muted); }
+.cs2-index-date::first-letter { text-transform: uppercase; }
+.cs2-index-game { white-space: nowrap; }
+.cs2-index-game svg { margin-left: 5px; vertical-align: -.1em; color: var(--ycs-accent); }
+.cs2-index a:hover { color: var(--ycs-accent); }
+.cs2-index li a:hover { background: var(--ycs-surface); }
+
+.site-shell[data-theme='cs2'] .atlas-home > .atlas-home-section { margin: clamp(34px,4.5vw,84px) var(--club-gutter) 0; }
+.site-shell[data-theme='cs2'] .atlas-home .atlas-home-section-heading { align-items: baseline; border-bottom: 1px solid var(--ycs-line); }
+.site-shell[data-theme='cs2'] .atlas-home .atlas-home-section-heading h2 { font: 700 clamp(24px,2.8vw,46px)/1.04 Arial,sans-serif; letter-spacing: -.05em; text-transform: none; }
+.site-shell[data-theme='cs2'] .atlas-home-section-heading > span,
+.site-shell[data-theme='cs2'] .atlas-home-section-heading::after,
+.site-shell[data-theme='cs2'] .atlas-home-panel::after { display: none; }
+.site-shell[data-theme='cs2'] .atlas-home .atlas-home-panel { border: 1px solid var(--ycs-line-soft); background: var(--ycs-surface); box-shadow: none; clip-path: none; }
+[data-theme='cs2'] .cs2-calendar-stage { position: relative; overflow: hidden; height: clamp(150px,18vw,265px); margin: 24px 0; background: var(--ycs-bg); }
+.cs2-calendar-stage > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
+
+/* Tournament covers retain their own imagery within the same editorial frame. */
+.site-shell[data-theme='cs2'] .tn-page[data-discipline='Dota 2'] { --season-cover: url('/assets/atlas/backgrounds/dota2-river.webp'); }
+.site-shell[data-theme='cs2'] .tn-page[data-tournament='cs2-lce-november-2026'] { --season-cover: url('/assets/player-league/cs2-promo.jpg'); }
+.site-shell[data-theme='cs2'][data-ycs-theme] .tn-page.tn-page[data-section] .tn-heading::before,
+.site-shell[data-theme='cs2'][data-ycs-theme] :is(.directory-heading,.partner-hero,.tp-identity)::before {
+  background: linear-gradient(90deg,var(--ycs-bg),transparent 58%),var(--season-cover,url('/assets/ycs-home-jersey.webp')) 50% 48% / cover;
+  clip-path: polygon(13% 0,100% 0,100% 100%,0 100%); opacity: .88;
+}
+.site-shell[data-theme='cs2'][data-ycs-theme] :is(.directory-heading,.page-intro,.partner-hero,.about-hero,.md2-heading,.orgs-login,.fm-intro,.webmcp-page,.tp-identity,.league-heading) h1,
+.site-shell[data-theme='cs2'][data-ycs-theme] .tn-page.tn-page[data-section] .tn-title-row h1 {
+  font: italic 900 clamp(42px,5.5vw,100px)/.99 'YCS Match Display','YCS Condensed',sans-serif;
+  letter-spacing: -.045em; text-transform: uppercase; overflow-wrap: anywhere;
+}
+.site-shell[data-theme='cs2'][data-ycs-theme] :is(.directory-card,.tn-podium li,.tn-final-result,.tn-arena-match,.tn-participant-list li,.tournament-perk-card,.tp-entry,.tp-match,.tp-trophies,.partner-audience-source,.partner-registry-card,.broadcast-match-card,.mc-series-award,.mc-map-tile,.mc-map-summary,.mc-mvp,.mc-clip,.dota-mvp-identity,.sp-rules,.sp-inspector,.ds-table-frame) {
+  border: 1px solid var(--ycs-line-soft); border-image: none; border-radius: 0; background-color: var(--ycs-surface); box-shadow: none;
+}
+.site-shell[data-theme='cs2'][data-ycs-theme] :is(.tn-panel-heading,.tp-section-heading,.mc-section-heading,.partner-section-heading,.dota-mvp-heading) {
+  border-image: none; border-bottom: 1px solid var(--ycs-line);
+}
+.site-shell[data-theme='cs2'][data-ycs-theme] .tn-page.tn-page[data-section] .tn-section-nav .tn-section-link[aria-current='page'] {
+  background: var(--ycs-action); color: #fff; border-color: var(--ycs-action); clip-path: none;
+}
+.site-shell[data-theme='cs2'][data-ycs-theme] :is(.standings-table,.ds-table,.sp-seeding,.dota-mvp-table,.mc-table-scroll table) thead th,
+.site-shell[data-theme='cs2'].atlas-utility-shell .orgs-table thead th { background: #17243c; color: #e5edff; }
+.site-shell[data-theme='cs2'][data-ycs-theme] .directory-list { display: grid; grid-template-columns: 1fr; gap: 0; }
+.site-shell[data-theme='cs2'][data-ycs-theme] .directory-card { border: 0; border-top: 1px solid var(--ycs-line); padding-block: clamp(18px,2vw,32px); background: transparent; }
+.site-shell[data-theme='cs2'][data-ycs-theme] .directory-card:last-child { border-bottom: 1px solid var(--ycs-line-soft); }
+.site-shell[data-theme='cs2'][data-ycs-theme] .directory-card h2 { text-transform: none; }
+.site-shell[data-theme='cs2'] .match-center .mc-scoreboard { border: 1px solid var(--ycs-line); border-left: 4px solid var(--ycs-action); border-image: none; background: var(--ycs-surface); }
+.site-shell[data-theme='cs2'][data-ycs-theme] .match-center .mc-score { color: white; font-weight: 900; letter-spacing: -.045em; }
+.site-shell[data-theme='cs2'][data-ycs-theme] .match-center .mc-map-tile[aria-selected='true'] { border-color: var(--ycs-accent); box-shadow: inset 0 -3px var(--ycs-action); }
+.site-shell[data-theme='cs2'] .matchday { --md2-material: none; --md2-bg: var(--ycs-bg); --md2-panel: var(--ycs-surface); --md2-accent: var(--ycs-accent); }
+.site-shell[data-theme='cs2'] .matchday :is(.md2-program,.md2-panel) { background-image: none; border: 1px solid var(--ycs-line-soft); }
+.site-shell[data-theme='cs2'] .matchday :is(.md2-program,.md2-sidebar .md2-panel)::before { display: none; }
+.site-shell[data-theme='cs2'] .md2-crest { clip-path: none; }
+.site-shell[data-theme='cs2'] .md2-days [aria-selected='true'] { box-shadow: inset 0 -3px var(--ycs-action); }
+.site-shell[data-theme='cs2'] .about-manifesto { border-color: var(--ycs-line-soft); }
+.site-shell[data-theme='cs2'] .site-tournament-context { width: 100%; max-width: none; padding-inline: var(--club-gutter); }
+.site-shell[data-theme='cs2'] .league-promo { border-radius: 0; }
+.site-shell[data-theme='cs2'] .player-page--league :is(.player-form,.player-card,.player-upload,.player-access) { border-radius: 0; }
+.site-shell[data-theme='cs2'].atlas-utility-shell .webmcp-catalog article { background: var(--ycs-surface); }
+.site-shell[data-theme='cs2'].atlas-utility-shell :is(.orgs-header,.fm-top,.webmcp-header) { min-height: 68px; border-color: var(--ycs-line); }
+.site-shell[data-theme='cs2'] .legal-footer { border-top: 1px solid var(--ycs-line); }
+@media (max-width: 1050px) {
+  .site-shell[data-theme='cs2'][data-ycs-theme] { --club-rail: 60px; }
+  .cs2-cover { min-height: 475px; }
+  .site-shell[data-theme='cs2'] .atlas-home .cs2-cover h1 { font-size: clamp(80px,10.8vw,116px); }
+}
+@media (max-width: 760px) {
+  .site-shell[data-theme='cs2'][data-ycs-theme] { padding-inline-start: 0; }
+  .cs2-rail { display: none; }
+  [data-theme='cs2'] .ycs-header-row { min-height: 57px; padding-inline: 16px; }
+  [data-theme='cs2'] .ycs-header-brand { gap: 10px; }
+  [data-theme='cs2'] .ycs-header-brand img { display: block; width: 41px; height: 25px; mix-blend-mode: screen; }
+  [data-theme='cs2'] .ycs-header-brand strong { font-size: 19px; }
+  .cs2-cover { min-height: clamp(475px,111vw,630px); align-items: end; }
+  .cs2-cover::before { inset: 0; z-index: 0; background: linear-gradient(0deg,#05070b 0%,#05070bde 12%,transparent 64%),linear-gradient(90deg,#03060caa,transparent 70%); }
+  .cs2-cover-player { width: 100%; height: 69%; object-position: 50% 44%; mask-image: linear-gradient(#000 74%,transparent); }
+  .cs2-cover-copy { z-index: 1; width: 100%; max-width: none; padding: 0 var(--club-gutter) 22px; }
+  .cs2-cover-copy > p { font-size: 15px; }
+  .site-shell[data-theme='cs2'] .atlas-home .cs2-cover h1 { margin: 7px 0; font-size: clamp(58px,13vw,94px); line-height: .87; transform: scaleX(.84); }
+  .cs2-cover-action { margin-top: 12px; }
+  .cs2-index { display: block; padding: 20px var(--club-gutter); }
+  .cs2-index header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .cs2-index li a { min-height: 60px; grid-template-columns: minmax(0,1fr) auto; gap: 1px 10px; }
+  .cs2-index-date { grid-column: 1; color: var(--ycs-muted); font-size: 12px; }
+  .cs2-index li strong { grid-column: 1; font-size: 16px; }
+  .cs2-index-game { grid-column: 2; grid-row: 1/3; }
+  .site-shell[data-theme='cs2'][data-ycs-theme] :is(.directory-heading,.partner-hero,.tp-identity)::before,
+  .site-shell[data-theme='cs2'][data-ycs-theme] .tn-page.tn-page[data-section] .tn-heading::before { opacity: .24; }
+}
+@media (forced-colors: active) {
+  .site-shell[data-theme='cs2'][data-ycs-theme] { --ycs-bg: Canvas; --ycs-text: CanvasText; --ycs-accent: LinkText; --ycs-line: CanvasText; --ycs-focus: Highlight; }
+}

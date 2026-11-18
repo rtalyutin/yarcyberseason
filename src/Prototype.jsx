@@ -29,6 +29,7 @@ import { getTournamentBroadcasts, isClosedBroadcast } from "./lib/home-board.js"
 import "./content-refresh.css";
 import "./home-partners.css";
 import "./postseason.css";
+import { Cs2Rail } from "./components/Cs2Rail.jsx";
 import { SiteHeader } from "./components/SiteHeader.jsx";
 import { TournamentDirectory } from './components/TournamentDirectory.jsx';
 import { TournamentContext } from './components/TournamentContext.jsx';
@@ -123,6 +124,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
     <div ref={frameRef} data-theme={theme} data-ycs-theme={theme} className={`site-shell${isHome ? " site-shell--home" : isAbout ? " site-shell--about" : isPlayerIntake ? " site-shell--player-league" : isMatchday ? " site-shell--matchday" : isTournament ? " site-shell--tournament" : isTeam ? " site-shell--team" : ""}`}>
       <div className="site-background" aria-hidden="true" />
       <SiteHeader path={path} navigate={navigate} theme={theme} onThemeChange={onThemeChange} />
+      {theme === 'cs2' && <Cs2Rail />}
       {showTournamentContext && <TournamentContext tournament={contextTournament || (isHome || path === '/broadcasts' ? currentTournament : null)} home={isHome || path === '/broadcasts'} />}
       <div id="page-content" className="site-page-content" tabIndex={-1}>{children}</div>
       {isPlayerIntake ? <footer className="league-footer">

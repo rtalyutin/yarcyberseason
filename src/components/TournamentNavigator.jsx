@@ -144,7 +144,7 @@ export function TournamentNavigator({ tournament, navigate, theme, renderStage, 
     return rank(a) - rank(b);
   });
   return (
-    <main className={`tn-page${arena ? ' tn-page--arena' : ''}${swiss ? ' tn-page--swiss' : ''}${playoffs ? ' tn-page--playoffs' : ''}`} data-section={view.section}>
+    <main className={`tn-page${arena ? ' tn-page--arena' : ''}${swiss ? ' tn-page--swiss' : ''}${playoffs ? ' tn-page--playoffs' : ''}`} data-section={view.section} data-tournament={tournament.slug} data-discipline={tournament.discipline}>
       {swiss || playoffs ? <header className="tn-heading"><nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/tournaments">Турниры</InternalLink><span>/</span><span aria-current="page">{tournament.title}</span></nav>{tournament.matchday && <InternalLink className="tn-context-link" href={tournament.matchday.route}>Матчи по дням · Matchday<ArrowUpRight aria-hidden="true" /></InternalLink>}</header> : <header className="tn-heading">
         <nav className="tn-breadcrumb" aria-label="Путь к турниру"><InternalLink href="/tournaments">Турниры</InternalLink><span>/</span><span aria-current="page">{tournament.title}</span></nav>
         <div className="tn-title-row"><h1>{tournament.title}</h1>{!arena && <span className={`tn-status tn-status--${tournament.status}`}>{tournament.statusLabel}</span>}</div>

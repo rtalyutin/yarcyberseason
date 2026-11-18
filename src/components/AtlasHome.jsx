@@ -6,6 +6,7 @@ import { safeHttps } from '../lib/community.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import { TeamLogo } from './TeamLogo.jsx';
 import { ClickHighlight } from './ClickHighlight.jsx';
+import { Cs2HomeCover } from './Cs2HomeCover.jsx';
 import { TechiesEgg } from './TechiesEgg.jsx';
 import { BroadcastLinks, MatchCasters } from './BroadcastLinks.jsx';
 import '../atlas-home.css';
@@ -68,9 +69,9 @@ export function AtlasHome({ theme = 'cs2' }) {
   const scene = theme === 'cs2' ? '/assets/home-team-stage.webp' : `/assets/atlas/backgrounds/${theme === 'dota2' ? 'dota2' : 'corporate'}-river.webp`;
 
   return <main className="atlas-home container">
-    <section className="atlas-home-intro" aria-labelledby="home-title">
+    {theme === 'cs2' ? <Cs2HomeCover /> : <><section className="atlas-home-intro" aria-labelledby="home-title">
       <div><p className="atlas-home-kicker">ЯрКиберСезон · Ярославль</p><h1 id="home-title">Твой город. Твоя лига.</h1><p>Турниры Ярославля. Команды, эфиры и история каждого сезона.</p></div>
-      <div className="atlas-home-miniature"><img ref={heroImageRef} src={scene} alt="" width="1672" height="941" />{theme === 'cs2' && <ClickHighlight key="cs2-highlight" imageRef={heroImageRef} />}{theme === 'dota2' && <TechiesEgg />}</div>
+      <div className="atlas-home-miniature"><img ref={heroImageRef} src={scene} alt="" width="1672" height="941" />{theme === 'dota2' && <TechiesEgg />}</div>
     </section>
 
     <section className="atlas-home-section" aria-labelledby="atlas-tournaments-title">
@@ -79,6 +80,7 @@ export function AtlasHome({ theme = 'cs2' }) {
       <ul className="atlas-home-facts" aria-label={`${tournament.title}: турнир в цифрах`}>{home.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
     </section>
 
+    </>}
     <section className="atlas-home-section" aria-labelledby="atlas-final-title">
       <SectionHeading number="02" title="Финал сезона" id="atlas-final-title" />
       <article className="atlas-home-final atlas-home-panel">
@@ -94,6 +96,7 @@ export function AtlasHome({ theme = 'cs2' }) {
       <SectionHeading number="03" title="Календарь и эфиры" id="atlas-calendar-title" />
       <div className="atlas-home-calendar atlas-home-panel">
         {home.completed ? <><h3>Следующий сезон — после анонса</h3><p>Новые даты ещё не объявлены. {home.telegramUrl && <a href={home.telegramUrl} target="_blank" rel="noopener noreferrer">Следить за новостями в Telegram <span aria-hidden="true">↗</span></a>}</p></> : <><p className="atlas-home-kicker">{board.label}</p><h3>{board.match ? `${board.match.team1} — ${board.match.team2}` : tournament.title}</h3>{board.date && <p>{board.date} · {board.format}</p>}{board.note && <p>{board.note}</p>}<MatchCasters match={board.match} /><div className="atlas-home-card-actions">{board.state !== 'completed' && <BroadcastLinks match={board.match} className="atlas-home-button" />}<InternalLink className="atlas-home-text-link" href={tournament.matchday?.route || `${root}?section=matches`}>Расписание матчей →</InternalLink></div></>}
+        {theme === 'cs2' && <div className="cs2-calendar-stage"><img ref={heroImageRef} src="/assets/home-team-stage.webp" width="1721" height="914" alt="" loading="lazy" /><ClickHighlight imageRef={heroImageRef} /></div>}
         <div className="atlas-home-calendar-links"><InternalLink href={tournament.matchday?.route || `${root}?section=matches`}>Программа матчей →</InternalLink><InternalLink href="/broadcasts">Все эфиры →</InternalLink><InternalLink href="/results">Архив результатов →</InternalLink></div>
       </div>
     </section>

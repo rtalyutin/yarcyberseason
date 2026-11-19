@@ -6,6 +6,7 @@ import { safeHttps } from '../lib/community.js';
 import { InternalLink, TeamLink } from './CommunityLinks.jsx';
 import { TeamLogo } from './TeamLogo.jsx';
 import { ClickHighlight } from './ClickHighlight.jsx';
+import { CorporateHome } from './CorporateHome.jsx';
 import { Cs2HomeCover } from './Cs2HomeCover.jsx';
 import { TechiesEgg } from './TechiesEgg.jsx';
 import { BroadcastLinks, MatchCasters } from './BroadcastLinks.jsx';
@@ -49,6 +50,15 @@ function Partner({ partner, official = false }) {
   </Tag>;
 }
 
+function HomePartners({ home }) {
+  return <section className="atlas-home-section atlas-home-partners-section" aria-labelledby="atlas-partners-title">
+      <SectionHeading number="04" title="Партнёры сезона" id="atlas-partners-title"><InternalLink href="/partners">Проект в цифрах <span aria-hidden="true">→</span></InternalLink></SectionHeading>
+      <div className="atlas-home-partners" aria-label="Партнёры турнира">{home.partners.map((partner) => <Partner key={partner.id || partner.name} partner={partner} />)}</div>
+      {home.finalPartners.length > 0 && <div className="atlas-home-final-partners"><h3>Спасибо партнёрам финала</h3><ul>{home.finalPartners.map((partner) => { const url = safeHttps(partner.homeUrl || partner.url); return <li key={partner.id}>{url ? <a href={url} target="_blank" rel="noopener noreferrer">{partner.name} ↗</a> : partner.name}</li>; })}</ul></div>}
+      {home.officialSupport.length > 0 && <div className="atlas-home-official-support"><h3>При поддержке</h3><div>{home.officialSupport.map((partner) => <Partner key={partner.id || partner.name} partner={partner} official />)}</div></div>}
+    </section>;
+}
+
 export function AtlasHome({ theme = 'cs2' }) {
   const heroImageRef = useRef(null);
   const [now, setNow] = useState(() => new Date());
@@ -60,18 +70,18 @@ export function AtlasHome({ theme = 'cs2' }) {
     return () => { window.clearInterval(timer); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', refresh); };
   }, []);
   const home = loadHomeContent(now);
+  if (theme === 'corporate') return <CorporateHome><HomePartners home={home} /></CorporateHome>;
   const tournament = home.featuredTournament;
   const root = `/tournaments/${tournament.slug}`;
   const featured = [...new Map([tournament, home.season.tournament].map((entry) => [entry.id, entry])).values()];
   const final = home.outcome?.final;
   const finalScore = final && isFinished(final) && hasScore(final);
   const board = home.broadcast;
-  const scene = theme === 'cs2' ? '/assets/home-team-stage.webp' : `/assets/atlas/backgrounds/${theme === 'dota2' ? 'dota2' : 'corporate'}-river.webp`;
 
   return <main className="atlas-home container">
     {theme === 'cs2' ? <Cs2HomeCover /> : <><section className="atlas-home-intro" aria-labelledby="home-title">
       <div><p className="atlas-home-kicker">ЯрКиберСезон · Ярославль</p><h1 id="home-title">Твой город. Твоя лига.</h1><p>Турниры Ярославля. Команды, эфиры и история каждого сезона.</p></div>
-      <div className="atlas-home-miniature"><img ref={heroImageRef} src={scene} alt="" width="1672" height="941" />{theme === 'dota2' && <TechiesEgg />}</div>
+      <div className="atlas-home-miniature"><img ref={heroImageRef} src="/assets/atlas/backgrounds/dota2-river.webp" alt="" width="1672" height="941" />{theme === 'dota2' && <TechiesEgg />}</div>
     </section>
 
     <section className="atlas-home-section" aria-labelledby="atlas-tournaments-title">
@@ -101,11 +111,6 @@ export function AtlasHome({ theme = 'cs2' }) {
       </div>
     </section>
 
-    <section className="atlas-home-section atlas-home-partners-section" aria-labelledby="atlas-partners-title">
-      <SectionHeading number="04" title="Партнёры сезона" id="atlas-partners-title"><InternalLink href="/partners">Проект в цифрах <span aria-hidden="true">→</span></InternalLink></SectionHeading>
-      <div className="atlas-home-partners" aria-label="Партнёры турнира">{home.partners.map((partner) => <Partner key={partner.id || partner.name} partner={partner} />)}</div>
-      {home.finalPartners.length > 0 && <div className="atlas-home-final-partners"><h3>Спасибо партнёрам финала</h3><ul>{home.finalPartners.map((partner) => { const url = safeHttps(partner.homeUrl || partner.url); return <li key={partner.id}>{url ? <a href={url} target="_blank" rel="noopener noreferrer">{partner.name} ↗</a> : partner.name}</li>; })}</ul></div>}
-      {home.officialSupport.length > 0 && <div className="atlas-home-official-support"><h3>При поддержке</h3><div>{home.officialSupport.map((partner) => <Partner key={partner.id || partner.name} partner={partner} official />)}</div></div>}
-    </section>
+    <HomePartners home={home} />
   </main>;
 }

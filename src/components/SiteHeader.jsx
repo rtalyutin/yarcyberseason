@@ -44,6 +44,7 @@ export function SiteHeader({ path, navigate, theme, onThemeChange, fixedTheme = 
     setMenuOpen(false);
     navigate(href);
   };
+  const homeHref = theme === 'corporate' ? '/corporate' : '/';
   const navigation = () => links.map(({ label, href, active }) => (
     <a key={href} href={href} className="ycs-header-link"
       aria-current={currentPath === href ? "page" : active ? "location" : undefined}
@@ -56,9 +57,9 @@ export function SiteHeader({ path, navigate, theme, onThemeChange, fixedTheme = 
       if (content) { event.preventDefault(); content.focus(); content.scrollIntoView({ block: 'start' }); }
     }}>Перейти к содержимому</a>
     <div className="ycs-header-row">
-      <a className="ycs-header-brand" href="/" onClick={(event) => follow(event, "/")} aria-label="YCS — на главную">
+      <a className="ycs-header-brand" href={homeHref} onClick={(event) => follow(event, homeHref)} aria-label="YCS — на главную">
         <img src="/assets/ycs-logo.jpg" alt="ЯКС" width="92" height="42" />
-        {theme === 'cs2' ? <strong>ЯрКиберСезон</strong> : <span>YAR CYBER<br />SEASON</span>}
+        {theme !== 'dota2' ? <strong>ЯрКиберСезон</strong> : <span>YAR CYBER<br />SEASON</span>}
       </a>
       <nav className="ycs-header-desktop" aria-label="Основная навигация">{navigation()}</nav>
       {!fixedTheme && <div className="ycs-header-theme">{theme === 'cs2' ? <label className="cs2-theme-choice"><span>Тема</span><select aria-label="Выбрать тему" value={theme} onChange={(event) => onThemeChange(event.target.value)}>{THEMES.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label> : <ThemeSwitcher theme={theme} onChange={onThemeChange} />}</div>}

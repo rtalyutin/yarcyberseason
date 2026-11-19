@@ -9,6 +9,7 @@ const route = (pathname, includeInSitemap = true) => ({ pathname, includeInSitem
 export function listPublicRoutes() {
   const routes = [
     route('/'),
+    route('/corporate'),
     route('/tournaments'),
     route('/results'),
     route('/broadcasts'),

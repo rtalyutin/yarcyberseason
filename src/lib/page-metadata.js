@@ -11,6 +11,11 @@ export function getPageMetadata(pathname) {
   const path = normalizePublicPath(pathname);
   const base = { title: 'ЯрКиберСезон — киберспортивные турниры Ярославля', description: homeDescription, canonicalPath: path, image: defaultImage };
 
+  if (path === '/corporate') return { ...base,
+    title: 'ЯрКиберСезон — турнирный оператор в Ярославле',
+    description: 'Организуем открытые и корпоративные турниры по Dota 2 и CS2. Примеры проведённых турниров и прямая связь с организатором.',
+    image: `${PUBLIC_ORIGIN}/assets/corporate-tournament-stage.webp`,
+  };
   if (path === '/') {
     const outcome = getTournamentOutcome(currentTournament);
     return isArchive(currentTournament) ? { ...base, canonicalPath: '/',

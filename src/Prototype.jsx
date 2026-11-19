@@ -45,11 +45,13 @@ import {
   nextTournament,
 } from "./data/tournaments/index.js";
 
+const isHomePath = (path) => path === "/" || path === "/corporate";
+
 function useLocationPath(initialPath) {
   const [path, setPath] = useState(() => initialPath || (typeof window === "undefined" ? "/" : window.location.pathname || "/"));
 
   useEffect(() => {
-    const onPopState = () => setPath(window.location.pathname || "/");
+    const onPopState = () => setPath(window.location.pathname.replace(/\/+$/, "") || "/");
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
@@ -110,7 +112,7 @@ function PageFrame({ children, navigate, path, theme, onThemeChange }) {
     if (previousPath.current !== path) frameRef.current?.querySelector('#page-content')?.focus({ preventScroll: true });
     previousPath.current = path;
   }, [path]);
-  const isHome = path === "/";
+  const isHome = isHomePath(path);
   const isAbout = path.replace(/\/$/, "") === "/about";
   const isPlayerIntake = path.replace(/\/$/, "") === "/player/profile";
   const isTeam = path.startsWith("/teams/");
@@ -664,7 +666,8 @@ function NotFound({ navigate }) {
 
 export function Prototype({ initialPath = "/" }) {
   const [path, setPath] = useLocationPath(initialPath);
-  const [theme, setTheme] = useState("cs2");
+  const [preferredTheme, setTheme] = useState("cs2");
+  const theme = path === "/corporate" ? "corporate" : preferredTheme;
   const dotaResults = useDotaResults();
   const lceResults = useLceResults();
 
@@ -672,6 +675,13 @@ export function Prototype({ initialPath = "/" }) {
     const next = normalizeTheme(value);
     setTheme(next);
     saveTheme(next);
+    if (isHomePath(path)) {
+      const nextPath = next === "corporate" ? "/corporate" : "/";
+      if (nextPath !== path) {
+        window.history.replaceState(window.history.state, "", nextPath + window.location.search + window.location.hash);
+        setPath(nextPath);
+      }
+    }
   };
 
   useEffect(() => {
@@ -683,7 +693,16 @@ export function Prototype({ initialPath = "/" }) {
     return () => window.removeEventListener("storage", syncTheme);
   }, []);
 
-  useEffect(() => { applyPageMetadata(path); }, [path]);
+  useEffect(() => {
+    if (path === "/corporate") {
+      setTheme("corporate");
+      saveTheme("corporate");
+    }
+  }, [path]);
+
+  useEffect(() => {
+    applyPageMetadata(isHomePath(path) && theme === "corporate" ? "/corporate" : path);
+  }, [path, theme]);
 
   useEffect(() => {
     if (!window.location.hash) return;
@@ -724,7 +743,7 @@ export function Prototype({ initialPath = "/" }) {
 
   const page = useMemo(() => {
     if (path.replace(/\/$/, '') === '/player/profile') return <PlayerIntakePage />;
-    if (path === "/") return <><AtlasHome theme={theme} /><Footer /></>;
+    if (isHomePath(path)) return <><AtlasHome theme={theme} /><Footer /></>;
     if (path === "/tournaments") return <TournamentDirectory key="all-tournaments" />;
     if (path === "/results") return <TournamentDirectory key="archived-tournaments" archivedOnly />;
     if (path === "/broadcasts") return <BroadcastsPage navigate={navigate} />;
@@ -747,7 +766,7 @@ export function Prototype({ initialPath = "/" }) {
 
   return <NavigationContext.Provider value={navigate}><PageFrame navigate={navigate} path={path} theme={theme} onThemeChange={changeTheme}>
     {path.includes('cs2-lce-november-2026') && lceResults.availability === 'unavailable' && <p className="orgs-notice" role="status">Результаты временно недоступны. {lceResults.revision ? 'Показано последнее подтверждённое состояние.' : 'Показано исходное расписание.'}</p>}
-    {dotaResults.revision > 0 && dotaResults.availability === "unavailable" && (path === "/" || path.includes("dota2-autumn-2026") ||
+    {dotaResults.revision > 0 && dotaResults.availability === "unavailable" && (isHomePath(path) || path.includes("dota2-autumn-2026") ||
       currentTournament.participants?.some((participant) => path === `/teams/${participant.teamId}`)) &&
       <p className="dota-results-notice" role="status">Результаты могут обновляться с задержкой.</p>}
     {page}

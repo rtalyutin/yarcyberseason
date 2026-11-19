@@ -106,6 +106,7 @@ test('built pages, metadata, robots, sitemap, and aliases match the public route
   await access(new URL('assets/ycs-logo.jpg', clientRoot));
 
   const examples = [
+    ['corporate/index.html', 'Проводим', `${origin}/corporate`],
     ['results/index.html', 'Каждый турнир', `${origin}/results`],
     ['tournaments/dota2-autumn-2026/index.html', 'Dota 2 / YCS', `${origin}/tournaments/dota2-autumn-2026`],
     ['teams/cs2-august-2026-pivnaya-kega/index.html', 'PIVNAYA KEGA', `${origin}/teams/cs2-august-2026-pivnaya-kega`],
